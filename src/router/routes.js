@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Login from "../components/pages/Login";
 import E404 from "../components/pages/E404";
 import Registation from "../components/pages/Registation";
+import Main from "../components/pages/Main";
 Vue.use(VueRouter);
 
 const routes = [
@@ -21,11 +22,12 @@ const routes = [
     path:'',
     redirect: {name :'login'}
   },
-  // {
-  //   name:'main',
-  //   path:'/main',
-  //   component: Main
-  // },
+  {
+    name:'main',
+    path:'/main',
+    component: Main
+  },
+
 
   {
     path:'*',
