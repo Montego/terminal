@@ -4,6 +4,7 @@ import Login from "../components/pages/Login";
 import E404 from "../components/pages/E404";
 import Registation from "../components/pages/Registation";
 import Main from "../components/pages/Main";
+import SomeInput from "../components/pages/SomeInput";
 Vue.use(VueRouter);
 
 const routes = [
@@ -28,6 +29,11 @@ const routes = [
     component: Main
   },
 
+  {
+    name:'someinput',
+    path:'/someinput',
+    component: SomeInput
+  },
 
   {
     path:'*',
