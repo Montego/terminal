@@ -1,5 +1,6 @@
 <template>
     <div class="outer">
+
       <div class="row search_place">
         <p>Абитуриент:</p>
         <form>
@@ -596,7 +597,17 @@
             </tabs>
           </tab>
           <tab id="distinctive_features" name="Отличительные признаки">
+            <div class="row">
+              <button>Добавить</button>
+            </div>
+            <div class="flex-column">
+              <div class="distinctive_features_top">
 
+              </div>
+              <div class="distinctive_features_bottom">
+                f
+              </div>
+            </div>
           </tab>
           <tab id="photo" name="Фотография">
             <div class="clear_save_photo row">
@@ -620,6 +631,7 @@
 
     export default {
         name: "SomeInput",
+        name: "DataTable",
 
       computed:{
         ...mapState('tab_personal_info', ['snp', 'surname', 'name_profile', 'patronymic', 'surname_genitive',
@@ -630,11 +642,34 @@
         'organization_address', 'organization_profession', 'seniority', 'seniority_year', 'seniority_month',
         'seniority_day', 'foreign_language', 'language_name', 'language_score']),
         ...mapGetters('tab_personal_info', ['form'])
-      }
+      },
+      data () {
+        return {
+          options_one: [
+            {id: 1, item:''},
+            {id: 2, item:''},
+          ],
+          // Test data
+          options_two: [
+            {id: 1, name: 'Иванов'},
+            {id: 2, name: 'Петров'},
+            {id: 3, name: 'Сидоров'}
+          ]
+        }
+      },
     }
 </script>
 
 <style scoped>
+  input {
+     border-radius:5px;
+   }
+  select {
+    border-radius:5px;
+  }
+  textarea {
+    border-radius:5px;
+  }
   .clear_save_button {
     margin-top: 90%;
     margin-left: 65%;
@@ -642,7 +677,16 @@
     /*justify-content: space-between;*/
   }
   .outer {
-    margin: 5px;
+    /*margin: 5px;*/
+    /*margin-top: -5px;*/
+    background: linear-gradient(45deg, #EECFBA, #C5DDE8);
+    /*background: linear-gradient(to top left, powderblue, pink);*/
+  }
+  .distinctive_features_top {
+    height: 50%;
+  }
+  .distinctive_features_bottom {
+    height: 50%;
   }
   textarea {
     width: 90%; /* Ширина поля в процентах */
@@ -657,9 +701,11 @@
   }
   .parent_tabs {
     margin-top: -45px;
+    background: linear-gradient(45deg, #EECFBA, #C5DDE8);
   }
   .inner_tab {
     margin-top: -60px;
+    background: linear-gradient(45deg, #EECFBA, #C5DDE8);
   }
   p {
     font-size: 25px;
@@ -681,6 +727,9 @@
   }
   .main_tab {
     margin-top: -20px;
+    margin-left: 5px;
+    margin-right: 5px;
+    background: linear-gradient(45deg, #EECFBA, #C5DDE8);
   }
   .row {
     margin-bottom: 8px;
