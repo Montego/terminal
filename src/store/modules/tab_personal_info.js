@@ -4,7 +4,7 @@ export default {
     form: {},
     snp:'',
     surname:'',
-    name:'',
+    name_profile:'',
     patronymic:'',
     surname_genitive:'',
     name_genitive:'',
