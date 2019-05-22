@@ -2,26 +2,33 @@
     <div class="outer">
 
       <div class="row search_place">
-        <p>Абитуриент:</p>
-        <form>
-          <p>
-            <input type="search" name="поиск" placeholder="Поиск по сайту">
-            <input type="submit" value="Заявление">
-          </p>
-        </form>
+          <label class="row search_form">
+            <div class="col-sm">Абитуриент:</div>
+            <input class="col-sm" type="search" name="поиск" placeholder="Поиск по сайту">
+          </label>
+            <!--<input type="submit" value="Заявление">-->
+            <button class="search_button col-sm-2">Заявление</button>
+
       </div>
       <div>
         <!--<tabs :options="{ useUrlFragment: false }">-->
         <tabs class="main_tab">
           <tab id="" name="Обзор">
-            <div class="tab_one">
-              <!--<h5>название</h5>-->
-              <!--<select>-->
-                <!--<template v-for="item in items">-->
-                  <!--<option>{{item.message}}</option>-->
-                <!--</template>-->
-              <!--</select>-->
-            </div>
+            <v-data-table
+              :headers="headers_all_pretendents"
+              :items="info_all_pretendents"
+              class="elevation-1 text-xs-center"
+            >
+              <template slot="items" slot-scope="props">
+                <td class="text-xs-center">{{ props.item.snp_pretendent }}</td>
+                <td class="text-xs-center">{{ props.item.surname_pretendent }}</td>
+                <td class="text-xs-center">{{ props.item.name_pretendent}}</td>
+                <td class="text-xs-center">{{ props.item.patronymic_pretendent}}</td>
+                <td class="text-xs-center">{{ props.item.gender_pretendent}}</td>
+                <td class="text-xs-center">{{ props.item.birthday_pretendent}}</td>
+                <td class="text-xs-center">{{ props.item.contact_code_pretendent}}</td>
+              </template>
+            </v-data-table>
           </tab>
 
           <tab class="personal_tab" id="specialty" name="Личные сведения">
@@ -34,11 +41,11 @@
                 <div>
                   <label class="row">
                     <div class="form__label-text col-sm">Ф.И.О</div>
-                    <input  class="form__input col-sm" type="text" name="snp" placeholder="Заполняется автоматически" disabled="disabled"/>
+                    <input class="form__input col-sm" type="text" name="snp" placeholder="Заполняется автоматически" disabled="disabled"/>
                   </label>
                   <!--в фамилия namespace not found in mapState()-->
                   <label class="row">
-                    <div class="form__label-text col-sm">Фамилия</div>
+                      <div class="form__label-text col-sm">Фамилия</div>
                     <input class="form__input col-sm" type="text" name="surname" placeholder="Фамилия" required/>
                   </label>
                   <label class="row">
@@ -70,8 +77,7 @@
                   <label class="row">
                     <div class="form__label-text col-sm">Пол:</div>
                     <select class="col-sm">
-                      <option>Пункт 1</option>
-                      <option>Пункт 2</option>
+                      <option v-for="gender in options_gender">{{gender.item}}</option>
                     </select>
                   </label>
                   <label class="row">
@@ -239,8 +245,8 @@
                     <button>Ввести адрес</button>
                   </div>
                   <label class="row">
-                    <div class="form__label-text col-sm">Адрес:</div>
-                    <textarea class="col-sm" name=""></textarea>
+                    <div class="form__label-text col-sm-2">Адрес:</div>
+                    <textarea class="col-sm-10" name=""></textarea>
                   </label>
                   <label class="row">
                     <div class="form__label-text col-sm">Типа нас. пункта:</div>
@@ -257,8 +263,8 @@
                     <button>Копировать</button>
                   </div>
                   <label class="row">
-                    <div class="form__label-text col-sm">Адрес:</div>
-                    <textarea class="col-sm" name=""></textarea>
+                    <div class="form__label-text col-sm-2">Адрес:</div>
+                    <textarea class="col-sm-10" name=""></textarea>
                   </label>
                 </div>
                 <div class="info_address2 col-sm">
@@ -270,8 +276,8 @@
                    <button>Ввести адрес</button>
                   </div>
                   <label class="row">
-                    <div class="form__label-text col-sm">Адрес:</div>
-                    <textarea class="col-sm" name=""></textarea>
+                    <div class="form__label-text col-sm-2">Адрес:</div>
+                    <textarea class="col-sm-10" name=""></textarea>
                   </label>
                 </div>
               </div>
@@ -467,23 +473,135 @@
           <tab id="evidence_ege" name="Свидетельства ЕГЭ">
             <tabs class="ege_tabs">
               <tab id="" name="Свидетельства ЕГЭ">
-                <div>
-                  <p>Свидетельство</p>
+                <div class="row">
+                  <div class="col-sm-1">
+                    <div class="flex-column">
+                      <button>[  ]</button>
+                      <button>[  ]</button>
+                      <button>[  ]</button>
+                      <button>[  ]</button>
+                    </div>
+                  </div>
+                  <div class="col-sm-11">
+                    <div>
+                      <p>Свидетельство</p>
+                    </div>
+                    <v-data-table
+                      :headers="headers_ege_evidence"
+                      :items="info_ege_evidence"
+                      class="elevation-1 text-xs-center"
+                    >
+                      <template slot="items" slot-scope="props">
+                        <td class="text-xs-center">{{ props.item.ege_evidence_number}}</td>
+                        <td class="text-xs-center">{{ props.item.ege_evidence_date}}</td>
+                        <td class="text-xs-center">{{ props.item.ege_evidence_t_number}}</td>
+                        <td class="text-xs-center">{{ props.item.ege_evidence_score}}</td>
+                        <td class="text-xs-center">{{ props.item.ege_evidence_copy_origin}}</td>
+                        <td class="text-xs-center">{{ props.item.ege_evidence_date_show}}</td>
+                        <td class="text-xs-center">{{ props.item.ege_evidence_form_ege}}</td>
+                        <td class="text-xs-center">{{ props.item.ege_evidence_place_ege}}</td>
+                        <td class="text-xs-center">{{ props.item.ege_evidence_year_ege}}</td>
+                        <td class="text-xs-center">{{ props.item.ege_evidence_date_status}}</td>
+                      </template>
+                    </v-data-table>
+                    <hr>
+                    <div>
+                      <p>Предметы</p>
+                    </div>
+                    <v-data-table
+                      :headers="headers_ege_subjects"
+                      :items="info_ege_subjects"
+                      class="elevation-1 text-xs-center"
+                    >
+                      <template slot="items" slot-scope="props">
+                        <td class="text-xs-center">{{ props.item.ege_subject_name}}</td>
+                        <td class="text-xs-center">{{ props.item.ege_ball_1}}</td>
+                        <td class="text-xs-center">{{ props.item.ege_ball_2}}</td>
+                        <td class="text-xs-center">{{ props.item.ege_appeal_status}}</td>
+                      </template>
+                    </v-data-table>
+                  </div>
                 </div>
-                <hr>
-                <div>
-                  <p>Предметы</p>
-                </div>
-                <hr>
+
               </tab>
               <tab id="" name="Паспортные данные для свидетельства">
+                <div class="inner_tab row">
+                  <div class="col-sm-6">
+                    <div>
+                      <p>Паспортные данные для свидетельства</p>
+                    </div>
+                    <hr>
+                    <div>
+                      <label class="row">
+                        <div class="form__label-text col-sm">Фамилия:</div>
+                        <input class="form__input col-sm" type="text" name="" placeholder=""/>
+                      </label>
+                      <label class="row">
+                        <div class="form__label-text col-sm">Имя:</div>
+                        <input class="form__input col-sm" type="text" name="" placeholder=""/>
+                      </label>
+                      <label class="row">
+                        <div class="form__label-text col-sm">Отчество:</div>
+                        <input class="form__input col-sm" type="text" name="" placeholder=""/>
+                      </label>
+                      <label class="row">
+                        <div class="form__label-text col-sm">Документ</div>
+                        <select class="col-sm-2" name="">
+                          <option>Паспорт РФ</option>
+                          <option>Не паспорт РФ</option>
+                        </select>
+                        <input class="form__input col-sm-6" type="text" name="" placeholder="Заполняется автоматически" disabled="disabled"/>
+                      </label>
+                      <label class="row">
+                        <div class="form__label-text col-sm">Серия:</div>
+                        <input class="form__input col-sm" type="text" name="" placeholder=""/>
+                      </label>
+                      <label class="row">
+                        <div class="form__label-text col-sm">Номер:</div>
+                        <input class="form__input col-sm" type="text" name="" placeholder=""/>
+                      </label>
+                      <label class="row">
+                        <div class="form__label-text col-sm">Дата начала:</div>
+                        <input class="form__input col-sm" type="date" name="" placeholder=""/>
+                      </label>
+                      <label class="row">
+                        <div class="form__label-text col-sm-2">Кем выдан:</div>
+                        <textarea class="col-sm-10" name=""></textarea>
+                      </label>
+                      <label class="row">
+                        <div class="form__label-text col-sm">Гражданство</div>
+                        <select class="col-sm" name="">
+                          <option>РФ</option>
+                          <option>Казахстан</option>
+                        </select>
+                      </label>
+
+                    </div>
+                  </div>
+                    </div>
               </tab>
             </tabs>
           </tab>
           <tab id="parent_trustee" name="Родитель/Попечитель">
             <tabs class="parent_tabs">
               <tab id="" name="Обзор">
-
+                <div class="row">
+                  <button>Добавить</button>
+                </div>
+                <v-data-table
+                  :headers="headers_parent"
+                  :items="info_parent"
+                  class="elevation-1 text-xs-center"
+                >
+                  <template slot="items" slot-scope="props">
+                    <td class="text-xs-center">{{ props.item.who_parent}}</td>
+                    <td class="text-xs-center">{{ props.item.snp_parent}}</td>
+                    <td class="text-xs-center">{{ props.item.surname_parent}}</td>
+                    <td class="text-xs-center">{{ props.item.name_parent }}</td>
+                    <td class="text-xs-center">{{ props.item.patronymic_parent}}</td>
+                    <td class="text-xs-center">{{ props.item.gender_parent}}</td>
+                  </template>
+                </v-data-table>
               </tab>
               <tab id="" name="Личные данные попечителя">
                 <div class="inner_tab row">
@@ -597,22 +715,64 @@
             </tabs>
           </tab>
           <tab id="distinctive_features" name="Отличительные признаки">
+            <div>
+              <p>Отличительные признаки</p>
+            </div>
             <div class="row">
               <button>Добавить</button>
             </div>
-            <div class="flex-column">
+            <div class="">
               <div class="distinctive_features_top">
+                <v-hover :disabled="true">
+                  <v-data-table
+                    :headers="headers_features_info"
+                    :items="info_features_info"
+                    class="elevation-1 text-xs-center"
+                  >
+                    <template slot="items" slot-scope="props">
+                      <td class="text-xs-center">{{ props.item.code }}</td>
+                      <td class="text-xs-center">{{ props.item.type_sygn }}</td>
+                      <td class="text-xs-center">{{ props.item.name }}</td>
+                      <td class="text-xs-center">{{ props.item.type_diplom }}</td>
+                      <td class="text-xs-center">{{ props.item.ball_1}}</td>
+                      <td class="text-xs-center">{{ props.item.done }}</td>
+                      <td class="text-xs-center">{{ props.item.ball_2}}</td>
+                    </template>
 
-              </div>
-              <div class="distinctive_features_bottom">
-                f
+                  </v-data-table>
+                </v-hover>
+                <div class="distinctive_features_bottom">
+                  <div>
+                    <p>Прикрепленные документы</p>
+                  </div>
+                  <div class="row">
+                    <button>Добавить</button>
+                  </div>
+                  <div class="row">
+                    <button>Редактировать</button>
+                  </div>
+                  <v-data-table
+                    :headers="headers_features_documents"
+                    :items="info_features_documents"
+                    class="elevation-1 text-xs-center"
+                  >
+                    <template slot="items" slot-scope="props">
+                      <td class="text-xs-center">{{ props.item.num }}</td>
+                      <td class="text-xs-center">{{ props.item.documents }}</td>
+                      <td class="text-xs-center">{{ props.item.copy_or_origin }}</td>
+
+                    </template>
+                  </v-data-table>
+                </div>
               </div>
             </div>
           </tab>
           <tab id="photo" name="Фотография">
             <div class="clear_save_photo row">
+              <!--<v-button>Очистить</v-button>-->
               <button>Очистить</button>
               <button>Сохранить</button>
+              <v-btn>Test of animations</v-btn>
               <div class="col-sm-4">
 
               </div>
@@ -631,7 +791,6 @@
 
     export default {
         name: "SomeInput",
-        name: "DataTable",
 
       computed:{
         ...mapState('tab_personal_info', ['snp', 'surname', 'name_profile', 'patronymic', 'surname_genitive',
@@ -645,15 +804,89 @@
       },
       data () {
         return {
-          options_one: [
-            {id: 1, item:''},
-            {id: 2, item:''},
+      // tables
+
+        headers_all_pretendents: [
+          { text: 'Ф.И.О.', value: 'snp_pretendent', sortable: false, align: 'center' },
+          { text: 'Фамилия', value: 'surname_pretendent', align: 'center' },
+          { text: 'Имя', value: 'name_pretendent', align: 'center' },
+          { text: 'Отчество', value: 'patronymic_pretendent', align: 'center' },
+          { text: 'Пол', value: 'gender_pretendent', align: 'center' },
+          { text: 'Дата рождения', value: 'birthday_pretendent', align: 'center' },
+          { text: 'Код контактного лица', value: 'contact_code_pretendent', align: 'center' },
+        ],
+          info_all_pretendents: [],
+
+          headers_ege_evidence: [
+            { text: '№', value: 'ege_evidence_number', sortable: false, align: 'center' },
+            { text: 'Дата выдачи', value: 'ege_evidence_date', align: 'center' },
+            { text: 'Типографский №', value: 'ege_evidence_t_number', align: 'center' },
+            { text: 'Сумма баллов', value: 'ege_evidence_score', align: 'center' },
+            { text: 'Коп/ориг.', value: 'ege_evidence_copy_origin', align: 'center' },
+            { text: 'Предоставлено', value: 'ege_evidence_date_show', align: 'center' },
+            { text: 'Форма ЕГЭ', value: 'ege_evidence_form_ege', align: 'center' },
+            { text: 'Место проведения', value: 'ege_evidence_place_ege', align: 'center' },
+            { text: 'Год сдачи', value: 'ege_evidence_year_ege', align: 'center' },
+            { text: 'Статус', value: 'ege_evidence_date_status', align: 'center' }
+
           ],
-          // Test data
-          options_two: [
-            {id: 1, name: 'Иванов'},
-            {id: 2, name: 'Петров'},
-            {id: 3, name: 'Сидоров'}
+          info_ege_evidence: [],
+
+          headers_ege_subjects: [
+            { text: 'Предмет', value: 'ege_subject_name', sortable: false, align: 'center' },
+            { text: 'Балл', value: 'ege_ball_1', align: 'center' },
+            { text: 'Балл(ФИС)', value: 'ege_ball_2', align: 'center' },
+            { text: 'Статус апелляция', value: 'ege_appeal_status', align: 'center' },
+          ],
+          info_ege_subjects: [],
+
+          headers_parent: [
+            { text: 'Кем приходится', value: 'who_parent', sortable: false, align: 'center' },
+            { text: 'Ф.И.О.', value: 'snp_parent', align: 'center' },
+            { text: 'Фамилия', value: 'surname_parent', align: 'center' },
+            { text: 'Имя', value: 'name_parent', align: 'center' },
+            { text: 'Отчество', value: 'patronymic_parent', align: 'center' },
+            { text: 'Пол', value: 'gender_parent', align: 'center' },
+
+          ],
+          info_parent: [],
+
+          headers_features_info: [
+            { text: 'Код', value: 'code', sortable: false, align: 'center' },
+            { text: 'Тип признака', value: 'type_sygn', align: 'center' },
+            { text: 'Название', value: 'name', align: 'center' },
+            { text: 'Тип диплома', value: 'type_diplom', align: 'center' },
+            { text: 'Балл ИД', value: 'ball_1', align: 'center' },
+            { text: 'Выполнено', value: 'done', sortable: false, align: 'center' },
+            { text: 'Балл экс.в ФИС.', value: 'ball_2', align: 'center' },
+          ],
+          info_features_info: [],
+
+          headers_features_documents: [
+            { text: '№', value: 'num', sortable: false, align: 'center' },
+            { text: 'Документ', value: 'documents', align: 'center' },
+            { text: 'Копия(Оригинал)', value: 'copy_or_origin', align: 'center' },
+          ],
+          info_features_documents: [],
+//test data
+          options_gender: [
+            {id: 0, item:'-выберите пол-'},
+            {id: 1, item:'Мужской'},
+            {id: 2, item:'Женский'},
+            {id: 3, item:'Другое'},
+          ],
+          options_document_type: [
+            {id: 1, item: 'Паспорт РФ'},
+            {id: 2, item: 'Не паспорт РФ'},
+          ]
+          ,
+          options_citizenship: [
+            {id: 1, item: 'РФ'},
+            {id: 2, item: 'Казахстан'},
+          ],
+          options_foreign_language: [
+            {id: 1, item: 'изучал'},
+            {id: 2, item: 'не изучал'},
           ]
         }
       },
@@ -661,17 +894,53 @@
 </script>
 
 <style scoped>
+  tbody tr:hover td {
+    background-color: #FFEFC6;
+    cursor: pointer;
+  }
+  tr:hover {
+    ackground-color: red;
+  }
+  .search_form div {
+    font-size: 20px;
+  }
+  .search_form input {
+    width: 500px;
+  }
+  .search_form {
+    margin-top: 14px;
+    height: 15px;
+  }
+  .search_button {
+    margin-top: 7px;
+    margin-left: 30px;
+  }
   input {
-     border-radius:5px;
+    height: 25px;
+    border-radius: 3px;
+    border: 1px solid;
+    border-color: grey;
+    /*border: 4px;*/
    }
+  input.checkbox{
+    height: 15px;
+    transform:scale(1.3);
+    opacity:0.9;
+    cursor:pointer;
+  }
   select {
-    border-radius:5px;
+    height: 25px;
+    border-radius: 3px;
+    border: 1px solid;
+    border-color: grey;
   }
   textarea {
-    border-radius:5px;
+    border-radius: 3px;
+    border: 1px solid;
+    border-color: grey;
   }
   .clear_save_button {
-    margin-top: 90%;
+    margin-top: 75%;
     margin-left: 65%;
     display: flex;
     /*justify-content: space-between;*/
@@ -697,15 +966,15 @@
     margin-left: 10px;
   }
   .ege_tabs {
-    margin-top: -45px;
+    margin-top: -35px;
   }
   .parent_tabs {
-    margin-top: -45px;
-    background: linear-gradient(45deg, #EECFBA, #C5DDE8);
+    margin-top: -35px;
+    /*background: linear-gradient(45deg, #EECFBA, #C5DDE8);*/
   }
   .inner_tab {
-    margin-top: -60px;
-    background: linear-gradient(45deg, #EECFBA, #C5DDE8);
+    margin-top: -40px;
+    /*background: linear-gradient(45deg, #EECFBA, #C5DDE8);*/
   }
   p {
     font-size: 25px;
@@ -713,23 +982,27 @@
   button {
     min-width: 100px;
     padding: 10px;
-    /*border: none;*/
+    border: 1px solid;
+    border-color: grey;
     border-radius:5px;
-    background-color: #99ccff;
+    background-color: ghostwhite;
+    /*background-color: #EDD19C;*/
     font-size: 16px;
     cursor: pointer;
+    transform:scale(0.8);
+    opacity:0.9
   }
 
-  .checkbox {
-    transform:scale(1.3);
-    opacity:0.9;
-    cursor:pointer;
-  }
+  /*.checkbox {*/
+    /*transform:scale(1.3);*/
+    /*opacity:0.9;*/
+    /*cursor:pointer;*/
+  /*}*/
   .main_tab {
-    margin-top: -20px;
+    margin-top: 2px;
     margin-left: 5px;
-    margin-right: 5px;
-    background: linear-gradient(45deg, #EECFBA, #C5DDE8);
+    /*margin-right: 5px;*/
+    /*background: linear-gradient(45deg, #EECFBA, #C5DDE8);*/
   }
   .row {
     margin-bottom: 8px;
@@ -743,6 +1016,7 @@
   }
 
   .search_place {
+    /*height: auto;*/
     margin-top: 30px;
     margin-left: 20px;
   }
