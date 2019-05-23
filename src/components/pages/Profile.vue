@@ -242,7 +242,7 @@
                   </div>
                   <hr>
                   <div class="buttons row">
-                    <button>Ввести адрес</button>
+                    <button class="adress_button">Ввести адрес</button>
                   </div>
                   <label class="row">
                     <div class="form__label-text col-sm-2">Адрес:</div>
@@ -259,8 +259,8 @@
                   </div>
                   <hr>
                   <div class="buttons row">
-                    <button>Ввести адрес</button>
-                    <button>Копировать</button>
+                    <button class="adress_button">Ввести адрес</button>
+                    <button class="adress_button">Копировать</button>
                   </div>
                   <label class="row">
                     <div class="form__label-text col-sm-2">Адрес:</div>
@@ -273,7 +273,7 @@
                   </div>
                   <hr>
                   <div class="buttons row">
-                   <button>Ввести адрес</button>
+                   <button class="adress_button">Ввести адрес</button>
                   </div>
                   <label class="row">
                     <div class="form__label-text col-sm-2">Адрес:</div>
@@ -376,7 +376,7 @@
                   <label class="row">
                     <div class="form__label-text col-sm">Средний балл:</div>
                     <input class="form__input col-sm" type="text" name="" placeholder="Заполняется автоматически" disabled="disabled"/>
-                    <button >Расчет среднего балла</button>
+                    <button class="calculate_score">Расчет среднего балла</button>
                   </label>
                 </div>
               </div>
@@ -474,15 +474,7 @@
             <tabs class="ege_tabs">
               <tab id="" name="Свидетельства ЕГЭ">
                 <div class="row">
-                  <div class="col-sm-1">
-                    <div class="flex-column">
-                      <button>[  ]</button>
-                      <button>[  ]</button>
-                      <button>[  ]</button>
-                      <button>[  ]</button>
-                    </div>
-                  </div>
-                  <div class="col-sm-11">
+                  <div class="col-sm">
                     <div>
                       <p>Свидетельство</p>
                     </div>
@@ -546,7 +538,7 @@
                       </label>
                       <label class="row">
                         <div class="form__label-text col-sm">Документ</div>
-                        <select class="col-sm-2" name="">
+                        <select class="col-sm-4" name="">
                           <option>Паспорт РФ</option>
                           <option>Не паспорт РФ</option>
                         </select>
@@ -804,68 +796,68 @@
       },
       data () {
         return {
-      // tables
 
+      // tables
         headers_all_pretendents: [
           { text: 'Ф.И.О.', value: 'snp_pretendent', sortable: false, align: 'center' },
-          { text: 'Фамилия', value: 'surname_pretendent', align: 'center' },
-          { text: 'Имя', value: 'name_pretendent', align: 'center' },
-          { text: 'Отчество', value: 'patronymic_pretendent', align: 'center' },
-          { text: 'Пол', value: 'gender_pretendent', align: 'center' },
-          { text: 'Дата рождения', value: 'birthday_pretendent', align: 'center' },
-          { text: 'Код контактного лица', value: 'contact_code_pretendent', align: 'center' },
+          { text: 'Фамилия', value: 'surname_pretendent',sortable: false, align: 'center' },
+          { text: 'Имя', value: 'name_pretendent',sortable: false, align: 'center' },
+          { text: 'Отчество', value: 'patronymic_pretendent',sortable: false, align: 'center' },
+          { text: 'Пол', value: 'gender_pretendent',sortable: false, align: 'center' },
+          { text: 'Дата рождения', value: 'birthday_pretendent',sortable: false, align: 'center' },
+          { text: 'Код контактного лица', value: 'contact_code_pretendent',sortable: false, align: 'center' },
         ],
           info_all_pretendents: [],
 
           headers_ege_evidence: [
             { text: '№', value: 'ege_evidence_number', sortable: false, align: 'center' },
-            { text: 'Дата выдачи', value: 'ege_evidence_date', align: 'center' },
-            { text: 'Типографский №', value: 'ege_evidence_t_number', align: 'center' },
-            { text: 'Сумма баллов', value: 'ege_evidence_score', align: 'center' },
-            { text: 'Коп/ориг.', value: 'ege_evidence_copy_origin', align: 'center' },
-            { text: 'Предоставлено', value: 'ege_evidence_date_show', align: 'center' },
-            { text: 'Форма ЕГЭ', value: 'ege_evidence_form_ege', align: 'center' },
-            { text: 'Место проведения', value: 'ege_evidence_place_ege', align: 'center' },
-            { text: 'Год сдачи', value: 'ege_evidence_year_ege', align: 'center' },
-            { text: 'Статус', value: 'ege_evidence_date_status', align: 'center' }
+            { text: 'Дата выдачи', value: 'ege_evidence_date',sortable: false, align: 'center' },
+            { text: 'Типограф.а №', value: 'ege_evidence_t_number',sortable: false, align: 'center' },
+            { text: 'Сумма баллов', value: 'ege_evidence_score',sortable: false, align: 'center' },
+            { text: 'Коп/ориг.', value: 'ege_evidence_copy_origin',sortable: false, align: 'center' },
+            { text: 'Предоставлено', value: 'ege_evidence_date_show', sortable: false,align: 'center' },
+            { text: 'Форма ЕГЭ', value: 'ege_evidence_form_ege',sortable: false, align: 'center' },
+            { text: 'Место проведения', value: 'ege_evidence_place_ege',sortable: false, align: 'center' },
+            { text: 'Год', value: 'ege_evidence_year_ege',sortable: false, align: 'center' },
+            { text: 'Статус', value: 'ege_evidence_date_status',sortable: false, align: 'center' }
 
           ],
           info_ege_evidence: [],
 
           headers_ege_subjects: [
             { text: 'Предмет', value: 'ege_subject_name', sortable: false, align: 'center' },
-            { text: 'Балл', value: 'ege_ball_1', align: 'center' },
-            { text: 'Балл(ФИС)', value: 'ege_ball_2', align: 'center' },
-            { text: 'Статус апелляция', value: 'ege_appeal_status', align: 'center' },
+            { text: 'Балл', value: 'ege_ball_1',sortable: false, align: 'center' },
+            { text: 'Балл(ФИС)', value: 'ege_ball_2',sortable: false, align: 'center' },
+            { text: 'Статус апелляция', value: 'ege_appeal_status',sortable: false, align: 'center' },
           ],
           info_ege_subjects: [],
 
           headers_parent: [
             { text: 'Кем приходится', value: 'who_parent', sortable: false, align: 'center' },
-            { text: 'Ф.И.О.', value: 'snp_parent', align: 'center' },
-            { text: 'Фамилия', value: 'surname_parent', align: 'center' },
-            { text: 'Имя', value: 'name_parent', align: 'center' },
-            { text: 'Отчество', value: 'patronymic_parent', align: 'center' },
-            { text: 'Пол', value: 'gender_parent', align: 'center' },
+            { text: 'Ф.И.О.', value: 'snp_parent',sortable: false, align: 'center' },
+            { text: 'Фамилия', value: 'surname_parent',sortable: false, align: 'center' },
+            { text: 'Имя', value: 'name_parent', sortable: false, align: 'center' },
+            { text: 'Отчество', value: 'patronymic_parent',sortable: false, align: 'center' },
+            { text: 'Пол', value: 'gender_parent',sortable: false, align: 'center' },
 
           ],
           info_parent: [],
 
           headers_features_info: [
             { text: 'Код', value: 'code', sortable: false, align: 'center' },
-            { text: 'Тип признака', value: 'type_sygn', align: 'center' },
-            { text: 'Название', value: 'name', align: 'center' },
-            { text: 'Тип диплома', value: 'type_diplom', align: 'center' },
-            { text: 'Балл ИД', value: 'ball_1', align: 'center' },
+            { text: 'Тип признака', value: 'type_sygn',sortable: false, align: 'center' },
+            { text: 'Название', value: 'name',sortable: false, align: 'center' },
+            { text: 'Тип диплома', value: 'type_diplom', sortable: false,align: 'center' },
+            { text: 'Балл ИД', value: 'ball_1', sortable: false, align: 'center' },
             { text: 'Выполнено', value: 'done', sortable: false, align: 'center' },
-            { text: 'Балл экс.в ФИС.', value: 'ball_2', align: 'center' },
+            { text: 'Балл экс.в ФИС.', value: 'ball_2',sortable: false, align: 'center' },
           ],
           info_features_info: [],
 
           headers_features_documents: [
             { text: '№', value: 'num', sortable: false, align: 'center' },
-            { text: 'Документ', value: 'documents', align: 'center' },
-            { text: 'Копия(Оригинал)', value: 'copy_or_origin', align: 'center' },
+            { text: 'Документ', value: 'documents',sortable: false, align: 'center' },
+            { text: 'Копия(Оригинал)', value: 'copy_or_origin',sortable: false, align: 'center' },
           ],
           info_features_documents: [],
 //test data
@@ -894,6 +886,13 @@
 </script>
 
 <style scoped>
+  .calculate_score {
+    margin-top: -8px;
+  }
+  .adress_button {
+    margin-left: -20px;
+  }
+
   tbody tr:hover td {
     background-color: #FFEFC6;
     cursor: pointer;

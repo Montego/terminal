@@ -4,6 +4,7 @@
       <!--<Header></Header>-->
     </div>
     <!--<div class="container">-->
+    <Profile></Profile>
       <router-view></router-view>
     <!--</div>-->
   </div>
@@ -11,9 +12,11 @@
 
 <script>
 import Header from "./components/layouts/Header";
+import Profile from "./components/pages/Profile";
 export default {
   name: 'app',
-  components: {Header},
+  components: {Header, Profile},
+
 }
 </script>
 
