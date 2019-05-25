@@ -1,13 +1,12 @@
 <template>
-  <div>
-    <h1>Заявления</h1>
+    <div>
 
-  </div>
+    </div>
 </template>
 
 <script>
     export default {
-        name: "Statements"
+        name: "InputAddress"
     }
 </script>
 
