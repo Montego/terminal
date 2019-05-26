@@ -2,7 +2,7 @@
   <div class="clear_save_photo row">
     <!--<v-button>Очистить</v-button>-->
     <button>Очистить</button>
-    <button>Сохранить</button>
+    <button>Добавить</button>
 
     <div class="col-sm-4">
 

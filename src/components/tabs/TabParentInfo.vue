@@ -8,6 +8,7 @@
           <v-data-table
             :headers="headers_parent"
             :items="info_parent"
+            hide-actions
             class="elevation-1 text-xs-center"
           >
             <template slot="items" slot-scope="props">

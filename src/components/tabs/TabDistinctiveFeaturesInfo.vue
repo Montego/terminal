@@ -1,5 +1,35 @@
 <template>
     <div>
+      <!--<tabs class="parent_tabs">-->
+        <!--<tab id="" name="Обзор">-->
+          <!--<div class="row">-->
+            <!--<button>Добавить</button>-->
+          <!--</div>-->
+          <!--<v-data-table-->
+            <!--:headers="headers_features_info"-->
+            <!--:items="info_features_info"-->git push terminal-backend master
+            <!--hide-actions-->
+            <!--class="elevation-1 text-xs-center"-->
+            <!--&gt;-->
+            <!--<template slot="items" slot-scope="props">-->
+            <!--<td class="text-xs-center">{{ props.item.code }}</td>-->
+            <!--<td class="text-xs-center">{{ props.item.type_sygn }}</td>-->
+            <!--<td class="text-xs-center">{{ props.item.name }}</td>-->
+            <!--<td class="text-xs-center">{{ props.item.type_diplom }}</td>-->
+            <!--<td class="text-xs-center">{{ props.item.ball_1}}</td>-->
+            <!--<td class="text-xs-center">{{ props.item.done }}</td>-->
+            <!--<td class="text-xs-center">{{ props.item.ball_2}}</td>-->
+            <!--</template>-->
+
+            <!--</v-data-table>-->
+        <!--</tab>-->
+        <!--<tab id="" name="Отличительные признаки">-->
+          <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+            <!--&lt;!&ndash;<button>Добавить</button>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--</tab>-->
+      <!--</tabs>-->
+
       <div>
         <p>Отличительные признаки</p>
       </div>
@@ -12,6 +42,7 @@
             <v-data-table
               :headers="headers_features_info"
               :items="info_features_info"
+              hide-actions
               class="elevation-1 text-xs-center"
             >
               <template slot="items" slot-scope="props">
@@ -39,6 +70,7 @@
             <v-data-table
               :headers="headers_features_documents"
               :items="info_features_documents"
+              hide-actions
               class="elevation-1 text-xs-center"
             >
               <template slot="items" slot-scope="props">
@@ -51,6 +83,9 @@
           </div>
         </div>
       </div>
+
+
+
     </div>
 </template>
 

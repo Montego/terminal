@@ -4,6 +4,10 @@
         <tab id="" name="Обзор">
         <!--<tab id="" name="Свидетельства ЕГЭ">-->
           <div class="row">
+            <button>Добавить</button>
+          </div>
+          <div class="row">
+
             <div class="col-sm">
 
               <v-data-table
@@ -171,21 +175,56 @@
               </div>
               <hr>
               <label class="row">
-                <div class="form__label-text col-sm">Предмет:</div>
+                <div class="form__label-text col-sm">Предмет(1):</div>
                 <input class="form__input col-sm" type="text" name="" placeholder=""/>
               </label>
               <label class="row">
-                <div class="form__label-text col-sm">Балл:</div>
+                <div class="form__label-text col-sm">Балл(1):</div>
                 <input class="form__input col-sm" type="text" name="" placeholder=""/>
               </label>
               <label class="row">
-                <div class="form__label-text col-sm">Балл (ФИС):</div>
+                <div class="form__label-text col-sm">Балл (ФИС)(1):</div>
                 <input class="form__input col-sm" type="text" name="" placeholder=""/>
               </label>
               <label class="row">
-                <div class="form__label-text col-sm">Статус апелляции:</div>
+                <div class="form__label-text col-sm">Статус апелляции (1):</div>
                 <input class="form__input col-sm" type="text" name="" placeholder=""/>
               </label>
+              <hr>
+              <label class="row">
+                <div class="form__label-text col-sm">Предмет(2):</div>
+                <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Балл(2):</div>
+                <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Балл (ФИС)(2):</div>
+                <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Статус апелляции (2):</div>
+                <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              </label>
+              <hr>
+              <label class="row">
+                <div class="form__label-text col-sm">Предмет(3):</div>
+                <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Балл(3):</div>
+                <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Балл (ФИС)(3):</div>
+                <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Статус апелляции (3):</div>
+                <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              </label>
+              <hr>
             </div>
           </div>
         </tab>

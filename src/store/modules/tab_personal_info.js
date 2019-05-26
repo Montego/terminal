@@ -3,18 +3,17 @@ import {AXIOS} from "../../components/plugins/APIService.js"
 export default {
   namespaced: true,
   state: {
-    form: {},
-    name:'',
-    lastname:'',
-    firstname:'',
-    middlename:'',
+    // name:'',
+    // lastname:'',
+    // firstname:'',
+    // middlename:'',
     surname_genitive:'',
     name_genitive:'',
     patronymic_genitive:'',
     contactPersonNameGenitive:'',
     gender:[],
-    birthDate:'',
-    age:'',
+    // birthDate:'',
+    // age:'',
     inipa:'',
     inipa_date:'',
     note:'',
@@ -39,24 +38,35 @@ export default {
     organization_name: '',
     organization_address: '',
     organization_profession: '',
-    seniority: '',
-    employYears: '',
-    employMonths: '',
-    employDays: '',
+    // seniority: '',
+    // employYears: '',
+    // employMonths: '',
+    // employDays: '',
 
     langInfo: [],
     language_name: [],
     language_score: ''
   },
   getters: {
-    form (state) {
-      return state.form
-    }
+
+    GET_GENDER: state => {
+      return state.gender;
+    },
+    GET_IDENTITY_CARD_CODE: state => {
+      return state.identityCardCode;
+    },
+    GET_OTHER_COUNTRY_REGION: state => {
+      return state.otherCountryRegion;
+    },
+    GET_LANGINFO: state => {
+      return state.langInfo;
+    },
+    GET_LANGUAGE_NAME: state => {
+      return state.language_name;
+    },
+
   },
   mutations: {
-    // UPLOAD_FORM (state, payload) {
-    //   state.form = payload
-    // },
     UPLOAD_GENDER (state, payload) {
       state.gender = payload
     },
@@ -68,7 +78,11 @@ export default {
     },
     UPLOAD_LANG_INFO (state, payload) {
       state.langInfo = payload
+    },
+    UPLOAD_LANGUAGE_NAME (state, payload) {
+      state.language_name = payload
     }
+
   },
   actions: {
     onLoadGender ({ commit }) {
@@ -96,16 +110,15 @@ export default {
       })
     },
     onLoadLangInfo ({ commit }) {
-      AXIOS.get('/enums/gender')
+      AXIOS.get('/enums/langInfo')
         .then((response) => {
           commit('UPLOAD_LANG_INFO', response.data)
         }).catch(e => {
         this.errors.push(e)
       })
-    }
+    },
 
   },
   computed: {
-
   }
 }

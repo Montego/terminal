@@ -1,6 +1,15 @@
 <template>
-    <div>
+    <div class="row">
+      <div>
+        <p>Поиск</p>
+      </div>
+      <div class="col-sm-8">
 
+      </div>
+
+      <div class="col-sm-4">
+
+      </div>
     </div>
 </template>
 
