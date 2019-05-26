@@ -3,49 +3,12 @@ import {AXIOS} from "../../components/plugins/APIService.js"
 export default {
   namespaced: true,
   state: {
-    // name:'',
-    // lastname:'',
-    // firstname:'',
-    // middlename:'',
-    surname_genitive:'',
-    name_genitive:'',
-    patronymic_genitive:'',
-    contactPersonNameGenitive:'',
     gender:[],
-    // birthDate:'',
-    // age:'',
-    inipa:'',
-    inipa_date:'',
-    note:'',
-
     identityCardCode:[],
-    identityCardSeries:'',
-    identityCardNumber:'',
-    identityCardIssueBy:'',
-    identityCardIssueDate:'',
-    identityCardIssueDep:'',
-
     otherCountryRegion: [],
-    isCompatriot: false,
-    isForeigners: false,
-    birthPlace:'',
-    isHotel: false,
-    foreign_like_russian: false,
-
-    homePhoneNumber:'',
-    cellularPhone: '',
-    email: '',
-    organization_name: '',
-    organization_address: '',
-    organization_profession: '',
-    // seniority: '',
-    // employYears: '',
-    // employMonths: '',
-    // employDays: '',
-
     langInfo: [],
     language_name: [],
-    language_score: ''
+
   },
   getters: {
 
@@ -65,6 +28,8 @@ export default {
       return state.language_name;
     },
 
+
+
   },
   mutations: {
     UPLOAD_GENDER (state, payload) {
@@ -73,7 +38,7 @@ export default {
     UPLOAD_IDENTITY_CARD_CODE (state, payload) {
       state.identityCardCode = payload
     },
-    UPLOAD_OTHER_CONTRY_REGION (state, payload) {
+    UPLOAD_OTHER_COUNTRY_REGION (state, payload) {
       state.otherCountryRegion = payload
     },
     UPLOAD_LANG_INFO (state, payload) {
@@ -81,7 +46,8 @@ export default {
     },
     UPLOAD_LANGUAGE_NAME (state, payload) {
       state.language_name = payload
-    }
+    },
+
 
   },
   actions: {
@@ -104,7 +70,7 @@ export default {
     onLoadOtherCountryRegion ({ commit }) {
       AXIOS.get('/dictionary/otherCountryRegion')
         .then((response) => {
-          commit('UPLOAD_OTHER_CONTRY_REGION', response.data)
+          commit('UPLOAD_OTHER_COUNTRY_REGION', response.data)
         }).catch(e => {
         this.errors.push(e)
       })

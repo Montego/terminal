@@ -13,7 +13,8 @@
             <option>код 2</option>
             <option>код 3</option>
           </select>
-          <input class="form__input col-sm-6" type="text" name="" placeholder="Заполняется автоматически" disabled="disabled"/>
+          <input class="form__input col-sm-6" type="text" name="" placeholder="Заполняется автоматически"
+                 disabled="disabled"/>
         </label>
       </div>
       <div>
@@ -62,7 +63,8 @@
             <option>код 2</option>
             <option>код 3</option>
           </select>
-          <input class="form__input col-sm" type="text" name="" placeholder="Заполняется автоматически" disabled="disabled"/>
+          <input class="form__input col-sm" type="text" name="" placeholder="Заполняется автоматически"
+                 disabled="disabled"/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Серия:</div>
@@ -90,7 +92,8 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Средний балл:</div>
-          <input class="form__input col-sm" type="text" name="" placeholder="Заполняется автоматически" disabled="disabled"/>
+          <input class="form__input col-sm" type="text" name="" placeholder="Заполняется автоматически"
+                 disabled="disabled"/>
           <button class="calculate_score">Расчет среднего балла</button>
         </label>
       </div>
@@ -186,40 +189,67 @@
 </template>
 
 <script>
-    export default {
-        name: "TabEducationMilitary"
+  import {mapGetters, mapState} from 'vuex'
+
+  export default {
+    name: "TabEducationMilitary",
+    computed: {
+      ...mapState('tab_education_military_info', ['eduLevel', 'addressCountryRegion', 'addressState', 'academyYear', 'eduDoc',
+        'soldiery', 'soldieryStatus', 'militaryFormDoc', 'docType',]),
+      ...mapGetters('tab_education_military_info', ['GET_EDU_LEVEL', 'GET_ADDRESS_COUNTRY_REGION', 'GET_ADDRESS_STATE', 'GET_ACADEMY_YEAR',
+        'GET_EDU_DOC', 'GET_SOLDIERY', 'GET_SOLDIERY_STATUS', 'GET_MILITARY_FORM_DOC', 'GET_DOC_TYPE',]),
+
+      eduLevel() {
+        return this.$store.getters.GET_EDU_LEVEL;
+      },
+      addressCountryRegion() {
+        return this.$store.getters.GET_ADDRESS_COUNTRY_REGION;
+      },
+      addressState() {
+        return this.$store.getters.GET_ADDRESS_STATE;
+      },
+      academyYear() {
+        return this.$store.getters.GET_ACADEMY_YEAR;
+      },
+      eduDoc() {
+        return this.$store.getters.GET_EDU_DOC;
+      },
+      soldiery() {
+        return this.$store.getters.GET_SOLDIERY;
+      },
+      soldieryStatus() {
+        return this.$store.getters.GET_SOLDIERY_STATUS;
+      },
+      militaryFormDoc() {
+        return this.$store.getters.GET_MILITARY_FORM_DOC;
+      },
+      docType() {
+        return this.$store.getters.GET_DOC_TYPE;
+      },
+
+    },
+    mounted() {
+      this.$store.dispatch('tab_education_military_info/onLoadEduLevel');
+      this.$store.dispatch('tab_education_military_info/onLoadAddressCountryRegion');
+      this.$store.dispatch('tab_education_military_info/onLoadAddressState');
+      this.$store.dispatch('tab_education_military_info/onLoadAcademyYear');
+      this.$store.dispatch('tab_education_military_info/onLoadEduDoc');
+      this.$store.dispatch('tab_education_military_info/onLoadSoldiery');
+      this.$store.dispatch('tab_education_military_info/onLoadSoldieryStatus');
+      this.$store.dispatch('tab_education_military_info/onLoadMilitaryFormDoc');
+      this.$store.dispatch('tab_education_military_info/onLoadDocType');
+
+    },
+    data() {
+      return {
+        //TODO поля
+      }
     }
+  }
 </script>
 
 <style scoped>
-  .calculate_score {
-    margin-top: -8px;
-  }
-  .adress_button {
-    margin-left: -20px;
-  }
 
-  tbody tr:hover td {
-    background-color: #FFEFC6;
-    cursor: pointer;
-  }
-  tr:hover {
-    ackground-color: red;
-  }
-  .search_form div {
-    font-size: 20px;
-  }
-  .search_form input {
-    width: 500px;
-  }
-  .search_form {
-    margin-top: 14px;
-    height: 15px;
-  }
-  .search_button {
-    margin-top: 7px;
-    margin-left: 30px;
-  }
   input {
     height: 25px;
     border-radius: 3px;
@@ -227,110 +257,76 @@
     border-color: grey;
     /*border: 4px;*/
   }
-  input.checkbox{
+
+  input.checkbox {
     height: 15px;
-    transform:scale(1.3);
-    opacity:0.9;
-    cursor:pointer;
+    transform: scale(1.3);
+    opacity: 0.9;
+    cursor: pointer;
   }
+
   select {
     height: 25px;
     border-radius: 3px;
     border: 1px solid;
     border-color: grey;
   }
+
   textarea {
     border-radius: 3px;
     border: 1px solid;
     border-color: grey;
+    width: 90%;
+    height: 100px;
+    resize: none;
   }
-  .clear_save_button {
-    margin-top: 75%;
-    margin-left: 65%;
-    display: flex;
-    /*justify-content: space-between;*/
-  }
-  .outer {
-    /*margin: 5px;*/
-    /*margin-top: -5px;*/
-    background: linear-gradient(45deg, #EECFBA, #C5DDE8);
-    /*background: linear-gradient(to top left, powderblue, pink);*/
-  }
-  .distinctive_features_top {
-    height: 50%;
-  }
-  .distinctive_features_bottom {
-    height: 50%;
-  }
-  textarea {
-    width: 90%; /* Ширина поля в процентах */
-    height: 100px; /* Высота поля в пикселах */
-    resize: none; /* Запрещаем изменять размер */
-  }
-  .buttons {
-    margin-left: 10px;
-  }
-  .ege_tabs {
-    margin-top: -35px;
-  }
-  .parent_tabs {
-    margin-top: -35px;
-    /*background: linear-gradient(45deg, #EECFBA, #C5DDE8);*/
-  }
-  .inner_tab {
-    margin-top: -40px;
-    /*background: linear-gradient(45deg, #EECFBA, #C5DDE8);*/
-  }
+
   p {
     font-size: 25px;
   }
+
   button {
     min-width: 100px;
     padding: 10px;
     border: 1px solid;
     border-color: grey;
-    border-radius:5px;
+    border-radius: 5px;
     background-color: ghostwhite;
     /*background-color: #EDD19C;*/
     font-size: 16px;
     cursor: pointer;
-    transform:scale(0.8);
-    opacity:0.9
+    transform: scale(0.8);
+    opacity: 0.9
   }
 
-  /*.checkbox {*/
-  /*transform:scale(1.3);*/
-  /*opacity:0.9;*/
-  /*cursor:pointer;*/
-  /*}*/
-  .main_tab {
-    margin-top: 2px;
-    margin-left: 5px;
-    /*margin-right: 5px;*/
+  .search_place p {
+    margin-right: 10px;
+  }
+
+  .search_form div {
+    font-size: 20px;
+  }
+
+  .search_form input {
+    width: 500px;
+  }
+
+  .inner_tab {
+    margin-top: -40px;
     /*background: linear-gradient(45deg, #EECFBA, #C5DDE8);*/
   }
+
+  .calculate_score {
+    margin-top: -8px;
+  }
+
   .row {
     margin-bottom: 8px;
   }
+
   .form__label-text {
     text-align: left;
   }
-  .alarm_label {
-    /*text-align: left;*/
-    color: red;
-  }
 
-  .search_place {
-    /*height: auto;*/
-    margin-top: 30px;
-    margin-left: 20px;
-  }
-  .search_place p{
-    margin-right: 10px;
-  }
-  .input_profile_part1 {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-  }
+
 </style>

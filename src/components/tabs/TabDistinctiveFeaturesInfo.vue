@@ -7,7 +7,7 @@
           <!--</div>-->
           <!--<v-data-table-->
             <!--:headers="headers_features_info"-->
-            <!--:items="info_features_info"-->git push terminal-backend master
+            <!--:items="info_features_info"-->
             <!--hide-actions-->
             <!--class="elevation-1 text-xs-center"-->
             <!--&gt;-->
