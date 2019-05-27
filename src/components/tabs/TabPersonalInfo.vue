@@ -7,8 +7,8 @@
       <hr>
       <div>
         <label class="row">
-          <div class="form__label-text col-sm">Ф.И.О</div>
-          <input v-model="fullname" class="form__input col-sm" type="text" name="name"
+          <div class="form__label-text col-sm-4">Ф.И.О</div>
+          <input v-model="fullname" class="form__input col-sm-8" type="text" name="name"
                  placeholder="Заполняется автоматически" disabled="disabled"/>
         </label>
         <!--в фамилия namespace not found in mapState()-->
@@ -43,8 +43,8 @@
                  required/>
         </label>
         <label class="row">
-          <div class="form__label-text col-sm">Ф.И.О.(род. п.)</div>
-          <input v-model="fullnameGenitive" class="form__input col-sm" type="text" name="snp_genitive"
+          <div class="form__label-text col-sm-4">Ф.И.О.(род. п.)</div>
+          <input v-model="fullnameGenitive" class="form__input col-sm-8" type="text" name="snp_genitive"
                  placeholder="Заполняется автоматически" disabled="disabled"/>
         </label>
         <label class="alarm_label">Проверьте Ф.И.О. в родительном падеже для Заявления.</label>

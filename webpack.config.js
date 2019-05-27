@@ -13,6 +13,7 @@ module.exports = {
     new HtmlWebpackPlugin()
   ],
   module: {
+
     rules: [
       {
         test: /\.css$/,
@@ -40,6 +41,17 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      {
+        test: /\.(svg|eot|woff|ttf|woff2)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: "fonts/[name].[ext]"
+            }
+          }
+        ]
       }
     ]
   },
@@ -53,14 +65,14 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true,
     overlay: true,
-    publicPath: '/api/',
-    // proxy: {
-    //   '/api': {
-    //     target: 'http://localhost:8081',
-    //     ws: true,
-    //     changeOrigin: true
-    //   }
-    // }
+    // publicPath: '/api/',
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8081',
+        ws: true,
+        changeOrigin: true
+      }
+    }
   },
   performance: {
     hints: false

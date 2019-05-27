@@ -2,6 +2,7 @@
   <v-data-table data-app
     :headers="headers_all_pretendents"
     :items="info_all_pretendents"
+                hide-actions
     class="elevation-1 text-xs-center"
   >
     <template slot="items" slot-scope="props">

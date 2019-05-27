@@ -1,13 +1,40 @@
 <template>
   <div class="outer">
 
+
+
     <div class="row search_place">
       <label class="row search_form">
         <div class="col-sm">Абитуриент:</div>
         <input class="col-sm" type="search" name="поиск" placeholder="Поиск по сайту">
       </label>
       <!--<input type="submit" value="Заявление">-->
-      <button class="search_button col-sm-2">Заявление</button>
+
+      <v-dialog v-model="dialog" max-width="800px">
+        <!--забрать стиль-->
+        <!--<v-btn slot="activator" color="#5bc0de" dark class="mb-2">Новое событие</v-btn>-->
+        <button slot="activator" class="search_button col-sm-2">Заявление</button>
+        <v-card>
+          <v-card-title>
+            <span class="headline"> Заявление </span>
+          </v-card-title>
+
+          <v-card-text>
+            <v-container grid-list-md>
+
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <!--<v-spacer></v-spacer>-->
+            <!--<v-btn color="blue darken-1" flat @click.native="close">Закрыть</v-btn>-->
+            <!--<v-btn color="blue darken-1" flat @click.native="save">Сохранить</v-btn>-->
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <!--<button slot="activator" class="search_button col-sm-2">Заявление</button>-->
+
+      <!--<button class="search_button col-sm-2">Заявление</button>-->
 
     </div>
 
@@ -84,6 +111,7 @@
     computed: {},
     data() {
       return {
+        dialog: false,
         currentTab: 'Home',
         tabs: ['TabOverview', 'TabPersonalInfo', 'TabAddressInfo', 'TabEducationMilitary', 'TabEvidenceEge', 'TabParentInfo', 'TabDistinctiveFeaturesInfo', 'TabPhoto'],
 //test data
@@ -108,6 +136,11 @@
         ]
       }
     },
+    methods: {
+      onApplication() {
+
+      }
+    }
   }
 </script>
 

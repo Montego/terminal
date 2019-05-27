@@ -13,6 +13,7 @@
 <script>
 import Header from "./components/layouts/Header";
 import Profile from "./components/pages/Profile";
+
 export default {
   name: 'app',
   components: {Header, Profile},

@@ -10,7 +10,7 @@
       </div>
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea class="col-sm-10" name=""></textarea>
+        <textarea v-model="registeredAddress" class="col-sm-10" name=""></textarea>
       </label>
       <label class="row">
         <div class="form__label-text col-sm">Типа нас. пункта:</div>
@@ -24,11 +24,11 @@
       <hr>
       <div class="buttons row">
         <button class="adress_button">Ввести адрес</button>
-        <button class="adress_button">Копировать</button>
+        <button class="adress_button" @click="onCopyAddress">Копировать</button>
       </div>
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea class="col-sm-10" name=""></textarea>
+        <textarea v-model="factAddress" class="col-sm-10" name=""></textarea>
       </label>
     </div>
     <div class="info_address2 col-sm">
@@ -49,7 +49,18 @@
 
 <script>
   export default {
-    name: "TabAddressInfo"
+    name: "TabAddressInfo",
+    data() {
+      return {
+        registeredAddress:'',
+        factAddress:'',
+      }
+    },
+    methods: {
+      onCopyAddress() {
+        this.factAddress = this.registeredAddress;
+      }
+    }
   }
 </script>
 

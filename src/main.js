@@ -16,6 +16,7 @@ import 'vue-nav-tabs/themes/vue-tabs.css'
 Vue.component('tabs', Tabs);
 Vue.component('tab', Tab);
 
+
 new Vue({
   el: '#app',
   store,
