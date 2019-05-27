@@ -27,8 +27,7 @@
     <!--</div>-->
 
     <div>
-      <tabs :options="{ useUrlFragment: false }">
-        <!--<tabs class="main_tab">-->
+      <tabs class="main_tab" :options="{ useUrlFragment: false }">
         <tab id="" name="Обзор">
           <TabOverview></TabOverview>
         </tab>
