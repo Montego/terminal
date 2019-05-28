@@ -39,6 +39,9 @@
 </script>
 
 <style scoped>
+  label.row {
+    margin-bottom: 3px;
+  }
   .calculate_score {
     margin-top: -8px;
   }

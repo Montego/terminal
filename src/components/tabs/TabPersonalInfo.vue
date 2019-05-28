@@ -1,5 +1,6 @@
 <template>
-  <div class="inner_tab row">
+  <div>
+    <form class="inner_tab row" @submit.prevent="someAction()">
     <div class="info_main col-sm">
       <div>
         <p>Личные сведения</p>
@@ -14,15 +15,19 @@
         <!--в фамилия namespace not found in mapState()-->
         <label class="row">
           <div class="form__label-text col-sm">Фамилия</div>
-          <input v-model="lastname_personal_info" class="form__input col-sm" v-validate="'required|alpha'" name="lastname"
-                 type="text">
-          <span>{{ errors.first('alpha') }}</span>
-          <!--<input class="form__input col-sm" type="text" name="surname" required/>-->
+          <!--<input v-model="lastname_personal_info" class="form__input col-sm" v-validate="'required|alpha'" name="lastname"-->
+                 <!--type="text">-->
+          <!--<span>{{ errors.first('alpha') }}</span>-->
+          <input v-model="lastname" class="form__input col-sm" type="text" name="lastname" required/>
         </label>
+        <span class="alarm_label" v-if="lastname===''">Не заполнено поле "Фамилия"</span>
         <label class="row">
           <div class="form__label-text col-sm">Имя</div>
           <input v-model="firstname" class="form__input col-sm" type="text" name="firstname" required/>
+
         </label>
+        <span class="alarm_label" v-if="firstname===''">Не заполнено поле "Имя"</span>
+        <span class="alarm_label" v-else-if="firstname===lastname">Имя не может совпадать с фамилией</span>
         <label class="row">
           <div class="form__label-text col-sm">Отчество</div>
           <input v-model="middlename" class="form__input col-sm" type="text" name="middlename" required/>
@@ -58,6 +63,7 @@
           </select>
         </label>
 
+
         <label class="row">
           <div class="form__label-text col-sm">Дата рождения:</div>
           <input v-model="birthDate" class="form__input col-sm" type="date" name="birthday" required/>
@@ -91,17 +97,32 @@
       <div>
         <label class="row">
           <div class="form__label-text col-sm">Код документа:</div>
-          <select class="col-sm">
-            <option v-for="identityCardCode in options_identityCardCode">{{identityCardCode.item}}</option>
+          <!--<select class="col-sm">-->
+            <!--<option v-for="identityCardCode in options_identityCardCode">{{identityCardCode.item}}</option>-->
+          <!--</select>-->
+          <!--{{selectedIdentityCardCode}}-->
+          <select v-model="selectedIdentityCardCode" class="col-sm">
+            <option v-for="option in options_identityCardCode">
+              {{option.item}}
+            </option>
           </select>
         </label>
+        <span class="alarm_label" v-if="selectedIdentityCardCode===''">Не выбран тип документа</span>
         <label class="row">
           <div class="form__label-text col-sm">Серия:</div>
-          <input class="form__input col-sm" type="text" name="doc_serial" required/>
+          <input v-if="selectedIdentityCardCode === 'Паспорт РФ'" v-model="identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>
+          <input v-else-if="selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***" v-mask="'###-###'" required/>
+          <input v-else v-model="identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
+
         </label>
+        <span class="alarm_label" v-if="identityCardSeries===''">Не заполнено поле "Серия"</span>
+        <span class="alarm_label" v-else-if="identityCardSeries.length<4 & selectedIdentityCardCode === 'Паспорт РФ'">Серия должна содержать 4 цифры</span>
         <label class="row">
           <div class="form__label-text col-sm">Номер:</div>
-          <input class="form__input col-sm" type="text" name="doc_number" required/>
+          <!--<input v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_number" required/>-->
+          <input v-if="selectedIdentityCardCode === 'Паспорт РФ'" v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="******" v-mask="'######'" required/>
+          <input v-else-if="selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***-***" v-mask="'###-###-###'" required/>
+          <input v-else v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_serial"required/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Кем выдан:</div>
@@ -162,11 +183,13 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Мобильный телефон:</div>
-          <input class="form__input col-sm" type="text" name="mobile_number" v-mask="'+7-###-###-##-##'"/>
+          <input v-model="cellularPhone" class="form__input col-sm" type="text" name="mobile_number" v-mask="'+7-###-###-##-##'"/>
         </label>
+        <span class="alarm_label" v-if="cellularPhone===''">Не заполнено поле "Мобильный телефон"</span>
+        <span class="alarm_label" v-else-if="cellularPhone.length<10">Некорректно заполнено поле "Мобильный телефон"</span>
         <label class="row">
           <div class="form__label-text col-sm">Эл. почта:</div>
-          <input class="form__input col-sm" v-validate="'required|email'"  placeholder="" name="email" type="email">
+          <input  class="form__input col-sm" v-validate="'required|email'"  placeholder="" name="email" type="email">
 
           <!--<input class="form__input col-sm" type="email" name="email"/>-->
         </label>
@@ -197,10 +220,12 @@
           <div class="form__label-text col-sm">Стаж, лет:</div>
           <input v-model="employYears" class="form__input col-sm" type="number" name="employYears" placeholder=""/>
         </label>
+        <span class="alarm_label" v-if="employYears>100">Люди столько не живут</span>
         <label class="row">
           <div class="form__label-text col-sm">Стаж, месяцев:</div>
           <input v-model="employMonths" class="form__input col-sm" type="number" name="employMonths" placeholder=""/>
         </label>
+        <span class="alarm_label" v-if="employMonths>11">В году только 12 месяцев</span>
         <!--<label class="row">-->
         <!--<div class="form__label-text col-sm">Стаж, дней:</div>-->
         <!--<input class="form__input col-sm" type="number" name="seniority_day" placeholder=""/>-->
@@ -210,22 +235,33 @@
         </div>
 
         <hr>
-         JJJJJJJJ {{this.$store.getters.GET_LASTNAME_PERSONAL_INFO}}
         <label class="row">
           <div class="form__label-text col-sm">Отметка о языках:</div>
-          <select class="col-sm" name="foreign_language">
-            <option>Изучал</option>
-            <option>Не изучал</option>
+          <!--<select class="col-sm" name="foreign_language">-->
+            <!--<option>Изучал</option>-->
+            <!--<option>Не изучал</option>-->
+          <!--</select>-->
+          <select v-model="selectedForeignLanguageInfo" class="col-sm">
+            <option v-for="option in options_foreignLanguageInfo">
+              {{option.item}}
+            </option>
           </select>
         </label>
+
+        <div v-if="selectedForeignLanguageInfo==='изучал'">
+            оп-па
+        </div>
+
+
       </div>
     </div>
+    </form>
   </div>
 </template>
 
 <script>
   import {mapGetters, mapState, mapActions, mapMutations} from 'vuex'
-
+  import { required, minLength, between, maxLength } from 'vuelidate/lib/validators'
   export default {
     name: "TabPersonalInfo",
     computed: {
@@ -293,10 +329,26 @@
     methods: {
       // ...mapActions('tab_personal_info', ['SET_LASTNAME_PERSONAL_INFO']),
     },
+    validations: {
+      // Название поля должно совпадать с полем в data
+      identityCardSeries: {
+        required,
+        validFormat: val => /^\d{4} \d{6}$/.test(val),
+      },
+      // passportDate: {
+      //   required,
+      //   validDate: val => moment(val, 'DD.MM.YYYY', true).isValid(),
+      // },
+      name: {
+        required,
+        maxLength: maxLength(10),
+        alpha: val => /^[а-яё]*$/i.test(val),
+      },
+    },
     data() {
       return {
         name: '',
-        // lastname: '',
+        lastname: '',
         firstname: '',
         middlename: '',
         birthDate: '',
@@ -308,9 +360,16 @@
         firstname_genitive: '',
         middlename_genitive: '',
         contactPersonNameGenitive: '',
+        identityCardSeries: '',
+        identityCardNumber: '',
+        identityCardIssueBy: '',
+        cellularPhone:'',
 
         //test data
         selectedGender: '',
+        selectedIdentityCardCode: '',
+        selectedForeignLanguageInfo:'',
+
         options_gender: [
           {id: 0, item: '-выберите пол-'},
           {id: 1, item: 'Мужской'},
@@ -318,16 +377,36 @@
           {id: 3, item: 'Другое'},
         ],
         options_identityCardCode: [
-          {id: 0, item: '-выберите документ-'},
-          {id: 1, item: 'Паспорт РФ'},
-          {id: 2, item: 'Не паспорт РФ'},
+          // {id: 0, item: '-выберите документ-'},
+          {id: 1, item: 'ВидЖител'},
+          {id: 2, item: 'ВоенБилет'},
+          {id: 3, item: 'ВоенБилОфц'},
+          {id: 4, item: 'Временное удостоверение лич.граждан.РФ'},
+          {id: 5, item: 'ДиплПаспРФ'},
+          {id: 6, item: 'ЗагрПасп'},
+          {id: 7, item: 'ЗагрПаспРФ'},
+          {id: 8, item: 'ИнострПасп'},
+          {id: 9, item: 'НетДокум'},
+          {id: 10, item: 'ПаспМорФл'},
+          {id: 11, item: 'ПаспМоряка'},
+          {id: 12, item: 'Паспорт РФ'},
+          {id: 13, item: 'Паспорт иностранного гражданина'},
+          {id: 14, item: 'ПРОЧЕЕ'},
+          {id: 15, item: 'СвидБеженц'},
+          {id: 16, item: 'СвидРожд'},
+          {id: 17, item: 'СправОбОсв'},
+          {id: 18, item: 'СпрУдЛичн'},
+          {id: 19, item: 'УдЛичности'},
+          {id: 20, item: 'УдОфицера'},
+
         ]
+
         ,
         options_citizenship: [
           {id: 1, item: 'РФ'},
           {id: 2, item: 'Казахстан'},
         ],
-        options_foreign_language: [
+        options_foreignLanguageInfo: [
           {id: 1, item: 'изучал'},
           {id: 2, item: 'не изучал'},
         ]
@@ -412,9 +491,13 @@
   .form__label-text {
     text-align: left;
   }
+  label.row {
+    margin-bottom: 3px;
+  }
 
   .alarm_label {
     /*text-align: left;*/
+
     color: red;
   }
 

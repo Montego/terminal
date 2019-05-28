@@ -250,6 +250,9 @@
   .form__label-text {
     text-align: left;
   }
+  label.row {
+    margin-bottom: 3px;
+  }
 
 
 </style>

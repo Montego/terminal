@@ -249,6 +249,9 @@
 </script>
 
 <style scoped>
+  label.row {
+    margin-bottom: 3px;
+  }
 
   input {
     height: 25px;

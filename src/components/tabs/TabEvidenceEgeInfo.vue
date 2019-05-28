@@ -77,7 +77,7 @@
             <div>
               <label class="row">
                 <div class="form__label-text col-sm">Фамилия:</div>
-                <input v-model="lastname_evidence_ege" class="form__input col-sm" type="text" name="" placeholder=""/>
+                <input v-model="name" class="form__input col-sm" type="text" name="" placeholder=""/>
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Имя:</div>
@@ -230,9 +230,9 @@
             <hr>
           </div>
 
-          <br>
-          <input v-model="lastname_evidence_ege"/>
-          {{this.$store.state.lastname_evidence_ege}}
+          <!--<br>-->
+          <!--<input v-model="name"/>-->
+          <!--{{this.$store.state.lastname_evidence_ege}}-->
         </div>
       </tab>
     </tabs>
@@ -249,21 +249,19 @@
     mounted () {
       console.log(2222)
       console.log(this.$store.getters)
-      console.log(this.$store.state.lastname_evidence_ege)
-
+      this.$store.dispatch('Test')
     },
     computed: {
-      // ...mapState('tab_evidence_ege_info', ['lastname_evidence_ege',]),
-      // ...mapGetters('tab_evidence_ege_info', ['GET_LASTNAME_EVIDENCE_EGE']),
-      // ...mapMutations('tab_evidence_ege_info', ['SET_LASTNAME_EVIDENCE_EGE']),
-      // ...mapActions('tab_evidence_ege_info', ['ON_SET_LASTNAME_EVIDENCE_EGE']),
+      ...mapState('tab_evidence_ege_info', ['name',]),
+      ...mapGetters('tab_evidence_ege_info', ['GET_NAME']),
 
-      lastname_evidence_ege: {
+
+      name: {
         get () {
-          return this.$store.state.lastname_evidence_ege
+          return this.$store.state.name
         },
         set (payload) {
-          this.$store.commit('tab_evidence_ege_info/UPDATE_LASTNAME_EVIDENCE_EGE', payload)
+          this.$store.commit('ON_UPDATE_NAME', payload)
         }
       },
     },
@@ -276,6 +274,8 @@
         identityCardNumber:'',
         identityCardIssueDate:'',
         identityCardIssueBy:'',
+
+
 
 
         headers_ege_evidence: [
@@ -303,13 +303,13 @@
       }
     },
     methods: {
-      onUpdateLastname_evidence_ege (e) {
-        this.$store.commit('tab_evidence_ege_info/UPDATE_LASTNAME_EVIDENCE_EGE', e.target.payload)
-      },
+      // onUpdateLastname_evidence_ege (e) {
+      //   this.$store.commit('tab_evidence_ege_info/UPDATE_LASTNAME_EVIDENCE_EGE', e.target.payload)
+      // },
 
       onCopyInfoFromProfileTab() {
 
-        this.lastname_evidence_ege =  this.lastname_personal_info;
+        // this.name =  this.lastname_personal_info;
         // this.$store.dispatch('tab_evidence_ege_info/ON_SET_LASTNAME_EVIDENCE_EGE',this.$store.getters.GET_LASTNAME_PERSONAL_INFO);
 
         // this.lastname = this.$store.tab_personal_info.GET_LASTNAME()
@@ -329,6 +329,9 @@
 </script>
 
 <style scoped>
+  label.row {
+    margin-bottom: 3px;
+  }
 
   p {
     font-size: 25px;

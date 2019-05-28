@@ -123,6 +123,9 @@
   .adress_button {
     margin-left: -20px;
   }
+  label.row {
+    margin-bottom: 3px;
+  }
 
   tbody tr:hover td {
     background-color: #FFEFC6;
