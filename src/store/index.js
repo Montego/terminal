@@ -6,6 +6,7 @@ import VueTheMask from 'vue-the-mask'
 
 
 import tab_personal_info from './modules/tab_personal_info'
+import tab_evidence_ege_info from './modules/tab_evidence_ege_info'
 import tab_education_military_info from './modules/tab_education_military_info'
 // import {APIService} from "../components/plugins/APIService";
 Vue.use(VueTheMask);
@@ -23,6 +24,7 @@ export const store = new Vuex.Store({
   actions: {},
   modules: {
     tab_personal_info,
+    tab_evidence_ege_info,
     tab_education_military_info
   },
   strict: false

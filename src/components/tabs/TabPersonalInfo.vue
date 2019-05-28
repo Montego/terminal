@@ -14,7 +14,7 @@
         <!--в фамилия namespace not found in mapState()-->
         <label class="row">
           <div class="form__label-text col-sm">Фамилия</div>
-          <input v-model="lastname" class="form__input col-sm" v-validate="'required|alpha'" name="lastname"
+          <input v-model="lastname_personal_info" class="form__input col-sm" v-validate="'required|alpha'" name="lastname"
                  type="text">
           <span>{{ errors.first('alpha') }}</span>
           <!--<input class="form__input col-sm" type="text" name="surname" required/>-->
@@ -166,8 +166,11 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Эл. почта:</div>
-          <input class="form__input col-sm" type="email" name="email"/>
+          <input class="form__input col-sm" v-validate="'required|email'"  placeholder="" name="email" type="email">
+
+          <!--<input class="form__input col-sm" type="email" name="email"/>-->
         </label>
+        <label class="alarm_label col-sm">{{ errors.first('email') }}</label>
         <hr>
         <div>
           <p>Сведения о работе</p>
@@ -207,7 +210,7 @@
         </div>
 
         <hr>
-
+         JJJJJJJJ {{this.$store.getters.GET_LASTNAME_PERSONAL_INFO}}
         <label class="row">
           <div class="form__label-text col-sm">Отметка о языках:</div>
           <select class="col-sm" name="foreign_language">
@@ -221,13 +224,27 @@
 </template>
 
 <script>
-  import {mapGetters, mapState} from 'vuex'
+  import {mapGetters, mapState, mapActions, mapMutations} from 'vuex'
 
   export default {
     name: "TabPersonalInfo",
     computed: {
-      ...mapState('tab_personal_info', ['gender', 'identityCardCode', 'otherCountryRegion', 'langInfo', 'languageName',]),
-      ...mapGetters('tab_personal_info', ['GET_GENDER', 'GET_IDENTITY_CARD_CODE', 'GET_OTHER_COUNTRY_REGION', 'GET_LANGINFO']),
+      ...mapState('tab_personal_info', ['lastname_personal_info','gender', 'identityCardCode', 'otherCountryRegion', 'langInfo', 'languageName',]),
+      ...mapGetters('tab_personal_info', ['GET_LASTNAME_PERSONAL_INFO','GET_GENDER', 'GET_IDENTITY_CARD_CODE', 'GET_OTHER_COUNTRY_REGION', 'GET_LANGINFO']),
+      ...mapMutations('tab_personal_info', ['SET_LASTNAME_PERSONAL_INFO']),
+      // ...mapActions('tab_personal_info', ['SET_LASTNAME_PERSONAL_INFO']),
+
+
+      lastname_personal_info: {
+
+        get () {
+          return this.$store.getters.GET_LASTNAME_PERSONAL_INFO
+        },
+        set (payload) {
+          this.$store.commit('tab_personal_info/SET_LASTNAME_PERSONAL_INFO', payload)
+          // this.$store.dispatch('tab_personal_info/SET_LASTNAME_PERSONAL_INFO', payload)
+        }
+      },
 
       gender() {
         return this.$store.getters.GET_GENDER;
@@ -273,10 +290,13 @@
       this.$store.dispatch('tab_personal_info/onLoadLangInfo');
 
     },
+    methods: {
+      // ...mapActions('tab_personal_info', ['SET_LASTNAME_PERSONAL_INFO']),
+    },
     data() {
       return {
         name: '',
-        lastname: '',
+        // lastname: '',
         firstname: '',
         middlename: '',
         birthDate: '',

@@ -77,15 +77,15 @@
             <div>
               <label class="row">
                 <div class="form__label-text col-sm">Фамилия:</div>
-                <input class="form__input col-sm" type="text" name="" placeholder=""/>
+                <input v-model="lastname_evidence_ege" class="form__input col-sm" type="text" name="" placeholder=""/>
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Имя:</div>
-                <input class="form__input col-sm" type="text" name="" placeholder=""/>
+                <input v-model="firstname" class="form__input col-sm" type="text" name="" placeholder=""/>
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Отчество:</div>
-                <input class="form__input col-sm" type="text" name="" placeholder=""/>
+                <input v-model="middlename" class="form__input col-sm" type="text" name="" placeholder=""/>
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Документ</div>
@@ -98,19 +98,19 @@
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Серия:</div>
-                <input class="form__input col-sm" type="text" name="" placeholder=""/>
+                <input v-model="identityCardSeries" class="form__input col-sm" type="text" name="" placeholder=""/>
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Номер:</div>
-                <input class="form__input col-sm" type="text" name="" placeholder=""/>
+                <input v-model="identityCardNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Дата выдачи:</div>
-                <input class="form__input col-sm" type="date" name="" placeholder=""/>
+                <input v-model="identityCardIssueDate" class="form__input col-sm" type="date" name="" placeholder=""/>
               </label>
               <label class="row">
                 <div class="form__label-text col-sm-2">Кем выдан:</div>
-                <textarea class="col-sm-10" name=""></textarea>
+                <textarea v-model="identityCardIssueBy" class="col-sm-10" name=""></textarea>
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Гражданство</div>
@@ -119,7 +119,9 @@
                   <option>Казахстан</option>
                 </select>
               </label>
-              <button class="copy_address col-sm-6">Копировать из личных сведений</button>
+              <button class="copy_address col-sm-6" @click="onCopyInfoFromProfileTab">
+                Копировать из личных сведений
+              </button>
             </div>
           </div>
 
@@ -227,6 +229,10 @@
             </label>
             <hr>
           </div>
+
+          <br>
+          <input v-model="lastname_evidence_ege"/>
+          {{this.$store.state.lastname_evidence_ege}}
         </div>
       </tab>
     </tabs>
@@ -234,10 +240,43 @@
 </template>
 
 <script>
+  import {mapGetters, mapState, mapActions, mapMutations} from 'vuex'
+  import tab_evidence_ege_info from "../../store/modules/tab_evidence_ege_info";
+  import tab_personal_info from "../../store/modules/tab_personal_info";
+
   export default {
     name: "TabEvidenceEge",
+    mounted () {
+      console.log(2222)
+      console.log(this.$store.getters)
+      console.log(this.$store.state.lastname_evidence_ege)
+
+    },
+    computed: {
+      // ...mapState('tab_evidence_ege_info', ['lastname_evidence_ege',]),
+      // ...mapGetters('tab_evidence_ege_info', ['GET_LASTNAME_EVIDENCE_EGE']),
+      // ...mapMutations('tab_evidence_ege_info', ['SET_LASTNAME_EVIDENCE_EGE']),
+      // ...mapActions('tab_evidence_ege_info', ['ON_SET_LASTNAME_EVIDENCE_EGE']),
+
+      lastname_evidence_ege: {
+        get () {
+          return this.$store.state.lastname_evidence_ege
+        },
+        set (payload) {
+          this.$store.commit('tab_evidence_ege_info/UPDATE_LASTNAME_EVIDENCE_EGE', payload)
+        }
+      },
+    },
     data() {
       return {
+        // lastname_evidence_ege:'',
+        firstname:'',
+        middlename:'',
+        identityCardSeries:'',
+        identityCardNumber:'',
+        identityCardIssueDate:'',
+        identityCardIssueBy:'',
+
 
         headers_ege_evidence: [
           {text: '№', value: 'ege_evidence_number', sortable: false, align: 'center'},
@@ -261,6 +300,29 @@
           {text: 'Статус апелляция', value: 'ege_appeal_status', sortable: false, align: 'center'},
         ],
         info_ege_subjects: [],
+      }
+    },
+    methods: {
+      onUpdateLastname_evidence_ege (e) {
+        this.$store.commit('tab_evidence_ege_info/UPDATE_LASTNAME_EVIDENCE_EGE', e.target.payload)
+      },
+
+      onCopyInfoFromProfileTab() {
+
+        this.lastname_evidence_ege =  this.lastname_personal_info;
+        // this.$store.dispatch('tab_evidence_ege_info/ON_SET_LASTNAME_EVIDENCE_EGE',this.$store.getters.GET_LASTNAME_PERSONAL_INFO);
+
+        // this.lastname = this.$store.tab_personal_info.GET_LASTNAME()
+
+        // this.lastname = this.$store.tab_personal_info;
+        // console.log(this.$store.getters)
+        // this.firstname = TabPersonalInfo.data().firstname;
+        // this.middlename = TabPersonalInfo.data().middlename;
+        // this.identityCardSeries = TabPersonalInfo.data().identityCardSeries;
+        // this.identityCardNumber = TabPersonalInfo.data().identityCardNumber;
+        // this.identityCardIssueDate = TabPersonalInfo.data().identityCardIssueDate;
+        // this.identityCardIssueBy = TabPersonalInfo.data().identityCardIssueBy;
+
       }
     }
   }
@@ -323,7 +385,7 @@
   }
 
   .copy_address {
-    margin-left: -290px;
+    margin-left: 59%;
   }
 
   .ege_tabs {

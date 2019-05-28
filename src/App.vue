@@ -4,8 +4,12 @@
       <!--<Header></Header>-->
     </div>
     <!--<div class="container">-->
-    <Profile></Profile>
-      <!--<router-view></router-view>-->
+    <!--<Profile>-->
+      <!---->
+    <!--</Profile>-->
+      <router-view>
+
+      </router-view>
     <!--</div>-->
   </div>
 </template>

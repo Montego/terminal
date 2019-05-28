@@ -2,7 +2,6 @@
   <div class="outer">
 
 
-
     <div class="row search_place">
       <label class="row search_form">
         <div class="col-sm">Абитуриент:</div>
@@ -54,7 +53,8 @@
     <!--</div>-->
 
     <div>
-      <tabs class="main_tab" :options="{ useUrlFragment: false }">
+      <!--<tabs class="main_tab" :options="{ useUrlFragment: false }">-->
+        <tabs class="main_tab">
         <tab id="" name="Обзор">
           <TabOverview></TabOverview>
         </tab>
