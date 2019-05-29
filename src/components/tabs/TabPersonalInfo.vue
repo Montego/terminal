@@ -18,32 +18,32 @@
           <!--<input v-model="lastname_personal_info" class="form__input col-sm" v-validate="'required|alpha'" name="lastname"-->
                  <!--type="text">-->
           <!--<span>{{ errors.first('alpha') }}</span>-->
-          <input v-model="lastname" class="form__input col-sm" type="text" name="lastname" required/>
+          <input v-model="tab_personal_lastname" class="form__input col-sm" type="text" name="lastname" required/>
         </label>
-        <span class="alarm_label" v-if="lastname===''">Не заполнено поле "Фамилия"</span>
+        <span class="alarm_label" v-if="tab_personal_lastname===''">Не заполнено поле "Фамилия"</span>
         <label class="row">
           <div class="form__label-text col-sm">Имя</div>
-          <input v-model="firstname" class="form__input col-sm" type="text" name="firstname" required/>
+          <input v-model="tab_personal_firstname" class="form__input col-sm" type="text" name="firstname" required/>
         </label>
-        <span class="alarm_label" v-if="firstname===''">Не заполнено поле "Имя"</span>
-        <span class="alarm_label" v-else-if="firstname===lastname">Имя не может совпадать с фамилией</span>
+        <span class="alarm_label" v-if="tab_personal_firstname===''">Не заполнено поле "Имя"</span>
+        <span class="alarm_label" v-else-if="tab_personal_firstname===tab_personal_lastname">Имя не может совпадать с фамилией</span>
         <label class="row">
           <div class="form__label-text col-sm">Отчество</div>
-          <input v-model="middlename" class="form__input col-sm" type="text" name="middlename" required/>
+          <input v-model="tab_personal_middlename" class="form__input col-sm" type="text" name="middlename" required/>
         </label>
         <hr>
         <label class="row">
           <div class="form__label-text col-sm">Фамилия в род.п.</div>
-          <input v-model="lastname_genitive" class="form__input col-sm" type="text" name="lastname_genitive" required/>
+          <input v-model="tab_personal_lastname_genitive" class="form__input col-sm" type="text" name="lastname_genitive" required/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Имя в род.п.</div>
-          <input v-model="firstname_genitive" class="form__input col-sm" type="text" name="firstname_genitive"
+          <input v-model="tab_personal_firstname_genitive" class="form__input col-sm" type="text" name="firstname_genitive"
                  required/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Отчество в род.п.</div>
-          <input v-model="middlename_genitive" class="form__input col-sm" type="text" name="middlename_genitive"
+          <input v-model="tab_personal_middlename_genitive" class="form__input col-sm" type="text" name="middlename_genitive"
                  required/>
         </label>
         <label class="row">
@@ -55,9 +55,12 @@
 
         <label class="row">
           <div class="form__label-text col-sm">Пол:</div>
-          <select v-model="selectedGender" class="col-sm">
-            <option v-for="item in GET_GENDER">
-              {{item.name}}
+          <select v-model="tab_personal_selectedGender" class="col-sm">
+            <!--<option v-for="item in GET_GENDER">-->
+              <!--{{item.name}}-->
+            <!--</option>-->
+            <option v-for="option in options_gender">
+              {{option.item}}
             </option>
           </select>
         </label>
@@ -65,7 +68,7 @@
 
         <label class="row">
           <div class="form__label-text col-sm">Дата рождения:</div>
-          <input v-model="birthDate" class="form__input col-sm" type="date" name="birthday" required/>
+          <input v-model="tab_personal_birthDate" class="form__input col-sm" type="date" name="birthday" required/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Полных лет:</div>
@@ -100,49 +103,49 @@
             <!--<option v-for="identityCardCode in options_identityCardCode">{{identityCardCode.item}}</option>-->
           <!--</select>-->
           <!--{{selectedIdentityCardCode}}-->
-          <select v-model="selectedIdentityCardCode" class="col-sm">
+          <select v-model="tab_personal_selectedIdentityCardCode" class="col-sm">
             <option v-for="option in options_identityCardCode">
               {{option.item}}
             </option>
           </select>
         </label>
-        <span class="alarm_label" v-if="selectedIdentityCardCode===''">Не выбран тип документа</span>
+        <span class="alarm_label" v-if="tab_personal_selectedIdentityCardCode===''">Не выбран тип документа</span>
         <label class="row">
           <div class="form__label-text col-sm">Серия:</div>
-          <input v-if="selectedIdentityCardCode === 'Паспорт РФ'" v-model="identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>
-          <input v-else-if="selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***" v-mask="'###-###'" required/>
-          <input v-else v-model="identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
+          <input v-if="tab_personal_selectedIdentityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>
+          <input v-else-if="tab_personal_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***" v-mask="'###-###'" required/>
+          <input v-else v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
 
         </label>
-        <span class="alarm_label" v-if="identityCardSeries===''">Не заполнено поле "Серия"</span>
-        <span class="alarm_label" v-else-if="identityCardSeries.length<4 & selectedIdentityCardCode === 'Паспорт РФ'">Серия должна содержать 4 цифры</span>
+        <span class="alarm_label" v-if="tab_personal_identityCardSeries===''">Не заполнено поле "Серия"</span>
+        <span class="alarm_label" v-else-if="tab_personal_identityCardSeries.length<4 & tab_personal_selectedIdentityCardCode === 'Паспорт РФ'">Серия должна содержать 4 цифры</span>
         <label class="row">
           <div class="form__label-text col-sm">Номер:</div>
           <!--<input v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_number" required/>-->
-          <input v-if="selectedIdentityCardCode === 'Паспорт РФ'" v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="******" v-mask="'######'" required/>
-          <input v-else-if="selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***-***" v-mask="'###-###-###'" required/>
-          <input v-else v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_serial"required/>
+          <input v-if="tab_personal_selectedIdentityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="******" v-mask="'######'" required/>
+          <input v-else-if="tab_personal_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***-***" v-mask="'###-###-###'" required/>
+          <input v-else v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial"required/>
         </label>
-        <span class="alarm_label" v-if="identityCardNumber===''">Не заполнено поле "Номер"</span>
-        <span class="alarm_label" v-else-if="identityCardNumber.length<6 & selectedIdentityCardCode === 'Паспорт РФ'">Номер должен содержать 6 цифр</span>
+        <span class="alarm_label" v-if="tab_personal_identityCardNumber===''">Не заполнено поле "Номер"</span>
+        <span class="alarm_label" v-else-if="tab_personal_identityCardNumber.length<6 & tab_personal_selectedIdentityCardCode === 'Паспорт РФ'">Номер должен содержать 6 цифр</span>
 
         <label class="row">
           <div class="form__label-text col-sm">Кем выдан:</div>
-          <textarea class="col-sm" name="doc_issued_by"></textarea>
+          <textarea v-model="tab_personal_identityCardIssueBy" class="col-sm" name="doc_issued_by"></textarea>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Дата выдачи:</div>
-          <input class="form__input col-sm" type="date" name="doc_issued_date"/>
+          <input v-model="tab_personal_identityCardIssueDate" class="form__input col-sm" type="date" name="doc_issued_date"/>
         </label>
         <label class="row">
-          <div class="form__label-text col-sm">Кем выдан:</div>
-          <input class="form__input col-sm" type="text" name="doc_code_unit" placeholder="***-***" v-mask="'###-###'"
+          <div class="form__label-text col-sm">Код подразделения:</div>
+          <input v-model="tab_personal_identityCardIssueDep" class="form__input col-sm" type="text" name="doc_code_unit" placeholder="***-***" v-mask="'###-###'"
                  required/>
         </label>
       </div>
       <label class="row">
         <div class="form__label-text col-sm">Гражданство:</div>
-        <select v-model="selectedCitizenship" class="col-sm">
+        <select v-model="tab_personal_selectedCitizenship" class="col-sm">
           <option v-for="option in options_citizenship">
             {{option.item}}
           </option>
@@ -150,8 +153,8 @@
       </label>
       <label class="row">
         <div class="form__label-text col-sm">Соотечественник:</div>
-        <input v-if="selectedCitizenship=='РФ'" v-model="isCompatriot" class="checkbox col-sm" type="checkbox" id="compatriot" disabled="disabled">
-        <input v-else="selectedCitizenship=='РФ'" v-model="isCompatriot" class="checkbox col-sm" type="checkbox" id="">
+        <input v-if="tab_personal_selectedCitizenship=='РФ'" v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" id="compatriot" disabled="disabled">
+        <input v-else="tab_personal_selectedCitizenship=='РФ'" v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" id="">
       </label>
       <label class="alarm_label">(При наличии подтверждающих документов)</label>
       <label class="row">
@@ -187,10 +190,10 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Мобильный телефон:</div>
-          <input v-model="cellularPhone" class="form__input col-sm" type="text" name="mobile_number" v-mask="'+7-###-###-##-##'"/>
+          <input v-model="tab_personal_cellularPhone" class="form__input col-sm" type="text" name="mobile_number" v-mask="'+7-###-###-##-##'"/>
         </label>
-        <span class="alarm_label" v-if="cellularPhone===''">Не заполнено поле "Мобильный телефон"</span>
-        <span class="alarm_label" v-else-if="cellularPhone.length<10">Некорректно заполнено поле "Мобильный телефон"</span>
+        <span class="alarm_label" v-if="tab_personal_cellularPhone===''">Не заполнено поле "Мобильный телефон"</span>
+        <span class="alarm_label" v-else-if="tab_personal_cellularPhone.length<16">Некорректно заполнено поле "Мобильный телефон"</span>
         <label class="row">
           <div class="form__label-text col-sm">Эл. почта:</div>
           <input  class="form__input col-sm" v-validate="'required|email'"  placeholder="" name="email" type="email">
@@ -222,19 +225,19 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Стаж, лет:</div>
-          <input v-model="employYears" class="form__input col-sm" type="number" v-mask="'##'" name="employYears" placeholder=""/>
+          <input v-model="tab_personal_employYears" class="form__input col-sm" type="number" v-mask="'##'" name="employYears" placeholder=""/>
         </label>
-        <span class="alarm_label" v-if="employYears>100">Люди столько не живут</span>
+        <span class="alarm_label" v-if="tab_personal_employYears>100">Люди столько не живут</span>
         <label class="row">
           <div class="form__label-text col-sm">Стаж, месяцев:</div>
-          <input v-model="employMonths" class="form__input col-sm" type="number" v-mask="'##'" name="employMonths" placeholder=""/>
+          <input v-model="tab_personal_employMonths" class="form__input col-sm" type="number" v-mask="'##'" name="employMonths" placeholder=""/>
         </label>
-        <span class="alarm_label" v-if="employMonths>11">Стаж, месяцев должен быть в диапазоне от 0 до 11</span>
+        <span class="alarm_label" v-if="tab_personal_employMonths>11">Стаж, месяцев должен быть в диапазоне от 0 до 11</span>
         <label class="row">
         <div class="form__label-text col-sm">Стаж, дней:</div>
-        <input v-model="employDays" class="form__input col-sm" type="number" v-mask="'##'" name="seniority_day" placeholder=""/>
+        <input v-model="tab_personal_employDays" class="form__input col-sm" type="number" v-mask="'##'" name="seniority_day" placeholder=""/>
         </label>
-        <span class="alarm_label" v-if="employDays>31">Стаж, дней должен быть в диапазоне от 0 до 31</span>
+        <span class="alarm_label" v-if="tab_personal_employDays>31">Стаж, дней должен быть в диапазоне от 0 до 31</span>
         <div>
           <p>Иностранные языки</p>
         </div>
@@ -246,14 +249,14 @@
             <!--<option>Изучал</option>-->
             <!--<option>Не изучал</option>-->
           <!--</select>-->
-          <select v-model="selectedForeignLanguageInfo" class="col-sm">
+          <select v-model="tab_personal_selectedForeignLanguageInfo" class="col-sm">
             <option v-for="option in options_foreignLanguageInfo">
               {{option.item}}
             </option>
           </select>
         </label>
 
-        <div v-if="selectedForeignLanguageInfo==='изучал'">
+        <div v-if="tab_personal_selectedForeignLanguageInfo==='изучал'">
             оп-па
         </div>
         <!--<input v-model="lastname_personal_info_tab">-->
@@ -267,49 +270,58 @@
 <script>
   import {mapGetters, mapState, mapActions, mapMutations} from 'vuex'
   import { required, minLength, between, maxLength } from 'vuelidate/lib/validators'
+  import { createHelpers } from 'vuex-map-fields';
+  import { mapMultiRowFields } from 'vuex-map-fields';
+  const { mapFields } = createHelpers({
+    getterType: `tab_personal_info/getField`,
+    mutationType: `tab_personal_info/updateField`,
+  });
   export default {
     name: "TabPersonalInfo",
     computed: {
-      ...mapState('tab_personal_info', ['lastname_personal_info_tab','lastname_personal_info','gender', 'identityCardCode', 'otherCountryRegion', 'langInfo', 'languageName',]),
-      ...mapGetters('tab_personal_info', ['GET_LASTNAME_PERSONAL_INFO','GET_GENDER', 'GET_IDENTITY_CARD_CODE', 'GET_OTHER_COUNTRY_REGION', 'GET_LANGINFO']),
-      ...mapMutations('tab_personal_info', ['set_lastname_personal_info_tab']),
-      // ...mapActions('tab_personal_info', ['SET_LASTNAME_PERSONAL_INFO']),
+      // ...mapState('tab_personal_info', ['lastname_personal_info_tab','lastname_personal_info','gender', 'identityCardCode', 'otherCountryRegion', 'langInfo', 'languageName',]),
+      // ...mapGetters('tab_personal_info', ['GET_LASTNAME_PERSONAL_INFO','GET_GENDER', 'GET_IDENTITY_CARD_CODE', 'GET_OTHER_COUNTRY_REGION', 'GET_LANGINFO']),
+      // ...mapMutations('tab_personal_info', ['set_lastname_personal_info_tab']),
+
+      ...mapFields(['tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
+        'tab_personal_middlename','tab_personal_birthDate','tab_personal_age',
+        ' tab_personal_seniority','tab_personal_employYears','tab_personal_employMonths',
+        'tab_personal_employDays','tab_personal_lastname_genitive','tab_personal_firstname_genitive',
+        'tab_personal_middlename_genitive','tab_personal_contactPersonNameGenitive',
+        'tab_personal_identityCardSeries','tab_personal_identityCardNumber',
+        'tab_personal_identityCardIssueDate','tab_personal_identityCardIssueDep','tab_personal_identityCardIssueBy',
+        'tab_personal_cellularPhone','tab_personal_isCompatriot', 'tab_personal_selectedGender',
+        'tab_personal_selectedIdentityCardCode','tab_personal_selectedForeignLanguageInfo',
+        'tab_personal_selectedCitizenship'
+      ]),
+
+      // gender() {
+      //   return this.$store.getters.GET_GENDER;
+      // },
+      // identityCardCode() {
+      //   return this.$store.getters.GET_IDENTITY_CARD_CODE;
+      // },
+      // otherCountryRegion() {
+      //   return this.$store.getters.GET_OTHER_COUNTRY_REGION;
+      // },
+      // langInfo() {
+      //   return this.$store.getters.GET_LANGINFO;
+      // },
 
 
-      lastname_personal_info: {
-        get () {
-          return this.$store.getters.GET_LASTNAME_PERSONAL_INFO
-        },
-        set (payload) {
-          this.$store.commit('tab_personal_info/SET_LASTNAME_PERSONAL_INFO', payload)
-          // this.$store.dispatch('tab_personal_info/SET_LASTNAME_PERSONAL_INFO', payload)
-        }
-      },
 
-      gender() {
-        return this.$store.getters.GET_GENDER;
-      },
-      identityCardCode() {
-        return this.$store.getters.GET_IDENTITY_CARD_CODE;
-      },
-      otherCountryRegion() {
-        return this.$store.getters.GET_OTHER_COUNTRY_REGION;
-      },
-      langInfo() {
-        return this.$store.getters.GET_LANGINFO;
-      },
 
       fullname: function () {
-        return this.name = this.lastname + ' ' + this.firstname + ' ' + this.middlename
+        return this.tab_personal_name = this.tab_personal_lastname + ' ' + this.tab_personal_firstname + ' ' + this.tab_personal_middlename
       },
       fullnameGenitive: function () {
-        return this.contactPersonNameGenitive = this.lastname_genitive + ' ' + this.firstname_genitive + ' ' + this.middlename_genitive
+        return this.tab_personal_contactPersonNameGenitive = this.tab_personal_lastname_genitive + ' ' + this.tab_personal_firstname_genitive + ' ' + this.tab_personal_middlename_genitive
       },
 
       //TODO проверить
       fullage: function () {
         var today = new Date();
-        var birth = new Date(this.birthDate);
+        var birth = new Date(this.tab_personal_birthDate);
         var age = today.getFullYear() - birth.getFullYear();
         var m = today.getMonth() - birth.getMonth();
         if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
@@ -319,15 +331,15 @@
       },
 
       fullseniority: function () {
-        return this.seniority = this.employYears + ',' + this.employMonths
+        return this.tab_personal_seniority = this.tab_personal_employYears + ',' + this.tab_personal_employMonths
       },
 
     },
     mounted() {
-      this.$store.dispatch('tab_personal_info/onLoadGender');
-      this.$store.dispatch('tab_personal_info/onLoadIdentityCardCode');
-      this.$store.dispatch('tab_personal_info/onLoadOtherCountryRegion');
-      this.$store.dispatch('tab_personal_info/onLoadLangInfo');
+      this.$store.dispatch('enums/onLoadGender');
+      this.$store.dispatch('dictionary/onLoadIdentityCardCode');
+      this.$store.dispatch('dictionary/onLoadOtherCountryRegion');
+      this.$store.dispatch('enums/onLoadLangInfo');
 
     },
     methods: {
@@ -351,33 +363,33 @@
     },
     data() {
       return {
-        name: '',
-        lastname: '',
-        firstname: '',
-        middlename: '',
-        birthDate: '',
-        age: '',
-        seniority: '',
-        employYears: '',
-        employMonths: '',
-        employDays: '',
-        lastname_genitive: '',
-        firstname_genitive: '',
-        middlename_genitive: '',
-        contactPersonNameGenitive: '',
-        identityCardSeries: '',
-        identityCardNumber: '',
-        identityCardIssueBy: '',
-        cellularPhone:'',
-
-        isCompatriot:false,
-
-
-        //test data
-        selectedGender: '',
-        selectedIdentityCardCode: '',
-        selectedForeignLanguageInfo:'',
-        selectedCitizenship:'',
+        // name: '',
+        // lastname: '',
+        // firstname: '',
+        // middlename: '',
+        // birthDate: '',
+        // age: '',
+        // seniority: '',
+        // employYears: '',
+        // employMonths: '',
+        // employDays: '',
+        // lastname_genitive: '',
+        // firstname_genitive: '',
+        // middlename_genitive: '',
+        // contactPersonNameGenitive: '',
+        // identityCardSeries: '',
+        // identityCardNumber: '',
+        // identityCardIssueBy: '',
+        // cellularPhone:'',
+        //
+        // isCompatriot:false,
+        //
+        //
+        // //test data
+        // selectedGender: '',
+        // selectedIdentityCardCode: '',
+        // selectedForeignLanguageInfo:'',
+        // selectedCitizenship:'',
 
         options_gender: [
           {id: 0, item: '-выберите пол-'},

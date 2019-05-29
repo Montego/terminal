@@ -2,9 +2,9 @@
   <div>
     <tabs class="parent_tabs">
       <tab id="" name="Обзор">
-        <div class="row">
-          <button>Добавить</button>
-        </div>
+        <!--<div class="row">-->
+          <!--<button>Добавить</button>-->
+        <!--</div>-->
         <v-data-table
           :headers="headers_parent"
           :items="info_parent"
@@ -18,6 +18,7 @@
             <td class="text-xs-center">{{ props.item.name_parent }}</td>
             <td class="text-xs-center">{{ props.item.patronymic_parent}}</td>
             <td class="text-xs-center">{{ props.item.gender_parent}}</td>
+            <td class="text-xs-center">{{ props.item.acions}}</td>
           </template>
         </v-data-table>
       </tab>
@@ -191,7 +192,7 @@
           {text: 'Имя', value: 'name_parent', sortable: false, align: 'center'},
           {text: 'Отчество', value: 'patronymic_parent', sortable: false, align: 'center'},
           {text: 'Пол', value: 'gender_parent', sortable: false, align: 'center'},
-
+          {text: 'Действия', value: 'actions', sortable: false, align: 'center'},
         ],
         info_parent: [],
       }

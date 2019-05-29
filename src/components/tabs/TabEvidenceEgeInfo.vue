@@ -3,9 +3,9 @@
     <tabs class="ege_tabs">
       <tab id="" name="Обзор">
         <!--<tab id="" name="Свидетельства ЕГЭ">-->
-        <div class="row">
-          <button>Добавить</button>
-        </div>
+        <!--<div class="row">-->
+          <!--<button>Добавить</button>-->
+        <!--</div>-->
         <div class="row">
 
           <div class="col-sm">
@@ -21,6 +21,7 @@
                 <td class="text-xs-center">{{ props.item.ege_ball_1}}</td>
                 <td class="text-xs-center">{{ props.item.ege_ball_2}}</td>
                 <td class="text-xs-center">{{ props.item.ege_appeal_status}}</td>
+                <td class="text-xs-center">{{ props.item.actions}}</td>
               </template>
             </v-data-table>
 
@@ -77,56 +78,56 @@
             <div>
               <label class="row">
                 <div class="form__label-text col-sm">Фамилия:</div>
-                <input v-model="lastname" class="form__input col-sm" type="text" name="" placeholder=""/>
+                <input v-model="tab_ege_lastname" class="form__input col-sm" type="text" name="" placeholder=""/>
               </label>
-              <span class="alarm_label" v-if="lastname===''">Не заполнено поле "Фамилия"</span>
+              <span class="alarm_label" v-if="tab_ege_lastname===''">Не заполнено поле "Фамилия"</span>
               <label class="row">
                 <div class="form__label-text col-sm">Имя:</div>
-                <input v-model="firstname" class="form__input col-sm" type="text" name="" placeholder=""/>
+                <input v-model="tab_ege_firstname" class="form__input col-sm" type="text" name="" placeholder=""/>
               </label>
-              <span class="alarm_label" v-if="firstname===''">Не заполнено поле "Имя"</span>
-              <span class="alarm_label" v-else-if="firstname===lastname">Имя не может совпадать с фамилией</span>
+              <span class="alarm_label" v-if="tab_ege_firstname===''">Не заполнено поле "Имя"</span>
+              <span class="alarm_label" v-else-if="tab_ege_firstname===tab_ege_lastname">Имя не может совпадать с фамилией</span>
               <label class="row">
                 <div class="form__label-text col-sm">Отчество:</div>
-                <input v-model="middlename" class="form__input col-sm" type="text" name="" placeholder=""/>
+                <input v-model="tab_ege_middlename" class="form__input col-sm" type="text" name="" placeholder=""/>
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Документ</div>
-                <select v-model="selectedIdentityCardCode" class="col-sm">
+                <select v-model="tab_ege_selectedIdentityCardCode" class="col-sm">
                   <option v-for="option in options_identityCardCode">
                     {{option.item}}
                   </option>
                 </select>
-                <input v-model="selectedIdentityCardCode" class="form__input col-sm-12" type="text" name="" placeholder="Заполняется автоматически"
+                <input v-model="tab_ege_selectedIdentityCardCode" class="form__input col-sm-12" type="text" name="" placeholder="Заполняется автоматически"
                        disabled="disabled"/>
               </label>
-              <span class="alarm_label" v-if="selectedIdentityCardCode===''">Не выбран тип документа</span>
+              <span class="alarm_label" v-if="tab_ege_selectedIdentityCardCode===''">Не выбран тип документа</span>
               <label class="row">
                 <div class="form__label-text col-sm">Серия:</div>
-                <input v-if="selectedIdentityCardCode === 'Паспорт РФ'" v-model="identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>
-                <input v-else-if="selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***" v-mask="'###-###'" required/>
-                <input v-else v-model="identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
+                <input v-if="tab_ege_selectedIdentityCardCode === 'Паспорт РФ'" v-model="tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>
+                <input v-else-if="tab_ege_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***" v-mask="'###-###'" required/>
+                <input v-else v-model="tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
                 <!--<input v-model="identityCardSeries" class="form__input col-sm" type="text" name="" placeholder=""/>-->
               </label>
-              <span class="alarm_label" v-if="identityCardSeries===''">Не заполнено поле "Серия"</span>
-              <span class="alarm_label" v-else-if="identityCardSeries.length<4 & selectedIdentityCardCode === 'Паспорт РФ'">Серия должна содержать 4 цифры</span>
+              <span class="alarm_label" v-if="tab_ege_identityCardSeries===''">Не заполнено поле "Серия"</span>
+              <span class="alarm_label" v-else-if="tab_ege_identityCardSeries.length<4 & tab_ege_selectedIdentityCardCode === 'Паспорт РФ'">Серия должна содержать 4 цифры</span>
 
               <label class="row">
                 <div class="form__label-text col-sm">Номер:</div>
                 <!--<input v-model="identityCardNumber" class="form__input col-sm" type="text" name="" placeholder=""/>-->
-                <input v-if="selectedIdentityCardCode === 'Паспорт РФ'" v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="******" v-mask="'######'" required/>
-                <input v-else-if="selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***-***" v-mask="'###-###-###'" required/>
-                <input v-else v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_serial"required/>
+                <input v-if="tab_ege_selectedIdentityCardCode === 'Паспорт РФ'" v-model="tab_ege_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="******" v-mask="'######'" required/>
+                <input v-else-if="tab_ege_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_ege_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***-***" v-mask="'###-###-###'" required/>
+                <input v-else v-model="tab_ege_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial"required/>
               </label>
-              <span class="alarm_label" v-if="identityCardNumber===''">Не заполнено поле "Номер"</span>
-              <span class="alarm_label" v-else-if="identityCardNumber.length<6 & selectedIdentityCardCode === 'Паспорт РФ'">Номер должен содержать 6 цифр</span>
+              <span class="alarm_label" v-if="tab_ege_identityCardNumber===''">Не заполнено поле "Номер"</span>
+              <span class="alarm_label" v-else-if="tab_ege_identityCardNumber.length<6 & tab_ege_selectedIdentityCardCode === 'Паспорт РФ'">Номер должен содержать 6 цифр</span>
               <label class="row">
                 <div class="form__label-text col-sm">Дата выдачи:</div>
-                <input v-model="identityCardIssueDate" class="form__input col-sm" type="date" name="" placeholder=""/>
+                <input v-model="tab_ege_identityCardIssueDate" class="form__input col-sm" type="date" name="" placeholder=""/>
               </label>
               <label class="row">
                 <div class="form__label-text col-sm-2">Кем выдан:</div>
-                <textarea v-model="identityCardIssueBy" class="col-sm-10" name=""></textarea>
+                <textarea v-model="tab_ege_identityCardIssueBy" class="col-sm-10" name=""></textarea>
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Гражданство</div>
@@ -148,21 +149,21 @@
             <hr>
             <label class="row">
               <div class="form__label-text col-sm">№ свидетельства:</div>
-              <input v-model="documentNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-model="tab_ege_documentNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
-            <span class="alarm_label" v-if="documentNumber===''">Не заполнено поле "№ свидетельства"</span>
+            <span class="alarm_label" v-if="tab_ege_documentNumber===''">Не заполнено поле "№ свидетельства"</span>
             <label class="row">
               <div class="form__label-text col-sm">Дата выдачи:</div>
               <input class="form__input col-sm" type="date" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Типографский №:</div>
-              <input v-model="typographyNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-model="tab_ege_typographyNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
-            <span class="alarm_label" v-if="typographyNumber===''">Не заполнено поле "Типографский №"</span>
+            <span class="alarm_label" v-if="tab_ege_typographyNumber===''">Не заполнено поле "Типографский №"</span>
             <label class="row">
               <div class="form__label-text col-sm">Сумма баллов:</div>
-              <input  v-model="sumScores" class="form__input col-sm" type="number" name="" placeholder=""/>
+              <input  v-model="tab_ege_sumScores" class="form__input col-sm" type="number" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Копия/оригинал:</div>
@@ -197,7 +198,7 @@
             <hr>
             <label class="row">
               <div class="form__label-text col-sm">Предмет(1):</div>
-              <select v-model="selectedSubject1" class="col-sm">
+              <select v-model="tab_ege_selectedSubject1" class="col-sm">
                 <option v-for="option in options_subject">
                   {{option.item}}
                 </option>
@@ -206,7 +207,7 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm-6">Балл(1):</div>
-              <input v-model="score1" class="form__input col-sm-6" type="number" name="" placeholder=""/>
+              <input v-model="tab_ege_score1" class="form__input col-sm-6" type="number" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Балл (ФИС)(1):</div>
@@ -220,7 +221,7 @@
             <label class="row">
               <div class="form__label-text col-sm">Предмет(2):</div>
               <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
-              <select v-model="selectedSubject2" class="col-sm">
+              <select v-model="tab_ege_selectedSubject2" class="col-sm">
                 <option v-for="option in options_subject">
                   {{option.item}}
                 </option>
@@ -228,7 +229,7 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm-6">Балл(2):</div>
-              <input v-model="score2" class="form__input col-sm-6" type="number" name="" placeholder=""/>
+              <input v-model="tab_ege_score2" class="form__input col-sm-6" type="number" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Балл (ФИС)(2):</div>
@@ -242,14 +243,14 @@
             <label class="row">
               <div class="form__label-text col-sm">Предмет(3):</div>
               <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
-              <select v-model="selectedSubject3" class="col-sm">
+              <select v-model="tab_ege_selectedSubject3" class="col-sm">
                 <option v-for="option in options_subject">
                   {{option.item}}
                 </option>
               </select>
             </label>
             <label class="row">
-              <div v-model="score3" class="form__label-text col-sm-6">Балл(3):</div>
+              <div v-model="tab_ege_score3" class="form__label-text col-sm-6">Балл(3):</div>
               <input class="form__input col-sm-6" type="number" name="" placeholder=""/>
             </label>
             <label class="row">
@@ -263,9 +264,7 @@
             <hr>
           </div>
 
-          <!--<br>-->
-          <!--<input v-model="name"/>-->
-          <!--{{this.$store.state.lastname_evidence_ege}}-->
+
         </div>
       </tab>
     </tabs>
@@ -273,56 +272,67 @@
 </template>
 
 <script>
-  import {mapGetters, mapState, mapActions, mapMutations} from 'vuex'
-  import tab_evidence_ege_info from "../../store/modules/tab_evidence_ege_info";
-  import tab_personal_info from "../../store/modules/tab_personal_info";
+
+  import { createHelpers } from 'vuex-map-fields';
+  import { mapMultiRowFields } from 'vuex-map-fields';
+  const { mapFields:tab_evidence_ege_info_fields } = createHelpers({
+    getterType: `tab_evidence_ege_info/getField`,
+    mutationType: `tab_evidence_ege_info/updateField`,
+  });
+  const { mapFields:tab_personal_info_fields } = createHelpers({
+    getterType: 'tab_personal_info/getField',
+    mutationType: 'tab_personal_info/updateField',
+  });
 
   export default {
     name: "TabEvidenceEge",
     mounted () {
       console.log(2222)
       console.log(this.$store.getters)
-      this.$store.commit('Test',)
+      // this.$store.commit('Test',)
     },
     computed: {
-      ...mapState('tab_evidence_ege_info', ['name',]),
-      ...mapGetters('tab_evidence_ege_info', ['GET_NAME']),
+      ...tab_evidence_ege_info_fields(['tab_ege_lastname', 'tab_ege_firstname', 'tab_ege_middlename',
+        'tab_ege_identityCardSeries','tab_ege_identityCardNumber','tab_ege_identityCardIssueDate',
+        'tab_ege_identityCardIssueBy','tab_ege_documentNumber','tab_ege_typographyNumber',
+        'tab_ege_sumScores','tab_ege_score1','tab_ege_score2','tab_ege_score3','tab_ege_selectedSubject1',
+        'tab_ege_selectedSubject2','tab_ege_selectedSubject3','tab_ege_selectedIdentityCardCode'
+      ]),
+      ...tab_personal_info_fields(['tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename',
+       'tab_personal_selectedIdentityCardCode','tab_personal_identityCardSeries','tab_personal_identityCardNumber',
+        'tab_personal_identityCardIssueDate','tab_personal_identityCardIssueDep','tab_personal_identityCardIssueBy'
 
+
+      ]),
+      // ...mapMultiRowFields(['gender','']),
       // fullscore: function () {
       //   return this.sumScores = parseInt(this.score1)+ parseInt(this.score2) + parseInt(this.score3)
       // },
 
-      name: {
-        get () {
-          return this.$store.state.name
-        },
-        set (payload) {
-          this.$store.commit('ON_UPDATE_NAME', payload)
-        }
-      },
+
     },
     data() {
       return {
         // lastname_evidence_ege:'',
-        lastname:'',
-        firstname:'',
-        middlename:'',
-        identityCardSeries:'',
-        identityCardNumber:'',
-        identityCardIssueDate:'',
-        identityCardIssueBy:'',
-
-        documentNumber:'',
-        typographyNumber:'',
-        sumScores: '',
-        score1:'',
-        score2:'',
-        score3:'',
-
-        selectedSubject1: '',
-        selectedSubject2: '',
-        selectedSubject3: '',
-        selectedIdentityCardCode: '',
+        // lastname:'',
+        // firstname:'',
+        // middlename:'',
+        // identityCardSeries:'',
+        // identityCardNumber:'',
+        // identityCardIssueDate:'',
+        // identityCardIssueBy:'',
+        //
+        // documentNumber:'',
+        // typographyNumber:'',
+        // sumScores: '',
+        // score1:'',
+        // score2:'',
+        // score3:'',
+        //
+        // selectedSubject1: '',
+        // selectedSubject2: '',
+        // selectedSubject3: '',
+        // selectedIdentityCardCode: '',
 
         options_subject: [
           {id: 1, item: 'Биология'},
@@ -371,6 +381,7 @@
           {text: 'Год', value: 'ege_evidence_year_ege', sortable: false, align: 'center'},
           {text: 'Статус', value: 'ege_evidence_date_status', sortable: false, align: 'center'}
 
+
         ],
         info_ege_evidence: [],
 
@@ -379,6 +390,7 @@
           {text: 'Балл', value: 'ege_ball_1', sortable: false, align: 'center'},
           {text: 'Балл(ФИС)', value: 'ege_ball_2', sortable: false, align: 'center'},
           {text: 'Статус апелляция', value: 'ege_appeal_status', sortable: false, align: 'center'},
+          {text: 'Действия', value: 'actions', sortable: false, align: 'center'}
         ],
         info_ege_subjects: [],
       }
@@ -389,6 +401,15 @@
       // },
 
       onCopyInfoFromProfileTab() {
+        this.tab_ege_lastname = this.tab_personal_lastname;
+        this.tab_ege_firstname =  this.tab_personal_firstname;
+        this.tab_ege_middlename =  this.tab_personal_middlename;
+        this.tab_ege_identityCardSeries = this.tab_personal_identityCardSeries;
+        this.tab_ege_identityCardNumber = this.tab_personal_identityCardNumber;
+        this.tab_ege_identityCardIssueDate = this.tab_personal_identityCardIssueDate;
+        this.tab_ege_identityCardIssueBy = this.tab_personal_identityCardIssueBy;
+        this.tab_ege_selectedIdentityCardCode = this.tab_personal_selectedIdentityCardCode;
+
 
         // this.name =  this.lastname_personal_info;
         // this.$store.dispatch('tab_evidence_ege_info/ON_SET_LASTNAME_EVIDENCE_EGE',this.$store.getters.GET_LASTNAME_PERSONAL_INFO);

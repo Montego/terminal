@@ -1,26 +1,39 @@
+import { getField, updateField } from 'vuex-map-fields';
+
 export default {
   namespaced: true,
   state: {
-    // lastname_evidence_ege: 'test test ege'
-    name:'',
+    tab_ege_lastname:'',
+    tab_ege_firstname:'',
+    tab_ege_middlename:'',
+    tab_ege_identityCardSeries:'',
+    tab_ege_identityCardNumber:'',
+    tab_ege_identityCardIssueDate:'',
+    tab_ege_identityCardIssueBy:'',
+
+    tab_ege_documentNumber:'',
+    tab_ege_typographyNumber:'',
+    tab_ege_sumScores: '',
+    tab_ege_score1:'',
+    tab_ege_score2:'',
+    tab_ege_score3:'',
+
+    tab_ege_selectedSubject1: '',
+    tab_ege_selectedSubject2: '',
+    tab_ege_selectedSubject3: '',
+    tab_ege_selectedIdentityCardCode: '',
 
   },
   getters: {
-      GET_NAME: (state) => {
-        return state.name
-      },
-    },
+
+    getField,
+  },
   mutations: {
-    SET_NAME: (state, payload) => {
-      state.name = payload
-    }
-  }
-  ,
+
+    updateField,
+  },
 
   actions: {
-    ON_UPDATE_NAME({commit}, payload){
-      commit('SET_NAME',payload)
-    },
 
     test(){
       'console.log(‘we trust in god’)';
@@ -28,28 +41,8 @@ export default {
     Test({commit}){
       Console.log('tatatat');
     }
-
-    // ON_UPDATE_NAME (context, payload) {
-    //   context.commit('SET_NAME', payload)
-    // },
   },
 
-  // getters: {
-  //   GET_LASTNAME_EVIDENCE_EGE: (state) => {
-  //     return state.lastname_evidence_ege
-  //   },
-  // },
-
-  // mutations: {
-  //   UPDATE_LASTNAME_EVIDENCE_EGE: (state, payload) => {
-  //     state.lastname_evidence_ege = payload
-  //   },
-  // },
-  // actions: {
-  //   // ON_SET_LASTNAME_EVIDENCE_EGE (context, payload) {
-  //   //   context.commit('SET_LASTNAME_EVIDENCE_EGE', payload)
-  //   // },
-  // },
   computed: {
   }
 }
