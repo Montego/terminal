@@ -30,28 +30,31 @@
             <hr>
             <label class="row">
               <div class="form__label-text col-sm">Ф.И.О.</div>
-              <input class="form__input col-sm" type="text" name="" placeholder="Заполняется автоматически"
+              <input v-model="fullname" class="form__input col-sm" type="text" name="" placeholder="Заполняется автоматически"
                      disabled="disabled"/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Кем приходится:</div>
-              <select class="col-sm" name="">
-                <option>Мать</option>
-                <option>Отец</option>
-                <option>Другое</option>
+              <select v-model="selectedFamRelationShip" class="col-sm">
+                <option v-for="option in options_FamRelationShip">
+                  {{option.item}}
+                </option>
               </select>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Фамилия:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-model="parent_lastname" class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
+            <span class="alarm_label" v-if="parent_lastname===''">Не заполнено поле "Фамилия"</span>
             <label class="row">
               <div class="form__label-text col-sm">Имя:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-model="parent_firstname" class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
+            <span class="alarm_label" v-if="parent_firstname===''">Не заполнено поле "Имя"</span>
+            <span class="alarm_label" v-else-if="parent_firstname===parent_lastname && parent_firstname!==''">Имя не может совпадать с фамилией</span>
             <label class="row">
               <div class="form__label-text col-sm">Отчество:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-model="parent_middletname" class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Пол:</div>
@@ -63,11 +66,11 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Дата рождения:</div>
-              <input class="form__input col-sm" type="date" name="" placeholder=""/>
+              <input v-model="parent_birthDate" class="form__input col-sm" type="date" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Полных лет</div>
-              <input class="form__input col-sm" type="text" name="" placeholder="Заполняется автоматически"
+              <input v-model="fullage" class="form__input col-sm" type="text" name="" placeholder="Заполняется автоматически"
                      disabled="disabled"/>
             </label>
             <div>
@@ -102,8 +105,14 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Мобильный телефон:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder="" v-mask="'+7-###-###-##-##'"/>
+              <input v-model="parent_cellularPhone" class="form__input col-sm" type="text" name="mobile_number" v-mask="'+7-###-###-##-##'"/>
             </label>
+            <span class="alarm_label" v-if="parent_cellularPhone===''">Не заполнено поле "Мобильный телефон"</span>
+            <span class="alarm_label" v-else-if="parent_cellularPhone.length<16">Некорректно заполнено поле "Мобильный телефон"</span>
+            <!--<label class="row">-->
+              <!--<div class="form__label-text col-sm">Мобильный телефон:</div>-->
+              <!--<input class="form__input col-sm" type="text" name="" placeholder="" v-mask="'+7-###-###-##-##'"/>-->
+            <!--</label>-->
 
             <div>
               <p>Адрес фактический</p>
@@ -150,8 +159,31 @@
 <script>
   export default {
     name: "TabParentInfo",
+
     data() {
       return {
+        parent_lastname:'',
+        parent_firstname:'',
+        parent_middletname:'',
+        parent_birthDate:'',
+        parent_cellularPhone:'',
+
+
+        selectedFamRelationShip:'',
+
+        options_FamRelationShip: [
+          {id: 1, item: 'Брат'},
+          {id: 2, item: 'Дети'},
+          {id: 3, item: 'Дядя'},
+          {id: 4, item: 'Жена'},
+          {id: 4, item: 'Мать'},
+          {id: 4, item: 'Муж'},
+          {id: 4, item: 'Опекун'},
+          {id: 4, item: 'Отец'},
+          {id: 4, item: 'Отчим'},
+          {id: 4, item: 'Сестра'},
+        ],
+
         headers_parent: [
           {text: 'Кем приходится', value: 'who_parent', sortable: false, align: 'center'},
           {text: 'Ф.И.О.', value: 'snp_parent', sortable: false, align: 'center'},
@@ -163,7 +195,22 @@
         ],
         info_parent: [],
       }
-    }
+    },
+    computed: {
+      fullname: function () {
+        return this.name = this.parent_lastname + ' ' + this.parent_firstname + ' ' + this.parent_middletname
+      },
+      fullage: function () {
+        var today = new Date();
+        var birth = new Date(this.parent_birthDate);
+        var age = today.getFullYear() - birth.getFullYear();
+        var m = today.getMonth() - birth.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+          age--;
+        }
+        return age;
+      },
+    },
 
 
   }
@@ -253,6 +300,9 @@
   label.row {
     margin-bottom: 3px;
   }
-
+  .alarm_label {
+    /*text-align: left;*/
+    color: red;
+  }
 
 </style>

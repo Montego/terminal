@@ -24,7 +24,6 @@
         <label class="row">
           <div class="form__label-text col-sm">Имя</div>
           <input v-model="firstname" class="form__input col-sm" type="text" name="firstname" required/>
-
         </label>
         <span class="alarm_label" v-if="firstname===''">Не заполнено поле "Имя"</span>
         <span class="alarm_label" v-else-if="firstname===lastname">Имя не может совпадать с фамилией</span>
@@ -124,6 +123,9 @@
           <input v-else-if="selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***-***" v-mask="'###-###-###'" required/>
           <input v-else v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_serial"required/>
         </label>
+        <span class="alarm_label" v-if="identityCardNumber===''">Не заполнено поле "Номер"</span>
+        <span class="alarm_label" v-else-if="identityCardNumber.length<6 & selectedIdentityCardCode === 'Паспорт РФ'">Номер должен содержать 6 цифр</span>
+
         <label class="row">
           <div class="form__label-text col-sm">Кем выдан:</div>
           <textarea class="col-sm" name="doc_issued_by"></textarea>
@@ -140,14 +142,16 @@
       </div>
       <label class="row">
         <div class="form__label-text col-sm">Гражданство:</div>
-        <select class="col-sm" name="citizenship">
-          <option>РФ</option>
-          <option>Не РФ</option>
+        <select v-model="selectedCitizenship" class="col-sm">
+          <option v-for="option in options_citizenship">
+            {{option.item}}
+          </option>
         </select>
       </label>
       <label class="row">
         <div class="form__label-text col-sm">Соотечественник:</div>
-        <input class="checkbox col-sm" type="checkbox" id="compatriot">
+        <input v-if="selectedCitizenship=='РФ'" v-model="isCompatriot" class="checkbox col-sm" type="checkbox" id="compatriot" disabled="disabled">
+        <input v-else="selectedCitizenship=='РФ'" v-model="isCompatriot" class="checkbox col-sm" type="checkbox" id="">
       </label>
       <label class="alarm_label">(При наличии подтверждающих документов)</label>
       <label class="row">
@@ -218,18 +222,19 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Стаж, лет:</div>
-          <input v-model="employYears" class="form__input col-sm" type="number" name="employYears" placeholder=""/>
+          <input v-model="employYears" class="form__input col-sm" type="number" v-mask="'##'" name="employYears" placeholder=""/>
         </label>
         <span class="alarm_label" v-if="employYears>100">Люди столько не живут</span>
         <label class="row">
           <div class="form__label-text col-sm">Стаж, месяцев:</div>
-          <input v-model="employMonths" class="form__input col-sm" type="number" name="employMonths" placeholder=""/>
+          <input v-model="employMonths" class="form__input col-sm" type="number" v-mask="'##'" name="employMonths" placeholder=""/>
         </label>
-        <span class="alarm_label" v-if="employMonths>11">В году только 12 месяцев</span>
-        <!--<label class="row">-->
-        <!--<div class="form__label-text col-sm">Стаж, дней:</div>-->
-        <!--<input class="form__input col-sm" type="number" name="seniority_day" placeholder=""/>-->
-        <!--</label>-->
+        <span class="alarm_label" v-if="employMonths>11">Стаж, месяцев должен быть в диапазоне от 0 до 11</span>
+        <label class="row">
+        <div class="form__label-text col-sm">Стаж, дней:</div>
+        <input v-model="employDays" class="form__input col-sm" type="number" v-mask="'##'" name="seniority_day" placeholder=""/>
+        </label>
+        <span class="alarm_label" v-if="employDays>31">Стаж, дней должен быть в диапазоне от 0 до 31</span>
         <div>
           <p>Иностранные языки</p>
         </div>
@@ -251,7 +256,7 @@
         <div v-if="selectedForeignLanguageInfo==='изучал'">
             оп-па
         </div>
-
+        <!--<input v-model="lastname_personal_info_tab">-->
 
       </div>
     </div>
@@ -265,14 +270,13 @@
   export default {
     name: "TabPersonalInfo",
     computed: {
-      ...mapState('tab_personal_info', ['lastname_personal_info','gender', 'identityCardCode', 'otherCountryRegion', 'langInfo', 'languageName',]),
+      ...mapState('tab_personal_info', ['lastname_personal_info_tab','lastname_personal_info','gender', 'identityCardCode', 'otherCountryRegion', 'langInfo', 'languageName',]),
       ...mapGetters('tab_personal_info', ['GET_LASTNAME_PERSONAL_INFO','GET_GENDER', 'GET_IDENTITY_CARD_CODE', 'GET_OTHER_COUNTRY_REGION', 'GET_LANGINFO']),
-      ...mapMutations('tab_personal_info', ['SET_LASTNAME_PERSONAL_INFO']),
+      ...mapMutations('tab_personal_info', ['set_lastname_personal_info_tab']),
       // ...mapActions('tab_personal_info', ['SET_LASTNAME_PERSONAL_INFO']),
 
 
       lastname_personal_info: {
-
         get () {
           return this.$store.getters.GET_LASTNAME_PERSONAL_INFO
         },
@@ -356,6 +360,7 @@
         seniority: '',
         employYears: '',
         employMonths: '',
+        employDays: '',
         lastname_genitive: '',
         firstname_genitive: '',
         middlename_genitive: '',
@@ -365,10 +370,14 @@
         identityCardIssueBy: '',
         cellularPhone:'',
 
+        isCompatriot:false,
+
+
         //test data
         selectedGender: '',
         selectedIdentityCardCode: '',
         selectedForeignLanguageInfo:'',
+        selectedCitizenship:'',
 
         options_gender: [
           {id: 0, item: '-выберите пол-'},
@@ -398,13 +407,14 @@
           {id: 18, item: 'СпрУдЛичн'},
           {id: 19, item: 'УдЛичности'},
           {id: 20, item: 'УдОфицера'},
-
         ]
 
         ,
         options_citizenship: [
           {id: 1, item: 'РФ'},
           {id: 2, item: 'Казахстан'},
+          {id: 2, item: 'Руанда'},
+          {id: 2, item: 'СССР'},
         ],
         options_foreignLanguageInfo: [
           {id: 1, item: 'изучал'},
@@ -497,7 +507,6 @@
 
   .alarm_label {
     /*text-align: left;*/
-
     color: red;
   }
 

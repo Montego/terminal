@@ -8,12 +8,13 @@
       <div>
         <label class="row">
           <div class="form__label-text col-sm">Уровень образования:</div>
-          <select class="col-sm-2" name="">
-            <option>код 1</option>
-            <option>код 2</option>
-            <option>код 3</option>
+
+          <select v-model="selectedEduLevel" class="col-sm">
+            <option v-for="option in options_eduLvl">
+              {{option.item}}
+            </option>
           </select>
-          <input class="form__input col-sm-6" type="text" name="" placeholder="Заполняется автоматически"
+          <input v-model="selectedEduLevel" class="form__input col-sm-6" type="text" name="" placeholder="Заполняется автоматически"
                  disabled="disabled"/>
         </label>
       </div>
@@ -58,22 +59,25 @@
       <div>
         <label class="row">
           <div class="form__label-text col-sm">Документ об образовании:</div>
-          <select class="col-sm-2" name="">
-            <option>код 1</option>
-            <option>код 2</option>
-            <option>код 3</option>
+          <select v-model="selectedEduDoc" class="col-sm-6">
+            <option v-for="option in options_eduDoc">
+              {{option.item}}
+            </option>
           </select>
-          <input class="form__input col-sm" type="text" name="" placeholder="Заполняется автоматически"
+          <input v-model="selectedEduDoc" class="form__input col-sm-12" type="text" name="" placeholder="Заполняется автоматически"
                  disabled="disabled"/>
         </label>
+        <span class="alarm_label" v-if="selectedEduDoc===''">Не выбран документ об образовании</span>
         <label class="row">
           <div class="form__label-text col-sm">Серия:</div>
-          <input class="form__input col-sm" type="number" name="" placeholder=""/>
+          <input v-model="eduDocSerial" class="form__input col-sm" type="text" name="" placeholder=""/>
         </label>
+        <span class="alarm_label" v-if="eduDocSerial===''">Не заполнено поле "Серия"</span>
         <label class="row">
           <div class="form__label-text col-sm">Номер:</div>
-          <input class="form__input col-sm" type="number" name="" placeholder=""/>
+          <input v-model="eduDocNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
         </label>
+        <span class="alarm_label" v-if="eduDocNumber===''">Не заполнено поле "Номер"</span>
         <label class="row">
           <div class="form__label-text col-sm">Дата выдачи:</div>
           <input class="form__input col-sm" type="date" name="" placeholder=""/>
@@ -84,18 +88,21 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Серия приложения:</div>
-          <input class="form__input col-sm" type="number" name="" placeholder=""/>
+          <input class="form__input col-sm" type="text" name="" placeholder=""/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Номер приложения:</div>
-          <input class="form__input col-sm" type="number" name="" placeholder=""/>
+          <input class="form__input col-sm" type="text" name="" placeholder=""/>
         </label>
+
         <label class="row">
-          <div class="form__label-text col-sm">Средний балл:</div>
-          <input class="form__input col-sm" type="text" name="" placeholder="Заполняется автоматически"
+          <div class="form__label-text col-sm-6">Средний балл:</div>
+          <button class="calculate_score col-sm-4">Расчет среднего балла</button>
+          <input class="form__input col-sm-2 " type="text" name="" placeholder="---"
                  disabled="disabled"/>
-          <button class="calculate_score">Расчет среднего балла</button>
         </label>
+
+
       </div>
     </div>
     <div class="col-sm">
@@ -106,21 +113,24 @@
       <div>
         <label class="row">
           <div class="form__label-text col-sm">Отношение к военной службе:</div>
-          <select class="col-sm" name="">
-            <option>Невоеннообязанный</option>
-            <option>Военнообязанный</option>
-            <option>Другое</option>
+          <select v-model="selectedSoldiery" class="col-sm">
+            <option v-for="option in options_soldiery">
+              {{option.item}}
+            </option>
           </select>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Прохождение службы:</div>
-          <select class="col-sm" name="">
-            <option>Служил</option>
-            <option>Не служил</option>
-            <option>Другое</option>
+          <select v-if="selectedSoldiery=='Военнообязанный'" v-model="selectedSoldieryStatus" class="col-sm">
+            <option v-for="option in options_soldieryStatus">
+              {{option.item}}
+            </option>
           </select>
+          <input v-else class="form__input col-sm" type="text" name="" placeholder="Не заполняется"
+                 disabled="disabled"/>
         </label>
       </div>
+      <div v-if="selectedSoldieryStatus=='Служил' || selectedSoldiery=='Военнообязанный'  ">
       <div>
         <p>Документ о военной службе</p>
       </div>
@@ -128,10 +138,10 @@
       <div>
         <label class="row">
           <div class="form__label-text col-sm">Тип документа:</div>
-          <select class="col-sm" name="">
-            <option>Не определено</option>
-            <option>вариант 2</option>
-            <option>Другое</option>
+          <select v-model="selectedMilitaryFormDoc" class="col-sm">
+            <option v-for="option in options_militaryFormDoc">
+              {{option.item}}
+            </option>
           </select>
         </label>
         <label class="row">
@@ -179,6 +189,7 @@
           <div class="form__label-text col-sm">Дата окончания:</div>
           <input class="form__input col-sm" type="date" name="" placeholder=""/>
         </label>
+      </div>
       </div>
       <div>
         <p>Дополнительные сведения</p>
@@ -242,7 +253,67 @@
     },
     data() {
       return {
-        //TODO поля
+        eduDocSerial:'',
+        eduDocNumber:'',
+
+
+        selectedEduDoc: '',
+        selectedEduLevel: '',
+        selectedSoldiery: '',
+        selectedSoldieryStatus: '',
+        selectedMilitaryFormDoc: '',
+
+        options_eduDoc: [
+          {id: 1, item: 'Академическая справка'},
+          {id: 2, item: 'Аттестат о полном среднем образовании'},
+          {id: 3, item: 'Аттестат о среднем общем образовании'},
+          {id: 4, item: 'Аттестат о среднем общем образовании без корочки'},
+          {id: 5, item: 'Аттестат иного государства'},
+          {id: 6, item: 'Выписка из протокола заседания комиссии'},
+          {id: 7, item: 'Диплом об окончании аспирантуры (адъюнкатуры)'},
+          {id: 8, item: 'Диплом бакалавра'},
+          {id: 9, item: 'Диплом ВУЗа'},
+          {id: 10, item: 'Диплом кандидата наук'},
+          {id: 11, item: 'Диплом лицея'},
+          {id: 12, item: 'Диплом магистра'},
+          {id: 13, item: 'Диплом о начальном профессиональном образовании'},
+          {id: 14, item: 'Диплом'},
+          {id: 15, item: 'Диплом иностранного государства (ВУЗ)'},
+          {id: 16, item: 'Диплом специалиста'},
+          {id: 17, item: 'Диплом о среднем профессиональном образовании'},
+          {id: 18, item: 'Свидетельство'},
+          {id: 19, item: 'Свидетельство об аккредитации'},
+          {id: 20, item: 'Сертификат'},
+        ],
+
+        options_eduLvl: [
+          {id: 1, item: 'Бакалавриат'},
+          {id: 2, item: 'Магистратура'},
+          {id: 3, item: 'Специалитет'},
+          {id: 4, item: 'Мед.училище'},
+          {id: 5, item: 'СПО и техникум'},
+          {id: 6, item: 'НПО'},
+          {id: 7, item: 'СШД (Средняя школа дневная)'},
+          {id: 8, item: 'СШВ (Средняя школа вечерняя'},
+          {id: 9, item: 'Ординатура'},
+          {id: 10, item: 'Интернатура'},
+          {id: 11, item: 'Аспирантура'},
+        ],
+        options_soldiery: [
+          {id: 1, item: 'Военнообязанный'},
+          {id: 2, item: 'Невоеннообязанный'},
+          ],
+        options_soldieryStatus: [
+          {id: 1, item: 'Служил'},
+          {id: 2, item: 'Не служил'},
+        ],
+
+        options_militaryFormDoc: [
+        {id: 1, item: 'Не определено'},
+        {id: 2, item: 'Приписное свид-во'},
+        {id: 3, item: 'Военный билет'},
+
+      ],
       }
     }
   }
@@ -321,6 +392,7 @@
 
   .calculate_score {
     margin-top: -8px;
+    padding: -10px;
   }
 
   .row {
@@ -331,5 +403,11 @@
     text-align: left;
   }
 
-
+  .alarm_label {
+    /*text-align: left;*/
+    color: red;
+  }
+  .separate_label {
+    margin-right: 0px;
+  }
 </style>

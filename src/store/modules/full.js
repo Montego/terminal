@@ -3,7 +3,49 @@ import {AXIOS} from "../../components/plugins/APIService.js"
 export default {
   namespaced: true,
   state: {
-    lastname_personal_info: 'test personal info',
+    //DATA from TabPersonalInfo
+    name_personal_info_tab: '',
+    lastname_personal_info_tab: 'test personal info',
+    firstname_personal_info_tab: '',
+    middlename_personal_info_tab: '',
+    birthDate_personal_info_tab: '',
+    age_personal_info_tab: '',
+    seniority_personal_info_tab: '',
+    employYears_personal_info_tab: '',
+    employMonths_personal_info_tab: '',
+    lastname_genitive_personal_info_tab: '',
+    firstname_genitive_personal_info_tab: '',
+    middlename_genitive_personal_info_tab: '',
+    contactPersonNameGenitive_personal_info_tab: '',
+    identityCardSeries_personal_info_tab: '',
+    identityCardNumber_personal_info_tab: '',
+    identityCardIssueBy_personal_info_tab: '',
+    cellularPhone_personal_info_tab:'',
+
+    selectedGender_personal_info_tab: '',
+    selectedIdentityCardCode_personal_info_tab: '',
+    selectedForeignLanguageInfo_personal_info_tab:'',
+    //DATA from TabEvidenceEgeInfo
+    lastname_evidence_ege_tab: 'test',
+    firstname_evidence_ege_tab: '',
+    middlename_evidence_ege_tab: '',
+    identityCardSeries_evidence_ege_tab: '',
+    identityCardNumber_evidence_ege_tab: '',
+    identityCardIssueDate_evidence_ege_tab:'',
+    identityCardIssueBy_evidence_ege_tab: '',
+    documentNumber_evidence_ege_tab:'',
+    typographyNumber_evidence_ege_tab:'',
+
+    selectedSubject1: '',
+    selectedSubject2: '',
+    selectedSubject3: '',
+    selectedIdentityCardCode: '',
+
+
+
+
+
+
     gender: [],
     identityCardCode: [],
     otherCountryRegion: [],
@@ -12,6 +54,10 @@ export default {
 
   },
   getters: {
+    get_lastname_personal_info_tab: (state) => {
+      return state.lastname_personal_info_tab
+    },
+
     GET_LASTNAME_PERSONAL_INFO: (state) => {
       return state.lastname_personal_info
     },
@@ -35,6 +81,10 @@ export default {
 
   },
   mutations: {
+    set_lastname_personal_info_tab: (state, payload) => {
+      state.lastname_personal_info_tab = payload
+    },
+
     SET_LASTNAME_PERSONAL_INFO: (state, payload) => {
       state.lastname_personal_info = payload
     },

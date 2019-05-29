@@ -68,13 +68,14 @@
           <TabAddressInfo></TabAddressInfo>
         </tab>
 
+          <tab id="evidence_ege" name="Свидетельства ЕГЭ">
+            <TabEvidenceEge></TabEvidenceEge>
+          </tab>
+
         <tab id="graduate_military" name="Образование, военная служба">
           <TabEducationMilitary></TabEducationMilitary>
         </tab>
 
-        <tab id="evidence_ege" name="Свидетельства ЕГЭ">
-          <TabEvidenceEge></TabEvidenceEge>
-        </tab>
         <tab id="parent_trustee" name="Родитель/Попечитель">
           <TabParentInfo></TabParentInfo>
         </tab>

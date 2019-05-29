@@ -77,33 +77,49 @@
             <div>
               <label class="row">
                 <div class="form__label-text col-sm">Фамилия:</div>
-                <input v-model="name" class="form__input col-sm" type="text" name="" placeholder=""/>
+                <input v-model="lastname" class="form__input col-sm" type="text" name="" placeholder=""/>
               </label>
+              <span class="alarm_label" v-if="lastname===''">Не заполнено поле "Фамилия"</span>
               <label class="row">
                 <div class="form__label-text col-sm">Имя:</div>
                 <input v-model="firstname" class="form__input col-sm" type="text" name="" placeholder=""/>
               </label>
+              <span class="alarm_label" v-if="firstname===''">Не заполнено поле "Имя"</span>
+              <span class="alarm_label" v-else-if="firstname===lastname">Имя не может совпадать с фамилией</span>
               <label class="row">
                 <div class="form__label-text col-sm">Отчество:</div>
                 <input v-model="middlename" class="form__input col-sm" type="text" name="" placeholder=""/>
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Документ</div>
-                <select class="col-sm-4" name="">
-                  <option>Паспорт РФ</option>
-                  <option>Не паспорт РФ</option>
+                <select v-model="selectedIdentityCardCode" class="col-sm">
+                  <option v-for="option in options_identityCardCode">
+                    {{option.item}}
+                  </option>
                 </select>
-                <input class="form__input col-sm-6" type="text" name="" placeholder="Заполняется автоматически"
+                <input v-model="selectedIdentityCardCode" class="form__input col-sm-12" type="text" name="" placeholder="Заполняется автоматически"
                        disabled="disabled"/>
               </label>
+              <span class="alarm_label" v-if="selectedIdentityCardCode===''">Не выбран тип документа</span>
               <label class="row">
                 <div class="form__label-text col-sm">Серия:</div>
-                <input v-model="identityCardSeries" class="form__input col-sm" type="text" name="" placeholder=""/>
+                <input v-if="selectedIdentityCardCode === 'Паспорт РФ'" v-model="identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>
+                <input v-else-if="selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***" v-mask="'###-###'" required/>
+                <input v-else v-model="identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
+                <!--<input v-model="identityCardSeries" class="form__input col-sm" type="text" name="" placeholder=""/>-->
               </label>
+              <span class="alarm_label" v-if="identityCardSeries===''">Не заполнено поле "Серия"</span>
+              <span class="alarm_label" v-else-if="identityCardSeries.length<4 & selectedIdentityCardCode === 'Паспорт РФ'">Серия должна содержать 4 цифры</span>
+
               <label class="row">
                 <div class="form__label-text col-sm">Номер:</div>
-                <input v-model="identityCardNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
+                <!--<input v-model="identityCardNumber" class="form__input col-sm" type="text" name="" placeholder=""/>-->
+                <input v-if="selectedIdentityCardCode === 'Паспорт РФ'" v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="******" v-mask="'######'" required/>
+                <input v-else-if="selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***-***" v-mask="'###-###-###'" required/>
+                <input v-else v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_serial"required/>
               </label>
+              <span class="alarm_label" v-if="identityCardNumber===''">Не заполнено поле "Номер"</span>
+              <span class="alarm_label" v-else-if="identityCardNumber.length<6 & selectedIdentityCardCode === 'Паспорт РФ'">Номер должен содержать 6 цифр</span>
               <label class="row">
                 <div class="form__label-text col-sm">Дата выдачи:</div>
                 <input v-model="identityCardIssueDate" class="form__input col-sm" type="date" name="" placeholder=""/>
@@ -132,19 +148,21 @@
             <hr>
             <label class="row">
               <div class="form__label-text col-sm">№ свидетельства:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-model="documentNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
+            <span class="alarm_label" v-if="documentNumber===''">Не заполнено поле "№ свидетельства"</span>
             <label class="row">
               <div class="form__label-text col-sm">Дата выдачи:</div>
               <input class="form__input col-sm" type="date" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Типографский №:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-model="typographyNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
+            <span class="alarm_label" v-if="typographyNumber===''">Не заполнено поле "Типографский №"</span>
             <label class="row">
               <div class="form__label-text col-sm">Сумма баллов:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input  v-model="sumScores" class="form__input col-sm" type="number" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Копия/оригинал:</div>
@@ -179,11 +197,16 @@
             <hr>
             <label class="row">
               <div class="form__label-text col-sm">Предмет(1):</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <select v-model="selectedSubject1" class="col-sm">
+                <option v-for="option in options_subject">
+                  {{option.item}}
+                </option>
+              </select>
+              <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
             </label>
             <label class="row">
-              <div class="form__label-text col-sm">Балл(1):</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <div class="form__label-text col-sm-6">Балл(1):</div>
+              <input v-model="score1" class="form__input col-sm-6" type="number" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Балл (ФИС)(1):</div>
@@ -196,11 +219,16 @@
             <hr>
             <label class="row">
               <div class="form__label-text col-sm">Предмет(2):</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
+              <select v-model="selectedSubject2" class="col-sm">
+                <option v-for="option in options_subject">
+                  {{option.item}}
+                </option>
+              </select>
             </label>
             <label class="row">
-              <div class="form__label-text col-sm">Балл(2):</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <div class="form__label-text col-sm-6">Балл(2):</div>
+              <input v-model="score2" class="form__input col-sm-6" type="number" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Балл (ФИС)(2):</div>
@@ -213,11 +241,16 @@
             <hr>
             <label class="row">
               <div class="form__label-text col-sm">Предмет(3):</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
+              <select v-model="selectedSubject3" class="col-sm">
+                <option v-for="option in options_subject">
+                  {{option.item}}
+                </option>
+              </select>
             </label>
             <label class="row">
-              <div class="form__label-text col-sm">Балл(3):</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <div v-model="score3" class="form__label-text col-sm-6">Балл(3):</div>
+              <input class="form__input col-sm-6" type="number" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Балл (ФИС)(3):</div>
@@ -249,12 +282,15 @@
     mounted () {
       console.log(2222)
       console.log(this.$store.getters)
-      this.$store.dispatch('Test')
+      this.$store.commit('Test',)
     },
     computed: {
       ...mapState('tab_evidence_ege_info', ['name',]),
       ...mapGetters('tab_evidence_ege_info', ['GET_NAME']),
 
+      // fullscore: function () {
+      //   return this.sumScores = parseInt(this.score1)+ parseInt(this.score2) + parseInt(this.score3)
+      // },
 
       name: {
         get () {
@@ -268,6 +304,7 @@
     data() {
       return {
         // lastname_evidence_ege:'',
+        lastname:'',
         firstname:'',
         middlename:'',
         identityCardSeries:'',
@@ -275,7 +312,51 @@
         identityCardIssueDate:'',
         identityCardIssueBy:'',
 
+        documentNumber:'',
+        typographyNumber:'',
+        sumScores: '',
+        score1:'',
+        score2:'',
+        score3:'',
 
+        selectedSubject1: '',
+        selectedSubject2: '',
+        selectedSubject3: '',
+        selectedIdentityCardCode: '',
+
+        options_subject: [
+          {id: 1, item: 'Биология'},
+          {id: 2, item: 'Иностранный язык'},
+          {id: 3, item: 'Общественное здоровье и здравоохранение'},
+          {id: 4, item: 'Русский язык'},
+          {id: 5, item: 'Философия'},
+          {id: 6, item: 'Химия'},
+          {id: 7, item: 'Экзамен по специальности'},
+          {id: 8, item: 'Экзамен по специальности'},
+          ],
+        options_identityCardCode: [
+          // {id: 0, item: '-выберите документ-'},
+          {id: 1, item: 'ВидЖител'},
+          {id: 2, item: 'ВоенБилет'},
+          {id: 3, item: 'ВоенБилОфц'},
+          {id: 4, item: 'Временное удостоверение лич.граждан.РФ'},
+          {id: 5, item: 'ДиплПаспРФ'},
+          {id: 6, item: 'ЗагрПасп'},
+          {id: 7, item: 'ЗагрПаспРФ'},
+          {id: 8, item: 'ИнострПасп'},
+          {id: 9, item: 'НетДокум'},
+          {id: 10, item: 'ПаспМорФл'},
+          {id: 11, item: 'ПаспМоряка'},
+          {id: 12, item: 'Паспорт РФ'},
+          {id: 13, item: 'Паспорт иностранного гражданина'},
+          {id: 14, item: 'ПРОЧЕЕ'},
+          {id: 15, item: 'СвидБеженц'},
+          {id: 16, item: 'СвидРожд'},
+          {id: 17, item: 'СправОбОсв'},
+          {id: 18, item: 'СпрУдЛичн'},
+          {id: 19, item: 'УдЛичности'},
+          {id: 20, item: 'УдОфицера'},
+        ],
 
 
         headers_ege_evidence: [
@@ -406,6 +487,10 @@
 
   .form__label-text {
     text-align: left;
+  }
+  .alarm_label {
+    /*text-align: left;*/
+    color: red;
   }
 
 </style>
