@@ -186,7 +186,7 @@
       <div>
         <label class="row">
           <div class="form__label-text col-sm">Домашний телефон:</div>
-          <input class="form__input col-sm" type="text" name="home_phone_number"/>
+          <input v-model="tab_personal_homePhoneNumber" class="form__input col-sm" type="text" name="home_phone_number"/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Мобильный телефон:</div>
@@ -256,8 +256,15 @@
           </select>
         </label>
 
-        <div v-if="tab_personal_selectedForeignLanguageInfo==='изучал'">
-            оп-па
+        <div v-if="tab_personal_selectedForeignLanguageInfo==='изучал'" class="row">
+
+          <select v-model="tab_personal_selectedForeignLanguageInfo" class="col-sm">
+            <option v-for="option in options_foreignLanguageInfo">
+              {{option.item}}
+            </option>
+          </select>
+          <input class="form__input col-sm" type="text" v-mask="'###'">
+
         </div>
         <!--<input v-model="lastname_personal_info_tab">-->
 
@@ -290,7 +297,7 @@
         'tab_personal_middlename_genitive','tab_personal_contactPersonNameGenitive',
         'tab_personal_identityCardSeries','tab_personal_identityCardNumber',
         'tab_personal_identityCardIssueDate','tab_personal_identityCardIssueDep','tab_personal_identityCardIssueBy',
-        'tab_personal_cellularPhone','tab_personal_isCompatriot', 'tab_personal_selectedGender',
+        'tab_personal_homePhoneNumber','tab_personal_cellularPhone','tab_personal_isCompatriot', 'tab_personal_selectedGender',
         'tab_personal_selectedIdentityCardCode','tab_personal_selectedForeignLanguageInfo',
         'tab_personal_selectedCitizenship'
       ]),

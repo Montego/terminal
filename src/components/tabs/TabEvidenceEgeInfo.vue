@@ -144,51 +144,52 @@
 
           <div class="col-sm">
             <div>
-              <p>Свидетельство</p>
+              <!--<p>Свидетельство</p>-->
+              <p>ЕГЭ</p>
             </div>
             <hr>
-            <label class="row">
-              <div class="form__label-text col-sm">№ свидетельства:</div>
-              <input v-model="tab_ege_documentNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
-            </label>
-            <span class="alarm_label" v-if="tab_ege_documentNumber===''">Не заполнено поле "№ свидетельства"</span>
-            <label class="row">
-              <div class="form__label-text col-sm">Дата выдачи:</div>
-              <input class="form__input col-sm" type="date" name="" placeholder=""/>
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Типографский №:</div>
-              <input v-model="tab_ege_typographyNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
-            </label>
-            <span class="alarm_label" v-if="tab_ege_typographyNumber===''">Не заполнено поле "Типографский №"</span>
-            <label class="row">
-              <div class="form__label-text col-sm">Сумма баллов:</div>
-              <input  v-model="tab_ege_sumScores" class="form__input col-sm" type="number" name="" placeholder=""/>
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Копия/оригинал:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Предоставлено:</div>
-              <input class="form__input col-sm" type="date" name="" placeholder=""/>
-            </label>
+            <!--<label class="row">-->
+              <!--<div class="form__label-text col-sm">№ свидетельства:</div>-->
+              <!--<input v-model="tab_ege_documentNumber" class="form__input col-sm" type="text" name="" placeholder=""/>-->
+            <!--</label>-->
+            <!--<span class="alarm_label" v-if="tab_ege_documentNumber===''">Не заполнено поле "№ свидетельства"</span>-->
+            <!--<label class="row">-->
+              <!--<div class="form__label-text col-sm">Дата выдачи:</div>-->
+              <!--<input class="form__input col-sm" type="date" name="" placeholder=""/>-->
+            <!--</label>-->
+            <!--<label class="row">-->
+              <!--<div class="form__label-text col-sm">Типографский №:</div>-->
+              <!--<input v-model="tab_ege_typographyNumber" class="form__input col-sm" type="text" name="" placeholder=""/>-->
+            <!--</label>-->
+            <!--<span class="alarm_label" v-if="tab_ege_typographyNumber===''">Не заполнено поле "Типографский №"</span>-->
+            <!--<label class="row">-->
+              <!--<div class="form__label-text col-sm">Сумма баллов:</div>-->
+              <!--<input  v-model="tab_ege_sumScores" class="form__input col-sm" type="number" name="" placeholder=""/>-->
+            <!--</label>-->
+            <!--<label class="row">-->
+              <!--<div class="form__label-text col-sm">Копия/оригинал:</div>-->
+              <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
+            <!--</label>-->
+            <!--<label class="row">-->
+              <!--<div class="form__label-text col-sm">Предоставлено:</div>-->
+              <!--<input class="form__input col-sm" type="date" name="" placeholder=""/>-->
+            <!--</label>-->
             <label class="row">
               <div class="form__label-text col-sm">Форма ЕГЭ:</div>
               <input class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Место проведения:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
-            </label>
+            <!--<label class="row">-->
+              <!--<div class="form__label-text col-sm">Место проведения:</div>-->
+              <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
+            <!--</label>-->
             <label class="row">
               <div class="form__label-text col-sm">Год:</div>
               <input class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Статус:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
-            </label>
+            <!--<label class="row">-->
+              <!--<div class="form__label-text col-sm">Статус:</div>-->
+              <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
+            <!--</label>-->
           </div>
 
           <div class="col-sm">
@@ -287,9 +288,7 @@
   export default {
     name: "TabEvidenceEge",
     mounted () {
-      console.log(2222)
-      console.log(this.$store.getters)
-      // this.$store.commit('Test',)
+
     },
     computed: {
       ...tab_evidence_ege_info_fields(['tab_ege_lastname', 'tab_ege_firstname', 'tab_ege_middlename',

@@ -20,7 +20,7 @@
 
           <v-card-text>
             <v-container grid-list-md>
-
+авпивапиавчпи
             </v-container>
           </v-card-text>
           <v-card-actions>

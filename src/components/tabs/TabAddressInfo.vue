@@ -10,11 +10,16 @@
       </div>
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea v-model="registeredAddress" class="col-sm-10" name=""></textarea>
+        <textarea v-model="tab_address_registrationAddress" class="col-sm-10" name=""></textarea>
       </label>
       <label class="row">
         <div class="form__label-text col-sm">Типа нас. пункта:</div>
-        <input class="form__input col-sm" type="number" name="" placeholder=""/>
+        <!--<select v-model="tab_personal_selectedForeignLanguageInfo" class="col-sm">-->
+          <!--<option v-for="option in options_foreignLanguageName">-->
+            <!--{{option.item}}-->
+          <!--</option>-->
+        <!--</select>-->
+        <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
       </label>
     </div>
     <div class="info_address2 col-sm">
@@ -28,7 +33,7 @@
       </div>
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea v-model="factAddress" class="col-sm-10" name=""></textarea>
+        <textarea v-model="tab_address_factAddress" class="col-sm-10" name=""></textarea>
       </label>
     </div>
     <div class="info_address2 col-sm">
@@ -41,24 +46,41 @@
       </div>
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea class="col-sm-10" name=""></textarea>
+        <textarea v-model="tab_address_templateRegistrationAddress" class="col-sm-10" name=""></textarea>
       </label>
     </div>
   </div>
 </template>
 
 <script>
+  import { createHelpers } from 'vuex-map-fields';
+  const { mapFields:tab_address_info } = createHelpers({
+    getterType: `tab_address_info/getField`,
+    mutationType: `tab_address_info/updateField`,
+  });
+
   export default {
     name: "TabAddressInfo",
+    computed: {
+      ...tab_address_info(['tab_address_registrationAddress', 'tab_address_factAddress',
+        'tab_address_templateRegistrationAddress',
+      ]),
+    },
     data() {
       return {
-        registeredAddress:'',
-        factAddress:'',
+        tab_address_selectedForeignLanguageName:'',
+        options_foreignLanguageName: [
+          {id: 0, item: 'английский'},
+          {id: 1, item: 'французкий'},
+
+        ],
+        // registeredAddress:'',
+        // factAddress:'',
       }
     },
     methods: {
       onCopyAddress() {
-        this.factAddress = this.registeredAddress;
+        this.tab_address_factAddress = this.tab_address_registrationAddress;
       }
     }
   }

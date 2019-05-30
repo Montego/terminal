@@ -7,6 +7,9 @@ import Vuelidate from 'vuelidate'
 
 import enums from './modules/enums'
 import dictionary from './modules/dictionary'
+import tab_address_info from './modules/tab_address_info'
+import tab_distinctive_features_info from './modules/tab_distinctive_features_info'
+import tab_parent_info from './modules/tab_parent_info'
 import tab_personal_info from './modules/tab_personal_info'
 import tab_evidence_ege_info from './modules/tab_evidence_ege_info'
 import tab_education_military_info from './modules/tab_education_military_info'
@@ -32,6 +35,9 @@ export const store = new Vuex.Store({
     tab_personal_info,
     tab_evidence_ege_info,
     tab_education_military_info,
+    tab_address_info,
+    tab_distinctive_features_info,
+    tab_parent_info,
     full
   },
   strict: false

@@ -5,7 +5,11 @@
     <button>Добавить</button>
 
     <div class="col-sm-4">
-
+      <input type="file" accept="image/jpeg" onchange="readURL(this);" >
+    </div>
+    <img id="photo" src="#" alt="your image" />
+    <div>
+      <button> Сохранить данные об аббитуриенте</button>
     </div>
   </div>
 </template>

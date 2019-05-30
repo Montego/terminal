@@ -23,6 +23,7 @@ export default {
     tab_personal_identityCardIssueDate:'',
     tab_personal_identityCardIssueDep:'',
     tab_personal_identityCardIssueBy: '',
+    tab_personal_homePhoneNumber: '',
     tab_personal_cellularPhone:'',
 
     tab_personal_isCompatriot:false,

@@ -36,7 +36,7 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Кем приходится:</div>
-              <select v-model="selectedFamRelationShip" class="col-sm">
+              <select v-model="tab_parent_selectedFamRelationShip" class="col-sm">
                 <option v-for="option in options_FamRelationShip">
                   {{option.item}}
                 </option>
@@ -44,18 +44,18 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Фамилия:</div>
-              <input v-model="parent_lastname" class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-model="tab_parent_lastname" class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
-            <span class="alarm_label" v-if="parent_lastname===''">Не заполнено поле "Фамилия"</span>
+            <span class="alarm_label" v-if="tab_parent_lastname===''">Не заполнено поле "Фамилия"</span>
             <label class="row">
               <div class="form__label-text col-sm">Имя:</div>
-              <input v-model="parent_firstname" class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-model="tab_parent_firstname" class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
-            <span class="alarm_label" v-if="parent_firstname===''">Не заполнено поле "Имя"</span>
-            <span class="alarm_label" v-else-if="parent_firstname===parent_lastname && parent_firstname!==''">Имя не может совпадать с фамилией</span>
+            <span class="alarm_label" v-if="tab_parent_firstname===''">Не заполнено поле "Имя"</span>
+            <span class="alarm_label" v-else-if="tab_parent_firstname===tab_parent_lastname && tab_parent_firstname!==''">Имя не может совпадать с фамилией</span>
             <label class="row">
               <div class="form__label-text col-sm">Отчество:</div>
-              <input v-model="parent_middletname" class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-model="tab_parent_middlename" class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Пол:</div>
@@ -67,7 +67,7 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Дата рождения:</div>
-              <input v-model="parent_birthDate" class="form__input col-sm" type="date" name="" placeholder=""/>
+              <input v-model="tab_parent_birthDate" class="form__input col-sm" type="date" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Полных лет</div>
@@ -102,14 +102,14 @@
             <hr>
             <label class="row">
               <div class="form__label-text col-sm">Домашний телефон:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-model="tab_parent_homePhoneNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Мобильный телефон:</div>
-              <input v-model="parent_cellularPhone" class="form__input col-sm" type="text" name="mobile_number" v-mask="'+7-###-###-##-##'"/>
+              <input v-model="tab_parent_cellularPhone" class="form__input col-sm" type="text" name="mobile_number" v-mask="'+7-###-###-##-##'"/>
             </label>
-            <span class="alarm_label" v-if="parent_cellularPhone===''">Не заполнено поле "Мобильный телефон"</span>
-            <span class="alarm_label" v-else-if="parent_cellularPhone.length<16">Некорректно заполнено поле "Мобильный телефон"</span>
+            <span class="alarm_label" v-if="tab_parent_cellularPhone===''">Не заполнено поле "Мобильный телефон"</span>
+            <span class="alarm_label" v-else-if="tab_parent_cellularPhone.length<16">Некорректно заполнено поле "Мобильный телефон"</span>
             <!--<label class="row">-->
               <!--<div class="form__label-text col-sm">Мобильный телефон:</div>-->
               <!--<input class="form__input col-sm" type="text" name="" placeholder="" v-mask="'+7-###-###-##-##'"/>-->
@@ -120,17 +120,20 @@
             </div>
             <hr>
             <div class="row">
-              <button>Ввести адрес</button>
-              <button>Копировать из студента</button>
+              <label class="col-sm"></label>
+              <div class="row">
+                <button class="">Ввести адрес</button>
+                <button @click="onCopyAddressFromStudent">Копировать из студента</button>
+              </div>
+
             </div>
             <label class="row">
               <div class="form__label-text col-sm">Адрес:</div>
-              <textarea class="col-sm" name=""></textarea>
+              <textarea v-model="tab_parent_factAddress" class="col-sm" name=""></textarea>
             </label>
-
             <div class="clear_save_button row">
               <button>Очистить</button>
-              <button>Сохранить</button>
+              <button>Добавить родителя/попечителя</button>
             </div>
           </div>
         </div>
@@ -158,19 +161,20 @@
 </template>
 
 <script>
+  import { createHelpers } from 'vuex-map-fields';
+  const { mapFields: tab_parent_info } = createHelpers({
+    getterType: `tab_parent_info/getField`,
+    mutationType: `tab_parent_info/updateField`,
+  });
+  const { mapFields:tab_address_info } = createHelpers({
+    getterType: 'tab_address_info/getField',
+    mutationType: 'tab_address_info/updateField',
+  });
   export default {
     name: "TabParentInfo",
 
     data() {
       return {
-        parent_lastname:'',
-        parent_firstname:'',
-        parent_middletname:'',
-        parent_birthDate:'',
-        parent_cellularPhone:'',
-
-
-        selectedFamRelationShip:'',
 
         options_FamRelationShip: [
           {id: 1, item: 'Брат'},
@@ -199,11 +203,11 @@
     },
     computed: {
       fullname: function () {
-        return this.name = this.parent_lastname + ' ' + this.parent_firstname + ' ' + this.parent_middletname
+        return this.tab_parent_name = this.tab_parent_lastname + ' ' + this.tab_parent_firstname + ' ' + this.tab_parent_middlename
       },
       fullage: function () {
         var today = new Date();
-        var birth = new Date(this.parent_birthDate);
+        var birth = new Date(this.tab_parent_birthDate);
         var age = today.getFullYear() - birth.getFullYear();
         var m = today.getMonth() - birth.getMonth();
         if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
@@ -211,8 +215,17 @@
         }
         return age;
       },
+      ...tab_parent_info(['tab_parent_name', 'tab_parent_lastname', 'tab_parent_firstname', 'tab_parent_middlename',
+        'tab_parent_birthDate', 'tab_parent_seniority', 'tab_parent_homePhoneNumber', 'tab_parent_cellularPhone',
+        'tab_parent_factAddress', 'tab_parent_selectedFamRelationShip', 'tab_parent_selectedGender',
+      ]),
+      ...tab_address_info(['tab_address_factAddress',]),
     },
-
+    methods: {
+      onCopyAddressFromStudent() {
+        this.tab_parent_factAddress = this.tab_address_factAddress;
+      }
+    }
 
   }
 </script>
