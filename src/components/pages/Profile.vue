@@ -72,7 +72,7 @@
             <TabEvidenceEge></TabEvidenceEge>
           </tab>
 
-        <tab id="graduate_military" name="Образование, военная служба">
+        <tab class="graduate_military" id="graduate_military" name="Образование, военная служба">
           <TabEducationMilitary></TabEducationMilitary>
         </tab>
 
@@ -146,6 +146,13 @@
 </script>
 
 <style scoped>
+  /*tabs-component-panels.graduate_military {*/
+    /*padding-bottom: -30px;*/
+  /*}*/
+  section.tabs-component-panels {
+    padding-bottom: -30px;
+  }
+
   .calculate_score {
     margin-top: -8px;
   }
@@ -257,6 +264,7 @@
 
   p {
     font-size: 25px;
+    margin-bottom: -10px;
   }
 
   button {
@@ -281,6 +289,7 @@
   .main_tab {
     margin-top: 2px;
     margin-left: 5px;
+
     /*margin-right: 5px;*/
     /*background: linear-gradient(45deg, #EECFBA, #C5DDE8);*/
   }

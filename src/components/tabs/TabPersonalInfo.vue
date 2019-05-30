@@ -473,6 +473,7 @@
 
   p {
     font-size: 25px;
+    margin-bottom: 0px;
   }
 
   button {

@@ -320,6 +320,10 @@
 </script>
 
 <style scoped>
+
+  .inner_tab {
+    padding-bottom: -30px;
+  }
   label.row {
     margin-bottom: 3px;
   }
@@ -357,6 +361,7 @@
 
   p {
     font-size: 25px;
+    margin-bottom: 0px;
   }
 
   button {
