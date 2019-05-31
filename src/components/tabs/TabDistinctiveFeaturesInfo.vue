@@ -1,99 +1,171 @@
 <template>
     <div>
-      <!--<tabs class="parent_tabs">-->
-        <!--<tab id="" name="Обзор">-->
-          <!--<div class="row">-->
-            <!--<button>Добавить</button>-->
-          <!--</div>-->
-          <!--<v-data-table-->
-            <!--:headers="headers_features_info"-->
-            <!--:items="info_features_info"-->
-            <!--hide-actions-->
-            <!--class="elevation-1 text-xs-center"-->
+      <tabs class="parent_tabs">
+        <tab id="" name="Обзор">
+          <div class="row">
+            <button>Добавить</button>
+          </div>
+          <v-data-table
+            :headers="headers_features_info"
+            :items="info_features_info"
+            hide-actions
+            class="elevation-1 text-xs-center"
+            >
+            <template slot="items" slot-scope="props">
+            <td class="text-xs-center">{{ props.item.code }}</td>
+            <td class="text-xs-center">{{ props.item.type_sygn }}</td>
+            <td class="text-xs-center">{{ props.item.name }}</td>
+            <td class="text-xs-center">{{ props.item.type_diplom }}</td>
+            <td class="text-xs-center">{{ props.item.ball_1}}</td>
+            <td class="text-xs-center">{{ props.item.done }}</td>
+            <td class="text-xs-center">{{ props.item.ball_2}}</td>
+            </template>
+
+            </v-data-table>
+        </tab>
+        <tab id="" name="Отличительные признаки">
+          <div class="inner_tab row">
+            <div class="col-sm">
+              <div>
+                <p>Отличительные признаки</p>
+              </div>
+              <label class="row">
+                <div class="form__label-text col-sm">Тип признака:</div>
+                <select class="col-sm" name="">
+                  <option>признак 1</option>
+                  <option>признак 2</option>
+                </select>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Название:</div>
+                <select class="col-sm" name="">
+                  <option>название 1</option>
+                  <option>название 2</option>
+                </select>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Тип диплома:</div>
+                <select class="col-sm" name="">
+                  <option>тип диплома 1</option>
+                  <option>тип диплома 2</option>
+                </select>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Балл ИД</div>
+                <input  class="form__input col-sm" type="text" name="" placeholder=""/>
+              </label>
+              <!--<label class="row">-->
+                <!--<div class="form__label-text col-sm">Балл ИД</div>-->
+                <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
+              <!--</label>-->
+            </div>
+            <div class="col-sm">
+              <div>
+                <p>Прикрепленные документы</p>
+              </div>
+              <div v-for="(document,index) in documents">
+                <!--{{index +1}}-->
+                <label class="row">
+                  <div class="form__label-text col-sm">№</div>
+                  <input v-model="documents.index" class="form__input col-sm" type="text" name="" placeholder="заполняется автоматически"disabled/>
+                </label>
+                <div class="row">
+                  <div class="form__label-text col-sm">Документ</div>
+                  <input class="document col-sm" type="file" title="Загрузите файл"/>
+                </div>
+                <label class="row">
+                  <div class="form__label-text col-sm">Копия/оригинал:</div>
+                  <select class="col-sm" name="">
+                    <option>копия</option>
+                    <option>оригинал</option>
+                  </select>
+                </label>
+
+              </div>
+              <label class="row">
+                <input class="button_add" type="button" value="Добавить документ" @click="onAddDocuments" >
+                <input class="button_add" type="button" value="Убрать документ" @click="onRemoveDocuments" >
+              </label>
+            </div>
+          </div>
+          <hr>
+          <button>Сохранить</button>
+        </tab>
+      </tabs>
+
+      <!--<div>-->
+        <!--<p>Отличительные признаки</p>-->
+      <!--</div>-->
+      <!--<div class="row">-->
+        <!--<button>Добавить</button>-->
+      <!--</div>-->
+      <!--<div class="">-->
+        <!--<div class="distinctive_features_top">-->
+          <!--<v-hover :disabled="true">-->
+            <!--<v-data-table-->
+              <!--:headers="headers_features_info"-->
+              <!--:items="info_features_info"-->
+              <!--hide-actions-->
+              <!--class="elevation-1 text-xs-center"-->
             <!--&gt;-->
-            <!--<template slot="items" slot-scope="props">-->
-            <!--<td class="text-xs-center">{{ props.item.code }}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.type_sygn }}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.name }}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.type_diplom }}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.ball_1}}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.done }}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.ball_2}}</td>-->
-            <!--</template>-->
+              <!--<template slot="items" slot-scope="props">-->
+                <!--<td class="text-xs-center">{{ props.item.code }}</td>-->
+                <!--<td class="text-xs-center">{{ props.item.type_sygn }}</td>-->
+                <!--<td class="text-xs-center">{{ props.item.name }}</td>-->
+                <!--<td class="text-xs-center">{{ props.item.type_diplom }}</td>-->
+                <!--<td class="text-xs-center">{{ props.item.ball_1}}</td>-->
+                <!--<td class="text-xs-center">{{ props.item.done }}</td>-->
+                <!--<td class="text-xs-center">{{ props.item.ball_2}}</td>-->
+              <!--</template>-->
 
             <!--</v-data-table>-->
-        <!--</tab>-->
-        <!--<tab id="" name="Отличительные признаки">-->
-          <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
-            <!--&lt;!&ndash;<button>Добавить</button>&ndash;&gt;-->
-          <!--&lt;!&ndash;</div>&ndash;&gt;-->
-        <!--</tab>-->
-      <!--</tabs>-->
+          <!--</v-hover>-->
+          <!--<div class="distinctive_features_bottom">-->
+            <!--<div>-->
+              <!--<p>Прикрепленные документы</p>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+              <!--<button>Добавить</button>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+              <!--<button>Редактировать</button>-->
+            <!--</div>-->
+            <!--<v-data-table-->
+              <!--:headers="headers_features_documents"-->
+              <!--:items="info_features_documents"-->
+              <!--hide-actions-->
+              <!--class="elevation-1 text-xs-center"-->
+            <!--&gt;-->
+              <!--<template slot="items" slot-scope="props">-->
+                <!--<td class="text-xs-center">{{ props.item.num }}</td>-->
+                <!--<td class="text-xs-center">{{ props.item.documents }}</td>-->
+                <!--<td class="text-xs-center">{{ props.item.copy_or_origin }}</td>-->
 
-      <div>
-        <p>Отличительные признаки</p>
-      </div>
-      <div class="row">
-        <button>Добавить</button>
-      </div>
-      <div class="">
-        <div class="distinctive_features_top">
-          <v-hover :disabled="true">
-            <v-data-table
-              :headers="headers_features_info"
-              :items="info_features_info"
-              hide-actions
-              class="elevation-1 text-xs-center"
-            >
-              <template slot="items" slot-scope="props">
-                <td class="text-xs-center">{{ props.item.code }}</td>
-                <td class="text-xs-center">{{ props.item.type_sygn }}</td>
-                <td class="text-xs-center">{{ props.item.name }}</td>
-                <td class="text-xs-center">{{ props.item.type_diplom }}</td>
-                <td class="text-xs-center">{{ props.item.ball_1}}</td>
-                <td class="text-xs-center">{{ props.item.done }}</td>
-                <td class="text-xs-center">{{ props.item.ball_2}}</td>
-              </template>
-
-            </v-data-table>
-          </v-hover>
-          <div class="distinctive_features_bottom">
-            <div>
-              <p>Прикрепленные документы</p>
-            </div>
-            <div class="row">
-              <button>Добавить</button>
-            </div>
-            <div class="row">
-              <button>Редактировать</button>
-            </div>
-            <v-data-table
-              :headers="headers_features_documents"
-              :items="info_features_documents"
-              hide-actions
-              class="elevation-1 text-xs-center"
-            >
-              <template slot="items" slot-scope="props">
-                <td class="text-xs-center">{{ props.item.num }}</td>
-                <td class="text-xs-center">{{ props.item.documents }}</td>
-                <td class="text-xs-center">{{ props.item.copy_or_origin }}</td>
-
-              </template>
-            </v-data-table>
-          </div>
-        </div>
-      </div>
-
-
-
+              <!--</template>-->
+            <!--</v-data-table>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
     </div>
 </template>
 
 <script>
     export default {
         name: "TabDistinctiveFeaturesInfo",
+        methods: {
+          onAddDocuments() {
+            this.documents.push('');
+          },
+          onRemoveDocuments() {
+            // var lastItem = this.documents[this.documents.length - 1];
+            this.documents.pop(this.documents.length - 1);
+          },
+       },
       data () {
         return {
+          documents: [],
+
           headers_features_info: [
             { text: 'Код', value: 'code', sortable: false, align: 'center' },
             { text: 'Тип признака', value: 'type_sygn',sortable: false, align: 'center' },
@@ -155,6 +227,7 @@
     border-color: grey;
     /*border: 4px;*/
   }
+
   input.checkbox{
     height: 15px;
     transform:scale(1.3);
@@ -215,6 +288,21 @@
   }
   button {
     min-width: 100px;
+    padding: 10px;
+    border: 1px solid;
+    border-color: grey;
+    border-radius:5px;
+    background-color: ghostwhite;
+    /*background-color: #EDD19C;*/
+    font-size: 16px;
+    cursor: pointer;
+    transform:scale(0.8);
+    opacity:0.9
+  }
+
+  .button_add {
+    min-width: 100px;
+    min-height: 40px;
     padding: 10px;
     border: 1px solid;
     border-color: grey;

@@ -13,6 +13,14 @@
       <td class="text-xs-center">{{ props.item.gender_pretendent}}</td>
       <td class="text-xs-center">{{ props.item.birthday_pretendent}}</td>
       <td class="text-xs-center">{{ props.item.contact_code_pretendent}}</td>
+      <td class="justify-center layout px-0">
+        <v-btn icon class="mx-0" >
+          <v-icon color="#5bc0de">edit</v-icon>
+        </v-btn>
+        <v-btn icon class="mx-0" >
+          <v-icon color="red">delete</v-icon>
+        </v-btn>
+      </td>
     </template>
   </v-data-table>
 </template>
@@ -31,6 +39,7 @@
             { text: 'Пол', value: 'gender_pretendent',sortable: false, align: 'center' },
             { text: 'Дата рождения', value: 'birthday_pretendent',sortable: false, align: 'center' },
             { text: 'Код контактного лица', value: 'contact_code_pretendent',sortable: false, align: 'center' },
+            { text: 'Действия', value: 'name', sortable: false, align: 'center' }
           ],
           info_all_pretendents: []
         }

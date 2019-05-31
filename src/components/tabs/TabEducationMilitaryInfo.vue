@@ -204,14 +204,19 @@
         <p>Дополнительные сведения</p>
       </div>
       <hr>
+      <!--<div class="row" v-for="(extraInfo,index) in extraInfos">-->
+        <label class="row" v-for="(extraInfo,index) in extraInfos">
+          <select v-model="tab_edu_military_selectedMilitaryFormDoc" class="col-sm">
+            <option v-for="option in options_militaryFormDoc">
+              {{option.item}}
+            </option>
+          </select>
+          <input class="form__input col-sm" type="text" name="" placeholder="Описание"/>
+        </label>
+      <!--</div>-->
       <label class="row">
-        <select v-model="tab_edu_military_selectedMilitaryFormDoc" class="col-sm">
-          <option v-for="option in options_militaryFormDoc">
-            {{option.item}}
-          </option>
-        </select>
-        <input class="form__input col-sm" type="text" name="" placeholder="Описание"/>
-        <button class="col-sm-12">Добавить</button>
+        <input class="button_add" type="button" value="Добавить" @click="onAddExtraInfo" >
+        <input class="button_add" type="button" value="Убрать" @click="onRemoveExtraInfo" >
       </label>
     </div>
   </div>
@@ -254,9 +259,22 @@
           this.score_full = (parseInt(this.score_chemistry) + parseInt(this.score_biology) +
             parseInt(this.score_russian))/3;
         },
+        onAddExtraInfo() {
+          this.extraInfos.push('');
+        },
+        onRemoveExtraInfo() {
+          // var lastItem = this.documents[this.documents.length - 1];
+          this.extraInfos.pop(this.extraInfos.length - 1);
+        },
       },
         data() {
           return {
+            extraInfos: [
+              {
+                id:'',
+                item:''
+              }
+            ],
             score_chemistry: 0,
             score_biology: 0,
             score_russian: 0,
@@ -335,6 +353,20 @@
   }
   label.row {
     margin-bottom: 3px;
+  }
+  .button_add {
+    min-width: 100px;
+    min-height: 40px;
+    padding: 10px;
+    border: 1px solid;
+    border-color: grey;
+    border-radius:5px;
+    background-color: ghostwhite;
+    /*background-color: #EDD19C;*/
+    font-size: 16px;
+    cursor: pointer;
+    transform:scale(0.8);
+    opacity:0.9
   }
 
   input {

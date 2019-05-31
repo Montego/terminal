@@ -107,14 +107,16 @@
     components: {
       TabPhoto,
       TabDistinctiveFeaturesInfo,
-      TabParentInfo, TabEvidenceEge, TabEducationMilitary, TabAddressInfo, TabPersonalInfo, TabOverview
+      TabParentInfo, TabEvidenceEge, TabEducationMilitary,
+      TabAddressInfo, TabPersonalInfo, TabOverview
     },
     computed: {},
     data() {
       return {
         dialog: false,
         currentTab: 'Home',
-        tabs: ['TabOverview', 'TabPersonalInfo', 'TabAddressInfo', 'TabEducationMilitary', 'TabEvidenceEge', 'TabParentInfo', 'TabDistinctiveFeaturesInfo', 'TabPhoto'],
+        tabs: ['TabOverview', 'TabPersonalInfo', 'TabAddressInfo', 'TabEducationMilitary',
+          'TabEvidenceEge', 'TabParentInfo', 'TabDistinctiveFeaturesInfo', 'TabPhoto'],
 //test data
         options_gender: [
           {id: 0, item: '-выберите пол-'},

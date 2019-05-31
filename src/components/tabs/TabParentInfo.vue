@@ -133,7 +133,7 @@
             </label>
             <div class="clear_save_button row">
               <button>Очистить</button>
-              <button>Добавить</button>
+              <button>Сохранить</button>
             </div>
           </div>
         </div>

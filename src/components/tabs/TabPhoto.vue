@@ -1,26 +1,71 @@
 <template>
-  <div class="clear_save_photo row">
-    <!--<v-button>Очистить</v-button>-->
-    <button>Очистить</button>
-    <button>Добавить</button>
+  <!--<div class="clear_save_photo row">-->
+    <!--&lt;!&ndash;<v-button>Очистить</v-button>&ndash;&gt;-->
+    <!--<button>Очистить</button>-->
+    <!--<button>Добавить</button>-->
 
-    <div class="col-sm-4">
-      <input type="file" accept="image/jpeg" onchange="readURL(this);" >
-    </div>
-    <img id="photo" src="#" alt="your image" />
-    <div>
-      <button> Сохранить данные об аббитуриенте</button>
-    </div>
-  </div>
+    <!--<div class="col-sm-4">-->
+      <!--<input type="file" @change="previewFiles">-->
+    <!--</div>-->
+    <!--<img id="photo" v-model="file" alt="your image" />-->
+    <!--<div>-->
+      <!--<button> Сохранить данные об аббитуриенте</button>-->
+    <!--</div>-->
+  <!--</div>-->
+  <section id="app">
+    <form method="post" action="/image/add" enctype="multipart/form-data">
+
+      <div class="form-group">
+        <input type='file' @change="previewImages" id="newfiles" name="newfiles[]" class="form-control" accept="image/*" />
+      </div>
+
+      <div class="row">
+        <div class="col py-2">
+          <button class="btn btn-outline-success float-right">Загрузить</button>
+        </div>
+      </div>
+    </form>
+    <button class="btn btn-outline-success float-right" @click="clearPhoto" >Очистить</button>
+
+      <div class="col-md-6 py-2 border" v-for="(image, index) in imagesData">
+        <img class="img-thumbnail images_place" :src="image" v-if="image.length > 0">
+      </div>
+  </section>
 </template>
 
 <script>
     export default {
-        name: "TabPhoto"
+      name: "TabPhoto",
+      data() {
+        return {
+          imagesData: []
+        }
+      },
+      methods: {
+
+        clearPhoto() {
+          this.imagesData.pop(this.imagesData.length-1);
+        },
+        previewImages: function(event) {
+          this.imagesData = [];
+          var pictures = event.target.files;
+          for (var i = 0; i < pictures.length; i++) {
+            var reader = new FileReader();
+            reader.onload = (e) => {
+              this.imagesData.push(e.target.result);
+            }
+            reader.readAsDataURL(pictures[i]);
+          }
+        }
+      }
     }
 </script>
 
 <style scoped>
+  .images_place {
+    height: 640px;
+    width: 480px
+  }
   .calculate_score {
     margin-top: -8px;
   }
@@ -33,7 +78,7 @@
     cursor: pointer;
   }
   tr:hover {
-    ackground-color: red;
+    background-color: red;
   }
   .search_form div {
     font-size: 20px;
