@@ -3,7 +3,7 @@ import { getField, updateField } from 'vuex-map-fields';
 export default {
   namespaced: true,
   state: {
-    // tab_edu_military_educationLevel: '',
+    tab_edu_military_educationLevel: '',
     tab_edu_military_militaryNumber: '',
     tab_edu_military_militarySeries: '',
     tab_edu_military_militaryIssueBy: '',
@@ -15,7 +15,7 @@ export default {
     tab_edu_military_eduDocSerial:'',
     tab_edu_military_eduDocNumber:'',
     tab_edu_military_selectedEduDoc: '',
-    tab_edu_military_selectedEduLevel: '',
+    // tab_edu_military_selectedEduLevel: '',
     tab_edu_military_selectedSoldiery: '',
     tab_edu_military_selectedSoldieryStatus: '',
     tab_edu_military_selectedMilitaryFormDoc: '',

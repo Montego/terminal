@@ -133,29 +133,12 @@
             </label>
             <div class="clear_save_button row">
               <button>Очистить</button>
-              <button>Добавить родителя/попечителя</button>
+              <button>Добавить</button>
             </div>
           </div>
         </div>
       </tab>
-      <!--<tab id="" name="Адресные данные">-->
-      <!--<div class="inner_tab row">-->
-      <!--<div class="col-sm-5">-->
-      <!--<div>-->
-      <!--<p>Адрес фактический</p>-->
-      <!--</div>-->
-      <!--<hr>-->
-      <!--<div class="row">-->
-      <!--<button>Ввести адрес</button>-->
-      <!--<button>Копировать из студента</button>-->
-      <!--</div>-->
-      <!--<label class="row">-->
-      <!--<div class="form__label-text col-sm-4">Адрес:</div>-->
-      <!--<textarea class="col-sm-8" name=""></textarea>-->
-      <!--</label>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--</tab>-->
+
     </tabs>
   </div>
 </template>

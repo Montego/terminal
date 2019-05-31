@@ -9,12 +9,13 @@
         <label class="row">
           <div class="form__label-text col-sm">Уровень образования:</div>
 
-          <select v-model="tab_edu_military_selectedEduLevel" class="col-sm">
-            <option v-for="option in options_eduLvl">
+          <select v-model="tab_edu_military_educationLevel" class="col-sm">
+            <option v-for="option in options_educationLevel">
               {{option.item}}
             </option>
           </select>
-          <input v-model="tab_edu_military_selectedEduLevel" class="form__input col-sm-6" type="text" name="" placeholder="Заполняется автоматически"
+
+          <input v-model="tab_edu_military_educationLevel" class="form__input col-sm-6" type="text" name="" placeholder="Заполняется автоматически"
                  disabled="disabled"/>
         </label>
       </div>
@@ -96,20 +97,20 @@
           <input class="form__input col-sm" type="text" name="" placeholder=""/>
         </label>
 
-        <!--<label class="row">-->
-          <!--<div class="form__label-text col-sm-6">Средний балл:</div>-->
-          <!--<button class="calculate_score col-sm-4" @click="onCalculateScore">Расчет среднего балла</button>-->
-          <!--<input class="form__input col-sm-2 " type="text" name="" placeholder="-&#45;&#45;"-->
-                 <!--disabled="disabled"/>-->
-        <!--</label>-->
-        <!--<label class="row">-->
-          <!--<div class="form__label-text col-sm-2">Химия:</div>-->
-          <!--<input v-model="score_chemistry" class="form__input col-sm-1" type="text" name=""/>-->
-          <!--<div class="form__label-text col-sm-2">Биология:</div>-->
-          <!--<input v-model="score_biology" class="form__input col-sm-1" type="text" name=""/>-->
-          <!--<div class="form__label-text col-sm-2">Русский язык:</div>-->
-          <!--<input v-model="score_russian" class="form__input col-sm-1" type="text" name=""/>-->
-        <!--</label>-->
+        <label class="row">
+          <div class="form__label-text col-sm-6">Средний балл:</div>
+          <button class="calculate_score col-sm-4" @click="onCalculateScore">Расчет среднего балла</button>
+          <input v-model="score_full" class="form__input col-sm-2 " type="text" v-mask="'#.##'" placeholder="---"
+                 disabled="disabled"/>
+        </label>
+        <label class="row">
+          <div class="form__label-text col-sm-2">Химия:</div>
+          <input v-model="score_chemistry" class="form__input col-sm-1" type="text" v-mask="'#'"/>
+          <div class="form__label-text col-sm-2">Биология:</div>
+          <input v-model="score_biology" class="form__input col-sm-1" type="text" v-mask="'#'"/>
+          <div class="form__label-text col-sm-2">Русский язык:</div>
+          <input v-model="score_russian" class="form__input col-sm-1" type="text" v-mask="'#'"/>
+        </label>
 
       </div>
     </div>
@@ -203,15 +204,15 @@
         <p>Дополнительные сведения</p>
       </div>
       <hr>
-      <!--<label class="row">-->
-        <!--<select v-model="tab_edu_military_selectedMilitaryFormDoc" class="col-sm">-->
-          <!--<option v-for="option in options_militaryFormDoc">-->
-            <!--{{option.item}}-->
-          <!--</option>-->
-        <!--</select>-->
-        <!--<input class="form__input col-sm" type="text" name="" placeholder="Описание"/>-->
-        <!--<button class="col-sm-12">Добавить</button>-->
-      <!--</label>-->
+      <label class="row">
+        <select v-model="tab_edu_military_selectedMilitaryFormDoc" class="col-sm">
+          <option v-for="option in options_militaryFormDoc">
+            {{option.item}}
+          </option>
+        </select>
+        <input class="form__input col-sm" type="text" name="" placeholder="Описание"/>
+        <button class="col-sm-12">Добавить</button>
+      </label>
     </div>
   </div>
 </template>
@@ -230,11 +231,12 @@
         'tab_edu_military_militaryIssueBy', 'tab_edu_military_militaryIssueDate', 'tab_edu_military_militaryRank',
         'tab_edu_military_soldieryBegDate', 'tab_edu_military_soldieryEndDate', 'tab_personal_identityCardIssueBy',
         'tab_edu_military_eduDocSerial', 'tab_edu_military_eduDocNumber', 'tab_edu_military_selectedEduDoc',
-        'tab_edu_military_selectedEduLevel', 'tab_edu_military_selectedSoldiery', 'tab_edu_military_selectedSoldieryStatus',
+        'tab_edu_military_educationLevel', 'tab_edu_military_selectedSoldiery', 'tab_edu_military_selectedSoldieryStatus',
         'tab_edu_military_selectedMilitaryFormDoc',
       ]),
-
-      },
+      // ...mapState('enums'['educationLevel','soldieryStatus','militaryFormDoc','docType']),
+      // ...mapGetters('enums'['GET_EDUCATION_LEVEL','GET_SOLDIERY_STATUS','GET_MILITARY_FORM_DOC','GET_DOC_TYPE']),
+      // },
       mounted() {
         this.$store.dispatch('enums/onLoadEducationLevel');
         this.$store.dispatch('dictionary/onLoadAddressCountryRegion');
@@ -245,82 +247,84 @@
         this.$store.dispatch('enums/onLoadSoldieryStatus');
         this.$store.dispatch('enums/onLoadMilitaryFormDoc');
         this.$store.dispatch('enums/onLoadDocType');
-
       },
-    methods: {
-      onCalculateScore() {
-        // this.score_full = this.score_chemistry;
       },
-      data() {
-        return {
-          // score_chemistry: 0,
-          // score_biology: 0,
-          // score_russian: 0,
-          // score_full: 0,
-          // eduDocSerial:'',
-          // eduDocNumber:'',
-          //
-          //
-          // selectedEduDoc: '',
-          // selectedEduLevel: '',
-          // selectedSoldiery: '',
-          // selectedSoldieryStatus: '',
-          // selectedMilitaryFormDoc: '',
+      methods: {
+        onCalculateScore() {
+          this.score_full = (parseInt(this.score_chemistry) + parseInt(this.score_biology) +
+            parseInt(this.score_russian))/3;
+        },
+      },
+        data() {
+          return {
+            score_chemistry: 0,
+            score_biology: 0,
+            score_russian: 0,
+            score_full: 0,
+            // eduDocSerial:'',
+            // eduDocNumber:'',
+            //
+            //
+            // selectedEduDoc: '',
+            // selectedEduLevel: '',
+            // selectedSoldiery: '',
+            // selectedSoldieryStatus: '',
+            // selectedMilitaryFormDoc: '',
 
-          options_eduDoc: [
-            {id: 1, item: 'Академическая справка'},
-            {id: 2, item: 'Аттестат о полном среднем образовании'},
-            {id: 3, item: 'Аттестат о среднем общем образовании'},
-            {id: 4, item: 'Аттестат о среднем общем образовании без корочки'},
-            {id: 5, item: 'Аттестат иного государства'},
-            {id: 6, item: 'Выписка из протокола заседания комиссии'},
-            {id: 7, item: 'Диплом об окончании аспирантуры (адъюнкатуры)'},
-            {id: 8, item: 'Диплом бакалавра'},
-            {id: 9, item: 'Диплом ВУЗа'},
-            {id: 10, item: 'Диплом кандидата наук'},
-            {id: 11, item: 'Диплом лицея'},
-            {id: 12, item: 'Диплом магистра'},
-            {id: 13, item: 'Диплом о начальном профессиональном образовании'},
-            {id: 14, item: 'Диплом'},
-            {id: 15, item: 'Диплом иностранного государства (ВУЗ)'},
-            {id: 16, item: 'Диплом специалиста'},
-            {id: 17, item: 'Диплом о среднем профессиональном образовании'},
-            {id: 18, item: 'Свидетельство'},
-            {id: 19, item: 'Свидетельство об аккредитации'},
-            {id: 20, item: 'Сертификат'},
-          ],
+            options_eduDoc: [
+              {id: 1, item: 'Академическая справка'},
+              {id: 2, item: 'Аттестат о полном среднем образовании'},
+              {id: 3, item: 'Аттестат о среднем общем образовании'},
+              {id: 4, item: 'Аттестат о среднем общем образовании без корочки'},
+              {id: 5, item: 'Аттестат иного государства'},
+              {id: 6, item: 'Выписка из протокола заседания комиссии'},
+              {id: 7, item: 'Диплом об окончании аспирантуры (адъюнкатуры)'},
+              {id: 8, item: 'Диплом бакалавра'},
+              {id: 9, item: 'Диплом ВУЗа'},
+              {id: 10, item: 'Диплом кандидата наук'},
+              {id: 11, item: 'Диплом лицея'},
+              {id: 12, item: 'Диплом магистра'},
+              {id: 13, item: 'Диплом о начальном профессиональном образовании'},
+              {id: 14, item: 'Диплом'},
+              {id: 15, item: 'Диплом иностранного государства (ВУЗ)'},
+              {id: 16, item: 'Диплом специалиста'},
+              {id: 17, item: 'Диплом о среднем профессиональном образовании'},
+              {id: 18, item: 'Свидетельство'},
+              {id: 19, item: 'Свидетельство об аккредитации'},
+              {id: 20, item: 'Сертификат'},
+            ],
+            options_educationLevel: [
+              {id: 1, item: 'Бакалавриат'},
+              {id: 2, item: 'Магистратура'},
+              {id: 3, item: 'Специалитет'},
+              {id: 4, item: 'Мед.училище'},
+              {id: 5, item: 'СПО и техникум'},
+              {id: 6, item: 'НПО'},
+              {id: 7, item: 'СШД (Средняя школа дневная)'},
+              {id: 8, item: 'СШВ (Средняя школа вечерняя'},
+              {id: 9, item: 'Ординатура'},
+              {id: 10, item: 'Интернатура'},
+              {id: 11, item: 'Аспирантура'},
+            ],
+            options_soldiery: [
+              {id: 1, item: 'Военнообязанный'},
+              {id: 2, item: 'Невоеннообязанный'},
+            ],
+            options_soldieryStatus: [
+              {id: 1, item: 'Служил'},
+              {id: 2, item: 'Не служил'},
+            ],
 
-          options_eduLvl: [
-            {id: 1, item: 'Бакалавриат'},
-            {id: 2, item: 'Магистратура'},
-            {id: 3, item: 'Специалитет'},
-            {id: 4, item: 'Мед.училище'},
-            {id: 5, item: 'СПО и техникум'},
-            {id: 6, item: 'НПО'},
-            {id: 7, item: 'СШД (Средняя школа дневная)'},
-            {id: 8, item: 'СШВ (Средняя школа вечерняя'},
-            {id: 9, item: 'Ординатура'},
-            {id: 10, item: 'Интернатура'},
-            {id: 11, item: 'Аспирантура'},
-          ],
-          options_soldiery: [
-            {id: 1, item: 'Военнообязанный'},
-            {id: 2, item: 'Невоеннообязанный'},
-          ],
-          options_soldieryStatus: [
-            {id: 1, item: 'Служил'},
-            {id: 2, item: 'Не служил'},
-          ],
+            options_militaryFormDoc: [
+              {id: 1, item: 'Не определено'},
+              {id: 2, item: 'Приписное свид-во'},
+              {id: 3, item: 'Военный билет'},
 
-          options_militaryFormDoc: [
-            {id: 1, item: 'Не определено'},
-            {id: 2, item: 'Приписное свид-во'},
-            {id: 3, item: 'Военный билет'},
-
-          ],
+            ],
+          }
         }
-      }
-    }
+
+
   }
 </script>
 
