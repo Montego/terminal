@@ -26,7 +26,6 @@
       </div>
     </form>
     <button class="btn btn-outline-success float-right" @click="clearPhoto" >Очистить</button>
-
       <div class="col-md-6 py-2 border" v-for="(image, index) in imagesData">
         <img class="img-thumbnail images_place" :src="image" v-if="image.length > 0">
       </div>

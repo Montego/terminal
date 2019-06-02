@@ -271,10 +271,10 @@
   }
 
   .clear_save_button {
-    margin-top: 10%;
-    margin-left: 65%;
+    margin-top: 30%;
+    /*margin-left: 65%;*/
     display: flex;
-    /*justify-content: space-between;*/
+    justify-content: flex-end;
   }
 
   .parent_tabs {

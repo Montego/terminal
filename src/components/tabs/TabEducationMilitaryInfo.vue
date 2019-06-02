@@ -57,18 +57,23 @@
         <p>Документ об образовании</p>
       </div>
       <hr>
-      <div>
-        <label class="row">
-          <div class="form__label-text col-sm">Документ об образовании:</div>
-          <select v-model="tab_edu_military_selectedEduDoc" class="col-sm-6">
-            <option class="col-sm-6" v-for="option in options_eduDoc">
-              {{option.item}}
-            </option>
-          </select>
 
-          <input v-model="tab_edu_military_selectedEduDoc" class="form__input col-sm-8" type="text" name="" placeholder="Заполняется автоматически"
-                 disabled="disabled"/>
-        </label>
+      <div>
+
+        <!--<label class="row">-->
+          <!--<div class="form__label-text col-sm">Документ об образовании:</div>-->
+          <!--<select v-model="tab_edu_military_selectedEduDoc" class="col-sm-6">-->
+            <!--<option class="col-sm-6" v-for="option in options_eduDoc">-->
+              <!--{{option.item}}-->
+            <!--</option>-->
+          <!--</select>-->
+
+          <!--<input v-model="tab_edu_military_selectedEduDoc" class="form__input col-sm-8" type="text" name="" placeholder="Заполняется автоматически"-->
+                 <!--disabled/>-->
+        <!--</label>-->
+
+
+
         <span class="alarm_label" v-if="tab_edu_military_selectedEduDoc===''">Не выбран документ об образовании</span>
         <label class="row">
           <div class="form__label-text col-sm">Серия:</div>
