@@ -304,10 +304,12 @@
         'tab_personal_middlename_genitive','tab_personal_contactPersonNameGenitive',
         'tab_personal_identityCardSeries','tab_personal_identityCardNumber',
         'tab_personal_identityCardIssueDate','tab_personal_identityCardIssueDep','tab_personal_identityCardIssueBy',
-        'tab_personal_homePhoneNumber','tab_personal_cellularPhone','tab_personal_isCompatriot', 'tab_personal_selectedGender',
+        'tab_personal_homePhoneNumber','tab_personal_cellularPhone','tab_personal_isCompatriot',
+        'tab_personal_isEquatedForeign', 'tab_personal_isHostel','tab_personal_isForeignLikeRussian','tab_personal_selectedGender',
         'tab_personal_selectedIdentityCardCode','tab_personal_selectedForeignLanguageInfo',
         'tab_personal_selectedCitizenship'
       ]),
+
 
       // gender() {
       //   return this.$store.getters.GET_GENDER;
