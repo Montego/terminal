@@ -1,7 +1,5 @@
 <template>
   <div class="outer">
-
-
     <div class="row search_place">
       <label class="row search_form">
         <div class="col-sm">Абитуриент:</div>
@@ -103,14 +101,14 @@
 
 
 <script>
-  import TabOverview from "../tabs/TabOverview";
-  import TabPersonalInfo from "../tabs/TabPersonalInfo";
-  import TabAddressInfo from "../tabs/TabAddressInfo";
-  import TabEducationMilitary from "../tabs/TabEducationMilitaryInfo";
-  import TabEvidenceEge from "../tabs/TabEvidenceEgeInfo";
-  import TabParentInfo from "../tabs/TabParentInfo";
-  import TabDistinctiveFeaturesInfo from "../tabs/TabDistinctiveFeaturesInfo";
-  import TabPhoto from "../tabs/TabPhoto";
+  import TabOverview from "../tabs/Application/TabOverviewProfile";
+  import TabPersonalInfo from "../tabs/Profile/TabPersonalInfo";
+  import TabAddressInfo from "../tabs/Profile/TabAddressInfo";
+  import TabEducationMilitary from "../tabs/Profile/TabEducationMilitaryInfo";
+  import TabEvidenceEge from "../tabs/Profile/TabEvidenceEgeInfo";
+  import TabParentInfo from "../tabs/Profile/TabParentInfo";
+  import TabDistinctiveFeaturesInfo from "../tabs/Profile/TabDistinctiveFeaturesInfo";
+  import TabPhoto from "../tabs/Profile/TabPhoto";
 
 
   export default {
@@ -134,26 +132,7 @@
         currentTab: 'Home',
         tabs: ['TabOverview', 'TabPersonalInfo', 'TabAddressInfo', 'TabEducationMilitary',
           'TabEvidenceEge', 'TabParentInfo', 'TabDistinctiveFeaturesInfo', 'TabPhoto'],
-//test data
-        options_gender: [
-          {id: 0, item: '-выберите пол-'},
-          {id: 1, item: 'Мужской'},
-          {id: 2, item: 'Женский'},
-          {id: 3, item: 'Другое'},
-        ],
-        options_document_type: [
-          {id: 1, item: 'Паспорт РФ'},
-          {id: 2, item: 'Не паспорт РФ'},
-        ]
-        ,
-        options_citizenship: [
-          {id: 1, item: 'РФ'},
-          {id: 2, item: 'Казахстан'},
-        ],
-        options_foreign_language: [
-          {id: 1, item: 'изучал'},
-          {id: 2, item: 'не изучал'},
-        ]
+
       }
     },
     methods: {
