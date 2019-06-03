@@ -60,18 +60,19 @@
 
       <div>
 
-        <!--<label class="row">-->
-          <!--<div class="form__label-text col-sm">Документ об образовании:</div>-->
-          <!--<select v-model="tab_edu_military_selectedEduDoc" class="col-sm-6">-->
-            <!--<option class="col-sm-6" v-for="option in options_eduDoc">-->
-              <!--{{option.item}}-->
-            <!--</option>-->
-          <!--</select>-->
+        <label class="row">
+          <div class="form__label-text col-sm">Документ об образовании:</div>
+          <select v-model="tab_edu_military_selectedEduDoc" class="col-sm-6">
+            <option class="col-sm-12" v-for="option in options_eduDoc">
+              {{option.item}}
+            </option>
+          </select>
 
-          <!--<input v-model="tab_edu_military_selectedEduDoc" class="form__input col-sm-8" type="text" name="" placeholder="Заполняется автоматически"-->
-                 <!--disabled/>-->
-        <!--</label>-->
-
+        </label>
+<label class="row">
+  <input v-model="tab_edu_military_selectedEduDoc" class="form__input col-sm-12" type="text" name="" placeholder="Заполняется автоматически"
+         disabled/>
+</label>
 
 
         <span class="alarm_label" v-if="tab_edu_military_selectedEduDoc===''">Не выбран документ об образовании</span>
@@ -211,8 +212,8 @@
       <hr>
       <!--<div class="row" v-for="(extraInfo,index) in extraInfos">-->
         <label class="row" v-for="(extraInfo,index) in extraInfos">
-          <select v-model="tab_edu_military_selectedMilitaryFormDoc" class="col-sm">
-            <option v-for="option in options_militaryFormDoc">
+          <select v-model="selectedExtraInfos" class="col-sm">
+            <option v-for="option in options_extraInfos">
               {{option.item}}
             </option>
           </select>
@@ -293,6 +294,7 @@
             // selectedSoldiery: '',
             // selectedSoldieryStatus: '',
             // selectedMilitaryFormDoc: '',
+            selectedExtraInfos:'',
 
             options_eduDoc: [
               {id: 1, item: 'Академическая справка'},
@@ -342,7 +344,11 @@
               {id: 1, item: 'Не определено'},
               {id: 2, item: 'Приписное свид-во'},
               {id: 3, item: 'Военный билет'},
-
+            ],
+            options_extraInfos: [
+              {id: 1, item: 'Пение'},
+              {id: 2, item: 'Танцы'},
+              {id: 3, item: 'Олимпиады'},
             ],
           }
         }

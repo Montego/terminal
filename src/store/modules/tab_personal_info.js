@@ -27,6 +27,10 @@ export default {
     tab_personal_cellularPhone:'',
 
     tab_personal_isCompatriot:false,
+    tab_personal_isEquatedForeign:false,
+    tab_personal_isHostel:false,
+    tab_personal_isForeignLikeRussian:false,
+
 
     tab_personal_selectedGender: '',
     tab_personal_selectedIdentityCardCode: '',

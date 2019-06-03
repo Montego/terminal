@@ -159,7 +159,8 @@
       <label class="alarm_label">(При наличии подтверждающих документов)</label>
       <label class="row">
         <div class="form__label-text col-sm">Приравнять к иностранцам:</div>
-        <input class="checkbox col-sm" type="checkbox" id="equate_foreign">
+        <input v-if="tab_personal_isCompatriot==true" v-model="tab_personal_isEquatedForeign" class="checkbox col-sm" type="checkbox" id="" disabled>
+        <input v-else v-model="tab_personal_isEquatedForeign" class="checkbox col-sm" type="checkbox" id="equate_foreign">
       </label>
       <label class="alarm_label">(Беларусь, Казахстан, Киргизия, Таджикистан)</label>
       <label class="row">
@@ -168,15 +169,15 @@
       </label>
       <label class="row">
         <div class="form__label-text col-sm">Общежитие:</div>
-        <input class="checkbox col-sm" type="checkbox" id="hostel">
+        <input v-model="tab_personal_isHostel" class="checkbox col-sm" type="checkbox" id="hostel">
       </label>
       <label class="row">
         <div class="form__label-text col-sm">Иностранец, как гражданин РФ:</div>
-        <input class="checkbox col-sm" type="checkbox" id="foreign_like_russian">
+        <input v-if="tab_personal_selectedCitizenship=='РФ'" v-model="tab_personal_isForeignLikeRussian" class="checkbox col-sm" type="checkbox" id="foreign_like_russian" disabled>
+        <input v-else v-model="tab_personal_isForeignLikeRussian" class="checkbox col-sm" type="checkbox"  >
       </label>
       <div class="alarm_label">(С видом на жительство и аттестатом РФ. По соглашению)</div>
     </div>
-
 
     <div class="info_contacts col-sm">
       <div>
@@ -257,15 +258,21 @@
         </label>
 
         <div v-if="tab_personal_selectedForeignLanguageInfo==='изучал'" class="row">
+          <!--<div v-for="(selected_foreignLanguageName,language_description, index) in languages">-->
 
-          <select v-model="tab_personal_selectedForeignLanguageInfo" class="col-sm">
-            <option v-for="option in options_foreignLanguageInfo">
-              {{option.item}}
-            </option>
-          </select>
-          <input class="form__input col-sm" type="text" v-mask="'###'">
-
+            <select v-model="selected_foreignLanguageName" class="col-sm-6">
+              <option v-for="option in options_foreignLanguageName">
+                {{option.item}}
+              </option>
+            </select>
+            <input v-model="language_description" class="form__input col-sm-6" type="text" >
+            <div class="row">
+              <input class="button_add" type="button" value="Добавить" @click="onAddLanguage" >
+              <input class="button_add" type="button" value="Убрать" @click="onRemoveLanguage" >
+            </div>
+          <!--</div>-->
         </div>
+
         <!--<input v-model="lastname_personal_info_tab">-->
 
       </div>
@@ -350,6 +357,12 @@
 
     },
     methods: {
+      onAddLanguage(){
+        this.conditions.push('');
+      },
+      onRemoveLanguage(){
+        this.conditions.pop(this.conditions.length - 1);
+      }
       // ...mapActions('tab_personal_info', ['SET_LASTNAME_PERSONAL_INFO']),
     },
     validations: {
@@ -370,6 +383,13 @@
     },
     data() {
       return {
+        languages:[
+          {
+            selected_foreignLanguageName:'',
+            language_description:''
+          }
+        ],
+        language_description:'',
         // name: '',
         // lastname: '',
         // firstname: '',
@@ -397,7 +417,7 @@
         // selectedIdentityCardCode: '',
         // selectedForeignLanguageInfo:'',
         // selectedCitizenship:'',
-
+        selected_foreignLanguageName:'',
         options_gender: [
           {id: 0, item: '-выберите пол-'},
           {id: 1, item: 'Мужской'},
@@ -438,6 +458,11 @@
         options_foreignLanguageInfo: [
           {id: 1, item: 'изучал'},
           {id: 2, item: 'не изучал'},
+        ],
+        options_foreignLanguageName: [
+          {id: 1, item: 'английский'},
+          {id: 2, item: 'французский'},
+          {id: 3, item: 'немецкий'},
         ]
       }
     }
@@ -446,7 +471,20 @@
 </script>
 
 <style scoped>
-
+  .button_add {
+    min-width: 100px;
+    min-height: 40px;
+    padding: 10px;
+    border: 1px solid;
+    border-color: grey;
+    border-radius:5px;
+    background-color: ghostwhite;
+    /*background-color: #EDD19C;*/
+    font-size: 16px;
+    cursor: pointer;
+    transform:scale(0.8);
+    opacity:0.9
+  }
   input {
     height: 25px;
     border-radius: 3px;
