@@ -77,16 +77,16 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">СНИЛС</div>
-          <input class="form__input col-sm" type="text" name="snils" placeholder="***-***-***" v-mask="'###-###-###'"
+          <input v-model="tab_personal_INIPA" class="form__input col-sm" type="text" name="snils" placeholder="***-***-***" v-mask="'###-###-###'"
                  required/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">СНИЛС Дата:</div>
-          <input class="form__input col-sm" type="date" name="snils_date"/>
+          <input v-model="tab_personal_INIPADate" class="form__input col-sm" type="date" name="snils_date"/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Примечание:</div>
-          <textarea class="col-sm" name="note"></textarea>
+          <textarea v-model="tab_personal_note" class="col-sm" name="note"></textarea>
         </label>
       </div>
     </div>
@@ -165,7 +165,7 @@
       <label class="alarm_label">(Беларусь, Казахстан, Киргизия, Таджикистан)</label>
       <label class="row">
         <div class="form__label-text col-sm">Место рождения:</div>
-        <textarea class="col-sm" name="birth_place"></textarea>
+        <textarea v-model="tab_personal_bithplace" class="col-sm" name="birth_place"></textarea>
       </label>
       <label class="row">
         <div class="form__label-text col-sm">Общежитие:</div>
@@ -197,7 +197,7 @@
         <span class="alarm_label" v-else-if="tab_personal_cellularPhone.length<16">Некорректно заполнено поле "Мобильный телефон"</span>
         <label class="row">
           <div class="form__label-text col-sm">Эл. почта:</div>
-          <input  class="form__input col-sm" v-validate="'required|email'"  placeholder="" name="email" type="email">
+          <input v-model="tab_personal_email" class="form__input col-sm" v-validate="'required|email'"  placeholder="" name="email" type="email">
 
           <!--<input class="form__input col-sm" type="email" name="email"/>-->
         </label>
@@ -265,7 +265,7 @@
                 {{option.item}}
               </option>
             </select>
-            <input v-model="language_description" class="form__input col-sm-6" type="text" >
+            <input v-model="language_description" class="form__input col-sm-6" type="text" v-mask="'#'">
             <div class="row">
               <input class="button_add" type="button" value="Добавить" @click="onAddLanguage" >
               <input class="button_add" type="button" value="Убрать" @click="onRemoveLanguage" >
@@ -285,7 +285,6 @@
   import {mapGetters, mapState, mapActions, mapMutations} from 'vuex'
   import { required, minLength, between, maxLength } from 'vuelidate/lib/validators'
   import { createHelpers } from 'vuex-map-fields';
-  import { mapMultiRowFields } from 'vuex-map-fields';
   const { mapFields } = createHelpers({
     getterType: `tab_personal_info/getField`,
     mutationType: `tab_personal_info/updateField`,
@@ -307,7 +306,8 @@
         'tab_personal_homePhoneNumber','tab_personal_cellularPhone','tab_personal_isCompatriot',
         'tab_personal_isEquatedForeign', 'tab_personal_isHostel','tab_personal_isForeignLikeRussian','tab_personal_selectedGender',
         'tab_personal_selectedIdentityCardCode','tab_personal_selectedForeignLanguageInfo',
-        'tab_personal_selectedCitizenship'
+        'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
+        'tab_personal_bithplace', 'tab_personal_email'
       ]),
 
 

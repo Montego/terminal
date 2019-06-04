@@ -82,10 +82,10 @@
                 </label>
 
               </div>
-              <label class="row">
+              <div class="row">
                 <input class="button_add" type="button" value="Добавить документ" @click="onAddDocuments" >
                 <input class="button_add" type="button" value="Убрать документ" @click="onRemoveDocuments" >
-              </label>
+              </div>
             </div>
           </div>
           <hr>
@@ -140,7 +140,23 @@
                 <!--<td class="text-xs-center">{{ props.item.num }}</td>-->
                 <!--<td class="text-xs-center">{{ props.item.documents }}</td>-->
                 <!--<td class="text-xs-center">{{ props.item.copy_or_origin }}</td>-->
-
+  <div class="row">
+    <div class="col-sm">
+      <label>
+        <span class="col-sm"></span>
+      </label>
+    </div>
+    <div class="col-sm">
+      <label>
+        <div class="col-sm"></div>
+      </label>
+    </div>
+    <div class="col-sm">
+      <label>
+        <div class="col-sm"></div>
+      </label>
+    </div>
+  </div>
               <!--</template>-->
             <!--</v-data-table>-->
           <!--</div>-->

@@ -13,7 +13,8 @@ import tab_parent_info from './modules/tab_parent_info'
 import tab_personal_info from './modules/tab_personal_info'
 import tab_evidence_ege_info from './modules/tab_evidence_ege_info'
 import tab_education_military_info from './modules/tab_education_military_info'
-import full from './modules/full'
+
+import test_profiles from './modules/test_profiles'
 Vue.use(VueTheMask);
 Vue.use(VeeValidate);
 Vue.use(Vuelidate)
@@ -38,7 +39,8 @@ export const store = new Vuex.Store({
     tab_address_info,
     tab_distinctive_features_info,
     tab_parent_info,
-    full
+
+    test_profiles
   },
   strict: false
 });

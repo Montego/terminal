@@ -43,6 +43,7 @@
           selected_educationCondition, index) in conditions">
           <div class="row">
             <div class="col-sm-6">
+
               <label class="row">
                 <div class="form__label-text col-sm">Название факультета:</div>
                 <select v-model="selected_faculty" class="col-sm">
@@ -78,7 +79,27 @@
                   </option>
                 </select>
               </label>
+              <!--<label class="row">-->
+                <!--<div class="form__label-text col-sm">Тип обучения:</div>-->
+                <!--<label class="row">-->
+                  <!--<div class="form__label-text col-sm">Общежитие:</div>-->
+                  <!--<input v-model="specialRight" class="checkbox col-sm" type="checkbox" id="hostel">-->
+                <!--</label>-->
+              <!--</label>-->
+              <!--<label class="row">-->
+                <!--<div class="form__label-text col-sm">Тип обучения:</div>-->
+                <!--<label class="row">-->
+                  <!--<div class="form__label-text col-sm">Общежитие:</div>-->
+                  <!--<input v-model="specialRight" class="checkbox col-sm" type="checkbox" id="hostel">-->
+                <!--</label>-->
+              <!--</label>-->
             </div>
+            <!--<div class="col-sm">-->
+              <!--<div>-->
+                <!--<p>Особое право, согласение</p>-->
+              <!--</div>-->
+              <!--<hr>-->
+            <!--</div>-->
           </div>
           </div>
             <div class="row">
@@ -91,6 +112,7 @@
 
           <!--</label>-->
         </div>
+
       </div>
     </tab>
   </tabs>
@@ -110,6 +132,7 @@
               selected_educationCondition:'',
               }
             ],
+
 
             headers_conditions: [
               {text: 'Факультет', value: 'faculty', sortable: false, align: 'center'},

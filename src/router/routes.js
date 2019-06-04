@@ -6,6 +6,7 @@ import Registation from "../components/pages/Registation";
 // import Main from "../components/pages/Main";
 import Profile from "../components/pages/Profile";
 import Application from "../components/pages/Application";
+import TabPersonalInfo from "../components/tabs/Profile/TabPersonalInfo";
 Vue.use(VueRouter);
 
 const routes = [
@@ -31,6 +32,12 @@ const routes = [
   {
     name:'profile',
     path:'/profile',
+    component: Profile
+  },
+
+  {
+    name:'profile#personal_info',
+    path:'/profile#personal_info',
     component: Profile
   },
 

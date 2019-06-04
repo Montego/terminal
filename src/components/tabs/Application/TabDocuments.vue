@@ -25,6 +25,61 @@
             </div>
             <hr>
 
+            <div class="row">
+              <div class="col-sm-11">
+                <div class="col-sm-2">
+                  Название:
+                </div>
+                <!--<div class="col-sm-3"><input v-model="document_name" class="form__input col-sm-8" type="text" name="" placeholder=""/></div>-->
+                <!--<div class="col-sm-2">Копия/оригинал:</div>-->
+                <!--<div class="col-sm-1"><select class="col-sm-2" name="">&ndash;&gt;-->
+                  <!--<option>Оригинал</option>-->
+                  <!--<option>Копия</option>-->
+                  <!--</select>-->
+                <!--</div>-->
+                <!--<div class="col-sm-2">Дата предоставления:</div>-->
+                <!--<div class="col-sm-1"><input v-model="document_date" class="form__input col-sm-2" type="date" name="" placeholder=""/></div>-->
+                <!--<div class="col-sm-1">Количество:</div>-->
+                <!--<div class="col-sm-1"><input v-model="document_count" class="form__input col-sm-2" type="text" name="" placeholder=""/></div>-->
+              </div>
+              <div class="col-sm-1">
+                <!--<input class="button_add" type="button" value="Добавить" @click="onAddCondition" >-->
+                <!--<input class="button_add" type="button" value="Убрать" @click="onRemoveCondition" >-->
+                <!--<input class="button_add" type="button" value="Сохранить" @click="onSaveCondition" >-->
+              </div>
+            </div>
+            <!--<div class="row">-->
+              <!--<div class="col-sm-6">-->
+
+                <!--<label class="row">-->
+                  <!--<div class="form__label-text col-sm-4">Название:</div>-->
+                  <!--<input v-model="document_name" class="form__input col-sm-8" type="text" name="" placeholder=""/>-->
+                <!--</label>-->
+
+                <!--<label class="row">-->
+                  <!--<div class="form__label-text col-sm">Копия/оригинал:</div>-->
+                  <!--<select class="col-sm-2" name="">-->
+                    <!--<option>Оригинал</option>-->
+                    <!--<option>Копия</option>-->
+                  <!--</select>-->
+                <!--</label>-->
+
+                <!--<label class="row">-->
+                  <!--<div class="form__label-text col-sm">Дата предоставления:</div>-->
+                  <!--<input v-model="document_date" class="form__input col-sm-2" type="date" name="" placeholder=""/>-->
+                <!--</label>-->
+
+                <!--<label class="row">-->
+                  <!--<div class="form__label-text col-sm">Количество:</div>-->
+                  <!--<input v-model="document_count" class="form__input col-sm-2" type="text" name="" placeholder=""/>-->
+                <!--</label>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+              <!--<input class="button_add" type="button" value="Добавить" @click="onAddCondition" >-->
+              <!--<input class="button_add" type="button" value="Убрать" @click="onRemoveCondition" >-->
+              <!--<input class="button_add" type="button" value="Сохранить" @click="onSaveCondition" >-->
+            <!--</div>-->
           </div>
         </div>
       </tab>
@@ -37,6 +92,9 @@
         name: "TabDocuments",
         data(){
           return {
+            document_name:'',
+            document_date:'',
+            document_count:'',
             headers_documents: [
               {text: 'Название', value: 'name', sortable: false, align: 'center'},
               {text: 'Копия/оригинал', value: 'copy', sortable: false, align: 'center'},

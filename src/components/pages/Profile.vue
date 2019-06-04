@@ -11,11 +11,17 @@
         <!--забрать стиль-->
         <!--<v-btn slot="activator" color="#5bc0de" dark class="mb-2">Новое событие</v-btn>-->
       <!--<button>-->
-        <router-link :to="{name: 'application'}" v-bind:title="titles[0].title">
-          <button class="search_button col-sm-2">Заявление</button>-->
-        </router-link>
-      <!--</button>-->
 
+        <!--<router-link :to="{name: 'application'}" v-bind:title="titles[0].title">-->
+          <!--<button class="search_button col-sm-2">-->
+            <!--Заявление-->
+          <!--</button>-->
+        <!--</router-link>-->
+
+
+
+
+      <!--</button>-->
         <!--<template v-if="'employers'.indexOf($route.name)>-1">-->
           <!--<button slot="activator" class="search_button col-sm-2">Заявление</button>-->
         <!--</template>-->
@@ -63,12 +69,12 @@
 
     <div>
       <!--<tabs class="main_tab" :options="{ useUrlFragment: false }">-->
-        <tabs class="main_tab">
-        <tab id="" name="Обзор">
+        <tabs class="main_tab" >
+        <tab id="overview_personal_info" name="Обзор">
           <TabOverview></TabOverview>
         </tab>
 
-        <tab class="personal_tab" id="specialty" name="Личные сведения">
+        <tab class="personal_tab" id="personal_info" name="Личные сведения">
           <TabPersonalInfo></TabPersonalInfo>
         </tab>
 
@@ -94,6 +100,7 @@
         <tab id="photo" name="Фотография">
           <TabPhoto></TabPhoto>
         </tab>
+
       </tabs>
     </div>
   </div>
@@ -101,7 +108,7 @@
 
 
 <script>
-  import TabOverview from "../tabs/Application/TabOverviewProfile";
+  import TabOverview from "../tabs/Profile/TabOverviewProfile";
   import TabPersonalInfo from "../tabs/Profile/TabPersonalInfo";
   import TabAddressInfo from "../tabs/Profile/TabAddressInfo";
   import TabEducationMilitary from "../tabs/Profile/TabEducationMilitaryInfo";
