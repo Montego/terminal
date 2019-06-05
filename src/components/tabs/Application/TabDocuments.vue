@@ -2,6 +2,9 @@
   <div class="inside_tab">
     <tabs class="parent_tabs">
       <tab id="" name="Обзор">
+        <div class="row">
+          <button>Заполнить</button>
+        </div>
         <v-data-table
           :headers="headers_documents"
           :items="info_documents"

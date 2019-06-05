@@ -4,43 +4,8 @@
     <button color="#5bc0de" @click="onNewProfile()">
       +
     </button>
-    <!--{{profile_1_personal_name}}-->
-    <!--{{profile_1_personal_lastname}}-->
-    <!--{{profile_1_personal_firstname}}-->
-    <!--{{profile_1_personal_middlename}}-->
-    <!--{{profile_1_personal_birthDate}}-->
-    <!--{{profiles.profile_1_personal_lastname}}-->
     <div class="row">
-      <!--<label>name: <input v-model="profile.profile_1_personal_name" disabled></label>-->
-      <!--<label>lastname: <input v-model="profile.profile_1_personal_lastname" disabled></label>-->
-      <!--<label>firstname: <input v-model="profile.profile_1_personal_firstname" disabled></label>-->
-      <!--<label>firstname: <input v-model="profile.profile_1_personal_middlename" disabled></label>-->
-      <!--<label>firstname: <input v-model="profile.profile_1_personal_selectedGender" disabled></label>-->
-      <!--<label>firstname: <input v-model="profile.profile_1_personal_birthDate" disabled></label>-->
-      <!--<table class="col-sm-12" border="1">-->
-        <!--<caption>Таблица </caption>-->
-        <!--<tr>-->
-          <!--<th>Ф.И.О.</th>-->
-          <!--<th>Фамилия</th>-->
-          <!--<th>Имя</th>-->
-          <!--<th>Отчество</th>-->
-          <!--<th>Пол</th>-->
-          <!--<th>Дата рождения</th>-->
-          <!--<th>Действия</th>-->
-        <!--</tr>-->
-        <!--<tr v-for="profile in profiles">-->
-          <!--<td>{{profile.profile_1_personal_name}}</td>-->
-          <!--<td>{{profile.profile_1_personal_lastname}}</td>-->
-          <!--<td>{{profile.profile_1_personal_firstname}}</td>-->
-          <!--<td>{{profile.profile_1_personal_middlename}}</td>-->
-          <!--<td>{{profile.profile_1_personal_selectedGender}}</td>-->
-          <!--<td>{{profile.profile_1_personal_birthDate}}</td>-->
-          <!--<td>-->
-            <!--<button >Редактировать</button>-->
-            <!--<button>2</button>-->
-          <!--</td>-->
-        <!--</tr>-->
-      <!--</table>-->
+
     </div>
   </div>
     <!--{{profiles.profile}}-->

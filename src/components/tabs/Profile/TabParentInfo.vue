@@ -1,28 +1,37 @@
 <template>
   <div>
     <tabs class="parent_tabs">
-      <tab id="" name="Обзор">
+      <tab id="parent_overview" name="Обзор">
         <!--<div class="row">-->
           <!--<button>Добавить</button>-->
         <!--</div>-->
+        <!--{{tab_parent_parents.length}}-->
+
         <v-data-table
           :headers="headers_parent"
-          :items="info_parent"
+          :items="table_show"
           hide-actions
           class="elevation-1 text-xs-center"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-center">{{ props.item.who_parent}}</td>
-            <td class="text-xs-center">{{ props.item.snp_parent}}</td>
-            <td class="text-xs-center">{{ props.item.surname_parent}}</td>
-            <td class="text-xs-center">{{ props.item.name_parent }}</td>
-            <td class="text-xs-center">{{ props.item.patronymic_parent}}</td>
-            <td class="text-xs-center">{{ props.item.gender_parent}}</td>
-            <td class="text-xs-center">{{ props.item.acions}}</td>
+            <td class="text-xs-center">{{ props.item.tab_parent_selectedFamRelationShip}}</td>
+            <!--<td class="text-xs-center">{{ props.item.snp_parent}}</td>-->
+            <td class="text-xs-center">{{ props.item.tab_parent_lastname}}</td>
+            <td class="text-xs-center">{{ props.item.tab_parent_firstname }}</td>
+            <td class="text-xs-center">{{ props.item.tab_parent_middlename}}</td>
+            <td class="text-xs-center">{{ props.item.tab_parent_selectedGender}}</td>
+            <td class="text-xs-center">
+              <!--<button @click="onEdit(props.item)">-->
+                <!--<v-icon color="#5bc0de">edit</v-icon>-->
+              <!--</button>{{ props.item.acions}}-->
+              <button @click="onDelete(props.item)">
+                <v-icon color="#5bc0de">delete</v-icon>
+              </button>{{ props.item.acions}}
+            </td>
           </template>
         </v-data-table>
       </tab>
-      <tab id="" name="Личные данные попечителя">
+      <tab id="parent_info" name="Личные данные попечителя">
         <div class="inner_tab row">
           <div class="col-sm">
             <div>
@@ -59,7 +68,7 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Пол:</div>
-              <select class="col-sm" name="">
+              <select v-model="tab_parent_selectedGender" class="col-sm" name="">
                 <option>Мужской</option>
                 <option>Женский</option>
                 <option>Другое</option>
@@ -80,19 +89,19 @@
             <hr>
             <label class="row">
               <div class="form__label-text col-sm">Организация:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-model="tab_parent_organization_name" class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Адрес:</div>
-              <textarea class="col-sm" name=""></textarea>
+              <textarea v-model="tab_parent_organization_adress" class="col-sm" name=""></textarea>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Профессия:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-model="tab_parent_organization_seniority" class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Трудовой стаж, лет:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-model="tab_parent_organization_employYears" class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
           </div>
           <div class="col-sm">
@@ -132,8 +141,8 @@
               <textarea v-model="tab_parent_factAddress" class="col-sm" name=""></textarea>
             </label>
             <div class="clear_save_button row">
-              <button>Очистить</button>
-              <button>Сохранить</button>
+              <button @click="onClearFields">Очистить</button>
+              <button @click="onAddParent">Добавить</button>
             </div>
           </div>
         </div>
@@ -145,6 +154,10 @@
 
 <script>
   import { createHelpers } from 'vuex-map-fields';
+  const { mapMultiRowFields } = createHelpers({
+    getterType: `tab_parent_info/getField`,
+    mutationType: `tab_parent_info/updateField`,
+  });
   const { mapFields: tab_parent_info } = createHelpers({
     getterType: `tab_parent_info/getField`,
     mutationType: `tab_parent_info/updateField`,
@@ -173,18 +186,22 @@
         ],
 
         headers_parent: [
-          {text: 'Кем приходится', value: 'who_parent', sortable: false, align: 'center'},
-          {text: 'Ф.И.О.', value: 'snp_parent', sortable: false, align: 'center'},
-          {text: 'Фамилия', value: 'surname_parent', sortable: false, align: 'center'},
-          {text: 'Имя', value: 'name_parent', sortable: false, align: 'center'},
-          {text: 'Отчество', value: 'patronymic_parent', sortable: false, align: 'center'},
-          {text: 'Пол', value: 'gender_parent', sortable: false, align: 'center'},
+          {text: 'Кем приходится', value: 'tab_parent_selectedFamRelationShip', sortable: false, align: 'center'},
+          // {text: 'Ф.И.О.', value: 'snp_parent', sortable: false, align: 'center'},
+          {text: 'Фамилия', value: 'tab_parent_lastname', sortable: false, align: 'center'},
+          {text: 'Имя', value: 'tab_parent_firstname', sortable: false, align: 'center'},
+          {text: 'Отчество', value: 'tab_parent_middlename', sortable: false, align: 'center'},
+          {text: 'Пол', value: 'tab_parent_selectedGender', sortable: false, align: 'center'},
           {text: 'Действия', value: 'actions', sortable: false, align: 'center'},
         ],
         info_parent: [],
       }
     },
     computed: {
+      table_show() {
+        return this.info_parent = this.tab_parent_parents;
+      },
+
       fullname: function () {
         return this.tab_parent_name = this.tab_parent_lastname + ' ' + this.tab_parent_firstname + ' ' + this.tab_parent_middlename
       },
@@ -198,16 +215,94 @@
         }
         return age;
       },
+      ...mapMultiRowFields(['tab_parent_parents']),
       ...tab_parent_info(['tab_parent_name', 'tab_parent_lastname', 'tab_parent_firstname', 'tab_parent_middlename',
         'tab_parent_birthDate', 'tab_parent_seniority', 'tab_parent_homePhoneNumber', 'tab_parent_cellularPhone',
         'tab_parent_factAddress', 'tab_parent_selectedFamRelationShip', 'tab_parent_selectedGender',
+        'tab_parent_organization_name','tab_parent_organization_adress',
+        'tab_parent_organization_seniority','tab_parent_organization_employYears'
       ]),
+
       ...tab_address_info(['tab_address_factAddress',]),
     },
     methods: {
+      onDelete(item) {
+        const index = this.info_parent.indexOf(item);
+        console.log(index);
+        this.info_parent.splice(index,1);
+
+      },
+      // onEdit(item) {
+      //   location.href='profile#личные-данные-попечителя';
+      // },
       onCopyAddressFromStudent() {
         this.tab_parent_factAddress = this.tab_address_factAddress;
-      }
+      },
+      onClearFields() {
+          this.tab_parent_name = '';
+          this.tab_parent_lastname = '';
+          this.tab_parent_firstname = '';
+          this.tab_parent_middlename = '';
+          this.tab_parent_birthDate = '';
+          this.tab_parent_homePhoneNumber = '';
+          this.tab_parent_cellularPhone = '';
+          this.tab_parent_factAddress = '';
+          this.tab_parent_selectedFamRelationShip = '';
+          this.tab_parent_selectedGender = '';
+          this.tab_parent_organization_name = '';
+          this.tab_parent_organization_adress = '';
+          this.tab_parent_organization_seniority = '';
+          this.tab_parent_organization_employYears = '';
+
+      },
+
+      onAddParent() {
+        function Parent(parent_name,parent_lastname,parent_firstname,tab_parent_middlename,
+                        parent_birthDate,parent_homePhoneNumber,parent_cellularPhone,
+                        parent_factAddress,parent_selectedFamRelationShip,parent_selectedGender,
+                        parent_organization_name, parent_organization_adress,parent_organization_seniority,
+                        parent_organization_employYears) {
+          // parent_name = this.tab_parent_name;
+          this.tab_parent_name = parent_name;
+          this.tab_parent_lastname = parent_lastname;
+          this.tab_parent_firstname = parent_firstname;
+          this.tab_parent_middlename = tab_parent_middlename;
+          this.tab_parent_birthDate = parent_birthDate;
+          this.tab_parent_homePhoneNumber = parent_homePhoneNumber;
+          this.tab_parent_cellularPhone = parent_cellularPhone;
+          this.tab_parent_factAddress = parent_factAddress;
+          this.tab_parent_selectedFamRelationShip = parent_selectedFamRelationShip;
+          this.tab_parent_selectedGender = parent_selectedGender;
+          this.tab_parent_organization_name = parent_organization_name;
+          this.tab_parent_organization_adress = parent_organization_adress;
+          this.tab_parent_organization_seniority = parent_organization_seniority;
+          this.tab_parent_organization_employYears = parent_organization_employYears;
+        }
+        var parent = new Parent(
+          this.tab_parent_name, this.tab_parent_lastname, this.tab_parent_firstname,
+          this.tab_parent_middlename,this.tab_parent_birthDate,this.tab_parent_homePhoneNumber,
+          this.tab_parent_cellularPhone, this.tab_parent_factAddress, this.tab_parent_selectedFamRelationShip,
+          this.tab_parent_selectedGender, this.tab_parent_organization_name,this.tab_parent_organization_adress,
+          this.tab_parent_organization_seniority,this.tab_parent_organization_employYears
+        );
+          // parent.tab_parent_name = this.tab_parent_name;
+          // parent.tab_parent_lastname = this.tab_parent_lastname;
+          // parent.tab_parent_firstname = this.tab_parent_firstname;
+          // parent.tab_parent_middlename = this.tab_parent_middlename;
+          // parent.tab_parent_birthDate = this.tab_parent_birthDate;
+          // parent.tab_parent_homePhoneNumber = this.tab_parent_homePhoneNumber;
+          // parent.tab_parent_cellularPhone = this.tab_parent_cellularPhone;
+          // parent.tab_parent_factAddress = this.tab_parent_factAddress;
+          // parent.tab_parent_selectedFamRelationShip = this.tab_parent_selectedFamRelationShip;
+          // parent.tab_parent_selectedGender = this.tab_parent_selectedGender;
+          // parent.tab_parent_organization_name = this.tab_parent_organization_name;
+          // parent.tab_parent_organization_adress = this.tab_parent_organization_adress;
+          // parent.tab_parent_organization_seniority = this.tab_parent_organization_seniority;
+          // parent.tab_parent_organization_employYears = this.tab_parent_organization_employYears;
+
+        this.tab_parent_parents.push(parent);
+        console.log(this.tab_parent_parents)
+      },
     }
 
   }

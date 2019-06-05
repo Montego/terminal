@@ -3,7 +3,7 @@
   <tabs class="parent_tabs">
     <tab id="" name="Обзор">
       <!--<div class="row">-->
-      <!--<button>Добавить</button>-->
+      <!--<button>Заполнить</button>-->
       <!--</div>-->
       <v-data-table
         :headers="headers_conditions"
@@ -174,6 +174,7 @@
             options_educationCondition: [
               {id: 1, item: 'Бюджет'},
               {id: 2, item: 'Договор'},
+              {id: 2, item: 'Целевое'},
             ]
 
           }

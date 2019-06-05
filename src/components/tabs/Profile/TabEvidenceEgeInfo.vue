@@ -1,29 +1,29 @@
 <template>
   <div>
-    <tabs class="ege_tabs">
-      <tab id="" name="Обзор">
-        <!--<tab id="" name="Свидетельства ЕГЭ">-->
+    <!--<tabs class="ege_tabs">-->
+      <!--<tab id="" name="Обзор">-->
+        <!--&lt;!&ndash;<tab id="" name="Свидетельства ЕГЭ">&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+          <!--&lt;!&ndash;<button>Добавить</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
         <!--<div class="row">-->
-          <!--<button>Добавить</button>-->
-        <!--</div>-->
-        <div class="row">
 
-          <div class="col-sm">
+          <!--<div class="col-sm">-->
 
-            <v-data-table
-              :headers="headers_ege_subjects"
-              :items="info_ege_subjects"
-              class="elevation-1 text-xs-center"
-              hide-actions
-            >
-              <template slot="items" slot-scope="props">
-                <td class="text-xs-center">{{ props.item.ege_subject_name}}</td>
-                <td class="text-xs-center">{{ props.item.ege_ball_1}}</td>
-                <td class="text-xs-center">{{ props.item.ege_ball_2}}</td>
-                <td class="text-xs-center">{{ props.item.ege_appeal_status}}</td>
-                <td class="text-xs-center">{{ props.item.actions}}</td>
-              </template>
-            </v-data-table>
+            <!--<v-data-table-->
+              <!--:headers="headers_ege_subjects"-->
+              <!--:items="info_ege_subjects"-->
+              <!--class="elevation-1 text-xs-center"-->
+              <!--hide-actions-->
+            <!--&gt;-->
+              <!--<template slot="items" slot-scope="props">-->
+                <!--<td class="text-xs-center">{{ props.item.ege_subject_name}}</td>-->
+                <!--<td class="text-xs-center">{{ props.item.ege_ball_1}}</td>-->
+                <!--<td class="text-xs-center">{{ props.item.ege_ball_2}}</td>-->
+                <!--<td class="text-xs-center">{{ props.item.ege_appeal_status}}</td>-->
+                <!--<td class="text-xs-center">{{ props.item.actions}}</td>-->
+              <!--</template>-->
+            <!--</v-data-table>-->
 
 
             <!--<div>-->
@@ -63,11 +63,11 @@
             <!--<td class="text-xs-center">{{ props.item.ege_appeal_status}}</td>-->
             <!--</template>-->
             <!--</v-data-table>-->
-          </div>
-        </div>
+          <!--</div>-->
+        <!--</div>-->
 
-      </tab>
-      <tab id="" name="Данные для свидетельства">
+      <!--</tab>-->
+      <!--<tab id="" name="Данные для свидетельства">-->
         <div class="inner_tab row">
 
           <div class="col-sm">
@@ -267,8 +267,8 @@
 
 
         </div>
-      </tab>
-    </tabs>
+      <!--</tab>-->
+    <!--</tabs>-->
   </div>
 </template>
 

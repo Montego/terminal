@@ -6,7 +6,6 @@ export default {
     gender: [],
     langInfo: [],
     // language_name: [],
-
     accreditationDocType: [],
     deliveryType: [],
     docType: [],

@@ -1,10 +1,10 @@
 <template>
     <div>
       <tabs class="parent_tabs">
-        <tab id="" name="Обзор">
-          <div class="row">
-            <button>Добавить</button>
-          </div>
+        <tab id="features_overview" name="Обзор">
+          <!--<div class="row">-->
+            <!--<button>Добавить</button>-->
+          <!--</div>-->
           <v-data-table
             :headers="headers_features_info"
             :items="info_features_info"
@@ -23,7 +23,7 @@
 
             </v-data-table>
         </tab>
-        <tab id="" name="Отличительные признаки">
+        <tab id="features_info" name="Отличительные признаки">
           <div class="inner_tab row">
             <div class="col-sm">
               <div>
