@@ -1,26 +1,32 @@
 <template>
   <div class="inside_tab">
     <tabs class="parent_tabs">
-      <tab id="" name="Обзор">
+      <tab id="documents_overview" name="Обзор">
         <div class="row">
           <button>Заполнить</button>
+          <button @click="onAdd">Добавить</button>
         </div>
         <v-data-table
           :headers="headers_documents"
-          :items="info_documents"
+          :items="showTable"
           hide-actions
           class="elevation-1 text-xs-center"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-center">{{ props.item.name}}</td>
-            <td class="text-xs-center">{{ props.item.copy}}</td>
-            <td class="text-xs-center">{{ props.item.date}}</td>
-            <td class="text-xs-center">{{ props.item.count }}</td>
-
+            <td class="text-xs-center">{{ props.item.fullName}}</td>
+            <td class="text-xs-center">{{ props.item.tab_document_selectedCopy}}</td>
+            <td class="text-xs-center">{{ props.item.tab_document_date}}</td>
+            <td class="text-xs-center">{{ props.item.tab_document_count }}</td>
+            <td class="text-xs-center">
+              <button @click="onDelete(props.item)">
+                <v-icon color="#5bc0de">delete</v-icon>
+              </button>
+            </td>
           </template>
         </v-data-table>
       </tab>
-      <tab id="" name="Документы">
+
+      <tab id="documents_info" name="Документы">
         <div class="inner_tab row">
           <div class="col-sm">
             <div>
@@ -29,68 +35,66 @@
             <hr>
 
             <div class="row">
-              <div class="col-sm-11">
-                <div class="col-sm-2">
-                  Название:
-                </div>
-                <!--<div class="col-sm-3"><input v-model="document_name" class="form__input col-sm-8" type="text" name="" placeholder=""/></div>-->
-                <!--<div class="col-sm-2">Копия/оригинал:</div>-->
-                <!--<div class="col-sm-1"><select class="col-sm-2" name="">&ndash;&gt;-->
-                  <!--<option>Оригинал</option>-->
-                  <!--<option>Копия</option>-->
-                  <!--</select>-->
-                <!--</div>-->
-                <!--<div class="col-sm-2">Дата предоставления:</div>-->
-                <!--<div class="col-sm-1"><input v-model="document_date" class="form__input col-sm-2" type="date" name="" placeholder=""/></div>-->
-                <!--<div class="col-sm-1">Количество:</div>-->
-                <!--<div class="col-sm-1"><input v-model="document_count" class="form__input col-sm-2" type="text" name="" placeholder=""/></div>-->
-              </div>
-              <div class="col-sm-1">
-                <!--<input class="button_add" type="button" value="Добавить" @click="onAddCondition" >-->
-                <!--<input class="button_add" type="button" value="Убрать" @click="onRemoveCondition" >-->
-                <!--<input class="button_add" type="button" value="Сохранить" @click="onSaveCondition" >-->
+              <div class="col-sm-6">
+                  <label class="row">
+                    <div class="form__label-text col-sm">Тип документа:</div>
+                    <select v-model="tab_document_selectedDocumentType" class="col-sm" name="">
+                      <option>док 1</option>
+                      <option>док 2</option>
+                    </select>
+                  </label>
+                <label class="row">
+                  <div class="form__label-text col-sm">Количество:</div>
+                  <input v-model="tab_document_count" class="form__input col-sm" type="text"  required/>
+                </label>
+                <label class="row">
+                  <div class="form__label-text col-sm">Серия:</div>
+                  <input v-model="tab_document_series" class="form__input col-sm" type="text"  required/>
+                </label>
+                <label class="row">
+                  <div class="form__label-text col-sm">Номер/ID:</div>
+                  <input v-model="tab_document_number" class="form__input col-sm" type="text"  required/>
+                </label>
+
+                <label class="row">
+                  <div class="form__label-text col-sm">Копия/оригинал:</div>
+                  <select v-model="tab_document_selectedCopy" class="col-sm" >
+                    <option>копия</option>
+                    <option>оригинал</option>
+                  </select>
+                </label>
+                <label class="row">
+                  <div class="form__label-text col-sm">Дата выдачи:</div>
+                  <input v-model="tab_document_date" class="form__input col-sm" type="date"  required/>
+                </label>
+                <label class="row">
+                  <div class="form__label-text col-sm">Кем выдан:</div>
+                  <textarea v-model="tab_document_issuedBy" class="col-sm" ></textarea>
+                </label>
               </div>
             </div>
-            <!--<div class="row">-->
-              <!--<div class="col-sm-6">-->
-
-                <!--<label class="row">-->
-                  <!--<div class="form__label-text col-sm-4">Название:</div>-->
-                  <!--<input v-model="document_name" class="form__input col-sm-8" type="text" name="" placeholder=""/>-->
-                <!--</label>-->
-
-                <!--<label class="row">-->
-                  <!--<div class="form__label-text col-sm">Копия/оригинал:</div>-->
-                  <!--<select class="col-sm-2" name="">-->
-                    <!--<option>Оригинал</option>-->
-                    <!--<option>Копия</option>-->
-                  <!--</select>-->
-                <!--</label>-->
-
-                <!--<label class="row">-->
-                  <!--<div class="form__label-text col-sm">Дата предоставления:</div>-->
-                  <!--<input v-model="document_date" class="form__input col-sm-2" type="date" name="" placeholder=""/>-->
-                <!--</label>-->
-
-                <!--<label class="row">-->
-                  <!--<div class="form__label-text col-sm">Количество:</div>-->
-                  <!--<input v-model="document_count" class="form__input col-sm-2" type="text" name="" placeholder=""/>-->
-                <!--</label>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row">-->
-              <!--<input class="button_add" type="button" value="Добавить" @click="onAddCondition" >-->
-              <!--<input class="button_add" type="button" value="Убрать" @click="onRemoveCondition" >-->
-              <!--<input class="button_add" type="button" value="Сохранить" @click="onSaveCondition" >-->
-            <!--</div>-->
+            <div class="row">
+              <button @click="onClear">Очистить</button>
+              <button @click="onSave">Сохранить</button>
+            </div>
           </div>
         </div>
       </tab>
+
     </tabs>
   </div>
 </template>
 
 <script>
+  import { createHelpers } from 'vuex-map-fields';
+  const { mapMultiRowFields } = createHelpers({
+    getterType: `tab_documents/getField`,
+    mutationType: `tab_documents/updateField`,
+  });
+  const { mapFields: tab_documents} = createHelpers({
+    getterType: `tab_documents/getField`,
+    mutationType: `tab_documents/updateField`,
+  });
     export default {
         name: "TabDocuments",
         data(){
@@ -103,11 +107,84 @@
               {text: 'Копия/оригинал', value: 'copy', sortable: false, align: 'center'},
               {text: 'Дата предоставления', value: 'date', sortable: false, align: 'center'},
               {text: 'Количество', value: 'count', sortable: false, align: 'center'},
-
+              {text: 'Действия', value: 'actions', sortable: false, align: 'center'},
             ],
             info_documents: [],
+            document_fullName: '',
           }
-        }
+        },
+      computed: {
+        ...tab_documents(['tab_document_selectedDocumentType', 'tab_document_series', 'tab_document_number',
+          'tab_document_selectedCopy', 'tab_document_date','tab_document_issuedBy','tab_document_fullName',
+          'tab_document_count'
+        ]),
+        ...mapMultiRowFields(['document','tab_document_allDocuments']),
+
+        fullName(){
+          return this.document_fullName =
+            this.tab_document_selectedDocumentType + ' ' +
+             this.tab_document_series +
+            ' ' + this.tab_document_number;
+        },
+
+        showTable(){
+          return this.info_documents = this.tab_document_allDocuments;
+        },
+      },
+        methods: {
+          onAdd(){
+            location.href='application#documents_info';
+          },
+          onClear() {
+            this.tab_document_selectedDocumentType = null;
+            this.tab_document_count = null;
+            this.tab_document_series = null;
+            this.tab_document_number = null;
+            this.tab_document_selectedCopy = null;
+            this.tab_document_date = null;
+            this.tab_document_issuedBy = null;
+          },
+          onSave() {
+            location.href='application#documents_overview';
+
+            function Document(doc_type,doc_count,doc_series,doc_number,
+                            doc_selectedCopy,doc_date,doc_issuedBy, doc_fullName
+                            ) {
+              this.tab_document_selectedDocumentType = doc_type;
+              this.tab_document_count = doc_count;
+              this.tab_document_series = doc_series;
+              this.tab_document_number = doc_number;
+              this.tab_document_selectedCopy = doc_selectedCopy;
+              this.tab_document_date = doc_date;
+              this.tab_document_issuedBy = doc_issuedBy;
+              this.fullName = doc_fullName;
+            }
+              var document = new Document(
+                this.tab_document_selectedDocumentType, this.tab_document_count, this.tab_document_series,
+                this.tab_document_number,this.tab_document_selectedCopy,this.tab_document_date,
+                this.tab_document_issuedBy, this.fullName
+
+              );
+
+            // this.document.tab_document_selectedDocumentType = this.tab_document_selectedDocumentType;
+            // this.document.tab_document_count = this.tab_document_count;
+            // this.document.tab_document_series = this.tab_document_series;
+            // this.document.tab_document_number = this.tab_document_number;
+            // this.document.tab_document_selectedCopy = this.tab_document_selectedCopy;
+            // this.document.tab_document_date = this.tab_document_date;
+            // this.document.tab_document_issuedBy = this.tab_document_issuedBy;
+            this.tab_document_allDocuments.push(document);
+            console.log(this.document)
+            console.log(this.tab_document_allDocuments)
+            console.log(this.fullName);
+          },
+
+          onDelete(item) {
+            const index = this.info_documents.indexOf(item);
+            console.log(index);
+            this.info_documents.splice(index, 1);
+          }
+        },
 
     }
 </script>

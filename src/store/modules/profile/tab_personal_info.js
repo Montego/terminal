@@ -1,4 +1,4 @@
-import {AXIOS} from "../../components/plugins/APIService.js"
+import {AXIOS} from "../../../components/plugins/APIService.js"
 import { getField, updateField } from 'vuex-map-fields';
 
 export default {

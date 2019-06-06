@@ -3,7 +3,7 @@ export default {
   namespaced: true,
   state: {
     tab_parent_parents:[],
-
+    tab_parent_one_parent:[],
     tab_parent_name: '',
     tab_parent_lastname: '',
     tab_parent_firstname: '',

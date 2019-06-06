@@ -7,14 +7,16 @@ import Vuelidate from 'vuelidate'
 
 import enums from './modules/enums'
 import dictionary from './modules/dictionary'
-import tab_address_info from './modules/tab_address_info'
-import tab_distinctive_features_info from './modules/tab_distinctive_features_info'
-import tab_parent_info from './modules/tab_parent_info'
-import tab_personal_info from './modules/tab_personal_info'
-import tab_evidence_ege_info from './modules/tab_evidence_ege_info'
-import tab_education_military_info from './modules/tab_education_military_info'
+import tab_address_info from './modules/profile/tab_address_info'
+import tab_distinctive_features_info from './modules/profile/tab_distinctive_features_info'
+import tab_parent_info from './modules/profile/tab_parent_info'
+import tab_personal_info from './modules/profile/tab_personal_info'
+import tab_evidence_ege_info from './modules/profile/tab_evidence_ege_info'
+import tab_education_military_info from './modules/profile/tab_education_military_info'
 
-import test_profiles from './modules/test_profiles'
+import tab_documents from './modules/application/tab_documents'
+
+import test_profiles from './modules/profile/test_profiles'
 Vue.use(VueTheMask);
 Vue.use(VeeValidate);
 Vue.use(Vuelidate)
@@ -39,8 +41,8 @@ export const store = new Vuex.Store({
     tab_address_info,
     tab_distinctive_features_info,
     tab_parent_info,
-
-    test_profiles
+    test_profiles,
+    tab_documents,
   },
   strict: false
 });

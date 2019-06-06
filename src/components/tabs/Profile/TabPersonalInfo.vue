@@ -123,7 +123,7 @@
           <div class="form__label-text col-sm">Номер:</div>
           <!--<input v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_number" required/>-->
           <input v-if="tab_personal_selectedIdentityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="******" v-mask="'######'" required/>
-          <input v-else-if="tab_personal_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***-***" v-mask="'###-###-###'" required/>
+          <input v-else-if="tab_personal_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***-***" v-mask="'###-###-###'" required/>
           <input v-else v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial"required/>
         </label>
         <span class="alarm_label" v-if="tab_personal_identityCardNumber===''">Не заполнено поле "Номер"</span>
@@ -154,12 +154,12 @@
       <label class="row">
         <div class="form__label-text col-sm">Соотечественник:</div>
         <input v-if="tab_personal_selectedCitizenship=='РФ'" v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" id="compatriot" disabled="disabled">
-        <input v-else="tab_personal_selectedCitizenship=='РФ'" v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" id="">
+        <input v-else="tab_personal_selectedCitizenship=='РФ'" v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" >
       </label>
       <label class="alarm_label">(При наличии подтверждающих документов)</label>
       <label class="row">
         <div class="form__label-text col-sm">Приравнять к иностранцам:</div>
-        <input v-if="tab_personal_isCompatriot==true" v-model="tab_personal_isEquatedForeign" class="checkbox col-sm" type="checkbox" id="" disabled>
+        <input v-if="tab_personal_isCompatriot==true" v-model="tab_personal_isEquatedForeign" class="checkbox col-sm" type="checkbox" disabled>
         <input v-else v-model="tab_personal_isEquatedForeign" class="checkbox col-sm" type="checkbox" id="equate_foreign">
       </label>
       <label class="alarm_label">(Беларусь, Казахстан, Киргизия, Таджикистан)</label>
@@ -304,7 +304,8 @@
         'tab_personal_identityCardSeries','tab_personal_identityCardNumber',
         'tab_personal_identityCardIssueDate','tab_personal_identityCardIssueDep','tab_personal_identityCardIssueBy',
         'tab_personal_homePhoneNumber','tab_personal_cellularPhone','tab_personal_isCompatriot',
-        'tab_personal_isEquatedForeign', 'tab_personal_isHostel','tab_personal_isForeignLikeRussian','tab_personal_selectedGender',
+        'tab_personal_isEquatedForeign', 'tab_personal_isHostel',
+        'tab_personal_isForeignLikeRussian','tab_personal_selectedGender',
         'tab_personal_selectedIdentityCardCode','tab_personal_selectedForeignLanguageInfo',
         'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
         'tab_personal_bithplace', 'tab_personal_email'

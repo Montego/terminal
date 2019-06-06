@@ -21,9 +21,9 @@
             <td class="text-xs-center">{{ props.item.tab_parent_middlename}}</td>
             <td class="text-xs-center">{{ props.item.tab_parent_selectedGender}}</td>
             <td class="text-xs-center">
-              <!--<button @click="onEdit(props.item)">-->
-                <!--<v-icon color="#5bc0de">edit</v-icon>-->
-              <!--</button>{{ props.item.acions}}-->
+              <button @click="onEdit(props.item)">
+                <v-icon color="#5bc0de">edit</v-icon>
+              </button>{{ props.item.acions}}
               <button @click="onDelete(props.item)">
                 <v-icon color="#5bc0de">delete</v-icon>
               </button>{{ props.item.acions}}
@@ -143,6 +143,7 @@
             <div class="clear_save_button row">
               <button @click="onClearFields">Очистить</button>
               <button @click="onAddParent">Добавить</button>
+              <!--<button @click="onSaveParent">Сохранить изм-я</button>-->
             </div>
           </div>
         </div>
@@ -232,9 +233,27 @@
         this.info_parent.splice(index,1);
 
       },
-      // onEdit(item) {
-      //   location.href='profile#личные-данные-попечителя';
-      // },
+      onEdit(item) {
+        const index = this.info_parent.indexOf(item);
+        location.href='profile#parent_info';
+        this.tab_parent_name = this.info_parent[index].tab_parent_name;
+        this.tab_parent_lastname = this.info_parent[index].tab_parent_lastname;
+        this.tab_parent_firstname = this.info_parent[index].tab_parent_firstname;
+        this.tab_parent_middlename = this.info_parent[index].tab_parent_middlename;
+        this.tab_parent_birthDate = this.info_parent[index].tab_parent_birthDate;
+        this.tab_parent_homePhoneNumber = this.info_parent[index].tab_parent_homePhoneNumber;
+        this.tab_parent_cellularPhone = this.info_parent[index].tab_parent_cellularPhone;
+        this.tab_parent_factAddress = this.info_parent[index].tab_parent_factAddress;
+        this.tab_parent_selectedFamRelationShip = this.info_parent[index].tab_parent_selectedFamRelationShip;
+        this.tab_parent_selectedGender = this.info_parent[index].tab_parent_selectedGender;
+        this.tab_parent_organization_name = this.info_parent[index].tab_parent_organization_name;
+        this.tab_parent_organization_adress = this.info_parent[index].tab_parent_organization_adress;
+        this.tab_parent_organization_seniority = this.info_parent[index].tab_parent_organization_seniority;
+        this.tab_parent_organization_employYears = this.info_parent[index].tab_parent_organization_employYears;
+      },
+      onSaveParent() {
+
+      },
       onCopyAddressFromStudent() {
         this.tab_parent_factAddress = this.tab_address_factAddress;
       },
