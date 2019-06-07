@@ -260,16 +260,28 @@
         <div v-if="tab_personal_selectedForeignLanguageInfo==='изучал'" class="row">
           <!--<div v-for="(selected_foreignLanguageName,language_description, index) in languages">-->
 
-            <select v-model="selected_foreignLanguageName" class="col-sm-6">
-              <option v-for="option in options_foreignLanguageName">
-                {{option.item}}
-              </option>
-            </select>
-            <input v-model="language_description" class="form__input col-sm-6" type="text" v-mask="'#'">
-            <div class="row">
-              <input class="button_add" type="button" value="Добавить" @click="onAddLanguage" >
-              <input class="button_add" type="button" value="Убрать" @click="onRemoveLanguage" >
-            </div>
+            <select v-model="selected_foreignLanguageName1" class="col-sm-6">
+          <option v-for="option in options_foreignLanguageName">
+            {{option.item}}
+          </option>
+        </select>
+          <input v-model="language_score1" class="form__input col-sm-6" type="text" v-mask="'#'">
+          <select v-model="selected_foreignLanguageName2" class="col-sm-6">
+            <option v-for="option in options_foreignLanguageName">
+              {{option.item}}
+            </option>
+          </select>
+          <input v-model="language_score2" class="form__input col-sm-6" type="text" v-mask="'#'">
+          <select v-model="selected_foreignLanguageName3" class="col-sm-6">
+            <option v-for="option in options_foreignLanguageName">
+              {{option.item}}
+            </option>
+          </select>
+          <input v-model="language_score3" class="form__input col-sm-6" type="text" v-mask="'#'">
+            <!--<div class="row">-->
+              <!--<input class="button_add" type="button" value="Добавить" @click="onAddLanguage" >-->
+              <!--<input class="button_add" type="button" value="Убрать" @click="onRemoveLanguage" >-->
+            <!--</div>-->
           <!--</div>-->
         </div>
 
@@ -392,35 +404,12 @@
             language_description:''
           }
         ],
-        language_description:'',
-        // name: '',
-        // lastname: '',
-        // firstname: '',
-        // middlename: '',
-        // birthDate: '',
-        // age: '',
-        // seniority: '',
-        // employYears: '',
-        // employMonths: '',
-        // employDays: '',
-        // lastname_genitive: '',
-        // firstname_genitive: '',
-        // middlename_genitive: '',
-        // contactPersonNameGenitive: '',
-        // identityCardSeries: '',
-        // identityCardNumber: '',
-        // identityCardIssueBy: '',
-        // cellularPhone:'',
-        //
-        // isCompatriot:false,
-        //
-        //
-        // //test data
-        // selectedGender: '',
-        // selectedIdentityCardCode: '',
-        // selectedForeignLanguageInfo:'',
-        // selectedCitizenship:'',
-        selected_foreignLanguageName:'',
+        language_score1:'',
+        language_score2:'',
+        language_score3:'',
+        selected_foreignLanguageName1:'',
+        selected_foreignLanguageName2:'',
+        selected_foreignLanguageName3:'',
         options_gender: [
           {id: 0, item: '-выберите пол-'},
           {id: 1, item: 'Мужской'},

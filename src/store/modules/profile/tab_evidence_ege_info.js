@@ -34,13 +34,7 @@ export default {
   },
 
   actions: {
-    //
-    // test(){
-    //   'console.log(‘we trust in god’)';
-    // },
-    // Test({commit}){
-    //   Console.log('tatatat');
-    // }
+
   },
 
   computed: {

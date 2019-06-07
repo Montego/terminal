@@ -1,46 +1,49 @@
 <template>
   <div class="inside_tab">
   <tabs class="parent_tabs">
-    <tab id="" name="Обзор">
-      <!--<div class="row">-->
-      <!--<button>Заполнить</button>-->
-      <!--</div>-->
+    <tab id="conditions_overview" name="Обзор">
+      <div class="row">
+        <button @click="onAdd">Добавить</button>
+      </div>
       <v-data-table
         :headers="headers_conditions"
-        :items="info_conditions"
+        :items="showTable"
         hide-actions
         class="elevation-1 text-xs-center"
       >
         <template slot="items" slot-scope="props">
-          <td class="text-xs-center">{{ props.item.who_parent}}</td>
-          <td class="text-xs-center">{{ props.item.snp_parent}}</td>
-          <td class="text-xs-center">{{ props.item.surname_parent}}</td>
-          <td class="text-xs-center">{{ props.item.name_parent }}</td>
-          <td class="text-xs-center">{{ props.item.patronymic_parent}}</td>
-          <td class="text-xs-center">{{ props.item.gender_parent}}</td>
-          <td class="justify-center layout px-0">
-            <v-btn icon class="mx-0" @click="specialRight(props.item)">
-              <v-icon color="#5bc0de">edit</v-icon>
-            </v-btn>
-            <v-btn icon class="mx-0" @click="addConsent(props.item)">
-              <v-icon color="red">delete</v-icon>
-            </v-btn>
+          <td class="text-xs-center">{{ props.item.tab_reception_condition_faculty}}</td>
+          <td class="text-xs-center">{{ props.item.tab_reception_condition_specialty}}</td>
+          <td class="text-xs-center">{{ props.item.tab_reception_condition_educationType}}</td>
+          <td class="text-xs-center">{{ props.item.tab_reception_condition_educationForm }}</td>
+          <td class="text-xs-center">{{ props.item.tab_reception_condition_specialRight}}</td>
+          <td class="text-xs-center">{{ props.item.tab_reception_condition_consent}}</td>
+          <td class="text-xs-center">
+            <button @click="onDelete(props.item)">
+              <v-icon color="#5bc0de">delete</v-icon>
+            </button>
           </td>
+          <!--<td class="justify-center layout px-0">-->
+            <!--<v-btn icon class="mx-0" @click="specialRight(props.item)">-->
+              <!--<v-icon color="#5bc0de">edit</v-icon>-->
+            <!--</v-btn>-->
+            <!--<v-btn icon class="mx-0" @click="addConsent(props.item)">-->
+              <!--<v-icon color="red">delete</v-icon>-->
+            <!--</v-btn>-->
+          <!--</td>-->
         </template>
       </v-data-table>
     </tab>
-    <tab id="" name="Условия приема">
+    <tab id="conditions_info" name="Условия приема">
       <div class="inner_tab row">
         <div class="col-sm">
           <div>
             <p>Условия приема</p>
           </div>
           <hr>
-          <!--<div class="row" v-for="(extraInfo,index) in extraInfos">-->
 
-          <!--<label class="row" v-for="(extraInfo,index) in extraInfos">-->
-          <div v-for="(selected_faculty,selected_specialty, selected_educationForm,
-          selected_educationCondition, index) in conditions">
+          <!--<div v-for="(selected_faculty,selected_specialty, selected_educationForm,-->
+          <!--selected_educationCondition, index) in conditions">-->
           <div class="row">
             <div class="col-sm-6">
 
@@ -62,23 +65,43 @@
                 </select>
               </label>
 
+              <!--<label class="row">-->
+                <!--<div class="form__label-text col-sm">Форма обучения:</div>-->
+                <!--<select v-model="selected_educationForm" class="col-sm">-->
+                  <!--<option v-for="option in options_educationForm">-->
+                    <!--{{option.item}}-->
+                  <!--</option>-->
+                <!--</select>-->
+              <!--</label>-->
               <label class="row">
-                <div class="form__label-text col-sm">Форма обучения:</div>
-                <select v-model="selected_educationForm" class="col-sm">
-                  <option v-for="option in options_educationForm">
-                    {{option.item}}
-                  </option>
-                </select>
-              </label>
-
-              <label class="row">
-                <div class="form__label-text col-sm">Тип обучения:</div>
+                <div class="form__label-text col-sm">Направление обучения:</div>
                 <select v-model="selected_educationCondition" class="col-sm">
                   <option v-for="option in options_educationCondition">
                     {{option.item}}
                   </option>
                 </select>
               </label>
+
+              <label class="row">
+                <div class="form__label-text col-sm">Добавить согласие?</div>
+                <select v-model="selected_consent" class="col-sm">
+                  <option v-for="option in options_consent">
+                    {{option.item}}
+                  </option>
+                </select>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Особое право?</div>
+                <select v-model="selected_specialRight" class="col-sm">
+                  <option v-for="option in options_specialRight">
+                    {{option.item}}
+                  </option>
+                </select>
+              </label>
+              <div v-if="selected_specialRight==='да'" class="row">
+                <div class="form__label-text col-sm">Документ</div>
+                <input class="document col-sm" type="file" title="Загрузите файл"/>
+              </div>
               <!--<label class="row">-->
                 <!--<div class="form__label-text col-sm">Тип обучения:</div>-->
                 <!--<label class="row">-->
@@ -101,11 +124,13 @@
               <!--<hr>-->
             <!--</div>-->
           </div>
-          </div>
+          <!--</div>-->
             <div class="row">
-              <input class="button_add" type="button" value="Добавить" @click="onAddCondition" >
-              <input class="button_add" type="button" value="Убрать" @click="onRemoveCondition" >
+              <input class="button_add" type="button" value="Очистить" @click="onClearCondition" >
               <input class="button_add" type="button" value="Сохранить" @click="onSaveCondition" >
+              <!--<input class="button_add" type="button" value="Добавить" @click="onAddCondition" >-->
+              <!--<input class="button_add" type="button" value="Убрать" @click="onRemoveCondition" >-->
+              <!--<input class="button_add" type="button" value="Сохранить" @click="onSaveCondition" >-->
             </div>
 
 
@@ -120,44 +145,68 @@
 </template>
 
 <script>
+  import { createHelpers } from 'vuex-map-fields';
+  const { mapMultiRowFields } = createHelpers({
+    getterType: `tab_reception_condition/getField`,
+    mutationType: `tab_reception_condition/updateField`,
+  });
+  const { mapFields:tab_reception_condition } = createHelpers({
+    getterType: `tab_reception_condition/getField`,
+    mutationType: `tab_reception_condition/updateField`,
+  });
     export default {
         name: "TabReceptionConditions",
+      computed: {
+        ...tab_reception_condition(['tab_reception_condition_faculty', 'tab_reception_condition_specialty',
+          'tab_reception_condition_educationType', 'tab_reception_condition_educationForm',
+          'tab_reception_condition_specialRight', 'tab_reception_condition_consent',
+        ]),
+        ...mapMultiRowFields([
+          'tab_reception_condition_allConditions'
+        ]),
+        showTable(){
+          return this.info_conditions = this.tab_reception_condition_allConditions;
+        },
+      },
       data(){
           return{
-            conditions:[
-              {
-              selected_faculty:'',
-              selected_specialty:'',
-              selected_educationForm:'',
-              selected_educationCondition:'',
-              }
-            ],
-
+            // conditions:[
+            //   {
+            //   selected_faculty:'',
+            //   selected_specialty:'',
+            //   selected_educationForm:'',
+            //   selected_educationCondition:'',
+            //   }
+            // ],
 
             headers_conditions: [
-              {text: 'Факультет', value: 'faculty', sortable: false, align: 'center'},
-              {text: 'Специальность', value: 'specialty', sortable: false, align: 'center'},
-              {text: 'Тип обучения', value: 'educationType', sortable: false, align: 'center'},
-              {text: 'Форма обучения', value: 'educationForm', sortable: false, align: 'center'},
-              {text: 'Особое право', value: 'specialRight', sortable: false, align: 'center'},
-              {text: 'Согласие', value: 'consent', sortable: false, align: 'center'},
+              {text: 'Факультет', value: 'tab_reception_condition_faculty', sortable: false, align: 'center'},
+              {text: 'Специальность', value: ' tab_reception_condition_specialty', sortable: false, align: 'center'},
+              {text: 'Тип обучения', value: 'tab_reception_condition_educationType', sortable: false, align: 'center'},
+              {text: 'Форма обучения', value: 'tab_reception_condition_educationForm', sortable: false, align: 'center'},
+              {text: 'Особое право', value: 'tab_reception_condition_specialRight', sortable: false, align: 'center'},
+              {text: 'Согласие', value: 'tab_reception_condition_consent', sortable: false, align: 'center'},
               {text: 'Действия', value: 'actions', sortable: false, align: 'center'},
             ],
             info_conditions: [],
-            defaultItem: {
-              who_parent:'',
-              snp_parent: '',
-              surname_parent: 0,
-              name_parent: 0,
-              patronymic_parent: 0,
-              time_off: 0,
-              gender_parent: 0,
-            },
+
 
             //test options
             selected_faculty:'',
             selected_specialty:'',
             selected_educationForm:'',
+            selected_educationCondition:'',
+            selected_consent:'',
+            selected_specialRight:'',
+
+            options_specialRight: [
+              {id: 1, item: 'да'},
+              {id: 2, item: 'нет'},
+            ],
+            options_consent: [
+              {id: 1, item: 'да'},
+              {id: 2, item: 'нет'},
+            ],
             options_faculty: [
               {id: 1, item: 'Лечебный факультет'},
               {id: 2, item: 'Медико-профилактический факультет'},
@@ -181,10 +230,16 @@
 
       },
       methods: {
-        specialRight() {
+        onAdd() {
+          location.href='application#conditions_info';
         },
-        addConsent() {
+
+        onDelete(item){
+          const index = this.info_conditions.indexOf(item);
+          console.log(index);
+          this.info_conditions.splice(index, 1);
         },
+
         onAddCondition() {
           this.conditions.push('');
         },
@@ -192,7 +247,40 @@
           this.conditions.pop(this.conditions.length - 1);
         },
         onSaveCondition() {
+          location.href='application#conditions_overview';
 
+
+      function Condition(condition_faculty,condition_specialty,condition_educationType,
+                         condition_educationForm, condition_specialRight,condition_consent
+          ) {
+
+            this.tab_reception_condition_faculty = condition_faculty;
+            this.tab_reception_condition_specialty = condition_specialty;
+            this.tab_reception_condition_educationType = condition_educationType;
+            this.tab_reception_condition_educationForm = condition_educationForm;
+            this.tab_reception_condition_specialRight = condition_specialRight;
+            this.tab_reception_condition_consent = condition_consent;
+
+          }
+          var condition = new Condition(
+            this.tab_reception_condition_faculty, this.tab_reception_condition_specialty,
+            this.tab_reception_condition_educationType, this.tab_reception_condition_educationForm,
+            this.tab_reception_condition_specialRight,this.tab_reception_condition_consent,
+
+          );
+
+          this.tab_reception_condition_allConditions.push(condition);
+          console.log(this.condition)
+          console.log(this.tab_reception_condition_allConditions)
+          // console.log(this.fullName);
+        },
+        onClearCondition(){
+            this.selected_faculty = null,
+            this.selected_specialty = null,
+            this.selected_educationForm = null,
+            this.selected_educationCondition = null,
+            this.selected_consent = null,
+            this.selected_specialRight = null
         }
       }
     }

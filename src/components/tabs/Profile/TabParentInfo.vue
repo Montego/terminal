@@ -318,7 +318,7 @@
           // parent.tab_parent_organization_adress = this.tab_parent_organization_adress;
           // parent.tab_parent_organization_seniority = this.tab_parent_organization_seniority;
           // parent.tab_parent_organization_employYears = this.tab_parent_organization_employYears;
-
+        location.href='profile#parent_overview';
         this.tab_parent_parents.push(parent);
         console.log(this.tab_parent_parents)
       },

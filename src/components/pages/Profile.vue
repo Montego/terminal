@@ -5,6 +5,9 @@
         <div class="col-sm">Абитуриент:</div>
         <input class="col-sm" type="search" name="поиск" placeholder="Поиск по сайту">
       </label>
+      <router-link :to="{name: 'application'}" v-bind:title="titles[0].title">
+        <button class="search_button col-sm-2">К заявлениям</button>
+      </router-link>
       <!--<input type="submit" value="Заявление">-->
 
       <!--<v-dialog v-model="dialog" max-width="800px">-->

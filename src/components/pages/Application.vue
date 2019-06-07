@@ -16,17 +16,17 @@
               <tab id="" name="Обзор">
                 <TabOverviewApplication></TabOverviewApplication>
               </tab>
-              <tab id="" name="Условия приема">
+              <tab id="receptrionCondition" name="Условия приема">
                 <TabReceptionConditions></TabReceptionConditions>
               </tab>
-              <tab id="" name="Документы">
+              <tab id="documents" name="Документы">
                 <TabDocuments></TabDocuments>
               </tab>
-              <tab id="" name="Вступительные испытания">
+              <tab id="tabEntranceTests.vue" name="Вступительные испытания">
                 <TabEntranceTests></TabEntranceTests>
               </tab>
-              <tab id="" name="Разное">
-
+              <tab id="other" name="Разное">
+                <TabOther></TabOther>
               </tab>
             </tabs>
           </div>
@@ -37,11 +37,12 @@
   import TabOverviewApplication from "../tabs/Application/TabOverviewApplication";
   import TabReceptionConditions from "../tabs/Application/TabReceptionConditions";
   import TabDocuments from "../tabs/Application/TabDocuments";
+  import TabOther from "../tabs/Application/TabOther";
   import TabEntranceTests from "../tabs/Application/TabEntranceTests";
     export default {
         name: "Application",
       components: {
-        TabOverviewApplication, TabReceptionConditions , TabDocuments, TabEntranceTests
+        TabOverviewApplication, TabReceptionConditions , TabDocuments, TabEntranceTests, TabOther
       },
       data() {
         return {

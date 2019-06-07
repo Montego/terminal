@@ -20,6 +20,15 @@ export default {
     tab_edu_military_selectedSoldieryStatus: '',
     tab_edu_military_selectedMilitaryFormDoc: '',
 
+    extraInfosDescription1:'',
+    extraInfosDescription2:'',
+    extraInfosDescription3:'',
+    extraInfosDescription4:'',
+
+    selectedExtraInfos1:'',
+    selectedExtraInfos2:'',
+    selectedExtraInfos3:'',
+    selectedExtraInfos4:'',
   },
   getters: {
     getField,

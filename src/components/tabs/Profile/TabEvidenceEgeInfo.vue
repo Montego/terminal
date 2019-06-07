@@ -144,71 +144,29 @@
 
           <div class="col-sm">
             <div>
-              <!--<p>Свидетельство</p>-->
-              <p>ЕГЭ</p>
-            </div>
-            <hr>
-            <!--<label class="row">-->
-              <!--<div class="form__label-text col-sm">№ свидетельства:</div>-->
-              <!--<input v-model="tab_ege_documentNumber" class="form__input col-sm" type="text" name="" placeholder=""/>-->
-            <!--</label>-->
-            <!--<span class="alarm_label" v-if="tab_ege_documentNumber===''">Не заполнено поле "№ свидетельства"</span>-->
-            <!--<label class="row">-->
-              <!--<div class="form__label-text col-sm">Дата выдачи:</div>-->
-              <!--<input class="form__input col-sm" type="date" name="" placeholder=""/>-->
-            <!--</label>-->
-            <!--<label class="row">-->
-              <!--<div class="form__label-text col-sm">Типографский №:</div>-->
-              <!--<input v-model="tab_ege_typographyNumber" class="form__input col-sm" type="text" name="" placeholder=""/>-->
-            <!--</label>-->
-            <!--<span class="alarm_label" v-if="tab_ege_typographyNumber===''">Не заполнено поле "Типографский №"</span>-->
-            <!--<label class="row">-->
-              <!--<div class="form__label-text col-sm">Сумма баллов:</div>-->
-              <!--<input  v-model="tab_ege_sumScores" class="form__input col-sm" type="number" name="" placeholder=""/>-->
-            <!--</label>-->
-            <!--<label class="row">-->
-              <!--<div class="form__label-text col-sm">Копия/оригинал:</div>-->
-              <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
-            <!--</label>-->
-            <!--<label class="row">-->
-              <!--<div class="form__label-text col-sm">Предоставлено:</div>-->
-              <!--<input class="form__input col-sm" type="date" name="" placeholder=""/>-->
-            <!--</label>-->
-            <label class="row">
-              <div class="form__label-text col-sm">Форма ЕГЭ:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
-            </label>
-            <!--<label class="row">-->
-              <!--<div class="form__label-text col-sm">Место проведения:</div>-->
-              <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
-            <!--</label>-->
-            <label class="row">
-              <div class="form__label-text col-sm">Год:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
-            </label>
-            <!--<label class="row">-->
-              <!--<div class="form__label-text col-sm">Статус:</div>-->
-              <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
-            <!--</label>-->
-          </div>
-
-          <div class="col-sm">
-            <div>
               <p>Предметы</p>
             </div>
             <hr>
             <label class="row">
+              <div class="form__label-text col-sm">Форма ЕГЭ(1):</div>
+              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+            </label>
+            <label class="row">
+              <div class="form__label-text col-sm">Год сдачи(1):</div>
+              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+            </label>
+            <label class="row">
               <div class="form__label-text col-sm">Предмет(1):</div>
-              <select v-model="tab_ege_selectedSubject1" class="col-sm">
-                <option v-for="option in options_subject">
-                  {{option.item}}
-                </option>
-              </select>
-              <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
+              <!--<select v-model="tab_ege_selectedSubject1" class="col-sm">-->
+                <!--<option v-for="option in options_subject">-->
+                  <!--{{option.item}}-->
+                <!--</option>-->
+              <!--</select>-->
+              <input class="form__input col-sm" type="text" name="" placeholder="русский язык" disabled/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm-6">Балл(1):</div>
-              <input v-model="tab_ege_score1" class="form__input col-sm-6" type="number" name="" placeholder=""/>
+              <input v-model="tab_ege_score1" class="form__input col-sm-6" type="text" v-mask="'###'"/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Балл (ФИС)(1):</div>
@@ -220,17 +178,25 @@
             </label>
             <hr>
             <label class="row">
+              <div class="form__label-text col-sm">Форма ЕГЭ(2):</div>
+              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+            </label>
+            <label class="row">
+              <div class="form__label-text col-sm">Год сдачи(2):</div>
+              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+            </label>
+            <label class="row">
               <div class="form__label-text col-sm">Предмет(2):</div>
-              <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
-              <select v-model="tab_ege_selectedSubject2" class="col-sm">
-                <option v-for="option in options_subject">
-                  {{option.item}}
-                </option>
-              </select>
+              <!--<select v-model="tab_ege_selectedSubject2" class="col-sm">-->
+                <!--<option v-for="option in options_subject">-->
+                  <!--{{option.item}}-->
+                <!--</option>-->
+              <!--</select>-->
+              <input class="form__input col-sm" type="text" name="" placeholder="химия" disabled/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm-6">Балл(2):</div>
-              <input v-model="tab_ege_score2" class="form__input col-sm-6" type="number" name="" placeholder=""/>
+              <input v-model="tab_ege_score2" class="form__input col-sm-6" type="text" v-mask="'###'"/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Балл (ФИС)(2):</div>
@@ -242,17 +208,25 @@
             </label>
             <hr>
             <label class="row">
-              <div class="form__label-text col-sm">Предмет(3):</div>
-              <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
-              <select v-model="tab_ege_selectedSubject3" class="col-sm">
-                <option v-for="option in options_subject">
-                  {{option.item}}
-                </option>
-              </select>
+              <div class="form__label-text col-sm">Форма ЕГЭ(3):</div>
+              <input class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
             <label class="row">
-              <div v-model="tab_ege_score3" class="form__label-text col-sm-6">Балл(3):</div>
-              <input class="form__input col-sm-6" type="number" name="" placeholder=""/>
+              <div class="form__label-text col-sm">Год сдачи(3):</div>
+              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+            </label>
+            <label class="row">
+              <div class="form__label-text col-sm">Предмет(3):</div>
+              <!--<select v-model="tab_ege_selectedSubject3" class="col-sm">-->
+                <!--<option v-for="option in options_subject">-->
+                  <!--{{option.item}}-->
+                <!--</option>-->
+              <!--</select>-->
+              <input class="form__input col-sm" type="text" name="" placeholder="биология" disabled/>
+            </label>
+            <label class="row">
+              <div class="form__label-text col-sm-6">Балл(3):</div>
+              <input v-model="tab_ege_score3" class="form__input col-sm-6" type="text" v-mask="'###'"/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Балл (ФИС)(3):</div>
@@ -263,8 +237,58 @@
               <input class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
             <hr>
+
           </div>
 
+          <div class="col-sm">
+            <!--<div>-->
+              <!--&lt;!&ndash;<p>Свидетельство</p>&ndash;&gt;-->
+              <!--<p>ЕГЭ</p>-->
+            <!--</div>-->
+            <!--<hr>-->
+            <!--<label class="row">-->
+            <!--<div class="form__label-text col-sm">№ свидетельства:</div>-->
+            <!--<input v-model="tab_ege_documentNumber" class="form__input col-sm" type="text" name="" placeholder=""/>-->
+            <!--</label>-->
+            <!--<span class="alarm_label" v-if="tab_ege_documentNumber===''">Не заполнено поле "№ свидетельства"</span>-->
+            <!--<label class="row">-->
+            <!--<div class="form__label-text col-sm">Дата выдачи:</div>-->
+            <!--<input class="form__input col-sm" type="date" name="" placeholder=""/>-->
+            <!--</label>-->
+            <!--<label class="row">-->
+            <!--<div class="form__label-text col-sm">Типографский №:</div>-->
+            <!--<input v-model="tab_ege_typographyNumber" class="form__input col-sm" type="text" name="" placeholder=""/>-->
+            <!--</label>-->
+            <!--<span class="alarm_label" v-if="tab_ege_typographyNumber===''">Не заполнено поле "Типографский №"</span>-->
+            <!--<label class="row">-->
+            <!--<div class="form__label-text col-sm">Сумма баллов:</div>-->
+            <!--<input  v-model="tab_ege_sumScores" class="form__input col-sm" type="number" name="" placeholder=""/>-->
+            <!--</label>-->
+            <!--<label class="row">-->
+            <!--<div class="form__label-text col-sm">Копия/оригинал:</div>-->
+            <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
+            <!--</label>-->
+            <!--<label class="row">-->
+            <!--<div class="form__label-text col-sm">Предоставлено:</div>-->
+            <!--<input class="form__input col-sm" type="date" name="" placeholder=""/>-->
+            <!--</label>-->
+            <!--<label class="row">-->
+            <!--<div class="form__label-text col-sm">Форма ЕГЭ:</div>-->
+            <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
+            <!--</label>-->
+            <!--<label class="row">-->
+            <!--<div class="form__label-text col-sm">Место проведения:</div>-->
+            <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
+            <!--</label>-->
+            <!--<label class="row">-->
+            <!--<div class="form__label-text col-sm">Год:</div>-->
+            <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
+            <!--</label>-->
+            <!--<label class="row">-->
+            <!--<div class="form__label-text col-sm">Статус:</div>-->
+            <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
+            <!--</label>-->
+          </div>
 
         </div>
       <!--</tab>-->
@@ -335,13 +359,13 @@
 
         options_subject: [
           {id: 1, item: 'Биология'},
-          {id: 2, item: 'Иностранный язык'},
-          {id: 3, item: 'Общественное здоровье и здравоохранение'},
+          // {id: 2, item: 'Иностранный язык'},
+          // {id: 3, item: 'Общественное здоровье и здравоохранение'},
           {id: 4, item: 'Русский язык'},
-          {id: 5, item: 'Философия'},
+          // {id: 5, item: 'Философия'},
           {id: 6, item: 'Химия'},
-          {id: 7, item: 'Экзамен по специальности'},
-          {id: 8, item: 'Экзамен по специальности'},
+          // {id: 7, item: 'Экзамен по специальности'},
+          // {id: 8, item: 'Экзамен по специальности'},
           ],
         options_identityCardCode: [
           // {id: 0, item: '-выберите документ-'},

@@ -13,19 +13,22 @@
     <!--</div>-->
   <!--</div>-->
   <section id="app">
-    <form method="post" action="/image/add" enctype="multipart/form-data">
+    <form method="post" class="row" action="/image/add" enctype="multipart/form-data">
 
-      <div class="form-group">
-        <input type='file' @change="previewImages" id="newfiles" name="newfiles[]" class="form-control" accept="image/*" />
+      <div class="form-group row">
+        <input type='file' @change="previewImages" id="newfiles" name="newfiles[]" class="form-control col-sm-9" accept="image/*" />
+        <!--<button class="btn btn-outline-success float-right col-sm-4">Загрузить</button>-->
+
       </div>
 
-      <div class="row">
-        <div class="col py-2">
-          <button class="btn btn-outline-success float-right">Загрузить</button>
-        </div>
-      </div>
+      <!--<div class="row">-->
+        <!--<div class="col sm">-->
+          <!--<button class="btn btn-outline-success float-right">Загрузить</button>-->
+          <!--<button class="btn btn-outline-success float-right" @click="clearPhoto" >Очистить</button>-->
+        <!--</div>-->
+      <!--</div>-->
     </form>
-    <button class="btn btn-outline-success float-right" @click="clearPhoto" >Очистить</button>
+    <!--<button class="btn btn-outline-success float-right col-sm-4" @click="clearPhoto" >Очистить</button>-->
       <div class="col-md-6 py-2 border" v-for="(image, index) in imagesData">
         <img class="img-thumbnail images_place" :src="image" v-if="image.length > 0">
       </div>

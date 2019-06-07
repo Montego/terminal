@@ -15,6 +15,8 @@ import tab_evidence_ege_info from './modules/profile/tab_evidence_ege_info'
 import tab_education_military_info from './modules/profile/tab_education_military_info'
 
 import tab_documents from './modules/application/tab_documents'
+import tab_entrance_tests from './modules/application/tab_entrance_tests'
+import tab_reception_condition from './modules/application/tab_reception_condition'
 
 import test_profiles from './modules/profile/test_profiles'
 Vue.use(VueTheMask);
@@ -43,6 +45,8 @@ export const store = new Vuex.Store({
     tab_parent_info,
     test_profiles,
     tab_documents,
+    tab_entrance_tests,
+    tab_reception_condition
   },
   strict: false
 });

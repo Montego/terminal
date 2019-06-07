@@ -211,20 +211,48 @@
       </div>
       <hr>
       <!--<div class="row" v-for="(extraInfo,index) in extraInfos">-->
-        <label class="row" v-for="(extraInfo,index) in extraInfos">
-          <select v-model="selectedExtraInfos" class="col-sm">
+        <!--<label class="row" v-for="(extraInfo,index) in extraInfos">-->
+      <div class="row">
+          <select v-model="selectedExtraInfos1" class="col-sm">
             <option v-for="option in options_extraInfos">
               {{option.item}}
             </option>
           </select>
-          <input class="form__input col-sm" type="text" name="" placeholder="Описание"/>
-        </label>
-      <!--</div>-->
-      <label class="row">
-        <input class="button_add" type="button" value="Добавить" @click="onAddExtraInfo" >
-        <input class="button_add" type="button" value="Убрать" @click="onRemoveExtraInfo" >
-      </label>
+          <input v-model="extraInfosDescription1" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
+      </div>
+      <div class="row">
+        <select v-model="selectedExtraInfos2" class="col-sm">
+          <option v-for="option in options_extraInfos">
+            {{option.item}}
+          </option>
+        </select>
+        <input v-model="extraInfosDescription2" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
+      </div>
+      <div class="row">
+        <select v-model="selectedExtraInfos3" class="col-sm">
+          <option v-for="option in options_extraInfos">
+            {{option.item}}
+          </option>
+        </select>
+        <input v-model="extraInfosDescription3" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
+      </div>
+      <div class="row">
+        <select v-model="selectedExtraInfos4" class="col-sm">
+          <option v-for="option in options_extraInfos">
+            {{option.item}}
+          </option>
+        </select>
+        <input v-model="extraInfosDescription4" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
+      </div>
     </div>
+        <!--</label>-->
+      <!--</div>-->
+
+      <!--<label class="row">-->
+        <!--<input class="button_add" type="button" value="Добавить" @click="onAddExtraInfo" >-->
+        <!--<input class="button_add" type="button" value="Убрать" @click="onRemoveExtraInfo" >-->
+      <!--</label>-->
+
   </div>
 </template>
 
@@ -243,7 +271,9 @@
         'tab_edu_military_soldieryBegDate', 'tab_edu_military_soldieryEndDate', 'tab_personal_identityCardIssueBy',
         'tab_edu_military_eduDocSerial', 'tab_edu_military_eduDocNumber', 'tab_edu_military_selectedEduDoc',
         'tab_edu_military_educationLevel', 'tab_edu_military_selectedSoldiery', 'tab_edu_military_selectedSoldieryStatus',
-        'tab_edu_military_selectedMilitaryFormDoc',
+        'tab_edu_military_selectedMilitaryFormDoc', 'selectedExtraInfos1',  'selectedExtraInfos2',
+        'selectedExtraInfos3', 'selectedExtraInfos4','extraInfosDescription1','extraInfosDescription2',
+        'extraInfosDescription3','extraInfosDescription4'
       ]),
       // ...mapState('enums'['educationLevel','soldieryStatus','militaryFormDoc','docType']),
       // ...mapGetters('enums'['GET_EDUCATION_LEVEL','GET_SOLDIERY_STATUS','GET_MILITARY_FORM_DOC','GET_DOC_TYPE']),
@@ -294,7 +324,7 @@
             // selectedSoldiery: '',
             // selectedSoldieryStatus: '',
             // selectedMilitaryFormDoc: '',
-            selectedExtraInfos:'',
+            // selectedExtraInfos:'',
 
             options_eduDoc: [
               {id: 1, item: 'Академическая справка'},
