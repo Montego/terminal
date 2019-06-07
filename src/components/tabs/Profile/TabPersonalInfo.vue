@@ -338,8 +338,6 @@
       // },
 
 
-
-
       fullname: function () {
         return this.tab_personal_name = this.tab_personal_lastname + ' ' + this.tab_personal_firstname + ' ' + this.tab_personal_middlename
       },

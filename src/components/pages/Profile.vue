@@ -6,7 +6,7 @@
         <input class="col-sm" type="search" name="поиск" placeholder="Поиск по сайту">
       </label>
       <router-link :to="{name: 'application'}" v-bind:title="titles[0].title">
-        <button class="search_button col-sm-2">К заявлениям</button>
+        <button class="search_button col-sm">К заявлениям</button>
       </router-link>
       <!--<input type="submit" value="Заявление">-->
 
@@ -20,22 +20,14 @@
             <!--Заявление-->
           <!--</button>-->
         <!--</router-link>-->
-
-
-
-
       <!--</button>-->
         <!--<template v-if="'employers'.indexOf($route.name)>-1">-->
           <!--<button slot="activator" class="search_button col-sm-2">Заявление</button>-->
         <!--</template>-->
-
-
-
         <!--<v-card>-->
           <!--<v-card-title>-->
             <!--<span class="headline"> Заявление </span>-->
           <!--</v-card-title>-->
-
           <!--<v-card-text>-->
             <!--<v-container grid-list-md>-->
 <!--авпивапиавчпи-->

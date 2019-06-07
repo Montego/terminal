@@ -10,20 +10,20 @@
       <div class="col-sm-6">
         <label class="row">
           <div class="form__label-text col-sm">Русский язык:</div>
-          <input v-model="tab_ege_score1" class="form__input col-sm" type="number" name="" placeholder="" disabled />
-          <input  class="form__input col-sm" type="number" name="" placeholder="" disabled />
+          <input v-model="tab_ege_score1" class="form__input col-sm" type="number" name="" placeholder="Заполняется автоматически" disabled />
+          <input  class="form__input col-sm" type="number" name="" placeholder="Заполняется автоматически" disabled />
           <!--<input  class="form__input col-sm" type="number" name="" placeholder="" disabled />-->
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Химия:</div>
-          <input v-model="tab_ege_score2" class="form__input col-sm" type="number" name="" placeholder="" disabled />
-          <input  class="form__input col-sm" type="number" name="" placeholder="" disabled />
+          <input v-model="tab_ege_score2" class="form__input col-sm" type="number" name="" placeholder="Заполняется автоматически" disabled />
+          <input  class="form__input col-sm" type="number" name="" placeholder="Заполняется автоматически" disabled />
           <!--<input  class="form__input col-sm" type="number" name="" placeholder="" disabled />-->
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Биология:</div>
-          <input v-model="tab_ege_score3" class="form__input col-sm" type="number" name="" placeholder="" disabled />
-          <input  class="form__input col-sm" type="number" name="" placeholder="" disabled />
+          <input v-model="tab_ege_score3" class="form__input col-sm" type="number" name="" placeholder="Заполняется автоматически" disabled />
+          <input  class="form__input col-sm" type="number" name="" placeholder="Заполняется автоматически" disabled />
           <!--<div class="form__label-text col-sm">{{tab_ege_score3}}</div>-->
           <!--<div class="form__label-text col-sm">форма егэ</div>-->
           <!--<output name="tab_ege_score3" class="form__input col-sm" />-->

@@ -110,12 +110,12 @@
                  disabled="disabled"/>
         </label>
         <label class="row">
-          <div class="form__label-text col-sm-2">Химия:</div>
-          <input v-model="score_chemistry" class="form__input col-sm-1" type="text" v-mask="'#'"/>
-          <div class="form__label-text col-sm-2">Биология:</div>
-          <input v-model="score_biology" class="form__input col-sm-1" type="text" v-mask="'#'"/>
-          <div class="form__label-text col-sm-2">Русский язык:</div>
-          <input v-model="score_russian" class="form__input col-sm-1" type="text" v-mask="'#'"/>
+          <div class="form__label-text col-sm-2">Пяторок:</div>
+          <input v-model="score_five" class="form__input col-sm-1" type="text" v-mask="'##'"/>
+          <div class="form__label-text col-sm-2">Четверок:</div>
+          <input v-model="score_four" class="form__input col-sm-1" type="text" v-mask="'##'"/>
+          <div class="form__label-text col-sm-2">Троек:</div>
+          <input v-model="score_three" class="form__input col-sm-1" type="text" v-mask="'##'"/>
         </label>
 
       </div>
@@ -292,8 +292,9 @@
       },
       methods: {
         onCalculateScore() {
-          this.score_full = (parseInt(this.score_chemistry) + parseInt(this.score_biology) +
-            parseInt(this.score_russian))/3;
+          this.score_full = (parseInt(this.score_five)*5 + parseInt(this.score_four)*4 +
+            parseInt(this.score_three)*3)/(parseInt(this.score_five)+parseInt(this.score_four)
+          +parseInt(this.score_three));
         },
         onAddExtraInfo() {
           this.extraInfos.push('');
@@ -311,9 +312,9 @@
                 item:''
               }
             ],
-            score_chemistry: 0,
-            score_biology: 0,
-            score_russian: 0,
+            score_five: 0,
+            score_four: 0,
+            score_three: 0,
             score_full: 0,
             // eduDocSerial:'',
             // eduDocNumber:'',
