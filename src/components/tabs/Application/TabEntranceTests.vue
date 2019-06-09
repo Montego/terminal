@@ -5,12 +5,11 @@
     </div>
     <hr>
 
-    <!--{{this.tab_evidence_ege_info.tab_ege_score1}}-->
     <div class="row">
       <div class="col-sm-6">
         <label class="row">
           <div class="form__label-text col-sm">Русский язык:</div>
-          <input v-model="tab_ege_score1" class="form__input col-sm" type="number" name="" placeholder="Заполняется автоматически" disabled />
+          <input  v-model="tab_ege_score" class="form__input col-sm" type="number" name="" placeholder="Заполняется автоматически" disabled />
           <input  class="form__input col-sm" type="number" name="" placeholder="Заполняется автоматически" disabled />
           <!--<input  class="form__input col-sm" type="number" name="" placeholder="" disabled />-->
         </label>
@@ -63,10 +62,10 @@
 
 <script>
   import { createHelpers } from 'vuex-map-fields';
-  // const { mapMultiRowFields } = createHelpers({
-  //   getterType: `tab_entrance_tests/getField`,
-  //   mutationType: `tab_entrance_tests/updateField`,
-  // });
+  const { mapMultiRowFields } = createHelpers({
+    getterType: `tab_evidence_ege_info/getField`,
+    mutationType: `tab_evidence_ege_info/updateField`,
+  });
   const { mapFields:tab_entrance_tests } = createHelpers({
     getterType: `tab_entrance_tests/getField`,
     mutationType: `tab_entrance_tests/updateField`,
@@ -81,9 +80,14 @@
         ...tab_entrance_tests(['tab_entrance_test_score1', 'tab_entrance_test_score2', 'tab_entrance_test_score3',
           'tab_entrance_test_subject1', 'tab_entrance_test_subject2', 'tab_entrance_test_subject3',
         ]),
-        ...tab_evidence_ege_info(['tab_ege_score1','tab_ege_score2','tab_ege_score3',
-          'tab_ege_selectedSubject1','tab_ege_selectedSubject2','tab_ege_selectedSubject3'
+        ...tab_evidence_ege_info(['tab_ege_score','tab_ege_score1','tab_ege_score2','tab_ege_score3',
+          'tab_ege_selectedSubject','tab_ege_selectedSubject2','tab_ege_selectedSubject3'
         ]),
+        ...mapMultiRowFields(['ege_info']),
+
+        showData(){
+          return this.ege_result = this.ege_info;
+        },
 
         // takeInfoFromProfile(){
           // return(

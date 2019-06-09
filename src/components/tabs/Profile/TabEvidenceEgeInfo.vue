@@ -1,73 +1,37 @@
 <template>
   <div>
-    <!--<tabs class="ege_tabs">-->
-      <!--<tab id="" name="Обзор">-->
-        <!--&lt;!&ndash;<tab id="" name="Свидетельства ЕГЭ">&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
-          <!--&lt;!&ndash;<button>Добавить</button>&ndash;&gt;-->
-        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-        <!--<div class="row">-->
+    <tabs class="ege_tabs">
+      <tab id="ege_overview" name="Обзор">
+        <!--<tab id="" name="Свидетельства ЕГЭ">-->
+        <div class="row">
+          <button @click="onInfo">Добавить</button>
+        </div>
+        <div class="row">
 
-          <!--<div class="col-sm">-->
+          <div class="col-sm">
 
-            <!--<v-data-table-->
-              <!--:headers="headers_ege_subjects"-->
-              <!--:items="info_ege_subjects"-->
-              <!--class="elevation-1 text-xs-center"-->
-              <!--hide-actions-->
-            <!--&gt;-->
-              <!--<template slot="items" slot-scope="props">-->
-                <!--<td class="text-xs-center">{{ props.item.ege_subject_name}}</td>-->
-                <!--<td class="text-xs-center">{{ props.item.ege_ball_1}}</td>-->
-                <!--<td class="text-xs-center">{{ props.item.ege_ball_2}}</td>-->
-                <!--<td class="text-xs-center">{{ props.item.ege_appeal_status}}</td>-->
-                <!--<td class="text-xs-center">{{ props.item.actions}}</td>-->
-              <!--</template>-->
-            <!--</v-data-table>-->
-
-
-            <!--<div>-->
-            <!--<p>Свидетельство</p>-->
-            <!--</div>-->
-            <!--<v-data-table-->
-            <!--:headers="headers_ege_evidence"-->
-            <!--:items="info_ege_evidence"-->
-            <!--class="elevation-1 text-xs-center"-->
-            <!--&gt;-->
-            <!--<template slot="items" slot-scope="props">-->
-            <!--<td class="text-xs-center">{{ props.item.ege_evidence_number}}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.ege_evidence_date}}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.ege_evidence_t_number}}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.ege_evidence_score}}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.ege_evidence_copy_origin}}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.ege_evidence_date_show}}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.ege_evidence_form_ege}}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.ege_evidence_place_ege}}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.ege_evidence_year_ege}}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.ege_evidence_date_status}}</td>-->
-            <!--</template>-->
-            <!--</v-data-table>-->
-            <!--<hr>-->
-            <!--<div>-->
-            <!--<p>Предметы</p>-->
-            <!--</div>-->
-            <!--<v-data-table-->
-            <!--:headers="headers_ege_subjects"-->
-            <!--:items="info_ege_subjects"-->
-            <!--class="elevation-1 text-xs-center"-->
-            <!--&gt;-->
-            <!--<template slot="items" slot-scope="props">-->
-            <!--<td class="text-xs-center">{{ props.item.ege_subject_name}}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.ege_ball_1}}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.ege_ball_2}}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.ege_appeal_status}}</td>-->
-            <!--</template>-->
-            <!--</v-data-table>-->
-          <!--</div>-->
-        <!--</div>-->
-
-      <!--</tab>-->
-      <!--<tab id="" name="Данные для свидетельства">-->
+            <v-data-table
+              :headers="headers_ege_subjects"
+              :items="table_show"
+              class="elevation-1 text-xs-center"
+              hide-actions
+            >
+              <template slot="items" slot-scope="props">
+                <td class="text-xs-center">{{ props.item.tab_ege_selectedSubject}}</td>
+                <td class="text-xs-center">{{ props.item.tab_ege_score}}</td>
+                <td class="text-xs-center">{{ props.item.ege_ball_2}}</td>
+                <td class="text-xs-center">{{ props.item.ege_appeal_status}}</td>
+                <td>
+                  <button @click="onDelete(props.item)">
+                    <v-icon color="#5bc0de">delete</v-icon>
+                  </button>{{ props.item.acions}}
+                </td>
+              </template>
+            </v-data-table>
+          </div>
+        </div>
+      </tab>
+      <tab id="ege_info" name="Данные для свидетельства">
         <div class="inner_tab row">
 
           <div class="col-sm">
@@ -93,12 +57,12 @@
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Документ</div>
-                <select v-model="tab_ege_selectedIdentityCardCode" class="col-sm">
+                <select v-model="tab_ege_selectedIdentityCardCode" class="minimal col-sm">
                   <option v-for="option in options_identityCardCode">
                     {{option.item}}
                   </option>
                 </select>
-                <input v-model="tab_ege_selectedIdentityCardCode" class="form__input col-sm-12" type="text" name="" placeholder="Заполняется автоматически"
+                <input v-model="tab_ege_selectedIdentityCardCode" class="uneditable form__input col-sm-12" type="text" name="" placeholder="Заполняется автоматически"
                        disabled="disabled"/>
               </label>
               <span class="alarm_label" v-if="tab_ege_selectedIdentityCardCode===''">Не выбран тип документа</span>
@@ -131,7 +95,7 @@
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Гражданство</div>
-                <select class="col-sm" name="">
+                <select class="minimal col-sm" name="">
                   <option>РФ</option>
                   <option>Казахстан</option>
                 </select>
@@ -148,96 +112,41 @@
             </div>
             <hr>
             <label class="row">
-              <div class="form__label-text col-sm">Форма ЕГЭ(1):</div>
+              <div class="form__label-text col-sm">Форма ЕГЭ:</div>
               <input class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
             <label class="row">
-              <div class="form__label-text col-sm">Год сдачи(1):</div>
+              <div class="form__label-text col-sm">Год сдачи:</div>
               <input class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
             <label class="row">
-              <div class="form__label-text col-sm">Предмет(1):</div>
-              <!--<select v-model="tab_ege_selectedSubject1" class="col-sm">-->
-                <!--<option v-for="option in options_subject">-->
-                  <!--{{option.item}}-->
-                <!--</option>-->
-              <!--</select>-->
-              <input class="form__input col-sm" type="text" name="" placeholder="русский язык" disabled/>
+              <div class="form__label-text col-sm">Предмет:</div>
+              <select v-model="tab_ege_selectedSubject" class="minimal col-sm">
+                <option v-for="option in options_subject">
+                  {{option.item}}
+                </option>
+              </select>
+              <!--<input class="form__input col-sm" type="text" name="" placeholder="русский язык" disabled/>-->
             </label>
             <label class="row">
-              <div class="form__label-text col-sm-6">Балл(1):</div>
-              <input v-model="tab_ege_score1" class="form__input col-sm-6" type="text" v-mask="'###'"/>
+              <div class="form__label-text col-sm-6">Балл:</div>
+              <input v-model="tab_ege_score" class="form__input col-sm-6" type="text" v-mask="'###'"/>
             </label>
             <label class="row">
-              <div class="form__label-text col-sm">Балл (ФИС)(1):</div>
+              <div class="form__label-text col-sm">Балл (ФИС):</div>
               <input class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
             <label class="row">
-              <div class="form__label-text col-sm">Статус апелляции (1):</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
-            </label>
-            <hr>
-            <label class="row">
-              <div class="form__label-text col-sm">Форма ЕГЭ(2):</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Год сдачи(2):</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Предмет(2):</div>
-              <!--<select v-model="tab_ege_selectedSubject2" class="col-sm">-->
-                <!--<option v-for="option in options_subject">-->
-                  <!--{{option.item}}-->
-                <!--</option>-->
-              <!--</select>-->
-              <input class="form__input col-sm" type="text" name="" placeholder="химия" disabled/>
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm-6">Балл(2):</div>
-              <input v-model="tab_ege_score2" class="form__input col-sm-6" type="text" v-mask="'###'"/>
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Балл (ФИС)(2):</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Статус апелляции (2):</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
-            </label>
-            <hr>
-            <label class="row">
-              <div class="form__label-text col-sm">Форма ЕГЭ(3):</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Год сдачи(3):</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Предмет(3):</div>
-              <!--<select v-model="tab_ege_selectedSubject3" class="col-sm">-->
-                <!--<option v-for="option in options_subject">-->
-                  <!--{{option.item}}-->
-                <!--</option>-->
-              <!--</select>-->
-              <input class="form__input col-sm" type="text" name="" placeholder="биология" disabled/>
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm-6">Балл(3):</div>
-              <input v-model="tab_ege_score3" class="form__input col-sm-6" type="text" v-mask="'###'"/>
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Балл (ФИС)(3):</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Статус апелляции (3):</div>
+              <div class="form__label-text col-sm">Статус апелляции:</div>
               <input class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
             <hr>
 
+            <div class="clear_save_button row">
+              <button @click="onClearFields">Очистить</button>
+              <button @click="onAddEge">Добавить</button>
+              <!--<button @click="onSaveParent">Сохранить изм-я</button>-->
+            </div>
           </div>
 
           <div class="col-sm">
@@ -291,15 +200,18 @@
           </div>
 
         </div>
-      <!--</tab>-->
-    <!--</tabs>-->
+      </tab>
+    </tabs>
   </div>
 </template>
 
 <script>
 
   import { createHelpers } from 'vuex-map-fields';
-  import { mapMultiRowFields } from 'vuex-map-fields';
+  const { mapMultiRowFields } = createHelpers({
+    getterType: `tab_evidence_ege_info/getField`,
+    mutationType: `tab_evidence_ege_info/updateField`,
+  });
   const { mapFields:tab_evidence_ege_info_fields } = createHelpers({
     getterType: `tab_evidence_ege_info/getField`,
     mutationType: `tab_evidence_ege_info/updateField`,
@@ -318,8 +230,7 @@
       ...tab_evidence_ege_info_fields(['tab_ege_lastname', 'tab_ege_firstname', 'tab_ege_middlename',
         'tab_ege_identityCardSeries','tab_ege_identityCardNumber','tab_ege_identityCardIssueDate',
         'tab_ege_identityCardIssueBy','tab_ege_documentNumber','tab_ege_typographyNumber',
-        'tab_ege_sumScores','tab_ege_score1','tab_ege_score2','tab_ege_score3','tab_ege_selectedSubject1',
-        'tab_ege_selectedSubject2','tab_ege_selectedSubject3','tab_ege_selectedIdentityCardCode'
+        'tab_ege_sumScores','tab_ege_score','tab_ege_selectedSubject', 'tab_ege_selectedIdentityCardCode'
       ]),
       ...tab_personal_info_fields(['tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename',
        'tab_personal_selectedIdentityCardCode','tab_personal_identityCardSeries','tab_personal_identityCardNumber',
@@ -327,45 +238,20 @@
 
 
       ]),
-      // ...mapMultiRowFields(['gender','']),
-      // fullscore: function () {
-      //   return this.sumScores = parseInt(this.score1)+ parseInt(this.score2) + parseInt(this.score3)
-      // },
+      ...mapMultiRowFields(['ege_info',]),
 
+      table_show() {
+        return this.info_ege_subjects = this.ege_info;
+      },
 
     },
     data() {
       return {
-        // lastname_evidence_ege:'',
-        // lastname:'',
-        // firstname:'',
-        // middlename:'',
-        // identityCardSeries:'',
-        // identityCardNumber:'',
-        // identityCardIssueDate:'',
-        // identityCardIssueBy:'',
-        //
-        // documentNumber:'',
-        // typographyNumber:'',
-        // sumScores: '',
-        // score1:'',
-        // score2:'',
-        // score3:'',
-        //
-        // selectedSubject1: '',
-        // selectedSubject2: '',
-        // selectedSubject3: '',
-        // selectedIdentityCardCode: '',
 
         options_subject: [
           {id: 1, item: 'Биология'},
-          // {id: 2, item: 'Иностранный язык'},
-          // {id: 3, item: 'Общественное здоровье и здравоохранение'},
-          {id: 4, item: 'Русский язык'},
-          // {id: 5, item: 'Философия'},
-          {id: 6, item: 'Химия'},
-          // {id: 7, item: 'Экзамен по специальности'},
-          // {id: 8, item: 'Экзамен по специальности'},
+          {id: 2, item: 'Русский язык'},
+          {id: 3, item: 'Химия'},
           ],
         options_identityCardCode: [
           // {id: 0, item: '-выберите документ-'},
@@ -392,25 +278,24 @@
         ],
 
 
-        headers_ege_evidence: [
-          {text: '№', value: 'ege_evidence_number', sortable: false, align: 'center'},
-          {text: 'Дата выдачи', value: 'ege_evidence_date', sortable: false, align: 'center'},
-          {text: 'Типограф.а №', value: 'ege_evidence_t_number', sortable: false, align: 'center'},
-          {text: 'Сумма баллов', value: 'ege_evidence_score', sortable: false, align: 'center'},
-          {text: 'Коп/ориг.', value: 'ege_evidence_copy_origin', sortable: false, align: 'center'},
-          {text: 'Предоставлено', value: 'ege_evidence_date_show', sortable: false, align: 'center'},
-          {text: 'Форма ЕГЭ', value: 'ege_evidence_form_ege', sortable: false, align: 'center'},
-          {text: 'Место проведения', value: 'ege_evidence_place_ege', sortable: false, align: 'center'},
-          {text: 'Год', value: 'ege_evidence_year_ege', sortable: false, align: 'center'},
-          {text: 'Статус', value: 'ege_evidence_date_status', sortable: false, align: 'center'}
-
-
-        ],
-        info_ege_evidence: [],
+        // headers_ege_evidence: [
+        //   {text: '№', value: 'ege_evidence_number', sortable: false, align: 'center'},
+        //   {text: 'Дата выдачи', value: 'ege_evidence_date', sortable: false, align: 'center'},
+        //   {text: 'Типограф.а №', value: 'ege_evidence_t_number', sortable: false, align: 'center'},
+        //   {text: 'Сумма баллов', value: 'ege_evidence_score', sortable: false, align: 'center'},
+        //   {text: 'Коп/ориг.', value: 'ege_evidence_copy_origin', sortable: false, align: 'center'},
+        //   {text: 'Предоставлено', value: 'ege_evidence_date_show', sortable: false, align: 'center'},
+        //   {text: 'Форма ЕГЭ', value: 'ege_evidence_form_ege', sortable: false, align: 'center'},
+        //   {text: 'Место проведения', value: 'ege_evidence_place_ege', sortable: false, align: 'center'},
+        //   {text: 'Год', value: 'ege_evidence_year_ege', sortable: false, align: 'center'},
+        //   {text: 'Статус', value: 'ege_evidence_date_status', sortable: false, align: 'center'}
+        //
+        // ],
+        // info_ege_evidence: [],
 
         headers_ege_subjects: [
-          {text: 'Предмет', value: 'ege_subject_name', sortable: false, align: 'center'},
-          {text: 'Балл', value: 'ege_ball_1', sortable: false, align: 'center'},
+          {text: 'Предмет', value: 'tab_ege_selectedSubject', sortable: false, align: 'center'},
+          {text: 'Балл', value: 'tab_ege_score', sortable: false, align: 'center'},
           {text: 'Балл(ФИС)', value: 'ege_ball_2', sortable: false, align: 'center'},
           {text: 'Статус апелляция', value: 'ege_appeal_status', sortable: false, align: 'center'},
           {text: 'Действия', value: 'actions', sortable: false, align: 'center'}
@@ -419,10 +304,58 @@
       }
     },
     methods: {
-      // onUpdateLastname_evidence_ege (e) {
-      //   this.$store.commit('tab_evidence_ege_info/UPDATE_LASTNAME_EVIDENCE_EGE', e.target.payload)
-      // },
+      onInfo(){
+        location.href='profile#ege_info';
+      },
+      onDelete(item) {
+        const index = this.info_ege_subjects.indexOf(item);
+        console.log(index);
+        this.info_ege_subjects.splice(index,1);
 
+      },
+      onClearFields() {
+        this.tab_ege_lastname = '';
+        this.tab_ege_firstname = '';
+        this.tab_ege_middlename = '';
+        this.tab_ege_identityCardSeries = '';
+        this.tab_ege_identityCardNumber = '';
+        this.tab_ege_identityCardIssueDate = '';
+        this.tab_ege_identityCardIssueBy = '';
+        this.tab_ege_selectedIdentityCardCode = '';
+    //TODO other fields
+
+
+
+
+
+      },
+      onAddEge() {
+        function Ege(ege_lastname,ege_firstname,ege_middlename,ege_identityCardSeries,
+                     ege_identityCardNumber,ege_identityCardIssueDate,ege_identityCardIssueBy,
+                     ege_selectedIdentityCardCode,ege_selectedSubject, ege_score) {
+          this.tab_ege_lastname = ege_lastname;
+          this.tab_ege_firstname = ege_firstname;
+          this.tab_ege_middlename = ege_middlename;
+          this.tab_ege_identityCardSeries = ege_identityCardSeries;
+          this.tab_ege_identityCardNumber = ege_identityCardNumber;
+          this.tab_ege_identityCardIssueDate = ege_identityCardIssueDate;
+          this.tab_ege_identityCardIssueBy = ege_identityCardIssueBy;
+          this.tab_ege_selectedIdentityCardCode = ege_selectedIdentityCardCode;
+          this.tab_ege_selectedSubject = ege_selectedSubject;
+          this.tab_ege_score = ege_score
+
+        }
+        var ege = new Ege(
+          this.tab_ege_lastname, this.tab_ege_firstname, this.tab_ege_middlename,
+          this.tab_ege_identityCardSeries, this.tab_ege_identityCardNumber, this.tab_ege_identityCardIssueDate,
+          this.tab_ege_identityCardIssueBy, this.tab_ege_selectedIdentityCardCode, this.tab_ege_selectedSubject,
+          this.tab_ege_score,
+        );
+        location.href='profile#ege_overview';
+        this.ege_info.push(ege);
+        console.log(this.ege_info)
+
+      },
       onCopyInfoFromProfileTab() {
         this.tab_ege_lastname = this.tab_personal_lastname;
         this.tab_ege_firstname =  this.tab_personal_firstname;
@@ -433,27 +366,58 @@
         this.tab_ege_identityCardIssueBy = this.tab_personal_identityCardIssueBy;
         this.tab_ege_selectedIdentityCardCode = this.tab_personal_selectedIdentityCardCode;
 
-
-        // this.name =  this.lastname_personal_info;
-        // this.$store.dispatch('tab_evidence_ege_info/ON_SET_LASTNAME_EVIDENCE_EGE',this.$store.getters.GET_LASTNAME_PERSONAL_INFO);
-
-        // this.lastname = this.$store.tab_personal_info.GET_LASTNAME()
-
-        // this.lastname = this.$store.tab_personal_info;
-        // console.log(this.$store.getters)
-        // this.firstname = TabPersonalInfo.data().firstname;
-        // this.middlename = TabPersonalInfo.data().middlename;
-        // this.identityCardSeries = TabPersonalInfo.data().identityCardSeries;
-        // this.identityCardNumber = TabPersonalInfo.data().identityCardNumber;
-        // this.identityCardIssueDate = TabPersonalInfo.data().identityCardIssueDate;
-        // this.identityCardIssueBy = TabPersonalInfo.data().identityCardIssueBy;
-
       }
     }
   }
 </script>
 
 <style scoped>
+  .uneditable {
+    background-color: lightgrey;
+  }
+
+  select.minimal {
+    background-image:
+      linear-gradient(45deg, transparent 50%, gray 50%),
+      linear-gradient(135deg, gray 50%, transparent 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 20px) calc(1em + 2px),
+      calc(100% - 15px) calc(1em + 2px),
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+  }
+
+  select.minimal:focus {
+    background-image:
+      linear-gradient(45deg, green 50%, transparent 50%),
+      linear-gradient(135deg, transparent 50%, green 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 15px) 1em,
+      calc(100% - 20px) 1em,
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+    border-color: grey;
+    outline: 0;
+  }
+
+
+  .clear_save_button {
+    /*margin-top: 30%;*/
+    /*margin-left: 65%;*/
+    display: flex;
+    justify-content: flex-end;
+  }
+
   label.row {
     margin-bottom: 3px;
   }

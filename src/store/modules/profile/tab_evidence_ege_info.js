@@ -14,13 +14,15 @@ export default {
     tab_ege_documentNumber:'',
     tab_ege_typographyNumber:'',
     tab_ege_sumScores: '',
-    tab_ege_score1:'',
-    tab_ege_score2:'',
-    tab_ege_score3:'',
+    ege_info:[],
 
-    tab_ege_selectedSubject1: '',
-    tab_ege_selectedSubject2: '',
-    tab_ege_selectedSubject3: '',
+    tab_ege_score:'',
+    // tab_ege_score2:'',
+    // tab_ege_score3:'',
+
+    tab_ege_selectedSubject: '',
+    // tab_ege_selectedSubject2: '',
+    // tab_ege_selectedSubject3: '',
     tab_ege_selectedIdentityCardCode: '',
 
   },

@@ -12,6 +12,7 @@
       <!--<button> Сохранить данные об аббитуриенте</button>-->
     <!--</div>-->
   <!--</div>-->
+  <div>
   <section id="app">
     <form method="post" class="row" action="/image/add" enctype="multipart/form-data">
 
@@ -32,7 +33,14 @@
       <div class="col-md-6 py-2 border" v-for="(image, index) in imagesData">
         <img class="img-thumbnail images_place" :src="image" v-if="image.length > 0">
       </div>
+    <div class="clear_save_button row">
+      <!--<button @click="onClearFields">Очистить</button>-->
+      <button>Сохранить </button>
+      <!--<button @click="onSaveParent">Сохранить изм-я</button>-->
+    </div>
   </section>
+
+  </div>
 </template>
 
 <script>
@@ -121,7 +129,7 @@
     border-color: grey;
   }
   .clear_save_button {
-    margin-top: 75%;
+    /*margin-top: 75%;*/
     margin-left: 65%;
     display: flex;
     /*justify-content: space-between;*/

@@ -9,13 +9,13 @@
         <label class="row">
           <div class="form__label-text col-sm">Уровень образования:</div>
 
-          <select v-model="tab_edu_military_educationLevel" class="col-sm">
+          <select v-model="tab_edu_military_educationLevel" class="minimal col-sm">
             <option v-for="option in options_educationLevel">
               {{option.item}}
             </option>
           </select>
 
-          <input v-model="tab_edu_military_educationLevel" class="form__input col-sm-6" type="text" name="" placeholder="Заполняется автоматически"
+          <input v-model="tab_edu_military_educationLevel" class="uneditable form__input col-sm-6" type="text" name="" placeholder="Заполняется автоматически"
                  disabled="disabled"/>
         </label>
       </div>
@@ -30,7 +30,7 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Страна:</div>
-          <select class="col-sm" name="">
+          <select class="minimal col-sm" name="">
             <option>РФ</option>
             <option>Другая страна 1</option>
             <option>Другая страна 2</option>
@@ -38,7 +38,7 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Регион:</div>
-          <select class="col-sm" name="">
+          <select class="minimal col-sm" name="">
             <option>Адыгея</option>
             <option>Другой регион 1</option>
             <option>Другой регион 2</option>
@@ -62,7 +62,7 @@
 
         <label class="row">
           <div class="form__label-text col-sm">Документ об образовании:</div>
-          <select v-model="tab_edu_military_selectedEduDoc" class="col-sm-6">
+          <select v-model="tab_edu_military_selectedEduDoc" class="minimal col-sm-6">
             <option class="col-sm-12" v-for="option in options_eduDoc">
               {{option.item}}
             </option>
@@ -70,7 +70,7 @@
 
         </label>
 <label class="row">
-  <input v-model="tab_edu_military_selectedEduDoc" class="form__input col-sm-12" type="text" name="" placeholder="Заполняется автоматически"
+  <input v-model="tab_edu_military_selectedEduDoc" class="uneditable form__input col-sm-12" type="text" name="" placeholder="Заполняется автоматически"
          disabled/>
 </label>
 
@@ -128,7 +128,7 @@
       <div>
         <label class="row">
           <div class="form__label-text col-sm">Отношение к военной службе:</div>
-          <select v-model="tab_edu_military_selectedSoldiery" class="col-sm">
+          <select v-model="tab_edu_military_selectedSoldiery" class="minimal col-sm">
             <option v-for="option in options_soldiery">
               {{option.item}}
             </option>
@@ -136,7 +136,7 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Прохождение службы:</div>
-          <select v-if="tab_edu_military_selectedSoldiery=='Военнообязанный'" v-model="tab_edu_military_selectedSoldieryStatus" class="col-sm">
+          <select v-if="tab_edu_military_selectedSoldiery=='Военнообязанный'" v-model="tab_edu_military_selectedSoldieryStatus" class="minimal col-sm">
             <option v-for="option in options_soldieryStatus">
               {{option.item}}
             </option>
@@ -153,7 +153,7 @@
       <div>
         <label class="row">
           <div class="form__label-text col-sm">Тип документа:</div>
-          <select v-model="tab_edu_military_selectedMilitaryFormDoc" class="col-sm">
+          <select v-model="tab_edu_military_selectedMilitaryFormDoc" class="minimal col-sm">
             <option v-for="option in options_militaryFormDoc">
               {{option.item}}
             </option>
@@ -161,11 +161,11 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Номер военного билета:</div>
-          <input v-model="tab_edu_military_militaryNumber" class="form__input col-sm" type="number" name="" placeholder=""/>
+          <input v-model="tab_edu_military_militaryNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Серия:</div>
-          <input v-model="tab_edu_military_militarySeries" class="form__input col-sm" type="number" name="" placeholder=""/>
+          <input v-model="tab_edu_military_militarySeries" class="form__input col-sm" type="text" name="" placeholder=""/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Дата выдачи:</div>
@@ -181,7 +181,7 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Копия/Оригинал:</div>
-          <select class="col-sm" name="">
+          <select class="minimal col-sm" name="">
             <option>Оригинал</option>
             <option>Копия</option>
           </select>
@@ -213,7 +213,7 @@
       <!--<div class="row" v-for="(extraInfo,index) in extraInfos">-->
         <!--<label class="row" v-for="(extraInfo,index) in extraInfos">-->
       <div class="row">
-          <select v-model="selectedExtraInfos1" class="col-sm">
+          <select v-model="selectedExtraInfos1" class="minimal col-sm">
             <option v-for="option in options_extraInfos">
               {{option.item}}
             </option>
@@ -221,7 +221,7 @@
           <input v-model="extraInfosDescription1" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
       </div>
       <div class="row">
-        <select v-model="selectedExtraInfos2" class="col-sm">
+        <select v-model="selectedExtraInfos2" class="minimal col-sm">
           <option v-for="option in options_extraInfos">
             {{option.item}}
           </option>
@@ -229,7 +229,7 @@
         <input v-model="extraInfosDescription2" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
       </div>
       <div class="row">
-        <select v-model="selectedExtraInfos3" class="col-sm">
+        <select v-model="selectedExtraInfos3" class="minimal col-sm">
           <option v-for="option in options_extraInfos">
             {{option.item}}
           </option>
@@ -237,7 +237,7 @@
         <input v-model="extraInfosDescription3" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
       </div>
       <div class="row">
-        <select v-model="selectedExtraInfos4" class="col-sm">
+        <select v-model="selectedExtraInfos4" class="minimal col-sm">
           <option v-for="option in options_extraInfos">
             {{option.item}}
           </option>
@@ -389,6 +389,43 @@
 </script>
 
 <style scoped>
+  .uneditable {
+    background-color: lightgrey;
+  }
+
+  select.minimal {
+    background-image:
+      linear-gradient(45deg, transparent 50%, gray 50%),
+      linear-gradient(135deg, gray 50%, transparent 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 20px) calc(1em + 2px),
+      calc(100% - 15px) calc(1em + 2px),
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+  }
+
+  select.minimal:focus {
+    background-image:
+      linear-gradient(45deg, green 50%, transparent 50%),
+      linear-gradient(135deg, transparent 50%, green 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 15px) 1em,
+      calc(100% - 20px) 1em,
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+    border-color: grey;
+    outline: 0;
+  }
 
   .inner_tab {
     padding-bottom: -30px;

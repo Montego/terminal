@@ -98,6 +98,14 @@
                   </option>
                 </select>
               </label>
+              <label v-if="selected_specialRight==='да'" class="row">
+                <div class="form__label-text col-sm">Тип особого права</div>
+                <select v-model="selected_specialRight" class="col-sm">
+                  <option v-for="option in options_specialRight">
+                    {{option.item}}
+                  </option>
+                </select>
+              </label>
               <div v-if="selected_specialRight==='да'" class="row">
                 <div class="form__label-text col-sm">Документ</div>
                 <input class="document col-sm" type="file" title="Загрузите файл"/>

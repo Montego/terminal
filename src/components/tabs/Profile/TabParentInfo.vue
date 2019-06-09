@@ -40,12 +40,12 @@
             <hr>
             <label class="row">
               <div class="form__label-text col-sm">Ф.И.О.</div>
-              <input v-model="fullname" class="form__input col-sm" type="text" name="" placeholder="Заполняется автоматически"
+              <input v-model="fullname" class="uneditable form__input col-sm" type="text" name="" placeholder="Заполняется автоматически"
                      disabled="disabled"/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Кем приходится:</div>
-              <select v-model="tab_parent_selectedFamRelationShip" class="col-sm">
+              <select v-model="tab_parent_selectedFamRelationShip" class="minimal col-sm">
                 <option v-for="option in options_FamRelationShip">
                   {{option.item}}
                 </option>
@@ -68,7 +68,7 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Пол:</div>
-              <select v-model="tab_parent_selectedGender" class="col-sm" name="">
+              <select v-model="tab_parent_selectedGender" class="minimal col-sm" name="">
                 <option>Мужской</option>
                 <option>Женский</option>
                 <option>Другое</option>
@@ -328,6 +328,45 @@
 </script>
 
 <style scoped>
+
+  .uneditable {
+    background-color: lightgrey;
+  }
+
+  select.minimal {
+    background-image:
+      linear-gradient(45deg, transparent 50%, gray 50%),
+      linear-gradient(135deg, gray 50%, transparent 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 20px) calc(1em + 2px),
+      calc(100% - 15px) calc(1em + 2px),
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+  }
+
+  select.minimal:focus {
+    background-image:
+      linear-gradient(45deg, green 50%, transparent 50%),
+      linear-gradient(135deg, transparent 50%, green 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 15px) 1em,
+      calc(100% - 20px) 1em,
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+    border-color: grey;
+    outline: 0;
+  }
+
   p {
     font-size: 25px;
     margin-bottom: 0px;

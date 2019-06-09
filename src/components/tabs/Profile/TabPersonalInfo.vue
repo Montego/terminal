@@ -8,8 +8,8 @@
       <hr>
       <div>
         <label class="row">
-          <div class="form__label-text col-sm-4">Ф.И.О</div>
-          <input v-model="fullname" class="form__input col-sm-8" type="text" name="name"
+          <div class=" form__label-text col-sm-4">Ф.И.О</div>
+          <input v-model="fullname" class="uneditable form__input col-sm-8" type="text" name="name"
                  placeholder="Заполняется автоматически" disabled="disabled"/>
         </label>
         <!--в фамилия namespace not found in mapState()-->
@@ -48,14 +48,14 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm-4">Ф.И.О.(род. п.)</div>
-          <input v-model="fullnameGenitive" class="form__input col-sm-8" type="text" name="snp_genitive"
+          <input v-model="fullnameGenitive" class="uneditable form__input col-sm-8" type="text" name="snp_genitive"
                  placeholder="Заполняется автоматически" disabled="disabled"/>
         </label>
         <label class="alarm_label">Проверьте Ф.И.О. в родительном падеже для Заявления.</label>
 
         <label class="row">
           <div class="form__label-text col-sm">Пол:</div>
-          <select v-model="tab_personal_selectedGender" class="col-sm">
+          <select v-model="tab_personal_selectedGender" class="minimal col-sm">
             <!--<option v-for="item in GET_GENDER">-->
               <!--{{item.name}}-->
             <!--</option>-->
@@ -103,7 +103,7 @@
             <!--<option v-for="identityCardCode in options_identityCardCode">{{identityCardCode.item}}</option>-->
           <!--</select>-->
           <!--{{selectedIdentityCardCode}}-->
-          <select v-model="tab_personal_selectedIdentityCardCode" class="col-sm">
+          <select v-model="tab_personal_selectedIdentityCardCode" class="minimal col-sm">
             <option v-for="option in options_identityCardCode">
               {{option.item}}
             </option>
@@ -145,7 +145,7 @@
       </div>
       <label class="row">
         <div class="form__label-text col-sm">Гражданство:</div>
-        <select v-model="tab_personal_selectedCitizenship" class="col-sm">
+        <select v-model="tab_personal_selectedCitizenship" class="minimal col-sm">
           <option v-for="option in options_citizenship">
             {{option.item}}
           </option>
@@ -221,7 +221,7 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Трудовой стаж:</div>
-          <input v-model="fullseniority" class="form__input col-sm" type="text" name="seniority"
+          <input v-model="fullseniority" class="uneditable form__input col-sm" type="text" name="seniority"
                  placeholder="Заполняется автоматически" disabled="disabled"/>
         </label>
         <label class="row">
@@ -250,7 +250,7 @@
             <!--<option>Изучал</option>-->
             <!--<option>Не изучал</option>-->
           <!--</select>-->
-          <select v-model="tab_personal_selectedForeignLanguageInfo" class="col-sm">
+          <select v-model="tab_personal_selectedForeignLanguageInfo" class="minimal col-sm">
             <option v-for="option in options_foreignLanguageInfo">
               {{option.item}}
             </option>
@@ -260,19 +260,19 @@
         <div v-if="tab_personal_selectedForeignLanguageInfo==='изучал'" class="row">
           <!--<div v-for="(selected_foreignLanguageName,language_description, index) in languages">-->
 
-            <select v-model="selected_foreignLanguageName1" class="col-sm-6">
+            <select v-model="selected_foreignLanguageName1" class="minimal col-sm-6">
           <option v-for="option in options_foreignLanguageName">
             {{option.item}}
           </option>
         </select>
           <input v-model="language_score1" class="form__input col-sm-6" type="text" v-mask="'#'">
-          <select v-model="selected_foreignLanguageName2" class="col-sm-6">
+          <select v-model="selected_foreignLanguageName2" class="minimal col-sm-6">
             <option v-for="option in options_foreignLanguageName">
               {{option.item}}
             </option>
           </select>
           <input v-model="language_score2" class="form__input col-sm-6" type="text" v-mask="'#'">
-          <select v-model="selected_foreignLanguageName3" class="col-sm-6">
+          <select v-model="selected_foreignLanguageName3" class="minimal col-sm-6">
             <option v-for="option in options_foreignLanguageName">
               {{option.item}}
             </option>
@@ -461,6 +461,45 @@
 </script>
 
 <style scoped>
+
+  .uneditable {
+    background-color: lightgrey;
+  }
+
+  select.minimal {
+    background-image:
+      linear-gradient(45deg, transparent 50%, gray 50%),
+      linear-gradient(135deg, gray 50%, transparent 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 20px) calc(1em + 2px),
+      calc(100% - 15px) calc(1em + 2px),
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+  }
+
+  select.minimal:focus {
+    background-image:
+      linear-gradient(45deg, green 50%, transparent 50%),
+      linear-gradient(135deg, transparent 50%, green 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 15px) 1em,
+      calc(100% - 20px) 1em,
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+    border-color: grey;
+    outline: 0;
+  }
+
   .button_add {
     min-width: 100px;
     min-height: 40px;
