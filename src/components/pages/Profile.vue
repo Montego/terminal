@@ -152,7 +152,7 @@
 <style scoped>
 
   .logout {
-    margin-left: 35%;
+    margin-left: 30%;
   }
   /*tabs-component-panels.graduate_military {*/
     /*padding-bottom: -30px;*/
