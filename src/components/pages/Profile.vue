@@ -8,6 +8,10 @@
       <router-link :to="{name: 'application'}" v-bind:title="titles[0].title">
         <button class="search_button col-sm">К заявлениям</button>
       </router-link>
+      <button class="logout">
+        <a href="/login">Logout</a>
+      </button>
+
       <!--<input type="submit" value="Заявление">-->
 
       <!--<v-dialog v-model="dialog" max-width="800px">-->
@@ -146,6 +150,10 @@
 </script>
 
 <style scoped>
+
+  .logout {
+    margin-left: 35%;
+  }
   /*tabs-component-panels.graduate_military {*/
     /*padding-bottom: -30px;*/
   /*}*/

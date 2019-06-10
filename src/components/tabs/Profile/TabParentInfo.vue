@@ -304,20 +304,6 @@
           this.tab_parent_selectedGender, this.tab_parent_organization_name,this.tab_parent_organization_adress,
           this.tab_parent_organization_seniority,this.tab_parent_organization_employYears
         );
-          // parent.tab_parent_name = this.tab_parent_name;
-          // parent.tab_parent_lastname = this.tab_parent_lastname;
-          // parent.tab_parent_firstname = this.tab_parent_firstname;
-          // parent.tab_parent_middlename = this.tab_parent_middlename;
-          // parent.tab_parent_birthDate = this.tab_parent_birthDate;
-          // parent.tab_parent_homePhoneNumber = this.tab_parent_homePhoneNumber;
-          // parent.tab_parent_cellularPhone = this.tab_parent_cellularPhone;
-          // parent.tab_parent_factAddress = this.tab_parent_factAddress;
-          // parent.tab_parent_selectedFamRelationShip = this.tab_parent_selectedFamRelationShip;
-          // parent.tab_parent_selectedGender = this.tab_parent_selectedGender;
-          // parent.tab_parent_organization_name = this.tab_parent_organization_name;
-          // parent.tab_parent_organization_adress = this.tab_parent_organization_adress;
-          // parent.tab_parent_organization_seniority = this.tab_parent_organization_seniority;
-          // parent.tab_parent_organization_employYears = this.tab_parent_organization_employYears;
         location.href='profile#parent_overview';
         this.tab_parent_parents.push(parent);
         console.log(this.tab_parent_parents)
@@ -330,7 +316,7 @@
 <style scoped>
 
   .uneditable {
-    background-color: lightgrey;
+    background-color: #F5F5F5;
   }
 
   select.minimal {

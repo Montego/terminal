@@ -24,6 +24,11 @@
             </td>
           </template>
         </v-data-table>
+        <div class="clear_save_button row">
+          <button @click="onNext">Далее ->></button>
+          <!--<button @click="onAddParent">Добавить</button>-->
+          <!--<button @click="onSaveParent">Сохранить изм-я</button>-->
+        </div>
       </tab>
 
       <tab id="documents_info" name="Документы">
@@ -132,6 +137,9 @@
         },
       },
         methods: {
+          onNext() {
+            location.href='application#entranceTests';
+          },
           onAdd(){
             location.href='application#documents_info';
           },
@@ -190,6 +198,12 @@
 </script>
 
 <style scoped>
+  .clear_save_button {
+    margin-top: 10%;
+    /*margin-left: 65%;*/
+    display: flex;
+    justify-content: flex-end;
+  }
   .inside_tab {
     margin-top: -90px;
   }

@@ -34,11 +34,11 @@
             <v-icon color="#5bc0de">edit</v-icon>
           </button>
         <!--</router-link>-->
-        <router-link :to="{name: 'application'}" v-bind:title="titles[0].title">
+        <!--<router-link :to="{name: 'application#applicationFill'}" v-bind:title="titles[0].title">-->
           <button @click="onApplication(props.item)">
             <v-icon color="#5bc0de">Заявление</v-icon>
           </button>
-        </router-link>
+        <!--</router-link>-->
 
         <!--</v-btn>-->
 
@@ -142,7 +142,9 @@
           this.tab_personal_INIPA = item.profile_1_personal_INIPA;
           this.tab_personal_INIPADate = item.profile_1_personal_INIPADate;
         },
-        onApplication(item) {},
+        onApplication(item) {
+          location.href='application#applicationFill';
+        },
       },
       data () {
         return {

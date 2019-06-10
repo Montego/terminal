@@ -33,6 +33,11 @@
           <!--</td>-->
         </template>
       </v-data-table>
+      <div class="clear_save_button row">
+        <button @click="onNext">Далее ->></button>
+        <!--<button @click="onAddParent">Добавить</button>-->
+        <!--<button @click="onSaveParent">Сохранить изм-я</button>-->
+      </div>
     </tab>
     <tab id="conditions_info" name="Условия приема">
       <div class="inner_tab row">
@@ -147,6 +152,7 @@
         </div>
 
       </div>
+
     </tab>
   </tabs>
   </div>
@@ -238,6 +244,10 @@
 
       },
       methods: {
+        onNext() {
+          location.href='application#documents';
+        },
+
         onAdd() {
           location.href='application#conditions_info';
         },
@@ -295,6 +305,13 @@
 </script>
 
 <style scoped>
+  .clear_save_button {
+    margin-top: 10%;
+    /*margin-left: 65%;*/
+    display: flex;
+    justify-content: flex-end;
+  }
+
   .inside_tab {
     margin-top: -90px;
   }

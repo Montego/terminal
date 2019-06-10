@@ -463,7 +463,7 @@
 <style scoped>
 
   .uneditable {
-    background-color: lightgrey;
+    background-color: #F5F5F5;
   }
 
   select.minimal {

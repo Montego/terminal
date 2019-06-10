@@ -39,9 +39,11 @@
 
         <!--<output name="result">0</output>-->
       </div>
-      <div class="col-sm"></div>
-    </div>
 
+    </div>
+    <div class="clear_save_button row">
+      <button @click="onSave">Сохранить</button>
+    </div>
     <!--<v-data-table-->
       <!--:headers="headers_ege_results"-->
       <!--:items="info_ege_results"-->
@@ -89,16 +91,9 @@
           return this.ege_result = this.ege_info;
         },
 
-        // takeInfoFromProfile(){
-          // return(
-            // this.tab_entrance_test_score1 = this.tab_ege_score1
-            // this.tab_entrance_test_score2 = this.tab_ege_score2,
-            // this.tab_entrance_test_score3 = this.tab_ege_score3,
-            // this.tab_entrance_test_subject1 = this.tab_ege_selectedSubject1,
-            // this.tab_entrance_test_subject2 = this.tab_ege_selectedSubject2,
-            // this.tab_entrance_test_subject3 = this.tab_ege_selectedSubject3
-          // );
-  // },
+        show(){
+          return this.ege_info;
+        },
 
       },
       // mounted(){
@@ -116,11 +111,22 @@
           info_ege_results: [],
           ege_result:[]
         }
-        }
+        },
+      methods: {
+        onSave(){
+          location.href='application#overview';
+        },
+      },
     }
 </script>
 
 <style scoped>
+  .clear_save_button {
+    margin-top: 10%;
+    /*margin-left: 65%;*/
+    display: flex;
+    justify-content: flex-end;
+  }
   label.row {
     margin-bottom: 3px;
   }

@@ -13,8 +13,11 @@
 
           <div>
             <tabs class="main_tab">
-              <tab id="" name="Обзор">
+              <tab id="overview" name="Обзор">
                 <TabOverviewApplication></TabOverviewApplication>
+              </tab>
+              <tab id="applicationFill" name="Заявление">
+                <TabApplicationFill></TabApplicationFill>
               </tab>
               <tab id="receptrionCondition" name="Условия приема">
                 <TabReceptionConditions></TabReceptionConditions>
@@ -22,7 +25,7 @@
               <tab id="documents" name="Документы">
                 <TabDocuments></TabDocuments>
               </tab>
-              <tab id="tabEntranceTests.vue" name="Вступительные испытания">
+              <tab id="entranceTests" name="Вступительные испытания">
                 <TabEntranceTests></TabEntranceTests>
               </tab>
               <tab id="other" name="Разное">
@@ -39,10 +42,11 @@
   import TabDocuments from "../tabs/Application/TabDocuments";
   import TabOther from "../tabs/Application/TabOther";
   import TabEntranceTests from "../tabs/Application/TabEntranceTests";
+  import TabApplicationFill from "../tabs/Application/TabApplicationFill";
     export default {
         name: "Application",
       components: {
-        TabOverviewApplication, TabReceptionConditions , TabDocuments, TabEntranceTests, TabOther
+        TabOverviewApplication, TabApplicationFill, TabReceptionConditions , TabDocuments, TabEntranceTests, TabOther
       },
       data() {
         return {

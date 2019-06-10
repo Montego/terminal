@@ -1,5 +1,8 @@
 <template>
 <div>
+  <!--<button color="#5bc0de" @click="onNewApplication()">-->
+    <!--+-->
+  <!--</button>-->
   <v-data-table
     :headers="headers_parent"
     :items="info_parent"
@@ -7,12 +10,12 @@
     class="elevation-1 text-xs-center"
   >
     <template slot="items" slot-scope="props">
-      <td class="text-xs-center">{{ props.item.who_parent}}</td>
-      <td class="text-xs-center">{{ props.item.snp_parent}}</td>
-      <td class="text-xs-center">{{ props.item.surname_parent}}</td>
-      <td class="text-xs-center">{{ props.item.name_parent }}</td>
-      <td class="text-xs-center">{{ props.item.patronymic_parent}}</td>
-      <td class="text-xs-center">{{ props.item.gender_parent}}</td>
+      <td class="text-xs-center">{{ props.item.profile_name}}</td>
+      <td class="text-xs-center">{{ props.item.application_number}}</td>
+      <td class="text-xs-center">{{ props.item.application_date}}</td>
+      <td class="text-xs-center">{{ props.item.application_deliveryType }}</td>
+      <!--<td class="text-xs-center">{{ props.item.patronymic_parent}}</td>-->
+      <!--<td class="text-xs-center">{{ props.item.gender_parent}}</td>-->
       <td class="justify-center layout px-0">
         <v-btn icon class="mx-0" @click="printItem(props.item)">
           <v-icon color="#5bc0de">edit</v-icon>
@@ -60,6 +63,9 @@
           }
       },
       methods:{
+        onNewApplication() {
+          location.href='application#applicationFill';
+        },
         printItem(){},
         approveItem(){},
         consentsItem(){},
@@ -69,5 +75,17 @@
 </script>
 
 <style scoped>
-
+  button {
+    min-width: 100px;
+    padding: 10px;
+    border: 1px solid;
+    border-color: grey;
+    border-radius: 5px;
+    background-color: ghostwhite;
+    /*background-color: #EDD19C;*/
+    font-size: 16px;
+    cursor: pointer;
+    transform: scale(0.8);
+    opacity: 0.9
+  }
 </style>

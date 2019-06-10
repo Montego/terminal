@@ -9,7 +9,6 @@
         <div class="row">
 
           <div class="col-sm">
-
             <v-data-table
               :headers="headers_ege_subjects"
               :items="table_show"
@@ -373,7 +372,7 @@
 
 <style scoped>
   .uneditable {
-    background-color: lightgrey;
+    background-color: #F5F5F5;
   }
 
   select.minimal {
