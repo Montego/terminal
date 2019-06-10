@@ -101,7 +101,7 @@
 
 <style scoped>
   .clear_save_button {
-    margin-top: 10%;
+    margin-top: 17%;
     /*margin-left: 65%;*/
     display: flex;
     justify-content: flex-end;

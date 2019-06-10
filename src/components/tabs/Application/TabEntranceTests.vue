@@ -42,8 +42,12 @@
 
     </div>
     <div class="clear_save_button row">
-      <button @click="onSave">Сохранить</button>
+      <button @click="onNext">Далее ->></button>
     </div>
+
+    <!--<div class="clear_save_button row">-->
+      <!--<button @click="onSave">Сохранить</button>-->
+    <!--</div>-->
     <!--<v-data-table-->
       <!--:headers="headers_ege_results"-->
       <!--:items="info_ege_results"-->
@@ -113,16 +117,19 @@
         }
         },
       methods: {
-        onSave(){
-          location.href='application#overview';
+        onNext(){
+          location.href='application#other';
         },
+        // onSave(){
+        //   location.href='application#overview';
+        // },
       },
     }
 </script>
 
 <style scoped>
   .clear_save_button {
-    margin-top: 10%;
+    margin-top: 21%;
     /*margin-left: 65%;*/
     display: flex;
     justify-content: flex-end;
