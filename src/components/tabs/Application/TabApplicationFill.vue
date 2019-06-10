@@ -23,10 +23,10 @@
             </option>
           </select>
         </label>
-        <label class="row">
-          <div class="form__label-text col-sm">Перевести на бюджет:</div>
-          <input class="checkbox col-sm" type="checkbox" id="budget">
-        </label>
+        <!--<label class="row">-->
+          <!--<div class="form__label-text col-sm">Перевести на бюджет:</div>-->
+          <!--<input class="checkbox col-sm" type="checkbox" id="budget">-->
+        <!--</label>-->
         <label class="row">
           <div class="form__label-text col-sm">Документ об образовании:</div>
           <select  class="minimal col-sm">
@@ -37,7 +37,7 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Абитуриент:</div>
-          <input  class="form__input col-sm" type="text" name=""  />
+          <input class="uneditable form__input col-sm" type="text" name="" disabled />
         </label>
     </div>
     </div>
@@ -108,7 +108,7 @@
   }
 
   .uneditable {
-    background-color: lightgrey;
+    background-color: #F5F5F5;
   }
 
   select.minimal {

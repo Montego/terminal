@@ -42,24 +42,17 @@
       data(){
           return{
             headers_parent: [
-              {text: 'Кем приходится', value: 'who_parent', sortable: false, align: 'center'},
-              {text: 'Ф.И.О.', value: 'snp_parent', sortable: false, align: 'center'},
-              {text: 'Фамилия', value: 'surname_parent', sortable: false, align: 'center'},
-              {text: 'Имя', value: 'name_parent', sortable: false, align: 'center'},
-              {text: 'Отчество', value: 'patronymic_parent', sortable: false, align: 'center'},
-              {text: 'Пол', value: 'gender_parent', sortable: false, align: 'center'},
+              {text: 'Абитуриент', value: 'profile_name', sortable: false, align: 'center'},
+              {text: 'Номер заявления', value: 'application_number', sortable: false, align: 'center'},
+              {text: 'Дата заявления', value: 'application_date', sortable: false, align: 'center'},
+              {text: 'Тип доставки', value: 'application_deliveryType', sortable: false, align: 'center'},
+              {text: 'Перевести на бюджет', value: 'toBudget', sortable: false, align: 'center'},
+              // {text: 'Отчество', value: 'patronymic_parent', sortable: false, align: 'center'},
+              // {text: 'Пол', value: 'gender_parent', sortable: false, align: 'center'},
               {text: 'Действия', value: 'actions', sortable: false, align: 'center'},
             ],
             info_parent: [],
-            defaultItem: {
-              who_parent:'',
-              snp_parent: '',
-              surname_parent: 0,
-              name_parent: 0,
-              patronymic_parent: 0,
-              time_off: 0,
-              gender_parent: 0,
-            }
+
           }
       },
       methods:{

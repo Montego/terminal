@@ -11,61 +11,7 @@
       <button class="logout">
         <a href="/login">Logout</a>
       </button>
-
-      <!--<input type="submit" value="Заявление">-->
-
-      <!--<v-dialog v-model="dialog" max-width="800px">-->
-        <!--забрать стиль-->
-        <!--<v-btn slot="activator" color="#5bc0de" dark class="mb-2">Новое событие</v-btn>-->
-      <!--<button>-->
-
-        <!--<router-link :to="{name: 'application'}" v-bind:title="titles[0].title">-->
-          <!--<button class="search_button col-sm-2">-->
-            <!--Заявление-->
-          <!--</button>-->
-        <!--</router-link>-->
-      <!--</button>-->
-        <!--<template v-if="'employers'.indexOf($route.name)>-1">-->
-          <!--<button slot="activator" class="search_button col-sm-2">Заявление</button>-->
-        <!--</template>-->
-        <!--<v-card>-->
-          <!--<v-card-title>-->
-            <!--<span class="headline"> Заявление </span>-->
-          <!--</v-card-title>-->
-          <!--<v-card-text>-->
-            <!--<v-container grid-list-md>-->
-<!--авпивапиавчпи-->
-            <!--</v-container>-->
-          <!--</v-card-text>-->
-          <!--<v-card-actions>-->
-            <!--&lt;!&ndash;<v-spacer></v-spacer>&ndash;&gt;-->
-            <!--&lt;!&ndash;<v-btn color="blue darken-1" flat @click.native="close">Закрыть</v-btn>&ndash;&gt;-->
-            <!--&lt;!&ndash;<v-btn color="blue darken-1" flat @click.native="save">Сохранить</v-btn>&ndash;&gt;-->
-          <!--</v-card-actions>-->
-        <!--</v-card>-->
-      <!--</v-dialog>-->
-
-      <!--<button slot="activator" class="search_button col-sm-2">Заявление</button>-->
-
-      <!--<button class="search_button col-sm-2">Заявление</button>-->
-
     </div>
-
-    <!--другой вариант табов.c кнопками.самый быстрый вариант, хз как сделать с компонентами-->
-    <!--<div id="dynamic-component-demo" class="demo">-->
-    <!--<button-->
-    <!--v-for="tab in tabs"-->
-    <!--v-bind:key="tab"-->
-    <!--v-bind:class="['tab-button', { active: currentTab === tab }]"-->
-    <!--v-on:click="currentTab = tab"-->
-    <!--&gt;{{ tab }}</button>-->
-
-    <!--<component-->
-    <!--v-bind:is="currentTabComponent"-->
-    <!--class="tab"-->
-    <!--&gt;</component>-->
-    <!--</div>-->
-
     <div>
       <!--<tabs class="main_tab" :options="{ useUrlFragment: false }">-->
         <tabs class="main_tab" >
@@ -77,7 +23,6 @@
           <TabPersonalInfo></TabPersonalInfo>
         </tab>
 
-        <!--///////////////////////////////////////-->
         <tab id="contacts" name="Адресные данные">
           <TabAddressInfo></TabAddressInfo>
         </tab>
