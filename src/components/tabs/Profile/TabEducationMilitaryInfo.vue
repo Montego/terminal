@@ -30,27 +30,33 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Страна:</div>
-          <select class="minimal col-sm" name="">
-            <option>РФ</option>
-            <option>Другая страна 1</option>
-            <option>Другая страна 2</option>
+
+          <select v-model="tab_edu_military_selectedCountryRegion" class="minimal col-sm">
+            <option v-for="option in addressCountryRegion">
+              {{option.CountryRegionId}}
+            </option>
           </select>
+
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Регион:</div>
-          <select class="minimal col-sm" name="">
-            <option>Адыгея</option>
-            <option>Другой регион 1</option>
-            <option>Другой регион 2</option>
+
+          <select v-model="tab_edu_military_selectedState" class="minimal col-sm">
+            <option v-for="option in addressState">
+              {{option.StateId}}
+            </option>
           </select>
+
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Дата окончания:</div>
-          <select class="col-sm" name="">
-            <option>2016</option>
-            <option>2017</option>
-            <option>2018</option>
+
+          <select v-model="tab_edu_military_selectedAcademyYear" class="minimal col-sm">
+            <option v-for="option in academyYear">
+              {{option.AcadamyYearId}}
+            </option>
           </select>
+
         </label>
       </div>
       <div>
@@ -63,8 +69,8 @@
         <label class="row">
           <div class="form__label-text col-sm">Документ об образовании:</div>
           <select v-model="tab_edu_military_selectedEduDoc" class="minimal col-sm-6">
-            <option class="col-sm-12" v-for="option in options_eduDoc">
-              {{option.item}}
+            <option class="col-sm-12" v-for="option in eduDoc">
+              {{option.Name}}
             </option>
           </select>
 
@@ -129,16 +135,16 @@
         <label class="row">
           <div class="form__label-text col-sm">Отношение к военной службе:</div>
           <select v-model="tab_edu_military_selectedSoldiery" class="minimal col-sm">
-            <option v-for="option in options_soldiery">
-              {{option.item}}
+            <option v-for="option in soldiery">
+              {{option.SoldieryId}}
             </option>
           </select>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Прохождение службы:</div>
           <select v-if="tab_edu_military_selectedSoldiery=='Военнообязанный'" v-model="tab_edu_military_selectedSoldieryStatus" class="minimal col-sm">
-            <option v-for="option in options_soldieryStatus">
-              {{option.item}}
+            <option v-for="option in soldieryStatus">
+              {{option.Name}}
             </option>
           </select>
           <input v-else class="form__input col-sm" type="text" name="" placeholder="Не заполняется"
@@ -154,8 +160,8 @@
         <label class="row">
           <div class="form__label-text col-sm">Тип документа:</div>
           <select v-model="tab_edu_military_selectedMilitaryFormDoc" class="minimal col-sm">
-            <option v-for="option in options_militaryFormDoc">
-              {{option.item}}
+            <option v-for="option in militaryFormDoc">
+              {{option.Name}}
             </option>
           </select>
         </label>
@@ -181,9 +187,10 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Копия/Оригинал:</div>
-          <select class="minimal col-sm" name="">
-            <option>Оригинал</option>
-            <option>Копия</option>
+          <select v-model="tab_edu_military_selectedDocType" class="minimal col-sm">
+            <option v-for="option in docType">
+              {{option.Name}}
+            </option>
           </select>
         </label>
         <label class="row">
@@ -265,7 +272,25 @@
   });
   export default {
     name: "TabEducationMilitary",
+    mounted() {
+      this.$store.dispatch('dictionary/onLoadAddressCountryRegion');
+      this.$store.dispatch('dictionary/onLoadAddressState');
+      this.$store.dispatch('dictionary/onLoadEduDoc');
+      this.$store.dispatch('dictionary/onLoadAcademyYear');
+      this.$store.dispatch('dictionary/onLoadSoldiery');
+      this.$store.dispatch('enums/onLoadSoldieryStatus');
+      this.$store.dispatch('enums/onLoadMilitaryFormDoc');
+      this.$store.dispatch('enums/onLoadDocType');
+
+    },
     computed: {
+      ...mapState('dictionary',['addressCountryRegion','addressState', 'eduDoc','academyYear','soldiery',
+      ],),
+      ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION','GET_ADDRESS_STATE',
+        'GET_EDU_DOC','GET_ACADEMY_YEAR','GET_SOLDIERY',],),
+      ...mapState('enums',['soldieryStatus','militaryFormDoc','docType'],),
+      ...mapGetters('enums',['GET_SOLDIERY_STATUS','GET_MILITARY_FORM_DOC','GET_DOC_TYPE'],),
+
       ...tab_education_military_info(['tab_edu_military_militaryNumber', 'tab_edu_military_militarySeries',
         'tab_edu_military_militaryIssueBy', 'tab_edu_military_militaryIssueDate', 'tab_edu_military_militaryRank',
         'tab_edu_military_soldieryBegDate', 'tab_edu_military_soldieryEndDate', 'tab_personal_identityCardIssueBy',
@@ -273,28 +298,20 @@
         'tab_edu_military_educationLevel', 'tab_edu_military_selectedSoldiery', 'tab_edu_military_selectedSoldieryStatus',
         'tab_edu_military_selectedMilitaryFormDoc', 'selectedExtraInfos1',  'selectedExtraInfos2',
         'selectedExtraInfos3', 'selectedExtraInfos4','extraInfosDescription1','extraInfosDescription2',
-        'extraInfosDescription3','extraInfosDescription4'
+        'extraInfosDescription3','extraInfosDescription4', 'tab_edu_military_selectedCountryRegion',
+        'tab_edu_military_selectedState','tab_edu_military_selectedAcademyYear','tab_edu_military_selectedDocType'
       ]),
       // ...mapState('enums'['educationLevel','soldieryStatus','militaryFormDoc','docType']),
       // ...mapGetters('enums'['GET_EDUCATION_LEVEL','GET_SOLDIERY_STATUS','GET_MILITARY_FORM_DOC','GET_DOC_TYPE']),
       // },
-      mounted() {
-        this.$store.dispatch('enums/onLoadEducationLevel');
-        this.$store.dispatch('dictionary/onLoadAddressCountryRegion');
-        this.$store.dispatch('dictionary/onLoadAddressState');
-        this.$store.dispatch('dictionary/onLoadAcademyYear');
-        this.$store.dispatch('dictionary/onLoadEduDoc');
-        this.$store.dispatch('dictionary/onLoadSoldiery');
-        this.$store.dispatch('enums/onLoadSoldieryStatus');
-        this.$store.dispatch('enums/onLoadMilitaryFormDoc');
-        this.$store.dispatch('enums/onLoadDocType');
-      },
+
       },
       methods: {
         onCalculateScore() {
           this.score_full = (parseInt(this.score_five)*5 + parseInt(this.score_four)*4 +
-            parseInt(this.score_three)*3)/(parseInt(this.score_five)+parseInt(this.score_four)
-          +parseInt(this.score_three));
+            parseInt(this.score_three)*3) / (parseInt(this.score_five) + parseInt(this.score_four)
+          + parseInt(this.score_three));
+              console.log(this.GET_ADDRESS_STATE)
         },
         onAddExtraInfo() {
           this.extraInfos.push('');
@@ -316,39 +333,29 @@
             score_four: 0,
             score_three: 0,
             score_full: 0,
-            // eduDocSerial:'',
-            // eduDocNumber:'',
-            //
-            //
-            // selectedEduDoc: '',
-            // selectedEduLevel: '',
-            // selectedSoldiery: '',
-            // selectedSoldieryStatus: '',
-            // selectedMilitaryFormDoc: '',
-            // selectedExtraInfos:'',
 
-            options_eduDoc: [
-              {id: 1, item: 'Академическая справка'},
-              {id: 2, item: 'Аттестат о полном среднем образовании'},
-              {id: 3, item: 'Аттестат о среднем общем образовании'},
-              {id: 4, item: 'Аттестат о среднем общем образовании без корочки'},
-              {id: 5, item: 'Аттестат иного государства'},
-              {id: 6, item: 'Выписка из протокола заседания комиссии'},
-              {id: 7, item: 'Диплом об окончании аспирантуры (адъюнкатуры)'},
-              {id: 8, item: 'Диплом бакалавра'},
-              {id: 9, item: 'Диплом ВУЗа'},
-              {id: 10, item: 'Диплом кандидата наук'},
-              {id: 11, item: 'Диплом лицея'},
-              {id: 12, item: 'Диплом магистра'},
-              {id: 13, item: 'Диплом о начальном профессиональном образовании'},
-              {id: 14, item: 'Диплом'},
-              {id: 15, item: 'Диплом иностранного государства (ВУЗ)'},
-              {id: 16, item: 'Диплом специалиста'},
-              {id: 17, item: 'Диплом о среднем профессиональном образовании'},
-              {id: 18, item: 'Свидетельство'},
-              {id: 19, item: 'Свидетельство об аккредитации'},
-              {id: 20, item: 'Сертификат'},
-            ],
+            // options_eduDoc: [
+            //   {id: 1, item: 'Академическая справка'},
+            //   {id: 2, item: 'Аттестат о полном среднем образовании'},
+            //   {id: 3, item: 'Аттестат о среднем общем образовании'},
+            //   {id: 4, item: 'Аттестат о среднем общем образовании без корочки'},
+            //   {id: 5, item: 'Аттестат иного государства'},
+            //   {id: 6, item: 'Выписка из протокола заседания комиссии'},
+            //   {id: 7, item: 'Диплом об окончании аспирантуры (адъюнкатуры)'},
+            //   {id: 8, item: 'Диплом бакалавра'},
+            //   {id: 9, item: 'Диплом ВУЗа'},
+            //   {id: 10, item: 'Диплом кандидата наук'},
+            //   {id: 11, item: 'Диплом лицея'},
+            //   {id: 12, item: 'Диплом магистра'},
+            //   {id: 13, item: 'Диплом о начальном профессиональном образовании'},
+            //   {id: 14, item: 'Диплом'},
+            //   {id: 15, item: 'Диплом иностранного государства (ВУЗ)'},
+            //   {id: 16, item: 'Диплом специалиста'},
+            //   {id: 17, item: 'Диплом о среднем профессиональном образовании'},
+            //   {id: 18, item: 'Свидетельство'},
+            //   {id: 19, item: 'Свидетельство об аккредитации'},
+            //   {id: 20, item: 'Сертификат'},
+            // ],
             options_educationLevel: [
               {id: 1, item: 'Бакалавриат'},
               {id: 2, item: 'Магистратура'},

@@ -16,6 +16,7 @@ export default {
     tab_ege_sumScores: '',
     ege_info:[],
 
+    tab_ege_info_selectedCitizenship:'',
     tab_ege_score:'',
     // tab_ege_score2:'',
     // tab_ege_score3:'',

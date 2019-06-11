@@ -28,6 +28,7 @@ export default {
       return state.gender;
     },
 
+
     GET_LANGINFO: state => {
       return state.langInfo;
     },
@@ -87,6 +88,7 @@ export default {
       state.gender = payload
     },
 
+
     UPLOAD_LANG_INFO(state, payload) {
       state.langInfo = payload
     },
@@ -143,7 +145,8 @@ export default {
   actions: {
 
     onLoadGender({commit}) {
-      AXIOS.get('/enums/gender')
+      // AXIOS.get('/enums/gender')
+      AXIOS.get('/json/gender')
         .then((response) => {
           commit('UPLOAD_GENDER', response.data)
         }).catch(e => {
@@ -152,7 +155,8 @@ export default {
     },
 
     onLoadLangInfo({commit}) {
-      AXIOS.get('/enums/langInfo')
+      // AXIOS.get('/enums/langInfo')
+      AXIOS.get('/json/langInfo')
         .then((response) => {
           commit('UPLOAD_LANG_INFO', response.data)
         }).catch(e => {
@@ -185,7 +189,8 @@ export default {
     },
 
     onLoadDocType ({ commit }) {
-      AXIOS.get('/enums/docType')
+      // AXIOS.get('/enums/docType')
+      AXIOS.get('/json/docType')
         .then((response) => {
           commit('UPLOAD_DOC_TYPE', response.data)
         }).catch(e => {
@@ -267,7 +272,8 @@ export default {
       })
     },
     onLoadMilitaryFormDoc ({ commit }) {
-      AXIOS.get('/enums/militaryFormDoc')
+      // AXIOS.get('/enums/militaryFormDoc')
+      AXIOS.get('/json/militaryFormDoc')
         .then((response) => {
           commit('UPLOAD_MILITARY_FORM_DOC', response.data)
         }).catch(e => {
@@ -275,7 +281,8 @@ export default {
       })
     },
     onLoadSoldieryStatus ({ commit }) {
-      AXIOS.get('/enums/soldieryStatus')
+      // AXIOS.get('/enums/soldieryStatus')
+      AXIOS.get('/json/soldieryStatus')
         .then((response) => {
           commit('UPLOAD_SOLDIERY_STATUS', response.data)
         }).catch(e => {

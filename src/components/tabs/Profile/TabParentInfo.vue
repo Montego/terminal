@@ -68,10 +68,10 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Пол:</div>
-              <select v-model="tab_parent_selectedGender" class="minimal col-sm" name="">
-                <option>Мужской</option>
-                <option>Женский</option>
-                <option>Другое</option>
+              <select v-model="tab_parent_selectedGender" class="minimal col-sm">
+                <option v-for="item in gender">
+                  {{item.Name}}
+                </option>
               </select>
             </label>
             <label class="row">
@@ -154,7 +154,9 @@
 </template>
 
 <script>
+  import {mapGetters, mapState, mapActions, mapMutations} from 'vuex'
   import { createHelpers } from 'vuex-map-fields';
+
   const { mapMultiRowFields } = createHelpers({
     getterType: `tab_parent_info/getField`,
     mutationType: `tab_parent_info/updateField`,
@@ -198,6 +200,9 @@
         info_parent: [],
       }
     },
+    mounted () {
+      this.$store.dispatch('enums/onLoadGender');
+    },
     computed: {
       table_show() {
         return this.info_parent = this.tab_parent_parents;
@@ -216,6 +221,8 @@
         }
         return age;
       },
+      ...mapState('enums', ['gender'],),
+      ...mapGetters('enums', ['GET_GENDER']),
       ...mapMultiRowFields(['tab_parent_parents']),
       ...tab_parent_info(['tab_parent_name', 'tab_parent_lastname', 'tab_parent_firstname', 'tab_parent_middlename',
         'tab_parent_birthDate', 'tab_parent_seniority', 'tab_parent_homePhoneNumber', 'tab_parent_cellularPhone',

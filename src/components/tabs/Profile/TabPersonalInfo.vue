@@ -56,11 +56,8 @@
         <label class="row">
           <div class="form__label-text col-sm">Пол:</div>
           <select v-model="tab_personal_selectedGender" class="minimal col-sm">
-            <!--<option v-for="item in GET_GENDER">-->
-              <!--{{item.name}}-->
-            <!--</option>-->
-            <option v-for="option in options_gender">
-              {{option.item}}
+            <option v-for="item in gender">
+              {{item.Name}}
             </option>
           </select>
         </label>
@@ -146,8 +143,8 @@
       <label class="row">
         <div class="form__label-text col-sm">Гражданство:</div>
         <select v-model="tab_personal_selectedCitizenship" class="minimal col-sm">
-          <option v-for="option in options_citizenship">
-            {{option.item}}
+          <option v-for="option in addressCountryRegion">
+            {{option.CountryRegionId}}
           </option>
         </select>
       </label>
@@ -251,13 +248,12 @@
             <!--<option>Не изучал</option>-->
           <!--</select>-->
           <select v-model="tab_personal_selectedForeignLanguageInfo" class="minimal col-sm">
-            <option v-for="option in options_foreignLanguageInfo">
-              {{option.item}}
+            <option v-for="option in langInfo">
+              {{option.Name}}
             </option>
           </select>
         </label>
-
-        <div v-if="tab_personal_selectedForeignLanguageInfo==='изучал'" class="row">
+        <div v-if="tab_personal_selectedForeignLanguageInfo==='Изучал'" class="row">
           <!--<div v-for="(selected_foreignLanguageName,language_description, index) in languages">-->
 
             <select v-model="selected_foreignLanguageName1" class="minimal col-sm-6">
@@ -297,16 +293,29 @@
   import {mapGetters, mapState, mapActions, mapMutations} from 'vuex'
   import { required, minLength, between, maxLength } from 'vuelidate/lib/validators'
   import { createHelpers } from 'vuex-map-fields';
+
   const { mapFields } = createHelpers({
     getterType: `tab_personal_info/getField`,
     mutationType: `tab_personal_info/updateField`,
   });
   export default {
     name: "TabPersonalInfo",
+    mounted() {
+      this.$store.dispatch('enums/onLoadGender');
+      this.$store.dispatch('dictionary/onLoadIdentityCardCode');
+      this.$store.dispatch('dictionary/onLoadOtherCountryRegion');
+      this.$store.dispatch('enums/onLoadLangInfo');
+      this.$store.dispatch('dictionary/onLoadAddressCountryRegion');
+    },
     computed: {
       // ...mapState('tab_personal_info', ['lastname_personal_info_tab','lastname_personal_info','gender', 'identityCardCode', 'otherCountryRegion', 'langInfo', 'languageName',]),
       // ...mapGetters('tab_personal_info', ['GET_LASTNAME_PERSONAL_INFO','GET_GENDER', 'GET_IDENTITY_CARD_CODE', 'GET_OTHER_COUNTRY_REGION', 'GET_LANGINFO']),
       // ...mapMutations('tab_personal_info', ['set_lastname_personal_info_tab']),
+
+      ...mapState('enums', ['gender', 'langInfo'],),
+      ...mapState('dictionary',['addressCountryRegion']),
+      ...mapGetters('enums', ['GET_GENDER','GET_LANGINFO']),
+      ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION']),
 
       ...mapFields(['tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
         'tab_personal_middlename','tab_personal_birthDate','tab_personal_age',
@@ -322,7 +331,6 @@
         'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
         'tab_personal_bithplace', 'tab_personal_email'
       ]),
-
 
       // gender() {
       //   return this.$store.getters.GET_GENDER;
@@ -362,13 +370,7 @@
       },
 
     },
-    mounted() {
-      this.$store.dispatch('enums/onLoadGender');
-      this.$store.dispatch('dictionary/onLoadIdentityCardCode');
-      this.$store.dispatch('dictionary/onLoadOtherCountryRegion');
-      this.$store.dispatch('enums/onLoadLangInfo');
 
-    },
     methods: {
       onAddLanguage(){
         this.conditions.push('');

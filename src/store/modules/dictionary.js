@@ -82,7 +82,8 @@ export default {
       })
     },
     onLoadAddressCountryRegion({commit}) {
-      AXIOS.get('/dictionary/addressCountryRegion')
+      // AXIOS.get('/dictionary/addressCountryRegion')
+      AXIOS.get('/json/addressCountryRegion')
         .then((response) => {
           commit('UPLOAD_ADDRESS_COUNTRY_REGION', response.data)
         }).catch(e => {
@@ -90,16 +91,20 @@ export default {
       })
     },
     onLoadAddressState({commit}) {
-      AXIOS.get('/dictionary/addressState')
+      // AXIOS.get('/dictionary/addressState')
+      AXIOS.get('/json/addressState')
         .then((response) => {
           commit('UPLOAD_ADDRESS_STATE', response.data)
         }).catch(e => {
         this.errors.push(e)
       })
+      console.log('dfdfsdfsdf')
+
     },
 
     onLoadAcademyYear({commit}) {
-      AXIOS.get('/dictionary/academyYear')
+      // AXIOS.get('/dictionary/academyYear')
+      AXIOS.get('/json/acadamyYear')
         .then((response) => {
           commit('UPLOAD_ACADEMY_YEAR', response.data)
         }).catch(e => {
@@ -107,7 +112,8 @@ export default {
       })
     },
     onLoadEduDoc({commit}) {
-      AXIOS.get('/dictionary/eduDoc')
+      // AXIOS.get('/dictionary/eduDoc')
+      AXIOS.get('/json/eduDoc')
         .then((response) => {
           commit('UPLOAD_EDU_DOC', response.data)
         }).catch(e => {
@@ -115,7 +121,8 @@ export default {
       })
     },
     onLoadSoldiery({commit}) {
-      AXIOS.get('/dictionary/soldiery')
+      // AXIOS.get('/dictionary/soldiery')
+      AXIOS.get('/json/soldiery')
         .then((response) => {
           commit('UPLOAD_SOLDIERY', response.data)
         }).catch(e => {

@@ -93,10 +93,11 @@
                 <textarea v-model="tab_ege_identityCardIssueBy" class="col-sm-10" name=""></textarea>
               </label>
               <label class="row">
-                <div class="form__label-text col-sm">Гражданство</div>
-                <select class="minimal col-sm" name="">
-                  <option>РФ</option>
-                  <option>Казахстан</option>
+                <div class="form__label-text col-sm">Гражданство:</div>
+                <select v-model="tab_ege_info_selectedCitizenship" class="minimal col-sm">
+                  <option v-for="option in addressCountryRegion">
+                    {{option.CountryRegionId}}
+                  </option>
                 </select>
               </label>
               <button class="copy_address col-sm-6" @click="onCopyInfoFromProfileTab">
@@ -205,7 +206,7 @@
 </template>
 
 <script>
-
+  import {mapGetters, mapState} from 'vuex'
   import { createHelpers } from 'vuex-map-fields';
   const { mapMultiRowFields } = createHelpers({
     getterType: `tab_evidence_ege_info/getField`,
@@ -223,12 +224,16 @@
   export default {
     name: "TabEvidenceEge",
     mounted () {
-
+      this.$store.dispatch('dictionary/onLoadIdentityCardCode');
+      this.$store.dispatch('dictionary/onLoadOtherCountryRegion');
+      this.$store.dispatch('dictionary/onLoadAddressCountryRegion');
     },
     computed: {
+      ...mapState('dictionary',['addressCountryRegion']),
+      ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION']),
       ...tab_evidence_ege_info_fields(['tab_ege_lastname', 'tab_ege_firstname', 'tab_ege_middlename',
         'tab_ege_identityCardSeries','tab_ege_identityCardNumber','tab_ege_identityCardIssueDate',
-        'tab_ege_identityCardIssueBy','tab_ege_documentNumber','tab_ege_typographyNumber',
+        'tab_ege_identityCardIssueBy','tab_ege_documentNumber','tab_ege_typographyNumber', 'tab_ege_info_selectedCitizenship',
         'tab_ege_sumScores','tab_ege_score','tab_ege_selectedSubject', 'tab_ege_selectedIdentityCardCode'
       ]),
       ...tab_personal_info_fields(['tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename',
@@ -244,6 +249,7 @@
       },
 
     },
+
     data() {
       return {
 
@@ -302,6 +308,7 @@
         info_ege_subjects: [],
       }
     },
+
     methods: {
       onInfo(){
         location.href='profile#ege_info';

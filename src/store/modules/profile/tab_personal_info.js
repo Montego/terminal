@@ -110,6 +110,16 @@ export default {
     // //   return state.lastname_personal_info
     // // },
     //
+
+    // onLoadGender({commit}) {
+    //   AXIOS.get('/json/gender')
+    //     .then((response) => {
+    //       commit('UPLOAD_GENDER', response.data)
+    //     }).catch(e => {
+    //     this.errors.push(e)
+    //   })
+    // },
+
     // onLoadGender({commit}) {
     //   AXIOS.get('/enums/gender')
     //     .then((response) => {
