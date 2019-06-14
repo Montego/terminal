@@ -3,7 +3,6 @@ export default {
   namespaced: true,
   state: {
     tab_parent_parents:[],
-    tab_parent_one_parent:[],
     tab_parent_name: '',
     tab_parent_lastname: '',
     tab_parent_firstname: '',
@@ -14,10 +13,9 @@ export default {
     tab_parent_factAddress: '',
 
     tab_parent_organization_name: '',
-    tab_parent_organization_adress: '',
+    tab_parent_organization_address: '',
     tab_parent_organization_seniority: '',
     tab_parent_organization_employYears: '',
-
     tab_parent_selectedFamRelationShip: '',
     tab_parent_selectedGender: '',
 

@@ -27,7 +27,7 @@ export default {
 
 <style>
   .header {
-    margin-top: -21px;
+    margin-top: -30px;
 
   }
 #app {

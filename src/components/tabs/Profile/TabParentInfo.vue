@@ -93,7 +93,7 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Адрес:</div>
-              <textarea v-model="tab_parent_organization_adress" class="col-sm" name=""></textarea>
+              <textarea v-model="tab_parent_organization_address" class="col-sm" name=""></textarea>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Профессия:</div>
@@ -227,7 +227,7 @@
       ...tab_parent_info(['tab_parent_name', 'tab_parent_lastname', 'tab_parent_firstname', 'tab_parent_middlename',
         'tab_parent_birthDate', 'tab_parent_seniority', 'tab_parent_homePhoneNumber', 'tab_parent_cellularPhone',
         'tab_parent_factAddress', 'tab_parent_selectedFamRelationShip', 'tab_parent_selectedGender',
-        'tab_parent_organization_name','tab_parent_organization_adress',
+        'tab_parent_organization_name','tab_parent_organization_address',
         'tab_parent_organization_seniority','tab_parent_organization_employYears'
       ]),
 
@@ -254,7 +254,7 @@
         this.tab_parent_selectedFamRelationShip = this.info_parent[index].tab_parent_selectedFamRelationShip;
         this.tab_parent_selectedGender = this.info_parent[index].tab_parent_selectedGender;
         this.tab_parent_organization_name = this.info_parent[index].tab_parent_organization_name;
-        this.tab_parent_organization_adress = this.info_parent[index].tab_parent_organization_adress;
+        this.tab_parent_organization_address = this.info_parent[index].tab_parent_organization_address;
         this.tab_parent_organization_seniority = this.info_parent[index].tab_parent_organization_seniority;
         this.tab_parent_organization_employYears = this.info_parent[index].tab_parent_organization_employYears;
       },
@@ -276,7 +276,7 @@
           this.tab_parent_selectedFamRelationShip = '';
           this.tab_parent_selectedGender = '';
           this.tab_parent_organization_name = '';
-          this.tab_parent_organization_adress = '';
+          this.tab_parent_organization_address = '';
           this.tab_parent_organization_seniority = '';
           this.tab_parent_organization_employYears = '';
 
@@ -300,15 +300,15 @@
           this.tab_parent_selectedFamRelationShip = parent_selectedFamRelationShip;
           this.tab_parent_selectedGender = parent_selectedGender;
           this.tab_parent_organization_name = parent_organization_name;
-          this.tab_parent_organization_adress = parent_organization_adress;
+          this.tab_parent_organization_address = parent_organization_adress;
           this.tab_parent_organization_seniority = parent_organization_seniority;
           this.tab_parent_organization_employYears = parent_organization_employYears;
         }
-        var parent = new Parent(
+        let parent = new Parent(
           this.tab_parent_name, this.tab_parent_lastname, this.tab_parent_firstname,
           this.tab_parent_middlename,this.tab_parent_birthDate,this.tab_parent_homePhoneNumber,
           this.tab_parent_cellularPhone, this.tab_parent_factAddress, this.tab_parent_selectedFamRelationShip,
-          this.tab_parent_selectedGender, this.tab_parent_organization_name,this.tab_parent_organization_adress,
+          this.tab_parent_selectedGender, this.tab_parent_organization_name,this.tab_parent_organization_address,
           this.tab_parent_organization_seniority,this.tab_parent_organization_employYears
         );
         location.href='profile#parent_overview';

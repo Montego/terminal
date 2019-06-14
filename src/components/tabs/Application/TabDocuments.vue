@@ -167,20 +167,13 @@
               this.tab_document_issuedBy = doc_issuedBy;
               this.fullName = doc_fullName;
             }
-              var document = new Document(
+              let document = new Document(
                 this.tab_document_selectedDocumentType, this.tab_document_count, this.tab_document_series,
                 this.tab_document_number,this.tab_document_selectedCopy,this.tab_document_date,
                 this.tab_document_issuedBy, this.fullName
 
               );
 
-            // this.document.tab_document_selectedDocumentType = this.tab_document_selectedDocumentType;
-            // this.document.tab_document_count = this.tab_document_count;
-            // this.document.tab_document_series = this.tab_document_series;
-            // this.document.tab_document_number = this.tab_document_number;
-            // this.document.tab_document_selectedCopy = this.tab_document_selectedCopy;
-            // this.document.tab_document_date = this.tab_document_date;
-            // this.document.tab_document_issuedBy = this.tab_document_issuedBy;
             this.tab_document_allDocuments.push(document);
             console.log(this.document)
             console.log(this.tab_document_allDocuments)

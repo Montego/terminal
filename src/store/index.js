@@ -17,6 +17,8 @@ import tab_education_military_info from './modules/profile/tab_education_militar
 import tab_documents from './modules/application/tab_documents'
 import tab_entrance_tests from './modules/application/tab_entrance_tests'
 import tab_reception_condition from './modules/application/tab_reception_condition'
+import person from './modules/profile/person'
+import post from './modules/post'
 
 import test_profiles from './modules/profile/test_profiles'
 Vue.use(VueTheMask);
@@ -43,10 +45,12 @@ export const store = new Vuex.Store({
     tab_address_info,
     tab_distinctive_features_info,
     tab_parent_info,
-    test_profiles,
+    // test_profiles,
     tab_documents,
     tab_entrance_tests,
-    tab_reception_condition
+    tab_reception_condition,
+    person,
+    post
   },
   strict: false
 });

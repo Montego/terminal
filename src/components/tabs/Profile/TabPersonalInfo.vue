@@ -18,7 +18,7 @@
           <!--<input v-model="lastname_personal_info" class="form__input col-sm" v-validate="'required|alpha'" name="lastname"-->
                  <!--type="text">-->
           <!--<span>{{ errors.first('alpha') }}</span>-->
-          <input v-model="tab_personal_lastname" class="form__input col-sm" type="text" name="lastname" required/>
+          <input v-model="person.tab_personal_lastname" class="form__input col-sm" type="text" name="lastname" required/>
         </label>
         <span class="alarm_label" v-if="tab_personal_lastname===''">Не заполнено поле "Фамилия"</span>
         <label class="row">
@@ -55,9 +55,9 @@
 
         <label class="row">
           <div class="form__label-text col-sm">Пол:</div>
-          <select v-model="tab_personal_selectedGender" class="minimal col-sm">
-            <option v-for="item in gender">
-              {{item.Name}}
+          <select v-model="person.tab_personal_selectedGender" class="minimal col-sm">
+            <option v-for="item in gender" v-bind:value="item">
+              {{item.name}}
             </option>
           </select>
         </label>
@@ -223,17 +223,17 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Стаж, лет:</div>
-          <input v-model="tab_personal_employYears" class="form__input col-sm" type="number" v-mask="'##'" name="employYears" placeholder=""/>
+          <input v-model="tab_personal_employYears" class="form__input col-sm" type="text" v-mask="'##'" name="employYears" placeholder=""/>
         </label>
         <span class="alarm_label" v-if="tab_personal_employYears>100">Люди столько не живут</span>
         <label class="row">
           <div class="form__label-text col-sm">Стаж, месяцев:</div>
-          <input v-model="tab_personal_employMonths" class="form__input col-sm" type="number" v-mask="'##'" name="employMonths" placeholder=""/>
+          <input v-model="tab_personal_employMonths" class="form__input col-sm" type="text" v-mask="'##'" name="employMonths" placeholder=""/>
         </label>
         <span class="alarm_label" v-if="tab_personal_employMonths>11">Стаж, месяцев должен быть в диапазоне от 0 до 11</span>
         <label class="row">
         <div class="form__label-text col-sm">Стаж, дней:</div>
-        <input v-model="tab_personal_employDays" class="form__input col-sm" type="number" v-mask="'##'" name="seniority_day" placeholder=""/>
+        <input v-model="tab_personal_employDays" class="form__input col-sm" type="text" v-mask="'##'" name="seniority_day" placeholder=""/>
         </label>
         <span class="alarm_label" v-if="tab_personal_employDays>31">Стаж, дней должен быть в диапазоне от 0 до 31</span>
         <div>
@@ -298,6 +298,16 @@
     getterType: `tab_personal_info/getField`,
     mutationType: `tab_personal_info/updateField`,
   });
+
+  const { mapFields:tab_personal_info } = createHelpers({
+    getterType: `tab_personal_info/getField`,
+    mutationType: `tab_personal_info/updateField`,
+  });
+  const { mapFields:person} = createHelpers({
+    getterType: 'person/getField',
+    mutationType: 'person/updateField',
+  });
+
   export default {
     name: "TabPersonalInfo",
     mounted() {
@@ -316,8 +326,8 @@
       ...mapState('dictionary',['addressCountryRegion']),
       ...mapGetters('enums', ['GET_GENDER','GET_LANGINFO']),
       ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION']),
-
-      ...mapFields(['tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
+      ...person(['person']),
+      ...tab_personal_info(['tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
         'tab_personal_middlename','tab_personal_birthDate','tab_personal_age',
         ' tab_personal_seniority','tab_personal_employYears','tab_personal_employMonths',
         'tab_personal_employDays','tab_personal_lastname_genitive','tab_personal_firstname_genitive',

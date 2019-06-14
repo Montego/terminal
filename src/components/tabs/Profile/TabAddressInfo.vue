@@ -54,6 +54,7 @@
 
 <script>
   import { createHelpers } from 'vuex-map-fields';
+
   const { mapFields:tab_address_info } = createHelpers({
     getterType: `tab_address_info/getField`,
     mutationType: `tab_address_info/updateField`,
@@ -65,6 +66,7 @@
       ...tab_address_info(['tab_address_registrationAddress', 'tab_address_factAddress',
         'tab_address_templateRegistrationAddress',
       ]),
+
     },
     data() {
       return {

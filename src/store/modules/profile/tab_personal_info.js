@@ -4,6 +4,15 @@ import { getField, updateField } from 'vuex-map-fields';
 export default {
   namespaced: true,
   state: {
+    // tab_profiles:[
+      // {
+        // tab_personal_lastname: 'lastname test',
+        // tab_personal_firstname: 'firstname test',
+      //   tab_personal_middlename: 'middlename test',
+      //   tab_personal_birthDate: '',
+      // }
+    // ],
+
     tab_personal_name: '',
     tab_personal_lastname: '',
     tab_personal_firstname: '',
@@ -26,7 +35,7 @@ export default {
     tab_personal_identityCardIssueDate:'',
     tab_personal_identityCardIssueDep:'',
     tab_personal_identityCardIssueBy: '',
-    tab_personal_bithplace:'',
+    tab_personal_birthplace:'',
     tab_personal_homePhoneNumber: '',
     tab_personal_cellularPhone:'',
     tab_personal_email:'',
@@ -36,18 +45,10 @@ export default {
     tab_personal_isHostel:false,
     tab_personal_isForeignLikeRussian:false,
 
-
-    tab_personal_selectedGender: '',
+    tab_personal_selectedGender: null,
     tab_personal_selectedIdentityCardCode: '',
     tab_personal_selectedForeignLanguageInfo:'',
     tab_personal_selectedCitizenship:'',
-
-    // gender: [],
-    // identityCardCode: [],
-    // otherCountryRegion: [],
-    // langInfo: [],
-    // language_name: [],
-
   },
   getters: {
     getField,
@@ -154,5 +155,7 @@ export default {
     // },
 
   },
-  computed: {}
+  computed: {
+
+  }
 }

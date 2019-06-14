@@ -1,47 +1,42 @@
 <template>
   <div>
-  <div>
-    <button color="#5bc0de" @click="onNewProfile()">
-      +
-    </button>
-    <div class="row">
+    <div>
+      <!--{{this.tab_profiles[0].tab_personal_lastname}}-->
+      <button color="#5bc0de" @click="onNewProfile()">
+        +
+      </button>
+      <div class="row">
 
+        {{this.showTable}}
+        {{showTable}}
+        {{this.persons}}
+{{tab_personal_lastname}}
+        {{tab_personal_firstname}}
+
+      </div>
     </div>
-  </div>
-    <!--{{profiles.profile}}-->
+
+
   <v-data-table data-app
-    :headers="headers_all_pretendents"
-    :items="profiles"
-                hide-actions
+    :headers="headers_profile"
+    :items="showTable" hide-actions
     class="elevation-1 text-xs-center"
   >
     <template slot="items" slot-scope="props">
       <!--<td class="text-xs-center">{{ props.item.profile_1_personal_name }}</td>-->
-      <td class="text-xs-center">{{ props.item.profile_1_personal_lastname }}</td>
-      <td class="text-xs-center">{{ props.item.profile_1_personal_firstname}}</td>
-      <td class="text-xs-center">{{ props.item.profile_1_personal_middlename}}</td>
-      <td class="text-xs-center">{{ props.item.profile_1_personal_selectedGender}}</td>
-      <td class="text-xs-center">{{ props.item.profile_1_personal_birthDate}}</td>
+      <td class="text-xs-center">{{ props.item.tab_personal_lastname }}</td>
+      <td class="text-xs-center">{{ props.item.tab_personal_firstname}}</td>
+      <td class="text-xs-center">{{ props.item.tab_personal_middlename}}</td>
+      <td class="text-xs-center">{{ props.item.tab_personal_selectedGender}}</td>
+      <td class="text-xs-center">{{ props.item.tab_personal_birthDate}}</td>
       <!--<td class="text-xs-center">{{ props.item.contact_code_pretendent}}</td>-->
       <td class="justify-center layout px-0">
-        <!--<v-btn icon class="mx-0" >-->
-        <!--<button>-->
-          <!--<v-icon color="#5bc0de">edit</v-icon>-->
-        <!--</button>-->
-        <!--<a href="profile#personal_info">link</a>-->
-        <!--<router-link :to="{name: 'profile#personal_info'}" v-bind:title="titles[0].title">-->
           <button @click="onRedaction(props.item)">
             <v-icon color="#5bc0de">edit</v-icon>
           </button>
-        <!--</router-link>-->
-        <!--<router-link :to="{name: 'application#applicationFill'}" v-bind:title="titles[0].title">-->
           <button @click="onApplication(props.item)">
             <v-icon color="#5bc0de">Заявление</v-icon>
           </button>
-        <!--</router-link>-->
-
-        <!--</v-btn>-->
-
       </td>
     </template>
   </v-data-table>
@@ -51,21 +46,45 @@
 <script>
   import { createHelpers } from 'vuex-map-fields';
   const { mapMultiRowFields } = createHelpers({
-    getterType: `test_profiles/getField`,
-    mutationType: `test_profiles/updateField`,
+    getterType: `person/getField`,
+    mutationType: `person/updateField`,
   });
+
   const { mapFields: tab_personal_info } = createHelpers({
     getterType: `tab_personal_info/getField`,
     mutationType: `tab_personal_info/updateField`,
   });
-  const { mapFields:tab_address_info } = createHelpers({
-    getterType: 'tab_address_info/getField',
-    mutationType: 'tab_address_info/updateField',
+  const { mapFields:person} = createHelpers({
+    getterType: 'person/getField',
+    mutationType: 'person/updateField',
   });
     export default {
       name: "TabOverview",
+      data () {
+        return {
+          titles:[
+            {
+              title: 'Личные сведения'
+            },
+          ],
+
+          headers_profile: [
+            // { text: 'Ф.И.О.', value: 'personal_name', sortable: false, align: 'center' },
+            { text: 'Фамилия', value: 'lastname',sortable: false, align: 'center' },
+            { text: 'Имя', value: 'firstname',sortable: false, align: 'center' },
+            { text: 'Отчество', value: 'middlename',sortable: false, align: 'center' },
+            { text: 'Пол', value: 'selectedGender',sortable: false, align: 'center' },
+            { text: 'Дата рождения', value: 'birthDate',sortable: false, align: 'center' },
+            // { text: 'Код контактного лица', value: 'contact_code_pretendent',sortable: false, align: 'center' },
+            { text: 'Действия', value: 'name', sortable: false, align: 'center' }
+          ],
+          pretendets: [],
+
+        }
+      },
       computed: {
-        ...mapMultiRowFields(['profiles']),
+        ...person(['person']),
+        ...mapMultiRowFields(['persons']),
         ...tab_personal_info(['tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
           'tab_personal_middlename','tab_personal_birthDate','tab_personal_age',
           ' tab_personal_seniority','tab_personal_employYears','tab_personal_employMonths',
@@ -77,9 +96,12 @@
           'tab_personal_isEquatedForeign', 'tab_personal_isHostel','tab_personal_isForeignLikeRussian','tab_personal_selectedGender',
           'tab_personal_selectedIdentityCardCode','tab_personal_selectedForeignLanguageInfo',
           'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
-          'tab_personal_bithplace', 'tab_personal_email'
+          'tab_personal_birthplace', 'tab_personal_email'
         ]),
-        // ...tab_address_info(['tab_address_factAddress',]),
+        showTable() {
+
+          return this.persons;
+        },
 
         // fullname: function () {
         //   return this.profile_1_personal_name = this.profile_1_personal_lastname + ' ' + this.profile_1_personal_firstname + ' ' + this.profile_1_personal_middlename
@@ -146,26 +168,7 @@
           location.href='application#applicationFill';
         },
       },
-      data () {
-        return {
-          titles:[
-            {
-              title: 'Личные сведения'
-            },
-          ],
-          headers_all_pretendents: [
-            // { text: 'Ф.И.О.', value: 'personal_name', sortable: false, align: 'center' },
-            { text: 'Фамилия', value: 'personal_lastname',sortable: false, align: 'center' },
-            { text: 'Имя', value: 'personal_firstname',sortable: false, align: 'center' },
-            { text: 'Отчество', value: 'personal_middlename',sortable: false, align: 'center' },
-            { text: 'Пол', value: 'personal_selectedGender',sortable: false, align: 'center' },
-            { text: 'Дата рождения', value: 'personal_birthDate',sortable: false, align: 'center' },
-            // { text: 'Код контактного лица', value: 'contact_code_pretendent',sortable: false, align: 'center' },
-            { text: 'Действия', value: 'name', sortable: false, align: 'center' }
-          ],
 
-        }
-      }
     }
 </script>
 
