@@ -18,6 +18,7 @@ import tab_documents from './modules/application/tab_documents'
 import tab_entrance_tests from './modules/application/tab_entrance_tests'
 import tab_reception_condition from './modules/application/tab_reception_condition'
 import person from './modules/profile/person'
+import applications from './modules/application/applications'
 import post from './modules/post'
 
 import test_profiles from './modules/profile/test_profiles'
@@ -50,7 +51,8 @@ export const store = new Vuex.Store({
     tab_entrance_tests,
     tab_reception_condition,
     person,
-    post
+    applications,
+    // post
   },
   strict: false
 });

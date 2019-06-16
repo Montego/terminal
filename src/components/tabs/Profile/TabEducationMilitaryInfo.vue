@@ -9,14 +9,14 @@
         <label class="row">
           <div class="form__label-text col-sm">Уровень образования:</div>
 
-          <select v-model="tab_edu_military_educationLevel" class="minimal col-sm">
-            <option v-for="option in options_educationLevel">
-              {{option.item}}
+          <select v-model="person.tab_edu_military_educationLevel" class="minimal col-sm">
+            <option v-for="item in educationLevel" v-bind:value="item">
+              {{item.name}}
             </option>
           </select>
 
-          <input v-model="tab_edu_military_educationLevel" class="uneditable form__input col-sm-6" type="text" name="" placeholder="Заполняется автоматически"
-                 disabled="disabled"/>
+          <!--<input v-model="person.tab_edu_military_educationLevel.name" class="uneditable form__input col-sm-6" type="text" name="" placeholder="Заполняется автоматически"-->
+                 <!--disabled="disabled"/>-->
         </label>
       </div>
       <div>
@@ -26,14 +26,14 @@
       <div>
         <label class="row">
           <div class="form__label-text col-sm">Наименование:</div>
-          <textarea class="col-sm" name=""></textarea>
+          <textarea v-model="person.tab_edu_military_univer" class="col-sm" name=""></textarea>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Страна:</div>
 
-          <select v-model="tab_edu_military_selectedCountryRegion" class="minimal col-sm">
-            <option v-for="option in addressCountryRegion">
-              {{option.CountryRegionId}}
+          <select v-model="person.tab_edu_military_selectedCountryRegion" class="minimal col-sm">
+            <option v-for="item in addressCountryRegion" v-bind:value="item">
+              {{item.countryRegionId}}
             </option>
           </select>
 
@@ -41,9 +41,9 @@
         <label class="row">
           <div class="form__label-text col-sm">Регион:</div>
 
-          <select v-model="tab_edu_military_selectedState" class="minimal col-sm">
-            <option v-for="option in addressState">
-              {{option.StateId}}
+          <select v-model="person.tab_edu_military_selectedState" class="minimal col-sm">
+            <option v-for="item in addressState" v-bind:value="item">
+              {{item.stateId}}
             </option>
           </select>
 
@@ -51,9 +51,9 @@
         <label class="row">
           <div class="form__label-text col-sm">Дата окончания:</div>
 
-          <select v-model="tab_edu_military_selectedAcademyYear" class="minimal col-sm">
-            <option v-for="option in academyYear">
-              {{option.AcadamyYearId}}
+          <select v-model="person.tab_edu_military_selectedAcademyYear" class="minimal col-sm">
+            <option v-for="item in academyYear" v-bind:value="item">
+              {{item.acadamyYearId}}
             </option>
           </select>
 
@@ -68,51 +68,51 @@
 
         <label class="row">
           <div class="form__label-text col-sm">Документ об образовании:</div>
-          <select v-model="tab_edu_military_selectedEduDoc" class="minimal col-sm-6">
-            <option class="col-sm-12" v-for="option in eduDoc">
-              {{option.Name}}
+          <select v-model="person.tab_edu_military_selectedEduDoc" class="minimal col-sm-8">
+            <option class="col-sm-12" v-for="item in eduDoc" v-bind:value="item">
+              {{item.name}}
             </option>
           </select>
 
         </label>
 <label class="row">
-  <input v-model="tab_edu_military_selectedEduDoc" class="uneditable form__input col-sm-12" type="text" name="" placeholder="Заполняется автоматически"
-         disabled/>
+  <!--<input v-model="tab_edu_military_selectedEduDoc" class="uneditable form__input col-sm-12" type="text" name="" placeholder="Заполняется автоматически"-->
+         <!--disabled/>-->
 </label>
 
 
         <span class="alarm_label" v-if="tab_edu_military_selectedEduDoc===''">Не выбран документ об образовании</span>
         <label class="row">
           <div class="form__label-text col-sm">Серия:</div>
-          <input v-model="tab_edu_military_eduDocSerial" class="form__input col-sm" type="text" name="" placeholder=""/>
+          <input v-model="person.tab_edu_military_eduDocSerial" class="form__input col-sm" type="text" name="" placeholder=""/>
         </label>
         <span class="alarm_label" v-if="tab_edu_military_eduDocSerial===''">Не заполнено поле "Серия"</span>
         <label class="row">
           <div class="form__label-text col-sm">Номер:</div>
-          <input v-model="tab_edu_military_eduDocNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
+          <input v-model="person.tab_edu_military_eduDocNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
         </label>
         <span class="alarm_label" v-if="tab_edu_military_eduDocNumber===''">Не заполнено поле "Номер"</span>
         <label class="row">
           <div class="form__label-text col-sm">Дата выдачи:</div>
-          <input class="form__input col-sm" type="date" name="" placeholder=""/>
+          <input v-model="person.tab_edu_military_eduDocDate" class="form__input col-sm" type="date" name="" placeholder=""/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Наименование:</div>
-          <textarea class="col-sm" name=""></textarea>
+          <textarea v-model="person.tab_edu_military_eduDocName" class="col-sm" name=""></textarea>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Серия приложения:</div>
-          <input class="form__input col-sm" type="text" name="" placeholder=""/>
+          <input v-model="person.tab_edu_military_attachment_serial" class="form__input col-sm" type="text" name="" placeholder=""/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Номер приложения:</div>
-          <input class="form__input col-sm" type="text" name="" placeholder=""/>
+          <input v-model="person.tab_edu_military_attachment_number" class="form__input col-sm" type="text" name="" placeholder=""/>
         </label>
 
         <label class="row">
           <div class="form__label-text col-sm-6">Средний балл:</div>
           <button class="calculate_score col-sm-4" @click="onCalculateScore">Расчет среднего балла</button>
-          <input v-model="score_full" class="form__input col-sm-2 " type="text" v-mask="'#.##'" placeholder="---"
+          <input v-model="person.score_full" class="form__input col-sm-2 " type="text" v-mask="'#.##'" placeholder="---"
                  disabled="disabled"/>
         </label>
         <label class="row">
@@ -134,85 +134,87 @@
       <div>
         <label class="row">
           <div class="form__label-text col-sm">Отношение к военной службе:</div>
-          <select v-model="tab_edu_military_selectedSoldiery" class="minimal col-sm">
-            <option v-for="option in soldiery">
-              {{option.SoldieryId}}
+          <select v-model="person.tab_edu_military_selectedSoldiery" class="minimal col-sm">
+            <option v-for="item in soldiery" v-bind:value="item">
+              {{item.soldieryId}}
             </option>
           </select>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Прохождение службы:</div>
-          <select v-if="tab_edu_military_selectedSoldiery=='Военнообязанный'" v-model="tab_edu_military_selectedSoldieryStatus" class="minimal col-sm">
-            <option v-for="option in soldieryStatus">
-              {{option.Name}}
-            </option>
-          </select>
-          <input v-else class="form__input col-sm" type="text" name="" placeholder="Не заполняется"
+          <input v-if="tab_edu_military_selectedSoldiery=='Невоеннообязанный'" class="form__input col-sm" type="text" name="" placeholder="Не заполняется"
                  disabled="disabled"/>
-        </label>
-      </div>
-      <div v-if="tab_edu_military_selectedSoldieryStatus=='Служил' || tab_edu_military_selectedSoldiery=='Военнообязанный'  ">
-      <div>
-        <p>Документ о военной службе</p>
-      </div>
-      <hr>
-      <div>
-        <label class="row">
-          <div class="form__label-text col-sm">Тип документа:</div>
-          <select v-model="tab_edu_military_selectedMilitaryFormDoc" class="minimal col-sm">
-            <option v-for="option in militaryFormDoc">
-              {{option.Name}}
+          <select v-else v-model="person.tab_edu_military_selectedSoldieryStatus" class="minimal col-sm">
+            <option v-for="item in soldieryStatus" v-bind:value="item" >
+              {{item.name}}
             </option>
           </select>
-        </label>
-        <label class="row">
-          <div class="form__label-text col-sm">Номер военного билета:</div>
-          <input v-model="tab_edu_military_militaryNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
-        </label>
-        <label class="row">
-          <div class="form__label-text col-sm">Серия:</div>
-          <input v-model="tab_edu_military_militarySeries" class="form__input col-sm" type="text" name="" placeholder=""/>
-        </label>
-        <label class="row">
-          <div class="form__label-text col-sm">Дата выдачи:</div>
-          <input v-model="tab_edu_military_militaryIssueDate" class="form__input col-sm" type="date" name="" placeholder=""/>
-        </label>
-        <label class="row">
-          <div class="form__label-text col-sm">Кем выдан:</div>
-          <textarea v-model="tab_edu_military_militaryIssueBy" class="col-sm" name=""></textarea>
-        </label>
-        <label class="row">
-          <div class="form__label-text col-sm">Воинское звание:</div>
-          <input v-model="tab_edu_military_militaryRank" class="form__input col-sm" type="text" name="" placeholder=""/>
-        </label>
-        <label class="row">
-          <div class="form__label-text col-sm">Копия/Оригинал:</div>
-          <select v-model="tab_edu_military_selectedDocType" class="minimal col-sm">
-            <option v-for="option in docType">
-              {{option.Name}}
-            </option>
-          </select>
-        </label>
-        <label class="row">
-          <div class="form__label-text col-sm">Дата предоставления:</div>
-          <input class="form__input col-sm" type="date" name="" placeholder=""/>
+
         </label>
       </div>
-      <div>
-        <p>Срок службы</p>
-      </div>
-      <hr>
-      <div>
-        <label class="row">
-          <div class="form__label-text col-sm">Дата начала:</div>
-          <input class="form__input col-sm" type="date" name="" placeholder=""/>
-        </label>
-        <label class="row">
-          <div class="form__label-text col-sm">Дата окончания:</div>
-          <input class="form__input col-sm" type="date" name="" placeholder=""/>
-        </label>
-      </div>
-      </div>
+      <!--<div v-if="person.tab_edu_military_selectedSoldieryStatus=='Служил' || tab_edu_military_selectedSoldiery=='Военнообязанный'  ">-->
+        <div>
+          <p>Документ о военной службе</p>
+        </div>
+        <hr>
+        <div>
+          <label class="row">
+            <div class="form__label-text col-sm">Тип документа:</div>
+            <select v-model="person.tab_edu_military_selectedMilitaryFormDoc" class="minimal col-sm">
+              <option v-for="item in militaryFormDoc" v-bind:value="item" >
+                {{item.name}}
+              </option>
+            </select>
+          </label>
+          <label class="row">
+            <div class="form__label-text col-sm">Номер военного билета:</div>
+            <input v-model="person.tab_edu_military_militaryNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
+          </label>
+          <label class="row">
+            <div class="form__label-text col-sm">Серия:</div>
+            <input v-model="person.tab_edu_military_militarySeries" class="form__input col-sm" type="text" name="" placeholder=""/>
+          </label>
+          <label class="row">
+            <div class="form__label-text col-sm">Дата выдачи:</div>
+            <input v-model="person.tab_edu_military_militaryIssueDate" class="form__input col-sm" type="date" name="" placeholder=""/>
+          </label>
+          <label class="row">
+            <div class="form__label-text col-sm">Кем выдан:</div>
+            <textarea v-model="person.tab_edu_military_militaryIssueBy" class="col-sm" name=""></textarea>
+          </label>
+          <label class="row">
+            <div class="form__label-text col-sm">Воинское звание:</div>
+            <input v-model="person.tab_edu_military_militaryRank" class="form__input col-sm" type="text" name="" placeholder=""/>
+          </label>
+          <label class="row">
+            <div class="form__label-text col-sm">Копия/Оригинал:</div>
+            <select v-model="person.tab_edu_military_selectedDocType" class="minimal col-sm">
+              <option v-for="item in docType" v-bind:value="item">
+                {{item.name}}
+              </option>
+            </select>
+          </label>
+          <label class="row">
+            <div class="form__label-text col-sm">Дата предоставления:</div>
+            <input v-model="person.tab_edu_military_docMilitaryShowDate" class="form__input col-sm" type="date" name="" placeholder=""/>
+          </label>
+        </div>
+        <div>
+          <p>Срок службы</p>
+        </div>
+        <hr>
+        <div>
+          <label class="row">
+            <div class="form__label-text col-sm">Дата начала:</div>
+            <input v-model="person.tab_edu_military_startMilitary" class="form__input col-sm" type="date" name="" placeholder=""/>
+          </label>
+          <label class="row">
+            <div class="form__label-text col-sm">Дата окончания:</div>
+            <input v-model="person.tab_edu_military_endMilitary" class="form__input col-sm" type="date" name="" placeholder=""/>
+          </label>
+        </div>
+      <!--</div>-->
+
       <div>
         <p>Дополнительные сведения</p>
       </div>
@@ -220,36 +222,36 @@
       <!--<div class="row" v-for="(extraInfo,index) in extraInfos">-->
         <!--<label class="row" v-for="(extraInfo,index) in extraInfos">-->
       <div class="row">
-          <select v-model="selectedExtraInfos1" class="minimal col-sm">
+          <select v-model="person.selectedExtraInfos1" class="minimal col-sm">
             <option v-for="option in options_extraInfos">
               {{option.item}}
             </option>
           </select>
-          <input v-model="extraInfosDescription1" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
+          <input v-model="person.extraInfosDescription1" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
       </div>
       <div class="row">
-        <select v-model="selectedExtraInfos2" class="minimal col-sm">
+        <select v-model="person.selectedExtraInfos2" class="minimal col-sm">
           <option v-for="option in options_extraInfos">
             {{option.item}}
           </option>
         </select>
-        <input v-model="extraInfosDescription2" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
+        <input v-model="person.extraInfosDescription2" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
       </div>
       <div class="row">
-        <select v-model="selectedExtraInfos3" class="minimal col-sm">
+        <select v-model="person.selectedExtraInfos3" class="minimal col-sm">
           <option v-for="option in options_extraInfos">
             {{option.item}}
           </option>
         </select>
-        <input v-model="extraInfosDescription3" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
+        <input v-model="person.extraInfosDescription3" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
       </div>
       <div class="row">
-        <select v-model="selectedExtraInfos4" class="minimal col-sm">
+        <select v-model="person.selectedExtraInfos4" class="minimal col-sm">
           <option v-for="option in options_extraInfos">
             {{option.item}}
           </option>
         </select>
-        <input v-model="extraInfosDescription4" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
+        <input v-model="person.extraInfosDescription4" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
       </div>
     </div>
         <!--</label>-->
@@ -270,6 +272,10 @@
     getterType: `tab_education_military_info/getField`,
     mutationType: `tab_education_military_info/updateField`,
   });
+  const { mapFields:person} = createHelpers({
+    getterType: 'person/getField',
+    mutationType: 'person/updateField',
+  });
   export default {
     name: "TabEducationMilitary",
     mounted() {
@@ -281,15 +287,17 @@
       this.$store.dispatch('enums/onLoadSoldieryStatus');
       this.$store.dispatch('enums/onLoadMilitaryFormDoc');
       this.$store.dispatch('enums/onLoadDocType');
+      this.$store.dispatch('enums/onLoadEducationLevel');
 
     },
     computed: {
+      ...person(['person']),
       ...mapState('dictionary',['addressCountryRegion','addressState', 'eduDoc','academyYear','soldiery',
       ],),
       ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION','GET_ADDRESS_STATE',
         'GET_EDU_DOC','GET_ACADEMY_YEAR','GET_SOLDIERY',],),
-      ...mapState('enums',['soldieryStatus','militaryFormDoc','docType'],),
-      ...mapGetters('enums',['GET_SOLDIERY_STATUS','GET_MILITARY_FORM_DOC','GET_DOC_TYPE'],),
+      ...mapState('enums',['soldieryStatus','militaryFormDoc','docType','educationLevel'],),
+      ...mapGetters('enums',['GET_SOLDIERY_STATUS','GET_MILITARY_FORM_DOC','GET_DOC_TYPE','GET_EDUCATION_LEVEL'],),
 
       ...tab_education_military_info(['tab_edu_military_militaryNumber', 'tab_edu_military_militarySeries',
         'tab_edu_military_militaryIssueBy', 'tab_edu_military_militaryIssueDate', 'tab_edu_military_militaryRank',
@@ -308,10 +316,9 @@
       },
       methods: {
         onCalculateScore() {
-          this.score_full = (parseInt(this.score_five)*5 + parseInt(this.score_four)*4 +
+          this.person.score_full = (parseInt(this.score_five)*5 + parseInt(this.score_four)*4 +
             parseInt(this.score_three)*3) / (parseInt(this.score_five) + parseInt(this.score_four)
           + parseInt(this.score_three));
-              console.log(this.GET_ADDRESS_STATE)
         },
         onAddExtraInfo() {
           this.extraInfos.push('');

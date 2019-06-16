@@ -2,11 +2,9 @@
   <div>
     <tabs class="parent_tabs">
       <tab id="parent_overview" name="Обзор">
-        <!--<div class="row">-->
-          <!--<button>Добавить</button>-->
-        <!--</div>-->
-        <!--{{tab_parent_parents.length}}-->
-
+        <div class="row">
+          <button @click="onInfo">Добавить</button>
+        </div>
         <v-data-table
           :headers="headers_parent"
           :items="table_show"
@@ -70,7 +68,7 @@
               <div class="form__label-text col-sm">Пол:</div>
               <select v-model="tab_parent_selectedGender" class="minimal col-sm">
                 <option v-for="item in gender">
-                  {{item.Name}}
+                  {{item.name}}
                 </option>
               </select>
             </label>
@@ -156,7 +154,10 @@
 <script>
   import {mapGetters, mapState, mapActions, mapMutations} from 'vuex'
   import { createHelpers } from 'vuex-map-fields';
-
+  const { mapFields:person} = createHelpers({
+    getterType: 'person/getField',
+    mutationType: 'person/updateField',
+  });
   const { mapMultiRowFields } = createHelpers({
     getterType: `tab_parent_info/getField`,
     mutationType: `tab_parent_info/updateField`,
@@ -205,7 +206,7 @@
     },
     computed: {
       table_show() {
-        return this.info_parent = this.tab_parent_parents;
+        return this.person.parents_info;
       },
 
       fullname: function () {
@@ -221,6 +222,7 @@
         }
         return age;
       },
+      ...person(['person']),
       ...mapState('enums', ['gender'],),
       ...mapGetters('enums', ['GET_GENDER']),
       ...mapMultiRowFields(['tab_parent_parents']),
@@ -235,31 +237,31 @@
     },
     methods: {
       onDelete(item) {
-        const index = this.info_parent.indexOf(item);
+        const index = this.person.parents_info.indexOf(item);
         console.log(index);
-        this.info_parent.splice(index,1);
+        this.person.parents_info.splice(index,1);
 
       },
       onEdit(item) {
-        const index = this.info_parent.indexOf(item);
+        const index = this.person.parents_info.indexOf(item);
         location.href='profile#parent_info';
-        this.tab_parent_name = this.info_parent[index].tab_parent_name;
-        this.tab_parent_lastname = this.info_parent[index].tab_parent_lastname;
-        this.tab_parent_firstname = this.info_parent[index].tab_parent_firstname;
-        this.tab_parent_middlename = this.info_parent[index].tab_parent_middlename;
-        this.tab_parent_birthDate = this.info_parent[index].tab_parent_birthDate;
-        this.tab_parent_homePhoneNumber = this.info_parent[index].tab_parent_homePhoneNumber;
-        this.tab_parent_cellularPhone = this.info_parent[index].tab_parent_cellularPhone;
-        this.tab_parent_factAddress = this.info_parent[index].tab_parent_factAddress;
-        this.tab_parent_selectedFamRelationShip = this.info_parent[index].tab_parent_selectedFamRelationShip;
-        this.tab_parent_selectedGender = this.info_parent[index].tab_parent_selectedGender;
-        this.tab_parent_organization_name = this.info_parent[index].tab_parent_organization_name;
-        this.tab_parent_organization_address = this.info_parent[index].tab_parent_organization_address;
-        this.tab_parent_organization_seniority = this.info_parent[index].tab_parent_organization_seniority;
-        this.tab_parent_organization_employYears = this.info_parent[index].tab_parent_organization_employYears;
+        this.tab_parent_name = this.person.parents_info[index].tab_parent_name;
+        this.tab_parent_lastname = this.person.parents_info[index].tab_parent_lastname;
+        this.tab_parent_firstname = this.person.parents_info[index].tab_parent_firstname;
+        this.tab_parent_middlename = this.person.parents_info[index].tab_parent_middlename;
+        this.tab_parent_birthDate = this.person.parents_info[index].tab_parent_birthDate;
+        this.tab_parent_homePhoneNumber = this.person.parents_info[index].tab_parent_homePhoneNumber;
+        this.tab_parent_cellularPhone = this.person.parents_info[index].tab_parent_cellularPhone;
+        this.tab_parent_factAddress = this.person.parents_info[index].tab_parent_factAddress;
+        this.tab_parent_selectedFamRelationShip = this.person.parents_info[index].tab_parent_selectedFamRelationShip;
+        this.tab_parent_selectedGender = this.person.parents_info[index].tab_parent_selectedGender;
+        this.tab_parent_organization_name = this.person.parents_info[index].tab_parent_organization_name;
+        this.tab_parent_organization_address = this.person.parents_info[index].tab_parent_organization_address;
+        this.tab_parent_organization_seniority = this.person.parents_info[index].tab_parent_organization_seniority;
+        this.tab_parent_organization_employYears = this.person.parents_info[index].tab_parent_organization_employYears;
       },
-      onSaveParent() {
-
+      onInfo() {
+        location.href='profile#parent_info';
       },
       onCopyAddressFromStudent() {
         this.tab_parent_factAddress = this.tab_address_factAddress;
@@ -312,8 +314,8 @@
           this.tab_parent_organization_seniority,this.tab_parent_organization_employYears
         );
         location.href='profile#parent_overview';
-        this.tab_parent_parents.push(parent);
-        console.log(this.tab_parent_parents)
+        this.person.parents_info.push(parent);
+        console.log(this.person.parents_info)
       },
     }
 

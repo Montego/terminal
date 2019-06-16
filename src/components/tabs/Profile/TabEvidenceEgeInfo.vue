@@ -21,6 +21,9 @@
                 <td class="text-xs-center">{{ props.item.ege_ball_2}}</td>
                 <td class="text-xs-center">{{ props.item.ege_appeal_status}}</td>
                 <td>
+                  <button @click="onEdit(props.item)">
+                    <v-icon color="#5bc0de">edit</v-icon>
+                  </button>{{ props.item.acions}}
                   <button @click="onDelete(props.item)">
                     <v-icon color="#5bc0de">delete</v-icon>
                   </button>{{ props.item.acions}}
@@ -95,8 +98,8 @@
               <label class="row">
                 <div class="form__label-text col-sm">Гражданство:</div>
                 <select v-model="tab_ege_info_selectedCitizenship" class="minimal col-sm">
-                  <option v-for="option in addressCountryRegion">
-                    {{option.CountryRegionId}}
+                  <option v-for="item in addressCountryRegion" v-bind:value="item">
+                    {{item.countryRegionId}}
                   </option>
                 </select>
               </label>
@@ -113,11 +116,15 @@
             <hr>
             <label class="row">
               <div class="form__label-text col-sm">Форма ЕГЭ:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <select v-model="tab_ege_selectedExamForm" class="minimal col-sm">
+                <option v-for="item in examForm" v-bind:value="item">
+                  {{item.name}}
+                </option>
+              </select>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Год сдачи:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input  class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Предмет:</div>
@@ -208,6 +215,10 @@
 <script>
   import {mapGetters, mapState} from 'vuex'
   import { createHelpers } from 'vuex-map-fields';
+  const { mapFields:person} = createHelpers({
+    getterType: 'person/getField',
+    mutationType: 'person/updateField',
+  });
   const { mapMultiRowFields } = createHelpers({
     getterType: `tab_evidence_ege_info/getField`,
     mutationType: `tab_evidence_ege_info/updateField`,
@@ -227,14 +238,18 @@
       this.$store.dispatch('dictionary/onLoadIdentityCardCode');
       this.$store.dispatch('dictionary/onLoadOtherCountryRegion');
       this.$store.dispatch('dictionary/onLoadAddressCountryRegion');
+      this.$store.dispatch('enums/onLoadExamForm');
     },
     computed: {
+      ...person(['person']),
       ...mapState('dictionary',['addressCountryRegion']),
       ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION']),
+      ...mapState('enums',['examForm']),
+      ...mapGetters('enums',['GET_EXAM_FORM']),
       ...tab_evidence_ege_info_fields(['tab_ege_lastname', 'tab_ege_firstname', 'tab_ege_middlename',
         'tab_ege_identityCardSeries','tab_ege_identityCardNumber','tab_ege_identityCardIssueDate',
         'tab_ege_identityCardIssueBy','tab_ege_documentNumber','tab_ege_typographyNumber', 'tab_ege_info_selectedCitizenship',
-        'tab_ege_sumScores','tab_ege_score','tab_ege_selectedSubject', 'tab_ege_selectedIdentityCardCode'
+        'tab_ege_sumScores','tab_ege_score','tab_ege_selectedSubject', 'tab_ege_selectedIdentityCardCode','tab_ege_selectedExamForm'
       ]),
       ...tab_personal_info_fields(['tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename',
        'tab_personal_selectedIdentityCardCode','tab_personal_identityCardSeries','tab_personal_identityCardNumber',
@@ -245,14 +260,14 @@
       ...mapMultiRowFields(['ege_info',]),
 
       table_show() {
-        return this.info_ege_subjects = this.ege_info;
+        return this.person.ege_info;
       },
 
     },
 
     data() {
       return {
-
+        index_for_redaction:'',
         options_subject: [
           {id: 1, item: 'Биология'},
           {id: 2, item: 'Русский язык'},
@@ -314,31 +329,54 @@
         location.href='profile#ege_info';
       },
       onDelete(item) {
-        const index = this.info_ege_subjects.indexOf(item);
+        const index = this.person.ege_info.indexOf(item);
         console.log(index);
-        this.info_ege_subjects.splice(index,1);
+        this.person.ege_info.splice(index,1);
 
       },
+
+      onEdit(item) {
+        const index = this.person.ege_info.indexOf(item);
+        this.index_for_redaction = index;
+        location.href='profile#ege_info';
+        this.tab_ege_lastname = this.person.ege_info[index].tab_ege_lastname;
+        this.tab_ege_firstname = this.person.ege_info[index].tab_ege_firstname;
+        this.tab_ege_middlename = this.person.ege_info[index].tab_ege_middlename;
+        this.tab_ege_selectedIdentityCardCode = this.person.ege_info[index].tab_ege_selectedIdentityCardCode;
+        this.tab_ege_identityCardSeries = this.person.ege_info[index].tab_ege_identityCardSeries;
+        this.tab_ege_identityCardNumber = this.person.ege_info[index].tab_ege_identityCardNumber;
+        this.tab_ege_identityCardIssueDate = this.person.ege_info[index].tab_ege_identityCardIssueDate;
+        this.tab_ege_identityCardIssueBy = this.person.ege_info[index].tab_ege_identityCardIssueBy;
+        this.tab_ege_info_selectedCitizenship = this.person.ege_info[index].tab_ege_info_selectedCitizenship;
+        this.tab_ege_selectedExamForm = this.person.ege_info[index].tab_ege_selectedExamForm;
+        this.tab_ege_selectedSubject = this.person.ege_info[index].tab_ege_selectedSubject;
+        this.tab_ege_score = this.person.ege_info[index].tab_ege_score;
+
+      },
+
       onClearFields() {
         this.tab_ege_lastname = '';
         this.tab_ege_firstname = '';
         this.tab_ege_middlename = '';
+        this.tab_ege_selectedIdentityCardCode = '';
         this.tab_ege_identityCardSeries = '';
         this.tab_ege_identityCardNumber = '';
         this.tab_ege_identityCardIssueDate = '';
         this.tab_ege_identityCardIssueBy = '';
-        this.tab_ege_selectedIdentityCardCode = '';
+        this.tab_ege_info_selectedCitizenship = '';
+        this.tab_ege_selectedExamForm = '';
+        this.tab_ege_selectedSubject = '';
+        this.tab_ege_score = '';
+
+
     //TODO other fields
-
-
-
-
 
       },
       onAddEge() {
+
         function Ege(ege_lastname,ege_firstname,ege_middlename,ege_identityCardSeries,
                      ege_identityCardNumber,ege_identityCardIssueDate,ege_identityCardIssueBy,
-                     ege_selectedIdentityCardCode,ege_selectedSubject, ege_score) {
+                     ege_selectedIdentityCardCode,ege_selectedCitizenship,ege_selectedExamForm, ege_selectedSubject, ege_score) {
           this.tab_ege_lastname = ege_lastname;
           this.tab_ege_firstname = ege_firstname;
           this.tab_ege_middlename = ege_middlename;
@@ -346,6 +384,8 @@
           this.tab_ege_identityCardNumber = ege_identityCardNumber;
           this.tab_ege_identityCardIssueDate = ege_identityCardIssueDate;
           this.tab_ege_identityCardIssueBy = ege_identityCardIssueBy;
+          this.tab_ege_info_selectedCitizenship = ege_selectedCitizenship;
+          this.tab_ege_selectedExamForm = ege_selectedExamForm;
           this.tab_ege_selectedIdentityCardCode = ege_selectedIdentityCardCode;
           this.tab_ege_selectedSubject = ege_selectedSubject;
           this.tab_ege_score = ege_score
@@ -354,12 +394,17 @@
         var ege = new Ege(
           this.tab_ege_lastname, this.tab_ege_firstname, this.tab_ege_middlename,
           this.tab_ege_identityCardSeries, this.tab_ege_identityCardNumber, this.tab_ege_identityCardIssueDate,
-          this.tab_ege_identityCardIssueBy, this.tab_ege_selectedIdentityCardCode, this.tab_ege_selectedSubject,
-          this.tab_ege_score,
+          this.tab_ege_identityCardIssueBy, this.tab_ege_selectedIdentityCardCode, this.tab_ege_info_selectedCitizenship,
+          this.tab_ege_selectedExamForm, this.tab_ege_selectedSubject, this.tab_ege_score,
         );
         location.href='profile#ege_overview';
-        this.ege_info.push(ege);
-        console.log(this.ege_info)
+        if(this.index_for_redaction > -1){
+          this.person.ege_info.push(ege);
+        }
+        else {
+          this.person.ege_info[this.index_for_redaction].push(ege);
+        }
+        console.log(this.person.ege_info)
 
       },
       onCopyInfoFromProfileTab() {

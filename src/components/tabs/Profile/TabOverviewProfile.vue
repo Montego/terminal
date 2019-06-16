@@ -7,11 +7,7 @@
       </button>
       <div class="row">
 
-        {{this.showTable}}
-        {{showTable}}
-        {{this.persons}}
-{{tab_personal_lastname}}
-        {{tab_personal_firstname}}
+
 
       </div>
     </div>
@@ -100,7 +96,7 @@
         ]),
         showTable() {
 
-          return this.persons;
+          // return this.persons;
         },
 
         // fullname: function () {

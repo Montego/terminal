@@ -9,19 +9,20 @@
       <div class="col-sm-4">
         <label class="row">
           <div class="form__label-text col-sm">Номер заявления:</div>
-          <input  class="form__input col-sm" type="text" name=""  />
+          <input v-model="application.application_number" class="form__input col-sm" type="text" name=""  />
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Дата заявления:</div>
-          <input  class="form__input col-sm" type="date" name=""  />
+          <input v-model="application.application_date" class="form__input col-sm" type="date" name=""  />
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Тип доставки:</div>
-          <select  class="minimal col-sm">
-            <option v-for="option in options_deliveryType">
-              {{option.item}}
+          <select v-model="application.application_selectedDeliveryType"  class="minimal col-sm">
+            <option v-for="item in deliveryType" v-bind:value="item">
+              {{item.name}}
             </option>
           </select>
+
         </label>
         <!--<label class="row">-->
           <!--<div class="form__label-text col-sm">Перевести на бюджет:</div>-->
@@ -29,9 +30,9 @@
         <!--</label>-->
         <label class="row">
           <div class="form__label-text col-sm">Документ об образовании:</div>
-          <select  class="minimal col-sm">
-            <option v-for="option in options_copy">
-              {{option.item}}
+          <select v-model="application.application_selectedDocType" class="minimal col-sm">
+            <option v-for="item in docType" v-bind:value="item">
+              {{item.name}}
             </option>
           </select>
         </label>
@@ -51,28 +52,23 @@
 
 <script>
   import { createHelpers } from 'vuex-map-fields';
-  const { mapMultiRowFields } = createHelpers({
-    getterType: `tab_evidence_ege_info/getField`,
-    mutationType: `tab_evidence_ege_info/updateField`,
-  });
-  const { mapFields:tab_entrance_tests } = createHelpers({
-    getterType: `tab_entrance_tests/getField`,
-    mutationType: `tab_entrance_tests/updateField`,
-  });
-  const {  mapFields:tab_evidence_ege_info } = createHelpers({
-    getterType: `tab_evidence_ege_info/getField`,
-    mutationType: `tab_evidence_ege_info/updateField`,
+  import {mapGetters, mapState} from 'vuex'
+
+  const { mapFields:applications} = createHelpers({
+    getterType: 'applications/getField',
+    mutationType: 'applications/updateField',
   });
   export default {
     name: "TabEntranceTests",
+    mounted () {
+      this.$store.dispatch('enums/onLoadDocType');
+      this.$store.dispatch('enums/onLoadDeliveryType');
+    },
     computed: {
-      ...tab_entrance_tests(['tab_entrance_test_score1', 'tab_entrance_test_score2', 'tab_entrance_test_score3',
-        'tab_entrance_test_subject1', 'tab_entrance_test_subject2', 'tab_entrance_test_subject3',
-      ]),
-      ...tab_evidence_ege_info(['tab_ege_score','tab_ege_score1','tab_ege_score2','tab_ege_score3',
-        'tab_ege_selectedSubject','tab_ege_selectedSubject2','tab_ege_selectedSubject3'
-      ]),
-      ...mapMultiRowFields(['ege_info']),
+      ...applications(['application']),
+      ...mapState('enums',['deliveryType', 'docType']),
+      ...mapGetters('enums',['GET_DELIVERY_TYPE','GET_DOC_TYPE']),
+
 
 
     },

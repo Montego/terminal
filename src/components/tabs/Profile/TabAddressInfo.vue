@@ -10,7 +10,7 @@
       </div>
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea v-model="tab_address_registrationAddress" class="col-sm-10" name=""></textarea>
+        <textarea v-model="person.tab_address_registrationAddress" class="col-sm-10" name=""></textarea>
       </label>
       <label class="row">
         <div class="form__label-text col-sm">Типа нас. пункта:</div>
@@ -33,7 +33,7 @@
       </div>
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea v-model="tab_address_factAddress" class="col-sm-10" name=""></textarea>
+        <textarea v-model="person.tab_address_factAddress" class="col-sm-10" name=""></textarea>
       </label>
     </div>
     <div class="info_address2 col-sm">
@@ -46,7 +46,7 @@
       </div>
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea v-model="tab_address_templateRegistrationAddress" class="col-sm-10" name=""></textarea>
+        <textarea v-model="person.tab_address_templateRegistrationAddress" class="col-sm-10" name=""></textarea>
       </label>
     </div>
   </div>
@@ -54,7 +54,10 @@
 
 <script>
   import { createHelpers } from 'vuex-map-fields';
-
+  const { mapFields:person} = createHelpers({
+    getterType: 'person/getField',
+    mutationType: 'person/updateField',
+  });
   const { mapFields:tab_address_info } = createHelpers({
     getterType: `tab_address_info/getField`,
     mutationType: `tab_address_info/updateField`,
@@ -63,6 +66,7 @@
   export default {
     name: "TabAddressInfo",
     computed: {
+      ...person(['person']),
       ...tab_address_info(['tab_address_registrationAddress', 'tab_address_factAddress',
         'tab_address_templateRegistrationAddress',
       ]),
@@ -82,7 +86,7 @@
     },
     methods: {
       onCopyAddress() {
-        this.tab_address_factAddress = this.tab_address_registrationAddress;
+        this.person.tab_address_factAddress = this.person.tab_address_registrationAddress;
       }
     }
   }
