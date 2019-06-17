@@ -80,6 +80,10 @@
     getterType: `tab_evidence_ege_info/getField`,
     mutationType: `tab_evidence_ege_info/updateField`,
   });
+  const { mapFields:person} = createHelpers({
+    getterType: 'person/getField',
+    mutationType: 'person/updateField',
+  });
     export default {
         name: "TabEntranceTests",
       computed: {
@@ -90,7 +94,7 @@
           'tab_ege_selectedSubject','tab_ege_selectedSubject2','tab_ege_selectedSubject3'
         ]),
         ...mapMultiRowFields(['ege_info']),
-
+        ...person(['person']),
         showData(){
           return this.ege_result = this.ege_info;
         },

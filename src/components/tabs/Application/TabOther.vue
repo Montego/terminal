@@ -1,12 +1,21 @@
 <template>
   <div class="clear_save_button row">
-  <button @click="onSave">Сохранить</button>
+  {{this.application}}
+  <!--<button @click="onSave">Сохранить</button>-->
   </div>
 </template>
 
 <script>
+  import { createHelpers } from 'vuex-map-fields';
+  const { mapFields:applications} = createHelpers({
+    getterType: 'applications/getField',
+    mutationType: 'applications/updateField',
+  });
     export default {
-        name: "Other"
+        name: "Other",
+        computed: {
+          ...applications(['application']),
+      }
     }
 </script>
 

@@ -180,7 +180,8 @@ export default {
       })
     },
     onLoadDeliveryType({commit}) {
-      AXIOS.get('/enums/deliveryType')
+      // AXIOS.get('/enums/deliveryType')
+      AXIOS.get('/json/deliveryType')
         .then((response) => {
           commit('UPLOAD_DELIVERY_TYPE', response.data)
         }).catch(e => {
@@ -198,7 +199,8 @@ export default {
       })
     },
     onLoadEducationLevel ({ commit }) {
-      AXIOS.get('/enums/educationLevel')
+      // AXIOS.get('/enums/educationLevel')
+      AXIOS.get('/json/educationLevel')
         .then((response) => {
           commit('UPLOAD_EDUCATION_LEVEL', response.data)
         }).catch(e => {
@@ -215,7 +217,8 @@ export default {
       })
     },
     onLoadExamForm ({ commit }) {
-      AXIOS.get('/enums/examForm')
+      // AXIOS.get('/enums/examForm')
+      AXIOS.get('/json/examForm')
         .then((response) => {
           commit('UPLOAD_EXAM_FORM', response.data)
         }).catch(e => {

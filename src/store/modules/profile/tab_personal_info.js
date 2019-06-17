@@ -46,9 +46,9 @@ export default {
     tab_personal_isForeignLikeRussian:false,
 
     tab_personal_selectedGender: null,
-    tab_personal_selectedIdentityCardCode: '',
-    tab_personal_selectedForeignLanguageInfo:'',
-    tab_personal_selectedCitizenship:'',
+    tab_personal_selectedIdentityCardCode: null,
+    tab_personal_selectedForeignLanguageInfo:null,
+    tab_personal_selectedCitizenship:null,
   },
   getters: {
     getField,

@@ -20,6 +20,7 @@ export default {
     tab_ege_score:'',
     // tab_ege_score2:'',
     // tab_ege_score3:'',
+    tab_ege_selectedExamForm: null,
 
     tab_ege_selectedSubject: '',
     // tab_ege_selectedSubject2: '',

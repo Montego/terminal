@@ -7,6 +7,7 @@
       </button>
       <div class="row">
 
+
       </div>
     </div>
 
@@ -94,7 +95,7 @@
         ]),
         showTable() {
 
-          return this.persons;
+          // return this.persons;
         },
 
         // fullname: function () {

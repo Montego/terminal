@@ -4,9 +4,11 @@ import {AXIOS} from "../../../components/plugins/APIService";
 export default {
   namespaced: true,
   state: {
-    info:[],
-    persons:[],
-    person : {}
+
+    person : {
+      ege_info:[],
+      parents_info:[],
+    }
   },
   getters: {
     getField,
