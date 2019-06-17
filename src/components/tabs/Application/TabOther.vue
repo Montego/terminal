@@ -1,11 +1,12 @@
 <template>
   <div class="clear_save_button row">
   {{this.application}}
-  <!--<button @click="onSave">Сохранить</button>-->
+  <button @click="onSave">Сохранить</button>
   </div>
 </template>
 
 <script>
+  import {AXIOS} from "../../plugins/APIService";
   import { createHelpers } from 'vuex-map-fields';
   const { mapFields:applications} = createHelpers({
     getterType: 'applications/getField',
@@ -15,7 +16,19 @@
         name: "Other",
         computed: {
           ...applications(['application']),
-      }
+      },
+      methods: {
+        onSave() {
+          AXIOS.post(`/applications`, this.application)
+            .then(response => {
+              this.info.push(response.data)
+            })
+            .catch(e => {
+              this.errors.push(e)
+            })
+          }
+
+        },
     }
 </script>
 

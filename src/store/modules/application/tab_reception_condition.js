@@ -10,6 +10,13 @@ export default {
     tab_reception_condition_specialRight:'',
     tab_reception_condition_consent:'',
 
+    selected_faculty:'',
+    selected_specialty:'',
+    selected_educationType:'',
+    selected_agreement:'',
+    selected_specialRight:'',
+    selected_typeOfSpecialRight:'',
+
     tab_reception_condition_allConditions:[],
 
   },

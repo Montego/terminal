@@ -9,7 +9,8 @@ export default {
     application_selectedDeliveryType:null,
     application_selectedDocType:null,
     application : {
-
+      application_condition:[],
+      application_documents:[],
     }
   },
   getters: {

@@ -14,7 +14,7 @@
         >
           <template slot="items" slot-scope="props">
             <td class="text-xs-center">{{ props.item.fullName}}</td>
-            <td class="text-xs-center">{{ props.item.tab_document_selectedCopy}}</td>
+            <td class="text-xs-center">{{ props.item.tab_document_selectedDocType.name}}</td>
             <td class="text-xs-center">{{ props.item.tab_document_date}}</td>
             <td class="text-xs-center">{{ props.item.tab_document_count }}</td>
             <td class="text-xs-center">
@@ -62,10 +62,11 @@
                 </label>
 
                 <label class="row">
-                  <div class="form__label-text col-sm">Копия/оригинал:</div>
-                  <select v-model="tab_document_selectedCopy" class="col-sm" >
-                    <option>копия</option>
-                    <option>оригинал</option>
+                  <div class="form__label-text col-sm">Копия/Оригинал:</div>
+                  <select v-model="tab_document_selectedDocType" class="minimal col-sm">
+                    <option v-for="item in docType" v-bind:value="item">
+                      {{item.name}}
+                    </option>
                   </select>
                 </label>
                 <label class="row">
@@ -91,7 +92,12 @@
 </template>
 
 <script>
+  import {mapGetters, mapState} from 'vuex';
   import { createHelpers } from 'vuex-map-fields';
+  const { mapFields:applications} = createHelpers({
+    getterType: 'applications/getField',
+    mutationType: 'applications/updateField',
+  });
   const { mapMultiRowFields } = createHelpers({
     getterType: `tab_documents/getField`,
     mutationType: `tab_documents/updateField`,
@@ -104,9 +110,7 @@
         name: "TabDocuments",
         data(){
           return {
-            document_name:'',
-            document_date:'',
-            document_count:'',
+
             headers_documents: [
               {text: 'Название', value: 'name', sortable: false, align: 'center'},
               {text: 'Копия/оригинал', value: 'copy', sortable: false, align: 'center'},
@@ -119,9 +123,12 @@
           }
         },
       computed: {
+        ...mapState('enums',['docType'],),
+        ...mapGetters('enums',['GET_DOC_TYPE'],),
+        ...applications(['application']),
         ...tab_documents(['tab_document_selectedDocumentType', 'tab_document_series', 'tab_document_number',
           'tab_document_selectedCopy', 'tab_document_date','tab_document_issuedBy','tab_document_fullName',
-          'tab_document_count'
+          'tab_document_count','tab_document_selectedDocType'
         ]),
         ...mapMultiRowFields(['document','tab_document_allDocuments']),
 
@@ -133,8 +140,11 @@
         },
 
         showTable(){
-          return this.info_documents = this.tab_document_allDocuments;
+          return  this.application.application_documents;
         },
+      },
+      mounted() {
+        this.$store.dispatch('enums/onLoadDocType');
       },
         methods: {
           onNext() {
@@ -148,7 +158,7 @@
             this.tab_document_count = null;
             this.tab_document_series = null;
             this.tab_document_number = null;
-            this.tab_document_selectedCopy = null;
+            this.tab_document_selectedDocType = null;
             this.tab_document_date = null;
             this.tab_document_issuedBy = null;
           },
@@ -162,21 +172,21 @@
               this.tab_document_count = doc_count;
               this.tab_document_series = doc_series;
               this.tab_document_number = doc_number;
-              this.tab_document_selectedCopy = doc_selectedCopy;
+              this.tab_document_selectedDocType = doc_selectedCopy;
               this.tab_document_date = doc_date;
               this.tab_document_issuedBy = doc_issuedBy;
               this.fullName = doc_fullName;
             }
               let document = new Document(
                 this.tab_document_selectedDocumentType, this.tab_document_count, this.tab_document_series,
-                this.tab_document_number,this.tab_document_selectedCopy,this.tab_document_date,
+                this.tab_document_number,this.tab_document_selectedDocType,this.tab_document_date,
                 this.tab_document_issuedBy, this.fullName
 
               );
 
-            this.tab_document_allDocuments.push(document);
+            this.application.application_documents.push(document);
             console.log(this.document)
-            console.log(this.tab_document_allDocuments)
+            console.log(this.application.application_documents)
             console.log(this.fullName);
           },
 

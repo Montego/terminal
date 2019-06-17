@@ -33,7 +33,7 @@
       </div>
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea v-model="person.tab_address_factAddress" class="col-sm-10" name=""></textarea>
+        <textarea v-model="person.tab_address_factAddress, factAddress" class="col-sm-10" name=""></textarea>
       </label>
     </div>
     <div class="info_address2 col-sm">
@@ -74,18 +74,13 @@
     },
     data() {
       return {
-        tab_address_selectedForeignLanguageName:'',
-        options_foreignLanguageName: [
-          {id: 0, item: 'английский'},
-          {id: 1, item: 'французкий'},
 
-        ],
-        // registeredAddress:'',
-        // factAddress:'',
+        factAddress:'',
       }
     },
     methods: {
       onCopyAddress() {
+        this.factAddress = this.person.tab_address_registrationAddress;
         this.person.tab_address_factAddress = this.person.tab_address_registrationAddress;
       }
     }

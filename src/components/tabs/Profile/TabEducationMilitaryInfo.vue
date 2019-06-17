@@ -312,24 +312,29 @@
       // ...mapState('enums'['educationLevel','soldieryStatus','militaryFormDoc','docType']),
       // ...mapGetters('enums'['GET_EDUCATION_LEVEL','GET_SOLDIERY_STATUS','GET_MILITARY_FORM_DOC','GET_DOC_TYPE']),
       // },
-
+      update(){
+        return this.person.score_full;
+      }
       },
       methods: {
         onCalculateScore() {
           this.person.score_full = (parseInt(this.score_five)*5 + parseInt(this.score_four)*4 +
             parseInt(this.score_three)*3) / (parseInt(this.score_five) + parseInt(this.score_four)
-          + parseInt(this.score_three));
+            + parseInt(this.score_three));
+
+          // this.person.score_full = this.full;
         },
-        onAddExtraInfo() {
-          this.extraInfos.push('');
-        },
-        onRemoveExtraInfo() {
-          // var lastItem = this.documents[this.documents.length - 1];
-          this.extraInfos.pop(this.extraInfos.length - 1);
-        },
+        // onAddExtraInfo() {
+        //   this.extraInfos.push('');
+        // },
+        // onRemoveExtraInfo() {
+        //   // var lastItem = this.documents[this.documents.length - 1];
+        //   this.extraInfos.pop(this.extraInfos.length - 1);
+        // },
       },
         data() {
           return {
+            full:'',
             extraInfos: [
               {
                 id:'',

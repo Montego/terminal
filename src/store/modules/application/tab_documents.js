@@ -11,7 +11,7 @@ export default {
     tab_document_issuedBy: '',
     tab_document_fullName: '',
 
-
+    tab_document_selectedDocType: null,
     document: [],
     tab_document_allDocuments: [],
   },
