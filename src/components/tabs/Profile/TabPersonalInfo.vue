@@ -14,7 +14,7 @@
         </label>
         <!--в фамилия namespace not found in mapState()-->
         <label class="row">
-          <div class="form__label-text col-sm">Фамилия</div>
+          <span class="form__label-text col-sm">Фамилия</span>
           <!--<input v-model="lastname_personal_info" class="form__input col-sm" v-validate="'required|alpha'" name="lastname"-->
                  <!--type="text">-->
           <!--<span>{{ errors.first('alpha') }}</span>-->

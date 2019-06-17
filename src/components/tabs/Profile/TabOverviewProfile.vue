@@ -7,12 +7,6 @@
       </button>
       <div class="row">
 
-        {{this.showTable}}
-        {{showTable}}
-        {{this.persons}}
-{{tab_personal_lastname}}
-        {{tab_personal_firstname}}
-
       </div>
     </div>
 
@@ -310,6 +304,7 @@ table {
   }
 
   .search_place {
+
     /*height: auto;*/
     margin-top: 30px;
     margin-left: 20px;
