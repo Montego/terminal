@@ -253,7 +253,7 @@
             </option>
           </select>
         </label>
-        <div v-if="tab_personal_selectedForeignLanguageInfo==='Изучал'" class="row">
+        <div class="row">
           <!--<div v-for="(selected_foreignLanguageName,language_description, index) in languages">-->
 
             <select v-model="selected_foreignLanguageName1" class="minimal col-sm-6">
@@ -261,19 +261,19 @@
             {{option.item}}
           </option>
         </select>
-          <input v-model="language_score1" class="form__input col-sm-6" type="text" v-mask="'#'">
+          <input v-model="language_score1" class="form__input col-sm-6" type="text">
           <select v-model="selected_foreignLanguageName2" class="minimal col-sm-6">
             <option v-for="option in options_foreignLanguageName">
               {{option.item}}
             </option>
           </select>
-          <input v-model="language_score2" class="form__input col-sm-6" type="text" v-mask="'#'">
+          <input v-model="language_score2" class="form__input col-sm-6" type="text" >
           <select v-model="selected_foreignLanguageName3" class="minimal col-sm-6">
             <option v-for="option in options_foreignLanguageName">
               {{option.item}}
             </option>
           </select>
-          <input v-model="language_score3" class="form__input col-sm-6" type="text" v-mask="'#'">
+          <input v-model="language_score3" class="form__input col-sm-6" type="text">
             <!--<div class="row">-->
               <!--<input class="button_add" type="button" value="Добавить" @click="onAddLanguage" >-->
               <!--<input class="button_add" type="button" value="Убрать" @click="onRemoveLanguage" >-->
@@ -341,7 +341,6 @@
         'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
         'tab_personal_bithplace', 'tab_personal_email'
       ]),
-
 
       fullname: function () {
         return this.person.tab_personal_name = this.person.tab_personal_lastname + ' ' + this.person.tab_personal_firstname + ' ' + this.person.tab_personal_middlename

@@ -10,14 +10,22 @@ export default {
     tab_ege_identityCardNumber:'',
     tab_ege_identityCardIssueDate:'',
     tab_ege_identityCardIssueBy:'',
-
+    tab_ege_year:'',
+    tab_ege_score_fis:'',
+    tab_ege_appelation:'',
     tab_ege_documentNumber:'',
     tab_ege_typographyNumber:'',
     tab_ege_sumScores: '',
     ege_info:[],
 
+    tests: [],
+
     tab_ege_info_selectedCitizenship:'',
     tab_ege_score:'',
+
+    biology_score:'',
+    russian_score:'',
+    chemistry_score:'',
     // tab_ege_score2:'',
     // tab_ege_score3:'',
     tab_ege_selectedExamForm: null,
@@ -42,5 +50,22 @@ export default {
   },
 
   computed: {
+    // checkBiology() {
+    //   if (this.tab_ege_selectedSubject === 'Биология') {
+    //     return this.biology_score = this.tab_ege_score;
+    //   }
+    // },
+    // checkRussian() {
+    //   if (this.tab_ege_selectedSubject === 'Русский язык') {
+    //     return this.russian_score = this.tab_ege_score;
+    //   }
+    // }
+    //   ,
+    // checkChemistry() {
+    //   if (this.tab_ege_selectedSubject==='Химия') {
+    //     return this.chemistry_score = this.tab_ege_score;
+    //   }
+    // }
+
   }
 }

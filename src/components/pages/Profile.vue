@@ -5,46 +5,70 @@
         <div class="col-sm">Абитуриент:</div>
         <input class="col-sm" type="search" name="поиск" placeholder="Поиск по сайту">
       </label>
-      <router-link :to="{name: 'application'}" v-bind:title="titles[0].title">
-        <button class="search_button col-sm">К заявлениям</button>
-      </router-link>
+      <!--<router-link :to="{name: 'application'}" v-bind:title="titles[0].title">-->
+        <!--<button class="search_button col-sm">К заявлениям</button>-->
+      <!--</router-link>-->
       <button class="logout">
         <a href="/login">Logout</a>
       </button>
     </div>
     <div>
       <!--<tabs class="main_tab" :options="{ useUrlFragment: false }">-->
-        <tabs class="main_tab" >
-        <tab id="overview_personal_info" name="Обзор">
-          <TabOverview></TabOverview>
-        </tab>
-
-        <tab class="personal_tab" id="personal_info" name="Личные сведения">
-          <TabPersonalInfo></TabPersonalInfo>
-        </tab>
-
-        <tab id="contacts" name="Адресные данные">
-          <TabAddressInfo></TabAddressInfo>
-        </tab>
-
-          <tab id="evidence_ege" name="Свидетельства ЕГЭ">
-            <TabEvidenceEge></TabEvidenceEge>
+        <tabs class="main_tab" v-if="showPerson">
+          <tab id="overview_personal_info" name="Обзор">
+            <TabOverview></TabOverview>
           </tab>
 
-        <tab class="graduate_military" id="graduate_military" name="Образование, военная служба">
-          <TabEducationMilitary></TabEducationMilitary>
-        </tab>
+          <tab class="personal_tab" id="personal_info" name="Личные сведения">
+            <TabPersonalInfo></TabPersonalInfo>
+          </tab>
 
-        <tab id="parent_trustee" name="Родитель/Попечитель">
-          <TabParentInfo></TabParentInfo>
-        </tab>
-        <tab id="distinctive_features" name="Отличительные признаки">
-          <TabDistinctiveFeaturesInfo></TabDistinctiveFeaturesInfo>
-        </tab>
-        <tab id="photo" name="Фотография">
-          <TabPhoto></TabPhoto>
-        </tab>
+          <tab id="contacts" name="Адресные данные">
+            <TabAddressInfo></TabAddressInfo>
+          </tab>
 
+            <tab id="evidence_ege" name="Свидетельства ЕГЭ">
+              <TabEvidenceEge></TabEvidenceEge>
+            </tab>
+
+          <tab class="graduate_military" id="graduate_military" name="Образование, военная служба">
+            <TabEducationMilitary></TabEducationMilitary>
+          </tab>
+
+          <tab id="parent_trustee" name="Родитель/Попечитель">
+            <TabParentInfo></TabParentInfo>
+          </tab>
+          <tab id="distinctive_features" name="Отличительные признаки">
+            <TabDistinctiveFeaturesInfo></TabDistinctiveFeaturesInfo>
+          </tab>
+          <tab id="photo" name="Фотография">
+            <TabPhoto></TabPhoto>
+          </tab>
+
+          <tab id="overviewApplication" name="Обзор">
+            <TabOverviewApplication></TabOverviewApplication>
+          </tab>
+
+          <tabs class="main_tab" >
+            <tab id="overviewApplication" name="Обзор">
+              <TabOverviewApplication></TabOverviewApplication>
+            </tab>
+            <tab id="applicationFill" name="Заявление">
+              <TabApplicationFill></TabApplicationFill>
+            </tab>
+            <tab id="receptrionCondition" name="Условия приема">
+              <TabReceptionConditions></TabReceptionConditions>
+            </tab>
+            <tab id="documents" name="Документы">
+              <TabDocuments></TabDocuments>
+            </tab>
+            <tab id="entranceTests" name="Вступительные испытания">
+              <TabEntranceTests></TabEntranceTests>
+            </tab>
+            <tab id="other" name="Проверить и сохранить">
+              <TabOther></TabOther>
+            </tab>
+          </tabs>
 
       </tabs>
     </div>
@@ -62,16 +86,33 @@
   import TabDistinctiveFeaturesInfo from "../tabs/Profile/TabDistinctiveFeaturesInfo";
   import TabPhoto from "../tabs/Profile/TabPhoto";
 
+  import TabOverviewApplication from "../tabs/Application/TabOverviewApplication";
+  import TabApplicationFill from "../tabs/Application/TabApplicationFill";
+  import TabReceptionConditions from "../tabs/Application/TabReceptionConditions";
+  import TabDocuments from "../tabs/Application/TabDocuments";
+  import TabEntranceTests from "../tabs/Application/TabEntranceTests";
+  import TabOther from "../tabs/Application/TabOther";
 
+  import { createHelpers } from 'vuex-map-fields';
+
+  const { mapFields:person} = createHelpers({
+    getterType: 'person/getField',
+    mutationType: 'person/updateField',
+  });
   export default {
     name: "Profile",
     components: {
       TabPhoto,
       TabDistinctiveFeaturesInfo,
       TabParentInfo, TabEvidenceEge, TabEducationMilitary,
-      TabAddressInfo, TabPersonalInfo, TabOverview
+      TabAddressInfo, TabPersonalInfo, TabOverview,
+
+      TabOverviewApplication, TabApplicationFill, TabReceptionConditions,
+      TabDocuments, TabEntranceTests, TabOther
     },
-    computed: {},
+    computed: {
+      ...person(['person','showApplication','showPerson']),
+    },
     data() {
       return {
         titles:[

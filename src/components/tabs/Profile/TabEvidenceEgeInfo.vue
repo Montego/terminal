@@ -124,7 +124,7 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Год сдачи:</div>
-              <input  class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-model="tab_ege_year" class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Предмет:</div>
@@ -141,11 +141,11 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Балл (ФИС):</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-model="tab_ege_score_fis" class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Статус апелляции:</div>
-              <input class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-model="tab_ege_appelation" class="form__input col-sm" type="text" name="" placeholder=""/>
             </label>
             <hr>
 
@@ -231,6 +231,10 @@
     getterType: 'tab_personal_info/getField',
     mutationType: 'tab_personal_info/updateField',
   });
+  const { mapFields:tab_entrance_tests } = createHelpers({
+    getterType: 'tab_personal_info/getField',
+    mutationType: 'tab_personal_info/updateField',
+  });
 
   export default {
     name: "TabEvidenceEge",
@@ -249,7 +253,9 @@
       ...tab_evidence_ege_info_fields(['tab_ege_lastname', 'tab_ege_firstname', 'tab_ege_middlename',
         'tab_ege_identityCardSeries','tab_ege_identityCardNumber','tab_ege_identityCardIssueDate',
         'tab_ege_identityCardIssueBy','tab_ege_documentNumber','tab_ege_typographyNumber', 'tab_ege_info_selectedCitizenship',
-        'tab_ege_sumScores','tab_ege_score','tab_ege_selectedSubject', 'tab_ege_selectedIdentityCardCode','tab_ege_selectedExamForm'
+        'tab_ege_sumScores','tab_ege_score','tab_ege_selectedSubject', 'tab_ege_selectedIdentityCardCode',
+        'tab_ege_selectedExamForm','tab_ege_year','tab_ege_score_fis', 'tab_ege_appelation','biology_score',
+        'russian_score','chemistry_score',
       ]),
       ...tab_personal_info_fields(['tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename',
        'tab_personal_selectedIdentityCardCode','tab_personal_identityCardSeries','tab_personal_identityCardNumber',
@@ -257,11 +263,13 @@
 
 
       ]),
-      ...mapMultiRowFields(['ege_info',]),
-
+      ...mapMultiRowFields(['ege_info','tests']),
+      ...tab_entrance_tests(['tab_entrance_test_score', 'tab_entrance_test_subject']),
       table_show() {
         return this.person.ege_info;
       },
+
+
 
     },
 
@@ -333,6 +341,8 @@
         console.log(index);
         this.person.ege_info.splice(index,1);
 
+        this.tests.splice(index,1);
+
       },
 
       onEdit(item) {
@@ -374,38 +384,49 @@
       },
       onAddEge() {
 
-        function Ege(ege_lastname,ege_firstname,ege_middlename,ege_identityCardSeries,
-                     ege_identityCardNumber,ege_identityCardIssueDate,ege_identityCardIssueBy,
-                     ege_selectedIdentityCardCode,ege_selectedCitizenship,ege_selectedExamForm, ege_selectedSubject, ege_score) {
+        function Ege(ege_lastname,ege_firstname,ege_middlename,ege_selectedIdentityCardCode,
+                     ege_identityCardSeries, ege_identityCardNumber,ege_identityCardIssueDate,
+                     ege_identityCardIssueBy, ege_selectedCitizenship,ege_selectedExamForm,
+                     ege_year, ege_selectedSubject, ege_score, ege_score_fis, ege_appelation) {
           this.tab_ege_lastname = ege_lastname;
           this.tab_ege_firstname = ege_firstname;
           this.tab_ege_middlename = ege_middlename;
+          this.tab_ege_selectedIdentityCardCode = ege_selectedIdentityCardCode;
           this.tab_ege_identityCardSeries = ege_identityCardSeries;
           this.tab_ege_identityCardNumber = ege_identityCardNumber;
           this.tab_ege_identityCardIssueDate = ege_identityCardIssueDate;
           this.tab_ege_identityCardIssueBy = ege_identityCardIssueBy;
           this.tab_ege_info_selectedCitizenship = ege_selectedCitizenship;
           this.tab_ege_selectedExamForm = ege_selectedExamForm;
-          this.tab_ege_selectedIdentityCardCode = ege_selectedIdentityCardCode;
+          this.tab_ege_year = ege_year;
           this.tab_ege_selectedSubject = ege_selectedSubject;
-          this.tab_ege_score = ege_score
-
+          this.tab_ege_score = ege_score;
+          this.tab_ege_score_fis = ege_score_fis;
+          this.tab_ege_appelation = ege_appelation;
         }
+        // function EntranceTest(ege_selectedSubject, ege_score) {
+        //   this.tab_ege_selectedSubject = ege_selectedSubject;
+        //   this.tab_ege_score = ege_score;
+        // }
         var ege = new Ege(
-          this.tab_ege_lastname, this.tab_ege_firstname, this.tab_ege_middlename,
+          this.tab_ege_lastname, this.tab_ege_firstname, this.tab_ege_middlename,this.tab_ege_selectedIdentityCardCode,
           this.tab_ege_identityCardSeries, this.tab_ege_identityCardNumber, this.tab_ege_identityCardIssueDate,
-          this.tab_ege_identityCardIssueBy, this.tab_ege_selectedIdentityCardCode, this.tab_ege_info_selectedCitizenship,
-          this.tab_ege_selectedExamForm, this.tab_ege_selectedSubject, this.tab_ege_score,
+          this.tab_ege_identityCardIssueBy,  this.tab_ege_info_selectedCitizenship,
+          this.tab_ege_selectedExamForm, this.tab_ege_year, this.tab_ege_selectedSubject,
+          this.tab_ege_score, this.tab_ege_score_fis, this.tab_ege_appelation
         );
-        location.href='profile#ege_overview';
+
+        // var entrancetest = new EntranceTest(this.tab_ege_selectedSubject, this.tab_ege_score);
+        // location.href='profile#ege_overview';
         if(this.index_for_redaction > -1){
           this.person.ege_info.push(ege);
+          // this.tests.push(entrancetest);
         }
         else {
           this.person.ege_info[this.index_for_redaction].push(ege);
         }
         console.log(this.person.ege_info)
-
+        console.log(this.tests)
       },
       onCopyInfoFromProfileTab() {
         this.tab_ege_lastname = this.tab_personal_lastname;

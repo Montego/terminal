@@ -114,7 +114,8 @@
               </label>
               <div v-if="selected_specialRight==='да'" class="row">
                 <div class="form__label-text col-sm">Документ</div>
-                <input class="document col-sm" type="file" title="Загрузите файл"/>
+                <input type="file" id="special_right_document" ref="special_right_document" @change="onFileChange">
+                <!--<input v-model="special_right_document" class="document col-sm" type="file" title="Загрузите файл"/>-->
               </div>
               <!--<label class="row">-->
                 <!--<div class="form__label-text col-sm">Тип обучения:</div>-->
@@ -180,7 +181,7 @@
           'tab_reception_condition_educationType', 'tab_reception_condition_educationForm',
           'tab_reception_condition_specialRight', 'tab_reception_condition_consent',
           'selected_faculty', 'selected_specialty', 'selected_educationType','selected_agreement',
-          'selected_specialRight','selected_typeOfSpecialRight'
+          'selected_specialRight','selected_typeOfSpecialRight', 'file'
 
         ]),
         ...mapMultiRowFields([
@@ -193,6 +194,7 @@
       },
       data(){
           return{
+            special_right_document:'',
             // conditions:[
             //   {
             //   selected_faculty:'',
@@ -251,12 +253,30 @@
               {id: 1, item: 'Бюджет'},
               {id: 2, item: 'Договор'},
               {id: 2, item: 'Целевое'},
-            ]
-
+            ],
+            // file: {
+            //   // name:'',
+            //   // type:'',
+            //   // size:''
+            // },
           }
 
       },
       methods: {
+        onFileChange(e) {
+          let files = e.target.files || e.dataTransfer.files;
+          this.file = files[0];
+          // this.file.name = files[0].name;
+          // this.file.type = files[0].type;
+          // this.file.size = files[0].size;
+          // this.file.push(files[0]);
+          console.log(this.file)
+          if (!files.length)
+            return;
+          // return file;
+          // this.createImage(files[0]);
+        },
+
         onNext() {
           location.href='application#documents';
         },
@@ -271,17 +291,19 @@
           this.application.application_condition.splice(index, 1);
         },
 
-        onAddCondition() {
-          this.conditions.push('');
-        },
-        onRemoveCondition() {
-          this.conditions.pop(this.conditions.length - 1);
-        },
+        // onAddCondition() {
+        //   this.conditions.push('');
+        // },
+        // onRemoveCondition() {
+        //   this.conditions.pop(this.conditions.length - 1);
+        // },
         onSaveCondition() {
           location.href='application#conditions_overview';
 
 
-      function Condition(faculty, specialty, type, special_right, type_special_right, agreement) {
+      function Condition(faculty, specialty, type, agreement, special_right, type_special_right,
+                         // special_right_doc,
+                         file) {
 
             this.selected_faculty = faculty;
             this.selected_specialty = specialty;
@@ -289,13 +311,15 @@
             this.selected_agreement = agreement;
             this.selected_specialRight = special_right;
             this.selected_typeOfSpecialRight = type_special_right;
-
+            // this.special_right_document = special_right_doc;
+            this.file = file;
           }
           let condition = new Condition(
             this.selected_faculty, this.selected_specialty,
             this.selected_educationType, this.selected_agreement,
             this.selected_specialRight, this.selected_typeOfSpecialRight,
-
+            // this.special_right_document,
+            this.file
           );
 
           this.application.application_condition.push(condition);
@@ -307,9 +331,9 @@
             this.selected_faculty = null,
             this.selected_specialty = null,
             this.selected_educationType = null,
-            this.selected_educationCondition = null,
             this.selected_agreement = null,
-            this.selected_specialRight = null
+            this.selected_specialRight = null,
+            this.selected_typeOfSpecialRight = null
         }
       }
     }

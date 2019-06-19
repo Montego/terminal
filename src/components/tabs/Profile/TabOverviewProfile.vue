@@ -39,15 +39,24 @@
 </template>
 
 <script>
+  import {AXIOS} from "../../plugins/APIService";
   import { createHelpers } from 'vuex-map-fields';
-  const { mapMultiRowFields } = createHelpers({
+  const { mapMultiRowFields: personM } = createHelpers({
     getterType: `person/getField`,
     mutationType: `person/updateField`,
+  });
+  const { mapMultiRowFields:application } = createHelpers({
+    getterType: `application/getField`,
+    mutationType: `application/updateField`,
   });
 
   const { mapFields: tab_personal_info } = createHelpers({
     getterType: `tab_personal_info/getField`,
     mutationType: `tab_personal_info/updateField`,
+  });
+  const { mapFields: applications } = createHelpers({
+    getterType: `applications/getField`,
+    mutationType: `applications/updateField`,
   });
   const { mapFields:person} = createHelpers({
     getterType: 'person/getField',
@@ -57,6 +66,7 @@
       name: "TabOverview",
       data () {
         return {
+          profiles: [],
           titles:[
             {
               title: 'Личные сведения'
@@ -78,8 +88,9 @@
         }
       },
       computed: {
+        ...application(['contacts']),
         ...person(['person']),
-        ...mapMultiRowFields(['persons']),
+        ...personM(['persons']),
         ...tab_personal_info(['tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
           'tab_personal_middlename','tab_personal_birthDate','tab_personal_age',
           ' tab_personal_seniority','tab_personal_employYears','tab_personal_employMonths',
@@ -93,8 +104,9 @@
           'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
           'tab_personal_birthplace', 'tab_personal_email'
         ]),
+        ...applications(['application_person_id','application_person_name']),
         showTable() {
-
+            return this.profiles;
           // return this.persons;
         },
 
@@ -102,65 +114,92 @@
         //   return this.profile_1_personal_name = this.profile_1_personal_lastname + ' ' + this.profile_1_personal_firstname + ' ' + this.profile_1_personal_middlename
         //   },
         },
+      created () {
+          AXIOS.get(`/persons/getPersons`)
+            .then(response => {
+              this.profiles = response.data
+              console.log(this.profiles)
+            })
+            .catch(e => {
+              this.errors.push(e)
+            })
+      },
+
       methods: {
         onNewProfile(){
           location.href='profile#personal_info';
-          this.tab_personal_lastname = '';
-          this.tab_personal_firstname = '';
-          this.tab_personal_middlename = '';
-          this.tab_personal_birthDate = '';
-          this.tab_personal_selectedGender = '';
-          this.tab_personal_seniority = '';
-          this.tab_personal_employYears = '';
-          this.tab_personal_employMonths = '';
-          this.tab_personal_employDays = '';
-          this.tab_personal_identityCardSeries = '';
-          this.tab_personal_identityCardNumber = '';
-          this.tab_personal_identityCardIssueDate = '';
-          this.tab_personal_identityCardIssueDep = '';
-          this.tab_personal_identityCardIssueBy = '';
-          this.tab_personal_isCompatriot = '';
-          this.tab_personal_isEquatedForeign = '';
-          this.tab_personal_isHostel = '';
-          this.tab_personal_isForeignLikeRussian = '';
-          this.tab_personal_cellularPhone = '';
-          this.tab_personal_selectedIdentityCardCode = '';
-          this.tab_personal_note = '';
-          this.tab_personal_email = '';
-          this.tab_personal_selectedCitizenship = '';
-          this.tab_personal_INIPA = '';
-          this.tab_personal_INIPADate = '';
+          this.person.ege_info = [];
+          this.person.parents_info = [];
+
+          this.person.tab_personal_lastname = '';
+          this.person.tab_personal_firstname = '';
+          this.person.tab_personal_middlename = '';
+          this.person.tab_personal_lastname_genitive = '';
+          this.person.tab_personal_firstname_genitive = '';
+          this.person.tab_personal_middlename_genitive = '';
+          this.person.tab_personal_birthDate = '';
+          this.person.tab_personal_selectedGender = '';
+          this.person.tab_personal_seniority = '';
+          this.person.tab_personal_employYears = '';
+          this.person.tab_personal_employMonths = '';
+          this.person.tab_personal_employDays = '';
+          this.person.tab_personal_identityCardSeries = '';
+          this.person.tab_personal_identityCardNumber = '';
+          this.person.tab_personal_identityCardIssueDate = '';
+          this.person.tab_personal_identityCardIssueDep = '';
+          this.person.tab_personal_identityCardIssueBy = '';
+          this.person.tab_personal_isCompatriot = '';
+          this.person.tab_personal_isEquatedForeign = '';
+          this.person.tab_personal_isHostel = '';
+          this.person.tab_personal_isForeignLikeRussian = '';
+          this.person.tab_personal_cellularPhone = '';
+          this.person.tab_personal_selectedIdentityCardCode = '';
+          this.person.tab_personal_note = '';
+          this.person.tab_personal_email = '';
+          this.person.tab_personal_selectedCitizenship = '';
+          this.person.tab_personal_INIPA = '';
+          this.person.tab_personal_INIPADate = '';
         },
         onRedaction(item) {
           location.href='profile#personal_info';
-          this.tab_personal_lastname = item.profile_1_personal_lastname;
-          this.tab_personal_firstname = item.profile_1_personal_firstname;
-          this.tab_personal_middlename = item.profile_1_personal_middlename;
-          this.tab_personal_birthDate = item.profile_1_personal_birthDate;
-          this.tab_personal_selectedGender = item.profile_1_personal_selectedGender;
-          this.tab_personal_seniority = item.profile_1_personal_seniority;
-          this.tab_personal_employYears = item.profile_1_personal_employYears;
-          this.tab_personal_employMonths = item.profile_1_personal_employMonths;
-          this.tab_personal_employDays = item.profile_1_personal_employDays;
-          this.tab_personal_identityCardSeries = item.profile_1_personal_identityCardSeries;
-          this.tab_personal_identityCardNumber = item.profile_1_personal_identityCardNumber;
-          this.tab_personal_identityCardIssueDate = item.profile_1_personal_identityCardIssueDate;
-          this.tab_personal_identityCardIssueDep = item.profile_1_personal_identityCardIssueDep;
-          this.tab_personal_identityCardIssueBy = item.profile_1_personal_identityCardIssueBy;
-          this.tab_personal_isCompatriot = item.profile_1_personal_isCompatriot;
-          this.tab_personal_isEquatedForeign = item.profile_1_personal_isEquatedForeign;
-          this.tab_personal_isHostel = item.profile_1_personal_isHostel;
-          this.tab_personal_isForeignLikeRussian = item.profile_1_personal_isForeignLikeRussian;
-          this.tab_personal_cellularPhone = item.profile_1_personal_cellularPhone;
-          this.tab_personal_selectedIdentityCardCode =item.profile_1_personal_selectedIdentityCardCode;
-          this.tab_personal_note = item.profile_1_personal_note;
-          this.tab_personal_email = item.profile_1_personal_email;
-          this.tab_personal_selectedCitizenship = item.profile_1_personal_selectedCitizenship;
-          this.tab_personal_INIPA = item.profile_1_personal_INIPA;
-          this.tab_personal_INIPADate = item.profile_1_personal_INIPADate;
+
+          const index = this.profiles.indexOf(item);
+          this.person = this.profiles[index];
+          // this.person.tab_personal_lastname = this.profiles[index].tab_personal_lastname;
+          // this.person.tab_personal_firstname = this.profiles[index].tab_personal_firstname;
+          // this.person.tab_personal_middlename = this.profiles[index].tab_personal_middlename;
+          // this.person.tab_personal_birthDate = this.profiles[index].tab_personal_birthDate;
+          // this.person.tab_personal_selectedGender = this.profiles[index].tab_personal_selectedGender;
+          // this.person.tab_personal_seniority = this.profiles[index].tab_personal_seniority;
+          // this.person.tab_personal_employYears = this.profiles[index].tab_personal_employYears;
+          // this.person.tab_personal_employMonths = this.profiles[index].tab_personal_employMonths;
+          // this.person.tab_personal_employDays = this.profiles[index].tab_personal_employDays;
+          // this.person.tab_personal_identityCardSeries = this.profiles[index].tab_personal_identityCardSeries;
+          // this.person.tab_personal_identityCardNumber = this.profiles[index].tab_personal_identityCardNumber;
+          // this.person.tab_personal_identityCardIssueDate = this.profiles[index].tab_personal_identityCardIssueDate;
+          // this.person.tab_personal_identityCardIssueDep = this.profiles[index].tab_personal_identityCardIssueDep;
+          // this.person.tab_personal_identityCardIssueBy = this.profiles[index].tab_personal_identityCardIssueBy;
+          // this.person.tab_personal_isCompatriot = this.profiles[index].tab_personal_isCompatriot;
+          // this.person.tab_personal_isEquatedForeign = this.profiles[index].tab_personal_isEquatedForeign;
+          // this.person.tab_personal_isHostel = this.profiles[index].tab_personal_isHostel;
+          // this.person.tab_personal_isForeignLikeRussian = this.profiles[index].tab_personal_isForeignLikeRussian;
+          // this.person.tab_personal_cellularPhone = this.profiles[index].tab_personal_cellularPhone;
+          // this.person.tab_personal_selectedIdentityCardCode = this.profiles[index].tab_personal_selectedIdentityCardCode;
+          // this.person.tab_personal_note = this.profiles[index].tab_personal_note;
+          // this.person.tab_personal_email = this.profiles[index].tab_personal_email;
+          // this.person.tab_personal_selectedCitizenship = this.profiles[index].tab_personal_selectedCitizenship;
+          // this.person.tab_personal_INIPA = this.profiles[index].tab_personal_INIPA;
+          // this.person.tab_personal_INIPADate = this.profiles[index].tab_personal_INIPADate;
         },
         onApplication(item) {
-          location.href='application#applicationFill';
+          const index = this.profiles.indexOf(item);
+          this.person = this.profiles[index];
+          // this.contacts.push(this.profiles[index]);
+          this.showApplication = true;
+          this.showPerson = false
+
+          // application_person_name
+          location.href='profile#applicationFill';
         },
       },
 

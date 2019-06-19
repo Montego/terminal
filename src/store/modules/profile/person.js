@@ -4,7 +4,8 @@ import {AXIOS} from "../../../components/plugins/APIService";
 export default {
   namespaced: true,
   state: {
-
+    showApplication: false,
+    showPerson: true,
     person : {
       ege_info:[],
       parents_info:[],

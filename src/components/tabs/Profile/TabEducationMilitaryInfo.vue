@@ -112,7 +112,8 @@
         <label class="row">
           <div class="form__label-text col-sm-6">Средний балл:</div>
           <button class="calculate_score col-sm-4" @click="onCalculateScore">Расчет среднего балла</button>
-          <input v-model="person.score_full" class="form__input col-sm-2 " type="text" v-mask="'#.##'" placeholder="---"
+          <input v-model="person.score_full" class="form__input col-sm-2 " type="text" v-mask="'#.##'" disabled hidden/>
+          <input v-model="score_full" class="form__input col-sm-2 " type="text" v-mask="'#.##'" placeholder="---"
                  disabled="disabled"/>
         </label>
         <label class="row">
@@ -319,6 +320,10 @@
       methods: {
         onCalculateScore() {
           this.person.score_full = (parseInt(this.score_five)*5 + parseInt(this.score_four)*4 +
+            parseInt(this.score_three)*3) / (parseInt(this.score_five) + parseInt(this.score_four)
+            + parseInt(this.score_three));
+
+          this.score_full = (parseInt(this.score_five)*5 + parseInt(this.score_four)*4 +
             parseInt(this.score_three)*3) / (parseInt(this.score_five) + parseInt(this.score_four)
             + parseInt(this.score_three));
 

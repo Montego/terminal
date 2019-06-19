@@ -6,23 +6,25 @@
     <hr>
 
     <div class="row">
+    {{this.person.ege_info}}
+      {{this.person.ege_info[0].tab_ege_score}}
       <div class="col-sm-6">
         <label class="row">
           <div class="form__label-text col-sm">Русский язык:</div>
-          <input  v-model="tab_ege_score" class="form__input col-sm" type="number" name="" placeholder="Заполняется автоматически" disabled />
-          <input  class="form__input col-sm" type="number" name="" placeholder="Заполняется автоматически" disabled />
+          <input  v-model="checkRussianScore" class="form__input col-sm" type="number" name="" placeholder="Заполняется автоматически" disabled />
+          <input  class="form__input col-sm" type="text" name="" placeholder="Заполняется автоматически" disabled />
           <!--<input  class="form__input col-sm" type="number" name="" placeholder="" disabled />-->
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Химия:</div>
-          <input v-model="tab_ege_score2" class="form__input col-sm" type="number" name="" placeholder="Заполняется автоматически" disabled />
-          <input  class="form__input col-sm" type="number" name="" placeholder="Заполняется автоматически" disabled />
+          <input v-model="checkChemistryScore" class="form__input col-sm" type="number" name="" placeholder="Заполняется автоматически" disabled />
+          <input  class="form__input col-sm" type="text" name="" placeholder="Заполняется автоматически" disabled />
           <!--<input  class="form__input col-sm" type="number" name="" placeholder="" disabled />-->
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Биология:</div>
-          <input v-model="tab_ege_score3" class="form__input col-sm" type="number" name="" placeholder="Заполняется автоматически" disabled />
-          <input  class="form__input col-sm" type="number" name="" placeholder="Заполняется автоматически" disabled />
+          <input v-model="checkBiologyScore" class="form__input col-sm" type="number" name="" placeholder="Заполняется автоматически" disabled />
+          <input  class="form__input col-sm" type="text" name="" placeholder="Заполняется автоматически" disabled />
           <!--<div class="form__label-text col-sm">{{tab_ege_score3}}</div>-->
           <!--<div class="form__label-text col-sm">форма егэ</div>-->
           <!--<output name="tab_ege_score3" class="form__input col-sm" />-->
@@ -67,6 +69,7 @@
 </template>
 
 <script>
+  import {mapGetters, mapState} from 'vuex'
   import { createHelpers } from 'vuex-map-fields';
   const { mapMultiRowFields } = createHelpers({
     getterType: `tab_evidence_ege_info/getField`,
@@ -84,6 +87,10 @@
     getterType: 'person/getField',
     mutationType: 'person/updateField',
   });
+  const { mapFields:applications} = createHelpers({
+    getterType: 'applications/getField',
+    mutationType: 'applications/updateField',
+  });
     export default {
         name: "TabEntranceTests",
       computed: {
@@ -93,22 +100,63 @@
         ...tab_evidence_ege_info(['tab_ege_score','tab_ege_score1','tab_ege_score2','tab_ege_score3',
           'tab_ege_selectedSubject','tab_ege_selectedSubject2','tab_ege_selectedSubject3'
         ]),
-        ...mapMultiRowFields(['ege_info']),
+        ...mapMultiRowFields(['ege_info','tests']),
         ...person(['person']),
-        showData(){
-          return this.ege_result = this.ege_info;
-        },
+        ...applications(['application']),
 
         show(){
-          return this.ege_info;
+          return this.person.ege_info;
         },
 
+        checkRussianScore() {
+          let i = 0;
+          for (i; i < this.person.ege_info.length; i++) {
+            if (this.person.ege_info[i].tab_ege_selectedSubject === "Русский язык") {
+              // this.application.ege.sub = "Русский язык";
+              // this.application.ege.score = this.person.ege_info[i].tab_ege_score;
+              // this.application.ege.form = this.person.ege_info[i].tab_ege_selectedExamForm;
+              // return this.application.ege;
+              return this.application.score_russian = this.person.ege_info[i].tab_ege_score;
+            }
+          }
+        },
+        checkChemistryScore() {
+          let i = 0;
+          for (i; i < this.person.ege_info.length; i++) {
+            if(this.person.ege_info[i].tab_ege_selectedSubject === "Химия"){
+                return this.application.score_chemistry = this.person.ege_info[i].tab_ege_score;
+              }
+          }
+        },
+        checkBiologyScore() {
+          let i = 0;
+          for (i; i < this.person.ege_info.length; i++) {
+            if(this.person.ege_info[i].tab_ege_selectedSubject === "Биология"){
+               return this.application.score_biology = this.person.ege_info[i].tab_ege_score;
+            }
+          }
+        },
+
+
+
+
+
+
       },
-      // mounted(){
-      //   this.takeInfoFromProfile();
-      // },
+      mounted(){
+
+      },
         data(){
+
         return{
+          ege:{
+            sub:'',
+            score:'',
+            form:''
+          },
+          // score_russian:'',
+          // score_chemistry:'',
+          // score_biology:'',
           headers_ege_results: [
             { text: 'Наименование', value: 'name', sortable: false, align: 'center' },
             { text: 'Балл', value: 'score',sortable: false, align: 'center' },

@@ -17,7 +17,7 @@ export default {
     tab_parent_organization_seniority: '',
     tab_parent_organization_employYears: '',
     tab_parent_selectedFamRelationShip: '',
-    tab_parent_selectedGender: '',
+    tab_parent_selectedGender: null,
 
 
   },

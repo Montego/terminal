@@ -67,7 +67,7 @@
             <label class="row">
               <div class="form__label-text col-sm">Пол:</div>
               <select v-model="tab_parent_selectedGender" class="minimal col-sm">
-                <option v-for="item in gender">
+                <option v-for="item in gender" v-bind:value="item">
                   {{item.name}}
                 </option>
               </select>
@@ -175,7 +175,7 @@
 
     data() {
       return {
-
+        persons: [],
         options_FamRelationShip: [
           {id: 1, item: 'Брат'},
           {id: 2, item: 'Дети'},
@@ -208,6 +208,8 @@
       table_show() {
         return this.person.parents_info;
       },
+
+
 
       fullname: function () {
         return this.tab_parent_name = this.tab_parent_lastname + ' ' + this.tab_parent_firstname + ' ' + this.tab_parent_middlename

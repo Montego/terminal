@@ -12,19 +12,37 @@
     getterType: 'applications/getField',
     mutationType: 'applications/updateField',
   });
+  const { mapFields:tab_reception_condition} = createHelpers({
+    getterType: 'tab_reception_condition/getField',
+    mutationType: 'tab_reception_condition/updateField',
+  });
     export default {
         name: "Other",
         computed: {
           ...applications(['application']),
+          ...tab_reception_condition([ 'file',]),
       },
       methods: {
         onSave() {
+
+          // let formData = new FormData()
+          // formData.append('application',JSON.stringify(this.application));
+          // let i =0;
+          // for(i ;i < this.application.application_condition.length;i++ ){
+          //   formData.append('conditions', this.application.application_condition.file[i])
+          //   console.log(this.application.application_condition.file[i])
+          // }
+          // formData.append('conditions'),this.application.application_condition.
+
+
+          // AXIOS.post(`/persons`,formData)
+          // AXIOS.post(`/applications`, formData)
           AXIOS.post(`/applications`, this.application)
             .then(response => {
               this.info.push(response.data)
             })
             .catch(e => {
-              this.errors.push(e)
+              // this.errors.push(e)
             })
           }
 

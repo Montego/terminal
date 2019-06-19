@@ -3,12 +3,14 @@
   <!--<button color="#5bc0de" @click="onNewApplication()">-->
     <!--+-->
   <!--</button>-->
+  {{this.person.tab_personal_lastname}}
   <v-data-table
     :headers="headers_parent"
     :items="info_parent"
     hide-actions
     class="elevation-1 text-xs-center"
   >
+
     <template slot="items" slot-scope="props">
       <td class="text-xs-center">{{ props.item.profile_name}}</td>
       <td class="text-xs-center">{{ props.item.application_number}}</td>
@@ -36,7 +38,13 @@
 </template>
 
 <script>
+  import { createHelpers } from 'vuex-map-fields';
+  import {mapGetters, mapState} from 'vuex'
 
+  const { mapFields:person} = createHelpers({
+    getterType: 'person/getField',
+    mutationType: 'person/updateField',
+  });
     export default {
         name: "TabOverviewApplication",
       data(){
@@ -54,6 +62,9 @@
             info_parent: [],
 
           }
+      },
+      computed:{
+        ...person(['person']),
       },
       methods:{
         onNewApplication() {

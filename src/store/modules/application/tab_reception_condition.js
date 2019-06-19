@@ -17,6 +17,8 @@ export default {
     selected_specialRight:'',
     selected_typeOfSpecialRight:'',
 
+    file:null,
+
     tab_reception_condition_allConditions:[],
 
   },

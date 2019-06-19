@@ -5,8 +5,9 @@
     </div>
     <hr>
 
+
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-8">
         <label class="row">
           <div class="form__label-text col-sm">Номер заявления:</div>
           <input v-model="application.application_number" class="form__input col-sm" type="text" name=""  />
@@ -38,7 +39,7 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Абитуриент:</div>
-          <input class="uneditable form__input col-sm" type="text" name="" disabled />
+          <input v-model="fullname" class="uneditable form__input col-sm" type="text" name="" disabled />
         </label>
     </div>
     </div>
@@ -58,6 +59,10 @@
     getterType: 'applications/getField',
     mutationType: 'applications/updateField',
   });
+  const { mapFields:person} = createHelpers({
+    getterType: 'person/getField',
+    mutationType: 'person/updateField',
+  });
   export default {
     name: "TabEntranceTests",
     mounted () {
@@ -65,13 +70,17 @@
       this.$store.dispatch('enums/onLoadDeliveryType');
     },
     computed: {
-      ...applications(['application']),
+      ...applications(['application','contacts']),
       ...mapState('enums',['deliveryType', 'docType']),
       ...mapGetters('enums',['GET_DELIVERY_TYPE','GET_DOC_TYPE']),
+      ...person(['person']),
 
-
-
+      fullname(){
+        return this.application.fullname = this.person.tab_personal_lastname + " "
+          + this.person.tab_personal_firstname + " " + this.person.tab_personal_middlename
+      },
     },
+
 
     data(){
       return{

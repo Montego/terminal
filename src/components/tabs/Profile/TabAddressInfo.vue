@@ -33,7 +33,7 @@
       </div>
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea v-model="person.tab_address_factAddress, factAddress" class="col-sm-10" name=""></textarea>
+        <textarea v-model="person.tab_address_factAddress" class="col-sm-10" name=""></textarea>
       </label>
     </div>
     <div class="info_address2 col-sm">

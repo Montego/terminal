@@ -20,11 +20,11 @@ const routes = [
     path:'/registration',
     component: Registation
   },
-  {
-    name:'application',
-    path:'/application',
-    component: Application
-  },
+  // {
+  //   name:'application',
+  //   path:'/application',
+  //   component: Application
+  // },
   {
     path:'',
     redirect: {name :'login'}

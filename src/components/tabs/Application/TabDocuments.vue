@@ -3,7 +3,7 @@
     <tabs class="parent_tabs">
       <tab id="documents_overview" name="Обзор">
         <div class="row">
-          <button>Заполнить</button>
+          <button @click="onFill">Заполнить</button>
           <button @click="onAdd">Добавить</button>
         </div>
         <v-data-table
@@ -14,7 +14,7 @@
         >
           <template slot="items" slot-scope="props">
             <td class="text-xs-center">{{ props.item.fullName}}</td>
-            <td class="text-xs-center">{{ props.item.tab_document_selectedDocType.name}}</td>
+            <td class="text-xs-center">{{ props.item.tab_document_selectedDocType}}</td>
             <td class="text-xs-center">{{ props.item.tab_document_date}}</td>
             <td class="text-xs-center">{{ props.item.tab_document_count }}</td>
             <td class="text-xs-center">
@@ -138,6 +138,13 @@
              this.tab_document_series +
             ' ' + this.tab_document_number;
         },
+        fullName1(){
+          return this.document_fullName =
+            // type + ' ' + serial + ' ' + number
+            this.tab_personal_selectedIdentityCardCode + ' ' +
+            this.tab_personal_identityCardSeries +
+            ' ' + this.tab_personal_identityCardNumber;
+        },
 
         showTable(){
           return  this.application.application_documents;
@@ -162,11 +169,36 @@
             this.tab_document_date = null;
             this.tab_document_issuedBy = null;
           },
+          onFill() {
+
+            function Document1(doc1_type, doc1_series, doc1_number, doc1_full) {
+              this.tab_personal_selectedIdentityCardCode = doc1_type;
+              this.tab_personal_identityCardSeries = doc1_series;
+              this.tab_personal_identityCardNumber = doc1_number;
+              // this.fullName = doc1_type + " " + doc1_series + " " + doc1_number
+              this.fullName = doc1_full;
+
+            }
+            let document1 = new Document1(
+              this.tab_personal_selectedIdentityCardCode,
+              this.tab_personal_identityCardSeries,
+              this.tab_personal_identityCardNumber,
+              // this.fullName
+              // this.fullName = this.fullName1
+
+            );
+            // if(document1.tab_personal_selectedIdentityCardCode != null){
+              this.application.application_documents.push(document1);
+            // }
+
+              console.log(" i don't know ")
+
+          },
           onSave() {
             location.href='application#documents_overview';
 
             function Document(doc_type,doc_count,doc_series,doc_number,
-                            doc_selectedCopy,doc_date,doc_issuedBy, doc_fullName
+                            doc_selectedCopy,doc_date,doc_issuedBy,doc_full
                             ) {
               this.tab_document_selectedDocumentType = doc_type;
               this.tab_document_count = doc_count;
@@ -175,25 +207,24 @@
               this.tab_document_selectedDocType = doc_selectedCopy;
               this.tab_document_date = doc_date;
               this.tab_document_issuedBy = doc_issuedBy;
-              this.fullName = doc_fullName;
+              this.fullName = doc_full;
             }
               let document = new Document(
                 this.tab_document_selectedDocumentType, this.tab_document_count, this.tab_document_series,
                 this.tab_document_number,this.tab_document_selectedDocType,this.tab_document_date,
                 this.tab_document_issuedBy, this.fullName
-
               );
 
             this.application.application_documents.push(document);
             console.log(this.document)
             console.log(this.application.application_documents)
-            console.log(this.fullName);
+            // console.log(this.fullName);
           },
 
           onDelete(item) {
-            const index = this.info_documents.indexOf(item);
+            const index = this.application.application_documents.indexOf(item);
             console.log(index);
-            this.info_documents.splice(index, 1);
+            this.application.application_documents.splice(index, 1);
           }
         },
 

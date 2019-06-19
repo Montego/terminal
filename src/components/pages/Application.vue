@@ -11,6 +11,7 @@
 
           </div>
 
+
           <div>
             <tabs class="main_tab">
               <tab id="overview" name="Обзор">
@@ -43,10 +44,29 @@
   import TabOther from "../tabs/Application/TabOther";
   import TabEntranceTests from "../tabs/Application/TabEntranceTests";
   import TabApplicationFill from "../tabs/Application/TabApplicationFill";
+
+  import TabEvidenceEgeInfo from "../tabs/Profile/TabEvidenceEgeInfo";
+
+  import { createHelpers } from 'vuex-map-fields';
+
+  const { mapFields:person} = createHelpers({
+    getterType: 'person/getField',
+    mutationType: 'person/updateField',
+  });
     export default {
         name: "Application",
+      computed: {
+        ...person(['person']),
+      },
       components: {
-        TabOverviewApplication, TabApplicationFill, TabReceptionConditions , TabDocuments, TabEntranceTests, TabOther
+        TabOverviewApplication, TabApplicationFill, TabReceptionConditions , TabDocuments,
+        TabEntranceTests, TabOther,
+        TabEvidenceEgeInfo
+      },
+      mounted(){
+        console.log(this.person)
+        console.log(person.ege_info)
+        //   this.takeInfoFromProfile();
       },
       data() {
         return {

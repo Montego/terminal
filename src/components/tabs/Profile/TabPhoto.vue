@@ -1,24 +1,47 @@
 <template>
   <div>
-
-  <section>
-    <form method="post" class="row" action="/image/add" enctype="multipart/form-data">
-
-      <div class="form-group row">
-        <input type='file' @change="previewImages" id="newfiles" name="newfiles[]" class="form-control col-sm-9" accept="image/*" />
-        <!--<button class="btn btn-outline-success float-right col-sm-4">Загрузить</button>-->
+    {{this.person}}
+    <!--<form method="POST" onsubmit="" ACTION="api/persons/image?${_csrf.parameterName}=${_csrf.token}"-->
+          <!--ENCTYPE="multipart/form-data">-->
+    <form enctype="multipart/form-data">
+      <div v-if="!image">
+        <h2>Select an image</h2>
+        <input type="file" id="image" ref="image" @change="onFileChange">
       </div>
-      {{this.person}}
+      <div class="row" v-else>
+        <div class="col-sm-8">
+          <img class="images_place" :src="image" />
+        </div>
 
+        <div class="col-sm-4">
+          <div class="row">
+            <div class="">
+              <button @click="removeImage">Удалить</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
     </form>
-    <!--<button class="btn btn-outline-success float-right col-sm-4" @click="clearPhoto" >Очистить</button>-->
-      <div class="col-md-6 py-2 border" v-for="(image, index) in imagesData">
-        <img class="img-thumbnail images_place" :src="image" v-if="image.length > 0">
-      </div>
-    <div class="clear_save_button row">
+    <div class="">
       <button @click="onSave">Сохранить </button>
     </div>
-  </section>
+  <!--<section>-->
+    <!--<form method="post" class="row" action="/image/add" enctype="multipart/form-data">-->
+
+      <!--<div class="form-group row">-->
+        <!--<input type='file' @change="previewImages" id="newfiles" name="newfiles[]" class="form-control col-sm-9" accept="image/*" />-->
+        <!--&lt;!&ndash;<button class="btn btn-outline-success float-right col-sm-4">Загрузить</button>&ndash;&gt;-->
+      <!--</div>-->
+      <!--{{this.person}}-->
+
+    <!--</form>-->
+    <!--&lt;!&ndash;<button class="btn btn-outline-success float-right col-sm-4" @click="clearPhoto" >Очистить</button>&ndash;&gt;-->
+      <!--<div class="col-md-6 py-2 border" v-for="(image, index) in imagesData">-->
+        <!--<img class="img-thumbnail images_place" :src="image" v-if="image.length > 0">-->
+      <!--</div>-->
+    <!---->
+  <!--</section>-->
 
   </div>
 </template>
@@ -35,6 +58,8 @@
     getterType: 'tab_personal_info/getField',
     mutationType: 'tab_personal_info/updateField',
   });
+
+
   const { mapFields:person} = createHelpers({
     getterType: 'person/getField',
     mutationType: 'person/updateField',
@@ -44,7 +69,8 @@
       data() {
         return {
           info: [],
-          imagesData: []
+          imagesData: [],
+          image: ''
         }
       },
       computed: {
@@ -62,6 +88,7 @@
           'tab_personal_selectedIdentityCardCode','tab_personal_selectedForeignLanguageInfo',
           'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
           'tab_personal_bithplace', 'tab_personal_email']),
+
         ...mapMultiRowFields(['persons']),
         ...person(['person']),
         show(){
@@ -70,8 +97,12 @@
       },
       methods: {
 
+
         onSave() {
-          AXIOS.post(`/persons`,this.person)
+          // let formData = new FormData()
+          // formData.append('person',this.person);
+          // AXIOS.post(`/persons`,formData)
+          AXIOS.post(`/persons`,(this.person))
             .then(response => {
               this.info.push(response.data)
             })
@@ -79,8 +110,43 @@
               this.errors.push(e)
             })
 
+        //   let formData = new FormData();
+        //   formData.append('image', this.image);
+        //   AXIOS.post( '/persons/image',
+        //     formData,
+        //     {
+        //       headers: {
+        //         'Content-Type': 'multipart/form-data'
+        //       }
+        //     }
+        //   ).then(function(){
+        //     console.log('SUCCESS!!');
+        //   })
+        //     .catch(function(){
+        //       console.log('FAILURE!!');
+        //     });
+        //
         },
 
+        onFileChange(e) {
+          var files = e.target.files || e.dataTransfer.files;
+          if (!files.length)
+            return;
+          this.createImage(files[0]);
+        },
+        createImage(file) {
+          var image = new Image();
+          var reader = new FileReader();
+          var vm = this;
+
+          reader.onload = (e) => {
+            vm.image = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        },
+        removeImage: function (e) {
+          this.image = '';
+        },
 
         clearPhoto() {
           this.imagesData.pop(this.imagesData.length-1);
