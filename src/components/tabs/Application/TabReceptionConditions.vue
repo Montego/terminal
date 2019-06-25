@@ -278,11 +278,11 @@
         },
 
         onNext() {
-          location.href='application#documents';
+          location.href='profile#documents';
         },
 
         onAdd() {
-          location.href='application#conditions_info';
+          location.href='profile#conditions_info';
         },
 
         onDelete(item){
@@ -298,7 +298,7 @@
         //   this.conditions.pop(this.conditions.length - 1);
         // },
         onSaveCondition() {
-          location.href='application#conditions_overview';
+          location.href='profile#conditions_overview';
 
 
       function Condition(faculty, specialty, type, agreement, special_right, type_special_right,

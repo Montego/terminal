@@ -155,10 +155,10 @@
       },
         methods: {
           onNext() {
-            location.href='application#entranceTests';
+            location.href='profile#entranceTests';
           },
           onAdd(){
-            location.href='application#documents_info';
+            location.href='profile#documents_info';
           },
           onClear() {
             this.tab_document_selectedDocumentType = null;
@@ -195,7 +195,7 @@
 
           },
           onSave() {
-            location.href='application#documents_overview';
+            location.href='profile#documents_overview';
 
             function Document(doc_type,doc_count,doc_series,doc_number,
                             doc_selectedCopy,doc_date,doc_issuedBy,doc_full

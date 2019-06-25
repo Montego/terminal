@@ -98,7 +98,7 @@
     },
     methods: {
       onNext() {
-        location.href='application#receptrionCondition';
+        location.href='profile#receptrionCondition';
       },
     },
   }

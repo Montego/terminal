@@ -427,6 +427,7 @@
         }
         console.log(this.person.ege_info)
         console.log(this.tests)
+        location.href='profile#ege_overview';
       },
       onCopyInfoFromProfileTab() {
         this.tab_ege_lastname = this.tab_personal_lastname;

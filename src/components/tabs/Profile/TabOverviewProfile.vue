@@ -191,15 +191,27 @@
           // this.person.tab_personal_INIPA = this.profiles[index].tab_personal_INIPA;
           // this.person.tab_personal_INIPADate = this.profiles[index].tab_personal_INIPADate;
         },
+        // onApplication(item) {
+        //   this.$root.$emit('sendShow', {
+        //     showApplication: true,
+        //     showPerson: false
+        //   })
+
+
         onApplication(item) {
+
           const index = this.profiles.indexOf(item);
           this.person = this.profiles[index];
+          // console.log(this.showApplication)
+          // console.log(this.showPerson)
+          // this.showApplication = true;
+          this.showPerson = !this.showPerson;
+          // console.log(this.showApplication)
+          console.log(this.showPerson)
           // this.contacts.push(this.profiles[index]);
-          this.showApplication = true;
-          this.showPerson = false
 
           // application_person_name
-          location.href='profile#applicationFill';
+          // location.href='profile#applicationFill';
         },
       },
 

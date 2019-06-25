@@ -6,8 +6,7 @@
     <hr>
 
     <div class="row">
-    {{this.person.ege_info}}
-      {{this.person.ege_info[0].tab_ege_score}}
+
       <div class="col-sm-6">
         <label class="row">
           <div class="form__label-text col-sm">Русский язык:</div>

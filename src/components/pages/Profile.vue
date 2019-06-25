@@ -14,7 +14,7 @@
     </div>
     <div>
       <!--<tabs class="main_tab" :options="{ useUrlFragment: false }">-->
-        <tabs class="main_tab" v-if="showPerson">
+        <tabs class="main_tab" v-show="showPerson">
           <tab id="overview_personal_info" name="Обзор">
             <TabOverview></TabOverview>
           </tab>
@@ -45,11 +45,10 @@
             <TabPhoto></TabPhoto>
           </tab>
 
-          <tab id="overviewApplication" name="Обзор">
-            <TabOverviewApplication></TabOverviewApplication>
-          </tab>
 
-          <tabs class="main_tab" >
+          {{this.showPerson}}
+
+          <tabs class="main_tab" if="this.showPerson===false">
             <tab id="overviewApplication" name="Обзор">
               <TabOverviewApplication></TabOverviewApplication>
             </tab>
@@ -111,10 +110,11 @@
       TabDocuments, TabEntranceTests, TabOther
     },
     computed: {
-      ...person(['person','showApplication','showPerson']),
+      ...person(['person', 'showPerson']),
     },
     data() {
       return {
+
         titles:[
           {
             title: 'Заявление'
@@ -129,8 +129,8 @@
       }
     },
     methods: {
-      onApplication() {
-
+      onApplication(data) {
+        console.log(data)
       }
     }
   }
