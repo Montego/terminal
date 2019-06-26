@@ -114,7 +114,7 @@
               </label>
               <div v-if="selected_specialRight==='да'" class="row">
                 <div class="form__label-text col-sm">Документ</div>
-                <input type="file" id="special_right_document" ref="special_right_document" @change="onFileChange">
+                <input type="file" id="special_right_document" ref="special_right_document" @change="uploadFile">
                 <!--<input v-model="special_right_document" class="document col-sm" type="file" title="Загрузите файл"/>-->
               </div>
               <!--<label class="row">-->
@@ -181,7 +181,7 @@
           'tab_reception_condition_educationType', 'tab_reception_condition_educationForm',
           'tab_reception_condition_specialRight', 'tab_reception_condition_consent',
           'selected_faculty', 'selected_specialty', 'selected_educationType','selected_agreement',
-          'selected_specialRight','selected_typeOfSpecialRight', 'file'
+          'selected_specialRight','selected_typeOfSpecialRight', 'documentBase64'
 
         ]),
         ...mapMultiRowFields([
@@ -194,15 +194,9 @@
       },
       data(){
           return{
+
             special_right_document:'',
-            // conditions:[
-            //   {
-            //   selected_faculty:'',
-            //   selected_specialty:'',
-            //   selected_educationForm:'',
-            //   selected_educationCondition:'',
-            //   }
-            // ],
+
 
             headers_conditions: [
               {text: 'Факультет', value: 'selected_faculty', sortable: false, align: 'center'},
@@ -263,6 +257,16 @@
 
       },
       methods: {
+        uploadFile(e){
+          let file = e.target.files[0];
+          let reader = new FileReader();
+          reader.onloadend = (file) => {
+
+            this.documentBase64 = reader.result;
+            // console.log('RESULT',reader.result)
+          }
+          reader.readAsDataURL(file);
+        },
         onFileChange(e) {
           let files = e.target.files || e.dataTransfer.files;
           this.file = files[0];
@@ -300,11 +304,9 @@
         onSaveCondition() {
           location.href='profile#conditions_overview';
 
-
-      function Condition(faculty, specialty, type, agreement, special_right, type_special_right,
+            function Condition(faculty, specialty, type, agreement, special_right, type_special_right,
                          // special_right_doc,
-                         file) {
-
+                               document) {
             this.selected_faculty = faculty;
             this.selected_specialty = specialty;
             this.selected_educationType = type;
@@ -312,14 +314,14 @@
             this.selected_specialRight = special_right;
             this.selected_typeOfSpecialRight = type_special_right;
             // this.special_right_document = special_right_doc;
-            this.file = file;
+            this.documentBase64 = document;
           }
           let condition = new Condition(
             this.selected_faculty, this.selected_specialty,
             this.selected_educationType, this.selected_agreement,
             this.selected_specialRight, this.selected_typeOfSpecialRight,
             // this.special_right_document,
-            this.file
+            this.documentBase64
           );
 
           this.application.application_condition.push(condition);

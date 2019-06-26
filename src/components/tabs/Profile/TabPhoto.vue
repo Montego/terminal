@@ -6,7 +6,7 @@
     <form enctype="multipart/form-data">
       <div v-if="!image">
         <h2>Select an image</h2>
-        <input type="file" id="image" ref="image" @change="onFileChange">
+        <input type="file" id="image" ref="image" @change="uploadFile">
       </div>
       <div class="row" v-else>
         <div class="col-sm-8">
@@ -18,7 +18,6 @@
             <div class="">
               <button @click="removeImage">Удалить</button>
             </div>
-
           </div>
         </div>
       </div>
@@ -70,7 +69,8 @@
         return {
           info: [],
           imagesData: [],
-          image: ''
+          image: '',
+          base:''
         }
       },
       computed: {
@@ -96,6 +96,19 @@
         }
       },
       methods: {
+
+        uploadFile(e){
+          let file = e.target.files[0];
+           let reader = new FileReader();
+           reader.onloadend = (file) => {
+             this.person.photo = reader.result
+             this.base = reader.result;
+             // console.log('RESULT',reader.result)
+           }
+           reader.readAsDataURL(file);
+        },
+
+
 
 
         onSave() {
@@ -133,6 +146,7 @@
           if (!files.length)
             return;
           this.createImage(files[0]);
+
         },
         createImage(file) {
           var image = new Image();
@@ -143,25 +157,27 @@
             vm.image = e.target.result;
           };
           reader.readAsDataURL(file);
+          // this.base = reader.readAsDataURL(file);
+
         },
         removeImage: function (e) {
           this.image = '';
         },
 
-        clearPhoto() {
-          this.imagesData.pop(this.imagesData.length-1);
-        },
-        previewImages: function(event) {
-          this.imagesData = [];
-          var pictures = event.target.files;
-          for (var i = 0; i < pictures.length; i++) {
-            var reader = new FileReader();
-            reader.onload = (e) => {
-              this.imagesData.push(e.target.result);
-            }
-            reader.readAsDataURL(pictures[i]);
-          }
-        }
+        // clearPhoto() {
+        //   this.imagesData.pop(this.imagesData.length-1);
+        // },
+        // previewImages: function(event) {
+        //   this.imagesData = [];
+        //   var pictures = event.target.files;
+        //   for (var i = 0; i < pictures.length; i++) {
+        //     var reader = new FileReader();
+        //     reader.onload = (e) => {
+        //       this.imagesData.push(e.target.result);
+        //     }
+        //     reader.readAsDataURL(pictures[i]);
+        //   }
+        // }
       }
     }
 </script>
