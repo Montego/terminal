@@ -1,8 +1,9 @@
 <template>
   <div>
-    {{this.person}}
+    <!--{{this.person}}-->
     <!--<form method="POST" onsubmit="" ACTION="api/persons/image?${_csrf.parameterName}=${_csrf.token}"-->
           <!--ENCTYPE="multipart/form-data">-->
+
     <form enctype="multipart/form-data">
       <div v-if="!image">
         <h2>Select an image</h2>
@@ -23,7 +24,8 @@
       </div>
     </form>
     <div class="">
-      <button @click="onSave">Сохранить </button>
+      <button type="button" @click="handleClick(false)">К заявлениям</button>
+      <!--<button @click="onSave">Сохранить </button>-->
     </div>
   <!--<section>-->
     <!--<form method="post" class="row" action="/image/add" enctype="multipart/form-data">-->
@@ -90,13 +92,15 @@
           'tab_personal_bithplace', 'tab_personal_email']),
 
         ...mapMultiRowFields(['persons']),
-        ...person(['person']),
+        ...person(['person','showProfile']),
         show(){
           return this.persons
         }
       },
       methods: {
-
+        handleClick(val) {
+          this.showProfile = val;
+        },
         uploadFile(e){
           let file = e.target.files[0];
            let reader = new FileReader();

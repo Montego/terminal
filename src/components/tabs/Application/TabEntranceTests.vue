@@ -169,7 +169,7 @@
         },
       methods: {
         onNext(){
-          location.href='application#other';
+          location.href='profile#other';
         },
         // onSave(){
         //   location.href='application#overview';

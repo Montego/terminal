@@ -29,7 +29,7 @@
           <button @click="onRedaction(props.item)">
             <v-icon color="#5bc0de">edit</v-icon>
           </button>
-          <button @click="onApplication(props.item)">
+          <button type="button" @click="handleClick(false)">
             <v-icon color="#5bc0de">Заявление</v-icon>
           </button>
       </td>
@@ -64,8 +64,12 @@
   });
     export default {
       name: "TabOverview",
+      props: {
+        handleClick: Function,
+      },
       data () {
         return {
+
           profiles: [],
           titles:[
             {
@@ -89,7 +93,7 @@
       },
       computed: {
         ...application(['contacts']),
-        ...person(['person']),
+        ...person(['person','showProfile']),
         ...personM(['persons']),
         ...tab_personal_info(['tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
           'tab_personal_middlename','tab_personal_birthDate','tab_personal_age',
@@ -126,6 +130,8 @@
       },
 
       methods: {
+
+
         onNewProfile(){
           location.href='profile#personal_info';
           this.person.ege_info = [];

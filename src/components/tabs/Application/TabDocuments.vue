@@ -138,13 +138,13 @@
              this.tab_document_series +
             ' ' + this.tab_document_number;
         },
-        fullName1(){
-          return this.document_fullName =
-            // type + ' ' + serial + ' ' + number
-            this.tab_personal_selectedIdentityCardCode + ' ' +
-            this.tab_personal_identityCardSeries +
-            ' ' + this.tab_personal_identityCardNumber;
-        },
+        // fullName1(){
+        //   return this.document_fullName =
+        //     // type + ' ' + serial + ' ' + number
+        //     this.tab_personal_selectedIdentityCardCode + ' ' +
+        //     this.tab_personal_identityCardSeries +
+        //     ' ' + this.tab_personal_identityCardNumber;
+        // },
 
         showTable(){
           return  this.application.application_documents;

@@ -261,7 +261,6 @@
           let file = e.target.files[0];
           let reader = new FileReader();
           reader.onloadend = (file) => {
-
             this.documentBase64 = reader.result;
             // console.log('RESULT',reader.result)
           }

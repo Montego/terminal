@@ -1,75 +1,97 @@
 <template>
   <div class="outer">
-    <div class="row search_place">
-      <label class="row search_form">
-        <div class="col-sm">Абитуриент:</div>
-        <input class="col-sm" type="search" name="поиск" placeholder="Поиск по сайту">
-      </label>
-      <!--<router-link :to="{name: 'application'}" v-bind:title="titles[0].title">-->
-        <!--<button class="search_button col-sm">К заявлениям</button>-->
-      <!--</router-link>-->
-      <button class="logout">
-        <a href="/login">Logout</a>
-      </button>
+    <!--<div class="row">-->
+      <!--<div class="col-sm-1">Абитуриент:</div>-->
+      <!--<input class="col-sm-4" type="search" name="поиск" placeholder="Поиск по сайту">-->
+      <!--<button class="col-sm-2" type="button" @click="handleClick(false)">К заявлениям</button>-->
+      <!--<button class="col-sm-2" type="button" @click="handleClick(true)">К профилям</button>-->
+      <!--<a class="logout col-sm-3" href="/login">Logout</a>-->
+    <!--</div>-->
+    <div class="control-panel">
+      <div>
+        <span>Абитуриент:</span>
+        <input type="search" name="поиск" placeholder="Поиск по сайту">
+      </div>
+      <div>
+        <button type="button" @click="handleClick(false)">К заявлениям</button>
+        <button type="button" @click="handleClick(true)">К профилям</button>
+      </div>
+
+      <a class="logout" href="/login">Logout</a>
     </div>
+
+    <!--<div class="row search_place">-->
+      <!--&lt;!&ndash;<label class="row ">&ndash;&gt;-->
+        <!--<div class="col-sm-1">Абитуриент:</div>-->
+        <!--<input class="col-sm-3" type="search" name="поиск" placeholder="Поиск по сайту">-->
+      <!--&lt;!&ndash;</label>&ndash;&gt;-->
+      <!--<button class="col-sm-2" type="button" @click="handleClick(false)">К заявлениям</button>-->
+      <!--<button class="col-sm-2" type="button" @click="handleClick(true)">К профилям</button>-->
+      <!--&lt;!&ndash;<button class="logout col-sm-2">&ndash;&gt;-->
+        <!--<a class="logout col-sm" href="/login">Logout</a>-->
+      <!--&lt;!&ndash;</button>&ndash;&gt;-->
+    <!--</div>-->
+
     <div>
       <!--<tabs class="main_tab" :options="{ useUrlFragment: false }">-->
-        <tabs class="main_tab" v-show="showPerson">
-          <tab id="overview_personal_info" name="Обзор">
-            <TabOverview></TabOverview>
-          </tab>
+        <WraperProfile v-show="showProfile" :handleClick="handleClick"></WraperProfile>
+        <!--<WraperApplication></WraperApplication>-->
+        <!--<tabs class="main_tab" >-->
+          <!--<tab id="overview_personal_info" name="Обзор">-->
+            <!--<TabOverview ></TabOverview>-->
+          <!--</tab>-->
 
-          <tab class="personal_tab" id="personal_info" name="Личные сведения">
-            <TabPersonalInfo></TabPersonalInfo>
-          </tab>
+          <!--<tab class="personal_tab" id="personal_info" name="Личные сведения">-->
+            <!--<TabPersonalInfo></TabPersonalInfo>-->
+          <!--</tab>-->
 
-          <tab id="contacts" name="Адресные данные">
-            <TabAddressInfo></TabAddressInfo>
-          </tab>
+          <!--<tab id="contacts" name="Адресные данные">-->
+            <!--<TabAddressInfo></TabAddressInfo>-->
+          <!--</tab>-->
 
-            <tab id="evidence_ege" name="Свидетельства ЕГЭ">
-              <TabEvidenceEge></TabEvidenceEge>
-            </tab>
+            <!--<tab id="evidence_ege" name="Свидетельства ЕГЭ">-->
+              <!--<TabEvidenceEge></TabEvidenceEge>-->
+            <!--</tab>-->
 
-          <tab class="graduate_military" id="graduate_military" name="Образование, военная служба">
-            <TabEducationMilitary></TabEducationMilitary>
-          </tab>
+          <!--<tab class="graduate_military" id="graduate_military" name="Образование, военная служба">-->
+            <!--<TabEducationMilitary></TabEducationMilitary>-->
+          <!--</tab>-->
 
-          <tab id="parent_trustee" name="Родитель/Попечитель">
-            <TabParentInfo></TabParentInfo>
-          </tab>
-          <tab id="distinctive_features" name="Отличительные признаки">
-            <TabDistinctiveFeaturesInfo></TabDistinctiveFeaturesInfo>
-          </tab>
-          <tab id="photo" name="Фотография">
-            <TabPhoto></TabPhoto>
-          </tab>
+          <!--<tab id="parent_trustee" name="Родитель/Попечитель">-->
+            <!--<TabParentInfo></TabParentInfo>-->
+          <!--</tab>-->
+          <!--<tab id="distinctive_features" name="Отличительные признаки">-->
+            <!--<TabDistinctiveFeaturesInfo></TabDistinctiveFeaturesInfo>-->
+          <!--</tab>-->
+          <!--<tab id="photo" name="Фотография">-->
+            <!--<TabPhoto></TabPhoto>-->
+          <!--</tab>-->
+          <!--{{showProfile}}-->
+        <!--</tabs>-->
+
+      <WraperApplication v-show="!showProfile" :handleClick="handleClick"></WraperApplication>
+          <!--<tabs class="main_tab" v-show="!showProfile" :handleClick="handleClick">-->
+            <!--<tab id="overviewApplication" name="Обзор">-->
+              <!--<TabOverviewApplication></TabOverviewApplication>-->
+            <!--</tab>-->
+            <!--<tab id="applicationFill" name="Заявление">-->
+              <!--<TabApplicationFill></TabApplicationFill>-->
+            <!--</tab>-->
+            <!--<tab id="receptrionCondition" name="Условия приема">-->
+              <!--<TabReceptionConditions></TabReceptionConditions>-->
+            <!--</tab>-->
+            <!--<tab id="documents" name="Документы">-->
+              <!--<TabDocuments></TabDocuments>-->
+            <!--</tab>-->
+            <!--<tab id="entranceTests" name="Вступительные испытания">-->
+              <!--<TabEntranceTests></TabEntranceTests>-->
+            <!--</tab>-->
+            <!--<tab id="other" name="Проверить и сохранить">-->
+              <!--<TabOther></TabOther>-->
+            <!--</tab>-->
+          <!--</tabs>-->
 
 
-          {{this.showPerson}}
-
-          <tabs class="main_tab" if="this.showPerson===false">
-            <tab id="overviewApplication" name="Обзор">
-              <TabOverviewApplication></TabOverviewApplication>
-            </tab>
-            <tab id="applicationFill" name="Заявление">
-              <TabApplicationFill></TabApplicationFill>
-            </tab>
-            <tab id="receptrionCondition" name="Условия приема">
-              <TabReceptionConditions></TabReceptionConditions>
-            </tab>
-            <tab id="documents" name="Документы">
-              <TabDocuments></TabDocuments>
-            </tab>
-            <tab id="entranceTests" name="Вступительные испытания">
-              <TabEntranceTests></TabEntranceTests>
-            </tab>
-            <tab id="other" name="Проверить и сохранить">
-              <TabOther></TabOther>
-            </tab>
-          </tabs>
-
-      </tabs>
     </div>
   </div>
 </template>
@@ -84,6 +106,9 @@
   import TabParentInfo from "../tabs/Profile/TabParentInfo";
   import TabDistinctiveFeaturesInfo from "../tabs/Profile/TabDistinctiveFeaturesInfo";
   import TabPhoto from "../tabs/Profile/TabPhoto";
+
+  import WraperProfile from "./WraperProfile";
+  import WraperApplication from "./WraperApplication";
 
   import TabOverviewApplication from "../tabs/Application/TabOverviewApplication";
   import TabApplicationFill from "../tabs/Application/TabApplicationFill";
@@ -101,6 +126,8 @@
   export default {
     name: "Profile",
     components: {
+      WraperProfile,WraperApplication,
+
       TabPhoto,
       TabDistinctiveFeaturesInfo,
       TabParentInfo, TabEvidenceEge, TabEducationMilitary,
@@ -110,7 +137,7 @@
       TabDocuments, TabEntranceTests, TabOther
     },
     computed: {
-      ...person(['person', 'showPerson']),
+      ...person(['person', 'showProfile']),
     },
     data() {
       return {
@@ -122,13 +149,17 @@
 
         ],
         dialog: false,
-        currentTab: 'Home',
-        tabs: ['TabOverview', 'TabPersonalInfo', 'TabAddressInfo', 'TabEducationMilitary',
-          'TabEvidenceEge', 'TabParentInfo', 'TabDistinctiveFeaturesInfo', 'TabPhoto'],
+        // currentTab: 'Home',
+        // tabs: ['TabOverview', 'TabPersonalInfo', 'TabAddressInfo', 'TabEducationMilitary',
+        //   'TabEvidenceEge', 'TabParentInfo', 'TabDistinctiveFeaturesInfo', 'TabPhoto'],
 
       }
     },
     methods: {
+      handleClick(val) {
+        this.showProfile = val;
+      },
+
       onApplication(data) {
         console.log(data)
       }
@@ -137,10 +168,21 @@
 </script>
 
 <style scoped>
+  .control-panel {
 
-  .logout {
-    margin-left: 30%;
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+
   }
+
+  .control-panel > * {
+    margin: 0 123px;
+  }
+
+  /*.logout {*/
+    /*margin-left: 30%;*/
+  /*}*/
   /*tabs-component-panels.graduate_military {*/
     /*padding-bottom: -30px;*/
   /*}*/
