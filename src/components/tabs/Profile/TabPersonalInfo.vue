@@ -97,13 +97,17 @@
         <label class="row">
           <div class="form__label-text col-sm">Код документа:</div>
 
-
-
-          <select v-model="tab_personal_selectedIdentityCardCode" class="minimal col-sm">
-            <option v-for="option in options_identityCardCode" >
-              {{option.item}}
+          <select v-model="person.tab_personal_selectedIdentityCardCode" class="minimal col-sm">
+            <option v-for="item in identityCardCode" v-bind:value="item">
+              {{item.identityCardCode}}
             </option>
           </select>
+
+          <!--<select v-model="tab_personal_selectedIdentityCardCode" class="minimal col-sm">-->
+            <!--<option v-for="option in options_identityCardCode" >-->
+              <!--{{option.item}}-->
+            <!--</option>-->
+          <!--</select>-->
         </label>
         <span class="alarm_label" v-if="tab_personal_selectedIdentityCardCode===''">Не выбран тип документа</span>
         <label class="row">
@@ -255,33 +259,45 @@
         </label>
         <div class="row">
           <!--<div v-for="(selected_foreignLanguageName,language_description, index) in languages">-->
+          <select v-model="person.selected_foreignLanguageName1" class="minimal col-sm-6">
+            <option v-for="item in language" v-bind:value="item">
+              {{item.languageId}}
+            </option>
+          </select>
+          <select v-model="person.language_score1" class="minimal col-sm-6">
+            <option v-for="item in languageLevel" v-bind:value="item">
+              {{item.name}}
+            </option>
+          </select>
+          <!--<input v-model="language_score1" class="form__input col-sm-6" type="text">-->
 
-            <select v-model="selected_foreignLanguageName1" class="minimal col-sm-6">
-          <option v-for="option in options_foreignLanguageName">
-            {{option.item}}
-          </option>
-        </select>
-          <input v-model="language_score1" class="form__input col-sm-6" type="text">
-          <select v-model="selected_foreignLanguageName2" class="minimal col-sm-6">
-            <option v-for="option in options_foreignLanguageName">
-              {{option.item}}
+          <select v-model="person.selected_foreignLanguageName2" class="minimal col-sm-6">
+            <option v-for="item in language" v-bind:value="item">
+              {{item.languageId}}
             </option>
           </select>
-          <input v-model="language_score2" class="form__input col-sm-6" type="text" >
-          <select v-model="selected_foreignLanguageName3" class="minimal col-sm-6">
-            <option v-for="option in options_foreignLanguageName">
-              {{option.item}}
+          <select v-model="person.language_score2" class="minimal col-sm-6">
+            <option v-for="item in languageLevel" v-bind:value="item">
+              {{item.name}}
             </option>
           </select>
-          <input v-model="language_score3" class="form__input col-sm-6" type="text">
+
+          <select v-model="person.selected_foreignLanguageName3" class="minimal col-sm-6">
+            <option v-for="item in language" v-bind:value="item">
+              {{item.languageId}}
+            </option>
+          </select>
+          <select v-model="person.language_score3" class="minimal col-sm-6">
+            <option v-for="item in languageLevel" v-bind:value="item">
+              {{item.name}}
+            </option>
+          </select>
             <!--<div class="row">-->
               <!--<input class="button_add" type="button" value="Добавить" @click="onAddLanguage" >-->
               <!--<input class="button_add" type="button" value="Убрать" @click="onRemoveLanguage" >-->
             <!--</div>-->
           <!--</div>-->
         </div>
-
-        <!--<input v-model="lastname_personal_info_tab">-->
 
       </div>
     </div>
@@ -313,19 +329,22 @@
     mounted() {
       this.$store.dispatch('enums/onLoadGender');
       this.$store.dispatch('dictionary/onLoadIdentityCardCode');
-      this.$store.dispatch('dictionary/onLoadOtherCountryRegion');
+      // this.$store.dispatch('dictionary/onLoadOtherCountryRegion');
       this.$store.dispatch('enums/onLoadLangInfo');
       this.$store.dispatch('dictionary/onLoadAddressCountryRegion');
+      this.$store.dispatch('dictionary/onLoadLanguage');
+      this.$store.dispatch('enums/onLoadLanguageLevel');
+
     },
     computed: {
       // ...mapState('tab_personal_info', ['lastname_personal_info_tab','lastname_personal_info','gender', 'identityCardCode', 'otherCountryRegion', 'langInfo', 'languageName',]),
       // ...mapGetters('tab_personal_info', ['GET_LASTNAME_PERSONAL_INFO','GET_GENDER', 'GET_IDENTITY_CARD_CODE', 'GET_OTHER_COUNTRY_REGION', 'GET_LANGINFO']),
       // ...mapMutations('tab_personal_info', ['set_lastname_personal_info_tab']),
 
-      ...mapState('enums', ['gender', 'langInfo'],),
-      ...mapState('dictionary',['addressCountryRegion']),
-      ...mapGetters('enums', ['GET_GENDER','GET_LANGINFO']),
-      ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION']),
+      ...mapState('enums', ['gender', 'langInfo','languageLevel'],),
+      ...mapState('dictionary',['addressCountryRegion','language','identityCardCode']),
+      ...mapGetters('enums', ['GET_GENDER','GET_LANGINFO', 'GET_LANGUAGE_LEVEL']),
+      ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION','GET_LANGUAGE', 'GET_IDENTITY_CARD_CODE']),
       ...person(['person']),
       ...tab_personal_info(['tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
         'tab_personal_middlename','tab_personal_birthDate','tab_personal_age',

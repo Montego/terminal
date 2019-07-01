@@ -145,8 +145,8 @@ export default {
   actions: {
 
     onLoadGender({commit}) {
-      // AXIOS.get('/enums/gender')
-      AXIOS.get('/json/gender')
+      AXIOS.get('/enums/gender')
+      // AXIOS.get('/json/gender')
         .then((response) => {
           commit('UPLOAD_GENDER', response.data)
         }).catch(e => {
@@ -155,8 +155,8 @@ export default {
     },
 
     onLoadLangInfo({commit}) {
-      // AXIOS.get('/enums/langInfo')
-      AXIOS.get('/json/langInfo')
+      AXIOS.get('/enums/langInfo')
+      // AXIOS.get('/json/langInfo')
         .then((response) => {
           commit('UPLOAD_LANG_INFO', response.data)
         }).catch(e => {
@@ -180,8 +180,8 @@ export default {
       })
     },
     onLoadDeliveryType({commit}) {
-      // AXIOS.get('/enums/deliveryType')
-      AXIOS.get('/json/deliveryType')
+      AXIOS.get('/enums/deliveryType')
+      // AXIOS.get('/json/deliveryType')
         .then((response) => {
           commit('UPLOAD_DELIVERY_TYPE', response.data)
         }).catch(e => {
@@ -190,8 +190,8 @@ export default {
     },
 
     onLoadDocType ({ commit }) {
-      // AXIOS.get('/enums/docType')
-      AXIOS.get('/json/docType')
+      AXIOS.get('/enums/docType')
+      // AXIOS.get('/json/docType')
         .then((response) => {
           commit('UPLOAD_DOC_TYPE', response.data)
         }).catch(e => {
@@ -199,8 +199,8 @@ export default {
       })
     },
     onLoadEducationLevel ({ commit }) {
-      // AXIOS.get('/enums/educationLevel')
-      AXIOS.get('/json/educationLevel')
+      AXIOS.get('/enums/educationLevel')
+      // AXIOS.get('/json/educationLevel')
         .then((response) => {
           commit('UPLOAD_EDUCATION_LEVEL', response.data)
         }).catch(e => {
@@ -217,8 +217,8 @@ export default {
       })
     },
     onLoadExamForm ({ commit }) {
-      // AXIOS.get('/enums/examForm')
-      AXIOS.get('/json/examForm')
+      AXIOS.get('/enums/examForm')
+      // AXIOS.get('/json/examForm')
         .then((response) => {
           commit('UPLOAD_EXAM_FORM', response.data)
         }).catch(e => {
@@ -275,8 +275,8 @@ export default {
       })
     },
     onLoadMilitaryFormDoc ({ commit }) {
-      // AXIOS.get('/enums/militaryFormDoc')
-      AXIOS.get('/json/militaryFormDoc')
+      AXIOS.get('/enums/militaryFormDoc')
+      // AXIOS.get('/json/militaryFormDoc')
         .then((response) => {
           commit('UPLOAD_MILITARY_FORM_DOC', response.data)
         }).catch(e => {
@@ -284,8 +284,8 @@ export default {
       })
     },
     onLoadSoldieryStatus ({ commit }) {
-      // AXIOS.get('/enums/soldieryStatus')
-      AXIOS.get('/json/soldieryStatus')
+      AXIOS.get('/enums/soldieryStatus')
+      // AXIOS.get('/json/soldieryStatus')
         .then((response) => {
           commit('UPLOAD_SOLDIERY_STATUS', response.data)
         }).catch(e => {

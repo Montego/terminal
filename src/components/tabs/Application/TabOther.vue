@@ -1,5 +1,7 @@
 <template>
   <div>
+    {{this.application}}
+    ///////////////////////
     {{this.person}}
     <div class="clear_save_button row">
 
@@ -37,9 +39,9 @@
 
 
 
-          this.person.applications.push(this.application);
+          // this.person.applications.push(this.application);
 
-          AXIOS.post(`/persons`,(this.person))
+          AXIOS.post(`/profile`,(this.person))
             .then(response => {
               this.info.push(response.data)
             })
@@ -48,6 +50,7 @@
             });
           this.showProfile = true;
           location.href='profile#overview_personal_info';
+
           // AXIOS.post(`/applications`, this.application)
           //   .then(response => {
           //     this.info.push(response.data)

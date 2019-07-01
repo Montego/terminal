@@ -22,7 +22,7 @@
       <td class="text-xs-center">{{ props.item.tab_personal_lastname }}</td>
       <td class="text-xs-center">{{ props.item.tab_personal_firstname}}</td>
       <td class="text-xs-center">{{ props.item.tab_personal_middlename}}</td>
-      <td class="text-xs-center">{{ props.item.tab_personal_selectedGender}}</td>
+      <!--<td class="text-xs-center">{{ props.item.tab_personal_selectedGender}}</td>-->
       <td class="text-xs-center">{{ props.item.tab_personal_birthDate}}</td>
       <!--<td class="text-xs-center">{{ props.item.contact_code_pretendent}}</td>-->
       <td class="justify-center layout px-0">
@@ -41,14 +41,16 @@
 <script>
   import {AXIOS} from "../../plugins/APIService";
   import { createHelpers } from 'vuex-map-fields';
-  const { mapMultiRowFields: personM } = createHelpers({
-    getterType: `person/getField`,
-    mutationType: `person/updateField`,
-  });
-  const { mapMultiRowFields:application } = createHelpers({
-    getterType: `application/getField`,
-    mutationType: `application/updateField`,
-  });
+  import { mapMultiRowFields } from 'vuex-map-fields';
+
+  // const { mapMultiRowFields: personM } = createHelpers({
+  //   getterType: `person/getField`,
+  //   mutationType: `person/updateField`,
+  // });
+  // const { mapMultiRowFields:application } = createHelpers({
+  //   getterType: `application/getField`,
+  //   mutationType: `application/updateField`,
+  // });
 
   const { mapFields: tab_personal_info } = createHelpers({
     getterType: `tab_personal_info/getField`,
@@ -82,7 +84,7 @@
             { text: 'Фамилия', value: 'lastname',sortable: false, align: 'center' },
             { text: 'Имя', value: 'firstname',sortable: false, align: 'center' },
             { text: 'Отчество', value: 'middlename',sortable: false, align: 'center' },
-            { text: 'Пол', value: 'selectedGender',sortable: false, align: 'center' },
+            // { text: 'Пол', value: 'selectedGender',sortable: false, align: 'center' },
             { text: 'Дата рождения', value: 'birthDate',sortable: false, align: 'center' },
             // { text: 'Код контактного лица', value: 'contact_code_pretendent',sortable: false, align: 'center' },
             { text: 'Действия', value: 'name', sortable: false, align: 'center' }
@@ -92,9 +94,10 @@
         }
       },
       computed: {
-        ...application(['contacts']),
+        // ...mapMultiRowFields(['profiles']),
+        // ...application(['contacts']),
         ...person(['person','showProfile']),
-        ...personM(['persons']),
+        // ...personM(['persons','profiles']),
         ...tab_personal_info(['tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
           'tab_personal_middlename','tab_personal_birthDate','tab_personal_age',
           ' tab_personal_seniority','tab_personal_employYears','tab_personal_employMonths',
@@ -119,7 +122,7 @@
         //   },
         },
       created () {
-          AXIOS.get(`/persons/getPersons`)
+          AXIOS.get(`/profile/persons`)
             .then(response => {
               this.profiles = response.data
               console.log(this.profiles)
@@ -137,40 +140,103 @@
           this.person.ege_info = [];
           this.person.parents_info = [];
 
-          this.person.tab_personal_lastname = '';
-          this.person.tab_personal_firstname = '';
-          this.person.tab_personal_middlename = '';
-          this.person.tab_personal_lastname_genitive = '';
-          this.person.tab_personal_firstname_genitive = '';
-          this.person.tab_personal_middlename_genitive = '';
-          this.person.tab_personal_birthDate = '';
-          this.person.tab_personal_selectedGender = '';
-          this.person.tab_personal_seniority = '';
-          this.person.tab_personal_employYears = '';
-          this.person.tab_personal_employMonths = '';
-          this.person.tab_personal_employDays = '';
-          this.person.tab_personal_identityCardSeries = '';
-          this.person.tab_personal_identityCardNumber = '';
-          this.person.tab_personal_identityCardIssueDate = '';
-          this.person.tab_personal_identityCardIssueDep = '';
-          this.person.tab_personal_identityCardIssueBy = '';
-          this.person.tab_personal_isCompatriot = '';
-          this.person.tab_personal_isEquatedForeign = '';
+          this.person.tab_personal_lastname = null;
+          this.person.tab_personal_firstname = null;
+          this.person.tab_personal_middlename = null;
+          this.person.tab_personal_lastname_genitive = null;
+          this.person.tab_personal_firstname_genitive = null;
+          this.person.tab_personal_middlename_genitive = null;
+          this.person.tab_personal_birthDate = null;
+          this.person.tab_personal_selectedGender = null;
+          this.person.tab_personal_seniority = null;
+          this.person.tab_personal_employYears = null;
+          this.person.tab_personal_employMonths = null;
+          this.person.tab_personal_employDays = null;
+          this.person.tab_personal_identityCardSeries = null;
+          this.person.tab_personal_identityCardNumber = null;
+          this.person.tab_personal_identityCardIssueDate = null;
+          this.person.tab_personal_identityCardIssueDep = null;
+          this.person.tab_personal_identityCardIssueBy = null;
+          this.person.tab_personal_isCompatriot = null;
+          this.person.tab_personal_isEquatedForeign = null;
           this.person.tab_personal_isHostel = '';
-          this.person.tab_personal_isForeignLikeRussian = '';
+          this.person.tab_personal_isForeignLikeRussian = null;
           this.person.tab_personal_cellularPhone = '';
-          this.person.tab_personal_selectedIdentityCardCode = '';
-          this.person.tab_personal_note = '';
-          this.person.tab_personal_email = '';
-          this.person.tab_personal_selectedCitizenship = '';
-          this.person.tab_personal_INIPA = '';
-          this.person.tab_personal_INIPADate = '';
+          this.person.tab_personal_selectedIdentityCardCode = null;
+          this.person.tab_personal_note = null;
+          this.person.tab_personal_email = null;
+          this.person.tab_personal_selectedCitizenship = null;
+          this.person.tab_personal_INIPA = null;
+          this.person.tab_personal_INIPADate = null;
+          this.person.tab_personal_note = null;
+
+          this.person.tab_personal_selectedIdentityCardCode = null;
+          this.person.tab_personal_identityCardSeries = null;
+          this.person.tab_personal_identityCardNumber = null;
+          this.person.tab_personal_identityCardIssueBy = null;
+          this.person.tab_personal_identityCardIssueDate = null;
+          this.person.tab_personal_identityCardIssueDep = null;
+          this.person.tab_personal_selectedCitizenship = null;
+          this.person.tab_personal_isCompatriot = null;
+          this.person.tab_personal_isEquatedForeign = null;
+          this.person.tab_personal_birthplace = null;
+          this.person.tab_personal_isHostel = null;
+          this.person.tab_personal_isForeignLikeRussian = null;
+          this.person.tab_personal_homePhoneNumber = null;
+          this.person.tab_personal_cellularPhone = null;
+          this.person.tab_personal_email = null;
+          this.person.tab_personal_company = null;
+          this.person.tab_personal_company_address = null;
+          this.person.tab_personal_seniority = null;
+          this.person.tab_personal_employYears = null;
+          this.person.tab_personal_employMonths = null;
+          this.person.tab_personal_employDays = null;
+          this.person.tab_personal_selectedForeignLanguageInfo = null;
+          this.person.selected_foreignLanguageName1 = null;
+          this.person.language_score1 = null;
+          this.person.selected_foreignLanguageName2 = null;
+          this.person.language_score2 = null;
+          this.person.selected_foreignLanguageName3 = null;
+          this.person.language_score3 = null;
+
+          this.person.tab_address_registrationAddress = null;
+          this.person.tab_address_factAddress = null;
+          this.person.tab_address_templateRegistrationAddress = null;
+
+          this.person.tab_edu_military_educationLevel = null;
+          this.person.tab_edu_military_univer = null;
+          this.person.tab_edu_military_selectedCountryRegion = null;
+          this.person.tab_edu_military_selectedState = null;
+          this.person.tab_edu_military_selectedAcademyYear = null;
+          this.person.tab_edu_military_selectedEduDoc = null;
+          this.person.tab_edu_military_eduDocSerial = null;
+          this.person.tab_edu_military_eduDocNumber = null;
+          this.person.tab_edu_military_eduDocDate = null;
+          this.person.tab_edu_military_eduDocName = null;
+          this.person.tab_edu_military_attachment_serial = null;
+          this.person.tab_edu_military_attachment_number = null;
+          this.person.averageScore = null;
+          this.person.tab_edu_military_selectedSoldiery = null;
+          this.person.tab_edu_military_selectedSoldieryStatus = null;
+          this.person.tab_edu_military_selectedMilitaryFormDoc = null;
+          this.person.tab_edu_military_militaryNumber = null;
+          this.person.tab_edu_military_militarySeries = null;
+          this.person.tab_edu_military_militaryIssueDate = null;
+          this.person.tab_edu_military_militaryIssueBy = null;
+          this.person.tab_edu_military_militaryRank = null;
+          this.person.tab_edu_military_selectedDocType = null;
+          this.person.tab_edu_military_docMilitaryShowDate = null;
+          this.person.tab_edu_military_startMilitary = null;
+          this.person.tab_edu_military_endMilitary = null;
+
+
         },
         onRedaction(item) {
           location.href='profile#personal_info';
 
           const index = this.profiles.indexOf(item);
           this.person = this.profiles[index];
+
           // this.person.tab_personal_lastname = this.profiles[index].tab_personal_lastname;
           // this.person.tab_personal_firstname = this.profiles[index].tab_personal_firstname;
           // this.person.tab_personal_middlename = this.profiles[index].tab_personal_middlename;

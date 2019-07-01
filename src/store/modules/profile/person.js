@@ -5,10 +5,13 @@ export default {
   namespaced: true,
   state: {
     showProfile: true,
+    profiles:[],
     person : {
       ege_info:[],
       parents_info:[],
-      applications:[]
+      application_condition:[],
+      application_documents:[],
+      // applications:[]
     }
   },
   getters: {
@@ -20,17 +23,7 @@ export default {
 
   },
   actions: {
-    // onSavePerson(){
-    //   this.person.lastname = this.tab_personal_lastname;
-    //   this.person.firstname = this.tab_personal_firstname;
-    //   AXIOS.post(`/persons`,this.person)
-    //     .then(response => {
-    //       this.info.push(response.data)
-    //     })
-    //     .catch(e => {
-    //       this.errors.push(e)
-    //     })
-    // }
+
   },
   computed: {
 

@@ -10,15 +10,15 @@
       <div class="col-sm-8">
         <label class="row">
           <div class="form__label-text col-sm">Номер заявления:</div>
-          <input v-model="application.application_number" class="form__input col-sm" type="text" name=""  />
+          <input v-model="person.application_number" class="form__input col-sm" type="text" name=""  />
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Дата заявления:</div>
-          <input v-model="application.application_date" class="form__input col-sm" type="date" name=""  />
+          <input v-model="person.application_date" class="form__input col-sm" type="date" name=""  />
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Тип доставки:</div>
-          <select v-model="application.application_selectedDeliveryType"  class="minimal col-sm">
+          <select v-model="person.application_selectedDeliveryType"  class="minimal col-sm">
             <option v-for="item in deliveryType" v-bind:value="item">
               {{item.name}}
             </option>
@@ -31,7 +31,7 @@
         <!--</label>-->
         <label class="row">
           <div class="form__label-text col-sm">Документ об образовании:</div>
-          <select v-model="application.application_selectedDocType" class="minimal col-sm">
+          <select v-model="person.application_selectedDocType" class="minimal col-sm">
             <option v-for="item in docType" v-bind:value="item">
               {{item.name}}
             </option>
@@ -76,8 +76,9 @@
       ...person(['person']),
 
       fullname(){
-        return this.application.fullname = this.person.tab_personal_lastname + " "
-          + this.person.tab_personal_firstname + " " + this.person.tab_personal_middlename
+        this.person.tab_personal_name
+        // return this.application.fullname = this.person.tab_personal_lastname + " "
+        //   + this.person.tab_personal_firstname + " " + this.person.tab_personal_middlename
       },
     },
 

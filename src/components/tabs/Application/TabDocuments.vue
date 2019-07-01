@@ -98,6 +98,10 @@
     getterType: 'applications/getField',
     mutationType: 'applications/updateField',
   });
+  const { mapFields:person} = createHelpers({
+    getterType: 'person/getField',
+    mutationType: 'person/updateField',
+  });
   const { mapMultiRowFields } = createHelpers({
     getterType: `tab_documents/getField`,
     mutationType: `tab_documents/updateField`,
@@ -131,7 +135,7 @@
           'tab_document_count','tab_document_selectedDocType'
         ]),
         ...mapMultiRowFields(['document','tab_document_allDocuments']),
-
+        ...person(['person',]),
         fullName(){
           return this.document_fullName =
             this.tab_document_selectedDocumentType + ' ' +
@@ -147,7 +151,7 @@
         // },
 
         showTable(){
-          return  this.application.application_documents;
+          return this.person.application_documents;
         },
       },
       mounted() {
@@ -188,7 +192,7 @@
 
             );
             // if(document1.tab_personal_selectedIdentityCardCode != null){
-              this.application.application_documents.push(document1);
+              this.person.application_documents.push(document1);
             // }
 
               console.log(" i don't know ")
@@ -215,16 +219,16 @@
                 this.tab_document_issuedBy, this.fullName
               );
 
-            this.application.application_documents.push(document);
+            this.person.application_documents.push(document);
             console.log(this.document)
-            console.log(this.application.application_documents)
+
             // console.log(this.fullName);
           },
 
           onDelete(item) {
-            const index = this.application.application_documents.indexOf(item);
+            const index = this.person.application_documents.indexOf(item);
             console.log(index);
-            this.application.application_documents.splice(index, 1);
+            this.person.application_documents.splice(index, 1);
           }
         },
 

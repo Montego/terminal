@@ -16,7 +16,7 @@
               hide-actions
             >
               <template slot="items" slot-scope="props">
-                <td class="text-xs-center">{{ props.item.tab_ege_selectedSubject}}</td>
+                <td class="text-xs-center">{{ props.item.tab_ege_selectedSubject.name}}</td>
                 <td class="text-xs-center">{{ props.item.tab_ege_score}}</td>
                 <td class="text-xs-center">{{ props.item.ege_ball_2}}</td>
                 <td class="text-xs-center">{{ props.item.ege_appeal_status}}</td>
@@ -60,19 +60,19 @@
               <label class="row">
                 <div class="form__label-text col-sm">Документ</div>
                 <select v-model="tab_ege_selectedIdentityCardCode" class="minimal col-sm">
-                  <option v-for="option in options_identityCardCode">
-                    {{option.item}}
+                  <option v-for="item in identityCardCode" v-bind:value="item">
+                    {{item.identityCardCode}}
                   </option>
                 </select>
-                <input v-model="tab_ege_selectedIdentityCardCode" class="uneditable form__input col-sm-12" type="text" name="" placeholder="Заполняется автоматически"
+                <input v-model="tab_ege_selectedIdentityCardCode.identityCardCode" class="uneditable form__input col-sm-12" type="text" name="" placeholder="Заполняется автоматически"
                        disabled="disabled"/>
               </label>
               <span class="alarm_label" v-if="tab_ege_selectedIdentityCardCode===''">Не выбран тип документа</span>
               <label class="row">
                 <div class="form__label-text col-sm">Серия:</div>
-                <input v-if="tab_ege_selectedIdentityCardCode === 'Паспорт РФ'" v-model="tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>
-                <input v-else-if="tab_ege_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***" v-mask="'###-###'" required/>
-                <input v-else v-model="tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
+                <!--<input v-if="tab_ege_selectedIdentityCardCode === 'Паспорт РФ'" v-model="tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>-->
+                <!--<input v-else-if="tab_ege_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***" v-mask="'###-###'" required/>-->
+                <input  v-model="tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
                 <!--<input v-model="identityCardSeries" class="form__input col-sm" type="text" name="" placeholder=""/>-->
               </label>
               <span class="alarm_label" v-if="tab_ege_identityCardSeries===''">Не заполнено поле "Серия"</span>
@@ -129,10 +129,11 @@
             <label class="row">
               <div class="form__label-text col-sm">Предмет:</div>
               <select v-model="tab_ege_selectedSubject" class="minimal col-sm">
-                <option v-for="option in options_subject">
-                  {{option.item}}
+                <option v-for="item in subject" v-bind:value="item">
+                  {{item.name}}
                 </option>
               </select>
+
               <!--<input class="form__input col-sm" type="text" name="" placeholder="русский язык" disabled/>-->
             </label>
             <label class="row">
@@ -240,14 +241,16 @@
     name: "TabEvidenceEge",
     mounted () {
       this.$store.dispatch('dictionary/onLoadIdentityCardCode');
-      this.$store.dispatch('dictionary/onLoadOtherCountryRegion');
+      // this.$store.dispatch('dictionary/onLoadOtherCountryRegion');
       this.$store.dispatch('dictionary/onLoadAddressCountryRegion');
       this.$store.dispatch('enums/onLoadExamForm');
+      this.$store.dispatch('dictionary/onLoadSubject');
+
     },
     computed: {
       ...person(['person']),
-      ...mapState('dictionary',['addressCountryRegion']),
-      ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION']),
+      ...mapState('dictionary',['addressCountryRegion','identityCardCode','subject']),
+      ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION','GET_IDENTITY_CARD_CODE','GET_subject']),
       ...mapState('enums',['examForm']),
       ...mapGetters('enums',['GET_EXAM_FORM']),
       ...tab_evidence_ege_info_fields(['tab_ege_lastname', 'tab_ege_firstname', 'tab_ege_middlename',
@@ -281,29 +284,29 @@
           {id: 2, item: 'Русский язык'},
           {id: 3, item: 'Химия'},
           ],
-        options_identityCardCode: [
-          // {id: 0, item: '-выберите документ-'},
-          {id: 1, item: 'ВидЖител'},
-          {id: 2, item: 'ВоенБилет'},
-          {id: 3, item: 'ВоенБилОфц'},
-          {id: 4, item: 'Временное удостоверение лич.граждан.РФ'},
-          {id: 5, item: 'ДиплПаспРФ'},
-          {id: 6, item: 'ЗагрПасп'},
-          {id: 7, item: 'ЗагрПаспРФ'},
-          {id: 8, item: 'ИнострПасп'},
-          {id: 9, item: 'НетДокум'},
-          {id: 10, item: 'ПаспМорФл'},
-          {id: 11, item: 'ПаспМоряка'},
-          {id: 12, item: 'Паспорт РФ'},
-          {id: 13, item: 'Паспорт иностранного гражданина'},
-          {id: 14, item: 'ПРОЧЕЕ'},
-          {id: 15, item: 'СвидБеженц'},
-          {id: 16, item: 'СвидРожд'},
-          {id: 17, item: 'СправОбОсв'},
-          {id: 18, item: 'СпрУдЛичн'},
-          {id: 19, item: 'УдЛичности'},
-          {id: 20, item: 'УдОфицера'},
-        ],
+        // options_identityCardCode: [
+        //   // {id: 0, item: '-выберите документ-'},
+        //   {id: 1, item: 'ВидЖител'},
+        //   {id: 2, item: 'ВоенБилет'},
+        //   {id: 3, item: 'ВоенБилОфц'},
+        //   {id: 4, item: 'Временное удостоверение лич.граждан.РФ'},
+        //   {id: 5, item: 'ДиплПаспРФ'},
+        //   {id: 6, item: 'ЗагрПасп'},
+        //   {id: 7, item: 'ЗагрПаспРФ'},
+        //   {id: 8, item: 'ИнострПасп'},
+        //   {id: 9, item: 'НетДокум'},
+        //   {id: 10, item: 'ПаспМорФл'},
+        //   {id: 11, item: 'ПаспМоряка'},
+        //   {id: 12, item: 'Паспорт РФ'},
+        //   {id: 13, item: 'Паспорт иностранного гражданина'},
+        //   {id: 14, item: 'ПРОЧЕЕ'},
+        //   {id: 15, item: 'СвидБеженц'},
+        //   {id: 16, item: 'СвидРожд'},
+        //   {id: 17, item: 'СправОбОсв'},
+        //   {id: 18, item: 'СпрУдЛичн'},
+        //   {id: 19, item: 'УдЛичности'},
+        //   {id: 20, item: 'УдОфицера'},
+        // ],
 
 
         // headers_ege_evidence: [

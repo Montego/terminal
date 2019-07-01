@@ -53,7 +53,7 @@
 
           <select v-model="person.tab_edu_military_selectedAcademyYear" class="minimal col-sm">
             <option v-for="item in academyYear" v-bind:value="item">
-              {{item.acadamyYearId}}
+              {{item.academyYearId}}
             </option>
           </select>
 
@@ -319,14 +319,15 @@
       },
       methods: {
         onCalculateScore() {
-          this.person.score_full = (parseInt(this.score_five)*5 + parseInt(this.score_four)*4 +
-            parseInt(this.score_three)*3) / (parseInt(this.score_five) + parseInt(this.score_four)
-            + parseInt(this.score_three));
+
+            // (parseInt(this.score_five)*5 + parseInt(this.score_four)*4 +
+            // parseInt(this.score_three)*3) / (parseInt(this.score_five) + parseInt(this.score_four)
+            // + parseInt(this.score_three));
 
           this.score_full = (parseInt(this.score_five)*5 + parseInt(this.score_four)*4 +
             parseInt(this.score_three)*3) / (parseInt(this.score_five) + parseInt(this.score_four)
             + parseInt(this.score_three));
-
+          this.person.score_full = this.score_full
           // this.person.score_full = this.full;
         },
         // onAddExtraInfo() {

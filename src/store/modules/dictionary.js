@@ -10,8 +10,10 @@ export default {
     academyYear: [],
     eduDoc: [],
     soldiery: [],
-
-
+    language: [],
+    famRelationShip: [],
+    subject: [],
+    speciality: [],
   },
   getters: {
 
@@ -36,7 +38,18 @@ export default {
     GET_SOLDIERY: state => {
       return state.soldiery;
     },
-
+    GET_LANGUAGE: state => {
+      return state.language;
+    },
+    GET_famRelationShip: state => {
+      return state.famRelationShip;
+    },
+    GET_subject: state => {
+      return state.subject;
+    },
+    GET_speciality: state => {
+      return state.speciality;
+    },
   },
   mutations: {
 
@@ -61,7 +74,18 @@ export default {
     UPLOAD_SOLDIERY(state, payload) {
       state.soldiery = payload
     },
-
+    UPLOAD_LANGUAGE(state, payload) {
+      state.language = payload
+    },
+    UPLOAD_famRelationShip(state, payload) {
+      state.famRelationShip = payload
+    },
+    UPLOAD_subject(state, payload) {
+      state.subject = payload
+    },
+    UPLOAD_speciality(state, payload) {
+      state.speciality = payload
+    },
   },
   actions: {
 
@@ -73,17 +97,17 @@ export default {
         this.errors.push(e)
       })
     },
-    onLoadOtherCountryRegion({commit}) {
-      AXIOS.get('/dictionary/otherCountryRegion')
-        .then((response) => {
-          commit('UPLOAD_OTHER_COUNTRY_REGION', response.data)
-        }).catch(e => {
-        this.errors.push(e)
-      })
-    },
+    // onLoadOtherCountryRegion({commit}) {
+    //   AXIOS.get('/dictionary/otherCountryRegion')
+    //     .then((response) => {
+    //       commit('UPLOAD_OTHER_COUNTRY_REGION', response.data)
+    //     }).catch(e => {
+    //     this.errors.push(e)
+    //   })
+    // },
     onLoadAddressCountryRegion({commit}) {
-      // AXIOS.get('/dictionary/addressCountryRegion')
-      AXIOS.get('/json/addressCountryRegion')
+      AXIOS.get('/dictionary/addressCountryRegion')
+      // AXIOS.get('/json/addressCountryRegion')
         .then((response) => {
           commit('UPLOAD_ADDRESS_COUNTRY_REGION', response.data)
         }).catch(e => {
@@ -91,8 +115,8 @@ export default {
       })
     },
     onLoadAddressState({commit}) {
-      // AXIOS.get('/dictionary/addressState')
-      AXIOS.get('/json/addressState')
+      AXIOS.get('/dictionary/addressState')
+      // AXIOS.get('/json/addressState')
         .then((response) => {
           commit('UPLOAD_ADDRESS_STATE', response.data)
         }).catch(e => {
@@ -102,8 +126,8 @@ export default {
     },
 
     onLoadAcademyYear({commit}) {
-      // AXIOS.get('/dictionary/academyYear')
-      AXIOS.get('/json/acadamyYear')
+      AXIOS.get('/dictionary/academyYear')
+      // AXIOS.get('/json/acadamyYear')
         .then((response) => {
           commit('UPLOAD_ACADEMY_YEAR', response.data)
         }).catch(e => {
@@ -111,8 +135,8 @@ export default {
       })
     },
     onLoadEduDoc({commit}) {
-      // AXIOS.get('/dictionary/eduDoc')
-      AXIOS.get('/json/eduDoc')
+      AXIOS.get('/dictionary/eduDoc')
+      // AXIOS.get('/json/eduDoc')
         .then((response) => {
           commit('UPLOAD_EDU_DOC', response.data)
         }).catch(e => {
@@ -120,10 +144,42 @@ export default {
       })
     },
     onLoadSoldiery({commit}) {
-      // AXIOS.get('/dictionary/soldiery')
-      AXIOS.get('/json/soldiery')
+      AXIOS.get('/dictionary/soldiery')
+      // AXIOS.get('/json/soldiery')
         .then((response) => {
           commit('UPLOAD_SOLDIERY', response.data)
+        }).catch(e => {
+        this.errors.push(e)
+      })
+    },
+    onLoadLanguage({commit}) {
+      AXIOS.get('/dictionary/language')
+        .then((response) => {
+          commit('UPLOAD_LANGUAGE', response.data)
+        }).catch(e => {
+        this.errors.push(e)
+      })
+    },
+    onLoadFamRelationShip({commit}) {
+      AXIOS.get('/dictionary/famRelationShip')
+        .then((response) => {
+          commit('UPLOAD_famRelationShip', response.data)
+        }).catch(e => {
+        this.errors.push(e)
+      })
+    },
+    onLoadSubject({commit}) {
+      AXIOS.get('/dictionary/subject')
+        .then((response) => {
+          commit('UPLOAD_subject', response.data)
+        }).catch(e => {
+        this.errors.push(e)
+      })
+    },
+    onLoadSpeciality({commit}) {
+      AXIOS.get('/dictionary/speciality')
+        .then((response) => {
+          commit('UPLOAD_speciality', response.data)
         }).catch(e => {
         this.errors.push(e)
       })

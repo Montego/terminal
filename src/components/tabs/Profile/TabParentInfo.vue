@@ -12,12 +12,12 @@
           class="elevation-1 text-xs-center"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-center">{{ props.item.tab_parent_selectedFamRelationShip}}</td>
+            <td class="text-xs-center">{{ props.item.tab_parent_selectedFamRelationShip.name}}</td>
             <!--<td class="text-xs-center">{{ props.item.snp_parent}}</td>-->
             <td class="text-xs-center">{{ props.item.tab_parent_lastname}}</td>
             <td class="text-xs-center">{{ props.item.tab_parent_firstname }}</td>
             <td class="text-xs-center">{{ props.item.tab_parent_middlename}}</td>
-            <td class="text-xs-center">{{ props.item.tab_parent_selectedGender}}</td>
+            <td class="text-xs-center">{{ props.item.tab_parent_selectedGender.name}}</td>
             <td class="text-xs-center">
               <button @click="onEdit(props.item)">
                 <v-icon color="#5bc0de">edit</v-icon>
@@ -44,10 +44,15 @@
             <label class="row">
               <div class="form__label-text col-sm">Кем приходится:</div>
               <select v-model="tab_parent_selectedFamRelationShip" class="minimal col-sm">
-                <option v-for="option in options_FamRelationShip">
-                  {{option.item}}
+                <option v-for="item in famRelationShip" v-bind:value="item">
+                  {{item.name}}
                 </option>
               </select>
+              <!--<select v-model="tab_parent_selectedFamRelationShip" class="minimal col-sm">-->
+                <!--<option v-for="option in options_FamRelationShip">-->
+                  <!--{{option.item}}-->
+                <!--</option>-->
+              <!--</select>-->
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Фамилия:</div>
@@ -176,18 +181,18 @@
     data() {
       return {
         persons: [],
-        options_FamRelationShip: [
-          {id: 1, item: 'Брат'},
-          {id: 2, item: 'Дети'},
-          {id: 3, item: 'Дядя'},
-          {id: 4, item: 'Жена'},
-          {id: 4, item: 'Мать'},
-          {id: 4, item: 'Муж'},
-          {id: 4, item: 'Опекун'},
-          {id: 4, item: 'Отец'},
-          {id: 4, item: 'Отчим'},
-          {id: 4, item: 'Сестра'},
-        ],
+        // options_FamRelationShip: [
+        //   {id: 1, item: 'Брат'},
+        //   {id: 2, item: 'Дети'},
+        //   {id: 3, item: 'Дядя'},
+        //   {id: 4, item: 'Жена'},
+        //   {id: 4, item: 'Мать'},
+        //   {id: 4, item: 'Муж'},
+        //   {id: 4, item: 'Опекун'},
+        //   {id: 4, item: 'Отец'},
+        //   {id: 4, item: 'Отчим'},
+        //   {id: 4, item: 'Сестра'},
+        // ],
 
         headers_parent: [
           {text: 'Кем приходится', value: 'tab_parent_selectedFamRelationShip', sortable: false, align: 'center'},
@@ -203,6 +208,7 @@
     },
     mounted () {
       this.$store.dispatch('enums/onLoadGender');
+      this.$store.dispatch('dictionary/onLoadFamRelationShip');
     },
     computed: {
       table_show() {
@@ -227,6 +233,8 @@
       ...person(['person']),
       ...mapState('enums', ['gender'],),
       ...mapGetters('enums', ['GET_GENDER']),
+      ...mapState('dictionary', ['famRelationShip'],),
+      ...mapGetters('dictionary', ['GET_famRelationShip']),
       ...mapMultiRowFields(['tab_parent_parents']),
       ...tab_parent_info(['tab_parent_name', 'tab_parent_lastname', 'tab_parent_firstname', 'tab_parent_middlename',
         'tab_parent_birthDate', 'tab_parent_seniority', 'tab_parent_homePhoneNumber', 'tab_parent_cellularPhone',

@@ -11,11 +11,12 @@ export default {
     application_selectedDeliveryType:null,
     application_selectedDocType:null,
     contacts: {},
-    application : {
-      ege:[],
-      application_condition:[],
-      application_documents:[],
-    }
+
+    // application : {
+    //   // ege:[],
+    //   application_condition:[],
+    //   application_documents:[],
+    // }
   },
   getters: {
     getField,

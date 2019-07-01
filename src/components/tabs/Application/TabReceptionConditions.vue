@@ -14,7 +14,7 @@
 
         <template slot="items" slot-scope="props">
           <td class="text-xs-center">{{ props.item.selected_faculty}}</td>
-          <td class="text-xs-center">{{ props.item.selected_specialty}}</td>
+          <td class="text-xs-center">{{ props.item.selected_speciality.description}}</td>
           <td class="text-xs-center">{{ props.item.selected_educationType}}</td>
           <!--<td class="text-xs-center">{{ props.item.tab_reception_condition_educationForm }}</td>-->
           <td class="text-xs-center">{{ props.item.selected_specialRight}}</td>
@@ -64,11 +64,12 @@
 
               <label class="row">
                 <div class="form__label-text col-sm">Название специальности:</div>
-                <select v-model="selected_specialty" class="col-sm">
-                  <option v-for="option in options_specialty">
-                    {{option.item}}
+                <select v-model="selected_speciality" class="minimal col-sm">
+                  <option v-for="item in speciality" v-bind:value="item">
+                    {{item.description}}
                   </option>
                 </select>
+
               </label>
 
               <!--<label class="row">-->
@@ -161,10 +162,15 @@
 </template>
 
 <script>
+  import {mapGetters, mapState} from 'vuex'
   import { createHelpers } from 'vuex-map-fields';
   const { mapFields:applications} = createHelpers({
     getterType: 'applications/getField',
     mutationType: 'applications/updateField',
+  });
+  const { mapFields:person} = createHelpers({
+    getterType: 'person/getField',
+    mutationType: 'person/updateField',
   });
   const { mapMultiRowFields } = createHelpers({
     getterType: `tab_reception_condition/getField`,
@@ -176,11 +182,14 @@
   });
     export default {
         name: "TabReceptionConditions",
+      mounted () {
+        this.$store.dispatch('dictionary/onLoadSpeciality');
+      },
       computed: {
         ...tab_reception_condition(['tab_reception_condition_faculty', 'tab_reception_condition_specialty',
           'tab_reception_condition_educationType', 'tab_reception_condition_educationForm',
           'tab_reception_condition_specialRight', 'tab_reception_condition_consent',
-          'selected_faculty', 'selected_specialty', 'selected_educationType','selected_agreement',
+          'selected_faculty', 'selected_speciality', 'selected_educationType','selected_agreement',
           'selected_specialRight','selected_typeOfSpecialRight', 'documentBase64'
 
         ]),
@@ -188,8 +197,12 @@
           'tab_reception_condition_allConditions'
         ]),
         ...applications(['application']),
+        ...person(['person','application_condition']),
+        ...mapGetters('dictionary',['GET_speciality']),
+        ...mapState('dictionary',['speciality']),
+
         showTable(){
-          return this.application.application_condition;
+          return this.person.application_condition;
         },
       },
       data(){
@@ -200,7 +213,7 @@
 
             headers_conditions: [
               {text: 'Факультет', value: 'selected_faculty', sortable: false, align: 'center'},
-              {text: 'Специальность', value: 'selected_specialty', sortable: false, align: 'center'},
+              {text: 'Специальность', value: 'selected_speciality', sortable: false, align: 'center'},
               {text: 'Тип обучения', value: 'selected_educationType', sortable: false, align: 'center'},
               // {text: 'Форма обучения', value: 'selected_consent', sortable: false, align: 'center'},
               {text: 'Особое право', value: 'selected_specialRight', sortable: false, align: 'center'},
@@ -289,9 +302,9 @@
         },
 
         onDelete(item){
-          const index = this.application.application_condition.indexOf(item);
+          const index = this.person.application_condition.indexOf(item);
           console.log(index);
-          this.application.application_condition.splice(index, 1);
+          this.person.application_condition.splice(index, 1);
         },
 
         // onAddCondition() {
@@ -303,11 +316,11 @@
         onSaveCondition() {
           location.href='profile#conditions_overview';
 
-            function Condition(faculty, specialty, type, agreement, special_right, type_special_right,
+            function Condition(faculty, speciality, type, agreement, special_right, type_special_right,
                          // special_right_doc,
                                document) {
             this.selected_faculty = faculty;
-            this.selected_specialty = specialty;
+            this.selected_speciality = speciality;
             this.selected_educationType = type;
             this.selected_agreement = agreement;
             this.selected_specialRight = special_right;
@@ -316,21 +329,23 @@
             this.documentBase64 = document;
           }
           let condition = new Condition(
-            this.selected_faculty, this.selected_specialty,
+            this.selected_faculty, this.selected_speciality,
             this.selected_educationType, this.selected_agreement,
             this.selected_specialRight, this.selected_typeOfSpecialRight,
             // this.special_right_document,
             this.documentBase64
           );
 
-          this.application.application_condition.push(condition);
-          // console.log(this.condition)
-          console.log(this.application.application_condition)
-          // console.log(this.fullName);
+          this.person.application_condition.push(condition);
+
+
+          // this.person.applications.push(condition);
+
+
         },
         onClearCondition(){
             this.selected_faculty = null,
-            this.selected_specialty = null,
+            this.selected_speciality = null,
             this.selected_educationType = null,
             this.selected_agreement = null,
             this.selected_specialRight = null,
