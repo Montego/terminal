@@ -122,7 +122,7 @@
         //   },
         },
       created () {
-          AXIOS.get(`/profile/persons`)
+          AXIOS.get(`/profile/personsTable`)
             .then(response => {
               this.profiles = response.data
               console.log(this.profiles)
@@ -232,11 +232,25 @@
 
         },
         onRedaction(item) {
+          const index = this.profiles.indexOf(item);
+
+          const idString = this.profiles[index].id;
+          const id = parseInt(idString,10);
+          AXIOS.get(`/profile/person/` + id)
+            .then(response => {
+              this.person = response.data
+              console.log(this.profiles)
+            })
+            .catch(e => {
+              this.errors.push(e)
+            })
+
           location.href='profile#personal_info';
 
-          const index = this.profiles.indexOf(item);
-          this.person = this.profiles[index];
-          this.person.ege_info = this.profiles[index].ege_info;
+          // const index = this.profiles.indexOf(item);
+          // this.person = this.profiles[index];
+          // this.person.ege_info = this.profiles[index].ege_info;
+
           // this.person.tab_personal_lastname = this.profiles[index].tab_personal_lastname;
           // this.person.tab_personal_firstname = this.profiles[index].tab_personal_firstname;
           // this.person.tab_personal_middlename = this.profiles[index].tab_personal_middlename;

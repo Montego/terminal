@@ -17,6 +17,10 @@
         <button type="button" @click="handleClick(true)">К профилям</button>
       </div>
 
+      <!--<form action="/logout" method="post">-->
+        <!--<input type="hidden" name="_csrf" value="${_csrf.token}"/>-->
+        <!--<button class="btn btn-primary" type="submit">Sign Out</button>-->
+      <!--</form>-->
       <a class="logout" href="/login">Logout</a>
     </div>
 

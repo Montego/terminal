@@ -3,12 +3,12 @@
     <h1>Авторизация</h1>
     <form class="form" action="" method="post">
       <label class="form__row">
-        <div class="form__label-text">Логин (телефон или почта) :</div>
-        <input class="form__input" type="text" name="username" value="" placeholder="Username" required/>
+        <div class="form__label-text">Логин (имя или почта) :</div>
+        <input v-model="login" class="form__input" type="text" name="username" value="" placeholder="Username" required/>
       </label>
       <label class="form__row">
         <div class="form__label-text">Password:</div>
-        <input class="form__input" type="password" name="password" placeholder="Password" required/>
+        <input v-model="password" class="form__input" type="password" name="password" placeholder="Password" required/>
       </label>
       <div class="form__row form__links">
         <a class="form__link" href="/Registration">Регистрация</a>
@@ -22,7 +22,9 @@
 
 <script>
     export default {
-        name: "login"
+        name: "login",
+        login: "",
+        passwod: ''
     }
 </script>
 
