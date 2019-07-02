@@ -433,15 +433,15 @@
         location.href='profile#ege_overview';
       },
       onCopyInfoFromProfileTab() {
-        this.tab_ege_lastname = this.tab_personal_lastname;
-        this.tab_ege_firstname =  this.tab_personal_firstname;
-        this.tab_ege_middlename =  this.tab_personal_middlename;
-        this.tab_ege_identityCardSeries = this.tab_personal_identityCardSeries;
-        this.tab_ege_identityCardNumber = this.tab_personal_identityCardNumber;
-        this.tab_ege_identityCardIssueDate = this.tab_personal_identityCardIssueDate;
-        this.tab_ege_identityCardIssueBy = this.tab_personal_identityCardIssueBy;
-        this.tab_ege_selectedIdentityCardCode = this.tab_personal_selectedIdentityCardCode;
-
+        this.tab_ege_lastname = this.person.tab_personal_lastname;
+        this.tab_ege_firstname =  this.person.tab_personal_firstname;
+        this.tab_ege_middlename =  this.person.tab_personal_middlename;
+        this.tab_ege_identityCardSeries = this.person.tab_personal_identityCardSeries;
+        this.tab_ege_identityCardNumber = this.person.tab_personal_identityCardNumber;
+        this.tab_ege_identityCardIssueDate = this.person.tab_personal_identityCardIssueDate;
+        this.tab_ege_identityCardIssueBy = this.person.tab_personal_identityCardIssueBy;
+        this.tab_ege_selectedIdentityCardCode = this.person.tab_personal_selectedIdentityCardCode;
+        this.tab_ege_info_selectedCitizenship = this.person.tab_personal_selectedCitizenship;
       }
     }
   }

@@ -118,11 +118,11 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm-2">Пяторок:</div>
-          <input v-model="score_five" class="form__input col-sm-1" type="text" v-mask="'##'"/>
+          <input v-model="person.score_five" class="form__input col-sm-1" type="text" v-mask="'##'"/>
           <div class="form__label-text col-sm-2">Четверок:</div>
-          <input v-model="score_four" class="form__input col-sm-1" type="text" v-mask="'##'"/>
+          <input v-model="person.score_four" class="form__input col-sm-1" type="text" v-mask="'##'"/>
           <div class="form__label-text col-sm-2">Троек:</div>
-          <input v-model="score_three" class="form__input col-sm-1" type="text" v-mask="'##'"/>
+          <input v-model="person.score_three" class="form__input col-sm-1" type="text" v-mask="'##'"/>
         </label>
 
       </div>
@@ -324,9 +324,9 @@
             // parseInt(this.score_three)*3) / (parseInt(this.score_five) + parseInt(this.score_four)
             // + parseInt(this.score_three));
 
-          this.score_full = (parseInt(this.score_five)*5 + parseInt(this.score_four)*4 +
-            parseInt(this.score_three)*3) / (parseInt(this.score_five) + parseInt(this.score_four)
-            + parseInt(this.score_three));
+          this.score_full = (parseInt(this.person.score_five)*5 + parseInt(this.person.score_four)*4 +
+            parseInt(this.person.score_three)*3) / (parseInt(this.person.score_five) + parseInt(this.person.score_four)
+            + parseInt(this.person.score_three));
           this.person.score_full = this.score_full
           // this.person.score_full = this.full;
         },

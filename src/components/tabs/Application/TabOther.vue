@@ -49,6 +49,12 @@
               this.errors.push(e)
             });
           this.showProfile = true;
+
+
+
+
+
+
           location.href='profile#overview_personal_info';
 
           // AXIOS.post(`/applications`, this.application)

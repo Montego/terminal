@@ -37,10 +37,10 @@
             </option>
           </select>
         </label>
-        <label class="row">
-          <div class="form__label-text col-sm">Абитуриент:</div>
-          <input v-model="fullname" class="uneditable form__input col-sm" type="text" name="" disabled />
-        </label>
+        <!--<label class="row">-->
+          <!--<div class="form__label-text col-sm">Абитуриент:</div>-->
+          <!--<input v-model="fullname" class="uneditable form__input col-sm" type="text" name="" disabled />-->
+        <!--</label>-->
     </div>
     </div>
     <div class="clear_save_button row">

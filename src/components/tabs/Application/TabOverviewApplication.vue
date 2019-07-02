@@ -3,7 +3,9 @@
   <!--<button color="#5bc0de" @click="onNewApplication()">-->
     <!--+-->
   <!--</button>-->
-  {{this.person.tab_personal_lastname}}
+  <button color="#5bc0de" @click="onNewApplication()">
+    +
+  </button>
   <v-data-table
     :headers="headers_parent"
     :items="info_parent"
@@ -68,7 +70,14 @@
       },
       methods:{
         onNewApplication() {
-          location.href='application#applicationFill';
+          this.person.application_number = null;
+          this.person.application_date = null;
+          this.person.application_selectedDeliveryType = null;
+          this.person.application_selectedDocType = null;
+          this.person.application_condition = [];
+          this.person.application_documents = [];
+
+          location.href='profile#applicationFill';
         },
         printItem(){},
         approveItem(){},

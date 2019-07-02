@@ -80,7 +80,7 @@
     },
     methods: {
       onCopyAddress() {
-        this.factAddress = this.person.tab_address_registrationAddress;
+        // this.factAddress = this.person.tab_address_registrationAddress;
         this.person.tab_address_factAddress = this.person.tab_address_registrationAddress;
       }
     }

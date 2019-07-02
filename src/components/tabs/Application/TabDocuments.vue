@@ -14,7 +14,7 @@
         >
           <template slot="items" slot-scope="props">
             <td class="text-xs-center">{{ props.item.fullName}}</td>
-            <td class="text-xs-center">{{ props.item.tab_document_selectedDocType}}</td>
+            <td class="text-xs-center">{{ props.item.tab_document_selectedDocType.name}}</td>
             <td class="text-xs-center">{{ props.item.tab_document_date}}</td>
             <td class="text-xs-center">{{ props.item.tab_document_count }}</td>
             <td class="text-xs-center">
