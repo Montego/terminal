@@ -7,18 +7,26 @@
           <!--</div>-->
           <v-data-table
             :headers="headers_features_info"
-            :items="info_features_info"
+            :items="table_show"
             hide-actions
             class="elevation-1 text-xs-center"
             >
             <template slot="items" slot-scope="props">
-            <td class="text-xs-center">{{ props.item.code }}</td>
-            <td class="text-xs-center">{{ props.item.type_sygn }}</td>
-            <td class="text-xs-center">{{ props.item.name }}</td>
-            <td class="text-xs-center">{{ props.item.type_diplom }}</td>
-            <td class="text-xs-center">{{ props.item.ball_1}}</td>
-            <td class="text-xs-center">{{ props.item.done }}</td>
-            <td class="text-xs-center">{{ props.item.ball_2}}</td>
+            <!--<td class="text-xs-center">{{ props.item.code }}</td>-->
+            <td class="text-xs-center">{{ props.item.tab_features_selectedAttrType.name }}</td>
+            <td class="text-xs-center">{{ props.item.tab_features_selectedPreference.name }}</td>
+            <td class="text-xs-center">{{ props.item.tab_features_selectedYypeDiploma.name }}</td>
+            <td class="text-xs-center">{{ props.item.tab_features_selectedPreference.points}}</td>
+              <td class="text-xs-center">
+                <button @click="onEdit(props.item)">
+                  <v-icon color="#5bc0de">edit</v-icon>
+                </button>{{ props.item.acions}}
+                <button @click="onDelete(props.item)">
+                  <v-icon color="#5bc0de">delete</v-icon>
+                </button>{{ props.item.acions}}
+              </td>
+            <!--<td class="text-xs-center">{{ props.item.done }}</td>-->
+            <!--<td class="text-xs-center">{{ props.item.ball_2}}</td>-->
             </template>
 
             </v-data-table>
@@ -31,61 +39,100 @@
               </div>
               <label class="row">
                 <div class="form__label-text col-sm">Тип признака:</div>
-                <select class="col-sm" name="">
-                  <option>признак 1</option>
-                  <option>признак 2</option>
+                <select v-model="tab_features_selectedAttrType"  class="minimal col-sm">
+                  <option v-for="item in attrType" v-bind:value="item">
+                    {{item.name}}
+                  </option>
                 </select>
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Название:</div>
-                <select class="col-sm" name="">
-                  <option>название 1</option>
-                  <option>название 2</option>
+                <select v-model="tab_features_selectedPreference"  class="minimal col-sm">
+                  <option v-for="item in preference" v-bind:value="item">
+                    {{item.name}}
+                  </option>
                 </select>
               </label>
+
               <label class="row">
                 <div class="form__label-text col-sm">Тип диплома:</div>
-                <select class="col-sm" name="">
-                  <option>тип диплома 1</option>
-                  <option>тип диплома 2</option>
+                <select v-model="tab_features_selectedYypeDiploma"  class="minimal col-sm">
+                  <option v-for="item in typeDiploma" v-bind:value="item">
+                    {{item.name}}
+                  </option>
                 </select>
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Балл ИД</div>
-                <input  class="form__input col-sm" type="text" name="" placeholder=""/>
+                <input v-model="tab_features_selectedPreference.points" class="form__input col-sm" type="text" disabled/>
+                <!--<select v-model="tab_features_selectedPreferencePoint"  class="minimal col-sm">-->
+                  <!--<option v-for="item in preference" v-bind:value="item">-->
+                    <!--{{item.points}}-->
+                  <!--</option>-->
+                <!--</select>-->
               </label>
             </div>
             <div class="col-sm">
               <div>
                 <p>Прикрепленные документы</p>
               </div>
-              <div v-for="(document,index) in documents">
+              <!--<div v-for="(document,index) in documents">-->
                 <!--{{index +1}}-->
                 <!--<label class="row">-->
                   <!--<div class="form__label-text col-sm">№</div>-->
                   <!--<input v-model="documents.index" class="form__input col-sm" type="text" name="" placeholder="заполняется автоматически"disabled/>-->
                 <!--</label>-->
+              <div>
                 <div class="row">
                   <div class="form__label-text col-sm">Документ</div>
                   <input class="document col-sm" type="file" title="Загрузите файл"/>
                 </div>
                 <label class="row">
-                  <div class="form__label-text col-sm">Копия/оригинал:</div>
-                  <select class="col-sm" name="">
-                    <option>копия</option>
-                    <option>оригинал</option>
+                  <div class="form__label-text col-sm">Копия/Оригинал:</div>
+                  <select v-model="tab_features_selectedDocType1" class="minimal col-sm">
+                    <option v-for="item in docType" v-bind:value="item">
+                      {{item.name}}
+                    </option>
                   </select>
                 </label>
+              </div>
+              <div>
+                <div class="row">
+                  <div class="form__label-text col-sm">Документ</div>
+                  <input class="document col-sm" type="file" title="Загрузите файл"/>
+                </div>
+                <label class="row">
+                  <div class="form__label-text col-sm">Копия/Оригинал:</div>
+                  <select v-model="tab_features_selectedDocType2" class="minimal col-sm">
+                    <option v-for="item in docType" v-bind:value="item">
+                      {{item.name}}
+                    </option>
+                  </select>
+                </label>
+              </div>
+              <div>
+                <div class="row">
+                  <div class="form__label-text col-sm">Документ</div>
+                  <input class="document col-sm" type="file" title="Загрузите файл"/>
+                </div>
+                <label class="row">
+                  <div class="form__label-text col-sm">Копия/Оригинал:</div>
+                  <select v-model="tab_features_selectedDocType3" class="minimal col-sm">
+                    <option v-for="item in docType" v-bind:value="item">
+                      {{item.name}}
+                    </option>
+                  </select>
+                </label>
+              </div>
 
-              </div>
-              <div class="row">
-                <input class="button_add" type="button" value="Добавить документ" @click="onAddDocuments" >
-                <input class="button_add" type="button" value="Убрать документ" @click="onRemoveDocuments" >
-              </div>
+              <!--<div class="row">-->
+                <!--<input class="button_add" type="button" value="Добавить документ" @click="onAddDocuments" >-->
+                <!--<input class="button_add" type="button" value="Убрать документ" @click="onRemoveDocuments" >-->
+              <!--</div>-->
             </div>
           </div>
           <hr>
-          <button>Сохранить</button>
+          <button @click="onAddFeature">Сохранить</button>
         </tab>
       </tabs>
   <div class="row">
@@ -109,9 +156,54 @@
 </template>
 
 <script>
+  import {mapGetters, mapState} from 'vuex';
+  import { createHelpers } from 'vuex-map-fields';
+  const { mapFields:tab_distinctive_features_info} = createHelpers({
+    getterType: `tab_distinctive_features_info/getField`,
+    mutationType: `tab_distinctive_features_info/updateField`,
+  });
+  const { mapFields:person} = createHelpers({
+    getterType: `person/getField`,
+    mutationType: `person/updateField`,
+  });
     export default {
         name: "TabDistinctiveFeaturesInfo",
+      mounted() {
+        this.$store.dispatch('enums/onLoadAttrType');
+        this.$store.dispatch('enums/onLoadTypeDiploma');
+        this.$store.dispatch('dictionary/onLoadPreference');
+      },
+      computed: {
+        ...mapState('enums', ['attrType','docType','typeDiploma']),
+        ...mapState('dictionary', ['preference', ]),
+        ...mapGetters('enums', ['GET_attrType', 'GET_DOC_TYPE','GET_TYPE_DIPLOMA']),
+        ...mapGetters('dictionary', ['GET_preference', ]),
+        ...tab_distinctive_features_info(['tab_features_selectedAttrType', 'tab_features_selectedPreference',
+        'tab_features_selectedPreferencePoint','tab_features_selectedYypeDiploma',
+        'tab_features_selectedDocType1', 'tab_features_selectedDocType2','tab_features_selectedDocType3']),
+        ...person(['person']),
+
+        table_show() {
+          return this.person.futures_info;
+        },
+      },
         methods: {
+
+          onDelete(item) {
+            const index = this.person.futures_info.indexOf(item);
+            console.log(index);
+            this.person.futures_info.splice(index,1);
+
+          },
+          onEdit(item) {
+            const index = this.person.futures_info.indexOf(item);
+            location.href='profile#features_info';
+            this.tab_features_selectedAttrType = this.person.futures_info[index].tab_features_selectedAttrType;
+            this.tab_features_selectedPreference = this.person.futures_info[index].tab_features_selectedPreference;
+            this.tab_features_selectedYypeDiploma = this.person.futures_info[index].tab_features_selectedYypeDiploma;
+
+          },
+
           onAddDocuments() {
             this.documents.push('');
           },
@@ -119,32 +211,52 @@
             // var lastItem = this.documents[this.documents.length - 1];
             this.documents.pop(this.documents.length - 1);
           },
+          onAddFeature() {
+            function Feature(selectedAttrType, selectedPreference ,typeDyploma) {
+              this.tab_features_selectedAttrType = selectedAttrType;
+              this.tab_features_selectedPreference = selectedPreference;
+              this.tab_features_selectedYypeDiploma = typeDyploma;
+
+            }
+
+            let feature = new Feature(
+              this.tab_features_selectedAttrType, this.tab_features_selectedPreference,
+              this.tab_features_selectedYypeDiploma
+
+            );
+            location.href = 'profile#features_overview';
+            this.person.futures_info.push(feature);
+            console.log(this.person.futures_info)
+          }
        },
       data () {
         return {
-          documents: [],
+          documents: [
+          ],
 
           headers_features_info: [
-            { text: 'Код', value: 'code', sortable: false, align: 'center' },
-            { text: 'Тип признака', value: 'type_sygn',sortable: false, align: 'center' },
-            { text: 'Название', value: 'name',sortable: false, align: 'center' },
-            { text: 'Тип диплома', value: 'type_diplom', sortable: false,align: 'center' },
-            { text: 'Балл ИД', value: 'ball_1', sortable: false, align: 'center' },
-            { text: 'Выполнено', value: 'done', sortable: false, align: 'center' },
-            { text: 'Балл экс.в ФИС.', value: 'ball_2',sortable: false, align: 'center' },
+            // { text: 'Код', value: 'code', sortable: false, align: 'center' },
+            { text: 'Тип признака', value: 'tab_features_selectedAttrType',sortable: false, align: 'center' },
+            { text: 'Название', value: 'tab_features_selectedPreference',sortable: false, align: 'center' },
+            { text: 'Тип диплома', value: 'tab_features_selectedYypeDiploma', sortable: false,align: 'center' },
+            { text: 'Балл ИД', value: 'tab_features_selectedPreferencePoint', sortable: false, align: 'center' },
+            { text: 'Действия', value: 'actions', sortable: false, align: 'center'},
+            // { text: 'Выполнено', value: 'done', sortable: false, align: 'center' },
+            // { text: 'Балл экс.в ФИС.', value: 'ball_2',sortable: false, align: 'center' },
           ],
           info_features_info: [],
 
-          headers_features_documents: [
-            { text: '№', value: 'num', sortable: false, align: 'center' },
-            { text: 'Документ', value: 'documents',sortable: false, align: 'center' },
-            { text: 'Копия(Оригинал)', value: 'copy_or_origin',sortable: false, align: 'center' },
-          ],
-          info_features_documents: [],
+          // headers_features_documents: [
+          //   { text: '№', value: 'num', sortable: false, align: 'center' },
+          //   { text: 'Документ', value: 'documents',sortable: false, align: 'center' },
+          //   { text: 'Копия(Оригинал)', value: 'copy_or_origin',sortable: false, align: 'center' },
+          // ],
+          // info_features_documents: [],
         }
       }
     }
 </script>
+
 
 <style scoped>
   .calculate_score {

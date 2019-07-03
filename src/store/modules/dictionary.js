@@ -11,6 +11,7 @@ export default {
     eduDoc: [],
     soldiery: [],
     language: [],
+    preference: [],
     famRelationShip: [],
     subject: [],
     speciality: [],
@@ -40,6 +41,9 @@ export default {
     },
     GET_LANGUAGE: state => {
       return state.language;
+    },
+    GET_preference: state => {
+      return state.preference;
     },
     GET_famRelationShip: state => {
       return state.famRelationShip;
@@ -76,6 +80,9 @@ export default {
     },
     UPLOAD_LANGUAGE(state, payload) {
       state.language = payload
+    },
+    UPLOAD_preference(state, payload) {
+      state.preference = payload
     },
     UPLOAD_famRelationShip(state, payload) {
       state.famRelationShip = payload
@@ -156,6 +163,14 @@ export default {
       AXIOS.get('/dictionary/language')
         .then((response) => {
           commit('UPLOAD_LANGUAGE', response.data)
+        }).catch(e => {
+        this.errors.push(e)
+      })
+    },
+    onLoadPreference({commit}) {
+      AXIOS.get('/dictionary/preference')
+        .then((response) => {
+          commit('UPLOAD_preference', response.data)
         }).catch(e => {
         this.errors.push(e)
       })

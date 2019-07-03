@@ -10,10 +10,10 @@
       <!--</div>-->
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea v-model="person.tab_address_registrationAddress" class="col-sm-10" name=""></textarea>
+        <textarea v-model="person.tab_address_registrationAddress" class="uneditable col-sm-10" name="" disabled></textarea>
       </label>
       <label class="row">
-        <div class="form__label-text col-sm">Типа нас. пункта:</div>
+        <!--<div class="form__label-text col-sm">Типа нас. пункта:</div>-->
         <!--<select v-model="tab_personal_selectedForeignLanguageInfo" class="col-sm">-->
           <!--<option v-for="option in options_foreignLanguageName">-->
             <!--{{option.item}}-->
@@ -23,94 +23,110 @@
       </label>
 
       <div id="checked" class="demo">
-        <input type="checkbox" id="registrationAddress" value="registrationAddress" v-model="checkedAddress">
+        <input class="checkbox" type="checkbox" id="registrationAddress" value="registrationAddress" v-model="checkedAddress">
         <label for="registrationAddress">По прописке</label>
-        <input type="checkbox" id="factAddress" value="factAddress" v-model="checkedAddress">
+        <input class="checkbox" type="checkbox" id="factAddress" value="factAddress" v-model="checkedAddress">
         <label for="factAddress">Фактический</label>
-        <input type="checkbox" id="templateAddress" value="templateAddress" v-model="checkedAddress">
+        <input class="checkbox" type="checkbox" id="templateAddress" value="templateAddress" v-model="checkedAddress">
         <label for="templateAddress">Временной рег.</label>
         <br>
         <span>Отмеченные  {{ checkedAddress }}</span>
       </div>
       <label class="row">
-        <div class="form__label-text col-sm">Адрес 1</div>
-        <select v-model="person.application_selectedDocType" class="minimal col-sm">
-          <option v-for="item in docType" v-bind:value="item">
-            {{item.name}}
-          </option>
+        <div class="form__label-text col-sm">Страна:</div>
+        <select v-model="person.country" class="minimal col-sm">
+          <!--<option v-for="item in docType" v-bind:value="item">-->
+          <!--{{item.name}}-->
+          <!--</option>-->
         </select>
       </label>
       <label class="row">
-        <div class="form__label-text col-sm">Адрес 2</div>
-        <select v-model="person.application_selectedDocType" class="minimal col-sm">
-          <option v-for="item in docType" v-bind:value="item">
-            {{item.name}}
-          </option>
+        <div class="form__label-text col-sm">Субъект:</div>
+        <select v-model="person.object" class="minimal col-sm">
+          <!--<option v-for="item in docType" v-bind:value="item">-->
+          <!--{{item.name}}-->
+          <!--</option>-->
         </select>
       </label>
       <label class="row">
-        <div class="form__label-text col-sm">Адрес 3</div>
-        <select v-model="person.application_selectedDocType" class="minimal col-sm">
-          <option v-for="item in docType" v-bind:value="item">
-            {{item.name}}
-          </option>
+        <div class="form__label-text col-sm">Город:</div>
+        <select v-model="person.city" class="minimal col-sm">
+          <!--<option v-for="item in docType" v-bind:value="item">-->
+          <!--{{item.name}}-->
+          <!--</option>-->
         </select>
       </label>
       <label class="row">
-        <div class="form__label-text col-sm">Адрес 4</div>
-        <select v-model="person.application_selectedDocType" class="minimal col-sm">
-          <option v-for="item in docType" v-bind:value="item">
-            {{item.name}}
-          </option>
+        <div class="form__label-text col-sm">Населенный пункт:</div>
+        <select v-model="person.fuck" class="minimal col-sm">
+          <!--<option v-for="item in docType" v-bind:value="item">-->
+          <!--{{item.name}}-->
+          <!--</option>-->
         </select>
       </label>
       <label class="row">
-        <div class="form__label-text col-sm">Адрес 5</div>
-        <select v-model="person.application_selectedDocType" class="minimal col-sm">
-          <option v-for="item in docType" v-bind:value="item">
-            {{item.name}}
-          </option>
+        <div class="form__label-text col-sm">Внутригородская территория</div>
+        <select v-model="person.fuck" class="minimal col-sm">
+          <!--<option v-for="item in docType" v-bind:value="item">-->
+          <!--{{item.name}}-->
+          <!--</option>-->
         </select>
       </label>
       <label class="row">
-        <div class="form__label-text col-sm">Адрес 6</div>
-        <select v-model="person.application_selectedDocType" class="minimal col-sm">
-          <option v-for="item in docType" v-bind:value="item">
-            {{item.name}}
-          </option>
+        <div class="form__label-text col-sm">Район:</div>
+        <select v-model="person.fuck" class="minimal col-sm">
+          <!--<option v-for="item in docType" v-bind:value="item">-->
+          <!--{{item.name}}-->
+          <!--</option>-->
         </select>
       </label>
       <label class="row">
-        <div class="form__label-text col-sm">Адрес 7</div>
-        <select v-model="person.application_selectedDocType" class="minimal col-sm">
-          <option v-for="item in docType" v-bind:value="item">
-            {{item.name}}
-          </option>
+        <div class="form__label-text col-sm">Элем. планир. структуры:</div>
+        <select v-model="person.fuck" class="minimal col-sm">
+          <!--<option v-for="item in docType" v-bind:value="item">-->
+          <!--{{item.name}}-->
+          <!--</option>-->
         </select>
       </label>
       <label class="row">
-        <div class="form__label-text col-sm">Адрес 8</div>
-        <select v-model="person.application_selectedDocType" class="minimal col-sm">
-          <option v-for="item in docType" v-bind:value="item">
-            {{item.name}}
-          </option>
+        <div class="form__label-text col-sm">Подчиненные доп. территория объекты:</div>
+        <select v-model="person.fuck" class="minimal col-sm">
+          <!--<option v-for="item in docType" v-bind:value="item">-->
+          <!--{{item.name}}-->
+          <!--</option>-->
         </select>
       </label>
       <label class="row">
-        <div class="form__label-text col-sm">Адрес 9</div>
-        <select v-model="person.application_selectedDocType" class="minimal col-sm">
-          <option v-for="item in docType" v-bind:value="item">
-            {{item.name}}
-          </option>
+        <div class="form__label-text col-sm">Улица:</div>
+        <select v-model="person.street" class="minimal col-sm">
+          <!--<option v-for="item in docType" v-bind:value="item">-->
+          <!--{{item.name}}-->
+          <!--</option>-->
         </select>
       </label>
       <label class="row">
-        <div class="form__label-text col-sm">Уточнение адреса:</div>
-        <input v-model="person.application_date" class="form__input col-sm" type="text" name=""  />
+        <div class="form__label-text col-sm">Дом:</div>
+        <select v-model="person.house" class="minimal col-sm">
+          <!--<option v-for="item in docType" v-bind:value="item">-->
+            <!--{{item.name}}-->
+          <!--</option>-->
+        </select>
+      </label>
+      <label class="row">
+        <div class="form__label-text col-sm">Квартира:</div>
+        <select v-model="person.flat" class="minimal col-sm">
+          <!--<option v-for="item in docType" v-bind:value="item">-->
+            <!--{{item.name}}-->
+          <!--</option>-->
+        </select>
+      </label>
+      <label class="row">
+        <div class="form__label-text col-sm-3">Уточнение адреса:</div>
+        <textarea v-model="person.fuck" class="col-sm-9" name=""></textarea>
       </label>
       <label class="row">
         <div class="form__label-text col-sm">Индекс:</div>
-        <input v-model="person.application_date" class="form__input col-sm" type="text" name=""  />
+        <input v-model="person.fuck" class="form__input col-sm" type="text" name=""  />
       </label>
       <div class="buttons input_address row">
         <button class="adress_button">Ввести адрес</button>
@@ -128,7 +144,7 @@
       <!--</div>-->
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea v-model="person.tab_address_factAddress" class="col-sm-10" name=""></textarea>
+        <textarea v-model="person.tab_address_factAddress" class="uneditable col-sm-10" disabled></textarea>
       </label>
     </div>
     <div class="info_address2 col-sm">
@@ -141,7 +157,7 @@
       <!--</div>-->
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea v-model="person.tab_address_templateRegistrationAddress" class="col-sm-10" name=""></textarea>
+        <textarea v-model="person.tab_address_templateRegistrationAddress" class="uneditable col-sm-10" disabled></textarea>
       </label>
     </div>
   </div>
@@ -183,7 +199,16 @@
 </script>
 
 <style scoped>
+  input.checkbox {
+    height: 15px;
+    transform: scale(1.3);
+    opacity: 0.9;
+    cursor: pointer;
+  }
 
+  .uneditable {
+    background-color: #F5F5F5;
+  }
   label.row {
     margin-bottom: 3px;
   }

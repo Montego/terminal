@@ -11,6 +11,7 @@ export default {
       parents_info:[],
       application_condition:[],
       application_documents:[],
+      futures_info: [],
       // applications:[]
     }
   },

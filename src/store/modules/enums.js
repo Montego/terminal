@@ -3,9 +3,9 @@ import {AXIOS} from "../../components/plugins/APIService.js"
 export default {
   namespaced: true,
   state: {
+    attrType: [],
     gender: [],
     langInfo: [],
-    // language_name: [],
     accreditationDocType: [],
     deliveryType: [],
     docType: [],
@@ -23,18 +23,17 @@ export default {
     typeDiploma: [],
   },
   getters: {
+    GET_attrType: state => {
+      return state.attrType;
+    },
 
     GET_GENDER: state => {
       return state.gender;
     },
-
-
     GET_LANGINFO: state => {
       return state.langInfo;
     },
-    // GET_LANGUAGE_NAME: state => {
-    //   return state.language_name;
-    // },
+
     GET_ACCREDITATION_DOC_TYPE: state => {
       return state.accreditationDocType;
     },
@@ -83,18 +82,15 @@ export default {
 
   },
   mutations: {
-
+    UPLOAD_attrType(state, payload) {
+      state.attrType = payload
+    },
     UPLOAD_GENDER(state, payload) {
       state.gender = payload
     },
-
-
     UPLOAD_LANG_INFO(state, payload) {
       state.langInfo = payload
     },
-    // UPLOAD_LANGUAGE_NAME(state, payload) {
-    //   state.language_name = payload
-    // },
     UPLOAD_ACCREDITATION_DOC_TYPE(state, payload) {
       state.accreditationDocType = payload
     },
@@ -143,7 +139,14 @@ export default {
 
   },
   actions: {
-
+    onLoadAttrType({commit}) {
+      AXIOS.get('/enums/attrType')
+        .then((response) => {
+          commit('UPLOAD_attrType', response.data)
+        }).catch(e => {
+        this.errors.push(e)
+      })
+    },
     onLoadGender({commit}) {
       AXIOS.get('/enums/gender')
       // AXIOS.get('/json/gender')
