@@ -18,7 +18,7 @@
           <!--<input v-model="lastname_personal_info" class="form__input col-sm" v-validate="'required|alpha'" name="lastname"-->
                  <!--type="text">-->
           <!--<span>{{ errors.first('alpha') }}</span>-->
-          <input v-model="person.tab_personal_lastname" class="form__input col-sm" type="text" name="lastname" required/>
+          <input v-model="person.tab_personal_lastname" value= "" class="form__input col-sm" type="text" name="lastname" required/>
         </label>
         <span class="alarm_label" v-if="person.tab_personal_lastname===''">Не заполнено поле "Фамилия"</span>
         <label class="row">
@@ -26,7 +26,7 @@
           <input v-model="person.tab_personal_firstname" class="form__input col-sm" type="text" name="firstname" required/>
         </label>
         <span class="alarm_label" v-if="person.tab_personal_firstname===''">Не заполнено поле "Имя"</span>
-        <span class="alarm_label" v-else-if="person.tab_personal_firstname===tab_personal_lastname">Имя не может совпадать с фамилией</span>
+        <span class="alarm_label" v-else-if="person.tab_personal_firstname=== person.tab_personal_lastname">Имя не может совпадать с фамилией</span>
         <label class="row">
           <div class="form__label-text col-sm">Отчество</div>
           <input v-model="person.tab_personal_middlename" class="form__input col-sm" type="text" name="middlename" required/>
@@ -382,7 +382,7 @@
       },
 
       fullseniority: function () {
-        return this.tab_personal_seniority = this.tab_personal_employYears + ',' + this.tab_personal_employMonths
+        return this.tab_personal_seniority = this.person.tab_personal_employYears + ',' + this.person.tab_personal_employMonths
       },
 
     },
