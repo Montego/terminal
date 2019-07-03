@@ -31,7 +31,7 @@
       </tab>
       <tab id="parent_info" name="Личные данные попечителя">
         <div class="inner_tab row">
-          <div class="col-sm">
+          <div class="col-sm-4">
             <div>
               <p>Личные данные родителя/попечителя</p>
             </div>

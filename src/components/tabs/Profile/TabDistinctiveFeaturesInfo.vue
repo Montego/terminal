@@ -2,9 +2,9 @@
     <div>
       <tabs class="parent_tabs">
         <tab id="features_overview" name="Обзор">
-          <!--<div class="row">-->
-            <!--<button>Добавить</button>-->
-          <!--</div>-->
+          <div class="row">
+            <button @click="onInfo">Добавить</button>
+          </div>
           <v-data-table
             :headers="headers_features_info"
             :items="table_show"
@@ -188,7 +188,9 @@
         },
       },
         methods: {
-
+          onInfo() {
+            location.href='profile#features_info';
+          },
           onDelete(item) {
             const index = this.person.futures_info.indexOf(item);
             console.log(index);

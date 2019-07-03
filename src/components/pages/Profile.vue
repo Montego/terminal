@@ -181,7 +181,7 @@
   }
 
   .control-panel > * {
-    margin: 0 70px;
+    margin: 0 120px;
   }
 
   /*.logout {*/
