@@ -12,7 +12,7 @@
           <input v-model="fullname" class="uneditable form__input col-sm-8" type="text" name="name"
                  placeholder="Заполняется автоматически" disabled="disabled"/>
         </label>
-        <!--в фамилия namespace not found in mapState()-->
+
         <label class="row">
           <span class="form__label-text col-sm">Фамилия</span>
           <!--<input v-model="lastname_personal_info" class="form__input col-sm" v-validate="'required|alpha'" name="lastname"-->
@@ -87,7 +87,6 @@
         </label>
       </div>
     </div>
-    <!--]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]-->
     <div class="info_pasp col-sm">
       <div>
         <p>Паспортные данные</p>
