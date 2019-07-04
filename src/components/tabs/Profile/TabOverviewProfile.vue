@@ -24,14 +24,15 @@
       <td class="text-xs-center">{{ props.item.tab_personal_middlename}}</td>
       <!--<td class="text-xs-center">{{ props.item.tab_personal_selectedGender}}</td>-->
       <td class="text-xs-center">{{ props.item.tab_personal_birthDate}}</td>
+      <td class="text-xs-center">{{ props.item.tab_personal_birthDate}}</td>
       <!--<td class="text-xs-center">{{ props.item.contact_code_pretendent}}</td>-->
       <td class="justify-center layout px-0">
-          <button @click="onRedaction(props.item)">
-            <v-icon color="#5bc0de">edit</v-icon>
+          <button type="button" @click="onApplication(props.item); handleClick(false) ">
+            <v-icon color="#5bc0de">description</v-icon>
           </button>
-          <!--<button type="button" @click="handleClick(false)">-->
-            <!--<v-icon color="#5bc0de">Заявление</v-icon>-->
-          <!--</button>-->
+        <button @click="onRedaction(props.item)">
+          <v-icon color="#5bc0de">edit</v-icon>
+        </button>
       </td>
     </template>
   </v-data-table>
@@ -86,7 +87,7 @@
             { text: 'Отчество', value: 'middlename',sortable: false, align: 'center' },
             // { text: 'Пол', value: 'selectedGender',sortable: false, align: 'center' },
             { text: 'Дата рождения', value: 'birthDate',sortable: false, align: 'center' },
-            // { text: 'Код контактного лица', value: 'contact_code_pretendent',sortable: false, align: 'center' },
+            { text: '№ Заявления', value: 'application',sortable: false, align: 'center' },
             { text: 'Действия', value: 'name', sortable: false, align: 'center' }
           ],
           pretendets: [],
@@ -287,14 +288,27 @@
 
 
         onApplication(item) {
-
           const index = this.profiles.indexOf(item);
+          const idString = this.profiles[index].id;
+          const id = parseInt(idString,10);
+
+          AXIOS.get(`/profile/person_applications/` + id)
+            .then(response => {
+              this.person = response.data
+              console.log(this.profiles)
+            })
+            .catch(e => {
+              this.errors.push(e)
+            })
+
+          person_applications;
+
+
+          // const index = this.profiles.indexOf(item);
           this.person = this.profiles[index];
-          this.showPerson = !this.showPerson;
-
-
+          // this.showPerson = !this.showPerson;
           // console.log(this.showApplication)
-          console.log(this.showPerson)
+          console.log(1111)
 
         },
       },

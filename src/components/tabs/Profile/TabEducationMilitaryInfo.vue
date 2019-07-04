@@ -153,7 +153,7 @@
 
         </label>
       </div>
-      <!--<div v-if="person.tab_edu_military_selectedSoldieryStatus=='Служил' || tab_edu_military_selectedSoldiery=='Военнообязанный'  ">-->
+      <div v-if="person.tab_edu_military_selectedSoldieryStatus=='Служил' || tab_edu_military_selectedSoldiery=='Военнообязанный'  ">
         <div>
           <p>Документ о военной службе</p>
         </div>
@@ -214,14 +214,13 @@
             <input v-model="person.tab_edu_military_endMilitary" class="form__input col-sm" type="date" name="" placeholder=""/>
           </label>
         </div>
-      <!--</div>-->
+      </div>
 
       <div>
         <p>Дополнительные сведения</p>
       </div>
       <hr>
-      <!--<div class="row" v-for="(extraInfo,index) in extraInfos">-->
-        <!--<label class="row" v-for="(extraInfo,index) in extraInfos">-->
+
       <div class="row">
           <select v-model="person.selectedExtraInfos1" class="minimal col-sm">
             <option v-for="option in options_extraInfos">

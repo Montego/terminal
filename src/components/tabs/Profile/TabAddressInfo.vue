@@ -5,9 +5,9 @@
         <p>Адрес по прописке</p>
       </div>
       <hr>
-      <!--<div class="buttons row">-->
-        <!--<button class="adress_button">Ввести адрес</button>-->
-      <!--</div>-->
+      <div class="buttons row">
+        <button class="adress_button">Ввести адрес</button>
+      </div>
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
         <textarea v-model="person.tab_address_registrationAddress" class="uneditable col-sm-10" name="" disabled></textarea>
@@ -22,16 +22,16 @@
         <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
       </label>
 
-      <div id="checked" class="demo">
-        <input class="checkbox" type="checkbox" id="registrationAddress" value="registrationAddress" v-model="checkedAddress">
-        <label for="registrationAddress">По прописке</label>
-        <input class="checkbox" type="checkbox" id="factAddress" value="factAddress" v-model="checkedAddress">
-        <label for="factAddress">Фактический</label>
-        <input class="checkbox" type="checkbox" id="templateAddress" value="templateAddress" v-model="checkedAddress">
-        <label for="templateAddress">Временной рег.</label>
-        <br>
-        <span>Отмеченные  {{ checkedAddress }}</span>
-      </div>
+      <!--<div id="checked" class="demo">-->
+        <!--<input class="checkbox" type="checkbox" id="registrationAddress" value="registrationAddress" v-model="checkedAddress">-->
+        <!--<label for="registrationAddress">По прописке</label>-->
+        <!--<input class="checkbox" type="checkbox" id="factAddress" value="factAddress" v-model="checkedAddress">-->
+        <!--<label for="factAddress">Фактический</label>-->
+        <!--<input class="checkbox" type="checkbox" id="templateAddress" value="templateAddress" v-model="checkedAddress">-->
+        <!--<label for="templateAddress">Временной рег.</label>-->
+        <!--<br>-->
+        <!--<span>Отмеченные  {{ checkedAddress }}</span>-->
+      <!--</div>-->
       <label class="row">
         <div class="form__label-text col-sm">Страна:</div>
         <select v-model="person.country" class="minimal col-sm">
@@ -128,9 +128,9 @@
         <div class="form__label-text col-sm">Индекс:</div>
         <input v-model="person.fuck" class="form__input col-sm" type="text" name=""  />
       </label>
-      <div class="buttons input_address row">
-        <button class="adress_button">Ввести адрес</button>
-      </div>
+      <!--<div class="buttons input_address row">-->
+        <!--<button class="adress_button">Ввести адрес</button>-->
+      <!--</div>-->
 
     </div>
     <div class="info_address2 col-sm">
@@ -138,10 +138,10 @@
         <p>Адрес фактический</p>
       </div>
       <hr>
-      <!--<div class="buttons row">-->
-        <!--<button class="adress_button">Ввести адрес</button>-->
-        <!--<button class="adress_button" @click="onCopyAddress">Копировать</button>-->
-      <!--</div>-->
+      <div class="buttons row">
+        <button class="adress_button">Ввести адрес</button>
+        <button class="adress_button" @click="onCopyAddress">Копировать</button>
+      </div>
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
         <textarea v-model="person.tab_address_factAddress" class="uneditable col-sm-10" disabled></textarea>
@@ -152,9 +152,9 @@
         <p>Адрес временной регистрации</p>
       </div>
       <hr>
-      <!--<div class="buttons row">-->
-        <!--<button class="adress_button">Ввести адрес</button>-->
-      <!--</div>-->
+      <div class="buttons row">
+        <button class="adress_button">Ввести адрес</button>
+      </div>
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
         <textarea v-model="person.tab_address_templateRegistrationAddress" class="uneditable col-sm-10" disabled></textarea>

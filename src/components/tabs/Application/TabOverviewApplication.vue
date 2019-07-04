@@ -112,7 +112,6 @@
 
         redactionItem(item) {
           const index = this.applications.indexOf(item);
-
           const idString = this.applications[index].id;
           const id = parseInt(idString,10);
           AXIOS.get(`/profile/person/` + id)

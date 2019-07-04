@@ -271,6 +271,20 @@
         this.tab_parent_organization_employYears = this.person.parents_info[index].tab_parent_organization_employYears;
       },
       onInfo() {
+        this.tab_parent_name = '';
+        this.tab_parent_lastname = '';
+        this.tab_parent_firstname = '';
+        this.tab_parent_middlename = '';
+        this.tab_parent_birthDate = '';
+        this.tab_parent_homePhoneNumber = '';
+        this.tab_parent_cellularPhone = '';
+        this.tab_parent_factAddress = '';
+        this.tab_parent_selectedFamRelationShip = '';
+        this.tab_parent_selectedGender = '';
+        this.tab_parent_organization_name = '';
+        this.tab_parent_organization_address = '';
+        this.tab_parent_organization_seniority = '';
+        this.tab_parent_organization_employYears = '';
         location.href='profile#parent_info';
       },
       onCopyAddressFromStudent() {

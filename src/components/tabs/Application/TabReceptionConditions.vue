@@ -202,7 +202,7 @@
         ...mapState('dictionary',['speciality']),
 
         showTable(){
-          return this.person.application_condition;
+          return this.application.application_condition;
         },
       },
       data(){
@@ -302,9 +302,9 @@
         },
 
         onDelete(item){
-          const index = this.person.application_condition.indexOf(item);
+          const index = this.application.application_condition.indexOf(item);
           console.log(index);
-          this.person.application_condition.splice(index, 1);
+          this.application.application_condition.splice(index, 1);
         },
 
         // onAddCondition() {
@@ -336,8 +336,8 @@
             this.documentBase64
           );
 
-          this.person.application_condition.push(condition);
-
+          // this.person.application_condition.push(condition);
+          this.application.application_condition.push(condition);
 
           // this.person.applications.push(condition);
 

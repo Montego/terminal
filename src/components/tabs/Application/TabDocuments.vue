@@ -142,16 +142,9 @@
              this.tab_document_series +
             ' ' + this.tab_document_number;
         },
-        // fullName1(){
-        //   return this.document_fullName =
-        //     // type + ' ' + serial + ' ' + number
-        //     this.tab_personal_selectedIdentityCardCode + ' ' +
-        //     this.tab_personal_identityCardSeries +
-        //     ' ' + this.tab_personal_identityCardNumber;
-        // },
 
         showTable(){
-          return this.person.application_documents;
+          return this.application.application_documents;
         },
       },
       mounted() {
@@ -174,28 +167,24 @@
             this.tab_document_issuedBy = null;
           },
           onFill() {
-
-            function Document1(doc1_type, doc1_series, doc1_number, doc1_full) {
-              this.tab_personal_selectedIdentityCardCode = doc1_type;
-              this.tab_personal_identityCardSeries = doc1_series;
-              this.tab_personal_identityCardNumber = doc1_number;
-              // this.fullName = doc1_type + " " + doc1_series + " " + doc1_number
-              this.fullName = doc1_full;
-
-            }
-            let document1 = new Document1(
-              this.tab_personal_selectedIdentityCardCode,
-              this.tab_personal_identityCardSeries,
-              this.tab_personal_identityCardNumber,
-              // this.fullName
-              // this.fullName = this.fullName1
-
-            );
-            // if(document1.tab_personal_selectedIdentityCardCode != null){
-              this.person.application_documents.push(document1);
+            // function Document1(doc1_type, doc1_series, doc1_number, doc1_full) {
+            //   this.tab_personal_selectedIdentityCardCode = doc1_type;
+            //   this.tab_personal_identityCardSeries = doc1_series;
+            //   this.tab_personal_identityCardNumber = doc1_number;
+            //   // this.fullName = doc1_type + " " + doc1_series + " " + doc1_number
+            //   this.fullName = doc1_full;
             // }
-
-              console.log(" i don't know ")
+            // let document1 = new Document1(
+            //   this.tab_personal_selectedIdentityCardCode,
+            //   this.tab_personal_identityCardSeries,
+            //   this.tab_personal_identityCardNumber,
+            //   // this.fullName
+            //   // this.fullName = this.fullName1
+            // );
+            // // if(document1.tab_personal_selectedIdentityCardCode != null){
+            //   this.person.application_documents.push(document1);
+            // // }
+            //   console.log(" i don't know ")
 
           },
           onSave() {
@@ -219,16 +208,18 @@
                 this.tab_document_issuedBy, this.fullName
               );
 
-            this.person.application_documents.push(document);
+            // this.person.application_documents.push(document);
+
+            this.application.application_documents.push(document);
             console.log(this.document)
 
             // console.log(this.fullName);
           },
 
           onDelete(item) {
-            const index = this.person.application_documents.indexOf(item);
+            const index = this.application.application_documents.indexOf(item);
             console.log(index);
-            this.person.application_documents.splice(index, 1);
+            this.application.application_documents.splice(index, 1);
           }
         },
 

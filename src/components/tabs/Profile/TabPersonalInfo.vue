@@ -368,7 +368,7 @@
           this.person.tab_personal_firstname_genitive + ' ' + this.person.tab_personal_middlename_genitive
       },
 
-      //TODO проверить
+      //TODO проверить, по дням неправильно
       fullage: function () {
         var today = new Date();
         var birth = new Date(this.person.tab_personal_birthDate);
@@ -393,7 +393,7 @@
       onRemoveLanguage(){
         this.conditions.pop(this.conditions.length - 1);
       }
-      // ...mapActions('tab_personal_info', ['SET_LASTNAME_PERSONAL_INFO']),
+
     },
     validations: {
       // Название поля должно совпадать с полем в data

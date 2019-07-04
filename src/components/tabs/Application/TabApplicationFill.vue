@@ -10,15 +10,15 @@
       <div class="col-sm-8">
         <label class="row">
           <div class="form__label-text col-sm">Номер заявления:</div>
-          <input v-model="person.application_number" class="form__input col-sm" type="text" name=""  />
+          <input v-model="application.application_number" class="form__input col-sm" type="text" name=""  />
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Дата заявления:</div>
-          <input v-model="person.application_date" class="form__input col-sm" type="date" name=""  />
+          <input v-model="application.application_date" class="form__input col-sm" type="date" name=""  />
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Тип доставки:</div>
-          <select v-model="person.application_selectedDeliveryType"  class="minimal col-sm">
+          <select v-model="application.application_selectedDeliveryType"  class="minimal col-sm">
             <option v-for="item in deliveryType" v-bind:value="item">
               {{item.name}}
             </option>

@@ -24,8 +24,8 @@
       </div>
     </form>
     <div class="">
-      <button type="button" @click="handleClick(false)">К заявлениям</button>
-      <!--<button @click="onSave">Сохранить </button>-->
+      <!--<button type="button" @click="handleClick(false)">К заявлениям</button>-->
+      <button @click="onSave">Сохранить </button>
     </div>
   <!--<section>-->
     <!--<form method="post" class="row" action="/image/add" enctype="multipart/form-data">-->
@@ -119,6 +119,7 @@
           // let formData = new FormData()
           // formData.append('person',this.person);
           // AXIOS.post(`/persons`,formData)
+
           AXIOS.post(`/persons`,(this.person))
             .then(response => {
               this.info.push(response.data)

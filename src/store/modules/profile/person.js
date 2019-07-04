@@ -9,10 +9,10 @@ export default {
     person : {
       ege_info:[],
       parents_info:[],
-      application_condition:[],
-      application_documents:[],
       futures_info: [],
-      // applications:[]
+      applications:[],
+      // application_condition:[],
+      // application_documents:[],
     }
   },
   getters: {
