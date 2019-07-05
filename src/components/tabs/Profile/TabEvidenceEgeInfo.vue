@@ -398,7 +398,6 @@
 
       },
       onAddEge() {
-
         function Ege(ege_lastname,ege_firstname,ege_middlename,ege_selectedIdentityCardCode,
                      ege_identityCardSeries, ege_identityCardNumber,ege_identityCardIssueDate,
                      ege_identityCardIssueBy, ege_selectedCitizenship,ege_selectedExamForm,
@@ -419,10 +418,6 @@
           this.tab_ege_score_fis = ege_score_fis;
           this.tab_ege_appelation = ege_appelation;
         }
-        // function EntranceTest(ege_selectedSubject, ege_score) {
-        //   this.tab_ege_selectedSubject = ege_selectedSubject;
-        //   this.tab_ege_score = ege_score;
-        // }
         var ege = new Ege(
           this.tab_ege_lastname, this.tab_ege_firstname, this.tab_ege_middlename,this.tab_ege_selectedIdentityCardCode,
           this.tab_ege_identityCardSeries, this.tab_ege_identityCardNumber, this.tab_ege_identityCardIssueDate,
@@ -431,11 +426,8 @@
           this.tab_ege_score, this.tab_ege_score_fis, this.tab_ege_appelation
         );
 
-        // var entrancetest = new EntranceTest(this.tab_ege_selectedSubject, this.tab_ege_score);
-        // location.href='profile#ege_overview';
         if(this.index_for_redaction > -1){
           this.person.ege_info.push(ege);
-          // this.tests.push(entrancetest);
         }
         else {
           this.person.ege_info[this.index_for_redaction].push(ege);
@@ -444,6 +436,8 @@
         console.log(this.tests)
         location.href='profile#ege_overview';
       },
+
+
       onCopyInfoFromProfileTab() {
         this.tab_ege_lastname = this.person.tab_personal_lastname;
         this.tab_ege_firstname =  this.person.tab_personal_firstname;

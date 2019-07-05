@@ -62,7 +62,11 @@
           </select>
         </label>
 
-
+        <div>
+          <div>
+            <labael
+          </div>
+        </div>
         <label class="row">
           <div class="form__label-text col-sm">Дата рождения:</div>
           <input v-model="person.tab_personal_birthDate" class="form__input col-sm" type="date" name="birthday" required/>
@@ -305,7 +309,7 @@
 </template>
 
 <script>
-  import {mapGetters, mapState, mapActions, mapMutations} from 'vuex'
+  import {mapGetters, mapState} from 'vuex'
   import { required, minLength, between, maxLength } from 'vuelidate/lib/validators'
   import { createHelpers } from 'vuex-map-fields';
 

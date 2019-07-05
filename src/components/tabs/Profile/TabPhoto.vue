@@ -4,6 +4,7 @@
     <!--<form method="POST" onsubmit="" ACTION="api/persons/image?${_csrf.parameterName}=${_csrf.token}"-->
           <!--ENCTYPE="multipart/form-data">-->
 
+
     <form enctype="multipart/form-data">
       <div v-if="!image">
         <h2>Select an image</h2>

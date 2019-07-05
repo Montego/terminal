@@ -4,8 +4,6 @@
       <p>Вступительные испытания</p>
     </div>
     <hr>
-
-
     <div class="row">
       <div class="col-sm-8">
         <label class="row">
@@ -52,6 +50,7 @@
 </template>
 
 <script>
+  import {AXIOS} from "../../plugins/APIService";
   import { createHelpers } from 'vuex-map-fields';
   import {mapGetters, mapState} from 'vuex'
 
@@ -65,10 +64,21 @@
   });
   export default {
     name: "TabEntranceTests",
+    created () {
+      AXIOS.get(`/profile/applicationTable`)
+        .then(response => {
+          this.profiles = response.data;
+          console.log(this.profiles)
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
+    },
     mounted () {
       this.$store.dispatch('enums/onLoadDocType');
       this.$store.dispatch('enums/onLoadDeliveryType');
     },
+
     computed: {
       ...applications(['application','contacts']),
       ...mapState('enums',['deliveryType', 'docType']),

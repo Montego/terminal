@@ -115,7 +115,6 @@
         ...applications(['application_person_id','application_person_name']),
         showTable() {
             return this.profiles;
-          // return this.persons;
         },
 
         // fullname: function () {
@@ -125,7 +124,7 @@
       created () {
           AXIOS.get(`/profile/personsTable`)
             .then(response => {
-              this.profiles = response.data
+              this.profiles = response.data;
               console.log(this.profiles)
             })
             .catch(e => {
@@ -134,13 +133,11 @@
       },
 
       methods: {
-
-
         onNewProfile(){
 
           this.person.ege_info = [];
           this.person.parents_info = [];
-
+          this.person.id = '';
           this.person.tab_personal_lastname = '';
           this.person.tab_personal_firstname = '';
           this.person.tab_personal_middlename = '';
@@ -292,22 +289,18 @@
           const idString = this.profiles[index].id;
           const id = parseInt(idString,10);
 
-          AXIOS.get(`/profile/person_applications/` + id)
+          AXIOS.get(`/profile/applicationByPerson/` + id)
             .then(response => {
-              this.person = response.data
-              console.log(this.profiles)
+              this.person.applications = response.data;
+              console.log(this.person.applications)
             })
             .catch(e => {
               this.errors.push(e)
-            })
-
-          person_applications;
-
+            });
 
           // const index = this.profiles.indexOf(item);
-          this.person = this.profiles[index];
+          // this.person = this.profiles[index];
           // this.showPerson = !this.showPerson;
-          // console.log(this.showApplication)
           console.log(1111)
 
         },
@@ -317,6 +310,10 @@
 </script>
 
 <style scoped>
+
+  table.v-table tbody tr{
+    transition: none !important
+  }
 
 table {
   padding: 0;
