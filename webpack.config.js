@@ -67,8 +67,8 @@ module.exports = {
     overlay: true,
     publicPath: '/operator_api/',
     // proxy: {
-    //   '/api': {
-    //     // target: 'http://localhost:8081',
+    //     '/api': {
+    //     target: 'http://localhost:8081',
     //     ws: true,
     //     changeOrigin: true
     //   }
