@@ -9,7 +9,7 @@
       <div>
         <label class="row">
           <div class=" form__label-text col-sm-4">Ф.И.О</div>
-          <input v-model="fullname" class="uneditable form__input col-sm-8" type="text" name="name"
+          <input :value="tab_personal_lastname + ' ' + tab_personal_firstname+ ' '+ tab_personal_middlename" class="uneditable form__input col-sm-8" type="text" name="name"
                  placeholder="Заполняется автоматически" disabled="disabled"/>
         </label>
 
@@ -18,6 +18,7 @@
           <!--<input v-model="lastname_personal_info" class="form__input col-sm" v-validate="'required|alpha'" name="lastname"-->
                  <!--type="text">-->
           <!--<span>{{ errors.first('alpha') }}</span>-->
+          <!--<input :value="person.tab_personal_lastname"/>-->
           <input v-model="tab_personal_lastname" value= "" class="form__input col-sm" type="text" name="lastname" required/>
         </label>
         <span class="alarm_label" v-if="tab_personal_lastname===''">Не заполнено поле "Фамилия"</span>
@@ -48,10 +49,23 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm-4">Ф.И.О.(род. п.)</div>
-          <input v-model="fullnameGenitive" class="uneditable form__input col-sm-8" type="text" name="snp_genitive"
+          <input :value="tab_personal_lastname_genitive + ' ' + tab_personal_firstname_genitive+ ' '+ tab_personal_middlename_genitive" class="uneditable form__input col-sm-8" type="text" name="snp_genitive"
                  placeholder="Заполняется автоматически" disabled="disabled"/>
         </label>
         <label class="alarm_label">Проверьте Ф.И.О. в родительном падеже для Заявления.</label>
+
+        <!--<label class="row flex-align-center">-->
+          <!--<div class="form__label-text col-sm ">Пол:</div>-->
+          <!--<select :value="tab_personal_selectedGender" @change="updateCurrentField(arguments[0], 'tab_personal_selectedGender')"  class="minimal col-sm">-->
+            <!--<option v-for="item in gender" v-bind:value="item">-->
+              <!--{{item.name}}-->
+            <!--</option>-->
+          <!--</select>-->
+          <!--<span @click.prevent="clearSelect('tab_personal_selectedGender')" >-->
+            <!--✖-->
+          <!--</span>-->
+        <!--</label>-->
+
 
         <div class="row">
           <div class="form__label-text col-sm">Пол:</div>
@@ -60,11 +74,11 @@
               {{item.name}}
             </option>
           </select>
-
             <!--<v-icon @click="clearSelect">clear</v-icon>-->
-
-
         </div>
+
+
+
         <label class="row">
           <div class="form__label-text col-sm">Дата рождения:</div>
           <input v-model="tab_personal_birthDate" class="form__input col-sm" type="date" name="birthday" required/>
@@ -110,10 +124,10 @@
             <!--</option>-->
           <!--</select>-->
         </label>
-        <span class="alarm_label" v-if="tab_personal_selectedIdentityCardCode===''">Не выбран тип документа</span>
+        <!--<span class="alarm_label" v-if="tab_personal_selectedIdentityCardCode.identityCardCode ==''">Не выбран тип документа</span>-->
         <label class="row">
           <div class="form__label-text col-sm">Серия:</div>
-          <input v-if="tab_personal_selectedIdentityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>
+          <input v-if="tab_personal_selectedIdentityCardCode == 'Паспорт РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>
           <input v-else-if="tab_personal_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***" v-mask="'###-###'" required/>
           <input v-else v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
 
@@ -219,11 +233,11 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Профессия:</div>
-          <input v-model="tab_personal_seniority" class="form__input col-sm" type="text" name="organization_profession" placeholder=""/>
+          <input v-model="tab_personal_seniority" class="form__input col-sm" type="text" placeholder=""/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Трудовой стаж:</div>
-          <input v-model="fullseniority" class="uneditable form__input col-sm" type="text" name="seniority"
+          <input :value="tab_personal_employYears + ',' + tab_personal_employMonths" class="uneditable form__input col-sm" type="text" name="seniority"
                  placeholder="Заполняется автоматически" disabled="disabled"/>
         </label>
         <label class="row">
@@ -258,6 +272,8 @@
             </option>
           </select>
         </label>
+
+        <!--<div v-if="tab_personal_selectedForeignLanguageInfo =='Изучал'">-->
         <div class="row">
           <!--<div v-for="(selected_foreignLanguageName,language_description, index) in languages">-->
           <select v-model="selected_foreignLanguageName1" class="minimal col-sm-6">
@@ -293,23 +309,10 @@
               {{item.languageId}}
             </option>
           </select>
-
           <input v-model="language_score3" class="form__input col-sm" type="text" v-mask="'#'"/>
-
-
-
-
-          <!--<select v-model="person.language_score3" class="minimal col-sm-6">-->
-            <!--<option v-for="item in languageLevel" v-bind:value="item">-->
-              <!--{{item.name}}-->
-            <!--</option>-->
-          <!--</select>-->
-            <!--<div class="row">-->
-              <!--<input class="button_add" type="button" value="Добавить" @click="onAddLanguage" >-->
-              <!--<input class="button_add" type="button" value="Убрать" @click="onRemoveLanguage" >-->
-            <!--</div>-->
-          <!--</div>-->
         </div>
+
+        <!--</div>-->
 
       </div>
     </div>
@@ -338,7 +341,7 @@
 
   export default {
     name: "TabPersonalInfo",
-    mounted() {
+    beforeCreate() {
       this.$store.dispatch('enums/onLoadGender');
       this.$store.dispatch('dictionary/onLoadIdentityCardCode');
       // this.$store.dispatch('dictionary/onLoadOtherCountryRegion');
@@ -352,6 +355,7 @@
       // ...mapState('tab_personal_info', ['lastname_personal_info_tab','lastname_personal_info','gender', 'identityCardCode', 'otherCountryRegion', 'langInfo', 'languageName',]),
       // ...mapGetters('tab_personal_info', ['GET_LASTNAME_PERSONAL_INFO','GET_GENDER', 'GET_IDENTITY_CARD_CODE', 'GET_OTHER_COUNTRY_REGION', 'GET_LANGINFO']),
       // ...mapMutations('tab_personal_info', ['set_lastname_personal_info_tab']),
+      ...mapState('person', {person: state => state.person,}),
 
       ...mapState('enums', ['gender', 'langInfo','languageLevel'],),
       ...mapState('dictionary',['addressCountryRegion','language','identityCardCode']),
@@ -370,21 +374,21 @@
         'tab_personal_selectedIdentityCardCode','tab_personal_selectedForeignLanguageInfo',
         'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
         'tab_personal_bithplace', 'tab_personal_email','tab_personal_company_name','tab_personal_company_address',]),
-      ...tab_personal_info(['tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
-        'tab_personal_middlename','tab_personal_birthDate','tab_personal_age',
-        'tab_personal_seniority','tab_personal_employYears','tab_personal_employMonths',
-        'tab_personal_employDays','tab_personal_lastname_genitive','tab_personal_firstname_genitive',
-        'tab_personal_middlename_genitive','tab_personal_contactPersonNameGenitive',
-        'tab_personal_identityCardSeries','tab_personal_identityCardNumber',
-        'tab_personal_identityCardIssueDate','tab_personal_identityCardIssueDep','tab_personal_identityCardIssueBy',
-        'tab_personal_homePhoneNumber','tab_personal_cellularPhone','tab_personal_isCompatriot',
-        'tab_personal_isEquatedForeign', 'tab_personal_birthplace','tab_personal_isHostel',
-        'tab_personal_isForeignLikeRussian','tab_personal_selectedGender',
-        'tab_personal_selectedIdentityCardCode','tab_personal_selectedForeignLanguageInfo',
-        'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
-        'tab_personal_bithplace', 'tab_personal_email','tab_personal_company_name','tab_personal_company_address',
-
-      ]),
+      // ...tab_personal_info(['tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
+      //   'tab_personal_middlename','tab_personal_birthDate','tab_personal_age',
+      //   'tab_personal_seniority','tab_personal_employYears','tab_personal_employMonths',
+      //   'tab_personal_employDays','tab_personal_lastname_genitive','tab_personal_firstname_genitive',
+      //   'tab_personal_middlename_genitive','tab_personal_contactPersonNameGenitive',
+      //   'tab_personal_identityCardSeries','tab_personal_identityCardNumber',
+      //   'tab_personal_identityCardIssueDate','tab_personal_identityCardIssueDep','tab_personal_identityCardIssueBy',
+      //   'tab_personal_homePhoneNumber','tab_personal_cellularPhone','tab_personal_isCompatriot',
+      //   'tab_personal_isEquatedForeign', 'tab_personal_birthplace','tab_personal_isHostel',
+      //   'tab_personal_isForeignLikeRussian','tab_personal_selectedGender',
+      //   'tab_personal_selectedIdentityCardCode','tab_personal_selectedForeignLanguageInfo',
+      //   'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
+      //   'tab_personal_bithplace', 'tab_personal_email','tab_personal_company_name','tab_personal_company_address',
+      //
+      // ]),
 
       fullname: function () {
         return this.person.tab_personal_name = this.person.tab_personal_lastname + ' ' + this.person.tab_personal_firstname + ' ' + this.person.tab_personal_middlename
@@ -397,7 +401,7 @@
       //TODO проверить, по дням неправильно
       fullage: function () {
         var today = new Date();
-        var birth = new Date(this.person.tab_personal_birthDate);
+        var birth = new Date(this.tab_personal_birthDate);
         var age = today.getFullYear() - birth.getFullYear();
         var m = today.getMonth() - birth.getMonth();
         if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
@@ -413,19 +417,13 @@
     },
 
     methods: {
-      // clearSelectScore1(){
-      //   this.person.selected_foreignLanguageName1 = null;
-      // },
-      // clearSelectScore2(){
-      //   this.person.selected_foreignLanguageName2 = null;
-      // },
-      // clearSelectScore3(){
-      //   this.person.selected_foreignLanguageName3 = null;
-      // },
-      // clearSelectScore4(){
-      //   this.selected_foreignLanguageName4 = null;
-      // },
-
+      clearSelect(objName){
+        this.$store.commit('person/clearCurrentField', objName)
+      },
+      updateCurrentField(payload, objName) {
+        let value = payload.target.value
+        this.$store.commit('person/updateCurrentField', {value, objName})
+      },
 
       onAddLanguage(){
         this.conditions.push('');
@@ -518,7 +516,10 @@
 </script>
 
 <style scoped>
-
+  .flex-align-center {
+    display: flex;
+    align-items: center;
+  }
   .uneditable {
     background-color: #F5F5F5;
   }

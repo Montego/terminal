@@ -48,6 +48,7 @@
             .catch(e => {
               this.errors.push(e)
             });
+
           this.showProfile = true;
 
 

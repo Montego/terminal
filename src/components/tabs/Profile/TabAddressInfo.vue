@@ -10,7 +10,7 @@
       </div>
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea v-model="person.tab_address_registrationAddress" class="uneditable col-sm-10" name="" ></textarea>
+        <textarea v-model="tab_address_registrationAddress" class="uneditable col-sm-10" name="" ></textarea>
       </label>
       <label class="row">
         <!--<div class="form__label-text col-sm">Типа нас. пункта:</div>-->
@@ -146,7 +146,7 @@
       </div>
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea v-model="person.tab_address_factAddress" class="uneditable col-sm-10" ></textarea>
+        <textarea v-model="tab_address_factAddress" class="uneditable col-sm-10" ></textarea>
       </label>
     </div>
     <div class="info_address2 col-sm">
@@ -159,7 +159,7 @@
       </div>
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea v-model="person.tab_address_templateRegistrationAddress" class="uneditable col-sm-10" ></textarea>
+        <textarea v-model="tab_address_templateRegistrationAddress" class="uneditable col-sm-10" ></textarea>
       </label>
     </div>
   </div>
@@ -179,10 +179,11 @@
   export default {
     name: "TabAddressInfo",
     computed: {
-      ...person(['person']),
-      ...tab_address_info(['tab_address_registrationAddress', 'tab_address_factAddress',
-        'tab_address_templateRegistrationAddress',
-      ]),
+      ...person(['person','tab_address_registrationAddress', 'tab_address_factAddress',
+        'tab_address_templateRegistrationAddress',]),
+      // ...tab_address_info(['tab_address_registrationAddress', 'tab_address_factAddress',
+      //   'tab_address_templateRegistrationAddress',
+      // ]),
 
     },
     data() {
@@ -194,7 +195,7 @@
     methods: {
       onCopyAddress() {
         // this.factAddress = this.person.tab_address_registrationAddress;
-        this.person.tab_address_factAddress = this.person.tab_address_registrationAddress;
+        this.tab_address_factAddress = this.tab_address_registrationAddress;
       }
     }
   }

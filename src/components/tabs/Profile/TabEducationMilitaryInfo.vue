@@ -9,7 +9,7 @@
         <label class="row">
           <div class="form__label-text col-sm">Уровень образования:</div>
 
-          <select v-model="person.tab_edu_military_educationLevel" class="minimal col-sm">
+          <select v-model="tab_edu_military_educationLevel" class="minimal col-sm">
             <option v-for="item in educationLevel" v-bind:value="item">
               {{item.name}}
             </option>
@@ -26,12 +26,12 @@
       <div>
         <label class="row">
           <div class="form__label-text col-sm">Наименование:</div>
-          <textarea v-model="person.tab_edu_military_univer" class="col-sm" name=""></textarea>
+          <textarea v-model="tab_edu_military_univer" class="col-sm" name=""></textarea>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Страна:</div>
 
-          <select v-model="person.tab_edu_military_selectedCountryRegion" class="minimal col-sm">
+          <select v-model="tab_edu_military_selectedCountryRegion" class="minimal col-sm">
             <option v-for="item in addressCountryRegion" v-bind:value="item">
               {{item.countryRegionId}}
             </option>
@@ -40,8 +40,7 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Регион:</div>
-
-          <select v-model="person.tab_edu_military_selectedState" class="minimal col-sm">
+          <select  v-model="tab_edu_military_selectedState" class="minimal col-sm">
             <option v-for="item in addressState" v-bind:value="item">
               {{item.stateId}}
             </option>
@@ -51,7 +50,7 @@
         <label class="row">
           <div class="form__label-text col-sm">Дата окончания:</div>
 
-          <select v-model="person.tab_edu_military_selectedAcademyYear" class="minimal col-sm">
+          <select v-model="tab_edu_military_selectedAcademyYear" class="minimal col-sm">
             <option v-for="item in academyYear" v-bind:value="item">
               {{item.academyYearId}}
             </option>
@@ -68,7 +67,7 @@
 
         <label class="row">
           <div class="form__label-text col-sm">Документ об образовании:</div>
-          <select v-model="person.tab_edu_military_selectedEduDoc" class="minimal col-sm-8">
+          <select v-model="tab_edu_military_selectedEduDoc" class="minimal col-sm-8">
             <option class="col-sm-12" v-for="item in eduDoc" v-bind:value="item">
               {{item.name}}
             </option>
@@ -84,45 +83,45 @@
         <span class="alarm_label" v-if="tab_edu_military_selectedEduDoc===''">Не выбран документ об образовании</span>
         <label class="row">
           <div class="form__label-text col-sm">Серия:</div>
-          <input v-model="person.tab_edu_military_eduDocSerial" class="form__input col-sm" type="text" name="" placeholder=""/>
+          <input v-model="tab_edu_military_eduDocSerial" class="form__input col-sm" type="text" name="" placeholder=""/>
         </label>
         <span class="alarm_label" v-if="tab_edu_military_eduDocSerial===''">Не заполнено поле "Серия"</span>
         <label class="row">
           <div class="form__label-text col-sm">Номер:</div>
-          <input v-model="person.tab_edu_military_eduDocNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
+          <input v-model="tab_edu_military_eduDocNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
         </label>
         <span class="alarm_label" v-if="tab_edu_military_eduDocNumber===''">Не заполнено поле "Номер"</span>
         <label class="row">
           <div class="form__label-text col-sm">Дата выдачи:</div>
-          <input v-model="person.tab_edu_military_eduDocDate" class="form__input col-sm" type="date" name="" placeholder=""/>
+          <input v-model="tab_edu_military_eduDocDate" class="form__input col-sm" type="date" name="" placeholder=""/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Наименование:</div>
-          <textarea v-model="person.tab_edu_military_eduDocName" class="col-sm" name=""></textarea>
+          <textarea v-model="tab_edu_military_eduDocName" class="col-sm" name=""></textarea>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Серия приложения:</div>
-          <input v-model="person.tab_edu_military_attachment_serial" class="form__input col-sm" type="text" name="" placeholder=""/>
+          <input v-model="tab_edu_military_attachment_serial" class="form__input col-sm" type="text" name="" placeholder=""/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Номер приложения:</div>
-          <input v-model="person.tab_edu_military_attachment_number" class="form__input col-sm" type="text" name="" placeholder=""/>
+          <input v-model="tab_edu_military_attachment_number" class="form__input col-sm" type="text" name="" placeholder=""/>
         </label>
 
         <label class="row">
           <div class="form__label-text col-sm-6">Средний балл:</div>
           <button class="calculate_score col-sm-4" @click="onCalculateScore">Расчет среднего балла</button>
-          <input v-model="person.score_full" class="form__input col-sm-2 " type="text" v-mask="'#.##'" disabled hidden/>
+          <!--<input v-model="score_full" class="form__input col-sm-2 " type="text" v-mask="'#.##'" disabled hidden/>-->
           <input v-model="score_full" class="form__input col-sm-2 " type="text" v-mask="'#.##'" placeholder="---"
                  disabled="disabled"/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm-2">Пяторок:</div>
-          <input v-model="person.score_five" class="form__input col-sm-1" type="text" v-mask="'##'"/>
+          <input v-model="score_five" class="form__input col-sm-1" type="text" v-mask="'##'"/>
           <div class="form__label-text col-sm-2">Четверок:</div>
-          <input v-model="person.score_four" class="form__input col-sm-1" type="text" v-mask="'##'"/>
+          <input v-model="score_four" class="form__input col-sm-1" type="text" v-mask="'##'"/>
           <div class="form__label-text col-sm-2">Троек:</div>
-          <input v-model="person.score_three" class="form__input col-sm-1" type="text" v-mask="'##'"/>
+          <input v-model="score_three" class="form__input col-sm-1" type="text" v-mask="'##'"/>
         </label>
 
       </div>
@@ -135,7 +134,7 @@
       <div>
         <label class="row">
           <div class="form__label-text col-sm">Отношение к военной службе:</div>
-          <select v-model="person.tab_edu_military_selectedSoldiery" class="minimal col-sm">
+          <select v-model="tab_edu_military_selectedSoldiery" class="minimal col-sm">
             <option v-for="item in soldiery" v-bind:value="item">
               {{item.soldieryId}}
             </option>
@@ -143,9 +142,9 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Прохождение службы:</div>
-          <input v-if="tab_edu_military_selectedSoldiery=='Невоеннообязанный'" class="form__input col-sm" type="text" name="" placeholder="Не заполняется"
+          <input v-if="tab_edu_military_selectedSoldiery =='Невоеннообязанный'" class="form__input col-sm" type="text" name="" placeholder="Не заполняется"
                  disabled="disabled"/>
-          <select v-else v-model="person.tab_edu_military_selectedSoldieryStatus" class="minimal col-sm">
+          <select v-else v-model="tab_edu_military_selectedSoldieryStatus" class="minimal col-sm">
             <option v-for="item in soldieryStatus" v-bind:value="item" >
               {{item.name}}
             </option>
@@ -153,7 +152,7 @@
 
         </label>
       </div>
-      <!--<div v-if="person.tab_edu_military_selectedSoldieryStatus=='Служил' || tab_edu_military_selectedSoldiery=='Военнообязанный'  ">-->
+      <!--<div v-if="tab_edu_military_selectedSoldieryStatus =='Служил' || tab_edu_military_selectedSoldiery=='Военнообязанный'  ">-->
         <div>
           <p>Документ о военной службе</p>
         </div>
@@ -161,7 +160,7 @@
         <div>
           <label class="row">
             <div class="form__label-text col-sm">Тип документа:</div>
-            <select v-model="person.tab_edu_military_selectedMilitaryFormDoc" class="minimal col-sm">
+            <select v-model="tab_edu_military_selectedMilitaryFormDoc" class="minimal col-sm">
               <option v-for="item in militaryFormDoc" v-bind:value="item" >
                 {{item.name}}
               </option>
@@ -169,27 +168,27 @@
           </label>
           <label class="row">
             <div class="form__label-text col-sm">Номер военного билета:</div>
-            <input v-model="person.tab_edu_military_militaryNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
+            <input v-model="tab_edu_military_militaryNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
           </label>
           <label class="row">
             <div class="form__label-text col-sm">Серия:</div>
-            <input v-model="person.tab_edu_military_militarySeries" class="form__input col-sm" type="text" name="" placeholder=""/>
+            <input v-model="tab_edu_military_militarySeries" class="form__input col-sm" type="text" name="" placeholder=""/>
           </label>
           <label class="row">
             <div class="form__label-text col-sm">Дата выдачи:</div>
-            <input v-model="person.tab_edu_military_militaryIssueDate" class="form__input col-sm" type="date" name="" placeholder=""/>
+            <input v-model="tab_edu_military_militaryIssueDate" class="form__input col-sm" type="date" name="" placeholder=""/>
           </label>
           <label class="row">
             <div class="form__label-text col-sm">Кем выдан:</div>
-            <textarea v-model="person.tab_edu_military_militaryIssueBy" class="col-sm" name=""></textarea>
+            <textarea v-model="tab_edu_military_militaryIssueBy" class="col-sm" name=""></textarea>
           </label>
           <label class="row">
             <div class="form__label-text col-sm">Воинское звание:</div>
-            <input v-model="person.tab_edu_military_militaryRank" class="form__input col-sm" type="text" name="" placeholder=""/>
+            <input v-model="tab_edu_military_militaryRank" class="form__input col-sm" type="text" name="" placeholder=""/>
           </label>
           <label class="row">
             <div class="form__label-text col-sm">Копия/Оригинал:</div>
-            <select v-model="person.tab_edu_military_selectedDocType" class="minimal col-sm">
+            <select v-model="tab_edu_military_selectedDocType" class="minimal col-sm">
               <option v-for="item in docType" v-bind:value="item">
                 {{item.name}}
               </option>
@@ -197,7 +196,7 @@
           </label>
           <label class="row">
             <div class="form__label-text col-sm">Дата предоставления:</div>
-            <input v-model="person.tab_edu_military_docMilitaryShowDate" class="form__input col-sm" type="date" name="" placeholder=""/>
+            <input v-model="tab_edu_military_docMilitaryShowDate" class="form__input col-sm" type="date" name="" placeholder=""/>
           </label>
         </div>
         <div>
@@ -207,11 +206,11 @@
         <div>
           <label class="row">
             <div class="form__label-text col-sm">Дата начала:</div>
-            <input v-model="person.tab_edu_military_startMilitary" class="form__input col-sm" type="date" name="" placeholder=""/>
+            <input v-model="tab_edu_military_startMilitary" class="form__input col-sm" type="date" name="" placeholder=""/>
           </label>
           <label class="row">
             <div class="form__label-text col-sm">Дата окончания:</div>
-            <input v-model="person.tab_edu_military_endMilitary" class="form__input col-sm" type="date" name="" placeholder=""/>
+            <input v-model="tab_edu_military_endMilitary" class="form__input col-sm" type="date" name="" placeholder=""/>
           </label>
         </div>
       <!--</div>-->
@@ -222,20 +221,20 @@
       <hr>
 
       <div class="row">
-          <select v-model="person.selectedExtraInfos1" class="minimal col-sm">
+          <select v-model="selectedExtraInfos1" class="minimal col-sm">
             <option v-for="option in options_extraInfos">
               {{option.item}}
             </option>
           </select>
-          <input v-model="person.extraInfosDescription1" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
+          <input v-model="extraInfosDescription1" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
       </div>
       <div class="row">
-        <select v-model="person.selectedExtraInfos2" class="minimal col-sm">
+        <select v-model="selectedExtraInfos2" class="minimal col-sm">
           <option v-for="option in options_extraInfos">
             {{option.item}}
           </option>
         </select>
-        <input v-model="person.extraInfosDescription2" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
+        <input v-model="extraInfosDescription2" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
       </div>
       <!--<div class="row">-->
         <!--<select v-model="person.selectedExtraInfos3" class="minimal col-sm">-->
@@ -291,7 +290,15 @@
 
     },
     computed: {
-      ...person(['person']),
+
+
+      ...person(['person','tab_edu_military_educationLevel', 'tab_edu_military_univer','tab_edu_military_selectedCountryRegion','tab_edu_military_selectedState',
+      'tab_edu_military_selectedAcademyYear','tab_edu_military_selectedEduDoc','tab_edu_military_eduDocSerial','tab_edu_military_eduDocNumber',
+      'tab_edu_military_eduDocDate','tab_edu_military_eduDocName','tab_edu_military_attachment_serial','tab_edu_military_attachment_number',
+      'averageScore','tab_edu_military_selectedSoldiery','tab_edu_military_selectedSoldieryStatus','tab_edu_military_selectedMilitaryFormDoc',
+      'tab_edu_military_militaryNumber','tab_edu_military_militarySeries','tab_edu_military_militaryIssueDate','tab_edu_military_militaryIssueBy',
+      'tab_edu_military_militaryRank','tab_edu_military_selectedDocType','tab_edu_military_docMilitaryShowDate','tab_edu_military_startMilitary',
+        'tab_edu_military_endMilitary','selectedExtraInfos1',  'selectedExtraInfos2','extraInfosDescription1','extraInfosDescription2',]),
       ...mapState('dictionary',['addressCountryRegion','addressState', 'eduDoc','academyYear','soldiery',
       ],),
       ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION','GET_ADDRESS_STATE',
@@ -299,16 +306,16 @@
       ...mapState('enums',['soldieryStatus','militaryFormDoc','docType','educationLevel'],),
       ...mapGetters('enums',['GET_SOLDIERY_STATUS','GET_MILITARY_FORM_DOC','GET_DOC_TYPE','GET_EDUCATION_LEVEL'],),
 
-      ...tab_education_military_info(['tab_edu_military_militaryNumber', 'tab_edu_military_militarySeries',
-        'tab_edu_military_militaryIssueBy', 'tab_edu_military_militaryIssueDate', 'tab_edu_military_militaryRank',
-        'tab_edu_military_soldieryBegDate', 'tab_edu_military_soldieryEndDate', 'tab_personal_identityCardIssueBy',
-        'tab_edu_military_eduDocSerial', 'tab_edu_military_eduDocNumber', 'tab_edu_military_selectedEduDoc',
-        'tab_edu_military_educationLevel', 'tab_edu_military_selectedSoldiery', 'tab_edu_military_selectedSoldieryStatus',
-        'tab_edu_military_selectedMilitaryFormDoc', 'selectedExtraInfos1',  'selectedExtraInfos2',
-        'selectedExtraInfos3', 'selectedExtraInfos4','extraInfosDescription1','extraInfosDescription2',
-        'extraInfosDescription3','extraInfosDescription4', 'tab_edu_military_selectedCountryRegion',
-        'tab_edu_military_selectedState','tab_edu_military_selectedAcademyYear','tab_edu_military_selectedDocType'
-      ]),
+      // ...tab_education_military_info(['tab_edu_military_militaryNumber', 'tab_edu_military_militarySeries',
+      //   'tab_edu_military_militaryIssueBy', 'tab_edu_military_militaryIssueDate', 'tab_edu_military_militaryRank',
+      //   'tab_edu_military_soldieryBegDate', 'tab_edu_military_soldieryEndDate', 'tab_personal_identityCardIssueBy',
+      //   'tab_edu_military_eduDocSerial', 'tab_edu_military_eduDocNumber', 'tab_edu_military_selectedEduDoc',
+      //   'tab_edu_military_educationLevel', 'tab_edu_military_selectedSoldiery', 'tab_edu_military_selectedSoldieryStatus',
+      //   'tab_edu_military_selectedMilitaryFormDoc', 'selectedExtraInfos1',  'selectedExtraInfos2',
+      //   'selectedExtraInfos3', 'selectedExtraInfos4','extraInfosDescription1','extraInfosDescription2',
+      //   'extraInfosDescription3','extraInfosDescription4', 'tab_edu_military_selectedCountryRegion',
+      //   'tab_edu_military_selectedState','tab_edu_military_selectedAcademyYear','tab_edu_military_selectedDocType'
+      // ]),
       // ...mapState('enums'['educationLevel','soldieryStatus','militaryFormDoc','docType']),
       // ...mapGetters('enums'['GET_EDUCATION_LEVEL','GET_SOLDIERY_STATUS','GET_MILITARY_FORM_DOC','GET_DOC_TYPE']),
       // },
@@ -323,11 +330,15 @@
             // parseInt(this.score_three)*3) / (parseInt(this.score_five) + parseInt(this.score_four)
             // + parseInt(this.score_three));
 
-          this.score_full = (parseInt(this.person.score_five)*5 + parseInt(this.person.score_four)*4 +
-            parseInt(this.person.score_three)*3) / (parseInt(this.person.score_five) + parseInt(this.person.score_four)
-            + parseInt(this.person.score_three));
-          this.person.score_full = this.score_full
-          // this.person.score_full = this.full;
+          // this.score_full = (parseInt(this.person.score_five)*5 + parseInt(this.person.score_four)*4 +
+          //   parseInt(this.person.score_three)*3) / (parseInt(this.person.score_five) + parseInt(this.person.score_four)
+          //   + parseInt(this.person.score_three));
+
+          this.score_full = (parseInt(this.score_five)*5 + parseInt(this.score_four)*4 +
+            parseInt(this.score_three)*3) / (parseInt(this.score_five) + parseInt(this.score_four)
+            + parseInt(this.score_three));
+          // this.person.score_full = this.score_full
+
         },
         // onAddExtraInfo() {
         //   this.extraInfos.push('');

@@ -13,19 +13,19 @@ export default {
     tab_personal_lastname_genitive: '',
     tab_personal_firstname_genitive: '',
     tab_personal_middlename_genitive: '',
-    tab_personal_selectedGender: '',
+    tab_personal_selectedGender: null,
     tab_personal_birthDate: '',
     tab_personal_INIPA: '',
     tab_personal_INIPADate: '',
     tab_personal_note: '',
 
-    tab_personal_selectedIdentityCardCode: '',
+    tab_personal_selectedIdentityCardCode: null,
     tab_personal_identityCardSeries: '',
     tab_personal_identityCardNumber: '',
     tab_personal_identityCardIssueBy: '',
     tab_personal_identityCardIssueDate: '',
     tab_personal_identityCardIssueDep: '',
-    tab_personal_selectedCitizenship: '',
+    tab_personal_selectedCitizenship: null,
     tab_personal_isCompatriot: '',
     tab_personal_isEquatedForeign: '',
     tab_personal_birthplace: '',
@@ -40,24 +40,24 @@ export default {
     tab_personal_employYears: '',
     tab_personal_employMonths: '',
     tab_personal_employDays: '',
-    tab_personal_selectedForeignLanguageInfo: '',
-    selected_foreignLanguageName1: '',
+    tab_personal_selectedForeignLanguageInfo: null,
+    selected_foreignLanguageName1: null,
     language_score1: '',
-    selected_foreignLanguageName2: '',
+    selected_foreignLanguageName2: null,
     language_score2: '',
-    selected_foreignLanguageName3: '',
+    selected_foreignLanguageName3: null,
     language_score3: '',
 
     tab_address_registrationAddress: '',
     tab_address_factAddress: '',
     tab_address_templateRegistrationAddress: '',
 
-    tab_edu_military_educationLevel: '',
+    tab_edu_military_educationLevel: null,
     tab_edu_military_univer: '',
-    tab_edu_military_selectedCountryRegion: '',
-    tab_edu_military_selectedState: '',
-    tab_edu_military_selectedAcademyYear: '',
-    tab_edu_military_selectedEduDoc: '',
+    tab_edu_military_selectedCountryRegion: null,
+    tab_edu_military_selectedState: null,
+    tab_edu_military_selectedAcademyYear: null,
+    tab_edu_military_selectedEduDoc: null,
     tab_edu_military_eduDocSerial: '',
     tab_edu_military_eduDocNumber: '',
     tab_edu_military_eduDocDate: '',
@@ -65,22 +65,27 @@ export default {
     tab_edu_military_attachment_serial: '',
     tab_edu_military_attachment_number: '',
     averageScore: '',
-    tab_edu_military_selectedSoldiery: '',
-    tab_edu_military_selectedSoldieryStatus: '',
-    tab_edu_military_selectedMilitaryFormDoc: '',
+    tab_edu_military_selectedSoldiery: null,
+    tab_edu_military_selectedSoldieryStatus: null,
+    tab_edu_military_selectedMilitaryFormDoc: null,
     tab_edu_military_militaryNumber: '',
     tab_edu_military_militarySeries: '',
     tab_edu_military_militaryIssueDate: '',
     tab_edu_military_militaryIssueBy: '',
     tab_edu_military_militaryRank: '',
-    tab_edu_military_selectedDocType: '',
+    tab_edu_military_selectedDocType: null,
     tab_edu_military_docMilitaryShowDate: '',
     tab_edu_military_startMilitary: '',
     tab_edu_military_endMilitary: '',
-
+    selectedExtraInfos1: '',
+    selectedExtraInfos2: '',
+    extraInfosDescription1: '',
+    extraInfosDescription2: '',
+    image:'',
 
 
     person : {
+      person_info:[],
       ege_info:[],
       parents_info:[],
       futures_info: [],
@@ -95,7 +100,12 @@ export default {
   },
   mutations: {
     updateField,
-
+    updateCurrentField (state, payload) {
+      state.person[payload.objName] = payload.value
+    },
+    clearCurrentField(state, objName){
+      state.person[objName] = '';
+    }
   },
   actions: {
 

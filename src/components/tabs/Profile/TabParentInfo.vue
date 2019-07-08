@@ -230,7 +230,7 @@
         }
         return age;
       },
-      ...person(['person']),
+      ...person(['person','tab_address_factAddress']),
       ...mapState('enums', ['gender'],),
       ...mapGetters('enums', ['GET_GENDER']),
       ...mapState('dictionary', ['famRelationShip'],),
@@ -243,7 +243,7 @@
         'tab_parent_organization_seniority','tab_parent_organization_employYears'
       ]),
 
-      ...tab_address_info(['tab_address_factAddress',]),
+      // ...tab_address_info(['tab_address_factAddress',]),
     },
     methods: {
       onDelete(item) {

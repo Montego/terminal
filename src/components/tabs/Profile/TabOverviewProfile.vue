@@ -92,9 +92,7 @@
       computed: {
         // ...mapMultiRowFields(['profiles']),
         // ...application(['contacts']),
-        ...person(['person','showProfile']),
-        // ...personM(['persons','profiles']),
-        ...tab_personal_info(['tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
+        ...person(['person','showProfile','tab_personal_company','tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
           'tab_personal_middlename','tab_personal_birthDate','tab_personal_age',
           ' tab_personal_seniority','tab_personal_employYears','tab_personal_employMonths',
           'tab_personal_employDays','tab_personal_lastname_genitive','tab_personal_firstname_genitive',
@@ -105,8 +103,21 @@
           'tab_personal_isEquatedForeign', 'tab_personal_isHostel','tab_personal_isForeignLikeRussian','tab_personal_selectedGender',
           'tab_personal_selectedIdentityCardCode','tab_personal_selectedForeignLanguageInfo',
           'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
-          'tab_personal_birthplace', 'tab_personal_email'
-        ]),
+          'tab_personal_birthplace', 'tab_personal_email']),
+        // ...personM(['persons','profiles']),
+        // ...tab_personal_info(['tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
+        //   'tab_personal_middlename','tab_personal_birthDate','tab_personal_age',
+        //   ' tab_personal_seniority','tab_personal_employYears','tab_personal_employMonths',
+        //   'tab_personal_employDays','tab_personal_lastname_genitive','tab_personal_firstname_genitive',
+        //   'tab_personal_middlename_genitive','tab_personal_contactPersonNameGenitive',
+        //   'tab_personal_identityCardSeries','tab_personal_identityCardNumber',
+        //   'tab_personal_identityCardIssueDate','tab_personal_identityCardIssueDep','tab_personal_identityCardIssueBy',
+        //   'tab_personal_homePhoneNumber','tab_personal_cellularPhone','tab_personal_isCompatriot',
+        //   'tab_personal_isEquatedForeign', 'tab_personal_isHostel','tab_personal_isForeignLikeRussian','tab_personal_selectedGender',
+        //   'tab_personal_selectedIdentityCardCode','tab_personal_selectedForeignLanguageInfo',
+        //   'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
+        //   'tab_personal_birthplace', 'tab_personal_email'
+        // ]),
         ...applications(['application_person_id','application_person_name']),
         showTable() {
             return this.profiles;
@@ -129,98 +140,192 @@
 
       methods: {
         onNewProfile(){
+          this.ege_info = [];
+          this.parents_info = [];
+          this.person.person_info = [];
+          this.id = '';
+          this.image = '';
+          this.tab_personal_lastname = '';
+          this.tab_personal_firstname = '';
+          this.tab_personal_middlename = '';
+          this.tab_personal_lastname_genitive = '';
+          this.tab_personal_firstname_genitive = '';
+          this.tab_personal_middlename_genitive = '';
+          this.tab_personal_birthDate = '';
+          this.tab_personal_selectedGender  = null;
+          this.tab_personal_seniority  = '';
+          this.tab_personal_employYears  = '';
+          this.tab_personal_employMonths  = '';
+          this.tab_personal_employDays  = '';
+          this.tab_personal_identityCardSeries  = '';
+          this.tab_personal_identityCardNumber  = '';
+          this.tab_personal_identityCardIssueDate  = '';
+          this.tab_personal_identityCardIssueDep  = '';
+          this.tab_personal_identityCardIssueBy  = '';
+          this.tab_personal_isCompatriot  = '';
+          this.tab_personal_isEquatedForeign  = '';
+          this.tab_personal_isHostel = '';
+          this.tab_personal_isForeignLikeRussian  = '';
+          this.tab_personal_cellularPhone = '';
+          this.tab_personal_selectedIdentityCardCode  = null;
+          this.tab_personal_note  = '';
+          this.tab_personal_email  = '';
+          this.tab_personal_selectedCitizenship  = null;
+          this.tab_personal_INIPA  = '';
+          this.tab_personal_INIPADate  = '';
+          this.tab_personal_note  = '';
 
-          this.person.ege_info = [];
-          this.person.parents_info = [];
-          this.person.id = '';
-          this.person.tab_personal_lastname = '';
-          this.person.tab_personal_firstname = '';
-          this.person.tab_personal_middlename = '';
-          this.person.tab_personal_lastname_genitive = '';
-          this.person.tab_personal_firstname_genitive = '';
-          this.person.tab_personal_middlename_genitive = '';
-          this.person.tab_personal_birthDate = '';
-          this.person.tab_personal_selectedGender = null;
-          this.person.tab_personal_seniority = null;
-          this.person.tab_personal_employYears = null;
-          this.person.tab_personal_employMonths = null;
-          this.person.tab_personal_employDays = null;
-          this.person.tab_personal_identityCardSeries = null;
-          this.person.tab_personal_identityCardNumber = null;
-          this.person.tab_personal_identityCardIssueDate = null;
-          this.person.tab_personal_identityCardIssueDep = null;
-          this.person.tab_personal_identityCardIssueBy = null;
-          this.person.tab_personal_isCompatriot = null;
-          this.person.tab_personal_isEquatedForeign = null;
-          this.person.tab_personal_isHostel = '';
-          this.person.tab_personal_isForeignLikeRussian = null;
-          this.person.tab_personal_cellularPhone = '';
-          this.person.tab_personal_selectedIdentityCardCode = null;
-          this.person.tab_personal_note = null;
-          this.person.tab_personal_email = null;
-          this.person.tab_personal_selectedCitizenship = null;
-          this.person.tab_personal_INIPA = null;
-          this.person.tab_personal_INIPADate = null;
-          this.person.tab_personal_note = null;
+          this.tab_personal_selectedIdentityCardCode  = null;
+          this.tab_personal_identityCardSeries  = '';
+          this.tab_personal_identityCardNumber  = '';
+          this.tab_personal_identityCardIssueBy  = '';
+          this.tab_personal_identityCardIssueDate  = '';
+          this.tab_personal_identityCardIssueDep  = '';
+          this.tab_personal_selectedCitizenship  = '';
+          this.tab_personal_isCompatriot  = '';
+          this.tab_personal_isEquatedForeign  = '';
+          this.tab_personal_birthplace  = '';
+          this.tab_personal_isHostel  = '';
+          this.tab_personal_isForeignLikeRussian  = '';
+          this.tab_personal_homePhoneNumber  = '';
+          this.tab_personal_cellularPhone  = '';
+          this.tab_personal_email  = '';
+          this.tab_personal_company  = '';
+          this.tab_personal_company_address  = '';
+          this.tab_personal_seniority  = '';
+          this.tab_personal_employYears  = '';
+          this.tab_personal_employMonths  = '';
+          this.tab_personal_employDays  = '';
+          this.tab_personal_selectedForeignLanguageInfo  = '';
+          this.selected_foreignLanguageName1  = null;
+          this.language_score1  = '';
+          this.selected_foreignLanguageName2  = null;
+          this.language_score2  = '';
+          this.selected_foreignLanguageName3  = null;
+          this.language_score3  = '';
 
-          this.person.tab_personal_selectedIdentityCardCode = null;
-          this.person.tab_personal_identityCardSeries = null;
-          this.person.tab_personal_identityCardNumber = null;
-          this.person.tab_personal_identityCardIssueBy = null;
-          this.person.tab_personal_identityCardIssueDate = null;
-          this.person.tab_personal_identityCardIssueDep = null;
-          this.person.tab_personal_selectedCitizenship = null;
-          this.person.tab_personal_isCompatriot = null;
-          this.person.tab_personal_isEquatedForeign = null;
-          this.person.tab_personal_birthplace = null;
-          this.person.tab_personal_isHostel = null;
-          this.person.tab_personal_isForeignLikeRussian = null;
-          this.person.tab_personal_homePhoneNumber = null;
-          this.person.tab_personal_cellularPhone = null;
-          this.person.tab_personal_email = null;
-          this.person.tab_personal_company = null;
-          this.person.tab_personal_company_address = null;
-          this.person.tab_personal_seniority = null;
-          this.person.tab_personal_employYears = null;
-          this.person.tab_personal_employMonths = null;
-          this.person.tab_personal_employDays = null;
-          this.person.tab_personal_selectedForeignLanguageInfo = null;
-          this.person.selected_foreignLanguageName1 = null;
-          this.person.language_score1 = null;
-          this.person.selected_foreignLanguageName2 = null;
-          this.person.language_score2 = null;
-          this.person.selected_foreignLanguageName3 = null;
-          this.person.language_score3 = null;
+          this.tab_address_registrationAddress  = '';
+          this.tab_address_factAddress  = '';
+          this.tab_address_templateRegistrationAddress  = '';
 
-          this.person.tab_address_registrationAddress = null;
-          this.person.tab_address_factAddress = null;
-          this.person.tab_address_templateRegistrationAddress = null;
+          this.tab_edu_military_educationLevel  = null;
+          this.tab_edu_military_univer  = '';
+          this.tab_edu_military_selectedCountryRegion  = null;
+          this.tab_edu_military_selectedState  = '';
+          this.tab_edu_military_selectedAcademyYear  = '';
+          this.tab_edu_military_selectedEduDoc  = '';
+          this.tab_edu_military_eduDocSerial  = '';
+          this.tab_edu_military_eduDocNumber  = '';
+          this.tab_edu_military_eduDocDate  = '';
+          this.tab_edu_military_eduDocName  = '';
+          this.tab_edu_military_attachment_serial  = '';
+          this.tab_edu_military_attachment_number  = '';
+          this.averageScore  = '';
+          this.tab_edu_military_selectedSoldiery  = null;
+          this.tab_edu_military_selectedSoldieryStatus  = null;
+          this.tab_edu_military_selectedMilitaryFormDoc  = null;
+          this.tab_edu_military_militaryNumber  = '';
+          this.tab_edu_military_militarySeries  = '';
+          this.tab_edu_military_militaryIssueDate  = '';
+          this.tab_edu_military_militaryIssueBy  = '';
+          this.tab_edu_military_militaryRank  = '';
+          this.tab_edu_military_selectedDocType  = null;
+          this.tab_edu_military_docMilitaryShowDate  = '';
+          this.tab_edu_military_startMilitary  = '';
+          this.tab_edu_military_endMilitary  = '';
 
-          this.person.tab_edu_military_educationLevel = null;
-          this.person.tab_edu_military_univer = null;
-          this.person.tab_edu_military_selectedCountryRegion = null;
-          this.person.tab_edu_military_selectedState = null;
-          this.person.tab_edu_military_selectedAcademyYear = null;
-          this.person.tab_edu_military_selectedEduDoc = null;
-          this.person.tab_edu_military_eduDocSerial = null;
-          this.person.tab_edu_military_eduDocNumber = null;
-          this.person.tab_edu_military_eduDocDate = null;
-          this.person.tab_edu_military_eduDocName = null;
-          this.person.tab_edu_military_attachment_serial = null;
-          this.person.tab_edu_military_attachment_number = null;
-          this.person.averageScore = null;
-          this.person.tab_edu_military_selectedSoldiery = null;
-          this.person.tab_edu_military_selectedSoldieryStatus = null;
-          this.person.tab_edu_military_selectedMilitaryFormDoc = null;
-          this.person.tab_edu_military_militaryNumber = null;
-          this.person.tab_edu_military_militarySeries = null;
-          this.person.tab_edu_military_militaryIssueDate = null;
-          this.person.tab_edu_military_militaryIssueBy = null;
-          this.person.tab_edu_military_militaryRank = null;
-          this.person.tab_edu_military_selectedDocType = null;
-          this.person.tab_edu_military_docMilitaryShowDate = null;
-          this.person.tab_edu_military_startMilitary = null;
-          this.person.tab_edu_military_endMilitary = null;
+
+          // this.person.ege_info = [];
+          // this.person.parents_info = [];
+          // this.person.id = '';
+          // this.person.tab_personal_lastname = '';
+          // this.person.tab_personal_firstname = '';
+          // this.person.tab_personal_middlename = '';
+          // this.person.tab_personal_lastname_genitive = '';
+          // this.person.tab_personal_firstname_genitive = '';
+          // this.person.tab_personal_middlename_genitive = '';
+          // this.person.tab_personal_birthDate = '';
+          // this.person.tab_personal_selectedGender = null;
+          // this.person.tab_personal_seniority = null;
+          // this.person.tab_personal_employYears = null;
+          // this.person.tab_personal_employMonths = null;
+          // this.person.tab_personal_employDays = null;
+          // this.person.tab_personal_identityCardSeries = null;
+          // this.person.tab_personal_identityCardNumber = null;
+          // this.person.tab_personal_identityCardIssueDate = null;
+          // this.person.tab_personal_identityCardIssueDep = null;
+          // this.person.tab_personal_identityCardIssueBy = null;
+          // this.person.tab_personal_isCompatriot = null;
+          // this.person.tab_personal_isEquatedForeign = null;
+          // this.person.tab_personal_isHostel = '';
+          // this.person.tab_personal_isForeignLikeRussian = null;
+          // this.person.tab_personal_cellularPhone = '';
+          // this.person.tab_personal_selectedIdentityCardCode = null;
+          // this.person.tab_personal_note = null;
+          // this.person.tab_personal_email = null;
+          // this.person.tab_personal_selectedCitizenship = null;
+          // this.person.tab_personal_INIPA = null;
+          // this.person.tab_personal_INIPADate = null;
+          // this.person.tab_personal_note = null;
+          //
+          // this.person.tab_personal_selectedIdentityCardCode = null;
+          // this.person.tab_personal_identityCardSeries = null;
+          // this.person.tab_personal_identityCardNumber = null;
+          // this.person.tab_personal_identityCardIssueBy = null;
+          // this.person.tab_personal_identityCardIssueDate = null;
+          // this.person.tab_personal_identityCardIssueDep = null;
+          // this.person.tab_personal_selectedCitizenship = null;
+          // this.person.tab_personal_isCompatriot = null;
+          // this.person.tab_personal_isEquatedForeign = null;
+          // this.person.tab_personal_birthplace = null;
+          // this.person.tab_personal_isHostel = null;
+          // this.person.tab_personal_isForeignLikeRussian = null;
+          // this.person.tab_personal_homePhoneNumber = null;
+          // this.person.tab_personal_cellularPhone = null;
+          // this.person.tab_personal_email = null;
+          // this.person.tab_personal_company = null;
+          // this.person.tab_personal_company_address = null;
+          // this.person.tab_personal_seniority = null;
+          // this.person.tab_personal_employYears = null;
+          // this.person.tab_personal_employMonths = null;
+          // this.person.tab_personal_employDays = null;
+          // this.person.tab_personal_selectedForeignLanguageInfo = null;
+          // this.person.selected_foreignLanguageName1 = null;
+          // this.person.language_score1 = null;
+          // this.person.selected_foreignLanguageName2 = null;
+          // this.person.language_score2 = null;
+          // this.person.selected_foreignLanguageName3 = null;
+          // this.person.language_score3 = null;
+          //
+          // this.person.tab_address_registrationAddress = null;
+          // this.person.tab_address_factAddress = null;
+          // this.person.tab_address_templateRegistrationAddress = null;
+          //
+          // this.person.tab_edu_military_educationLevel = null;
+          // this.person.tab_edu_military_univer = null;
+          // this.person.tab_edu_military_selectedCountryRegion = null;
+          // this.person.tab_edu_military_selectedState = null;
+          // this.person.tab_edu_military_selectedAcademyYear = null;
+          // this.person.tab_edu_military_selectedEduDoc = null;
+          // this.person.tab_edu_military_eduDocSerial = null;
+          // this.person.tab_edu_military_eduDocNumber = null;
+          // this.person.tab_edu_military_eduDocDate = null;
+          // this.person.tab_edu_military_eduDocName = null;
+          // this.person.tab_edu_military_attachment_serial = null;
+          // this.person.tab_edu_military_attachment_number = null;
+          // this.person.averageScore = null;
+          // this.person.tab_edu_military_selectedSoldiery = null;
+          // this.person.tab_edu_military_selectedSoldieryStatus = null;
+          // this.person.tab_edu_military_selectedMilitaryFormDoc = null;
+          // this.person.tab_edu_military_militaryNumber = null;
+          // this.person.tab_edu_military_militarySeries = null;
+          // this.person.tab_edu_military_militaryIssueDate = null;
+          // this.person.tab_edu_military_militaryIssueBy = null;
+          // this.person.tab_edu_military_militaryRank = null;
+          // this.person.tab_edu_military_selectedDocType = null;
+          // this.person.tab_edu_military_docMilitaryShowDate = null;
+          // this.person.tab_edu_military_startMilitary = null;
+          // this.person.tab_edu_military_endMilitary = null;
 
 
           location.href='profile#personal_info';

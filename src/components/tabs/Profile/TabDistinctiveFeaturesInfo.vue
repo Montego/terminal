@@ -15,7 +15,7 @@
             <!--<td class="text-xs-center">{{ props.item.code }}</td>-->
             <td class="text-xs-center">{{ props.item.tab_features_selectedAttrType.name }}</td>
             <td class="text-xs-center">{{ props.item.tab_features_selectedPreference.name }}</td>
-            <td class="text-xs-center">{{ props.item.tab_features_selectedYypeDiploma.name }}</td>
+            <td class="text-xs-center">{{ props.item.tab_features_selectedTypeDiploma.name }}</td>
             <td class="text-xs-center">{{ props.item.tab_features_selectedPreference.points}}</td>
               <td class="text-xs-center">
                 <!--<button @click="onEdit(props.item)">-->
@@ -56,7 +56,7 @@
 
               <label class="row">
                 <div class="form__label-text col-sm">Тип диплома:</div>
-                <select v-model="tab_features_selectedYypeDiploma"  class="minimal col-sm">
+                <select v-model="tab_features_selectedTypeDiploma"  class="minimal col-sm">
                   <option v-for="item in typeDiploma" v-bind:value="item">
                     {{item.name}}
                   </option>
@@ -93,7 +93,8 @@
               <div>
                 <div class="row">
                   <div class="form__label-text col-sm">Документ</div>
-                  <input class="document col-sm" type="file" title="Загрузите файл"/>
+                  <input type="file" id="doc1" ref="doc1" @change="uploadFile1" title="Загрузите файл"/>
+                  <!--<input class="document col-sm" type="file" title="Загрузите файл"/>-->
                 </div>
                 <label class="row">
                   <div class="form__label-text col-sm">Копия/Оригинал:</div>
@@ -107,7 +108,7 @@
               <div>
                 <div class="row">
                   <div class="form__label-text col-sm">Документ</div>
-                  <input class="document col-sm" type="file" title="Загрузите файл"/>
+                  <input type="file" id="doc2" ref="doc2" @change="uploadFile2" title="Загрузите файл"/>
                 </div>
                 <label class="row">
                   <div class="form__label-text col-sm">Копия/Оригинал:</div>
@@ -121,7 +122,7 @@
               <div>
                 <div class="row">
                   <div class="form__label-text col-sm">Документ</div>
-                  <input class="document col-sm" type="file" title="Загрузите файл"/>
+                  <input type="file" id="doc3" ref="doc3" @change="uploadFile3" title="Загрузите файл"/>
                 </div>
                 <label class="row">
                   <div class="form__label-text col-sm">Копия/Оригинал:</div>
@@ -176,6 +177,7 @@
   });
     export default {
         name: "TabDistinctiveFeaturesInfo",
+
       mounted() {
         this.$store.dispatch('enums/onLoadAttrType');
         this.$store.dispatch('enums/onLoadTypeDiploma');
@@ -187,9 +189,9 @@
         ...mapGetters('enums', ['GET_attrType', 'GET_DOC_TYPE','GET_TYPE_DIPLOMA']),
         ...mapGetters('dictionary', ['GET_preference', ]),
         ...tab_distinctive_features_info(['tab_features_selectedAttrType', 'tab_features_selectedPreference',
-        'tab_features_selectedPreferencePoint','tab_features_selectedYypeDiploma',
-        'tab_features_selectedDocType1', 'tab_features_selectedDocType2','tab_features_selectedDocType3',
-          'tab_features_serial','tab_features_number']),
+        'tab_features_selectedPreferencePoint','tab_features_selectedTypeDiploma','tab_features_serial','tab_features_number',
+          'doc1','tab_features_selectedDocType1', 'doc2','tab_features_selectedDocType2','doc3','tab_features_selectedDocType3',
+          ]),
         ...person(['person']),
 
         table_show() {
@@ -223,25 +225,85 @@
             this.documents.pop(this.documents.length - 1);
           },
           onAddFeature() {
-            function Feature(selectedAttrType, selectedPreference ,typeDyploma) {
+            function Feature(selectedAttrType, selectedPreference ,typeDyploma, features_serial, features_number,
+            doc1, selectedDocType1,doc2,selectedDocType2,doc3,selectedDocType3) {
               this.tab_features_selectedAttrType = selectedAttrType;
               this.tab_features_selectedPreference = selectedPreference;
-              this.tab_features_selectedYypeDiploma = typeDyploma;
+              this.tab_features_selectedTypeDiploma = typeDyploma;
+              this.tab_features_serial = features_serial;
+              this.tab_features_number = features_number;
+              this.doc1 = doc1;
+              this.tab_features_selectedDocType1 = selectedDocType1;
+              this.doc2 = doc2;
+              this.tab_features_selectedDocType2 = selectedDocType2;
+              this.doc3 = doc3;
+              this.tab_features_selectedDocType3 = selectedDocType3;
 
             }
 
             let feature = new Feature(
               this.tab_features_selectedAttrType, this.tab_features_selectedPreference,
-              this.tab_features_selectedYypeDiploma
+            this.tab_features_selectedTypeDiploma,
+            this.tab_features_serial,
+            this.tab_features_number,
+            this.doc1,
+            this.tab_features_selectedDocType1,
+            this.doc2,
+            this.tab_features_selectedDocType2,
+            this.doc3,
+            this.tab_features_selectedDocType3,
 
             );
             location.href = 'profile#features_overview';
             this.person.futures_info.push(feature);
             console.log(this.person.futures_info)
-          }
+          },
+          uploadFile1(e) {
+            console.log(e)
+            let file = e.target.files[0];
+            let reader = new FileReader();
+            reader.onloadend = (file) => {
+              this.doc1 = reader.result;
+            }
+            reader.readAsDataURL(file);
+          },
+          uploadFile2(e) {
+            console.log(e)
+            let file = e.target.files[0];
+            let reader = new FileReader();
+            reader.onloadend = (file) => {
+              this.doc2 = reader.result;
+            }
+            reader.readAsDataURL(file);
+          },
+          uploadFile3(e) {
+            console.log(e)
+            let file = e.target.files[0];
+            let reader = new FileReader();
+            reader.onloadend = (file) => {
+              this.doc3 = reader.result;
+            }
+            reader.readAsDataURL(file);
+          },
+          // uploadFile1(e) {
+          //   console.log(e)
+          //   let file = e.target.files[0];
+          //   this.doc1 = URL.createObjectURL(file)
+          // },
+          // uploadFile2(e) {
+          //   console.log(e)
+          //   let file = e.target.files[0];
+          //   this.doc2 = URL.createObjectURL(file)
+          // },
+          // uploadFile3(e) {
+          //   console.log(e)
+          //   let file = e.target.files[0];
+          //   this.doc3 = URL.createObjectURL(file)
+          // },
        },
       data () {
         return {
+
           documents: [
           ],
 

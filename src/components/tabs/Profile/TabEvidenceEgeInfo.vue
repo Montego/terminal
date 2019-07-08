@@ -7,7 +7,6 @@
           <button @click="onInfo">Добавить</button>
         </div>
         <div class="row">
-
           <div class="col-sm">
             <v-data-table
               :headers="headers_ege_subjects"
@@ -18,8 +17,8 @@
               <template slot="items" slot-scope="props">
                 <td class="text-xs-center">{{ props.item.tab_ege_selectedSubject.name}}</td>
                 <td class="text-xs-center">{{ props.item.tab_ege_score}}</td>
-                <td class="text-xs-center">{{ props.item.ege_ball_2}}</td>
-                <td class="text-xs-center">{{ props.item.ege_appeal_status}}</td>
+                <!--<td class="text-xs-center">{{ props.item.ege_ball_2}}</td>-->
+                <!--<td class="text-xs-center">{{ props.item.ege_appeal_status}}</td>-->
                 <td>
                   <!--<button @click="onEdit(props.item)">-->
                     <!--<v-icon color="#5bc0de">edit</v-icon>-->
@@ -64,8 +63,8 @@
                     {{item.identityCardCode}}
                   </option>
                 </select>
-                <input v-model="tab_ege_selectedIdentityCardCode.identityCardCode" class="uneditable form__input col-sm-12" type="text" name="" placeholder="Заполняется автоматически"
-                       disabled="disabled"/>
+                <!--<input v-model="tab_ege_selectedIdentityCardCode.identityCardCode" class="uneditable form__input col-sm-12" type="text" name="" placeholder="Заполняется автоматически"-->
+                       <!--disabled="disabled"/>-->
               </label>
               <span class="alarm_label" v-if="tab_ege_selectedIdentityCardCode===''">Не выбран тип документа</span>
               <label class="row">
@@ -140,7 +139,7 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm-6">Балл:</div>
-              <input v-model="tab_ege_score" class="form__input col-sm-6" type="text" v-mask="'###'"/>
+              <input v-model="tab_ege_score" class="form__input col-sm-6" type="text" v-mask="'#'"/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Балл (ФИС):</div>
@@ -230,14 +229,14 @@
     getterType: `tab_evidence_ege_info/getField`,
     mutationType: `tab_evidence_ege_info/updateField`,
   });
-  const { mapFields:tab_personal_info_fields } = createHelpers({
-    getterType: 'tab_personal_info/getField',
-    mutationType: 'tab_personal_info/updateField',
-  });
-  const { mapFields:tab_entrance_tests } = createHelpers({
-    getterType: 'tab_personal_info/getField',
-    mutationType: 'tab_personal_info/updateField',
-  });
+  // const { mapFields:tab_personal_info_fields } = createHelpers({
+  //   getterType: 'tab_personal_info/getField',
+  //   mutationType: 'tab_personal_info/updateField',
+  // });
+  // const { mapFields:tab_entrance_tests } = createHelpers({
+  //   getterType: 'tab_personal_info/getField',
+  //   mutationType: 'tab_personal_info/updateField',
+  // });
 
   export default {
     name: "TabEvidenceEge",
@@ -250,7 +249,28 @@
 
     },
     computed: {
-      ...person(['person']),
+      ...person(['person','tab_personal_lastname',  'tab_personal_firstname', 'tab_personal_middlename' , 'tab_personal_lastname_genitive',
+        'tab_personal_firstname_genitive','tab_personal_middlename_genitive','tab_personal_selectedGender',
+        'tab_personal_birthDate', 'tab_personal_INIPA', 'tab_personal_INIPADate','tab_personal_note',
+        'tab_personal_selectedIdentityCardCode','tab_personal_identityCardSeries','tab_personal_identityCardNumber',
+        'tab_personal_identityCardIssueBy', 'tab_personal_identityCardIssueDate', 'tab_personal_identityCardIssueDep',
+        'tab_personal_selectedCitizenship', 'tab_personal_isCompatriot', 'tab_personal_isEquatedForeign',
+        'tab_personal_birthplace', 'tab_personal_isHostel','tab_personal_isForeignLikeRussian',
+        'tab_personal_homePhoneNumber','tab_personal_cellularPhone','tab_personal_email','tab_personal_company_name',
+        'tab_personal_company_address','tab_personal_seniority','tab_personal_employYears','tab_personal_employMonths',
+        'tab_personal_employDays','tab_personal_selectedForeignLanguageInfo','selected_foreignLanguageName1',
+        'language_score1','selected_foreignLanguageName2', 'language_score2','selected_foreignLanguageName3',
+        'language_score3','tab_address_registrationAddress','tab_address_factAddress','tab_address_templateRegistrationAddress',
+        'tab_edu_military_educationLevel','tab_edu_military_univer','tab_edu_military_selectedCountryRegion',
+        'tab_edu_military_selectedState','tab_edu_military_selectedAcademyYear','tab_edu_military_selectedEduDoc',
+        'tab_edu_military_eduDocSerial','tab_edu_military_eduDocNumber','tab_edu_military_eduDocDate',
+        'tab_edu_military_eduDocName','tab_edu_military_attachment_serial','tab_edu_military_attachment_number',
+        'averageScore,tab_edu_military_selectedSoldiery','tab_edu_military_selectedSoldieryStatus',
+        'tab_edu_military_selectedMilitaryFormDoc','tab_edu_military_militaryNumber','tab_edu_military_militarySeries',
+        'tab_edu_military_militaryIssueDate','tab_edu_military_militaryIssueBy','tab_edu_military_militaryRank',
+        'tab_edu_military_selectedDocType','tab_edu_military_docMilitaryShowDate','tab_edu_military_startMilitary',
+        'tab_edu_military_endMilitary']),
+
       ...mapState('dictionary',['addressCountryRegion','identityCardCode','subject']),
       ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION','GET_IDENTITY_CARD_CODE','GET_subject']),
       ...mapState('enums',['examForm']),
@@ -262,14 +282,12 @@
         'tab_ege_selectedExamForm','tab_ege_year','tab_ege_score_fis', 'tab_ege_appelation','biology_score',
         'russian_score','chemistry_score',
       ]),
-      ...tab_personal_info_fields(['tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename',
-       'tab_personal_selectedIdentityCardCode','tab_personal_identityCardSeries','tab_personal_identityCardNumber',
-        'tab_personal_identityCardIssueDate','tab_personal_identityCardIssueDep','tab_personal_identityCardIssueBy'
-
-
-      ]),
-      ...mapMultiRowFields(['ege_info','tests']),
-      ...tab_entrance_tests(['tab_entrance_test_score', 'tab_entrance_test_subject']),
+      // ...tab_personal_info_fields(['tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename',
+      //  'tab_personal_selectedIdentityCardCode','tab_personal_identityCardSeries','tab_personal_identityCardNumber',
+      //   'tab_personal_identityCardIssueDate','tab_personal_identityCardIssueDep','tab_personal_identityCardIssueBy'
+      // ]),
+      // ...mapMultiRowFields(['ege_info','tests']),
+      // ...tab_entrance_tests(['tab_entrance_test_score', 'tab_entrance_test_subject']),
       table_show() {
         return this.person.ege_info;
       },
@@ -329,8 +347,8 @@
         headers_ege_subjects: [
           {text: 'Предмет', value: 'tab_ege_selectedSubject', sortable: false, align: 'center'},
           {text: 'Балл', value: 'tab_ege_score', sortable: false, align: 'center'},
-          {text: 'Балл(ФИС)', value: 'ege_ball_2', sortable: false, align: 'center'},
-          {text: 'Статус апелляция', value: 'ege_appeal_status', sortable: false, align: 'center'},
+          // {text: 'Балл(ФИС)', value: 'ege_ball_2', sortable: false, align: 'center'},
+          // {text: 'Статус апелляция', value: 'ege_appeal_status', sortable: false, align: 'center'},
           {text: 'Действия', value: 'actions', sortable: false, align: 'center'}
         ],
         info_ege_subjects: [],
@@ -358,7 +376,7 @@
         console.log(index);
         this.person.ege_info.splice(index,1);
 
-        this.tests.splice(index,1);
+        // this.tests.splice(index,1);
 
       },
 
@@ -441,15 +459,15 @@
 
 
       onCopyInfoFromProfileTab() {
-        this.tab_ege_lastname = this.person.tab_personal_lastname;
-        this.tab_ege_firstname =  this.person.tab_personal_firstname;
-        this.tab_ege_middlename =  this.person.tab_personal_middlename;
-        this.tab_ege_identityCardSeries = this.person.tab_personal_identityCardSeries;
-        this.tab_ege_identityCardNumber = this.person.tab_personal_identityCardNumber;
-        this.tab_ege_identityCardIssueDate = this.person.tab_personal_identityCardIssueDate;
-        this.tab_ege_identityCardIssueBy = this.person.tab_personal_identityCardIssueBy;
-        this.tab_ege_selectedIdentityCardCode = this.person.tab_personal_selectedIdentityCardCode;
-        this.tab_ege_info_selectedCitizenship = this.person.tab_personal_selectedCitizenship;
+        this.tab_ege_lastname = this.tab_personal_lastname;
+        this.tab_ege_firstname =  this.tab_personal_firstname;
+        this.tab_ege_middlename =  this.tab_personal_middlename;
+        this.tab_ege_identityCardSeries = this.tab_personal_identityCardSeries;
+        this.tab_ege_identityCardNumber = this.tab_personal_identityCardNumber;
+        this.tab_ege_identityCardIssueDate = this.tab_personal_identityCardIssueDate;
+        this.tab_ege_identityCardIssueBy = this.tab_personal_identityCardIssueBy;
+        this.tab_ege_selectedIdentityCardCode = this.tab_personal_selectedIdentityCardCode;
+        this.tab_ege_info_selectedCitizenship = this.tab_personal_selectedCitizenship;
       }
     }
   }
