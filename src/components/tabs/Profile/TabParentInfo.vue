@@ -19,12 +19,12 @@
             <td class="text-xs-center">{{ props.item.tab_parent_middlename}}</td>
             <td class="text-xs-center">{{ props.item.tab_parent_selectedGender.name}}</td>
             <td class="text-xs-center">
-              <button @click="onEdit(props.item)">
-                <v-icon color="#5bc0de">edit</v-icon>
-              </button>{{ props.item.acions}}
+              <!--<button @click="onEdit(props.item)">-->
+                <!--<v-icon color="#5bc0de">edit</v-icon>-->
+              <!--</button>{{ props.item.actions}}-->
               <button @click="onDelete(props.item)">
                 <v-icon color="#5bc0de">delete</v-icon>
-              </button>{{ props.item.acions}}
+              </button>{{ props.item.actions}}
             </td>
           </template>
         </v-data-table>

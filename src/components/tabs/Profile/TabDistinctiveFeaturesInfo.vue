@@ -18,12 +18,12 @@
             <td class="text-xs-center">{{ props.item.tab_features_selectedYypeDiploma.name }}</td>
             <td class="text-xs-center">{{ props.item.tab_features_selectedPreference.points}}</td>
               <td class="text-xs-center">
-                <button @click="onEdit(props.item)">
-                  <v-icon color="#5bc0de">edit</v-icon>
-                </button>{{ props.item.acions}}
+                <!--<button @click="onEdit(props.item)">-->
+                  <!--<v-icon color="#5bc0de">edit</v-icon>-->
+                <!--</button>{{ props.item.actions}}-->
                 <button @click="onDelete(props.item)">
                   <v-icon color="#5bc0de">delete</v-icon>
-                </button>{{ props.item.acions}}
+                </button>{{ props.item.actions}}
               </td>
             <!--<td class="text-xs-center">{{ props.item.done }}</td>-->
             <!--<td class="text-xs-center">{{ props.item.ball_2}}</td>-->
@@ -61,6 +61,14 @@
                     {{item.name}}
                   </option>
                 </select>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Серия</div>
+                <input v-model="tab_features_serial" class="form__input col-sm" type="text" />
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Номер</div>
+                <input v-model="tab_features_number" class="form__input col-sm" type="text" />
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Балл ИД</div>
@@ -180,7 +188,8 @@
         ...mapGetters('dictionary', ['GET_preference', ]),
         ...tab_distinctive_features_info(['tab_features_selectedAttrType', 'tab_features_selectedPreference',
         'tab_features_selectedPreferencePoint','tab_features_selectedYypeDiploma',
-        'tab_features_selectedDocType1', 'tab_features_selectedDocType2','tab_features_selectedDocType3']),
+        'tab_features_selectedDocType1', 'tab_features_selectedDocType2','tab_features_selectedDocType3',
+          'tab_features_serial','tab_features_number']),
         ...person(['person']),
 
         table_show() {

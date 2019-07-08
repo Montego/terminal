@@ -113,38 +113,219 @@
            reader.readAsDataURL(file);
         },
 
-
+        // tab_personal_lastname: '',
+        // tab_personal_firstname: '',
+        // tab_personal_middlename: '',
+        // tab_personal_lastname_genitive: '',
+        // tab_personal_firstname_genitive: '',
+        // tab_personal_middlename_genitive: '',
+        // tab_personal_selectedGender: '',
+        // tab_personal_birthDate: '',
+        // tab_personal_INIPA: '',
+        // tab_personal_INIPADate: '',
+        // tab_personal_note: '',
+        //
+        // tab_personal_selectedIdentityCardCode: '',
+        // tab_personal_identityCardSeries: '',
+        // tab_personal_identityCardNumber: '',
+        // tab_personal_identityCardIssueBy: '',
+        // tab_personal_identityCardIssueDate: '',
+        // tab_personal_identityCardIssueDep: '',
+        // tab_personal_selectedCitizenship: '',
+        // tab_personal_isCompatriot: '',
+        // tab_personal_isEquatedForeign: '',
+        // tab_personal_birthplace: '',
+        // tab_personal_isHostel: '',
+        // tab_personal_isForeignLikeRussian: '',
+        // tab_personal_homePhoneNumber: '',
+        // tab_personal_cellularPhone: '',
+        // tab_personal_email: '',
+        // tab_personal_company_name: '',
+        // tab_personal_company_address: '',
+        // tab_personal_seniority: '',
+        // tab_personal_employYears: '',
+        // tab_personal_employMonths: '',
+        // tab_personal_employDays: '',
+        // tab_personal_selectedForeignLanguageInfo: '',
+        // selected_foreignLanguageName1: '',
+        // language_score1: '',
+        // selected_foreignLanguageName2: '',
+        // language_score2: '',
+        // selected_foreignLanguageName3: '',
+        // language_score3: '',
+        //
+        // tab_address_registrationAddress: '',
+        // tab_address_factAddress: '',
+        // tab_address_templateRegistrationAddress: '',
+        //
+        // tab_edu_military_educationLevel: '',
+        // tab_edu_military_univer: '',
+        // tab_edu_military_selectedCountryRegion: '',
+        // tab_edu_military_selectedState: '',
+        // tab_edu_military_selectedAcademyYear: '',
+        // tab_edu_military_selectedEduDoc: '',
+        // tab_edu_military_eduDocSerial: '',
+        // tab_edu_military_eduDocNumber: '',
+        // tab_edu_military_eduDocDate: '',
+        // tab_edu_military_eduDocName: '',
+        // tab_edu_military_attachment_serial: '',
+        // tab_edu_military_attachment_number: '',
+        // averageScore: '',
+        // tab_edu_military_selectedSoldiery: '',
+        // tab_edu_military_selectedSoldieryStatus: '',
+        // tab_edu_military_selectedMilitaryFormDoc: '',
+        // tab_edu_military_militaryNumber: '',
+        // tab_edu_military_militarySeries: '',
+        // tab_edu_military_militaryIssueDate: '',
+        // tab_edu_military_militaryIssueBy: '',
+        // tab_edu_military_militaryRank: '',
+        // tab_edu_military_selectedDocType: '',
+        // tab_edu_military_docMilitaryShowDate: '',
+        // tab_edu_military_startMilitary: '',
+        // tab_edu_military_endMilitary: '',
 
 
         onSave() {
-          // let formData = new FormData()
-          // formData.append('person',this.person);
-          // AXIOS.post(`/persons`,formData)
 
-          AXIOS.post(`/persons`,(this.person))
-            .then(response => {
-              this.info.push(response.data)
-            })
-            .catch(e => {
-              this.errors.push(e)
-            })
+          function Person(personal_lastname, personal_firstname, personal_middlename, personal_lastname_genitive,
+                          personal_firstname_genitive, personal_middlename_genitive, personal_selectedGender,
+                          personal_birthDate, personal_INIPA, personal_INIPADate,personal_note,
+                          personal_selectedIdentityCardCode,personal_identityCardSeries,personal_identityCardNumber,
+                          personal_identityCardIssueBy,personal_identityCardIssueDate,personal_identityCardIssueDep,
+                          personal_selectedCitizenship,isCompatriot,isEquatedForeign,birthplace,isHostel,
+                          isForeignLikeRussian,personal_homePhoneNumber,personal_cellularPhone,personal_email,
+                          personal_company_name,personal_company_address,personal_seniority,personal_employYears,
+                          personal_employMonths,personal_employDays,selectedForeignLanguageInfo,foreignLanguageName1,
+                          language_score1,foreignLanguageName2,language_score2,foreignLanguageName3,language_score3,
+                          address_registrationAddress,address_factAddress,templateRegistrationAddress,
+                          edu_military_educationLevel,edu_military_univer,edu_military_selectedCountryRegion,
+                          edu_military_selectedState,edu_military_selectedAcademyYear,edu_military_selectedEduDoc,
+                          edu_military_eduDocSerial,edu_military_eduDocNumber,edu_military_eduDocDate,
+                          edu_military_eduDocName,edu_military_attachment_serial,edu_military_attachment_number,
+                          averageScore,edu_military_selectedSoldiery,edu_military_selectedSoldieryStatus,
+                          edu_military_selectedMilitaryFormDoc,edu_military_militaryNumber,edu_military_militarySeries,
+                          edu_military_militaryIssueDate,edu_military_militaryIssueBy,edu_military_militaryRank,
+                          edu_military_selectedDocType,edu_military_docMilitaryShowDate,edu_military_startMilitary,
+                          edu_military_endMilitary) {
+            // parent_name = this.tab_parent_name;
+            this.tab_personal_lastname = personal_lastname;
+            this.tab_personal_firstname = personal_firstname;
+            this.tab_personal_middlename = personal_middlename;
+            this.tab_personal_lastname_genitive = personal_lastname_genitive;
+            this.tab_personal_firstname_genitive = personal_firstname_genitive;
+            this.tab_personal_middlename_genitive = personal_middlename_genitive;
+            this.tab_personal_selectedGender = personal_selectedGender;
+            this.tab_personal_birthDate = personal_birthDate;
+            this.tab_personal_INIPA = personal_INIPA;
+            this.tab_personal_INIPADate = personal_INIPADate;
+            this.tab_personal_note = personal_note;
+            this.tab_personal_selectedIdentityCardCode = personal_selectedIdentityCardCode;
+            this.tab_personal_identityCardSeries = personal_identityCardSeries;
+            this.tab_personal_identityCardNumber = personal_identityCardNumber;
+            this.tab_personal_identityCardIssueBy = personal_identityCardIssueBy;
+            this.tab_personal_identityCardIssueDate = personal_identityCardIssueDate;
+            this.tab_personal_identityCardIssueDep = personal_identityCardIssueDep;
+            this.tab_personal_selectedCitizenship = personal_selectedCitizenship;
+            this.tab_personal_isCompatriot = isCompatriot;
+            this.tab_personal_isEquatedForeign = isEquatedForeign;
+            this.tab_personal_birthplace = birthplace;
+            this.tab_personal_isHostel = isHostel;
+            this.tab_personal_isForeignLikeRussian = isForeignLikeRussian;
+            this.tab_personal_homePhoneNumber = personal_homePhoneNumber;
+            this.tab_personal_cellularPhone = personal_cellularPhone;
+            this.tab_personal_email = personal_email;
+            this.tab_personal_company_name = personal_company_name;
+            this.tab_personal_company_address = personal_company_address;
+            this.tab_personal_seniority = personal_seniority;
+            this.tab_personal_employYears = personal_employYears;
+            this.tab_personal_employMonths = personal_employMonths;
+            this.tab_personal_employDays = personal_employDays;
+            this.tab_personal_selectedForeignLanguageInfo = selectedForeignLanguageInfo;
+            this.selected_foreignLanguageName1 = foreignLanguageName1;
+            this.language_score1 = language_score1;
+            this.selected_foreignLanguageName2 = foreignLanguageName2;
+            this.language_score2 = language_score2;
+            this.selected_foreignLanguageName3 = foreignLanguageName3;
+            this.language_score3 = language_score3;
+            this.tab_address_registrationAddress = address_registrationAddress;
+            this.tab_address_factAddress = parent_name;
+            this.tab_address_templateRegistrationAddress = parent_name;
+            this.tab_edu_military_educationLevel = parent_name;
+            this.tab_edu_military_univer = parent_name;
+            this.tab_edu_military_selectedCountryRegion = parent_name;
+            this.tab_edu_military_selectedState = parent_name;
+            this.tab_edu_military_selectedAcademyYear = parent_name;
+            this.tab_edu_military_selectedEduDoc = parent_name;
+            this.tab_edu_military_eduDocSerial = parent_name;
+            this.tab_edu_military_eduDocNumber = parent_name;
+            this.tab_edu_military_eduDocDate = parent_name;
+            this.tab_edu_military_eduDocName = parent_name;
+            this.tab_edu_military_attachment_serial = parent_name;
+            this.tab_edu_military_attachment_number = parent_name;
+            this.averageScore = parent_name;
+            this.tab_edu_military_selectedSoldiery = parent_name;
+            this.tab_edu_military_selectedSoldieryStatus = parent_name;
+            this.tab_edu_military_selectedMilitaryFormDoc = parent_name;
+            this.tab_edu_military_militaryNumber = parent_name;
+            this.tab_edu_military_militarySeries = parent_name;
+            this.tab_edu_military_militaryIssueDate = parent_name;
+            this.tab_edu_military_militaryIssueBy = parent_name;
+            this.tab_edu_military_militaryRank = parent_name;
+            this.tab_edu_military_selectedDocType = parent_name;
+            this.tab_edu_military_docMilitaryShowDate = parent_name;
+            this.tab_edu_military_startMilitary = parent_name;
+            this.tab_edu_military_endMilitary = parent_name;
 
-        //   let formData = new FormData();
-        //   formData.append('image', this.image);
-        //   AXIOS.post( '/persons/image',
-        //     formData,
-        //     {
-        //       headers: {
-        //         'Content-Type': 'multipart/form-data'
-        //       }
-        //     }
-        //   ).then(function(){
-        //     console.log('SUCCESS!!');
-        //   })
-        //     .catch(function(){
-        //       console.log('FAILURE!!');
-        //     });
-        //
+
+
+
+
+
+
+
+
+
+            let person = new Person(
+              this.tab_parent_name, this.tab_parent_lastname, this.tab_parent_firstname,
+              this.tab_parent_middlename, this.tab_parent_birthDate, this.tab_parent_homePhoneNumber,
+              this.tab_parent_cellularPhone, this.tab_parent_factAddress, this.tab_parent_selectedFamRelationShip,
+              this.tab_parent_selectedGender, this.tab_parent_organization_name, this.tab_parent_organization_address,
+              this.tab_parent_organization_seniority, this.tab_parent_organization_employYears
+            );
+
+
+            this.person.parents_info.push(parent);
+
+
+            AXIOS.post(`/persons`, (this.person))
+
+
+              .then(response => {
+                this.info.push(response.data)
+              })
+              .catch(e => {
+                this.errors.push(e)
+              })
+
+            //   let formData = new FormData();
+            //   formData.append('image', this.image);
+            //   AXIOS.post( '/persons/image',
+            //     formData,
+            //     {
+            //       headers: {
+            //         'Content-Type': 'multipart/form-data'
+            //       }
+            //     }
+            //   ).then(function(){
+            //     console.log('SUCCESS!!');
+            //   })
+            //     .catch(function(){
+            //       console.log('FAILURE!!');
+            //     });
+            //
+          }
+
+
         },
 
         onFileChange(e) {

@@ -10,6 +10,8 @@ export default {
     tab_features_selectedDocType1:'',
     tab_features_selectedDocType2:'',
     tab_features_selectedDocType3:'',
+    tab_features_serial:'',
+    tab_features_number:''
   },
   getters: {
     getField,

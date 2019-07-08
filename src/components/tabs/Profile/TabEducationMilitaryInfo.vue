@@ -153,7 +153,7 @@
 
         </label>
       </div>
-      <div v-if="person.tab_edu_military_selectedSoldieryStatus=='Служил' || tab_edu_military_selectedSoldiery=='Военнообязанный'  ">
+      <!--<div v-if="person.tab_edu_military_selectedSoldieryStatus=='Служил' || tab_edu_military_selectedSoldiery=='Военнообязанный'  ">-->
         <div>
           <p>Документ о военной службе</p>
         </div>
@@ -214,7 +214,7 @@
             <input v-model="person.tab_edu_military_endMilitary" class="form__input col-sm" type="date" name="" placeholder=""/>
           </label>
         </div>
-      </div>
+      <!--</div>-->
 
       <div>
         <p>Дополнительные сведения</p>
@@ -237,22 +237,22 @@
         </select>
         <input v-model="person.extraInfosDescription2" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
       </div>
-      <div class="row">
-        <select v-model="person.selectedExtraInfos3" class="minimal col-sm">
-          <option v-for="option in options_extraInfos">
-            {{option.item}}
-          </option>
-        </select>
-        <input v-model="person.extraInfosDescription3" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
-      </div>
-      <div class="row">
-        <select v-model="person.selectedExtraInfos4" class="minimal col-sm">
-          <option v-for="option in options_extraInfos">
-            {{option.item}}
-          </option>
-        </select>
-        <input v-model="person.extraInfosDescription4" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
-      </div>
+      <!--<div class="row">-->
+        <!--<select v-model="person.selectedExtraInfos3" class="minimal col-sm">-->
+          <!--<option v-for="option in options_extraInfos">-->
+            <!--{{option.item}}-->
+          <!--</option>-->
+        <!--</select>-->
+        <!--<input v-model="person.extraInfosDescription3" class="form__input col-sm" type="text" name="" placeholder="Описание"/>-->
+      <!--</div>-->
+      <!--<div class="row">-->
+        <!--<select v-model="person.selectedExtraInfos4" class="minimal col-sm">-->
+          <!--<option v-for="option in options_extraInfos">-->
+            <!--{{option.item}}-->
+          <!--</option>-->
+        <!--</select>-->
+        <!--<input v-model="person.extraInfosDescription4" class="form__input col-sm" type="text" name="" placeholder="Описание"/>-->
+      <!--</div>-->
     </div>
         <!--</label>-->
       <!--</div>-->

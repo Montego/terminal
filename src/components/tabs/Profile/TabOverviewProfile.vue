@@ -5,12 +5,7 @@
       <button color="#5bc0de" @click="onNewProfile()">
         +
       </button>
-      <div class="row">
-
-
-      </div>
     </div>
-
 
   <v-data-table data-app
     :headers="headers_profile"

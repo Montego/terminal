@@ -18,32 +18,32 @@
           <!--<input v-model="lastname_personal_info" class="form__input col-sm" v-validate="'required|alpha'" name="lastname"-->
                  <!--type="text">-->
           <!--<span>{{ errors.first('alpha') }}</span>-->
-          <input v-model="person.tab_personal_lastname" value= "" class="form__input col-sm" type="text" name="lastname" required/>
+          <input v-model="tab_personal_lastname" value= "" class="form__input col-sm" type="text" name="lastname" required/>
         </label>
-        <span class="alarm_label" v-if="person.tab_personal_lastname===''">Не заполнено поле "Фамилия"</span>
+        <span class="alarm_label" v-if="tab_personal_lastname===''">Не заполнено поле "Фамилия"</span>
         <label class="row">
           <div class="form__label-text col-sm">Имя</div>
-          <input v-model="person.tab_personal_firstname" class="form__input col-sm" type="text" name="firstname" required/>
+          <input v-model="tab_personal_firstname" class="form__input col-sm" type="text" name="firstname" required/>
         </label>
-        <span class="alarm_label" v-if="person.tab_personal_firstname===''">Не заполнено поле "Имя"</span>
-        <span class="alarm_label" v-else-if="person.tab_personal_firstname=== person.tab_personal_lastname">Имя не может совпадать с фамилией</span>
+        <span class="alarm_label" v-if="tab_personal_firstname===''">Не заполнено поле "Имя"</span>
+        <span class="alarm_label" v-else-if="tab_personal_firstname=== tab_personal_lastname">Имя не может совпадать с фамилией</span>
         <label class="row">
           <div class="form__label-text col-sm">Отчество</div>
-          <input v-model="person.tab_personal_middlename" class="form__input col-sm" type="text" name="middlename" required/>
+          <input v-model="tab_personal_middlename" class="form__input col-sm" type="text" name="middlename" required/>
         </label>
         <hr>
         <label class="row">
           <div class="form__label-text col-sm">Фамилия в род.п.</div>
-          <input v-model="person.tab_personal_lastname_genitive" class="form__input col-sm" type="text" name="lastname_genitive" required/>
+          <input v-model="tab_personal_lastname_genitive" class="form__input col-sm" type="text" name="lastname_genitive" required/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Имя в род.п.</div>
-          <input v-model="person.tab_personal_firstname_genitive" class="form__input col-sm" type="text" name="firstname_genitive"
+          <input v-model="tab_personal_firstname_genitive" class="form__input col-sm" type="text" name="firstname_genitive"
                  required/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Отчество в род.п.</div>
-          <input v-model="person.tab_personal_middlename_genitive" class="form__input col-sm" type="text" name="middlename_genitive"
+          <input v-model="tab_personal_middlename_genitive" class="form__input col-sm" type="text" name="middlename_genitive"
                  required/>
         </label>
         <label class="row">
@@ -53,23 +53,21 @@
         </label>
         <label class="alarm_label">Проверьте Ф.И.О. в родительном падеже для Заявления.</label>
 
-        <label class="row">
+        <div class="row">
           <div class="form__label-text col-sm">Пол:</div>
-          <select v-model="person.tab_personal_selectedGender" class="minimal col-sm">
+          <select v-model="tab_personal_selectedGender" class="minimal col-sm">
             <option v-for="item in gender" v-bind:value="item">
               {{item.name}}
             </option>
           </select>
-        </label>
 
-        <div>
-          <div>
-            <labael
-          </div>
+            <!--<v-icon @click="clearSelect">clear</v-icon>-->
+
+
         </div>
         <label class="row">
           <div class="form__label-text col-sm">Дата рождения:</div>
-          <input v-model="person.tab_personal_birthDate" class="form__input col-sm" type="date" name="birthday" required/>
+          <input v-model="tab_personal_birthDate" class="form__input col-sm" type="date" name="birthday" required/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Полных лет:</div>
@@ -78,16 +76,16 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">СНИЛС</div>
-          <input v-model="person.tab_personal_INIPA" class="form__input col-sm" type="text" name="snils" placeholder="***-***-***" v-mask="'###-###-###'"
+          <input v-model="tab_personal_INIPA" class="form__input col-sm" type="text" name="snils" placeholder="***-***-***" v-mask="'###-###-###'"
                  required/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">СНИЛС Дата:</div>
-          <input v-model="person.tab_personal_INIPADate" class="form__input col-sm" type="date" name="snils_date"/>
+          <input v-model="tab_personal_INIPADate" class="form__input col-sm" type="date" name="snils_date"/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Примечание:</div>
-          <textarea v-model="person.tab_personal_note" class="col-sm" name="note"></textarea>
+          <textarea v-model="tab_personal_note" class="col-sm" name="note"></textarea>
         </label>
       </div>
     </div>
@@ -100,7 +98,7 @@
         <label class="row">
           <div class="form__label-text col-sm">Код документа:</div>
 
-          <select v-model="person.tab_personal_selectedIdentityCardCode" class="minimal col-sm">
+          <select v-model="tab_personal_selectedIdentityCardCode" class="minimal col-sm">
             <option v-for="item in identityCardCode" v-bind:value="item">
               {{item.identityCardCode}}
             </option>
@@ -115,9 +113,9 @@
         <span class="alarm_label" v-if="tab_personal_selectedIdentityCardCode===''">Не выбран тип документа</span>
         <label class="row">
           <div class="form__label-text col-sm">Серия:</div>
-          <input v-if="tab_personal_selectedIdentityCardCode === 'Паспорт РФ'" v-model="person.tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>
-          <input v-else-if="tab_personal_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="person.tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***" v-mask="'###-###'" required/>
-          <input v-else v-model="person.tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
+          <input v-if="tab_personal_selectedIdentityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>
+          <input v-else-if="tab_personal_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***" v-mask="'###-###'" required/>
+          <input v-else v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
 
         </label>
         <span class="alarm_label" v-if="tab_personal_identityCardSeries===''">Не заполнено поле "Серия"</span>
@@ -125,31 +123,31 @@
         <label class="row">
           <div class="form__label-text col-sm">Номер:</div>
           <!--<input v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_number" required/>-->
-          <input v-if="tab_personal_selectedIdentityCardCode === 'Паспорт РФ'" v-model="person.tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="******" v-mask="'######'" required/>
-          <input v-else-if="tab_personal_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="person.tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***-***" v-mask="'###-###-###'" required/>
-          <input v-else v-model="person.tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial"required/>
+          <input v-if="tab_personal_selectedIdentityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="******" v-mask="'######'" required/>
+          <input v-else-if="tab_personal_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***-***" v-mask="'###-###-###'" required/>
+          <input v-else v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial"required/>
         </label>
         <span class="alarm_label" v-if="tab_personal_identityCardNumber===''">Не заполнено поле "Номер"</span>
         <span class="alarm_label" v-else-if="tab_personal_identityCardNumber.length<6 & tab_personal_selectedIdentityCardCode === 'Паспорт РФ'">Номер должен содержать 6 цифр</span>
 
         <label class="row">
           <div class="form__label-text col-sm">Кем выдан:</div>
-          <textarea v-model="person.tab_personal_identityCardIssueBy" class="col-sm" name="doc_issued_by"></textarea>
+          <textarea v-model="tab_personal_identityCardIssueBy" class="col-sm" name="doc_issued_by"></textarea>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Дата выдачи:</div>
-          <input v-model="person.tab_personal_identityCardIssueDate" class="form__input col-sm" type="date" name="doc_issued_date"/>
+          <input v-model="tab_personal_identityCardIssueDate" class="form__input col-sm" type="date" name="doc_issued_date"/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Код подразделения:</div>
-          <input v-model="person.tab_personal_identityCardIssueDep" class="form__input col-sm" type="text" name="doc_code_unit" placeholder="***-***" v-mask="'###-###'"
+          <input v-model="tab_personal_identityCardIssueDep" class="form__input col-sm" type="text" name="doc_code_unit" placeholder="***-***" v-mask="'###-###'"
                  required/>
         </label>
       </div>
       <label class="row">
         <div class="form__label-text col-sm">Гражданство:</div>
 
-        <select v-model="person.tab_personal_selectedCitizenship"  class="minimal col-sm">
+        <select v-model="tab_personal_selectedCitizenship"  class="minimal col-sm">
           <option v-for="item in addressCountryRegion" v-bind:value="item">
             {{item.countryRegionId}}
           </option>
@@ -157,28 +155,28 @@
       </label>
       <label class="row">
         <div class="form__label-text col-sm">Соотечественник:</div>
-        <input v-if="tab_personal_selectedCitizenship=='РФ'" v-model="person.tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" id="compatriot" disabled="disabled">
-        <input v-else="tab_personal_selectedCitizenship=='РФ'" v-model="person.tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" >
+        <input v-if="tab_personal_selectedCitizenship=='РФ'" v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" id="compatriot" disabled="disabled">
+        <input v-else="tab_personal_selectedCitizenship=='РФ'" v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" >
       </label>
       <label class="alarm_label">(При наличии подтверждающих документов)</label>
       <label class="row">
         <div class="form__label-text col-sm">Приравнять к иностранцам:</div>
-        <input v-if="tab_personal_isCompatriot==true" v-model="person.tab_personal_isEquatedForeign" class="checkbox col-sm" type="checkbox" disabled>
-        <input v-else v-model="person.tab_personal_isEquatedForeign" class="checkbox col-sm" type="checkbox" id="equate_foreign">
+        <input v-if="tab_personal_isCompatriot==true" v-model="tab_personal_isEquatedForeign" class="checkbox col-sm" type="checkbox" disabled>
+        <input v-else v-model="tab_personal_isEquatedForeign" class="checkbox col-sm" type="checkbox" id="equate_foreign">
       </label>
       <label class="alarm_label">(Беларусь, Казахстан, Киргизия, Таджикистан)</label>
       <label class="row">
         <div class="form__label-text col-sm">Место рождения:</div>
-        <textarea v-model="person.tab_personal_birthplace" class="col-sm" name="birth_place"></textarea>
+        <textarea v-model="tab_personal_birthplace" class="col-sm" name="birth_place"></textarea>
       </label>
       <label class="row">
         <div class="form__label-text col-sm">Общежитие:</div>
-        <input v-model="person.tab_personal_isHostel" class="checkbox col-sm" type="checkbox" id="hostel">
+        <input v-model="tab_personal_isHostel" class="checkbox col-sm" type="checkbox" id="hostel">
       </label>
       <label class="row">
         <div class="form__label-text col-sm">Иностранец, как гражданин РФ:</div>
-        <input v-if="tab_personal_selectedCitizenship=='РФ'" v-model="person.tab_personal_isForeignLikeRussian" class="checkbox col-sm" type="checkbox" id="foreign_like_russian" disabled>
-        <input v-else v-model="person.tab_personal_isForeignLikeRussian" class="checkbox col-sm" type="checkbox"  >
+        <input v-if="tab_personal_selectedCitizenship=='РФ'" v-model="tab_personal_isForeignLikeRussian" class="checkbox col-sm" type="checkbox" id="foreign_like_russian" disabled>
+        <input v-else v-model="tab_personal_isForeignLikeRussian" class="checkbox col-sm" type="checkbox"  >
       </label>
       <div class="alarm_label">(С видом на жительство и аттестатом РФ. По соглашению)</div>
     </div>
@@ -191,17 +189,17 @@
       <div>
         <label class="row">
           <div class="form__label-text col-sm">Домашний телефон:</div>
-          <input v-model="person.tab_personal_homePhoneNumber" class="form__input col-sm" type="text" name="home_phone_number"/>
+          <input v-model="tab_personal_homePhoneNumber" class="form__input col-sm" type="text" name="home_phone_number"/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Мобильный телефон:</div>
-          <input v-model="person.tab_personal_cellularPhone" class="form__input col-sm" type="text" name="mobile_number" v-mask="'+7-###-###-##-##'"/>
+          <input v-model="tab_personal_cellularPhone" class="form__input col-sm" type="text" name="mobile_number" v-mask="'+7-###-###-##-##'"/>
         </label>
-        <span class="alarm_label" v-if="person.tab_personal_cellularPhone===''">Не заполнено поле "Мобильный телефон"</span>
+        <span class="alarm_label" v-if="tab_personal_cellularPhone===''">Не заполнено поле "Мобильный телефон"</span>
         <span class="alarm_label" v-else-if="tab_personal_cellularPhone.length<16">Некорректно заполнено поле "Мобильный телефон"</span>
         <label class="row">
           <div class="form__label-text col-sm">Эл. почта:</div>
-          <input v-model="person.tab_personal_email" class="form__input col-sm" v-validate="'required|email'"  placeholder="" name="email" type="email">
+          <input v-model="tab_personal_email" class="form__input col-sm" v-validate="'required|email'"  placeholder="" name="email" type="email">
 
           <!--<input class="form__input col-sm" type="email" name="email"/>-->
         </label>
@@ -213,15 +211,15 @@
         <hr>
         <label class="row">
           <div class="form__label-text col-sm">Организация:</div>
-          <input v-model="person.tab_personal_company_name" class="form__input col-sm" type="text" name="organization_name"/>
+          <input v-model="tab_personal_company_name" class="form__input col-sm" type="text" name="organization_name"/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Адрес:</div>
-          <textarea v-model="person.tab_personal_company_address" class="col-sm" name="organization_address"></textarea>
+          <textarea v-model="tab_personal_company_address" class="col-sm" name="organization_address"></textarea>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Профессия:</div>
-          <input v-model="person.tab_personal_seniority" class="form__input col-sm" type="text" name="organization_profession" placeholder=""/>
+          <input v-model="tab_personal_seniority" class="form__input col-sm" type="text" name="organization_profession" placeholder=""/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Трудовой стаж:</div>
@@ -230,19 +228,19 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Стаж, лет:</div>
-          <input v-model="person.tab_personal_employYears" class="form__input col-sm" type="text" v-mask="'##'" name="employYears" placeholder=""/>
+          <input v-model="tab_personal_employYears" class="form__input col-sm" type="text" v-mask="'##'" name="employYears" placeholder=""/>
         </label>
-        <span class="alarm_label" v-if="person.tab_personal_employYears>100">Люди столько не живут</span>
+        <span class="alarm_label" v-if="tab_personal_employYears>100">Люди столько не живут</span>
         <label class="row">
           <div class="form__label-text col-sm">Стаж, месяцев:</div>
-          <input v-model="person.tab_personal_employMonths" class="form__input col-sm" type="text" v-mask="'##'" name="employMonths" placeholder=""/>
+          <input v-model="tab_personal_employMonths" class="form__input col-sm" type="text" v-mask="'##'" name="employMonths" placeholder=""/>
         </label>
-        <span class="alarm_label" v-if="person.tab_personal_employMonths>11">Стаж, месяцев должен быть в диапазоне от 0 до 11</span>
+        <span class="alarm_label" v-if="tab_personal_employMonths>11">Стаж, месяцев должен быть в диапазоне от 0 до 11</span>
         <label class="row">
         <div class="form__label-text col-sm">Стаж, дней:</div>
-        <input v-model="person.tab_personal_employDays" class="form__input col-sm" type="text" v-mask="'##'" name="seniority_day" placeholder=""/>
+        <input v-model="tab_personal_employDays" class="form__input col-sm" type="text" v-mask="'##'" name="seniority_day" placeholder=""/>
         </label>
-        <span class="alarm_label" v-if="person.tab_personal_employDays>31">Стаж, дней должен быть в диапазоне от 0 до 31</span>
+        <span class="alarm_label" v-if="tab_personal_employDays>31">Стаж, дней должен быть в диапазоне от 0 до 31</span>
         <div>
           <p>Иностранные языки</p>
         </div>
@@ -254,7 +252,7 @@
             <!--<option>Изучал</option>-->
             <!--<option>Не изучал</option>-->
           <!--</select>-->
-          <select v-model="person.tab_personal_selectedForeignLanguageInfo"  class="minimal col-sm">
+          <select v-model="tab_personal_selectedForeignLanguageInfo"  class="minimal col-sm">
             <option v-for="item in langInfo" v-bind:value="item">
               {{item.name}}
             </option>
@@ -262,39 +260,50 @@
         </label>
         <div class="row">
           <!--<div v-for="(selected_foreignLanguageName,language_description, index) in languages">-->
-          <select v-model="person.selected_foreignLanguageName1" class="minimal col-sm-6">
+          <select v-model="selected_foreignLanguageName1" class="minimal col-sm-6">
             <option v-for="item in language" v-bind:value="item">
               {{item.languageId}}
             </option>
           </select>
-          <select v-model="person.language_score1" class="minimal col-sm-6">
-            <option v-for="item in languageLevel" v-bind:value="item">
-              {{item.name}}
-            </option>
-          </select>
+
+          <input v-model="language_score1" class="form__input col-sm" type="text" v-mask="'#'"/>
+          <!--<select v-model="person.language_score1" class="minimal col-sm-6">-->
+            <!--<input v-model="person.tab_personal_employDays" class="form__input col-sm" type="text" v-mask="'#'"/>-->
+            <!--<option v-for="item in languageLevel" v-bind:value="item">-->
+              <!--{{item.name}}-->
+            <!--</option>-->
+          <!--</select>-->
           <!--<input v-model="language_score1" class="form__input col-sm-6" type="text">-->
 
-          <select v-model="person.selected_foreignLanguageName2" class="minimal col-sm-6">
+          <select v-model="selected_foreignLanguageName2" class="minimal col-sm-6">
             <option v-for="item in language" v-bind:value="item">
               {{item.languageId}}
-            </option>
-          </select>
-          <select v-model="person.language_score2" class="minimal col-sm-6">
-            <option v-for="item in languageLevel" v-bind:value="item">
-              {{item.name}}
             </option>
           </select>
 
-          <select v-model="person.selected_foreignLanguageName3" class="minimal col-sm-6">
+          <input v-model="language_score2" class="form__input col-sm" type="text" v-mask="'#'"/>
+          <!--<select v-model="person.language_score2" class="minimal col-sm-6">-->
+            <!--<option v-for="item in languageLevel" v-bind:value="item">-->
+              <!--{{item.name}}-->
+            <!--</option>-->
+          <!--</select>-->
+
+          <select v-model="selected_foreignLanguageName3" class="minimal col-sm-6">
             <option v-for="item in language" v-bind:value="item">
               {{item.languageId}}
             </option>
           </select>
-          <select v-model="person.language_score3" class="minimal col-sm-6">
-            <option v-for="item in languageLevel" v-bind:value="item">
-              {{item.name}}
-            </option>
-          </select>
+
+          <input v-model="language_score3" class="form__input col-sm" type="text" v-mask="'#'"/>
+
+
+
+
+          <!--<select v-model="person.language_score3" class="minimal col-sm-6">-->
+            <!--<option v-for="item in languageLevel" v-bind:value="item">-->
+              <!--{{item.name}}-->
+            <!--</option>-->
+          <!--</select>-->
             <!--<div class="row">-->
               <!--<input class="button_add" type="button" value="Добавить" @click="onAddLanguage" >-->
               <!--<input class="button_add" type="button" value="Убрать" @click="onRemoveLanguage" >-->
@@ -348,20 +357,33 @@
       ...mapState('dictionary',['addressCountryRegion','language','identityCardCode']),
       ...mapGetters('enums', ['GET_GENDER','GET_LANGINFO', 'GET_LANGUAGE_LEVEL']),
       ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION','GET_LANGUAGE', 'GET_IDENTITY_CARD_CODE']),
-      ...person(['person']),
-      ...tab_personal_info(['tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
+      ...person(['person','tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
         'tab_personal_middlename','tab_personal_birthDate','tab_personal_age',
-        ' tab_personal_seniority','tab_personal_employYears','tab_personal_employMonths',
+        'tab_personal_seniority','tab_personal_employYears','tab_personal_employMonths',
         'tab_personal_employDays','tab_personal_lastname_genitive','tab_personal_firstname_genitive',
         'tab_personal_middlename_genitive','tab_personal_contactPersonNameGenitive',
         'tab_personal_identityCardSeries','tab_personal_identityCardNumber',
         'tab_personal_identityCardIssueDate','tab_personal_identityCardIssueDep','tab_personal_identityCardIssueBy',
         'tab_personal_homePhoneNumber','tab_personal_cellularPhone','tab_personal_isCompatriot',
-        'tab_personal_isEquatedForeign', 'tab_personal_isHostel',
+        'tab_personal_isEquatedForeign', 'tab_personal_birthplace','tab_personal_isHostel',
         'tab_personal_isForeignLikeRussian','tab_personal_selectedGender',
         'tab_personal_selectedIdentityCardCode','tab_personal_selectedForeignLanguageInfo',
         'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
-        'tab_personal_bithplace', 'tab_personal_email'
+        'tab_personal_bithplace', 'tab_personal_email','tab_personal_company_name','tab_personal_company_address',]),
+      ...tab_personal_info(['tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
+        'tab_personal_middlename','tab_personal_birthDate','tab_personal_age',
+        'tab_personal_seniority','tab_personal_employYears','tab_personal_employMonths',
+        'tab_personal_employDays','tab_personal_lastname_genitive','tab_personal_firstname_genitive',
+        'tab_personal_middlename_genitive','tab_personal_contactPersonNameGenitive',
+        'tab_personal_identityCardSeries','tab_personal_identityCardNumber',
+        'tab_personal_identityCardIssueDate','tab_personal_identityCardIssueDep','tab_personal_identityCardIssueBy',
+        'tab_personal_homePhoneNumber','tab_personal_cellularPhone','tab_personal_isCompatriot',
+        'tab_personal_isEquatedForeign', 'tab_personal_birthplace','tab_personal_isHostel',
+        'tab_personal_isForeignLikeRussian','tab_personal_selectedGender',
+        'tab_personal_selectedIdentityCardCode','tab_personal_selectedForeignLanguageInfo',
+        'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
+        'tab_personal_bithplace', 'tab_personal_email','tab_personal_company_name','tab_personal_company_address',
+
       ]),
 
       fullname: function () {
@@ -391,6 +413,20 @@
     },
 
     methods: {
+      // clearSelectScore1(){
+      //   this.person.selected_foreignLanguageName1 = null;
+      // },
+      // clearSelectScore2(){
+      //   this.person.selected_foreignLanguageName2 = null;
+      // },
+      // clearSelectScore3(){
+      //   this.person.selected_foreignLanguageName3 = null;
+      // },
+      // clearSelectScore4(){
+      //   this.selected_foreignLanguageName4 = null;
+      // },
+
+
       onAddLanguage(){
         this.conditions.push('');
       },
