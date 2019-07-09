@@ -235,9 +235,11 @@
           AXIOS.post(`/profile`, (this.person))
             .then(response => {
               this.info.push(response.data)
-              // this.person.ege_info = [];
-              // this.person.parents_info = [];
-              // this.person.person_info = [];
+              location.href='profile#overview_personal_info';
+              this.person.ege_info = [];
+              this.person.parents_info = [];
+              this.person.person_info = [];
+              this.person.futures_info = [];
             })
             .catch(e => {
               // this.person.ege_info = [];

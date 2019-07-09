@@ -360,14 +360,14 @@
         this.tab_ege_lastname = '';
         this.tab_ege_firstname = '';
         this.tab_ege_middlename = '';
-        this.tab_ege_selectedIdentityCardCode = '';
+        this.tab_ege_selectedIdentityCardCode = null;
         this.tab_ege_identityCardSeries = '';
         this.tab_ege_identityCardNumber = '';
         this.tab_ege_identityCardIssueDate = '';
         this.tab_ege_identityCardIssueBy = '';
-        this.tab_ege_info_selectedCitizenship = '';
-        this.tab_ege_selectedExamForm = '';
-        this.tab_ege_selectedSubject = '';
+        this.tab_ege_info_selectedCitizenship = null;
+        this.tab_ege_selectedExamForm = null;
+        this.tab_ege_selectedSubject = null;
         this.tab_ege_score = '';
         location.href='profile#ege_info';
       },
@@ -403,14 +403,14 @@
         this.tab_ege_lastname = '';
         this.tab_ege_firstname = '';
         this.tab_ege_middlename = '';
-        this.tab_ege_selectedIdentityCardCode = '';
+        this.tab_ege_selectedIdentityCardCode = null;
         this.tab_ege_identityCardSeries = '';
         this.tab_ege_identityCardNumber = '';
         this.tab_ege_identityCardIssueDate = '';
         this.tab_ege_identityCardIssueBy = '';
-        this.tab_ege_info_selectedCitizenship = '';
-        this.tab_ege_selectedExamForm = '';
-        this.tab_ege_selectedSubject = '';
+        this.tab_ege_info_selectedCitizenship = null;
+        this.tab_ege_selectedExamForm = null;
+        this.tab_ege_selectedSubject = null;
         this.tab_ege_score = '';
 
 
