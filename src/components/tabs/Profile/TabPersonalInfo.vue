@@ -108,10 +108,7 @@
           <div class="form__label-text col-sm">Код документа:</div>
 
           <select v-model="tab_personal_selectedIdentityCardCode" class="minimal col-sm">
-            <option v-for="item in identityCardCode"
-                    v-bind:value="item.identityCardCode"
-                    :selected="item.identityCardCode == 'Паспорт РФ'"
-            >
+            <option v-for="item in identityCardCode" v-bind:value="item">
               {{item.identityCardCode}}
             </option>
           </select>
@@ -124,22 +121,21 @@
         <!--<span class="alarm_label" v-if="tab_personal_selectedIdentityCardCode.identityCardCode ==''">Не выбран тип документа</span>-->
         <label class="row">
           <div class="form__label-text col-sm">Серия:</div>
-          <input v-if="tab_personal_selectedIdentityCardCode.identityCardCode == 'Паспорт РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>
+          <input v-validate="'digits:4'" data-vv-as="серия паспорта" v-if="tab_personal_selectedIdentityCardCode.identityCardCode == 'Паспорт РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>
           <input v-else-if="tab_personal_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***" v-mask="'###-###'" required/>
           <input v-else v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
 
         </label>
-        <span class="alarm_label" v-if="tab_personal_identityCardSeries===''">Не заполнено поле "Серия"</span>
-        <span class="alarm_label" v-else-if="tab_personal_identityCardSeries.length<4 & tab_personal_selectedIdentityCardCode === 'Паспорт РФ'">Серия должна содержать 4 цифры</span>
+        <span class="alarm_label">{{ errors.first('doc_serial') }}</span>
         <label class="row">
           <div class="form__label-text col-sm">Номер:</div>
           <!--<input v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_number" required/>-->
-          <input v-if="tab_personal_selectedIdentityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="******" v-mask="'######'" required/>
+          <input v-validate="'digits:6'" data-vv-as="номер паспорта" v-if="tab_personal_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number" placeholder="******" v-mask="'######'" required/>
           <input v-else-if="tab_personal_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***-***" v-mask="'###-###-###'" required/>
           <input v-else v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial"required/>
         </label>
-        <span class="alarm_label" v-if="tab_personal_identityCardNumber===''">Не заполнено поле "Номер"</span>
-        <span class="alarm_label" v-else-if="tab_personal_identityCardNumber.length<6 & tab_personal_selectedIdentityCardCode === 'Паспорт РФ'">Номер должен содержать 6 цифр</span>
+        <span class="alarm_label">{{ errors.first('doc_number') }}</span>
+
 
         <label class="row">
           <div class="form__label-text col-sm">Кем выдан:</div>
@@ -151,9 +147,10 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Код подразделения:</div>
-          <input v-model="tab_personal_identityCardIssueDep" class="form__input col-sm" type="text" name="doc_code_unit" placeholder="***-***" v-mask="'###-###'"
+          <input v-validate="'alpha_dash'" data-vv-as="код подразделения" v-model="tab_personal_identityCardIssueDep" class="form__input col-sm" type="text" name="doc_code_unit" placeholder="***-***" v-mask="'###-###'"
                  required/>
         </label>
+        <span class="alarm_label">{{ errors.first('doc_code_unit') }}</span>
       </div>
       <label class="row">
         <div class="form__label-text col-sm">Гражданство:</div>
@@ -200,19 +197,19 @@
       <div>
         <label class="row">
           <div class="form__label-text col-sm">Домашний телефон:</div>
-          <input v-model="tab_personal_homePhoneNumber" class="form__input col-sm" type="text" name="home_phone_number"/>
+          <input v-validate data-vv-as="домашний телефон"  v-model="tab_personal_homePhoneNumber" class="form__input col-sm" type="text" name="home_phone_number" placeholder="(XXX)XXX-XX-XX" v-mask="'(###)###-##-##'"  />
         </label>
+        <span class="alarm_label">{{ errors.first('home_phone_number') }}</span>
         <label class="row">
           <div class="form__label-text col-sm">Мобильный телефон:</div>
-          <input v-model="tab_personal_cellularPhone" class="form__input col-sm" type="text" name="mobile_number" v-mask="'+7-###-###-##-##'"/>
+          <input v-validate data-vv-as="мобильный телефон" v-model="tab_personal_cellularPhone" class="form__input col-sm" type="text" name="mobile_number" v-mask="'+#-###-###-##-##'"/>
         </label>
-        <span class="alarm_label" v-if="tab_personal_cellularPhone===''">Не заполнено поле "Мобильный телефон"</span>
-        <span class="alarm_label" v-else-if="tab_personal_cellularPhone.length<16">Некорректно заполнено поле "Мобильный телефон"</span>
+
+        <span class="alarm_label">{{ errors.first('mobile_number') }}</span>
+
         <label class="row">
           <div class="form__label-text col-sm">Эл. почта:</div>
           <input v-model="tab_personal_email" class="form__input col-sm" v-validate="'required|email'"  placeholder="" name="email" type="email">
-
-          <!--<input class="form__input col-sm" type="email" name="email"/>-->
         </label>
         <label class="alarm_label col-sm">{{ errors.first('email') }}</label>
         <hr>

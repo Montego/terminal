@@ -43,7 +43,7 @@
             <div>
               <label class="row">
                 <div class="form__label-text col-sm">Фамилия:</div>
-                <input v-model="tab_ege_lastname" class="form__input col-sm" type="text" name="" placeholder=""/>
+                <input v-validate v-model="tab_ege_lastname" class="form__input col-sm" type="text" name="" placeholder=""/>
               </label>
               <span class="alarm_label" v-if="tab_ege_lastname===''">Не заполнено поле "Фамилия"</span>
               <label class="row">

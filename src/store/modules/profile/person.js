@@ -19,7 +19,7 @@ export default {
     tab_personal_INIPADate: '',
     tab_personal_note: '',
 
-    tab_personal_selectedIdentityCardCode: '',
+    tab_personal_selectedIdentityCardCode: { "identityCardCode": "Паспорт РФ", "identityCardNamemiddle": "Паспорт РФ", "identityCardNameFull": "Паспорт РФ", "identityCardNameShort": "", "isUniversity": 1, "isMandatory_Number": 1, "isMandatory_Series": 1, "sort": 1 },
     tab_personal_identityCardSeries: '',
     tab_personal_identityCardNumber: '',
     tab_personal_identityCardIssueBy: '',
