@@ -127,6 +127,9 @@
         //   return this.profile_1_personal_name = this.profile_1_personal_lastname + ' ' + this.profile_1_personal_firstname + ' ' + this.profile_1_personal_middlename
         //   },
         },
+      mounted() {
+        // this.showTable()
+      },
       created () {
           AXIOS.get(`/profile/personsTable`)
             .then(response => {
@@ -167,7 +170,7 @@
           this.tab_personal_isHostel = '';
           this.tab_personal_isForeignLikeRussian  = '';
           this.tab_personal_cellularPhone = '';
-          this.tab_personal_selectedIdentityCardCode  = null;
+          this.tab_personal_selectedIdentityCardCode;
           this.tab_personal_note  = '';
           this.tab_personal_email  = '';
           this.tab_personal_selectedCitizenship  = null;
@@ -175,7 +178,7 @@
           this.tab_personal_INIPADate  = '';
           this.tab_personal_note  = '';
 
-          this.tab_personal_selectedIdentityCardCode  = null;
+          this.tab_personal_selectedIdentityCardCode;
           this.tab_personal_identityCardSeries  = '';
           this.tab_personal_identityCardNumber  = '';
           this.tab_personal_identityCardIssueBy  = '';
@@ -336,7 +339,8 @@
 
           const idString = this.profiles[index].id;
           const id = parseInt(idString,10);
-          AXIOS.get(`/profile/person/` + id)
+          AXIOS.get(`/profile/personInfo/` + id)
+          //todo получать dto - массивы person_info, ege_info, parent_info
             .then(response => {
               this.person = response.data
               console.log(this.profiles)
@@ -344,7 +348,7 @@
             .catch(e => {
               this.errors.push(e)
             })
-
+          console.log('id (person_info) for redaction is '+ id);
           location.href='profile#personal_info';
 
           // const index = this.profiles.indexOf(item);
@@ -402,6 +406,7 @@
           // this.person = this.profiles[index];
           // this.showPerson = !this.showPerson;
           console.log(1111)
+          location.href = 'profile#overviewApplication';
 
         },
       },

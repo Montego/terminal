@@ -8,11 +8,11 @@
       <div class="col-sm-8">
         <label class="row">
           <div class="form__label-text col-sm">Номер заявления:</div>
-          <input v-model="application.application_number" class="form__input col-sm" type="text" name=""  />
+          <input v-model="application.application_number" class="uneditable form__input col-sm" type="text" disabled/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Дата заявления:</div>
-          <input v-model="application.application_date" class="form__input col-sm" type="date" name=""  />
+          <input v-model="application.application_date" class="uneditable form__input col-sm" type="date"  disabled />
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Тип доставки:</div>
@@ -65,14 +65,14 @@
   export default {
     name: "TabEntranceTests",
     created () {
-      AXIOS.get(`/profile/applicationTable`)
-        .then(response => {
-          this.profiles = response.data;
-          console.log(this.profiles)
-        })
-        .catch(e => {
-          this.errors.push(e)
-        })
+      // AXIOS.get(`/profile/applicationTable`)
+      //   .then(response => {
+      //     this.profiles = response.data;
+      //     console.log(this.profiles)
+      //   })
+      //   .catch(e => {
+      //     this.errors.push(e)
+      //   })
     },
     mounted () {
       this.$store.dispatch('enums/onLoadDocType');

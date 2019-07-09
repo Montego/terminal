@@ -13,7 +13,7 @@
         <input type="search" name="поиск" placeholder="Поиск по сайту">
       </div>
       <div>
-        <button type="button" @click="handleClick(false)">К заявлениям</button>
+        <!--<button type="button" @click="handleClick(false)">К заявлениям</button>-->
         <button type="button" @click="handleClick(true)">К профилям</button>
       </div>
 

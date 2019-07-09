@@ -43,7 +43,7 @@
               <div class="col-sm-6">
                   <label class="row">
                     <div class="form__label-text col-sm">Тип документа:</div>
-                    <select v-model="tab_document_selectedDocumentType" class="col-sm" name="">
+                    <select v-model="tab_document_selectedDocumentType" class="minimal col-sm" name="">
                       <option>док 1</option>
                       <option>док 2</option>
                     </select>
@@ -227,6 +227,41 @@
 </script>
 
 <style scoped>
+
+  select.minimal {
+    background-image:
+      linear-gradient(45deg, transparent 50%, gray 50%),
+      linear-gradient(135deg, gray 50%, transparent 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 20px) calc(1em + 2px),
+      calc(100% - 15px) calc(1em + 2px),
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+  }
+
+  select.minimal:focus {
+    background-image:
+      linear-gradient(45deg, green 50%, transparent 50%),
+      linear-gradient(135deg, transparent 50%, green 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 15px) 1em,
+      calc(100% - 20px) 1em,
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+    border-color: grey;
+    outline: 0;
+  }
+
   .clear_save_button {
     margin-top: 10%;
     /*margin-left: 65%;*/

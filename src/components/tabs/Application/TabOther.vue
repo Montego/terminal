@@ -36,10 +36,7 @@
       },
       methods: {
         onSave() {
-
-
-
-          // this.person.applications.push(this.application);
+          this.person.applications.push(this.application);
 
           AXIOS.post(`/profile`,(this.person))
             .then(response => {
@@ -50,10 +47,6 @@
             });
 
           this.showProfile = true;
-
-
-
-
 
 
           location.href='profile#overview_personal_info';

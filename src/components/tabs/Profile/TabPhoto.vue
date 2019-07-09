@@ -4,7 +4,7 @@
     <div class="photo-loader">
       <div class="photo-loader__img-placeholder">
         <div v-if="!showimage">
-          <h2>Выберите изображение</h2>
+          <!--<h2>Выберите изображение</h2>-->
           <!--<input type="file" id="image" ref="image" @change="uploadFile">-->
         </div>
         <div v-else>

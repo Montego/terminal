@@ -92,9 +92,10 @@
                 <!--</label>-->
               <div>
                 <div class="row">
-                  <div class="form__label-text col-sm">Документ</div>
-                  <input type="file" id="doc1" ref="doc1" @change="uploadFile1" title="Загрузите файл"/>
-                  <!--<input class="document col-sm" type="file" title="Загрузите файл"/>-->
+                  <div class="form__label-text col-sm">Документ 1:</div>
+                  <input v-model="doc1" class="form__input col-sm" type="text" />
+                  <!--<input type="file" id="doc1" ref="doc1" @change="uploadFile1" title="Загрузите файл"/>-->
+
                 </div>
                 <label class="row">
                   <div class="form__label-text col-sm">Копия/Оригинал:</div>
@@ -107,8 +108,9 @@
               </div>
               <div>
                 <div class="row">
-                  <div class="form__label-text col-sm">Документ</div>
-                  <input type="file" id="doc2" ref="doc2" @change="uploadFile2" title="Загрузите файл"/>
+                  <div class="form__label-text col-sm">Документ 2:</div>
+                  <input v-model="doc2" class="form__input col-sm" type="text" />
+                  <!--<input type="file" id="doc2" ref="doc2" @change="uploadFile2" title="Загрузите файл"/>-->
                 </div>
                 <label class="row">
                   <div class="form__label-text col-sm">Копия/Оригинал:</div>
@@ -121,8 +123,9 @@
               </div>
               <div>
                 <div class="row">
-                  <div class="form__label-text col-sm">Документ</div>
-                  <input type="file" id="doc3" ref="doc3" @change="uploadFile3" title="Загрузите файл"/>
+                  <div class="form__label-text col-sm">Документ 3:</div>
+                  <input v-model="doc3" class="form__input col-sm" type="text" />
+                  <!--<input type="file" id="doc3" ref="doc3" @change="uploadFile3" title="Загрузите файл"/>-->
                 </div>
                 <label class="row">
                   <div class="form__label-text col-sm">Копия/Оригинал:</div>
@@ -332,6 +335,40 @@
 
 
 <style scoped>
+
+  select.minimal {
+    background-image:
+      linear-gradient(45deg, transparent 50%, gray 50%),
+      linear-gradient(135deg, gray 50%, transparent 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 20px) calc(1em + 2px),
+      calc(100% - 15px) calc(1em + 2px),
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+  }
+
+  select.minimal:focus {
+    background-image:
+      linear-gradient(45deg, green 50%, transparent 50%),
+      linear-gradient(135deg, transparent 50%, green 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 15px) 1em,
+      calc(100% - 20px) 1em,
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+    border-color: grey;
+    outline: 0;
+  }
   .calculate_score {
     margin-top: -8px;
   }

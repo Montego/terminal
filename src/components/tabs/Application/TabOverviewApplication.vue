@@ -89,13 +89,14 @@
         ...person(['person']),
       },
       created () {
-        AXIOS.get(`/profile/applicationsTable`)
-          .then(response => {
-            this.applications = response.data
-          })
-          .catch(e => {
-            this.errors.push(e)
-          })
+
+        // AXIOS.get(`/profile/applicationsTable`)
+        //   .then(response => {
+        //     this.applications = response.data
+        //   })
+        //   .catch(e => {
+        //     this.errors.push(e)
+        //   })
       },
       methods:{
         onNewApplication() {

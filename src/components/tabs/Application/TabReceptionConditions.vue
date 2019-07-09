@@ -4,7 +4,9 @@
     <tab id="conditions_overview" name="Обзор">
       <div class="row">
         <button @click="onAdd">Добавить</button>
+        <button>Распечатать согласение</button>
       </div>
+
       <v-data-table
         :headers="headers_conditions"
         :items="showTable"
@@ -18,7 +20,8 @@
           <td class="text-xs-center">{{ props.item.selected_educationType}}</td>
           <!--<td class="text-xs-center">{{ props.item.tab_reception_condition_educationForm }}</td>-->
           <td class="text-xs-center">{{ props.item.selected_specialRight}}</td>
-          <td class="text-xs-center">{{ props.item.selected_agreement}}</td>
+          <td class="text-xs-center">{{ props.item.selected_typeOfSpecialRight}}</td>
+          <!--<td class="text-xs-center">{{ props.item.selected_agreement}}</td>-->
           <td class="text-xs-center">
             <button @click="onDelete(props.item)">
               <v-icon color="#5bc0de">delete</v-icon>
@@ -55,7 +58,7 @@
 
               <label class="row">
                 <div class="form__label-text col-sm">Название факультета:</div>
-                <select v-model="selected_faculty" class="col-sm">
+                <select v-model="selected_faculty" class="minimal col-sm">
                   <option v-for="option in options_faculty">
                     {{option.item}}
                   </option>
@@ -82,24 +85,30 @@
               <!--</label>-->
               <label class="row">
                 <div class="form__label-text col-sm">Направление обучения:</div>
-                <select v-model="selected_educationType" class="col-sm">
+                <select v-model="selected_educationType" class="minimal col-sm">
                   <option v-for="option in options_educationType">
                     {{option.item}}
                   </option>
                 </select>
               </label>
 
-              <label class="row">
+              <div class="row">
                 <div class="form__label-text col-sm">Добавить согласие?</div>
-                <select v-model="selected_agreement" class="col-sm">
+
+                <select v-model="selected_agreement" class="minimal col-sm">
                   <option v-for="option in options_agreement">
                     {{option.item}}
                   </option>
                 </select>
+                <!--<v-icon v-if="selected_agreement==='да'">print</v-icon>-->
+              </div>
+              <label class="row">
+                <div class="form__label-text col-sm">Дата согласия:</div>
+                <input v-model="date_agreement" class="form__input col-sm" type="date" name=""  />
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Особое право?</div>
-                <select v-model="selected_specialRight" class="col-sm">
+                <select v-model="selected_specialRight" class="minimal col-sm">
                   <option v-for="option in options_specialRight">
                     {{option.item}}
                   </option>
@@ -107,17 +116,20 @@
               </label>
               <label v-if="selected_specialRight==='да'" class="row">
                 <div class="form__label-text col-sm">Тип особого права</div>
-                <select v-model="selected_typeOfSpecialRight" class="col-sm">
+                <select v-model="selected_typeOfSpecialRight" class="minimal col-sm">
                   <option v-for="option in options_typeOfSpecialRight">
                     {{option.item}}
                   </option>
                 </select>
               </label>
-              <div v-if="selected_specialRight==='да'" class="row">
-                <div class="form__label-text col-sm">Документ</div>
-                <input type="file" id="special_right_document" ref="special_right_document" @change="uploadFile">
-                <!--<input v-model="special_right_document" class="document col-sm" type="file" title="Загрузите файл"/>-->
-              </div>
+
+
+              <!--<div v-if="selected_specialRight==='да'" class="row">-->
+                <!--<div class="form__label-text col-sm">Документ</div>-->
+                <!--<input type="file" id="special_right_document" ref="special_right_document" @change="uploadFile">-->
+              <!--</div>-->
+
+
               <!--<label class="row">-->
                 <!--<div class="form__label-text col-sm">Тип обучения:</div>-->
                 <!--<label class="row">-->
@@ -133,13 +145,25 @@
                 <!--</label>-->
               <!--</label>-->
             </div>
-            <!--<div class="col-sm">-->
-              <!--<div>-->
-                <!--<p>Особое право, согласение</p>-->
-              <!--</div>-->
-              <!--<hr>-->
-            <!--</div>-->
+            <div v-if="selected_specialRight==='да'" class="col-sm-6">
+              <h3>Документы, подтверждающие особое право</h3>
+              <label class="row">
+                <div class="form__label-text col-sm">Документ:</div>
+                <input v-model="proof_special_right" class="form__input col-sm" type="text" name=""  />
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Копия/оригинал:</div>
+                <select v-model="condition_selectedDocType" class="minimal col-sm">
+                  <option v-for="item in docType" v-bind:value="item">
+                    {{item.name}}
+                  </option>
+                </select>
+              </label>
+              <hr>
+            </div>
           </div>
+
+
           <!--</div>-->
             <div class="row">
               <input class="button_add" type="button" value="Очистить" @click="onClearCondition" >
@@ -184,13 +208,16 @@
         name: "TabReceptionConditions",
       mounted () {
         this.$store.dispatch('dictionary/onLoadSpeciality');
+        this.$store.dispatch('enums/onLoadDocType');
+
       },
       computed: {
         ...tab_reception_condition(['tab_reception_condition_faculty', 'tab_reception_condition_specialty',
           'tab_reception_condition_educationType', 'tab_reception_condition_educationForm',
           'tab_reception_condition_specialRight', 'tab_reception_condition_consent',
-          'selected_faculty', 'selected_speciality', 'selected_educationType','selected_agreement',
-          'selected_specialRight','selected_typeOfSpecialRight', 'documentBase64'
+          'selected_faculty', 'selected_speciality', 'selected_educationType','selected_agreement','date_agreement',
+          'selected_specialRight','selected_typeOfSpecialRight', 'documentBase64', 'proof_special_right',
+          'condition_selectedDocType'
 
         ]),
         ...mapMultiRowFields([
@@ -200,7 +227,8 @@
         ...person(['person','application_condition']),
         ...mapGetters('dictionary',['GET_speciality']),
         ...mapState('dictionary',['speciality']),
-
+        ...mapState('enums',['docType'],),
+        ...mapGetters('enums',['GET_DOC_TYPE'],),
         showTable(){
           return this.application.application_condition;
         },
@@ -217,7 +245,8 @@
               {text: 'Тип обучения', value: 'selected_educationType', sortable: false, align: 'center'},
               // {text: 'Форма обучения', value: 'selected_consent', sortable: false, align: 'center'},
               {text: 'Особое право', value: 'selected_specialRight', sortable: false, align: 'center'},
-              {text: 'Согласие', value: 'selected_agreement', sortable: false, align: 'center'},
+              {text: 'Тип особого права', value: 'selected_typeOfSpecialRight', sortable: false, align: 'center'},
+              // {text: 'Согласие', value: 'selected_agreement', sortable: false, align: 'center'},
               {text: 'Действия', value: 'actions', sortable: false, align: 'center'},
             ],
             info_conditions: [],
@@ -317,23 +346,25 @@
           location.href='profile#conditions_overview';
 
             function Condition(faculty, speciality, type, agreement, special_right, type_special_right,
-                         // special_right_doc,
-                               document) {
+                               proof_special_right,condition_selectedDocType
+                               // document
+            ) {
             this.selected_faculty = faculty;
             this.selected_speciality = speciality;
             this.selected_educationType = type;
             this.selected_agreement = agreement;
             this.selected_specialRight = special_right;
             this.selected_typeOfSpecialRight = type_special_right;
-            // this.special_right_document = special_right_doc;
-            this.documentBase64 = document;
+            this.proof_special_right = proof_special_right;
+            this.condition_selectedDocType = condition_selectedDocType;
+            // this.documentBase64 = document;
           }
           let condition = new Condition(
             this.selected_faculty, this.selected_speciality,
             this.selected_educationType, this.selected_agreement,
             this.selected_specialRight, this.selected_typeOfSpecialRight,
-            // this.special_right_document,
-            this.documentBase64
+            this.proof_special_right,this.condition_selectedDocType
+            // this.documentBase64
           );
 
           // this.person.application_condition.push(condition);
@@ -349,13 +380,49 @@
             this.selected_educationType = null,
             this.selected_agreement = null,
             this.selected_specialRight = null,
-            this.selected_typeOfSpecialRight = null
+            this.selected_typeOfSpecialRight = null,
+            this.proof_special_right = null,
+            this.condition_selectedDocType = null
         }
       }
     }
 </script>
 
 <style scoped>
+  select.minimal {
+    background-image:
+      linear-gradient(45deg, transparent 50%, gray 50%),
+      linear-gradient(135deg, gray 50%, transparent 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 20px) calc(1em + 2px),
+      calc(100% - 15px) calc(1em + 2px),
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+  }
+
+  select.minimal:focus {
+    background-image:
+      linear-gradient(45deg, green 50%, transparent 50%),
+      linear-gradient(135deg, transparent 50%, green 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 15px) 1em,
+      calc(100% - 20px) 1em,
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+    border-color: grey;
+    outline: 0;
+  }
+
   .clear_save_button {
     margin-top: 10%;
     /*margin-left: 65%;*/

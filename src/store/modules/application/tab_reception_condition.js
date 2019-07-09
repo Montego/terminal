@@ -14,11 +14,13 @@ export default {
     selected_speciality:'',
     selected_educationType:'',
     selected_agreement:'',
+    date_agreement:'',
     selected_specialRight:'',
     selected_typeOfSpecialRight:'',
 
     documentBase64: '',
-
+    proof_special_right:'',
+    condition_selectedDocType:'',
     tab_reception_condition_allConditions:[],
 
   },
