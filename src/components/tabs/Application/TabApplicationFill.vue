@@ -8,11 +8,11 @@
       <div class="col-sm-8">
         <label class="row">
           <div class="form__label-text col-sm">Номер заявления:</div>
-          <input v-model="application.application_number" class="uneditable form__input col-sm" type="text" disabled/>
+          <input v-model="application.application_number" class="form__input col-sm" type="text" />
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Дата заявления:</div>
-          <input v-model="application.application_date" class="uneditable form__input col-sm" type="date"  disabled />
+          <input v-model="application.application_date" class="form__input col-sm" type="date"  />
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Тип доставки:</div>
@@ -29,7 +29,7 @@
         <!--</label>-->
         <label class="row">
           <div class="form__label-text col-sm">Документ об образовании:</div>
-          <select v-model="person.application_selectedDocType" class="minimal col-sm">
+          <select v-model="application.application_selectedDocType" class="minimal col-sm">
             <option v-for="item in docType" v-bind:value="item">
               {{item.name}}
             </option>
@@ -37,7 +37,7 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Абитуриент:</div>
-          <input v-model="fullname" class="uneditable form__input col-sm" type="text" name="" disabled />
+          <input v-model="application_person_name" class="uneditable form__input col-sm" type="text" name="" disabled />
         </label>
     </div>
     </div>
@@ -64,35 +64,6 @@
   });
   export default {
     name: "TabEntranceTests",
-    created () {
-      // AXIOS.get(`/profile/applicationTable`)
-      //   .then(response => {
-      //     this.profiles = response.data;
-      //     console.log(this.profiles)
-      //   })
-      //   .catch(e => {
-      //     this.errors.push(e)
-      //   })
-    },
-    mounted () {
-      this.$store.dispatch('enums/onLoadDocType');
-      this.$store.dispatch('enums/onLoadDeliveryType');
-    },
-
-    computed: {
-      ...applications(['application','contacts']),
-      ...mapState('enums',['deliveryType', 'docType']),
-      ...mapGetters('enums',['GET_DELIVERY_TYPE','GET_DOC_TYPE']),
-      ...person(['person']),
-
-      fullname(){
-        return this.person.tab_personal_name
-        // return this.application.fullname = this.person.tab_personal_lastname + " "
-        //   + this.person.tab_personal_firstname + " " + this.person.tab_personal_middlename
-      },
-    },
-
-
     data(){
       return{
         options_deliveryType: [
@@ -107,6 +78,41 @@
         ],
       }
     },
+
+    computed: {
+      ...applications(['application','contacts','application_person_name']),
+      ...mapState('enums',['deliveryType', 'docType']),
+      ...mapGetters('enums',['GET_DELIVERY_TYPE','GET_DOC_TYPE']),
+      ...person(['person','person_info_id']),
+
+      fullname(){
+        return this.tab_personal_name
+        // return this.application.fullname = this.person.tab_personal_lastname + " "
+        //   + this.person.tab_personal_firstname + " " + this.person.tab_personal_middlename
+      },
+    },
+    created () {
+
+
+
+      // AXIOS.get(`/profile/applicationTable`)
+      //   .then(response => {
+      //     this.profiles = response.data;
+      //     console.log(this.profiles)
+      //   })
+      //   .catch(e => {
+      //     this.errors.push(e)
+      //   })
+    },
+    mounted () {
+      this.$store.dispatch('enums/onLoadDocType');
+      this.$store.dispatch('enums/onLoadDeliveryType');
+
+    },
+
+
+
+
     methods: {
       onNext() {
         location.href='profile#receptrionCondition';

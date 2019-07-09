@@ -64,6 +64,10 @@
     getterType: 'person/getField',
     mutationType: 'person/updateField',
   });
+  const { mapFields:applications} = createHelpers({
+    getterType: 'application/getField',
+    mutationType: 'application/updateField',
+  });
     export default {
         name: "TabOverviewApplication",
       data(){
@@ -86,7 +90,8 @@
           }
       },
       computed:{
-        ...person(['person']),
+        ...applications(['application','application_person_name']),
+        ...person(['person','person_info_id']),
       },
       created () {
 
@@ -106,6 +111,17 @@
           this.person.application_selectedDocType = null;
           this.person.application_condition = [];
           this.person.application_documents = [];
+
+          AXIOS.get(`/profile/getApplicationPersonName/` + this.person_info_id)
+            .then(response => {
+              console.log(response.data)
+              this.application_person_name = response.data
+              // this.application.application_person_name = response.data;
+              // console.log(this.application_person_name)
+            })
+            .catch(e => {
+              this.errors.push(e)
+            })
 
           location.href='profile#applicationFill';
         },

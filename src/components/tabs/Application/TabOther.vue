@@ -36,9 +36,11 @@
       },
       methods: {
         onSave() {
-          this.person.applications.push(this.application);
+          // this.person.applications.push(this.application);
 
-          AXIOS.post(`/profile`,(this.person))
+          // AXIOS.post(`/profile`,(this.person))
+          AXIOS.post(`/profile/application`,(this.application))
+
             .then(response => {
               this.info.push(response.data)
             })

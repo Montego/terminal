@@ -67,7 +67,7 @@
       },
       data () {
         return {
-
+          personInfo:[],
           profiles: [],
           titles:[
             {
@@ -92,32 +92,27 @@
       computed: {
         // ...mapMultiRowFields(['profiles']),
         // ...application(['contacts']),
-        ...person(['person','showProfile','tab_personal_company','tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
-          'tab_personal_middlename','tab_personal_birthDate','tab_personal_age',
-          ' tab_personal_seniority','tab_personal_employYears','tab_personal_employMonths',
-          'tab_personal_employDays','tab_personal_lastname_genitive','tab_personal_firstname_genitive',
-          'tab_personal_middlename_genitive','tab_personal_contactPersonNameGenitive',
-          'tab_personal_identityCardSeries','tab_personal_identityCardNumber',
-          'tab_personal_identityCardIssueDate','tab_personal_identityCardIssueDep','tab_personal_identityCardIssueBy',
-          'tab_personal_homePhoneNumber','tab_personal_cellularPhone','tab_personal_isCompatriot',
-          'tab_personal_isEquatedForeign', 'tab_personal_isHostel','tab_personal_isForeignLikeRussian','tab_personal_selectedGender',
-          'tab_personal_selectedIdentityCardCode','tab_personal_selectedForeignLanguageInfo',
-          'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
-          'tab_personal_birthplace', 'tab_personal_email']),
-        // ...personM(['persons','profiles']),
-        // ...tab_personal_info(['tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
-        //   'tab_personal_middlename','tab_personal_birthDate','tab_personal_age',
-        //   ' tab_personal_seniority','tab_personal_employYears','tab_personal_employMonths',
-        //   'tab_personal_employDays','tab_personal_lastname_genitive','tab_personal_firstname_genitive',
-        //   'tab_personal_middlename_genitive','tab_personal_contactPersonNameGenitive',
-        //   'tab_personal_identityCardSeries','tab_personal_identityCardNumber',
-        //   'tab_personal_identityCardIssueDate','tab_personal_identityCardIssueDep','tab_personal_identityCardIssueBy',
-        //   'tab_personal_homePhoneNumber','tab_personal_cellularPhone','tab_personal_isCompatriot',
-        //   'tab_personal_isEquatedForeign', 'tab_personal_isHostel','tab_personal_isForeignLikeRussian','tab_personal_selectedGender',
-        //   'tab_personal_selectedIdentityCardCode','tab_personal_selectedForeignLanguageInfo',
-        //   'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
-        //   'tab_personal_birthplace', 'tab_personal_email'
-        // ]),
+        ...person(['person','showProfile',
+          'tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename', 'tab_personal_lastname_genitive',
+          'tab_personal_firstname_genitive', 'tab_personal_middlename_genitive', 'tab_personal_selectedGender', 'tab_personal_birthDate',
+          'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note', 'tab_personal_selectedIdentityCardCode',
+          'tab_personal_identityCardSeries', 'tab_personal_identityCardNumber', 'tab_personal_identityCardIssueBy',
+          'tab_personal_identityCardIssueDate', 'tab_personal_identityCardIssueDep', 'tab_personal_selectedCitizenship',
+          'tab_personal_isCompatriot', 'tab_personal_isEquatedForeign', 'tab_personal_birthplace', 'tab_personal_isHostel',
+          'tab_personal_isForeignLikeRussian', 'tab_personal_homePhoneNumber', 'tab_personal_cellularPhone', 'tab_personal_email',
+          'tab_personal_company_name', 'tab_personal_company_address', 'tab_personal_seniority', 'tab_personal_employYears',
+          'tab_personal_employMonths', 'tab_personal_employDays', 'tab_personal_selectedForeignLanguageInfo', 'selected_foreignLanguageName1',
+          'language_score1', 'selected_foreignLanguageName2', 'language_score2', 'selected_foreignLanguageName3', 'language_score3',
+          'tab_address_registrationAddress', 'tab_address_factAddress', 'tab_address_templateRegistrationAddress', 'tab_edu_military_educationLevel',
+          'tab_edu_military_univer', 'tab_edu_military_selectedCountryRegion', 'tab_edu_military_selectedState', 'tab_edu_military_selectedAcademyYear',
+          'tab_edu_military_selectedEduDoc', 'tab_edu_military_eduDocSerial', 'tab_edu_military_eduDocNumber', 'tab_edu_military_eduDocDate',
+          'tab_edu_military_eduDocName', 'tab_edu_military_attachment_serial', 'tab_edu_military_attachment_number', 'score_five', 'score_four',
+          'score_three', 'averageScore', 'tab_edu_military_selectedSoldiery', 'tab_edu_military_selectedSoldieryStatus', 'tab_edu_military_selectedMilitaryFormDoc',
+          'tab_edu_military_militaryNumber', 'tab_edu_military_militarySeries', 'tab_edu_military_militaryIssueDate', 'tab_edu_military_militaryIssueBy',
+          'tab_edu_military_militaryRank', 'tab_edu_military_selectedDocType', 'tab_edu_military_docMilitaryShowDate', 'tab_edu_military_startMilitary',
+          'tab_edu_military_endMilitary', 'selectedExtraInfos1', 'selectedExtraInfos2', 'extraInfosDescription1', 'extraInfosDescription2', 'image', 'person_info_id'
+        ]),
+
         ...applications(['application_person_id','application_person_name']),
         showTable() {
             return this.profiles;
@@ -154,26 +149,8 @@
           this.tab_personal_lastname_genitive = '';
           this.tab_personal_firstname_genitive = '';
           this.tab_personal_middlename_genitive = '';
-          this.tab_personal_birthDate = '';
           this.tab_personal_selectedGender  = null;
-          this.tab_personal_seniority  = '';
-          this.tab_personal_employYears  = '';
-          this.tab_personal_employMonths  = '';
-          this.tab_personal_employDays  = '';
-          this.tab_personal_identityCardSeries  = '';
-          this.tab_personal_identityCardNumber  = '';
-          this.tab_personal_identityCardIssueDate  = '';
-          this.tab_personal_identityCardIssueDep  = '';
-          this.tab_personal_identityCardIssueBy  = '';
-          this.tab_personal_isCompatriot  = '';
-          this.tab_personal_isEquatedForeign  = '';
-          this.tab_personal_isHostel = '';
-          this.tab_personal_isForeignLikeRussian  = '';
-          this.tab_personal_cellularPhone = '';
-          this.tab_personal_selectedIdentityCardCode;
-          this.tab_personal_note  = '';
-          this.tab_personal_email  = '';
-          this.tab_personal_selectedCitizenship  = null;
+          this.tab_personal_birthDate = '';
           this.tab_personal_INIPA  = '';
           this.tab_personal_INIPADate  = '';
           this.tab_personal_note  = '';
@@ -237,111 +214,94 @@
           this.tab_edu_military_startMilitary  = '';
           this.tab_edu_military_endMilitary  = '';
 
-
-          // this.person.ege_info = [];
-          // this.person.parents_info = [];
-          // this.person.id = '';
-          // this.person.tab_personal_lastname = '';
-          // this.person.tab_personal_firstname = '';
-          // this.person.tab_personal_middlename = '';
-          // this.person.tab_personal_lastname_genitive = '';
-          // this.person.tab_personal_firstname_genitive = '';
-          // this.person.tab_personal_middlename_genitive = '';
-          // this.person.tab_personal_birthDate = '';
-          // this.person.tab_personal_selectedGender = null;
-          // this.person.tab_personal_seniority = null;
-          // this.person.tab_personal_employYears = null;
-          // this.person.tab_personal_employMonths = null;
-          // this.person.tab_personal_employDays = null;
-          // this.person.tab_personal_identityCardSeries = null;
-          // this.person.tab_personal_identityCardNumber = null;
-          // this.person.tab_personal_identityCardIssueDate = null;
-          // this.person.tab_personal_identityCardIssueDep = null;
-          // this.person.tab_personal_identityCardIssueBy = null;
-          // this.person.tab_personal_isCompatriot = null;
-          // this.person.tab_personal_isEquatedForeign = null;
-          // this.person.tab_personal_isHostel = '';
-          // this.person.tab_personal_isForeignLikeRussian = null;
-          // this.person.tab_personal_cellularPhone = '';
-          // this.person.tab_personal_selectedIdentityCardCode = null;
-          // this.person.tab_personal_note = null;
-          // this.person.tab_personal_email = null;
-          // this.person.tab_personal_selectedCitizenship = null;
-          // this.person.tab_personal_INIPA = null;
-          // this.person.tab_personal_INIPADate = null;
-          // this.person.tab_personal_note = null;
-          //
-          // this.person.tab_personal_selectedIdentityCardCode = null;
-          // this.person.tab_personal_identityCardSeries = null;
-          // this.person.tab_personal_identityCardNumber = null;
-          // this.person.tab_personal_identityCardIssueBy = null;
-          // this.person.tab_personal_identityCardIssueDate = null;
-          // this.person.tab_personal_identityCardIssueDep = null;
-          // this.person.tab_personal_selectedCitizenship = null;
-          // this.person.tab_personal_isCompatriot = null;
-          // this.person.tab_personal_isEquatedForeign = null;
-          // this.person.tab_personal_birthplace = null;
-          // this.person.tab_personal_isHostel = null;
-          // this.person.tab_personal_isForeignLikeRussian = null;
-          // this.person.tab_personal_homePhoneNumber = null;
-          // this.person.tab_personal_cellularPhone = null;
-          // this.person.tab_personal_email = null;
-          // this.person.tab_personal_company = null;
-          // this.person.tab_personal_company_address = null;
-          // this.person.tab_personal_seniority = null;
-          // this.person.tab_personal_employYears = null;
-          // this.person.tab_personal_employMonths = null;
-          // this.person.tab_personal_employDays = null;
-          // this.person.tab_personal_selectedForeignLanguageInfo = null;
-          // this.person.selected_foreignLanguageName1 = null;
-          // this.person.language_score1 = null;
-          // this.person.selected_foreignLanguageName2 = null;
-          // this.person.language_score2 = null;
-          // this.person.selected_foreignLanguageName3 = null;
-          // this.person.language_score3 = null;
-          //
-          // this.person.tab_address_registrationAddress = null;
-          // this.person.tab_address_factAddress = null;
-          // this.person.tab_address_templateRegistrationAddress = null;
-          //
-          // this.person.tab_edu_military_educationLevel = null;
-          // this.person.tab_edu_military_univer = null;
-          // this.person.tab_edu_military_selectedCountryRegion = null;
-          // this.person.tab_edu_military_selectedState = null;
-          // this.person.tab_edu_military_selectedAcademyYear = null;
-          // this.person.tab_edu_military_selectedEduDoc = null;
-          // this.person.tab_edu_military_eduDocSerial = null;
-          // this.person.tab_edu_military_eduDocNumber = null;
-          // this.person.tab_edu_military_eduDocDate = null;
-          // this.person.tab_edu_military_eduDocName = null;
-          // this.person.tab_edu_military_attachment_serial = null;
-          // this.person.tab_edu_military_attachment_number = null;
-          // this.person.averageScore = null;
-          // this.person.tab_edu_military_selectedSoldiery = null;
-          // this.person.tab_edu_military_selectedSoldieryStatus = null;
-          // this.person.tab_edu_military_selectedMilitaryFormDoc = null;
-          // this.person.tab_edu_military_militaryNumber = null;
-          // this.person.tab_edu_military_militarySeries = null;
-          // this.person.tab_edu_military_militaryIssueDate = null;
-          // this.person.tab_edu_military_militaryIssueBy = null;
-          // this.person.tab_edu_military_militaryRank = null;
-          // this.person.tab_edu_military_selectedDocType = null;
-          // this.person.tab_edu_military_docMilitaryShowDate = null;
-          // this.person.tab_edu_military_startMilitary = null;
-          // this.person.tab_edu_military_endMilitary = null;
-
-
           location.href='profile#personal_info';
 
         },
         onRedaction(item) {
           const index = this.profiles.indexOf(item);
-
           const idString = this.profiles[index].id;
           const id = parseInt(idString,10);
-          AXIOS.get(`/profile/personInfo/` + id)
+
+          // AXIOS.get(`/profile/personInfo/` + id)
+          AXIOS.get(`/profile/personByPersonInfo/` + id)
           //todo получать dto - массивы person_info, ege_info, parent_info
             .then(response => {
+              this.person = response.data;
+              this.personInfo = response.data.person_info;
+              this.tab_personal_lastname = this.personInfo[0].tab_personal_lastname;
+
+              console.log(this.personInfo[0].tab_personal_lastname)
+
+              this.tab_personal_firstname = this.personInfo[0].tab_personal_firstname
+              this.tab_personal_middlename = this.personInfo[0].tab_personal_middlename
+              this.tab_personal_lastname_genitive = this.personInfo[0].tab_personal_lastname_genitive
+              this.tab_personal_firstname_genitive = this.personInfo[0].tab_personal_firstname_genitive
+              this.tab_personal_middlename_genitive = this.personInfo[0].tab_personal_middlename_genitive
+              this.tab_personal_selectedGender  = this.personInfo[0].tab_personal_selectedGender
+              this.tab_personal_birthDate = this.personInfo[0].tab_personal_birthDate
+              this.tab_personal_INIPA  = this.personInfo[0].tab_personal_INIPA
+              this.tab_personal_INIPADate  = this.personInfo[0].tab_personal_INIPADate
+              this.tab_personal_note  = this.personInfo[0].tab_personal_note
+
+              this.tab_personal_selectedIdentityCardCode = this.personInfo[0].tab_personal_selectedIdentityCardCode;
+              this.tab_personal_identityCardSeries  = this.personInfo[0].tab_personal_identityCardSeries
+              this.tab_personal_identityCardNumber  = this.personInfo[0].tab_personal_identityCardNumber
+              this.tab_personal_identityCardIssueBy  = this.personInfo[0].tab_personal_identityCardIssueBy
+              this.tab_personal_identityCardIssueDate  = this.personInfo[0].tab_personal_identityCardIssueDate
+              this.tab_personal_identityCardIssueDep  = this.personInfo[0].tab_personal_identityCardIssueDep
+              this.tab_personal_selectedCitizenship  = this.personInfo[0].tab_personal_selectedCitizenship
+              this.tab_personal_isCompatriot  = this.personInfo[0].tab_personal_isCompatriot
+              this.tab_personal_isEquatedForeign  = this.personInfo[0].tab_personal_isEquatedForeign
+              this.tab_personal_birthplace  = this.personInfo[0].tab_personal_birthplace
+              this.tab_personal_isHostel  = this.personInfo[0].tab_personal_isHostel
+              this.tab_personal_isForeignLikeRussian  = this.personInfo[0].tab_personal_isForeignLikeRussian
+              this.tab_personal_homePhoneNumber  = this.personInfo[0].tab_personal_homePhoneNumber
+              this.tab_personal_cellularPhone  = this.personInfo[0].tab_personal_cellularPhone
+              this.tab_personal_email  = this.personInfo[0].tab_personal_email
+              this.tab_personal_company  = this.personInfo[0].tab_personal_company
+              this.tab_personal_company_address  = this.personInfo[0].tab_personal_company_address
+              this.tab_personal_seniority  = this.personInfo[0].tab_personal_seniority
+              this.tab_personal_employYears  = this.personInfo[0].tab_personal_employYears
+              this.tab_personal_employMonths  = this.personInfo[0].tab_personal_employMonths
+              this.tab_personal_employDays  = this.personInfo[0].tab_personal_employDays
+              this.tab_personal_selectedForeignLanguageInfo  = this.personInfo[0].tab_personal_selectedForeignLanguageInfo
+              this.selected_foreignLanguageName1  = this.personInfo[0].selected_foreignLanguageName1
+              this.language_score1  = this.personInfo[0].language_score1
+              this.selected_foreignLanguageName2  = this.personInfo[0].selected_foreignLanguageName2
+              this.language_score2  = this.personInfo[0].language_score2
+              this.selected_foreignLanguageName3  = this.personInfo[0].selected_foreignLanguageName3
+              this.language_score3  = this.personInfo[0].language_score3
+
+              this.tab_address_registrationAddress  = this.personInfo[0].tab_address_registrationAddress
+              this.tab_address_factAddress  = this.personInfo[0].tab_address_factAddress
+              this.tab_address_templateRegistrationAddress  = this.personInfo[0].tab_address_templateRegistrationAddress
+
+              this.tab_edu_military_educationLevel  = this.personInfo[0].tab_edu_military_educationLevel
+              this.tab_edu_military_univer  = this.personInfo[0].tab_edu_military_univer
+              this.tab_edu_military_selectedCountryRegion  = this.personInfo[0].tab_edu_military_selectedCountryRegion
+              this.tab_edu_military_selectedState  = this.personInfo[0].tab_edu_military_selectedState
+              this.tab_edu_military_selectedAcademyYear  = this.personInfo[0].tab_edu_military_selectedAcademyYear
+              this.tab_edu_military_selectedEduDoc  = this.personInfo[0].tab_edu_military_selectedEduDoc
+              this.tab_edu_military_eduDocSerial  = this.personInfo[0].tab_edu_military_eduDocSerial
+              this.tab_edu_military_eduDocNumber  = this.personInfo[0].tab_edu_military_eduDocNumber
+              this.tab_edu_military_eduDocDate  = this.personInfo[0].tab_edu_military_eduDocDate
+              this.tab_edu_military_eduDocName  = this.personInfo[0].tab_edu_military_eduDocName
+              this.tab_edu_military_attachment_serial  = this.personInfo[0].tab_edu_military_attachment_serial
+              this.tab_edu_military_attachment_number  = this.personInfo[0].tab_edu_military_attachment_number
+              this.averageScore  = this.personInfo[0].averageScore
+              this.tab_edu_military_selectedSoldiery  = this.personInfo[0].tab_edu_military_selectedSoldiery
+              this.tab_edu_military_selectedSoldieryStatus  = this.personInfo[0].tab_edu_military_selectedSoldieryStatus
+              this.tab_edu_military_selectedMilitaryFormDoc  = this.personInfo[0].tab_edu_military_selectedMilitaryFormDoc
+              this.tab_edu_military_militaryNumber  = this.personInfo[0].tab_edu_military_militaryNumber
+              this.tab_edu_military_militarySeries  = this.personInfo[0].tab_edu_military_militarySeries
+              this.tab_edu_military_militaryIssueDate  = this.personInfo[0].tab_edu_military_militaryIssueDate
+              this.tab_edu_military_militaryIssueBy  = this.personInfo[0].tab_edu_military_militaryIssueBy
+              this.tab_edu_military_militaryRank  = this.personInfo[0].tab_edu_military_militaryRank
+              this.tab_edu_military_selectedDocType  = this.personInfo[0].tab_edu_military_selectedDocType
+              this.tab_edu_military_docMilitaryShowDate  = this.personInfo[0].tab_edu_military_docMilitaryShowDate
+              this.tab_edu_military_startMilitary  = this.personInfo[0].tab_edu_military_startMilitary
+              this.tab_edu_military_endMilitary  = this.personInfo[0].tab_edu_military_endMilitary
+
               this.person = response.data
               console.log(this.profiles)
             })
@@ -392,20 +352,22 @@
           const index = this.profiles.indexOf(item);
           const idString = this.profiles[index].id;
           const id = parseInt(idString,10);
+          this.person_info_id = id;
 
-          AXIOS.get(`/profile/applicationByPerson/` + id)
-            .then(response => {
-              this.person.applications = response.data;
-              console.log(this.person.applications)
-            })
-            .catch(e => {
-              this.errors.push(e)
-            });
+          // AXIOS.get(`/profile/getApplicationsByPersonInfo/` + id)
+          //   .then(response => {
+          //     this.application = response.data;
+          //     console.log(this.application)
+          //   })
+          //   .catch(e => {
+          //     this.errors.push(e)
+          //   });
 
           // const index = this.profiles.indexOf(item);
           // this.person = this.profiles[index];
           // this.showPerson = !this.showPerson;
           console.log(1111)
+          console.log(this.person_info_id)
           location.href = 'profile#overviewApplication';
 
         },

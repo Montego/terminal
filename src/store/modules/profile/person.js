@@ -64,6 +64,9 @@ export default {
     tab_edu_military_eduDocName: '',
     tab_edu_military_attachment_serial: '',
     tab_edu_military_attachment_number: '',
+    score_five:'',
+    score_four:'',
+    score_three:'',
     averageScore: '',
     tab_edu_military_selectedSoldiery: null,
     tab_edu_military_selectedSoldieryStatus: null,
@@ -82,7 +85,9 @@ export default {
     extraInfosDescription1: '',
     extraInfosDescription2: '',
     image:'',
+    showimage:'',
 
+    person_info_id:'',
 
     person : {
       person_info:[],

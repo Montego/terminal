@@ -5,6 +5,7 @@ export default {
   namespaced: true,
   state: {
     application: {
+      application_person_name:'',
       application_condition:[],
       application_documents:[],
     },
