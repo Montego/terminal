@@ -15,56 +15,46 @@
 
         <label class="row">
           <span class="form__label-text col-sm">Фамилия</span>
-          <!--<input v-model="lastname_personal_info" class="form__input col-sm" v-validate="'required|alpha'" name="lastname"-->
-                 <!--type="text">-->
-          <!--<span>{{ errors.first('alpha') }}</span>-->
-          <!--<input :value="person.tab_personal_lastname"/>-->
-          <input v-model="tab_personal_lastname" value= "" class="form__input col-sm" type="text" name="lastname" required/>
+          <input data-vv-as="фамилия" v-validate="'required|alpha'" v-model="tab_personal_lastname" value= "" class="form__input col-sm" type="text" name="lastname" required/>
         </label>
-        <span class="alarm_label" v-if="tab_personal_lastname===''">Не заполнено поле "Фамилия"</span>
+        <span class="alarm_label">{{ errors.first('lastname') }}</span>
+        <!--<span class="alarm_label" v-if="tab_personal_lastname===''">Не заполнено поле "Фамилия"</span>-->
         <label class="row">
           <div class="form__label-text col-sm">Имя</div>
-          <input v-model="tab_personal_firstname" class="form__input col-sm" type="text" name="firstname" required/>
+          <input data-vv-as="имя" v-validate="'required|alpha'"  v-model="tab_personal_firstname" class="form__input col-sm" type="text" name="firstname" required/>
         </label>
-        <span class="alarm_label" v-if="tab_personal_firstname===''">Не заполнено поле "Имя"</span>
-        <span class="alarm_label" v-else-if="tab_personal_firstname=== tab_personal_lastname">Имя не может совпадать с фамилией</span>
+        <span class="alarm_label">{{ errors.first('firstname') }}</span>
         <label class="row">
           <div class="form__label-text col-sm">Отчество</div>
-          <input v-model="tab_personal_middlename" class="form__input col-sm" type="text" name="middlename" required/>
+          <input data-vv-as="отчество"  v-validate="'required|alpha'" v-model="tab_personal_middlename" class="form__input col-sm" type="text" name="middlename" required/>
         </label>
+        <span class="alarm_label">{{ errors.first('middlename') }}</span>
         <hr>
         <label class="row">
           <div class="form__label-text col-sm">Фамилия в род.п.</div>
-          <input v-model="tab_personal_lastname_genitive" class="form__input col-sm" type="text" name="lastname_genitive" required/>
+          <input v-validate="'required|alpha'" data-vv-as="фамилия в род.п." v-model="tab_personal_lastname_genitive" class="form__input col-sm" type="text" name="lastname_genitive" required/>
         </label>
+        <span class="alarm_label">{{ errors.first('lastname_genitive') }}</span>
         <label class="row">
           <div class="form__label-text col-sm">Имя в род.п.</div>
-          <input v-model="tab_personal_firstname_genitive" class="form__input col-sm" type="text" name="firstname_genitive"
+          <input  v-validate="'required|alpha'" data-vv-as="имя в род.п." v-model="tab_personal_firstname_genitive" class="form__input col-sm" type="text" name="firstname_genitive"
                  required/>
         </label>
+        <span class="alarm_label">{{ errors.first('firstname_genitive') }}</span>
         <label class="row">
           <div class="form__label-text col-sm">Отчество в род.п.</div>
-          <input v-model="tab_personal_middlename_genitive" class="form__input col-sm" type="text" name="middlename_genitive"
+          <input v-validate="'required|alpha'" data-vv-as="имя в род.п."  v-model="tab_personal_middlename_genitive" class="form__input col-sm" type="text" name="middlename_genitive"
                  required/>
         </label>
+        <span class="alarm_label">{{ errors.first('middlename_genitive') }}</span>
         <label class="row">
           <div class="form__label-text col-sm-4">Ф.И.О.(род. п.)</div>
           <input :value="tab_personal_lastname_genitive + ' ' + tab_personal_firstname_genitive+ ' '+ tab_personal_middlename_genitive" class="uneditable form__input col-sm-8" type="text" name="snp_genitive"
                  placeholder="Заполняется автоматически" disabled="disabled"/>
         </label>
-        <label class="alarm_label">Проверьте Ф.И.О. в родительном падеже для Заявления.</label>
+        <span class="alarm_label">{{ errors.first('middlename_genitive') }}</span>
 
-        <!--<label class="row flex-align-center">-->
-          <!--<div class="form__label-text col-sm ">Пол:</div>-->
-          <!--<select :value="tab_personal_selectedGender" @change="updateCurrentField(arguments[0], 'tab_personal_selectedGender')"  class="minimal col-sm">-->
-            <!--<option v-for="item in gender" v-bind:value="item">-->
-              <!--{{item.name}}-->
-            <!--</option>-->
-          <!--</select>-->
-          <!--<span @click.prevent="clearSelect('tab_personal_selectedGender')" >-->
-            <!--✖-->
-          <!--</span>-->
-        <!--</label>-->
+
 
 
         <div class="row">
@@ -81,8 +71,10 @@
 
         <label class="row">
           <div class="form__label-text col-sm">Дата рождения:</div>
-          <input v-model="tab_personal_birthDate" class="form__input col-sm" type="date" name="birthday" required/>
+          <input v-validate data-vv-as="дата рождения" v-model="tab_personal_birthDate" class="form__input col-sm" type="date" name="birthday" required/>
         </label>
+        <span class="alarm_label">{{ errors.first('birthday') }}</span>
+
         <label class="row">
           <div class="form__label-text col-sm">Полных лет:</div>
           <input v-model="fullage" class="form__input col-sm" type="text" name="age"
@@ -90,17 +82,20 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">СНИЛС</div>
-          <input v-model="tab_personal_INIPA" class="form__input col-sm" type="text" name="snils" placeholder="***-***-***" v-mask="'###-###-###'"
+          <input v-validate="'numeric'" data-vv-as="СНИЛС" v-model="tab_personal_INIPA" class="form__input col-sm" type="text" name="snils" placeholder="***-***-***" v-mask="'###-###-###'"
                  required/>
         </label>
+        <span class="alarm_label">{{ errors.first('snils') }}</span>
         <label class="row">
           <div class="form__label-text col-sm">СНИЛС Дата:</div>
-          <input v-model="tab_personal_INIPADate" class="form__input col-sm" type="date" name="snils_date"/>
+          <input v-validate data-vv-as="дата СНИЛС" v-model="tab_personal_INIPADate" class="form__input col-sm" type="date" name="snils_date"/>
         </label>
+        <span class="alarm_label">{{ errors.first('snils_date') }}</span>
         <label class="row">
           <div class="form__label-text col-sm">Примечание:</div>
-          <textarea v-model="tab_personal_note" class="col-sm" name="note"></textarea>
+          <textarea  v-validate="'alpha_num'" data-vv-as="Примечание" v-model="tab_personal_note" class="col-sm" name="note"></textarea>
         </label>
+        <span class="alarm_label">{{ errors.first('note') }}</span>
       </div>
     </div>
     <div class="info_pasp col-sm">
@@ -113,11 +108,13 @@
           <div class="form__label-text col-sm">Код документа:</div>
 
           <select v-model="tab_personal_selectedIdentityCardCode" class="minimal col-sm">
-            <option v-for="item in identityCardCode" v-bind:value="item">
+            <option v-for="item in identityCardCode"
+                    v-bind:value="item.identityCardCode"
+                    :selected="item.identityCardCode == 'Паспорт РФ'"
+            >
               {{item.identityCardCode}}
             </option>
           </select>
-
           <!--<select v-model="tab_personal_selectedIdentityCardCode" class="minimal col-sm">-->
             <!--<option v-for="option in options_identityCardCode" >-->
               <!--{{option.item}}-->
@@ -127,7 +124,7 @@
         <!--<span class="alarm_label" v-if="tab_personal_selectedIdentityCardCode.identityCardCode ==''">Не выбран тип документа</span>-->
         <label class="row">
           <div class="form__label-text col-sm">Серия:</div>
-          <input v-if="tab_personal_selectedIdentityCardCode == 'Паспорт РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>
+          <input v-if="tab_personal_selectedIdentityCardCode.identityCardCode == 'Паспорт РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>
           <input v-else-if="tab_personal_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***" v-mask="'###-###'" required/>
           <input v-else v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
 
@@ -338,6 +335,7 @@
     getterType: 'person/getField',
     mutationType: 'person/updateField',
   });
+
 
   export default {
     name: "TabPersonalInfo",

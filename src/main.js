@@ -11,11 +11,17 @@ import 'vuetify/dist/vuetify.min.css';
 // import 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons';
 // import Tabs from 'vue-nav-tabs/dist/vue-tabs.js'
 import 'vue-nav-tabs/themes/vue-tabs.css'
+import ru from 'vee-validate/dist/locale/ru';
 
+import VeeValidate, { Validator } from 'vee-validate';
 
 Vue.component('tabs', Tabs);
+
 Vue.component('tab', Tab);
 
+Vue.use(VeeValidate);
+
+Validator.localize('ru', ru);
 
 new Vue({
   el: '#app',

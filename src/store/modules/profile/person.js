@@ -19,7 +19,7 @@ export default {
     tab_personal_INIPADate: '',
     tab_personal_note: '',
 
-    tab_personal_selectedIdentityCardCode: null,
+    tab_personal_selectedIdentityCardCode: '',
     tab_personal_identityCardSeries: '',
     tab_personal_identityCardNumber: '',
     tab_personal_identityCardIssueBy: '',
