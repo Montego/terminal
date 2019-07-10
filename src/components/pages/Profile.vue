@@ -127,6 +127,10 @@
     getterType: 'person/getField',
     mutationType: 'person/updateField',
   });
+  const { mapFields:applications} = createHelpers({
+    getterType: 'applications/getField',
+    mutationType: 'applications/updateField',
+  });
   export default {
     name: "Profile",
     components: {
@@ -142,6 +146,7 @@
     },
     computed: {
       ...person(['person', 'showProfile']),
+      ...applications(['application'])
     },
     data() {
       return {
@@ -162,6 +167,7 @@
     methods: {
       handleClick(val) {
         this.showProfile = val;
+        // this.application = [];
       },
 
       onApplication(data) {

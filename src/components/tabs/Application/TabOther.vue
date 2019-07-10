@@ -32,21 +32,35 @@
         computed: {
           ...applications(['application']),
           ...tab_reception_condition([ 'file',]),
-          ...person(['person','showProfile']),
+          ...person(['person','showProfile','person_info_id']),
       },
       methods: {
         onSave() {
           // this.person.applications.push(this.application);
 
           // AXIOS.post(`/profile`,(this.person))
-          AXIOS.post(`/profile/application`,(this.application))
 
+
+
+          AXIOS.post(`/profile/application/` + this.person_info_id,(this.application))
             .then(response => {
               this.info.push(response.data)
             })
             .catch(e => {
-              this.errors.push(e)
+
             });
+
+
+
+          // AXIOS.post(`/profile/application`,(this.application))
+          //   .then(response => {
+          //     this.info.push(response.data)
+          //   })
+          //   .catch(e => {
+          //     this.errors.push(e)
+          //   });
+
+
 
           this.showProfile = true;
 

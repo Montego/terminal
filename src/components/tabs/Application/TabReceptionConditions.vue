@@ -299,6 +299,8 @@
 
       },
       methods: {
+
+
         uploadFile(e){
           let file = e.target.files[0];
           let reader = new FileReader();
@@ -345,10 +347,10 @@
         onSaveCondition() {
           location.href='profile#conditions_overview';
 
-            function Condition(faculty, speciality, type, agreement, special_right, type_special_right,
-                               proof_special_right,condition_selectedDocType
-                               // document
-            ) {
+          function Condition(faculty, speciality, type, agreement, special_right, type_special_right,
+                             proof_special_right,condition_selectedDocType
+                             // document
+          ) {
             this.selected_faculty = faculty;
             this.selected_speciality = speciality;
             this.selected_educationType = type;
@@ -366,11 +368,11 @@
             this.proof_special_right,this.condition_selectedDocType
             // this.documentBase64
           );
+          console.log(condition)
+          this.application.application_condition.push(condition)
+          // this.application.application_condition.push(condition);
 
-          // this.person.application_condition.push(condition);
-          this.application.application_condition.push(condition);
 
-          // this.person.applications.push(condition);
 
 
         },
