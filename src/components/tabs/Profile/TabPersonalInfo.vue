@@ -131,8 +131,8 @@
           <div class="form__label-text col-sm">Номер:</div>
           <!--<input v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_number" required/>-->
           <input v-validate="'digits:6'" data-vv-as="номер паспорта" v-if="tab_personal_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number" placeholder="******" v-mask="'######'" required/>
-          <input v-else-if="tab_personal_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***-***" v-mask="'###-###-###'" required/>
-          <input v-else v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial"required/>
+          <input v-else-if="tab_personal_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number" placeholder="***-***-***" v-mask="'###-###-###'" required/>
+          <input v-else v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number"required/>
         </label>
         <span class="alarm_label">{{ errors.first('doc_number') }}</span>
 
@@ -252,7 +252,7 @@
         <div>
           <p>Иностранные языки</p>
         </div>
-
+        {{process.env.VUE_APP_SERVER_URL}}
         <hr>
         <label class="row">
           <div class="form__label-text col-sm">Отметка о языках:</div>
@@ -332,7 +332,7 @@
     getterType: 'person/getField',
     mutationType: 'person/updateField',
   });
-
+  console.log(process.env.VUE_APP_SERVER_URL);
 
   export default {
     name: "TabPersonalInfo",
