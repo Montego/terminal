@@ -19,7 +19,7 @@
       <td class="text-xs-center">{{ props.item.tab_personal_middlename}}</td>
       <!--<td class="text-xs-center">{{ props.item.tab_personal_selectedGender}}</td>-->
       <td class="text-xs-center">{{ props.item.tab_personal_birthDate}}</td>
-      <td class="text-xs-center">{{ props.item.tab_personal_birthDate}}</td>
+      <td class="text-xs-center">{{ props.item.application_number}}</td>
       <!--<td class="text-xs-center">{{ props.item.contact_code_pretendent}}</td>-->
       <td class="justify-center layout px-0">
           <button type="button" @click="onApplication(props.item); handleClick(false) ">
@@ -82,7 +82,7 @@
             { text: 'Отчество', value: 'middlename',sortable: false, align: 'center' },
             // { text: 'Пол', value: 'selectedGender',sortable: false, align: 'center' },
             { text: 'Дата рождения', value: 'birthDate',sortable: false, align: 'center' },
-            { text: '№ Заявления', value: 'application',sortable: false, align: 'center' },
+            { text: '№ Заявления', value: 'application_number',sortable: false, align: 'center' },
             { text: 'Действия', value: 'name', sortable: false, align: 'center' }
           ],
           pretendets: [],
@@ -113,7 +113,8 @@
           'tab_edu_military_endMilitary', 'selectedExtraInfos1', 'selectedExtraInfos2', 'extraInfosDescription1', 'extraInfosDescription2', 'image', 'person_info_id'
         ]),
 
-        ...applications(['application_person_id','application_person_name']),
+        ...applications(['application','application_person_id','application_person_name','applId','applTableName',
+        'applTableNumber','applTableDate','applTableDeliveryType','applicationId'],),
         showTable() {
             return this.profiles;
         },
@@ -353,6 +354,36 @@
           const idString = this.profiles[index].id;
           const id = parseInt(idString,10);
           this.person_info_id = id;
+
+          AXIOS.get('/profile/applicationTable/' + this.person_info_id)
+            .then(response => {
+              // this.applicationTable = response.data.
+              this.applId = response.data[0].applicationId;
+              this.applTableName = response.data[0].application_person_name;
+              this.applTableNumber =response.data[0].application_number;
+              this.applTableDate = response.data[0].application_date;
+              this.applTableDeliveryType = response.data[0].application_selectedDeliveryType;
+
+              function ApplTable(tableId,tableName, tableNumber, tableDate, tableDeliveryType) {
+                this.applId = tableId
+                this.applTableName = tableName;
+                this.applTableNumber = tableNumber;
+                this.applTableDate = tableDate;
+                this.applTableDeliveryType = tableDeliveryType;
+              }
+              let appltable = new ApplTable(
+                this.applId,
+                this.applTableName,this.applTableNumber,this.applTableDate,this.applTableDeliveryType);
+
+              this.application.applicationTable.push(appltable);
+
+              console.log(response.data[0]);
+            })
+            .catch(e => {
+              // this.errors.push(e)
+            })
+
+
 
           // AXIOS.get(`/profile/getApplicationsByPersonInfo/` + id)
           //   .then(response => {

@@ -104,7 +104,7 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Трудовой стаж, лет:</div>
-              <input v-model="tab_parent_organization_employYears" class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-model="tab_parent_organization_employYears" class="form__input col-sm" type="text" v-mask="'##'"/>
             </label>
           </div>
           <div class="col-sm">

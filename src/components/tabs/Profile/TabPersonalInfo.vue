@@ -85,7 +85,7 @@
           <input v-validate="'numeric'" data-vv-as="СНИЛС" v-model="tab_personal_INIPA" class="form__input col-sm" type="text" name="snils" placeholder="***-***-***" v-mask="'###-###-###'"
                  required/>
         </label>
-        <span class="alarm_label">{{ errors.first('snils') }}</span>
+        <!--<span class="alarm_label">{{ errors.first('snils') }}</span>-->
         <label class="row">
           <div class="form__label-text col-sm">СНИЛС Дата:</div>
           <input v-validate data-vv-as="дата СНИЛС" v-model="tab_personal_INIPADate" class="form__input col-sm" type="date" name="snils_date"/>
@@ -368,7 +368,11 @@
         'tab_personal_isForeignLikeRussian','tab_personal_selectedGender',
         'tab_personal_selectedIdentityCardCode','tab_personal_selectedForeignLanguageInfo',
         'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
-        'tab_personal_bithplace', 'tab_personal_email','tab_personal_company_name','tab_personal_company_address',]),
+        'tab_personal_bithplace', 'tab_personal_email','tab_personal_company_name','tab_personal_company_address',
+      'language_score1','language_score2','language_score3','selected_foreignLanguageName1',
+      'selected_foreignLanguageName2','selected_foreignLanguageName3']),
+
+
       // ...tab_personal_info(['tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
       //   'tab_personal_middlename','tab_personal_birthDate','tab_personal_age',
       //   'tab_personal_seniority','tab_personal_employYears','tab_personal_employMonths',
@@ -452,12 +456,12 @@
             language_description:''
           }
         ],
-        language_score1:'',
-        language_score2:'',
-        language_score3:'',
-        selected_foreignLanguageName1:'',
-        selected_foreignLanguageName2:'',
-        selected_foreignLanguageName3:'',
+        // language_score1:'',
+        // language_score2:'',
+        // language_score3:'',
+        // selected_foreignLanguageName1:'',
+        // selected_foreignLanguageName2:'',
+        // selected_foreignLanguageName3:'',
         options_gender: [
           {id: 0, item: '-выберите пол-'},
           {id: 1, item: 'Мужской'},

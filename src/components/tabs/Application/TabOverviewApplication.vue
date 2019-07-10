@@ -14,16 +14,16 @@
   >
 
     <template slot="items" slot-scope="props">
-      <td class="text-xs-center">{{ props.item.tab_personal_name}}</td>
-      <td class="text-xs-center">{{ props.item.application_number}}</td>
-      <td class="text-xs-center">{{ props.item.application_date}}</td>
-      <td class="text-xs-center">{{ props.item.application_selectedDeliveryType }}</td>
+      <td class="text-xs-center">{{ props.item.applTableName}}</td>
+      <td class="text-xs-center">{{ props.item.applTableNumber}}</td>
+      <td class="text-xs-center">{{ props.item.applTableDate}}</td>
+      <td class="text-xs-center">{{ props.item.applTableDeliveryType.name }}</td>
       <td class="text-xs-center">
         <input v-model="budget" class="checkbox col-sm" type="checkbox" id="budget">
       </td>
-      <td class="text-xs-center">
-        <input v-model="approved" class="checkbox col-sm" type="checkbox" id="approved">
-      </td>
+      <!--<td class="text-xs-center">-->
+        <!--<input v-model="approved" class="checkbox col-sm" type="checkbox" id="approved">-->
+      <!--</td>-->
       <td class="justify-center layout px-0">
         <button class="table_buttons" @click="printItem(props.item)">
           <!--Печать-->
@@ -65,8 +65,8 @@
     mutationType: 'person/updateField',
   });
   const { mapFields:applications} = createHelpers({
-    getterType: 'application/getField',
-    mutationType: 'application/updateField',
+    getterType: 'applications/getField',
+    mutationType: 'applications/updateField',
   });
     export default {
         name: "TabOverviewApplication",
@@ -75,12 +75,12 @@
             budget: false,
             approved: false,
             headers_applications: [
-              {text: 'Абитуриент', value: 'tab_personal_name', sortable: false, align: 'center'},
-              {text: 'Номер заявления', value: 'application_number', sortable: false, align: 'center'},
-              {text: 'Дата заявления', value: 'application_date', sortable: false, align: 'center'},
-              {text: 'Тип доставки', value: 'application_selectedDeliveryType', sortable: false, align: 'center'},
+              {text: 'Абитуриент', value: 'applTableName', sortable: false, align: 'center'},
+              {text: 'Номер заявления', value: 'applTableNumber', sortable: false, align: 'center'},
+              {text: 'Дата заявления', value: 'applTableDate', sortable: false, align: 'center'},
+              {text: 'Тип доставки', value: 'applTableDeliveryType', sortable: false, align: 'center'},
               {text: 'Перевести на бюджет', value: 'budget', sortable: false, align: 'center'},
-              {text: 'Утвердить', value: 'approved', sortable: false, align: 'center'},
+              // {text: 'Утвердить', value: 'approved', sortable: false, align: 'center'},
               // {text: 'Отчество', value: 'patronymic_parent', sortable: false, align: 'center'},
               // {text: 'Пол', value: 'gender_parent', sortable: false, align: 'center'},
               {text: 'Действия', value: 'actions', sortable: false, align: 'center'},
@@ -90,14 +90,30 @@
           }
       },
       computed:{
-        ...applications(['application','application_person_name']),
+        ...applications(['application','application_person_name','applId','applTableName',
+          'applTableNumber','applTableDate','applTableDeliveryType']),
         ...person(['person','person_info_id']),
       },
       created () {
+          this.applications = this.application.applicationTable
+      },
 
-        // AXIOS.get(`/profile/applicationsTable`)
+      mounted(){
+
+        // function ApplTable(tableName, tableNumber, tableDate, tableDeliveryType) {
+        //   this.applTableName = tableName;
+        //   this.applTableNumber = tableNumber;
+        //   this.applTableDate = tableDate;
+        //   this.applTableDeliveryType = tableDeliveryType;
+        // }
+        // let appltable = new ApplTable(
+        //   this.applTableName,this.applTableNumber,this.applTableDate,this.applTableDeliveryType);
+        // this.applications.push(appltable);
+
+
+        // AXIOS.get('/profile/applicationTable/'+ this.person_info_id)
         //   .then(response => {
-        //     this.applications = response.data
+        //     this.applicationTable = response.data
         //   })
         //   .catch(e => {
         //     this.errors.push(e)
@@ -115,9 +131,8 @@
           AXIOS.get(`/profile/getApplicationPersonName/` + this.person_info_id)
             .then(response => {
               console.log(response.data)
-              this.application_person_name = response.data
-              // this.application.application_person_name = response.data;
-              // console.log(this.application_person_name)
+              this.application_person_name = response.data;
+
             })
             .catch(e => {
               this.errors.push(e)
@@ -129,11 +144,14 @@
 
         redactionItem(item) {
           const index = this.applications.indexOf(item);
-          const idString = this.applications[index].id;
+          const idString = this.applications[index].applId;
           const id = parseInt(idString,10);
-          AXIOS.get(`/profile/person/` + id)
+          console.log('index:'+ index)
+          console.log('idString:'+ idString)
+          console.log('id:'+ id)
+          AXIOS.get(`/profile/applicationById/` + id)
             .then(response => {
-              this.person = response.data
+              this.application = response.data
             })
             .catch(e => {
               this.errors.push(e)

@@ -37,7 +37,7 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Абитуриент:</div>
-          <input v-model="application_person_name" class="uneditable form__input col-sm" type="text" name="" disabled />
+          <input v-model="fullname" class="uneditable form__input col-sm" type="text" name="" disabled />
         </label>
     </div>
     </div>
@@ -86,7 +86,9 @@
       ...person(['person','person_info_id']),
 
       fullname(){
-        return this.tab_personal_name
+        this.application.application_person_name = this.application_person_name;
+        return this.application_person_name
+
         // return this.application.fullname = this.person.tab_personal_lastname + " "
         //   + this.person.tab_personal_firstname + " " + this.person.tab_personal_middlename
       },
