@@ -139,9 +139,11 @@
 
       methods: {
         onNewProfile(){
-          this.ege_info = [];
-          this.parents_info = [];
           this.person.person_info = [];
+          this.person.ege_info = [];
+          this.person.parents_info = [];
+          this.person.futures_info = [];
+
           this.id = '';
           this.image = '';
           this.tab_personal_lastname = '';
