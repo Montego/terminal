@@ -152,6 +152,14 @@
                 <input v-model="proof_special_right" class="form__input col-sm" type="text" name=""  />
               </label>
               <label class="row">
+                <div class="form__label-text col-sm">Серия:</div>
+                <input v-model="proof_special_right_serial" class="form__input col-sm" type="text" name=""  />
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Номер:</div>
+                <input v-model="proof_special_right_number" class="form__input col-sm" type="text" name=""  />
+              </label>
+              <label class="row">
                 <div class="form__label-text col-sm">Копия/оригинал:</div>
                 <select v-model="condition_selectedDocType" class="minimal col-sm">
                   <option v-for="item in docType" v-bind:value="item">
@@ -217,6 +225,7 @@
           'tab_reception_condition_specialRight', 'tab_reception_condition_consent',
           'selected_faculty', 'selected_speciality', 'selected_educationType','selected_agreement','date_agreement',
           'selected_specialRight','selected_typeOfSpecialRight', 'documentBase64', 'proof_special_right',
+          'proof_special_right_serial','proof_special_right_number',
           'condition_selectedDocType'
 
         ]),
