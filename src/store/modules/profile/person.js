@@ -89,6 +89,12 @@ export default {
 
     person_info_id:'',
 
+    //for docTable
+    docTableFullname:'',
+    docTableDocType:'',
+    docTableDate:'',
+    docTableCount:'',
+
     person : {
       person_info:[],
       ege_info:[],

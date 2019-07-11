@@ -150,7 +150,10 @@
     },
     data() {
       return {
-
+        options_select: [
+          {id: 1, item: 'да'},
+          {id: 2, item: 'нет'},
+        ],
         titles:[
           {
             title: 'Заявление'
@@ -167,7 +170,10 @@
     methods: {
       handleClick(val) {
         this.showProfile = val;
-        this.application.applicationTable.splice(0,1)
+
+          this.application.applicationTable.splice(0,1)
+
+
         // this.application = [];
       },
 

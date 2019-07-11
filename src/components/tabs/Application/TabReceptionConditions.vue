@@ -16,7 +16,7 @@
 
         <template slot="items" slot-scope="props">
           <td class="text-xs-center">{{ props.item.selected_faculty}}</td>
-          <td class="text-xs-center">{{ props.item.selected_speciality.description}}</td>
+          <td class="text-xs-center">{{ props.item.selected_speciality}}</td>
           <td class="text-xs-center">{{ props.item.selected_educationType}}</td>
           <!--<td class="text-xs-center">{{ props.item.tab_reception_condition_educationForm }}</td>-->
           <td class="text-xs-center">{{ props.item.selected_specialRight}}</td>
@@ -67,12 +67,17 @@
 
               <label class="row">
                 <div class="form__label-text col-sm">Название специальности:</div>
+                <!--<select v-model="selected_speciality" class="minimal col-sm">-->
+                  <!--<option v-for="item in speciality" v-bind:value="item">-->
+                    <!--{{item.description}}-->
+                  <!--</option>-->
+                <!--</select>-->
+
                 <select v-model="selected_speciality" class="minimal col-sm">
-                  <option v-for="item in speciality" v-bind:value="item">
-                    {{item.description}}
+                  <option v-for="option in options_specialty">
+                    {{option.item}}
                   </option>
                 </select>
-
               </label>
 
               <!--<label class="row">-->

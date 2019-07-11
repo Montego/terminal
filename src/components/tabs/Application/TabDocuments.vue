@@ -118,7 +118,7 @@
             headers_documents: [
               {text: 'Название', value: 'name', sortable: false, align: 'center'},
               {text: 'Копия/оригинал', value: 'copy', sortable: false, align: 'center'},
-              {text: 'Дата предоставления', value: 'date', sortable: false, align: 'center'},
+              {text: 'Дата выдачи', value: 'date', sortable: false, align: 'center'},
               {text: 'Количество', value: 'count', sortable: false, align: 'center'},
               {text: 'Действия', value: 'actions', sortable: false, align: 'center'},
             ],
@@ -135,7 +135,10 @@
           'tab_document_count','tab_document_selectedDocType'
         ]),
         ...mapMultiRowFields(['document','tab_document_allDocuments']),
-        ...person(['person',]),
+        ...person(['person','tab_personal_selectedIdentityCardCode','this.tab_personal_identityCardSeries',
+        'tab_personal_identityCardNumber','tab_personal_identityCardIssueDate',
+'docTableFullname','docTableDocType','docTableDate','docTableCount'
+        ]),
         fullName(){
           return this.document_fullName =
             this.tab_document_selectedDocumentType + ' ' +
@@ -167,28 +170,27 @@
             this.tab_document_issuedBy = null;
           },
           onFill() {
-            // function Document1(doc1_type, doc1_series, doc1_number, doc1_full) {
-            //   this.tab_personal_selectedIdentityCardCode = doc1_type;
-            //   this.tab_personal_identityCardSeries = doc1_series;
-            //   this.tab_personal_identityCardNumber = doc1_number;
-            //   // this.fullName = doc1_type + " " + doc1_series + " " + doc1_number
-            //   this.fullName = doc1_full;
-            // }
-            // let document1 = new Document1(
-            //   this.tab_personal_selectedIdentityCardCode,
-            //   this.tab_personal_identityCardSeries,
-            //   this.tab_personal_identityCardNumber,
-            //   // this.fullName
-            //   // this.fullName = this.fullName1
-            // );
-            // // if(document1.tab_personal_selectedIdentityCardCode != null){
-            //   this.person.application_documents.push(document1);
-            // // }
-            //   console.log(" i don't know ")
+            function DocTable(fullname, doctype, date, count) {}
+            let doctable = new DocTable(
+              this.tab_personal_selectedIdentityCardCode.identityCardNameFull + ' ' + this.tab_personal_identityCardSeries +" "+this.tab_personal_identityCardNumber,
+              {"id":1,"name":"Оригинал"},
+              this.tab_personal_identityCardIssueDate,
+              1
+            );
+
 
           },
           onSave() {
             location.href='profile#documents_overview';
+            // function DocTable(fullname, doctype, date, count) {}
+            // let doctable1 = new DocTable(
+            //   this.docTableFullname = this.tab_document_selectedDocumentType + ' ' +
+            //   this.tab_document_series +" "+
+            //   this.tab_document_number,
+            //   this.docTableDocType = this.tab_document_selectedDocumentType,
+            //   this.docTableDate = this.tab_document_date,
+            //   this.docTableCount = this.tab_document_count
+            // );
 
             function Document(doc_type,doc_count,doc_series,doc_number,
                             doc_selectedCopy,doc_date,doc_issuedBy,doc_full
@@ -207,9 +209,6 @@
                 this.tab_document_number,this.tab_document_selectedDocType,this.tab_document_date,
                 this.tab_document_issuedBy, this.fullName
               );
-
-            // this.person.application_documents.push(document);
-
             this.application.application_documents.push(document);
             console.log(this.document)
 

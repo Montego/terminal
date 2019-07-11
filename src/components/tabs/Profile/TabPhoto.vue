@@ -53,7 +53,7 @@
       },
       computed: {
         ...mapMultiRowFields(['persons']),
-        ...person(['person','showProfile',
+        ...person(['person','showProfile','profiles',
           'tab_personal_lastname',  'tab_personal_firstname', 'tab_personal_middlename' , 'tab_personal_lastname_genitive',
           'tab_personal_firstname_genitive','tab_personal_middlename_genitive','tab_personal_selectedGender',
           'tab_personal_birthDate', 'tab_personal_INIPA', 'tab_personal_INIPADate','tab_personal_note',
@@ -74,7 +74,7 @@
           'tab_edu_military_selectedMilitaryFormDoc','tab_edu_military_militaryNumber','tab_edu_military_militarySeries',
           'tab_edu_military_militaryIssueDate','tab_edu_military_militaryIssueBy','tab_edu_military_militaryRank',
           'tab_edu_military_selectedDocType','tab_edu_military_docMilitaryShowDate','tab_edu_military_startMilitary',
-          'tab_edu_military_endMilitary', 'image', 'showimage'
+          'tab_edu_military_endMilitary', 'image', 'showimage', 'person_info_id'
         ]),
         show(){
           return this.persons
@@ -217,20 +217,38 @@
 
           this.person.person_info.push(contactperson);
 
-          AXIOS.post(`/profile`, (this.person))
+
+          if(this.person_info_id === ''){
+            AXIOS.post(`/profile`, (this.person))
+              .then(response => {
+                this.info.push(response.data)
+                location.href='profile#overview_personal_info';
+                this.person.ege_info = [];
+                this.person.parents_info = [];
+                this.person.person_info = [];
+                this.person.futures_info = [];
+              })
+              .catch(e => {
+                this.errors.push(e)
+              })
+          }else {
+            AXIOS.put('/profile/person/' + this.person_info_id,(this.person))
+              .then(response =>{
+                console.log(response)
+              console.log("person was updated")})
+              .catch(e => {
+                this.errors.push(e)
+              })
+          }
+
+
+
+          AXIOS.get(`/profile/personsTable`)
             .then(response => {
-              this.info.push(response.data)
-              location.href='profile#overview_personal_info';
-              this.person.ege_info = [];
-              this.person.parents_info = [];
-              this.person.person_info = [];
-              this.person.futures_info = [];
+              this.profiles = response.data;
+              console.log(this.profiles)
             })
             .catch(e => {
-              // this.person.ege_info = [];
-              // this.person.parents_info = [];
-              // this.person.person_info = [];
-              // this.person.futures_info = [];
               this.errors.push(e)
             })
 

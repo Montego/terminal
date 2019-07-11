@@ -9,7 +9,7 @@
 
   <v-data-table data-app
     :headers="headers_profile"
-    :items="showTable" hide-actions
+    :items="profiles" hide-actions
     class="elevation-1 text-xs-center"
   >
     <template slot="items" slot-scope="props">
@@ -68,7 +68,7 @@
       data () {
         return {
           personInfo:[],
-          profiles: [],
+          // profiles: [],
           titles:[
             {
               title: 'Личные сведения'
@@ -92,7 +92,7 @@
       computed: {
         // ...mapMultiRowFields(['profiles']),
         // ...application(['contacts']),
-        ...person(['person','showProfile',
+        ...person(['person','showProfile','profiles',
           'tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename', 'tab_personal_lastname_genitive',
           'tab_personal_firstname_genitive', 'tab_personal_middlename_genitive', 'tab_personal_selectedGender', 'tab_personal_birthDate',
           'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note', 'tab_personal_selectedIdentityCardCode',
@@ -124,6 +124,7 @@
         //   },
         },
       mounted() {
+        return this.profiles;
         // this.showTable()
       },
       created () {
@@ -226,7 +227,7 @@
           const index = this.profiles.indexOf(item);
           const idString = this.profiles[index].id;
           const id = parseInt(idString,10);
-
+          this.person_info_id = id;
           // AXIOS.get(`/profile/personInfo/` + id)
           AXIOS.get(`/profile/personByPersonInfo/` + id)
           //todo получать dto - массивы person_info, ege_info, parent_info
