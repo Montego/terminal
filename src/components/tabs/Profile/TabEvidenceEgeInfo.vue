@@ -304,6 +304,11 @@
           {id: 2, item: 'Русский язык'},
           {id: 3, item: 'Химия'},
           ],
+        options_ege: [
+          {id: 1, item: 'ЕГЭ'},
+          {id: 2, item: 'ЕГЭ (2-я волна)'},
+          // {id: 3, item: 'Химия'},
+        ],
         // options_identityCardCode: [
         //   // {id: 0, item: '-выберите документ-'},
         //   {id: 1, item: 'ВидЖител'},

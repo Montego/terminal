@@ -139,11 +139,13 @@
 
       methods: {
         onNewProfile(){
-          this.ege_info = [];
-          this.parents_info = [];
+          this.person.ege_info = [];
+          this.person.parents_info = [];
           this.person.person_info = [];
+          this.person.futures_info = [];
           this.id = '';
           this.image = '';
+          this.showimage = '';
           this.tab_personal_lastname = '';
           this.tab_personal_firstname = '';
           this.tab_personal_middlename = '';
@@ -302,7 +304,8 @@
               this.tab_edu_military_docMilitaryShowDate  = this.personInfo[0].tab_edu_military_docMilitaryShowDate
               this.tab_edu_military_startMilitary  = this.personInfo[0].tab_edu_military_startMilitary
               this.tab_edu_military_endMilitary  = this.personInfo[0].tab_edu_military_endMilitary
-
+              this.image  = this.personInfo[0].image
+              this.showimage  = this.personInfo[0].showimage
               this.person = response.data
               console.log(this.profiles)
             })
