@@ -1,8 +1,6 @@
 <template>
   <div class="inside_tab">
-    <div>
-      <p>Вступительные испытания</p>
-    </div>
+
     <hr>
     <div class="row">
       <div class="col-sm-8">

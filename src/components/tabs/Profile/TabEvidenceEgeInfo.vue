@@ -15,7 +15,7 @@
               hide-actions
             >
               <template slot="items" slot-scope="props">
-                <td class="text-xs-center">{{ props.item.tab_ege_selectedSubject.name}}</td>
+                <td class="text-xs-center">{{ props.item.tab_ege_selectedSubject}}</td>
                 <td class="text-xs-center">{{ props.item.tab_ege_score}}</td>
                 <!--<td class="text-xs-center">{{ props.item.ege_ball_2}}</td>-->
                 <!--<td class="text-xs-center">{{ props.item.ege_appeal_status}}</td>-->
@@ -128,9 +128,15 @@
             <hr>
             <label class="row">
               <div class="form__label-text col-sm">Форма ЕГЭ:</div>
+
+              <!--<select v-model="tab_ege_selectedExamForm" class="minimal col-sm">-->
+                <!--<option v-for="item in examForm" v-bind:value="item">-->
+                  <!--{{item.name}}-->
+                <!--</option>-->
+              <!--</select>-->
               <select v-model="tab_ege_selectedExamForm" class="minimal col-sm">
-                <option v-for="item in examForm" v-bind:value="item">
-                  {{item.name}}
+                <option v-for="option in options_ege">
+                  {{option.item}}
                 </option>
               </select>
             </label>
@@ -143,26 +149,30 @@
 
             <label class="row">
               <div class="form__label-text col-sm">Предмет:</div>
+              <!--<select v-model="tab_ege_selectedSubject" class="minimal col-sm">-->
+                <!--<option v-for="item in subject" v-bind:value="item">-->
+                  <!--{{item.name}}-->
+                <!--</option>-->
+              <!--</select>-->
               <select v-model="tab_ege_selectedSubject" class="minimal col-sm">
-                <option v-for="item in subject" v-bind:value="item">
-                  {{item.name}}
+                <option v-for="option in options_subject">
+                  {{option.item}}
                 </option>
               </select>
-
               <!--<input class="form__input col-sm" type="text" name="" placeholder="русский язык" disabled/>-->
             </label>
             <label class="row">
               <div class="form__label-text col-sm-6">Балл:</div>
-              <input v-model="tab_ege_score" class="form__input col-sm-6" type="text" v-mask="'#'"/>
+              <input v-model="tab_ege_score" class="form__input col-sm-6" type="text" v-mask="'###'"/>
             </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Балл (ФИС):</div>
-              <input v-model="tab_ege_score_fis" class="form__input col-sm" type="text" name="" placeholder=""/>
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Статус апелляции:</div>
-              <input v-model="tab_ege_appelation" class="form__input col-sm" type="text" name="" placeholder=""/>
-            </label>
+            <!--<label class="row">-->
+              <!--<div class="form__label-text col-sm">Балл (ФИС):</div>-->
+              <!--<input v-model="tab_ege_score_fis" class="form__input col-sm" type="text" name="" placeholder=""/>-->
+            <!--</label>-->
+            <!--<label class="row">-->
+              <!--<div class="form__label-text col-sm">Статус апелляции:</div>-->
+              <!--<input v-model="tab_ege_appelation" class="form__input col-sm" type="text" name="" placeholder=""/>-->
+            <!--</label>-->
             <hr>
 
             <div class="clear_save_button row">
@@ -314,9 +324,9 @@
       return {
         index_for_redaction:'',
         options_subject: [
-          {id: 1, item: 'Биология'},
-          {id: 2, item: 'Русский язык'},
-          {id: 3, item: 'Химия'},
+          {id: 1, item: 'Химия'},
+          {id: 2, item: 'Биология'},
+          {id: 3, item: 'Русский язык'},
           ],
         options_ege: [
           {id: 1, item: 'ЕГЭ'},
@@ -440,7 +450,7 @@
         function Ege(ege_lastname,ege_firstname,ege_middlename,ege_selectedIdentityCardCode,
                      ege_identityCardSeries, ege_identityCardNumber,ege_identityCardIssueDate,
                      ege_identityCardIssueBy, ege_selectedCitizenship,ege_selectedExamForm,
-                     ege_year, ege_selectedSubject, ege_score, ege_score_fis, ege_appelation) {
+                     ege_year, ege_selectedSubject, ege_score) {
           this.tab_ege_lastname = ege_lastname;
           this.tab_ege_firstname = ege_firstname;
           this.tab_ege_middlename = ege_middlename;
@@ -454,15 +464,14 @@
           this.tab_ege_year = ege_year;
           this.tab_ege_selectedSubject = ege_selectedSubject;
           this.tab_ege_score = ege_score;
-          this.tab_ege_score_fis = ege_score_fis;
-          this.tab_ege_appelation = ege_appelation;
+
         }
         var ege = new Ege(
           this.tab_ege_lastname, this.tab_ege_firstname, this.tab_ege_middlename,this.tab_ege_selectedIdentityCardCode,
           this.tab_ege_identityCardSeries, this.tab_ege_identityCardNumber, this.tab_ege_identityCardIssueDate,
           this.tab_ege_identityCardIssueBy,  this.tab_ege_info_selectedCitizenship,
           this.tab_ege_selectedExamForm, this.tab_ege_year, this.tab_ege_selectedSubject,
-          this.tab_ege_score, this.tab_ege_score_fis, this.tab_ege_appelation
+          this.tab_ege_score
         );
 
         if(this.index_for_redaction > -1){
