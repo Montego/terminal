@@ -66,14 +66,14 @@ module.exports = {
     noInfo: true,
     overlay: true,
 
-    publicPath: '/dist/',
-    // proxy: {
-    //     '/api': {
-    //     target: 'http://localhost:8081',
-    //     ws: true,
-    //     changeOrigin: true
-    //   }
-    // }
+    // publicPath: '/dist/',
+    proxy: {
+        '/api': {
+        target: 'http://localhost:8081',
+        ws: true,
+        changeOrigin: true
+      }
+    }
 
   },
   performance: {

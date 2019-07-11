@@ -8,12 +8,16 @@
       <div>
         <label class="row">
           <div class="form__label-text col-sm">Уровень образования:</div>
-
           <select v-model="tab_edu_military_educationLevel" class="minimal col-sm">
-            <option v-for="item in educationLevel" v-bind:value="item">
-              {{item.name}}
+            <option v-for="option in options_educationLevel">
+              {{option.item}}
             </option>
           </select>
+          <!--<select v-model="tab_edu_military_educationLevel" class="minimal col-sm">-->
+            <!--<option v-for="item in educationLevel" v-bind:value="item">-->
+              <!--{{item.name}}-->
+            <!--</option>-->
+          <!--</select>-->
 
           <!--<input v-model="person.tab_edu_military_educationLevel.name" class="uneditable form__input col-sm-6" type="text" name="" placeholder="Заполняется автоматически"-->
                  <!--disabled="disabled"/>-->
@@ -390,17 +394,18 @@
             //   {id: 20, item: 'Сертификат'},
             // ],
             options_educationLevel: [
-              {id: 1, item: 'Бакалавриат'},
-              {id: 2, item: 'Магистратура'},
+              // {id: 1, item: 'Бакалавриат'},
+              // {id: 2, item: 'Магистратура'},
+              {id: 1, item: ''},
               {id: 3, item: 'Специалитет'},
-              {id: 4, item: 'Мед.училище'},
-              {id: 5, item: 'СПО и техникум'},
-              {id: 6, item: 'НПО'},
-              {id: 7, item: 'СШД (Средняя школа дневная)'},
-              {id: 8, item: 'СШВ (Средняя школа вечерняя'},
-              {id: 9, item: 'Ординатура'},
-              {id: 10, item: 'Интернатура'},
-              {id: 11, item: 'Аспирантура'},
+              // {id: 4, item: 'Мед.училище'},
+              // {id: 5, item: 'СПО и техникум'},
+              // {id: 6, item: 'НПО'},
+              // {id: 7, item: 'СШД (Средняя школа дневная)'},
+              // {id: 8, item: 'СШВ (Средняя школа вечерняя'},
+              // {id: 9, item: 'Ординатура'},
+              // {id: 10, item: 'Интернатура'},
+              // {id: 11, item: 'Аспирантура'},
             ],
             options_soldiery: [
               {id: 1, item: 'Военнообязанный'},

@@ -330,7 +330,7 @@
           ],
         options_ege: [
           {id: 1, item: 'ЕГЭ'},
-          {id: 2, item: 'ЕГЭ (2-я волна)'},
+          {id: 2, item: 'Олимпиада'},
           // {id: 3, item: 'Химия'},
         ],
         // options_identityCardCode: [

@@ -18,6 +18,7 @@
           <td class="text-xs-center">{{ props.item.selected_faculty}}</td>
           <td class="text-xs-center">{{ props.item.selected_speciality}}</td>
           <td class="text-xs-center">{{ props.item.selected_educationType}}</td>
+          <td class="text-xs-center">{{ props.item.selected_agreement}}</td>
           <!--<td class="text-xs-center">{{ props.item.tab_reception_condition_educationForm }}</td>-->
           <td class="text-xs-center">{{ props.item.selected_specialRight}}</td>
           <td class="text-xs-center">{{ props.item.selected_typeOfSpecialRight}}</td>
@@ -257,7 +258,7 @@
               {text: 'Факультет', value: 'selected_faculty', sortable: false, align: 'center'},
               {text: 'Специальность', value: 'selected_speciality', sortable: false, align: 'center'},
               {text: 'Тип обучения', value: 'selected_educationType', sortable: false, align: 'center'},
-              // {text: 'Форма обучения', value: 'selected_consent', sortable: false, align: 'center'},
+              {text: 'Согласие', value: 'selected_agreement', sortable: false, align: 'center'},
               {text: 'Особое право', value: 'selected_specialRight', sortable: false, align: 'center'},
               {text: 'Тип особого права', value: 'selected_typeOfSpecialRight', sortable: false, align: 'center'},
               // {text: 'Согласие', value: 'selected_agreement', sortable: false, align: 'center'},
