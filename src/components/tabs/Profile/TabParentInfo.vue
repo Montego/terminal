@@ -56,19 +56,25 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Фамилия:</div>
-              <input v-model="tab_parent_lastname" class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input data-vv-as="фамилия" v-validate="'alpha_spaces'" v-model="tab_parent_lastname" class="form__input col-sm" type="text" name="tab_parent_lastname" placeholder="" required/>
             </label>
-            <span class="alarm_label" v-if="tab_parent_lastname===''">Не заполнено поле "Фамилия"</span>
+
+            <span class="alarm_label">{{ errors.first('tab_parent_lastname') }}</span>
+
             <label class="row">
               <div class="form__label-text col-sm">Имя:</div>
-              <input v-model="tab_parent_firstname" class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input data-vv-as="имя" v-validate="'alpha_spaces'" v-model="tab_parent_firstname" class="form__input col-sm" type="text" name="tab_parent_firstname" placeholder=""/>
             </label>
-            <span class="alarm_label" v-if="tab_parent_firstname===''">Не заполнено поле "Имя"</span>
-            <span class="alarm_label" v-else-if="tab_parent_firstname===tab_parent_lastname && tab_parent_firstname!==''">Имя не может совпадать с фамилией</span>
+
+            <span class="alarm_label">{{ errors.first('tab_parent_firstname') }}</span>
+
             <label class="row">
               <div class="form__label-text col-sm">Отчество:</div>
-              <input v-model="tab_parent_middlename" class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input data-vv-as="отчество" v-validate="'alpha_spaces'" v-model="tab_parent_middlename" class="form__input col-sm" type="text" name="tab_parent_middlename" placeholder=""/>
             </label>
+
+            <span class="alarm_label">{{ errors.first('tab_parent_middlename') }}</span>
+
             <label class="row">
               <div class="form__label-text col-sm">Пол:</div>
               <select v-model="tab_parent_selectedGender" class="minimal col-sm">
@@ -114,14 +120,18 @@
             <hr>
             <label class="row">
               <div class="form__label-text col-sm">Домашний телефон:</div>
-              <input v-model="tab_parent_homePhoneNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-validate data-vv-as="домашний телефон" v-model="tab_parent_homePhoneNumber" class="form__input col-sm" type="text" name="tab_parent_homePhoneNumber" placeholder="(XXX)XXX-XX-XX" v-mask="'(###)###-##-##'" />
             </label>
+
+            <span class="alarm_label">{{ errors.first('tab_parent_homePhoneNumber') }}</span>
+
             <label class="row">
               <div class="form__label-text col-sm">Мобильный телефон:</div>
-              <input v-model="tab_parent_cellularPhone" class="form__input col-sm" type="text" name="mobile_number" v-mask="'+7-###-###-##-##'"/>
+              <input v-validate data-vv-as="мобильный телефон" v-model="tab_parent_cellularPhone" class="form__input col-sm" type="text" name="tab_parent_cellularPhone" v-mask="'+#-###-###-##-##'" required />
             </label>
-            <span class="alarm_label" v-if="tab_parent_cellularPhone===''">Не заполнено поле "Мобильный телефон"</span>
-            <span class="alarm_label" v-else-if="tab_parent_cellularPhone.length<16">Некорректно заполнено поле "Мобильный телефон"</span>
+
+            <span class="alarm_label">{{ errors.first('tab_parent_cellularPhone') }}</span>
+
             <!--<label class="row">-->
               <!--<div class="form__label-text col-sm">Мобильный телефон:</div>-->
               <!--<input class="form__input col-sm" type="text" name="" placeholder="" v-mask="'+7-###-###-##-##'"/>-->
@@ -228,7 +238,7 @@
         if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
           age--;
         }
-        return age;
+        return (isNaN(age)) ? '' : age;
       },
       ...person(['person','tab_address_factAddress']),
       ...mapState('enums', ['gender'],),

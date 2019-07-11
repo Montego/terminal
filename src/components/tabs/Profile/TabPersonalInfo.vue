@@ -15,35 +15,35 @@
 
         <label class="row">
           <span class="form__label-text col-sm">Фамилия</span>
-          <input data-vv-as="фамилия" v-validate="'required|alpha'" v-model="tab_personal_lastname" value= "" class="form__input col-sm" type="text" name="lastname" required/>
+          <input data-vv-as="фамилия" v-validate="'alpha_spaces'" v-model="tab_personal_lastname" value= "" class="form__input col-sm" type="text" name="lastname" required/>
         </label>
         <span class="alarm_label">{{ errors.first('lastname') }}</span>
         <!--<span class="alarm_label" v-if="tab_personal_lastname===''">Не заполнено поле "Фамилия"</span>-->
         <label class="row">
           <div class="form__label-text col-sm">Имя</div>
-          <input data-vv-as="имя" v-validate="'required|alpha'"  v-model="tab_personal_firstname" class="form__input col-sm" type="text" name="firstname" required/>
+          <input data-vv-as="имя" v-validate="'alpha_spaces'"  v-model="tab_personal_firstname" class="form__input col-sm" type="text" name="firstname" required/>
         </label>
         <span class="alarm_label">{{ errors.first('firstname') }}</span>
         <label class="row">
           <div class="form__label-text col-sm">Отчество</div>
-          <input data-vv-as="отчество"  v-validate="'required|alpha'" v-model="tab_personal_middlename" class="form__input col-sm" type="text" name="middlename" required/>
+          <input data-vv-as="отчество"  v-validate="'alpha_spaces'" v-model="tab_personal_middlename" class="form__input col-sm" type="text" name="middlename"/>
         </label>
         <span class="alarm_label">{{ errors.first('middlename') }}</span>
         <hr>
         <label class="row">
           <div class="form__label-text col-sm">Фамилия в род.п.</div>
-          <input v-validate="'required|alpha'" data-vv-as="фамилия в род.п." v-model="tab_personal_lastname_genitive" class="form__input col-sm" type="text" name="lastname_genitive" required/>
+          <input v-validate="'alpha_spaces'" data-vv-as="фамилия в род.п." v-model="tab_personal_lastname_genitive" class="form__input col-sm" type="text" name="lastname_genitive" required/>
         </label>
         <span class="alarm_label">{{ errors.first('lastname_genitive') }}</span>
         <label class="row">
           <div class="form__label-text col-sm">Имя в род.п.</div>
-          <input  v-validate="'required|alpha'" data-vv-as="имя в род.п." v-model="tab_personal_firstname_genitive" class="form__input col-sm" type="text" name="firstname_genitive"
+          <input  v-validate="'alpha_spaces'" data-vv-as="имя в род.п." v-model="tab_personal_firstname_genitive" class="form__input col-sm" type="text" name="firstname_genitive"
                  required/>
         </label>
         <span class="alarm_label">{{ errors.first('firstname_genitive') }}</span>
         <label class="row">
           <div class="form__label-text col-sm">Отчество в род.п.</div>
-          <input v-validate="'required|alpha'" data-vv-as="имя в род.п."  v-model="tab_personal_middlename_genitive" class="form__input col-sm" type="text" name="middlename_genitive"
+          <input v-validate="'alpha_spaces'" data-vv-as="имя в род.п."  v-model="tab_personal_middlename_genitive" class="form__input col-sm" type="text" name="middlename_genitive"
                  required/>
         </label>
         <span class="alarm_label">{{ errors.first('middlename_genitive') }}</span>
@@ -252,7 +252,6 @@
         <div>
           <p>Иностранные языки</p>
         </div>
-        {{process.env.VUE_APP_SERVER_URL}}
         <hr>
         <label class="row">
           <div class="form__label-text col-sm">Отметка о языках:</div>
@@ -406,7 +405,7 @@
         if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
           age--;
         }
-        return age;
+          return (isNaN(age)) ? '' : age;
       },
 
       fullseniority: function () {
