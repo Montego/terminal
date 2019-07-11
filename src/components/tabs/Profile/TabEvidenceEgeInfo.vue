@@ -43,19 +43,25 @@
             <div>
               <label class="row">
                 <div class="form__label-text col-sm">Фамилия:</div>
-                <input v-validate v-model="tab_ege_lastname" class="form__input col-sm" type="text" name="" placeholder=""/>
+                <input data-vv-as="фамилия" v-validate="'alpha_spaces'" v-model="tab_ege_lastname" class="form__input col-sm" type="text" name="lastname2" placeholder="" required />
               </label>
-              <span class="alarm_label" v-if="tab_ege_lastname===''">Не заполнено поле "Фамилия"</span>
+
+              <span class="alarm_label">{{ errors.first('lastname2') }}</span>
+
               <label class="row">
                 <div class="form__label-text col-sm">Имя:</div>
-                <input v-model="tab_ege_firstname" class="form__input col-sm" type="text" name="" placeholder=""/>
+                <input  data-vv-as="имя" v-validate="'alpha_spaces'"  v-model="tab_ege_firstname" class="form__input col-sm" type="text" name="firstname2" placeholder="" required/>
               </label>
-              <span class="alarm_label" v-if="tab_ege_firstname===''">Не заполнено поле "Имя"</span>
-              <span class="alarm_label" v-else-if="tab_ege_firstname===tab_ege_lastname">Имя не может совпадать с фамилией</span>
+
+              <span class="alarm_label">{{ errors.first('firstname2') }}</span>
+
               <label class="row">
                 <div class="form__label-text col-sm">Отчество:</div>
-                <input v-model="tab_ege_middlename" class="form__input col-sm" type="text" name="" placeholder=""/>
+                <input data-vv-as="отчество"  v-validate="'alpha_spaces'" v-model="tab_ege_middlename" class="form__input col-sm" type="text" name="middlename2" placeholder=""/>
               </label>
+
+              <span class="alarm_label">{{ errors.first('middlename2') }}</span>
+
               <label class="row">
                 <div class="form__label-text col-sm">Документ</div>
                 <select v-model="tab_ege_selectedIdentityCardCode" class="minimal col-sm">
@@ -69,23 +75,28 @@
               <span class="alarm_label" v-if="tab_ege_selectedIdentityCardCode===''">Не выбран тип документа</span>
               <label class="row">
                 <div class="form__label-text col-sm">Серия:</div>
-                <!--<input v-if="tab_ege_selectedIdentityCardCode === 'Паспорт РФ'" v-model="tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>-->
+                <input name="pspseries" v-validate="'digits:4'" data-vv-as="серия паспорта" v-if="tab_ege_selectedIdentityCardCode.identityCardCode == 'Паспорт РФ'" v-model="tab_ege_identityCardSeries" class="form__input col-sm" type="text" placeholder="****" v-mask="'####'" required/>
                 <!--<input v-else-if="tab_ege_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***" v-mask="'###-###'" required/>-->
-                <input  v-model="tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
+                <input v-else v-model="tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
                 <!--<input v-model="identityCardSeries" class="form__input col-sm" type="text" name="" placeholder=""/>-->
               </label>
-              <span class="alarm_label" v-if="tab_ege_identityCardSeries===''">Не заполнено поле "Серия"</span>
-              <span class="alarm_label" v-else-if="tab_ege_identityCardSeries.length<4 & tab_ege_selectedIdentityCardCode === 'Паспорт РФ'">Серия должна содержать 4 цифры</span>
+
+              <span class="alarm_label">{{ errors.first('pspseries') }}</span>
+              <span class="alarm_label">{{ errors.first('doc_serial') }}</span>
 
               <label class="row">
                 <div class="form__label-text col-sm">Номер:</div>
                 <!--<input v-model="identityCardNumber" class="form__input col-sm" type="text" name="" placeholder=""/>-->
-                <input v-if="tab_ege_selectedIdentityCardCode === 'Паспорт РФ'" v-model="tab_ege_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="******" v-mask="'######'" required/>
-                <input v-else-if="tab_ege_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_ege_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***-***" v-mask="'###-###-###'" required/>
-                <input v-else v-model="tab_ege_identityCardNumber" class="form__input col-sm" type="text" name="doc_serial"required/>
+                <input name="pspnum" v-validate="'digits:6'" data-vv-as="номер паспорта" v-if="tab_ege_selectedIdentityCardCode.identityCardCode == 'Паспорт РФ'" v-model="tab_ege_identityCardNumber" class="form__input col-sm" type="text"  placeholder="******" v-mask="'######'" required/>
+                <input v-else-if="tab_ege_selectedIdentityCardCode.identityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_ege_identityCardNumber" class="form__input col-sm" type="text" name="doc_num" placeholder="***-***-***" v-mask="'###-###-###'" required/>
+                <input v-else v-model="tab_ege_identityCardNumber" class="form__input col-sm" type="text" name="doc_num"required/>
               </label>
-              <span class="alarm_label" v-if="tab_ege_identityCardNumber===''">Не заполнено поле "Номер"</span>
-              <span class="alarm_label" v-else-if="tab_ege_identityCardNumber.length<6 & tab_ege_selectedIdentityCardCode === 'Паспорт РФ'">Номер должен содержать 6 цифр</span>
+
+
+              <span class="alarm_label">{{ errors.first('pspnum') }}</span>
+              <span class="alarm_label">{{ errors.first('doc_num') }}</span>
+
+
               <label class="row">
                 <div class="form__label-text col-sm">Дата выдачи:</div>
                 <input v-model="tab_ege_identityCardIssueDate" class="form__input col-sm" type="date" name="" placeholder=""/>
@@ -125,8 +136,11 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Год сдачи:</div>
-              <input v-model="tab_ege_year" class="form__input col-sm" type="text" name="" placeholder=""/>
+              <input v-validate="'digits:4'" data-vv-as="год сдачи" v-model="tab_ege_year" class="form__input col-sm" type="text" name="examyear" placeholder="****" v-mask="'####'"/>
             </label>
+
+            <span class="alarm_label">{{ errors.first('examyear') }}</span>
+
             <label class="row">
               <div class="form__label-text col-sm">Предмет:</div>
               <select v-model="tab_ege_selectedSubject" class="minimal col-sm">
@@ -365,7 +379,7 @@
         this.tab_ege_lastname = '';
         this.tab_ege_firstname = '';
         this.tab_ege_middlename = '';
-        this.tab_ege_selectedIdentityCardCode = null;
+        this.tab_ege_selectedIdentityCardCode = { "identityCardCode": "Паспорт РФ", "identityCardNamemiddle": "Паспорт РФ", "identityCardNameFull": "Паспорт РФ", "identityCardNameShort": "", "isUniversity": 1, "isMandatory_Number": 1, "isMandatory_Series": 1, "sort": 1 };
         this.tab_ege_identityCardSeries = '';
         this.tab_ege_identityCardNumber = '';
         this.tab_ege_identityCardIssueDate = '';

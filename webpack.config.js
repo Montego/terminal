@@ -65,15 +65,16 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true,
     overlay: true,
-    // publicPath: 'http://10.71.0.115/operator_api/',
-    // publicPath: '/dist/',
-    proxy: {
-        '/api': {
-        target: 'http://localhost:8081',
-        ws: true,
-        changeOrigin: true
-      }
-    }
+
+    publicPath: '/dist/',
+    // proxy: {
+    //     '/api': {
+    //     target: 'http://localhost:8081',
+    //     ws: true,
+    //     changeOrigin: true
+    //   }
+    // }
+
   },
   performance: {
     hints: false

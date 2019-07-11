@@ -33,7 +33,7 @@ export default {
     tab_ege_selectedSubject: '',
     // tab_ege_selectedSubject2: '',
     // tab_ege_selectedSubject3: '',
-    tab_ege_selectedIdentityCardCode: '',
+    tab_ege_selectedIdentityCardCode: { "identityCardCode": "Паспорт РФ", "identityCardNamemiddle": "Паспорт РФ", "identityCardNameFull": "Паспорт РФ", "identityCardNameShort": "", "isUniversity": 1, "isMandatory_Number": 1, "isMandatory_Series": 1, "sort": 1 },
 
   },
   getters: {

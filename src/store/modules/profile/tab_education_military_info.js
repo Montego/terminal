@@ -19,7 +19,7 @@ export default {
     tab_edu_military_selectedSoldiery: '',
     tab_edu_military_selectedSoldieryStatus: '',
     tab_edu_military_selectedMilitaryFormDoc: '',
-    tab_edu_military_selectedCountryRegion: '',
+    tab_edu_military_selectedCountryRegion: { "countryRegionId": "РФ", "name": "Россия" },
     tab_edu_military_selectedState: '',
     tab_edu_military_selectedAcademyYear: '',
     tab_edu_military_selectedDocType:'',
