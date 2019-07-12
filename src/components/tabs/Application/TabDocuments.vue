@@ -43,9 +43,10 @@
               <div class="col-sm-6">
                   <label class="row">
                     <div class="form__label-text col-sm">Тип документа:</div>
-                    <select v-model="tab_document_selectedDocumentType" class="minimal col-sm" name="">
-                      <option>док 1</option>
-                      <option>док 2</option>
+                    <select v-model="tab_document_selectedDocumentType" class="minimal col-sm">
+                      <option v-for="option in options_DocumentType">
+                        {{option.item}}
+                      </option>
                     </select>
                   </label>
                 <label class="row">
@@ -114,6 +115,25 @@
         name: "TabDocuments",
         data(){
           return {
+
+            options_DocumentType: [
+              {id: 0, item: ''},
+              {id: 1, item: 'Документ, подтверждающий сиротство'},
+              {id: 2, item: 'Свидетельство о рождении'},
+              {id: 3, item: 'Иной документ'},
+              {id: 4, item: 'Справка об установлении инвалидности'},
+              {id: 5, item: 'Документ, подтверждающий ограниченные возможности здоровья  или инвалидность, требующие создания указанных условий'},
+              {id: 6, item: 'Удостоверение'},
+              {id: 7, item: 'Документ, подтверждающий принадлежность к ветеранам боевых действий'},
+            ],
+
+            options_gender: [
+              {id: 0, item: '-выберите пол-'},
+              {id: 1, item: 'Мужской'},
+              {id: 2, item: 'Женский'},
+              {id: 3, item: 'Другое'},
+            ],
+
 
             headers_documents: [
               {text: 'Название', value: 'name', sortable: false, align: 'center'},

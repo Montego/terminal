@@ -25,9 +25,9 @@
           <button type="button" @click="onApplication(props.item); handleClick(false) ">
             <v-icon color="#5bc0de">description</v-icon>
           </button>
-        <button @click="onRedaction(props.item)">
-          <v-icon color="#5bc0de">edit</v-icon>
-        </button>
+        <!--<button @click="onRedaction(props.item)">-->
+          <!--<v-icon color="#5bc0de">edit</v-icon>-->
+        <!--</button>-->
       </td>
     </template>
   </v-data-table>
@@ -141,7 +141,7 @@
       methods: {
         onNewProfile(){
 
-          this.person.person_info = [];
+          // this.person.person_info = [];
           this.person.ege_info = [];
           this.person.parents_info = [];
           this.person.futures_info = [];
@@ -233,83 +233,85 @@
           //todo получать dto - массивы person_info, ege_info, parent_info
             .then(response => {
               this.person = response.data;
+
               this.personInfo = response.data.person_info;
-              this.tab_personal_lastname = this.personInfo[0].tab_personal_lastname;
 
-              console.log(this.personInfo[0].tab_personal_lastname)
+              this.tab_personal_lastname = this.personInfo.tab_personal_lastname;
 
-              this.tab_personal_firstname = this.personInfo[0].tab_personal_firstname
-              this.tab_personal_middlename = this.personInfo[0].tab_personal_middlename
-              this.tab_personal_lastname_genitive = this.personInfo[0].tab_personal_lastname_genitive
-              this.tab_personal_firstname_genitive = this.personInfo[0].tab_personal_firstname_genitive
-              this.tab_personal_middlename_genitive = this.personInfo[0].tab_personal_middlename_genitive
-              this.tab_personal_selectedGender  = this.personInfo[0].tab_personal_selectedGender
-              this.tab_personal_birthDate = this.personInfo[0].tab_personal_birthDate
-              this.tab_personal_INIPA  = this.personInfo[0].tab_personal_INIPA
-              this.tab_personal_INIPADate  = this.personInfo[0].tab_personal_INIPADate
-              this.tab_personal_note  = this.personInfo[0].tab_personal_note
+              console.log(this.personInfo.tab_personal_lastname)
 
-              this.tab_personal_selectedIdentityCardCode = this.personInfo[0].tab_personal_selectedIdentityCardCode;
-              this.tab_personal_identityCardSeries  = this.personInfo[0].tab_personal_identityCardSeries
-              this.tab_personal_identityCardNumber  = this.personInfo[0].tab_personal_identityCardNumber
-              this.tab_personal_identityCardIssueBy  = this.personInfo[0].tab_personal_identityCardIssueBy
-              this.tab_personal_identityCardIssueDate  = this.personInfo[0].tab_personal_identityCardIssueDate
-              this.tab_personal_identityCardIssueDep  = this.personInfo[0].tab_personal_identityCardIssueDep
-              this.tab_personal_selectedCitizenship  = this.personInfo[0].tab_personal_selectedCitizenship
-              this.tab_personal_isCompatriot  = this.personInfo[0].tab_personal_isCompatriot
-              this.tab_personal_isEquatedForeign  = this.personInfo[0].tab_personal_isEquatedForeign
-              this.tab_personal_birthplace  = this.personInfo[0].tab_personal_birthplace
-              this.tab_personal_isHostel  = this.personInfo[0].tab_personal_isHostel
-              this.tab_personal_isForeignLikeRussian  = this.personInfo[0].tab_personal_isForeignLikeRussian
-              this.tab_personal_homePhoneNumber  = this.personInfo[0].tab_personal_homePhoneNumber
-              this.tab_personal_cellularPhone  = this.personInfo[0].tab_personal_cellularPhone
-              this.tab_personal_email  = this.personInfo[0].tab_personal_email
-              this.tab_personal_company  = this.personInfo[0].tab_personal_company
-              this.tab_personal_company_address  = this.personInfo[0].tab_personal_company_address
-              this.tab_personal_seniority  = this.personInfo[0].tab_personal_seniority
-              this.tab_personal_employYears  = this.personInfo[0].tab_personal_employYears
-              this.tab_personal_employMonths  = this.personInfo[0].tab_personal_employMonths
-              this.tab_personal_employDays  = this.personInfo[0].tab_personal_employDays
-              this.tab_personal_selectedForeignLanguageInfo  = this.personInfo[0].tab_personal_selectedForeignLanguageInfo
-              this.selected_foreignLanguageName1  = this.personInfo[0].selected_foreignLanguageName1
-              this.language_score1  = this.personInfo[0].language_score1
-              this.selected_foreignLanguageName2  = this.personInfo[0].selected_foreignLanguageName2
-              this.language_score2  = this.personInfo[0].language_score2
-              this.selected_foreignLanguageName3  = this.personInfo[0].selected_foreignLanguageName3
-              this.language_score3  = this.personInfo[0].language_score3
+              this.tab_personal_firstname = this.personInfo.tab_personal_firstname
+              this.tab_personal_middlename = this.personInfo.tab_personal_middlename
+              this.tab_personal_lastname_genitive = this.personInfo.tab_personal_lastname_genitive
+              this.tab_personal_firstname_genitive = this.personInfo.tab_personal_firstname_genitive
+              this.tab_personal_middlename_genitive = this.personInfo.tab_personal_middlename_genitive
+              this.tab_personal_selectedGender  = this.personInfo.tab_personal_selectedGender
+              this.tab_personal_birthDate = this.personInfo.tab_personal_birthDate
+              this.tab_personal_INIPA  = this.personInfo.tab_personal_INIPA
+              this.tab_personal_INIPADate  = this.personInfo.tab_personal_INIPADate
+              this.tab_personal_note  = this.personInfo.tab_personal_note
 
-              this.tab_address_registrationAddress  = this.personInfo[0].tab_address_registrationAddress
-              this.tab_address_factAddress  = this.personInfo[0].tab_address_factAddress
-              this.tab_address_templateRegistrationAddress  = this.personInfo[0].tab_address_templateRegistrationAddress
+              this.tab_personal_selectedIdentityCardCode = this.personInfo.tab_personal_selectedIdentityCardCode;
+              this.tab_personal_identityCardSeries  = this.personInfo.tab_personal_identityCardSeries
+              this.tab_personal_identityCardNumber  = this.personInfo.tab_personal_identityCardNumber
+              this.tab_personal_identityCardIssueBy  = this.personInfo.tab_personal_identityCardIssueBy
+              this.tab_personal_identityCardIssueDate  = this.personInfo.tab_personal_identityCardIssueDate
+              this.tab_personal_identityCardIssueDep  = this.personInfo.tab_personal_identityCardIssueDep
+              this.tab_personal_selectedCitizenship  = this.personInfo.tab_personal_selectedCitizenship
+              this.tab_personal_isCompatriot  = this.personInfo.tab_personal_isCompatriot
+              this.tab_personal_isEquatedForeign  = this.personInfo.tab_personal_isEquatedForeign
+              this.tab_personal_birthplace  = this.personInfo.tab_personal_birthplace
+              this.tab_personal_isHostel  = this.personInfo.tab_personal_isHostel
+              this.tab_personal_isForeignLikeRussian  = this.personInfo.tab_personal_isForeignLikeRussian
+              this.tab_personal_homePhoneNumber  = this.personInfo.tab_personal_homePhoneNumber
+              this.tab_personal_cellularPhone  = this.personInfo.tab_personal_cellularPhone
+              this.tab_personal_email  = this.personInfo.tab_personal_email
+              this.tab_personal_company  = this.personInfo.tab_personal_company
+              this.tab_personal_company_address  = this.personInfo.tab_personal_company_address
+              this.tab_personal_seniority  = this.personInfo.tab_personal_seniority
+              this.tab_personal_employYears  = this.personInfo.tab_personal_employYears
+              this.tab_personal_employMonths  = this.personInfo.tab_personal_employMonths
+              this.tab_personal_employDays  = this.personInfo.tab_personal_employDays
+              this.tab_personal_selectedForeignLanguageInfo  = this.personInfo.tab_personal_selectedForeignLanguageInfo
+              this.selected_foreignLanguageName1  = this.personInfo.selected_foreignLanguageName1
+              this.language_score1  = this.personInfo.language_score1
+              this.selected_foreignLanguageName2  = this.personInfo.selected_foreignLanguageName2
+              this.language_score2  = this.personInfo.language_score2
+              this.selected_foreignLanguageName3  = this.personInfo.selected_foreignLanguageName3
+              this.language_score3  = this.personInfo.language_score3
 
-              this.tab_edu_military_educationLevel  = this.personInfo[0].tab_edu_military_educationLevel
-              this.tab_edu_military_univer  = this.personInfo[0].tab_edu_military_univer
-              this.tab_edu_military_selectedCountryRegion  = this.personInfo[0].tab_edu_military_selectedCountryRegion
-              this.tab_edu_military_selectedState  = this.personInfo[0].tab_edu_military_selectedState
-              this.tab_edu_military_selectedAcademyYear  = this.personInfo[0].tab_edu_military_selectedAcademyYear
-              this.tab_edu_military_selectedEduDoc  = this.personInfo[0].tab_edu_military_selectedEduDoc
-              this.tab_edu_military_eduDocSerial  = this.personInfo[0].tab_edu_military_eduDocSerial
-              this.tab_edu_military_eduDocNumber  = this.personInfo[0].tab_edu_military_eduDocNumber
-              this.tab_edu_military_eduDocDate  = this.personInfo[0].tab_edu_military_eduDocDate
-              this.tab_edu_military_eduDocName  = this.personInfo[0].tab_edu_military_eduDocName
-              this.tab_edu_military_attachment_serial  = this.personInfo[0].tab_edu_military_attachment_serial
-              this.tab_edu_military_attachment_number  = this.personInfo[0].tab_edu_military_attachment_number
-              this.averageScore  = this.personInfo[0].averageScore
-              this.tab_edu_military_selectedSoldiery  = this.personInfo[0].tab_edu_military_selectedSoldiery
-              this.tab_edu_military_selectedSoldieryStatus  = this.personInfo[0].tab_edu_military_selectedSoldieryStatus
-              this.tab_edu_military_selectedMilitaryFormDoc  = this.personInfo[0].tab_edu_military_selectedMilitaryFormDoc
-              this.tab_edu_military_militaryNumber  = this.personInfo[0].tab_edu_military_militaryNumber
-              this.tab_edu_military_militarySeries  = this.personInfo[0].tab_edu_military_militarySeries
-              this.tab_edu_military_militaryIssueDate  = this.personInfo[0].tab_edu_military_militaryIssueDate
-              this.tab_edu_military_militaryIssueBy  = this.personInfo[0].tab_edu_military_militaryIssueBy
-              this.tab_edu_military_militaryRank  = this.personInfo[0].tab_edu_military_militaryRank
-              this.tab_edu_military_selectedDocType  = this.personInfo[0].tab_edu_military_selectedDocType
-              this.tab_edu_military_docMilitaryShowDate  = this.personInfo[0].tab_edu_military_docMilitaryShowDate
-              this.tab_edu_military_startMilitary  = this.personInfo[0].tab_edu_military_startMilitary
-              this.tab_edu_military_endMilitary  = this.personInfo[0].tab_edu_military_endMilitary
-              this.image  = this.personInfo[0].image
-              this.showimage  = this.personInfo[0].showimage
-              this.person = response.data
+              this.tab_address_registrationAddress  = this.personInfo.tab_address_registrationAddress
+              this.tab_address_factAddress  = this.personInfo.tab_address_factAddress
+              this.tab_address_templateRegistrationAddress  = this.personInfo.tab_address_templateRegistrationAddress
+
+              this.tab_edu_military_educationLevel  = this.personInfo.tab_edu_military_educationLevel
+              this.tab_edu_military_univer  = this.personInfo.tab_edu_military_univer
+              this.tab_edu_military_selectedCountryRegion  = this.personInfo.tab_edu_military_selectedCountryRegion
+              this.tab_edu_military_selectedState  = this.personInfo.tab_edu_military_selectedState
+              this.tab_edu_military_selectedAcademyYear  = this.personInfo.tab_edu_military_selectedAcademyYear
+              this.tab_edu_military_selectedEduDoc  = this.personInfo.tab_edu_military_selectedEduDoc
+              this.tab_edu_military_eduDocSerial  = this.personInfo.tab_edu_military_eduDocSerial
+              this.tab_edu_military_eduDocNumber  = this.personInfo.tab_edu_military_eduDocNumber
+              this.tab_edu_military_eduDocDate  = this.personInfo.tab_edu_military_eduDocDate
+              this.tab_edu_military_eduDocName  = this.personInfo.tab_edu_military_eduDocName
+              this.tab_edu_military_attachment_serial  = this.personInfo.tab_edu_military_attachment_serial
+              this.tab_edu_military_attachment_number  = this.personInfo.tab_edu_military_attachment_number
+              this.averageScore  = this.personInfo.averageScore
+              this.tab_edu_military_selectedSoldiery  = this.personInfo.tab_edu_military_selectedSoldiery
+              this.tab_edu_military_selectedSoldieryStatus  = this.personInfo.tab_edu_military_selectedSoldieryStatus
+              this.tab_edu_military_selectedMilitaryFormDoc  = this.personInfo.tab_edu_military_selectedMilitaryFormDoc
+              this.tab_edu_military_militaryNumber  = this.personInfo.tab_edu_military_militaryNumber
+              this.tab_edu_military_militarySeries  = this.personInfo.tab_edu_military_militarySeries
+              this.tab_edu_military_militaryIssueDate  = this.personInfo.tab_edu_military_militaryIssueDate
+              this.tab_edu_military_militaryIssueBy  = this.personInfo.tab_edu_military_militaryIssueBy
+              this.tab_edu_military_militaryRank  = this.personInfo.tab_edu_military_militaryRank
+              this.tab_edu_military_selectedDocType  = this.personInfo.tab_edu_military_selectedDocType
+              this.tab_edu_military_docMilitaryShowDate  = this.personInfo.tab_edu_military_docMilitaryShowDate
+              this.tab_edu_military_startMilitary  = this.personInfo.tab_edu_military_startMilitary
+              this.tab_edu_military_endMilitary  = this.personInfo.tab_edu_military_endMilitary
+              this.image  = this.personInfo.image
+              this.showimage  = this.personInfo.showimage
+
               console.log(this.profiles)
             })
             .catch(e => {
@@ -318,42 +320,7 @@
           console.log('id (person_info) for redaction is '+ id);
           location.href='profile#personal_info';
 
-          // const index = this.profiles.indexOf(item);
-          // this.person = this.profiles[index];
-          // this.person.ege_info = this.profiles[index].ege_info;
-
-          // this.person.tab_personal_lastname = this.profiles[index].tab_personal_lastname;
-          // this.person.tab_personal_firstname = this.profiles[index].tab_personal_firstname;
-          // this.person.tab_personal_middlename = this.profiles[index].tab_personal_middlename;
-          // this.person.tab_personal_birthDate = this.profiles[index].tab_personal_birthDate;
-          // this.person.tab_personal_selectedGender = this.profiles[index].tab_personal_selectedGender;
-          // this.person.tab_personal_seniority = this.profiles[index].tab_personal_seniority;
-          // this.person.tab_personal_employYears = this.profiles[index].tab_personal_employYears;
-          // this.person.tab_personal_employMonths = this.profiles[index].tab_personal_employMonths;
-          // this.person.tab_personal_employDays = this.profiles[index].tab_personal_employDays;
-          // this.person.tab_personal_identityCardSeries = this.profiles[index].tab_personal_identityCardSeries;
-          // this.person.tab_personal_identityCardNumber = this.profiles[index].tab_personal_identityCardNumber;
-          // this.person.tab_personal_identityCardIssueDate = this.profiles[index].tab_personal_identityCardIssueDate;
-          // this.person.tab_personal_identityCardIssueDep = this.profiles[index].tab_personal_identityCardIssueDep;
-          // this.person.tab_personal_identityCardIssueBy = this.profiles[index].tab_personal_identityCardIssueBy;
-          // this.person.tab_personal_isCompatriot = this.profiles[index].tab_personal_isCompatriot;
-          // this.person.tab_personal_isEquatedForeign = this.profiles[index].tab_personal_isEquatedForeign;
-          // this.person.tab_personal_isHostel = this.profiles[index].tab_personal_isHostel;
-          // this.person.tab_personal_isForeignLikeRussian = this.profiles[index].tab_personal_isForeignLikeRussian;
-          // this.person.tab_personal_cellularPhone = this.profiles[index].tab_personal_cellularPhone;
-          // this.person.tab_personal_selectedIdentityCardCode = this.profiles[index].tab_personal_selectedIdentityCardCode;
-          // this.person.tab_personal_note = this.profiles[index].tab_personal_note;
-          // this.person.tab_personal_email = this.profiles[index].tab_personal_email;
-          // this.person.tab_personal_selectedCitizenship = this.profiles[index].tab_personal_selectedCitizenship;
-          // this.person.tab_personal_INIPA = this.profiles[index].tab_personal_INIPA;
-          // this.person.tab_personal_INIPADate = this.profiles[index].tab_personal_INIPADate;
         },
-        // onApplication(item) {
-        //   this.$root.$emit('sendShow', {
-        //     showApplication: true,
-        //     showPerson: false
-        //   })
-
 
         onApplication(item) {
           const index = this.profiles.indexOf(item);

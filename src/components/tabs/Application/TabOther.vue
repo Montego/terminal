@@ -4,9 +4,9 @@
     ///////////////////////
     {{this.person}}
     <div class="clear_save_button row">
-
+      <button @click="onAcceptPerson">Утвердить</button>
       <!--{{this.application}}-->
-      <button @click="onSave">Сохранить</button>
+      <button v-if="this.resultAcceptPerson === 'Утверждено'" @click="onSave">Сохранить</button>
     </div>
   </div>
 
@@ -32,15 +32,35 @@
         computed: {
           ...applications(['application']),
           ...tab_reception_condition([ 'file',]),
-          ...person(['person','showProfile','person_info_id']),
+          ...person(['person','showProfile','person_info_id','resultAcceptPerson']),
       },
       methods: {
+
+
+        onAcceptPerson() {
+          const config = {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          };
+          this.person.acceptedPerson = "Утверждено";
+          this.resultAcceptPerson = "Утверждено";
+          AXIOS.put(`/profile/acceptPerson/` + this.person_info_id, (this.person.acceptedPerson),config)
+            .then(response => {
+              //что-то делать
+              console.log(response.data)
+              if(response.data === "Утверждено"){
+                this.resultAcceptPerson = "Утверждено";
+                console.log(this.resultAcceptPerson)
+              }
+              this.info.push(response.data)
+            })
+            .catch(e => {
+            });
+        },
         onSave() {
           // this.person.applications.push(this.application);
-
           // AXIOS.post(`/profile`,(this.person))
-
-
 
           AXIOS.post(`/profile/application/` + this.person_info_id,(this.application))
             .then(response => {
@@ -49,9 +69,6 @@
             .catch(e => {
 
             });
-
-
-
           // AXIOS.post(`/profile/application`,(this.application))
           //   .then(response => {
           //     this.info.push(response.data)
@@ -59,14 +76,9 @@
           //   .catch(e => {
           //     this.errors.push(e)
           //   });
-
-
-
           this.showProfile = true;
 
-
           location.href='profile#overview_personal_info';
-
           // AXIOS.post(`/applications`, this.application)
           //   .then(response => {
           //     this.info.push(response.data)

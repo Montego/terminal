@@ -29,7 +29,7 @@
               <tab id="entranceTests" name="Вступительные испытания">
                 <TabEntranceTests></TabEntranceTests>
               </tab>
-              <tab id="other" name="Проверить и сохранить">
+              <tab id="other" name="Утвердить и сохранить">
                 <TabOther></TabOther>
               </tab>
             </tabs>

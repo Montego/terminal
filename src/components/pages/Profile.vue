@@ -21,7 +21,7 @@
         <!--<input type="hidden" name="_csrf" value="${_csrf.token}"/>-->
         <!--<button class="btn btn-primary" type="submit">Sign Out</button>-->
       <!--</form>-->
-      <a class="logout" href="/login">Logout</a>
+      <a class="logout"  href="/login">Logout</a>
     </div>
 
     <!--<div class="row search_place">-->
@@ -122,7 +122,7 @@
   import TabOther from "../tabs/Application/TabOther";
 
   import { createHelpers } from 'vuex-map-fields';
-
+  import {AXIOS} from "../plugins/APIService";
   const { mapFields:person} = createHelpers({
     getterType: 'person/getField',
     mutationType: 'person/updateField',
@@ -170,11 +170,18 @@
     methods: {
       handleClick(val) {
         this.showProfile = val;
-
           this.application.applicationTable.splice(0,1)
-
-
         // this.application = [];
+      },
+      logout(){
+        AXIOS.post(`/logout`, username, password)
+          .then(response => {
+            this.info.push(response.data)
+
+          })
+          .catch(e => {
+            this.errors.push(e)
+          })
       },
 
       onApplication(data) {

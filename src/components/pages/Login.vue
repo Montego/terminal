@@ -1,10 +1,10 @@
 <template>
   <div class="align-content-center">
     <h1>Авторизация</h1>
-    <form class="form" action="" method="post">
+    <form method="post" action="http://localhost:8081/auth/login">
       <label class="form__row">
         <div class="form__label-text">Логин (имя или почта) :</div>
-        <input v-model="login" class="form__input" type="text" name="username" value="" placeholder="Username" required/>
+        <input v-model="username" class="form__input" type="text" name="username" value="" placeholder="Username" required/>
       </label>
       <label class="form__row">
         <div class="form__label-text">Password:</div>
@@ -14,17 +14,56 @@
         <a class="form__link" href="/Registration">Регистрация</a>
         <a class="form__link" href="#">Забыли пароль?</a>
       </div>
-      <button class="form__btn-submit btn" type="submit">Войти</button>
+      <button class="form__btn-submit btn" type="submit" @click="">Войти</button>
     </form>
   </div>
 
 </template>
 
 <script>
+  import {AXIOS} from "../plugins/APIService";
     export default {
-        name: "login",
-        login: "",
-        passwod: ''
+
+      data() {
+        return {
+          username: "",
+          password: ''
+        }
+      },
+      mounted(){
+        return this.password
+      },
+
+      methods: {
+        // login() {
+        //   AXIOS.post(`/auth/login`, username, password)
+        //     .then(response => {
+        //       this.info.push(response.data)
+        //     })
+        //     .catch(e => {
+        //       this.errors.push(e)
+        //     })
+        // },
+
+        onLogin (username,password) {
+          console.log("on login");
+
+          AXIOS.post("http://localhost:8081/auth/login2", {username: "username", password: "password"})
+            .then(response => {
+              this.resp = response;
+              location.href='profile';
+              console.log("username:" + username +  ' password:'+ password);
+
+            })
+        .catch(e => {
+              console.error(e);
+              console.log("fail");
+
+          });
+
+        }
+
+      }
     }
 </script>
 

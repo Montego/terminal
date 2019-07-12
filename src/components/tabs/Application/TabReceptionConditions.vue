@@ -153,9 +153,22 @@
             </div>
             <div v-if="selected_specialRight==='да'" class="col-sm-6">
               <h3>Документы, подтверждающие особое право</h3>
+              <!--<label class="row">-->
+                <!--<div class="form__label-text col-sm">Документ:</div>-->
+                <!--<input v-model="proof_special_right" class="form__input col-sm" type="text" name=""  />-->
+              <!--</label>-->
               <label class="row">
-                <div class="form__label-text col-sm">Документ:</div>
-                <input v-model="proof_special_right" class="form__input col-sm" type="text" name=""  />
+                <div class="form__label-text col-sm">Подтверждающий док-т:</div>
+                  <select v-model="proof_special_right" class="minimal col-sm">
+                    <option v-for="option in options_DocumentType">
+                      {{option.item}}
+                    </option>
+                  </select>
+              </label>
+
+              <label class="row">
+                <div class="form__label-text col-sm">Описание:</div>
+                <input v-model="proof_special_right_description" class="form__input col-sm" type="text" name=""  />
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Серия:</div>
@@ -231,6 +244,7 @@
           'tab_reception_condition_specialRight', 'tab_reception_condition_consent',
           'selected_faculty', 'selected_speciality', 'selected_educationType','selected_agreement','date_agreement',
           'selected_specialRight','selected_typeOfSpecialRight', 'documentBase64', 'proof_special_right',
+          'proof_special_right_description',
           'proof_special_right_serial','proof_special_right_number',
           'condition_selectedDocType'
 
@@ -266,7 +280,16 @@
             ],
             info_conditions: [],
 
-
+            options_DocumentType: [
+              {id: 0, item: ''},
+              {id: 1, item: 'Документ, подтверждающий сиротство'},
+              {id: 2, item: 'Свидетельство о рождении'},
+              {id: 3, item: 'Иной документ'},
+              {id: 4, item: 'Справка об установлении инвалидности'},
+              {id: 5, item: 'Документ, подтверждающий ограниченные возможности здоровья  или инвалидность, требующие создания указанных условий'},
+              {id: 6, item: 'Удостоверение'},
+              {id: 7, item: 'Документ, подтверждающий принадлежность к ветеранам боевых действий'},
+            ],
             //test options
             // selected_faculty:'',
             // selected_specialty:'',
@@ -276,9 +299,16 @@
             // selected_specialRight:'',
 
             options_typeOfSpecialRight: [
-              {id: 1, item: 'специальное право 1'},
-              {id: 2, item: 'специальное право 2'},
+              {id: 1, item: 'Дети-сироты и дети, оставшиеся без попечения родителей'},
+              {id: 2, item: 'Лица из числа детей-сирот и детей, оставшихся без попечения родителей'},
+              {id: 3, item: 'Дети-инвалиды'},
+              {id: 4, item: 'Инвалиды I группы'},
+              {id: 5, item: 'Инвалиды II группы'},
+              {id: 6, item: 'Инвалиды с детства'},
+              {id: 7, item: 'Ветераны боевых действий из числа лиц, указанных в подпунктах 1-4 пункта 1 статьи 3 ФЗ от 12.01.1995 №5-ФЗ "О ветеранах"'},
             ],
+
+
             options_specialRight: [
               {id: 1, item: 'да'},
               {id: 2, item: 'нет'},
@@ -362,25 +392,31 @@
         onSaveCondition() {
           location.href='profile#conditions_overview';
 
-          function Condition(faculty, speciality, type, agreement, special_right, type_special_right,
-                             proof_special_right,condition_selectedDocType
+          function Condition(faculty, speciality, type, agreement, date_agreement, special_right,
+                             type_special_right, proof_special_right ,proof_special_right_description ,
+                             proof_serial ,proof_number,condition_selectedDocType
                              // document
           ) {
             this.selected_faculty = faculty;
             this.selected_speciality = speciality;
             this.selected_educationType = type;
             this.selected_agreement = agreement;
+            this.date_agreement = date_agreement;
             this.selected_specialRight = special_right;
             this.selected_typeOfSpecialRight = type_special_right;
             this.proof_special_right = proof_special_right;
+            this.proof_special_right_description = proof_special_right_description;
+            this.proof_special_right_serial = proof_serial;
+            this.proof_special_right_number = proof_number;
             this.condition_selectedDocType = condition_selectedDocType;
             // this.documentBase64 = document;
           }
           let condition = new Condition(
             this.selected_faculty, this.selected_speciality,
             this.selected_educationType, this.selected_agreement,
-            this.selected_specialRight, this.selected_typeOfSpecialRight,
-            this.proof_special_right,this.condition_selectedDocType
+            this.date_agreement, this.selected_specialRight, this.selected_typeOfSpecialRight,
+            this.proof_special_right,this.proof_special_right_description,this.proof_special_right_serial,
+            this.proof_special_right_number, this.condition_selectedDocType
             // this.documentBase64
           );
           console.log(condition)

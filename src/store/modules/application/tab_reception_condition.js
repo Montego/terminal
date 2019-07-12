@@ -20,6 +20,7 @@ export default {
 
     documentBase64: '',
     proof_special_right:'',
+    proof_special_right_description:'',
     proof_special_right_serial:'',
     proof_special_right_number:'',
     condition_selectedDocType:'',

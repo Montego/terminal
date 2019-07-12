@@ -331,7 +331,6 @@
     getterType: 'person/getField',
     mutationType: 'person/updateField',
   });
-  console.log(process.env.VUE_APP_SERVER_URL);
 
   export default {
     name: "TabPersonalInfo",
