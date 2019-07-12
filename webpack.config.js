@@ -68,7 +68,7 @@ module.exports = {
 
     publicPath: '/dist/',
     // proxy: {
-    //     '/api': {
+    //     '/operator_api': {
     //     target: 'http://localhost:8081/',
     //     pathRewrite: {'^/api' : ''},
     //     ws: true,
