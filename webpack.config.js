@@ -74,7 +74,7 @@ module.exports = {
     //     ws: true,
     //     changeOrigin: true
     //   }
-    }
+    // }
 
   },
   performance: {
