@@ -66,10 +66,11 @@ module.exports = {
     noInfo: true,
     overlay: true,
 
-    // publicPath: '/dist/',
+    publicPath: '/dist/',
     proxy: {
         '/api': {
-        target: 'http://localhost:8081',
+        target: 'http://localhost:8081/',
+        pathRewrite: {'^/api' : ''},
         ws: true,
         changeOrigin: true
       }

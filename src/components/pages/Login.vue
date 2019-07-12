@@ -1,69 +1,64 @@
 <template>
   <div class="align-content-center">
     <h1>Авторизация</h1>
-    <form method="post" action="http://localhost:8081/auth/login">
+
+    <form id="form" class="form">
       <label class="form__row">
-        <div class="form__label-text">Логин (имя или почта) :</div>
-        <input v-model="username" class="form__input" type="text" name="username" value="" placeholder="Username" required/>
+        <div class="form__label-text">Логин (имя или почта):</div>
+        <input id="username" class="form__input" type="text" name="username" value="" placeholder="Username" required/>
+
       </label>
       <label class="form__row">
         <div class="form__label-text">Password:</div>
-        <input v-model="password" class="form__input" type="password" name="password" placeholder="Password" required/>
+        <input id="password" class="form__input" type="password" name="password" placeholder="Password" required/>
       </label>
+      <span class="hidden-lg-and-up">Неправильный логин или пароль</span>
       <div class="form__row form__links">
-        <a class="form__link" href="/Registration">Регистрация</a>
+        <a class="form__link" href="#">Регистрация</a>
         <a class="form__link" href="#">Забыли пароль?</a>
       </div>
-      <button class="form__btn-submit btn" type="submit" @click="">Войти</button>
+
+      <a class="form__btn-submit btn" @click.prevent="onLogin">Войти</a>
+
     </form>
   </div>
 
 </template>
 
 <script>
-  import {AXIOS} from "../plugins/APIService";
+
+    import {AXIOS} from "../plugins/APIService";
     export default {
-
-      data() {
-        return {
-          username: "",
-          password: ''
-        }
-      },
-      mounted(){
-        return this.password
-      },
-
-      methods: {
-        // login() {
-        //   AXIOS.post(`/auth/login`, username, password)
-        //     .then(response => {
-        //       this.info.push(response.data)
-        //     })
-        //     .catch(e => {
-        //       this.errors.push(e)
-        //     })
-        // },
-
-        onLogin (username,password) {
-          console.log("on login");
-
-          AXIOS.post("http://localhost:8081/auth/login2", {username: "username", password: "password"})
-            .then(response => {
-              this.resp = response;
-              location.href='profile';
-              console.log("username:" + username +  ' password:'+ password);
-
-            })
-        .catch(e => {
-              console.error(e);
-              console.log("fail");
-
-          });
+        methods: {
+            onLogin:  () => {
+                let username = document.getElementById("username").value;
+                let password = document.getElementById("password").value;
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                };
+                AXIOS.post("/auth/login", new URLSearchParams({
+                    'username': username,
+                    'password': password
+                    }
+                ), config)
+                    .then((response) => {
+                        // console.log(response.data);
+                        location.href='profile';
+                    })
+                    .catch( (e) => {
+                        console.error(e);
+                        document.getElementById('form').reset();
+                        let y = document.getElementsByClassName('hidden-lg-and-up');
+                        let msg = y[0];
+                        // msg.classList.remove('hidden-lg-and-up');
+                        setTimeout(msg.style.display = "block", 3000);
+                    });
+            }
 
         }
 
-      }
     }
 </script>
 
