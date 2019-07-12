@@ -21,7 +21,7 @@
         <!--<input type="hidden" name="_csrf" value="${_csrf.token}"/>-->
         <!--<button class="btn btn-primary" type="submit">Sign Out</button>-->
       <!--</form>-->
-      <a class="logout" href="/login">Logout</a>
+      <a class="logout" href="" @click.prevent="onLogout">Logout</a>
     </div>
 
     <!--<div class="row search_place">-->
@@ -120,6 +120,7 @@
   import TabDocuments from "../tabs/Application/TabDocuments";
   import TabEntranceTests from "../tabs/Application/TabEntranceTests";
   import TabOther from "../tabs/Application/TabOther";
+  import {AXIOS} from "../plugins/APIService";
 
   import { createHelpers } from 'vuex-map-fields';
 
@@ -175,6 +176,16 @@
 
 
         // this.application = [];
+      },
+      onLogout: () => {
+          AXIOS.get("/logout")
+              .then((response) => {
+                  console.log(response);
+                  location.href='login';
+              })
+              .catch( (e) => {
+                  console.error(e);
+              });
       },
 
       onApplication(data) {
