@@ -17,7 +17,7 @@
       <td class="text-xs-center">{{ props.item.applTableName}}</td>
       <td class="text-xs-center">{{ props.item.applTableNumber}}</td>
       <td class="text-xs-center">{{ props.item.applTableDate}}</td>
-      <td class="text-xs-center">{{ props.item.applTableDeliveryType }}</td>
+      <td class="text-xs-center">{{ props.item.applTableDeliveryType.name }}</td>
       <td class="text-xs-center">
         <input v-model="budget" class="checkbox col-sm" type="checkbox" id="budget">
       </td>
@@ -29,9 +29,9 @@
           <!--Печать-->
           <v-icon color="#5bc0de">print</v-icon>
         </button>
-        <!--<button class="table_buttons" @click="redactionItem(props.item)">-->
-          <!--<v-icon color="#5bc0de">edit</v-icon>-->
-        <!--</button>-->
+        <button class="table_buttons" @click="redactionItem(props.item)">
+          <v-icon color="#5bc0de">edit</v-icon>
+        </button>
         <!--<button class="table_buttons" @click="deleteItem(props.item)">-->
           <!--<v-icon color="red">delete</v-icon>-->
         <!--</button>-->

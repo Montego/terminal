@@ -25,9 +25,9 @@
           <button type="button" @click="onApplication(props.item); handleClick(false) ">
             <v-icon color="#5bc0de">description</v-icon>
           </button>
-        <!--<button @click="onRedaction(props.item)">-->
-          <!--<v-icon color="#5bc0de">edit</v-icon>-->
-        <!--</button>-->
+        <button @click="onRedaction(props.item)">
+          <v-icon color="#5bc0de">edit</v-icon>
+        </button>
       </td>
     </template>
   </v-data-table>
