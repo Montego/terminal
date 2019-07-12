@@ -21,11 +21,9 @@
         <!--<input type="hidden" name="_csrf" value="${_csrf.token}"/>-->
         <!--<button class="btn btn-primary" type="submit">Sign Out</button>-->
       <!--</form>-->
-<<<<<<< HEAD
-      <a class="logout"  href="/login">Logout</a>
-=======
+
       <a class="logout" href="" @click.prevent="onLogout">Logout</a>
->>>>>>> 25071e94a2f53ffbd4900cb50592cc23d6efc67c
+
     </div>
 
     <!--<div class="row search_place">-->
@@ -124,7 +122,7 @@
   import TabDocuments from "../tabs/Application/TabDocuments";
   import TabEntranceTests from "../tabs/Application/TabEntranceTests";
   import TabOther from "../tabs/Application/TabOther";
-  import {AXIOS} from "../plugins/APIService";
+
 
   import { createHelpers } from 'vuex-map-fields';
   import {AXIOS} from "../plugins/APIService";

@@ -67,13 +67,13 @@ module.exports = {
     overlay: true,
 
     publicPath: '/dist/',
-    proxy: {
-        '/api': {
-        target: 'http://localhost:8081/',
-        pathRewrite: {'^/api' : ''},
-        ws: true,
-        changeOrigin: true
-      }
+    // proxy: {
+    //     '/api': {
+    //     target: 'http://localhost:8081/',
+    //     pathRewrite: {'^/api' : ''},
+    //     ws: true,
+    //     changeOrigin: true
+    //   }
     }
 
   },
