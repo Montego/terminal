@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img v-bind:src="'data:image/jpeg;base64,'+ this.image" />
+    <!--<img v-bind:src="'data:image/jpeg;base64,'+ this.image" />-->
     <div class="photo-loader">
       <div class="photo-loader__img-placeholder">
         <div v-if="!showimage">
