@@ -148,7 +148,7 @@
       TabDocuments, TabEntranceTests, TabOther
     },
     computed: {
-      ...person(['person', 'showProfile']),
+      ...person(['person', 'showProfile','person_info_id']),
       ...applications(['application'])
     },
     data() {
@@ -174,6 +174,7 @@
       handleClick(val) {
         this.showProfile = val;
           this.application.applicationTable.splice(0,1)
+          this.person_info_id='';
         // this.application = [];
       },
 

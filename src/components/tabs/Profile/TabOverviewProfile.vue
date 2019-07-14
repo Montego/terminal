@@ -19,13 +19,13 @@
       <td class="text-xs-center">{{ props.item.tab_personal_middlename}}</td>
       <!--<td class="text-xs-center">{{ props.item.tab_personal_selectedGender}}</td>-->
       <td class="text-xs-center">{{ props.item.tab_personal_birthDate}}</td>
-      <td class="text-xs-center">{{ props.item.application_number}}</td>
+      <!--<td class="text-xs-center">{{ props.item.application_number}}</td>-->
       <!--<td class="text-xs-center">{{ props.item.contact_code_pretendent}}</td>-->
       <td class="justify-center layout px-0">
           <button type="button" @click="onApplication(props.item); handleClick(false) ">
             <v-icon color="#5bc0de">description</v-icon>
           </button>
-        <button @click="onRedaction(props.item)">
+        <button v-if="props.item.resultAcceptPerson !=='Утверждено'" @click="onRedaction(props.item)">
           <v-icon color="#5bc0de">edit</v-icon>
         </button>
       </td>
@@ -82,7 +82,7 @@
             { text: 'Отчество', value: 'middlename',sortable: false, align: 'center' },
             // { text: 'Пол', value: 'selectedGender',sortable: false, align: 'center' },
             { text: 'Дата рождения', value: 'birthDate',sortable: false, align: 'center' },
-            { text: '№ Заявления', value: 'application_number',sortable: false, align: 'center' },
+            // { text: '№ Заявления', value: 'application_number',sortable: false, align: 'center' },
             { text: 'Действия', value: 'name', sortable: false, align: 'center' }
           ],
           pretendets: [],
@@ -110,7 +110,8 @@
           'score_three', 'averageScore', 'tab_edu_military_selectedSoldiery', 'tab_edu_military_selectedSoldieryStatus', 'tab_edu_military_selectedMilitaryFormDoc',
           'tab_edu_military_militaryNumber', 'tab_edu_military_militarySeries', 'tab_edu_military_militaryIssueDate', 'tab_edu_military_militaryIssueBy',
           'tab_edu_military_militaryRank', 'tab_edu_military_selectedDocType', 'tab_edu_military_docMilitaryShowDate', 'tab_edu_military_startMilitary',
-          'tab_edu_military_endMilitary', 'selectedExtraInfos1', 'selectedExtraInfos2', 'extraInfosDescription1', 'extraInfosDescription2', 'image', 'person_info_id'
+          'tab_edu_military_endMilitary', 'selectedExtraInfos1', 'selectedExtraInfos2', 'extraInfosDescription1', 'extraInfosDescription2', 'image', 'person_info_id',
+          'resultAcceptPerson'
         ]),
 
         ...applications(['application','application_person_id','application_person_name','applId','applTableName',
@@ -137,6 +138,7 @@
               this.errors.push(e)
             })
       },
+
 
       methods: {
         onNewProfile(){
@@ -336,17 +338,19 @@
               this.applTableNumber =response.data[0].application_number;
               this.applTableDate = response.data[0].application_date;
               this.applTableDeliveryType = response.data[0].application_selectedDeliveryType;
+              this.resultAcceptPerson = response.data[0].resultAcceptPerson;
 
-              function ApplTable(tableId,tableName, tableNumber, tableDate, tableDeliveryType) {
+              function ApplTable(tableId,tableName, tableNumber, tableDate, tableDeliveryType, accept) {
                 this.applId = tableId
                 this.applTableName = tableName;
                 this.applTableNumber = tableNumber;
                 this.applTableDate = tableDate;
                 this.applTableDeliveryType = tableDeliveryType;
+                this.resultAcceptPerson = accept;
               }
               let appltable = new ApplTable(
                 this.applId,
-                this.applTableName,this.applTableNumber,this.applTableDate,this.applTableDeliveryType);
+                this.applTableName,this.applTableNumber,this.applTableDate,this.applTableDeliveryType, this.resultAcceptPerson);
 
               this.application.applicationTable.push(appltable);
 

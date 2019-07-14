@@ -1,10 +1,53 @@
 <template>
   <div>
-    {{this.application}}
-    ///////////////////////
-    {{this.person}}
+
+    <div class="row">
+
+      <!--<div class="col-sm-3">-->
+        <!--<div class="row">-->
+          <!--<div class=" form__label-text col-sm-4">Ф.И.О</div>-->
+          <!--<input :value="tab_personal_lastname + ' ' + tab_personal_firstname+ ' '+ tab_personal_middlename" class="uneditable form__input col-sm-8" type="text" name="name"-->
+                 <!--placeholder="Заполняется автоматически" disabled="disabled"/>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+          <!--<div class="form__label-text col-sm-4">Ф.И.О.(род. п.)</div>-->
+          <!--<input :value="tab_personal_lastname_genitive + ' ' + tab_personal_firstname_genitive+ ' '+ tab_personal_middlename_genitive" class="uneditable form__input col-sm-8" type="text" name="snp_genitive"-->
+                 <!--placeholder="Заполняется автоматически" disabled="disabled"/>-->
+        <!--</div>-->
+
+        <!--<div class="row">-->
+          <!--<div class="form__label-text col-sm">Пол:</div>-->
+          <!--<input v-model="tab_personal_selectedGender" class="minimal col-sm" disabled>-->
+        <!--</div>-->
+
+        <!--<div class="row">-->
+          <!--<div class="form__label-text col-sm">Дата рождения:</div>-->
+          <!--<input v-model="tab_personal_birthDate" class="col-sm" disabled/>-->
+        <!--</div>-->
+
+        <!--<div class="row">-->
+          <!--<div class="form__label-text col-sm">Полных лет:</div>-->
+          <!--<input v-model="fullage" class="form__input col-sm" type="text" name="age" disabled/>-->
+        <!--</div>-->
+        <!--<div class="row">-->
+          <!--<div class="form__label-text col-sm">СНИЛС</div>-->
+          <!--<input  v-model="tab_personal_INIPA" class="form__input col-sm" disabled/>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;<span class="alarm_label">{{ errors.first('snils') }}</span>&ndash;&gt;-->
+        <!--<div class="row">-->
+          <!--<div class="form__label-text col-sm">СНИЛС Дата:</div>-->
+          <!--<input  v-model="tab_personal_INIPADate" class="form__input col-sm" type="date" disabled/>-->
+        <!--</div>-->
+      <!--</div>-->
+      <div class="col-sm-3">d</div>
+      <div class="col-sm-3">d</div>
+      <div class="col-sm-3">d</div>
+    </div>
+    <!--{{this.application}}-->
+
+    <!--{{this.person}}-->
     <div class="clear_save_button row">
-      <button @click="onAcceptPerson">Утвердить</button>
+      <button v-if="this.resultAcceptPerson !=='Утверждено'" @click="onAcceptPerson">Утвердить</button>
       <!--{{this.application}}-->
       <button v-if="this.resultAcceptPerson === 'Утверждено'" @click="onSave">Сохранить</button>
     </div>

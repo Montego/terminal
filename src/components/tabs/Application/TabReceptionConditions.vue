@@ -187,6 +187,66 @@
                 </select>
               </label>
               <hr>
+
+              <label class="row">
+                <div class="form__label-text col-sm">Подтверждающий док-т:</div>
+                <select v-model="proof_special_right2" class="minimal col-sm">
+                  <option v-for="option in options_DocumentType">
+                    {{option.item}}
+                  </option>
+                </select>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Описание:</div>
+                <input v-model="proof_special_right_description2" class="form__input col-sm" type="text" name=""  />
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Серия:</div>
+                <input v-model="proof_special_right_serial2" class="form__input col-sm" type="text" name=""  />
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Номер:</div>
+                <input v-model="proof_special_right_number2" class="form__input col-sm" type="text" name=""  />
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Копия/оригинал:</div>
+                <select v-model="condition_selectedDocType2" class="minimal col-sm">
+                  <option v-for="item in docType" v-bind:value="item">
+                    {{item.name}}
+                  </option>
+                </select>
+              </label>
+              <hr>
+
+              <label class="row">
+                <div class="form__label-text col-sm">Подтверждающий док-т:</div>
+                <select v-model="proof_special_right3" class="minimal col-sm">
+                  <option v-for="option in options_DocumentType">
+                    {{option.item}}
+                  </option>
+                </select>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Описание:</div>
+                <input v-model="proof_special_right_description3" class="form__input col-sm" type="text" name=""  />
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Серия:</div>
+                <input v-model="proof_special_right_serial3" class="form__input col-sm" type="text" name=""  />
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Номер:</div>
+                <input v-model="proof_special_right_number3" class="form__input col-sm" type="text" name=""  />
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Копия/оригинал:</div>
+                <select v-model="condition_selectedDocType3" class="minimal col-sm">
+                  <option v-for="item in docType" v-bind:value="item">
+                    {{item.name}}
+                  </option>
+                </select>
+              </label>
+              <hr>
             </div>
           </div>
 
@@ -244,9 +304,14 @@
           'tab_reception_condition_specialRight', 'tab_reception_condition_consent',
           'selected_faculty', 'selected_speciality', 'selected_educationType','selected_agreement','date_agreement',
           'selected_specialRight','selected_typeOfSpecialRight', 'documentBase64', 'proof_special_right',
-          'proof_special_right_description',
-          'proof_special_right_serial','proof_special_right_number',
-          'condition_selectedDocType'
+          'proof_special_right_description', 'proof_special_right_serial','proof_special_right_number',
+          'condition_selectedDocType',
+          'proof_special_right2',
+          'proof_special_right_description2', 'proof_special_right_serial2','proof_special_right_number2',
+          'condition_selectedDocType2',
+          'proof_special_right3',
+          'proof_special_right_description3', 'proof_special_right_serial3','proof_special_right_number3',
+          'condition_selectedDocType3'
 
         ]),
         ...mapMultiRowFields([
@@ -394,7 +459,11 @@
 
           function Condition(faculty, speciality, type, agreement, date_agreement, special_right,
                              type_special_right, proof_special_right ,proof_special_right_description ,
-                             proof_serial ,proof_number,condition_selectedDocType
+                             proof_serial ,proof_number,condition_selectedDocType,
+                             proof_special_right2 ,proof_special_right_description2 ,
+                             proof_serial2 ,proof_number2,condition_selectedDocType2,
+                              proof_special_right3 ,proof_special_right_description3 ,
+                             proof_serial3 ,proof_number3,condition_selectedDocType3
                              // document
           ) {
             this.selected_faculty = faculty;
@@ -409,6 +478,18 @@
             this.proof_special_right_serial = proof_serial;
             this.proof_special_right_number = proof_number;
             this.condition_selectedDocType = condition_selectedDocType;
+
+            this.proof_special_right2 = proof_special_right2;
+            this.proof_special_right_description2 = proof_special_right_description2;
+            this.proof_special_right_serial2 = proof_serial2;
+            this.proof_special_right_number2 = proof_number2;
+            this.condition_selectedDocType2 = condition_selectedDocType2;
+
+            this.proof_special_right3 = proof_special_right3;
+            this.proof_special_right_description3 = proof_special_right_description3;
+            this.proof_special_right_serial3 = proof_serial3;
+            this.proof_special_right_number3 = proof_number3;
+            this.condition_selectedDocType3 = condition_selectedDocType3;
             // this.documentBase64 = document;
           }
           let condition = new Condition(
@@ -416,7 +497,11 @@
             this.selected_educationType, this.selected_agreement,
             this.date_agreement, this.selected_specialRight, this.selected_typeOfSpecialRight,
             this.proof_special_right,this.proof_special_right_description,this.proof_special_right_serial,
-            this.proof_special_right_number, this.condition_selectedDocType
+            this.proof_special_right_number, this.condition_selectedDocType,
+            this.proof_special_right2,this.proof_special_right_description2,this.proof_special_right_serial2,
+            this.proof_special_right_number2,this.condition_selectedDocType2,
+            this.proof_special_right3,this.proof_special_right_description3,this.proof_special_right_serial3,
+            this.proof_special_right_number3,this.condition_selectedDocType3
             // this.documentBase64
           );
           console.log(condition)

@@ -29,7 +29,7 @@
           <!--Печать-->
           <v-icon color="#5bc0de">print</v-icon>
         </button>
-        <button class="table_buttons" @click="redactionItem(props.item)">
+        <button v-if="props.item.resultAcceptPerson !=='Утверждено'" class="table_buttons" @click="redactionItem(props.item)">
           <v-icon color="#5bc0de">edit</v-icon>
         </button>
         <!--<button class="table_buttons" @click="deleteItem(props.item)">-->
