@@ -124,14 +124,14 @@
           <input v-model="score_full" class="form__input col-sm-2 " type="text" v-mask="'#.##'" placeholder="---"
                  disabled="disabled"/>
         </label>
-        <label class="row">
-          <div class="form__label-text col-sm-2">Пяторок:</div>
-          <input v-model="score_five" class="form__input col-sm-1" type="text" v-mask="'##'"/>
+        <div class="row">
+          <div class="form__label-text col-sm-2">Пятёрок:</div>
+          <input v-model="score_five" class="form__input col-sm-1" type="text" v-mask="'##'" />
           <div class="form__label-text col-sm-2">Четверок:</div>
-          <input v-model="score_four" class="form__input col-sm-1" type="text" v-mask="'##'"/>
+          <input v-model="score_four" class="form__input col-sm-1" type="text" v-mask="'##'"  />
           <div class="form__label-text col-sm-2">Троек:</div>
-          <input v-model="score_three" class="form__input col-sm-1" type="text" v-mask="'##'"/>
-        </label>
+          <input v-model="score_three" class="form__input col-sm-1" type="text" v-mask="'##'"  />
+        </div>
 
       </div>
     </div>

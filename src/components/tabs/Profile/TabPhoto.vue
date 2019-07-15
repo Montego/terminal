@@ -15,10 +15,10 @@
         <!--<button class="photo-loader__control-btn btn btn_load" type="button">-->
         <input type="file" id="image" ref="image" @change="uploadFile"/>
         <button class="photo-loader__control-btn btn btn_reset" type="button" @click="removeImage">Сбросить</button>
-        <button class="photo-loader__control-btn btn btn_save" type="button" @click="onSave">Сохранить</button>
+
       </div>
     </div>
-
+    <button class="photo-loader__control-btn btn btn_save" type="button" @click="onSave">Сохранить профиль</button>
 
   </div>
 </template>
@@ -409,7 +409,10 @@
 </script>
 
 <style scoped>
-
+  .btn_save {
+    margin-left: 75%;
+    /*background-color: darkseagreen ;*/
+  }
   .photo-loader {
     display: flex;
     align-items: flex-start;

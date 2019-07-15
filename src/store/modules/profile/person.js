@@ -64,9 +64,9 @@ export default {
     tab_edu_military_eduDocName: '',
     tab_edu_military_attachment_serial: '',
     tab_edu_military_attachment_number: '',
-    score_five:'',
-    score_four:'',
-    score_three:'',
+    score_five:0,
+    score_four:0,
+    score_three:0,
     averageScore: '',
     score_full: '',
     tab_edu_military_selectedSoldiery: null,
@@ -102,7 +102,6 @@ export default {
 
     person : {
       acceptedPerson: "",
-
       person_info: {
         tab_personal_lastname: "",
         tab_personal_firstname: '',
@@ -123,11 +122,11 @@ export default {
         tab_personal_identityCardIssueDate: '',
         tab_personal_identityCardIssueDep: '',
         tab_personal_selectedCitizenship: null,
-        tab_personal_isCompatriot: '',
-        tab_personal_isEquatedForeign: '',
+        tab_personal_isCompatriot: false,
+        tab_personal_isEquatedForeign: false,
         tab_personal_birthplace: '',
-        tab_personal_isHostel: '',
-        tab_personal_isForeignLikeRussian: '',
+        tab_personal_isHostel: false,
+        tab_personal_isForeignLikeRussian: false,
         tab_personal_homePhoneNumber: '',
         tab_personal_cellularPhone: '',
         tab_personal_email: '',

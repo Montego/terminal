@@ -170,11 +170,11 @@
           this.tab_personal_identityCardIssueDate  = '';
           this.tab_personal_identityCardIssueDep  = '';
           this.tab_personal_selectedCitizenship  = '';
-          this.tab_personal_isCompatriot  = '';
-          this.tab_personal_isEquatedForeign  = '';
+          this.tab_personal_isCompatriot  = false;
+          this.tab_personal_isEquatedForeign  = false;
           this.tab_personal_birthplace  = '';
-          this.tab_personal_isHostel  = '';
-          this.tab_personal_isForeignLikeRussian  = '';
+          this.tab_personal_isHostel  = false;
+          this.tab_personal_isForeignLikeRussian  = false;
           this.tab_personal_homePhoneNumber  = '';
           this.tab_personal_cellularPhone  = '';
           this.tab_personal_email  = '';
@@ -199,7 +199,7 @@
           this.tab_edu_military_educationLevel  = null;
           this.tab_edu_military_univer  = '';
           this.tab_edu_military_selectedCountryRegion  = null;
-          this.tab_edu_military_selectedState  = '';
+          this.tab_edu_military_selectedState  = null;
           this.tab_edu_military_selectedAcademyYear  = '';
           this.tab_edu_military_selectedEduDoc  = '';
           this.tab_edu_military_eduDocSerial  = '';

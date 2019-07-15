@@ -2,46 +2,122 @@
   <div>
 
     <div class="row">
-
-      <!--<div class="col-sm-3">-->
-        <!--<div class="row">-->
-          <!--<div class=" form__label-text col-sm-4">Ф.И.О</div>-->
-          <!--<input :value="tab_personal_lastname + ' ' + tab_personal_firstname+ ' '+ tab_personal_middlename" class="uneditable form__input col-sm-8" type="text" name="name"-->
-                 <!--placeholder="Заполняется автоматически" disabled="disabled"/>-->
-        <!--</div>-->
-        <!--<div class="row">-->
-          <!--<div class="form__label-text col-sm-4">Ф.И.О.(род. п.)</div>-->
-          <!--<input :value="tab_personal_lastname_genitive + ' ' + tab_personal_firstname_genitive+ ' '+ tab_personal_middlename_genitive" class="uneditable form__input col-sm-8" type="text" name="snp_genitive"-->
-                 <!--placeholder="Заполняется автоматически" disabled="disabled"/>-->
+      <div class="col-sm-4">
+        <!--<div>-->
+          <!--<p>Персональные данные</p>-->
         <!--</div>-->
 
-        <!--<div class="row">-->
-          <!--<div class="form__label-text col-sm">Пол:</div>-->
-          <!--<input v-model="tab_personal_selectedGender" class="minimal col-sm" disabled>-->
-        <!--</div>-->
-
-        <!--<div class="row">-->
+        <!--<label class="row">-->
+          <!--<div class=" form__label-text col-sm">Ф.И.О</div>-->
+          <!--<input :value="tab_personal_lastname + ' ' + tab_personal_firstname+ ' '+ tab_personal_middlename" class="uneditable form__input col-sm" type="text" name="name"-->
+                 <!--placeholder="Заполняется автоматически" disabled/>-->
+        <!--</label>-->
+        <!--<label class="row">-->
+          <!--<div class="form__label-text col-sm">Ф.И.О.(род. п.)</div>-->
+          <!--<input :value="tab_personal_lastname_genitive + ' ' + tab_personal_firstname_genitive+ ' '+ tab_personal_middlename_genitive" class="uneditable form__input col-sm" type="text"-->
+                 <!--placeholder="Заполняется автоматически"disabled/>-->
+        <!--</label>-->
+        <!--<label class="row">-->
           <!--<div class="form__label-text col-sm">Дата рождения:</div>-->
-          <!--<input v-model="tab_personal_birthDate" class="col-sm" disabled/>-->
+          <!--<input v-validate data-vv-as="дата рождения" v-model="tab_personal_birthDate" class="form__input col-sm" type="date" disabled/>-->
+        <!--</label>-->
+        <!--<label class="row">-->
+          <!--<div class="form__label-text col-sm">СНИЛС</div>-->
+          <!--<input v-validate="'numeric'" data-vv-as="СНИЛС" v-model="tab_personal_INIPA" class="form__input col-sm" type="text" disabled/>-->
+        <!--</label>-->
+        <!--&lt;!&ndash;<span class="alarm_label">{{ errors.first('snils') }}</span>&ndash;&gt;-->
+        <!--<label class="row">-->
+          <!--<div class="form__label-text col-sm">СНИЛС Дата:</div>-->
+          <!--<input v-validate data-vv-as="дата СНИЛС" v-model="tab_personal_INIPADate" class="form__input col-sm" type="date" disabled/>-->
+        <!--</label>-->
+      <!--<hr>-->
+          <!--<div class="form__label-text col-sm">Документ</div>-->
+          <!--<input v-model="tab_personal_selectedIdentityCardCode" class="minimal col-sm" disabled>-->
+        <!--<label class="row">-->
+          <!--<div class="form__label-text col-sm">Серия:</div>-->
+          <!--<input v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" disabled/>-->
+        <!--</label>-->
+        <!--<label class="row">-->
+          <!--<div class="form__label-text col-sm">Номер:</div>-->
+          <!--<input v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" disabled/>-->
+        <!--</label>-->
+      <!--<label class="row">-->
+        <!--<div class="form__label-text col-sm">Гражданство:</div>-->
+        <!--<input v-model="tab_personal_selectedCitizenship"  class="minimal col-sm" disabled>-->
+      <!--</label>-->
+      <!--<label class="row">-->
+        <!--<div class="form__label-text col-sm">Соотечественник:</div>-->
+        <!--<input v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" disabled>-->
+      <!--</label>-->
+      <!--<label class="row">-->
+        <!--<div class="form__label-text col-sm">Приравнять к иностранцам:</div>-->
+        <!--<input v-model="tab_personal_isEquatedForeign" class="checkbox col-sm" type="checkbox" disabled>-->
+      <!--</label>-->
+      <!--<label class="row">-->
+        <!--<div class="form__label-text col-sm">Место рождения:</div>-->
+        <!--<textarea v-model="tab_personal_birthplace" class="col-sm" disabled></textarea>-->
+      <!--</label>-->
+      <!--<label class="row">-->
+        <!--<div class="form__label-text col-sm">Общежитие:</div>-->
+        <!--<input v-model="tab_personal_isHostel" class="checkbox col-sm" type="checkbox" disabled>-->
+      <!--</label>-->
+      <!--<label class="row">-->
+        <!--<div class="form__label-text col-sm">Иностранец, как гражданин РФ:</div>-->
+        <!--<input v-model="tab_personal_isForeignLikeRussian" class="checkbox col-sm" type="checkbox" disabled>-->
+      <!--</label>-->
+        <!--<hr>-->
+      <!--<div>-->
+        <!--<p>Контактные данные</p>-->
+      <!--</div>-->
+        <!--<label class="row">-->
+          <!--<div class="form__label-text col-sm">Мобильный телефон:</div>-->
+          <!--<input v-model="tab_personal_cellularPhone" class="form__input col-sm" type="text" disabled/>-->
+        <!--</label>-->
+        <!--<label class="row">-->
+          <!--<div class="form__label-text col-sm">Эл. почта:</div>-->
+          <!--<input v-model="tab_personal_email" class="form__input col-sm"  type="email" disabled>-->
+        <!--</label>-->
+        <!--<hr>-->
+        <!--<div>-->
+          <!--<p>Адреса</p>-->
+        <!--</div>-->
+        <!--<label class="row">-->
+          <!--<div class="form__label-text col-sm-2">Адрес по прописке:</div>-->
+          <!--<textarea v-model="tab_address_registrationAddress" class="uneditable col-sm-10" name="" ></textarea>-->
+        <!--</label>-->
+        <!--<label class="row">-->
+          <!--<div class="form__label-text col-sm-2">Адрес фактический:</div>-->
+          <!--<textarea v-model="tab_address_factAddress" class="uneditable col-sm-10" ></textarea>-->
+        <!--</label>-->
+        <!--<label class="row">-->
+          <!--<div class="form__label-text col-sm-2">Адрес временной регистрации:</div>-->
+          <!--<textarea v-model="tab_address_templateRegistrationAddress" class="uneditable col-sm-10" ></textarea>-->
+        <!--</label>-->
+        <!--<hr>-->
+        <!--<div>-->
+          <!--<p>ЕГЭ</p>-->
+        <!--</div>-->
+        <!--<label class="row">-->
+          <!--<input placeholder="Химия" class="form__input col-sm" type="text" disabled/>-->
+          <!--<input placeholder="балл" class="form__input col-sm" type="text" disabled/>-->
+        <!--</label>-->
+        <!--<label class="row">-->
+          <!--<input placeholder="Биология" class="form__input col-sm" type="text" disabled/>-->
+          <!--<input placeholder="балл" class="form__input col-sm" type="text" disabled/>-->
+        <!--</label>-->
+        <!--<label class="row">-->
+          <!--<input placeholder="Русский язык" class="form__input col-sm" type="text" disabled/>-->
+          <!--<input placeholder="балл" class="form__input col-sm" type="text" disabled/>-->
+        <!--</label>-->
+
+      </div>
+      <div class="col-sm-4">
+        <!--<div>-->
+          <!--<p>Образование</p>-->
         <!--</div>-->
 
-        <!--<div class="row">-->
-          <!--<div class="form__label-text col-sm">Полных лет:</div>-->
-          <!--<input v-model="fullage" class="form__input col-sm" type="text" name="age" disabled/>-->
-        <!--</div>-->
-        <!--<div class="row">-->
-          <!--<div class="form__label-text col-sm">СНИЛС</div>-->
-          <!--<input  v-model="tab_personal_INIPA" class="form__input col-sm" disabled/>-->
-        <!--</div>-->
-        <!--&lt;!&ndash;<span class="alarm_label">{{ errors.first('snils') }}</span>&ndash;&gt;-->
-        <!--<div class="row">-->
-          <!--<div class="form__label-text col-sm">СНИЛС Дата:</div>-->
-          <!--<input  v-model="tab_personal_INIPADate" class="form__input col-sm" type="date" disabled/>-->
-        <!--</div>-->
-      <!--</div>-->
-      <div class="col-sm-3">d</div>
-      <div class="col-sm-3">d</div>
-      <div class="col-sm-3">d</div>
+      </div>
+      <div class="col-sm-4">d</div>
     </div>
     <!--{{this.application}}-->
 
@@ -49,7 +125,7 @@
     <div class="clear_save_button row">
       <button v-if="this.resultAcceptPerson !=='Утверждено'" @click="onAcceptPerson">Утвердить</button>
       <!--{{this.application}}-->
-      <button v-if="this.savedResult !=='Сохранено'" @click="onSave">Сохранить</button>
+      <button v-if="this.application.applicationTable.saved !=='Сохранено'" @click="onSave">Сохранить</button>
     </div>
   </div>
 
@@ -121,8 +197,6 @@
               if(response.data === "Сохранено"){
                 this.savedResult = "Сохранено"
               }
-
-
               // this.savedResult = '';
             })
             .catch(e => {
