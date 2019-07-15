@@ -13,10 +13,10 @@
           class="elevation-1 text-xs-center"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-center">{{ props.item.fullName}}</td>
-            <td class="text-xs-center">{{ props.item.tab_document_selectedDocType.name}}</td>
-            <td class="text-xs-center">{{ props.item.tab_document_date}}</td>
-            <td class="text-xs-center">{{ props.item.tab_document_count }}</td>
+            <td class="text-xs-center">{{ props.item.fullname}}</td>
+            <td class="text-xs-center">{{ props.item.selected_docType.name}}</td>
+            <td class="text-xs-center">{{ props.item.dateOfIssue}}</td>
+            <td class="text-xs-center">{{ props.item.count }}</td>
             <td class="text-xs-center">
               <button @click="onDelete(props.item)">
                 <v-icon color="#5bc0de">delete</v-icon>
@@ -43,7 +43,7 @@
               <div class="col-sm-6">
                   <label class="row">
                     <div class="form__label-text col-sm">Тип документа:</div>
-                    <select v-model="tab_document_selectedDocumentType" class="minimal col-sm">
+                    <select v-model="name" class="minimal col-sm">
                       <option v-for="option in options_DocumentType">
                         {{option.item}}
                       </option>
@@ -51,20 +51,20 @@
                   </label>
                 <label class="row">
                   <div class="form__label-text col-sm">Количество:</div>
-                  <input v-model="tab_document_count" class="form__input col-sm" type="text"  required/>
+                  <input v-model="count" class="form__input col-sm" type="text"  required/>
                 </label>
                 <label class="row">
                   <div class="form__label-text col-sm">Серия:</div>
-                  <input v-model="tab_document_series" class="form__input col-sm" type="text"  required/>
+                  <input v-model="serial" class="form__input col-sm" type="text"  required/>
                 </label>
                 <label class="row">
                   <div class="form__label-text col-sm">Номер/ID:</div>
-                  <input v-model="tab_document_number" class="form__input col-sm" type="text"  required/>
+                  <input v-model="number" class="form__input col-sm" type="text"  required/>
                 </label>
 
                 <label class="row">
                   <div class="form__label-text col-sm">Копия/Оригинал:</div>
-                  <select v-model="tab_document_selectedDocType" class="minimal col-sm">
+                  <select v-model="selected_docType" class="minimal col-sm">
                     <option v-for="item in docType" v-bind:value="item">
                       {{item.name}}
                     </option>
@@ -72,11 +72,11 @@
                 </label>
                 <label class="row">
                   <div class="form__label-text col-sm">Дата выдачи:</div>
-                  <input v-model="tab_document_date" class="form__input col-sm" type="date"  required/>
+                  <input v-model="dateOfIssue" class="form__input col-sm" type="date"  required/>
                 </label>
                 <label class="row">
                   <div class="form__label-text col-sm">Кем выдан:</div>
-                  <textarea v-model="tab_document_issuedBy" class="col-sm" ></textarea>
+                  <textarea v-model="issuedBy" class="col-sm" ></textarea>
                 </label>
               </div>
             </div>
@@ -93,6 +93,7 @@
 </template>
 
 <script>
+  import {AXIOS} from "../../plugins/APIService";
   import {mapGetters, mapState} from 'vuex';
   import { createHelpers } from 'vuex-map-fields';
   const { mapFields:applications} = createHelpers({
@@ -149,22 +150,22 @@
       computed: {
         ...mapState('enums',['docType'],),
         ...mapGetters('enums',['GET_DOC_TYPE'],),
-        ...applications(['application']),
+        ...applications(['application','fillDocuments','name','serial','number','selected_docType','dateOfIssue','count','issuedBy']),
         ...tab_documents(['tab_document_selectedDocumentType', 'tab_document_series', 'tab_document_number',
           'tab_document_selectedCopy', 'tab_document_date','tab_document_issuedBy','tab_document_fullName',
-          'tab_document_count','tab_document_selectedDocType'
+          'tab_document_count','tab_document_selectedDocType','fullname'
         ]),
         ...mapMultiRowFields(['document','tab_document_allDocuments']),
         ...person(['person','tab_personal_selectedIdentityCardCode','this.tab_personal_identityCardSeries',
         'tab_personal_identityCardNumber','tab_personal_identityCardIssueDate',
-'docTableFullname','docTableDocType','docTableDate','docTableCount'
+'docTableFullname','docTableDocType','docTableDate','docTableCount', 'person_info_id'
         ]),
-        fullName(){
-          return this.document_fullName =
-            this.tab_document_selectedDocumentType + ' ' +
-             this.tab_document_series +
-            ' ' + this.tab_document_number;
-        },
+        // FullName(){
+        //   return this.fullname =
+        //     this.docType + ' ' +
+        //      this.serial +
+        //     ' ' + this.number;
+        // },
 
         showTable(){
           return this.application.application_documents;
@@ -175,28 +176,33 @@
       },
         methods: {
           onNext() {
-            location.href='profile#entranceTests';
+            location.href='profile#other';
+            //TODO get full info for check
           },
           onAdd(){
             location.href='profile#documents_info';
           },
           onClear() {
-            this.tab_document_selectedDocumentType = null;
-            this.tab_document_count = null;
-            this.tab_document_series = null;
-            this.tab_document_number = null;
-            this.tab_document_selectedDocType = null;
-            this.tab_document_date = null;
-            this.tab_document_issuedBy = null;
+            this.name = null;
+            this.count = null;
+            this.serial = null;
+            this.number = null;
+            this.selected_docType = null;
+            this.dateOfIssue = null;
+            this.issuedBy= null;
           },
           onFill() {
-            function DocTable(fullname, doctype, date, count) {}
-            let doctable = new DocTable(
-              this.tab_personal_selectedIdentityCardCode.identityCardNameFull + ' ' + this.tab_personal_identityCardSeries +" "+this.tab_personal_identityCardNumber,
-              {"id":1,"name":"Оригинал"},
-              this.tab_personal_identityCardIssueDate,
-              1
-            );
+
+            AXIOS.get(`/profile/FillDocuments/` + this.person_info_id)
+              .then(response => {
+
+                this.application.application_documents = response.data;
+                // this.fillDocuments = response.data;
+                console.log(response.data)
+              })
+              .catch(e => {
+                this.errors.push(e)
+              })
 
 
           },
@@ -212,25 +218,38 @@
             //   this.docTableCount = this.tab_document_count
             // );
 
-            function Document(doc_type,doc_count,doc_series,doc_number,
-                            doc_selectedCopy,doc_date,doc_issuedBy,doc_full
-                            ) {
-              this.tab_document_selectedDocumentType = doc_type;
-              this.tab_document_count = doc_count;
-              this.tab_document_series = doc_series;
-              this.tab_document_number = doc_number;
-              this.tab_document_selectedDocType = doc_selectedCopy;
-              this.tab_document_date = doc_date;
-              this.tab_document_issuedBy = doc_issuedBy;
-              this.fullName = doc_full;
+            function DocumentDto(name,serial,number,fullname, doctype,dateIssue, count){
+                this.name = name,
+                this.serial = serial,
+                this.number = number,
+                this.fullname = fullname,
+                this.selected_docType = doctype,
+                this.dateOfIssue = dateIssue,
+                this.count = count
             }
-              let document = new Document(
-                this.tab_document_selectedDocumentType, this.tab_document_count, this.tab_document_series,
-                this.tab_document_number,this.tab_document_selectedDocType,this.tab_document_date,
-                this.tab_document_issuedBy, this.fullName
-              );
-            this.application.application_documents.push(document);
-            console.log(this.document)
+              // doc_type,doc_count,doc_series,doc_number,
+              //               doc_selectedCopy,doc_date,doc_issuedBy,doc_full
+              //               ) {
+              // this.tab_document_selectedDocumentType = doc_type;
+              // this.tab_document_count = doc_count;
+              // this.tab_document_series = doc_series;
+              // this.tab_document_number = doc_number;
+              // this.tab_document_selectedDocType = doc_selectedCopy;
+              // this.tab_document_date = doc_date;
+              // this.tab_document_issuedBy = doc_issuedBy;
+              // this.fullName = doc_full;
+            // }
+            //   let document = new Document(
+            //     this.tab_document_selectedDocumentType, this.tab_document_count, this.tab_document_series,
+            //     this.tab_document_number,this.tab_document_selectedDocType,this.tab_document_date,
+            //     this.tab_document_issuedBy, this.fullName
+            //   );
+            let doc = new DocumentDto(this.name, this.serial,
+              this.number,this.name+ " " + this.serial + " " + this.number,this.selected_docType,this.dateOfIssue,
+              this.count);
+            console.log(doc)
+            this.application.application_documents.push(doc);
+            // console.log(this.doc)
 
             // console.log(this.fullName);
           },

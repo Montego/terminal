@@ -115,6 +115,7 @@
 
     methods: {
       onNext() {
+        console.log(this.application.application_selectedDeliveryType);
         location.href='profile#receptrionCondition';
       },
     },

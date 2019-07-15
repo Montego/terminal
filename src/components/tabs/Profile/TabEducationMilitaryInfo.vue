@@ -176,13 +176,14 @@
             </select>
           </label>
           <label class="row">
-            <div class="form__label-text col-sm">Номер военного билета:</div>
-            <input v-model="tab_edu_military_militaryNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
-          </label>
-          <label class="row">
             <div class="form__label-text col-sm">Серия:</div>
             <input v-model="tab_edu_military_militarySeries" class="form__input col-sm" type="text" name="" placeholder=""/>
           </label>
+          <label class="row">
+            <div class="form__label-text col-sm">Номер военного билета:</div>
+            <input v-model="tab_edu_military_militaryNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
+          </label>
+
           <label class="row">
             <div class="form__label-text col-sm">Дата выдачи:</div>
             <input v-model="tab_edu_military_militaryIssueDate" class="form__input col-sm" type="date" name="" placeholder=""/>
@@ -304,7 +305,8 @@
       ...person(['person','tab_edu_military_educationLevel', 'tab_edu_military_univer','tab_edu_military_selectedCountryRegion','tab_edu_military_selectedState',
       'tab_edu_military_selectedAcademyYear','tab_edu_military_selectedEduDoc','tab_edu_military_eduDocSerial','tab_edu_military_eduDocNumber',
       'tab_edu_military_eduDocDate','tab_edu_military_eduDocName','tab_edu_military_attachment_serial','tab_edu_military_attachment_number',
-      'averageScore','tab_edu_military_selectedSoldiery','tab_edu_military_selectedSoldieryStatus','tab_edu_military_selectedMilitaryFormDoc',
+      'score_five','score_four','score_three','score_full',
+        'averageScore','tab_edu_military_selectedSoldiery','tab_edu_military_selectedSoldieryStatus','tab_edu_military_selectedMilitaryFormDoc',
       'tab_edu_military_militaryNumber','tab_edu_military_militarySeries','tab_edu_military_militaryIssueDate','tab_edu_military_militaryIssueBy',
       'tab_edu_military_militaryRank','tab_edu_military_selectedDocType','tab_edu_military_docMilitaryShowDate','tab_edu_military_startMilitary',
         'tab_edu_military_endMilitary','selectedExtraInfos1',  'selectedExtraInfos2','extraInfosDescription1','extraInfosDescription2',]),
@@ -366,10 +368,10 @@
                 item:''
               }
             ],
-            score_five: 0,
-            score_four: 0,
-            score_three: 0,
-            score_full: 0,
+            // score_five: 0,
+            // score_four: 0,
+            // score_three: 0,
+            // score_full: 0,
 
             // options_eduDoc: [
             //   {id: 1, item: 'Академическая справка'},

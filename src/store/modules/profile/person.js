@@ -68,6 +68,7 @@ export default {
     score_four:'',
     score_three:'',
     averageScore: '',
+    score_full: '',
     tab_edu_military_selectedSoldiery: null,
     tab_edu_military_selectedSoldieryStatus: null,
     tab_edu_military_selectedMilitaryFormDoc: null,
@@ -96,9 +97,12 @@ export default {
     docTableCount:'',
 
     resultAcceptPerson:'',
+    saved:'',
+    savedResult:'',
 
     person : {
       acceptedPerson: "",
+
       person_info: {
         tab_personal_lastname: "",
         tab_personal_firstname: '',

@@ -125,8 +125,8 @@
           this.person.application_selectedDocType = null;
           this.person.application_condition = [];
           this.person.application_documents = [];
-
-          AXIOS.get(`/profile/getApplicationPersonName/` + this.person_info_id)
+          console.log(this.person_info_id)
+          AXIOS.get(`/profile/getApplicationPersonName/` + (this.person_info_id))
             .then(response => {
               console.log(response.data)
               this.application_person_name = response.data;

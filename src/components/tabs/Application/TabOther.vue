@@ -49,7 +49,7 @@
     <div class="clear_save_button row">
       <button v-if="this.resultAcceptPerson !=='Утверждено'" @click="onAcceptPerson">Утвердить</button>
       <!--{{this.application}}-->
-      <button v-if="this.resultAcceptPerson === 'Утверждено'" @click="onSave">Сохранить</button>
+      <button v-if="this.savedResult !=='Сохранено'" @click="onSave">Сохранить</button>
     </div>
   </div>
 
@@ -73,9 +73,9 @@
     export default {
         name: "Other",
         computed: {
-          ...applications(['application']),
+          ...applications(['application',]),
           ...tab_reception_condition([ 'file',]),
-          ...person(['person','showProfile','person_info_id','resultAcceptPerson']),
+          ...person(['person','showProfile','person_info_id','resultAcceptPerson','saved','savedResult']),
       },
       methods: {
 
@@ -90,11 +90,19 @@
           this.resultAcceptPerson = "Утверждено";
           AXIOS.put(`/profile/acceptPerson/` + this.person_info_id, (this.person.acceptedPerson),config)
             .then(response => {
-              //что-то делать
+              AXIOS.get(`/profile/personsTable`)
+                .then(response => {
+                  this.profiles = response.data;
+                })
+                .catch(e => {
+                  this.errors.push(e)
+                });
+
               console.log(response.data)
               if(response.data === "Утверждено"){
                 this.resultAcceptPerson = "Утверждено";
                 console.log(this.resultAcceptPerson)
+
               }
               this.info.push(response.data)
             })
@@ -102,33 +110,37 @@
             });
         },
         onSave() {
-          // this.person.applications.push(this.application);
-          // AXIOS.post(`/profile`,(this.person))
-
+          this.application.saved = "Сохранено";
+          const config = {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          };
           AXIOS.post(`/profile/application/` + this.person_info_id,(this.application))
             .then(response => {
-              this.info.push(response.data)
+              if(response.data === "Сохранено"){
+                this.savedResult = "Сохранено"
+              }
+
+
+              // this.savedResult = '';
             })
             .catch(e => {
 
             });
-          // AXIOS.post(`/profile/application`,(this.application))
-          //   .then(response => {
-          //     this.info.push(response.data)
-          //   })
-          //   .catch(e => {
-          //     this.errors.push(e)
-          //   });
-          this.showProfile = true;
 
+          AXIOS.get(`/profile/personsTable`)
+            .then(response => {
+              this.profiles = response.data;
+              console.log(this.profiles)
+            })
+            .catch(e => {
+              this.errors.push(e)
+            })
+
+          this.showProfile = true;
           location.href='profile#overview_personal_info';
-          // AXIOS.post(`/applications`, this.application)
-          //   .then(response => {
-          //     this.info.push(response.data)
-          //   })
-          //   .catch(e => {
-          //     // this.errors.push(e)
-          //   })
+
           }
 
         },

@@ -111,7 +111,7 @@
           'tab_edu_military_militaryNumber', 'tab_edu_military_militarySeries', 'tab_edu_military_militaryIssueDate', 'tab_edu_military_militaryIssueBy',
           'tab_edu_military_militaryRank', 'tab_edu_military_selectedDocType', 'tab_edu_military_docMilitaryShowDate', 'tab_edu_military_startMilitary',
           'tab_edu_military_endMilitary', 'selectedExtraInfos1', 'selectedExtraInfos2', 'extraInfosDescription1', 'extraInfosDescription2', 'image', 'person_info_id',
-          'resultAcceptPerson'
+          'resultAcceptPerson','savedResult'
         ]),
 
         ...applications(['application','application_person_id','application_person_name','applId','applTableName',
@@ -142,7 +142,7 @@
 
       methods: {
         onNewProfile(){
-
+          this.person_info_id='';
           // this.person.person_info = [];
           this.person.ege_info = [];
           this.person.parents_info = [];
@@ -298,6 +298,9 @@
               this.tab_edu_military_eduDocName  = this.personInfo.tab_edu_military_eduDocName
               this.tab_edu_military_attachment_serial  = this.personInfo.tab_edu_military_attachment_serial
               this.tab_edu_military_attachment_number  = this.personInfo.tab_edu_military_attachment_number
+              this.score_five = this.personInfo.score_five;
+              this.score_four = this.personInfo.score_four;
+              this.score_three = this.personInfo.score_three;
               this.averageScore  = this.personInfo.averageScore
               this.tab_edu_military_selectedSoldiery  = this.personInfo.tab_edu_military_selectedSoldiery
               this.tab_edu_military_selectedSoldieryStatus  = this.personInfo.tab_edu_military_selectedSoldieryStatus
@@ -311,6 +314,11 @@
               this.tab_edu_military_docMilitaryShowDate  = this.personInfo.tab_edu_military_docMilitaryShowDate
               this.tab_edu_military_startMilitary  = this.personInfo.tab_edu_military_startMilitary
               this.tab_edu_military_endMilitary  = this.personInfo.tab_edu_military_endMilitary
+              this.selectedExtraInfos1  = this.personInfo.selectedExtraInfos1
+              this.selectedExtraInfos2  = this.personInfo.selectedExtraInfos2
+              this.extraInfosDescription1  = this.personInfo.extraInfosDescription1
+              this.extraInfosDescription2  = this.personInfo.extraInfosDescription2
+
               this.image  = this.personInfo.image
               this.showimage  = this.personInfo.showimage
 
@@ -339,21 +347,24 @@
               this.applTableDate = response.data[0].application_date;
               this.applTableDeliveryType = response.data[0].application_selectedDeliveryType;
               this.resultAcceptPerson = response.data[0].resultAcceptPerson;
+              this.savedResult = response.data[0].saved;
 
-              function ApplTable(tableId,tableName, tableNumber, tableDate, tableDeliveryType, accept) {
+              function ApplTable(tableId,tableName, tableNumber, tableDate, tableDeliveryType, accept, saved) {
                 this.applId = tableId
                 this.applTableName = tableName;
                 this.applTableNumber = tableNumber;
                 this.applTableDate = tableDate;
                 this.applTableDeliveryType = tableDeliveryType;
                 this.resultAcceptPerson = accept;
+                this.savedResult = saved;
               }
               let appltable = new ApplTable(
                 this.applId,
-                this.applTableName,this.applTableNumber,this.applTableDate,this.applTableDeliveryType, this.resultAcceptPerson);
+                this.applTableName,this.applTableNumber,this.applTableDate,this.applTableDeliveryType, this.resultAcceptPerson,
+              this.savedResult);
 
               this.application.applicationTable.push(appltable);
-
+              console.log(response.data[0].saved)
               console.log(response.data[0]);
             })
             .catch(e => {
@@ -374,7 +385,6 @@
           // const index = this.profiles.indexOf(item);
           // this.person = this.profiles[index];
           // this.showPerson = !this.showPerson;
-          console.log(1111)
           console.log(this.person_info_id)
           location.href = 'profile#overviewApplication';
 

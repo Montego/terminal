@@ -5,6 +5,7 @@ export default {
   namespaced: true,
   state: {
     application: {
+      saved:'',
       application_condition:[],
       application_documents:[],
       applicationTable:[]
@@ -22,6 +23,19 @@ export default {
     applTableNumber:'',
     applTableDate:'',
     applTableDeliveryType:'',
+
+    fillDocuments: [],
+
+    name:'',
+    serial:'',
+    number :'',
+    fullname:'',
+    selected_docType:'',
+    dateOfIssue:'',
+    count:'',
+    issuedBy:'',
+
+
 
     // applicationTable:[]
   },

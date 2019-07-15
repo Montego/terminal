@@ -74,7 +74,7 @@
           'tab_edu_military_selectedMilitaryFormDoc','tab_edu_military_militaryNumber','tab_edu_military_militarySeries',
           'tab_edu_military_militaryIssueDate','tab_edu_military_militaryIssueBy','tab_edu_military_militaryRank',
           'tab_edu_military_selectedDocType','tab_edu_military_docMilitaryShowDate','tab_edu_military_startMilitary',
-          'tab_edu_military_endMilitary', 'image', 'showimage', 'person_info_id'
+          'tab_edu_military_endMilitary', 'image', 'showimage', 'person_info_id' , 'saved'
         ]),
         show(){
           return this.persons
@@ -288,6 +288,12 @@
           this.person.person_info.tab_edu_military_docMilitaryShowDate = this.tab_edu_military_docMilitaryShowDate;
           this.person.person_info.tab_edu_military_startMilitary = this.tab_edu_military_startMilitary;
           this.person.person_info.tab_edu_military_endMilitary = this.tab_edu_military_endMilitary;
+
+          this.person.person_info.selectedExtraInfos1 = this.selectedExtraInfos1;
+          this.person.person_info.extraInfosDescription1 = this.extraInfosDescription1;
+          this.person.person_info.selectedExtraInfos2 = this.selectedExtraInfos2;
+          this.person.person_info.extraInfosDescription2 = this.extraInfosDescription2;
+
           this.person.person_info.image = this.image;
           this.person.person_info.showimage = this.showimage;
 
@@ -303,6 +309,17 @@
                 this.person.parents_info = [];
                 // this.person.person_info = {};
                 this.person.futures_info = [];
+                this.person_info_id='';
+
+                AXIOS.get(`/profile/personsTable`)
+                  .then(response => {
+                    this.profiles = response.data;
+                    console.log(this.profiles)
+                  })
+                  .catch(e => {
+                    this.errors.push(e)
+                  })
+
               })
               .catch(e => {
                 this.errors.push(e)

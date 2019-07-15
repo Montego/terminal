@@ -174,7 +174,9 @@
       handleClick(val) {
         this.showProfile = val;
           this.application.applicationTable.splice(0,1)
-          this.person_info_id='';
+
+          // this.person_info_id='';
+          // this.savedResult = '';
         // this.application = [];
       },
 
