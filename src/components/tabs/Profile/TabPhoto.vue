@@ -70,12 +70,16 @@
           'tab_edu_military_selectedState','tab_edu_military_selectedAcademyYear','tab_edu_military_selectedEduDoc',
           'tab_edu_military_eduDocSerial','tab_edu_military_eduDocNumber','tab_edu_military_eduDocDate',
           'tab_edu_military_eduDocName','tab_edu_military_attachment_serial','tab_edu_military_attachment_number',
+          'score_five','score_four','score_three',
           'averageScore,tab_edu_military_selectedSoldiery','tab_edu_military_selectedSoldieryStatus',
           'tab_edu_military_selectedMilitaryFormDoc','tab_edu_military_militaryNumber','tab_edu_military_militarySeries',
           'tab_edu_military_militaryIssueDate','tab_edu_military_militaryIssueBy','tab_edu_military_militaryRank',
           'tab_edu_military_selectedDocType','tab_edu_military_docMilitaryShowDate','tab_edu_military_startMilitary',
-          'tab_edu_military_endMilitary', 'image', 'showimage', 'person_info_id' , 'saved'
+          'tab_edu_military_endMilitary', 'selectedExtraInfos1', 'selectedExtraInfos2', 'extraInfosDescription1',
+          'extraInfosDescription2', 'image', 'showimage', 'person_info_id' , 'saved'
         ]),
+
+
         show(){
           return this.persons
         }
@@ -310,6 +314,7 @@
                 // this.person.person_info = {};
                 this.person.futures_info = [];
                 this.person_info_id='';
+                this.person.applications = [];
 
                 AXIOS.get(`/profile/personsTable`)
                   .then(response => {
@@ -328,10 +333,27 @@
             AXIOS.put('/profile/person/' + this.person_info_id,(this.person))
               .then(response =>{
                 console.log(response)
+                location.href='profile#overview_personal_info';
+                this.person.ege_info = [];
+                this.person.parents_info = [];
+                // this.person.person_info = {};
+                this.person.futures_info = [];
+                this.person_info_id='';
               console.log("person was updated")})
               .catch(e => {
                 this.errors.push(e)
               })
+
+
+            AXIOS.get(`/profile/personsTable`)
+              .then(response => {
+                this.profiles = response.data;
+                console.log(this.profiles)
+              })
+              .catch(e => {
+                this.errors.push(e)
+              })
+
           }
 
 

@@ -8,10 +8,10 @@
       <!--<a class="logout col-sm-3" href="/login">Logout</a>-->
     <!--</div>-->
     <div class="control-panel">
-      <div>
-        <span>Абитуриент:</span>
-        <input type="search" name="поиск" placeholder="Поиск по сайту">
-      </div>
+      <!--<div>-->
+        <!--<span>Абитуриент:</span>-->
+        <!--<input type="search" name="поиск" placeholder="Поиск по сайту">-->
+      <!--</div>-->
       <div>
         <!--<button type="button" @click="handleClick(false)">К заявлениям</button>-->
         <button type="button" @click="handleClick(true)">К профилям</button>
@@ -209,7 +209,7 @@
   }
 
   .control-panel > * {
-    margin: 0 120px;
+    margin: 0 400px;
   }
 
   /*.logout {*/

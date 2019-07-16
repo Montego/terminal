@@ -432,7 +432,6 @@
         this.tab_ege_lastname = '';
         this.tab_ege_firstname = '';
         this.tab_ege_middlename = '';
-        this.tab_ege_selectedIdentityCardCode = null;
         this.tab_ege_identityCardSeries = '';
         this.tab_ege_identityCardNumber = '';
         this.tab_ege_identityCardIssueDate = '';

@@ -142,6 +142,8 @@
 
       methods: {
         onNewProfile(){
+          this.person.acceptedPerson = '';
+          this.resultAcceptPerson = '';
           this.person_info_id='';
           // this.person.person_info = [];
           this.person.ege_info = [];

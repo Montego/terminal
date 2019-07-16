@@ -34,13 +34,11 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Страна:</div>
-
           <select v-model="tab_edu_military_selectedCountryRegion" class="minimal col-sm">
             <option v-for="item in addressCountryRegion" v-bind:value="item">
               {{item.countryRegionId}}
             </option>
           </select>
-
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Регион:</div>

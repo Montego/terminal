@@ -158,7 +158,7 @@
         ...mapMultiRowFields(['document','tab_document_allDocuments']),
         ...person(['person','tab_personal_selectedIdentityCardCode','this.tab_personal_identityCardSeries',
         'tab_personal_identityCardNumber','tab_personal_identityCardIssueDate',
-'docTableFullname','docTableDocType','docTableDate','docTableCount', 'person_info_id'
+        'docTableFullname','docTableDocType','docTableDate','docTableCount', 'person_info_id'
         ]),
         // FullName(){
         //   return this.fullname =
@@ -177,6 +177,7 @@
         methods: {
           onNext() {
             location.href='profile#other';
+
             //TODO get full info for check
           },
           onAdd(){
@@ -195,7 +196,6 @@
 
             AXIOS.get(`/profile/FillDocuments/` + this.person_info_id)
               .then(response => {
-
                 this.application.application_documents = response.data;
                 // this.fillDocuments = response.data;
                 console.log(response.data)
@@ -204,19 +204,9 @@
                 this.errors.push(e)
               })
 
-
           },
           onSave() {
             location.href='profile#documents_overview';
-            // function DocTable(fullname, doctype, date, count) {}
-            // let doctable1 = new DocTable(
-            //   this.docTableFullname = this.tab_document_selectedDocumentType + ' ' +
-            //   this.tab_document_series +" "+
-            //   this.tab_document_number,
-            //   this.docTableDocType = this.tab_document_selectedDocumentType,
-            //   this.docTableDate = this.tab_document_date,
-            //   this.docTableCount = this.tab_document_count
-            // );
 
             function DocumentDto(name,serial,number,fullname, doctype,dateIssue, count){
                 this.name = name,
@@ -227,31 +217,13 @@
                 this.dateOfIssue = dateIssue,
                 this.count = count
             }
-              // doc_type,doc_count,doc_series,doc_number,
-              //               doc_selectedCopy,doc_date,doc_issuedBy,doc_full
-              //               ) {
-              // this.tab_document_selectedDocumentType = doc_type;
-              // this.tab_document_count = doc_count;
-              // this.tab_document_series = doc_series;
-              // this.tab_document_number = doc_number;
-              // this.tab_document_selectedDocType = doc_selectedCopy;
-              // this.tab_document_date = doc_date;
-              // this.tab_document_issuedBy = doc_issuedBy;
-              // this.fullName = doc_full;
-            // }
-            //   let document = new Document(
-            //     this.tab_document_selectedDocumentType, this.tab_document_count, this.tab_document_series,
-            //     this.tab_document_number,this.tab_document_selectedDocType,this.tab_document_date,
-            //     this.tab_document_issuedBy, this.fullName
-            //   );
+
             let doc = new DocumentDto(this.name, this.serial,
               this.number,this.name+ " " + this.serial + " " + this.number,this.selected_docType,this.dateOfIssue,
               this.count);
             console.log(doc)
             this.application.application_documents.push(doc);
-            // console.log(this.doc)
 
-            // console.log(this.fullName);
           },
 
           onDelete(item) {
