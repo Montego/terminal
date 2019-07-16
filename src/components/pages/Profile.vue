@@ -164,6 +164,7 @@
 
         ],
         dialog: false,
+
         // currentTab: 'Home',
         // tabs: ['TabOverview', 'TabPersonalInfo', 'TabAddressInfo', 'TabEducationMilitary',
         //   'TabEvidenceEge', 'TabParentInfo', 'TabDistinctiveFeaturesInfo', 'TabPhoto'],
@@ -209,7 +210,7 @@
   }
 
   .control-panel > * {
-    margin: 0 400px;
+    margin: 0 300px;
   }
 
   /*.logout {*/
@@ -235,9 +236,9 @@
     cursor: pointer;
   }
 
-  tr:hover {
-    ackground-color: red;
-  }
+  /*tr:hover {*/
+    /*background-color: red;*/
+  /*}*/
 
   .search_form div {
     font-size: 20px;

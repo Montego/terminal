@@ -58,5 +58,11 @@
 </script>
 
 <style scoped>
+  .main_tab {
+    margin-top: 2px;
+    margin-left: 5px;
 
+    /*margin-right: 5px;*/
+    /*background: linear-gradient(45deg, #EECFBA, #C5DDE8);*/
+  }
 </style>

@@ -207,7 +207,7 @@
     <div class="clear_save_button row">
       <button v-if="this.resultAcceptPerson !=='Утверждено'" @click="onAcceptPerson">Утвердить</button>
       <!--{{this.application}}-->
-      <button v-if="this.application.applicationTable.saved !=='Сохранено'" @click="onSave">Сохранить</button>
+      <button v-if="this.saved !=='Сохранено' " @click="onSave">Сохранить</button>
     </div>
   </div>
 
@@ -230,6 +230,11 @@
   });
     export default {
         name: "Other",
+      data(){
+          return {
+            savedInfo: [],
+          }
+      },
         computed: {
           ...applications(['application',]),
           ...tab_reception_condition([ 'file',]),
@@ -257,8 +262,8 @@
             'tab_edu_military_endMilitary', 'image', 'showimage',
           ]),
       },
-      methods: {
 
+      methods: {
 
         onAcceptPerson() {
           const config = {

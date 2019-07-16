@@ -12,128 +12,6 @@
         <div class="form__label-text col-sm-2">Адрес:</div>
         <textarea v-model="tab_address_registrationAddress" class="uneditable col-sm-10" name="" ></textarea>
       </label>
-      <label class="row">
-        <!--<div class="form__label-text col-sm">Типа нас. пункта:</div>-->
-        <!--<select v-model="tab_personal_selectedForeignLanguageInfo" class="col-sm">-->
-          <!--<option v-for="option in options_foreignLanguageName">-->
-            <!--{{option.item}}-->
-          <!--</option>-->
-        <!--</select>-->
-        <!--<input class="form__input col-sm" type="text" name="" placeholder=""/>-->
-      </label>
-
-      <!--<div id="checked" class="demo">-->
-        <!--<input class="checkbox" type="checkbox" id="registrationAddress" value="registrationAddress" v-model="checkedAddress">-->
-        <!--<label for="registrationAddress">По прописке</label>-->
-        <!--<input class="checkbox" type="checkbox" id="factAddress" value="factAddress" v-model="checkedAddress">-->
-        <!--<label for="factAddress">Фактический</label>-->
-        <!--<input class="checkbox" type="checkbox" id="templateAddress" value="templateAddress" v-model="checkedAddress">-->
-        <!--<label for="templateAddress">Временной рег.</label>-->
-        <!--<br>-->
-        <!--<span>Отмеченные  {{ checkedAddress }}</span>-->
-      <!--</div>-->
-
-
-      <!--<label class="row">-->
-        <!--<div class="form__label-text col-sm">Страна:</div>-->
-        <!--<select v-model="person.country" class="minimal col-sm">-->
-          <!--&lt;!&ndash;<option v-for="item in docType" v-bind:value="item">&ndash;&gt;-->
-          <!--&lt;!&ndash;{{item.name}}&ndash;&gt;-->
-          <!--&lt;!&ndash;</option>&ndash;&gt;-->
-        <!--</select>-->
-      <!--</label>-->
-      <!--<label class="row">-->
-        <!--<div class="form__label-text col-sm">Субъект:</div>-->
-        <!--<select v-model="person.object" class="minimal col-sm">-->
-          <!--&lt;!&ndash;<option v-for="item in docType" v-bind:value="item">&ndash;&gt;-->
-          <!--&lt;!&ndash;{{item.name}}&ndash;&gt;-->
-          <!--&lt;!&ndash;</option>&ndash;&gt;-->
-        <!--</select>-->
-      <!--</label>-->
-      <!--<label class="row">-->
-        <!--<div class="form__label-text col-sm">Город:</div>-->
-        <!--<select v-model="person.city" class="minimal col-sm">-->
-          <!--&lt;!&ndash;<option v-for="item in docType" v-bind:value="item">&ndash;&gt;-->
-          <!--&lt;!&ndash;{{item.name}}&ndash;&gt;-->
-          <!--&lt;!&ndash;</option>&ndash;&gt;-->
-        <!--</select>-->
-      <!--</label>-->
-      <!--<label class="row">-->
-        <!--<div class="form__label-text col-sm">Населенный пункт:</div>-->
-        <!--<select v-model="person.fuck" class="minimal col-sm">-->
-          <!--&lt;!&ndash;<option v-for="item in docType" v-bind:value="item">&ndash;&gt;-->
-          <!--&lt;!&ndash;{{item.name}}&ndash;&gt;-->
-          <!--&lt;!&ndash;</option>&ndash;&gt;-->
-        <!--</select>-->
-      <!--</label>-->
-      <!--<label class="row">-->
-        <!--<div class="form__label-text col-sm">Внутригородская территория</div>-->
-        <!--<select v-model="person.fuck" class="minimal col-sm">-->
-          <!--&lt;!&ndash;<option v-for="item in docType" v-bind:value="item">&ndash;&gt;-->
-          <!--&lt;!&ndash;{{item.name}}&ndash;&gt;-->
-          <!--&lt;!&ndash;</option>&ndash;&gt;-->
-        <!--</select>-->
-      <!--</label>-->
-      <!--<label class="row">-->
-        <!--<div class="form__label-text col-sm">Район:</div>-->
-        <!--<select v-model="person.fuck" class="minimal col-sm">-->
-          <!--&lt;!&ndash;<option v-for="item in docType" v-bind:value="item">&ndash;&gt;-->
-          <!--&lt;!&ndash;{{item.name}}&ndash;&gt;-->
-          <!--&lt;!&ndash;</option>&ndash;&gt;-->
-        <!--</select>-->
-      <!--</label>-->
-      <!--<label class="row">-->
-        <!--<div class="form__label-text col-sm">Элем. планир. структуры:</div>-->
-        <!--<select v-model="person.fuck" class="minimal col-sm">-->
-          <!--&lt;!&ndash;<option v-for="item in docType" v-bind:value="item">&ndash;&gt;-->
-          <!--&lt;!&ndash;{{item.name}}&ndash;&gt;-->
-          <!--&lt;!&ndash;</option>&ndash;&gt;-->
-        <!--</select>-->
-      <!--</label>-->
-      <!--<label class="row">-->
-        <!--<div class="form__label-text col-sm">Подчиненные доп. территория объекты:</div>-->
-        <!--<select v-model="person.fuck" class="minimal col-sm">-->
-          <!--&lt;!&ndash;<option v-for="item in docType" v-bind:value="item">&ndash;&gt;-->
-          <!--&lt;!&ndash;{{item.name}}&ndash;&gt;-->
-          <!--&lt;!&ndash;</option>&ndash;&gt;-->
-        <!--</select>-->
-      <!--</label>-->
-      <!--<label class="row">-->
-        <!--<div class="form__label-text col-sm">Улица:</div>-->
-        <!--<select v-model="person.street" class="minimal col-sm">-->
-          <!--&lt;!&ndash;<option v-for="item in docType" v-bind:value="item">&ndash;&gt;-->
-          <!--&lt;!&ndash;{{item.name}}&ndash;&gt;-->
-          <!--&lt;!&ndash;</option>&ndash;&gt;-->
-        <!--</select>-->
-      <!--</label>-->
-      <!--<label class="row">-->
-        <!--<div class="form__label-text col-sm">Дом:</div>-->
-        <!--<select v-model="person.house" class="minimal col-sm">-->
-          <!--&lt;!&ndash;<option v-for="item in docType" v-bind:value="item">&ndash;&gt;-->
-            <!--&lt;!&ndash;{{item.name}}&ndash;&gt;-->
-          <!--&lt;!&ndash;</option>&ndash;&gt;-->
-        <!--</select>-->
-      <!--</label>-->
-      <!--<label class="row">-->
-        <!--<div class="form__label-text col-sm">Квартира:</div>-->
-        <!--<select v-model="person.flat" class="minimal col-sm">-->
-          <!--&lt;!&ndash;<option v-for="item in docType" v-bind:value="item">&ndash;&gt;-->
-            <!--&lt;!&ndash;{{item.name}}&ndash;&gt;-->
-          <!--&lt;!&ndash;</option>&ndash;&gt;-->
-        <!--</select>-->
-      <!--</label>-->
-      <!--<label class="row">-->
-        <!--<div class="form__label-text col-sm-3">Уточнение адреса:</div>-->
-        <!--<textarea v-model="person.fuck" class="col-sm-9" name=""></textarea>-->
-      <!--</label>-->
-      <!--<label class="row">-->
-        <!--<div class="form__label-text col-sm">Индекс:</div>-->
-        <!--<input v-model="person.fuck" class="form__input col-sm" type="text" name=""  />-->
-      <!--</label>-->
-      <!--<div class="buttons input_address row">-->
-        <!--<button class="adress_button">Ввести адрес</button>-->
-      <!--</div>-->
-
     </div>
     <div class="info_address2 col-sm">
       <div>
@@ -184,6 +62,7 @@
       // ...tab_address_info(['tab_address_registrationAddress', 'tab_address_factAddress',
       //   'tab_address_templateRegistrationAddress',
       // ]),
+
 
     },
     data() {

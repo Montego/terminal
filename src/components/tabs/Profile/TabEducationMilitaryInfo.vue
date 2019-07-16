@@ -244,22 +244,6 @@
         </select>
         <input v-model="extraInfosDescription2" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
       </div>
-      <!--<div class="row">-->
-        <!--<select v-model="person.selectedExtraInfos3" class="minimal col-sm">-->
-          <!--<option v-for="option in options_extraInfos">-->
-            <!--{{option.item}}-->
-          <!--</option>-->
-        <!--</select>-->
-        <!--<input v-model="person.extraInfosDescription3" class="form__input col-sm" type="text" name="" placeholder="Описание"/>-->
-      <!--</div>-->
-      <!--<div class="row">-->
-        <!--<select v-model="person.selectedExtraInfos4" class="minimal col-sm">-->
-          <!--<option v-for="option in options_extraInfos">-->
-            <!--{{option.item}}-->
-          <!--</option>-->
-        <!--</select>-->
-        <!--<input v-model="person.extraInfosDescription4" class="form__input col-sm" type="text" name="" placeholder="Описание"/>-->
-      <!--</div>-->
     </div>
         <!--</label>-->
       <!--</div>-->
@@ -366,10 +350,7 @@
                 item:''
               }
             ],
-            // score_five: 0,
-            // score_four: 0,
-            // score_three: 0,
-            // score_full: 0,
+
 
             // options_eduDoc: [
             //   {id: 1, item: 'Академическая справка'},

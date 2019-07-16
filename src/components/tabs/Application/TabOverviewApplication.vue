@@ -3,7 +3,8 @@
   <!--<button color="#5bc0de" @click="onNewApplication()">-->
     <!--+-->
   <!--</button>-->
-  <button color="#5bc0de" @click="onNewApplication()">
+
+  <button  color="#5bc0de" @click="onNewApplication()">
     +
   </button>
   <v-data-table
@@ -94,6 +95,7 @@
       },
       created () {
           this.applications = this.application.applicationTable
+
       },
 
       mounted(){
