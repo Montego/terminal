@@ -22,10 +22,13 @@
       <!--<td class="text-xs-center">{{ props.item.application_number}}</td>-->
       <!--<td class="text-xs-center">{{ props.item.contact_code_pretendent}}</td>-->
       <td class="justify-center layout px-0">
-          <button type="button" @click="onApplication(props.item); handleClick(false) ">
+          <button class = "button_controls" type="button" @click="onApplication(props.item); handleClick(false) ">
             <v-icon color="#5bc0de">description</v-icon>
           </button>
-        <button v-if="props.item.resultAcceptPerson !=='Утверждено'" @click="onRedaction(props.item)">
+        <button class = "button_controls" type="button" @click="onRedaction(props.item)">
+          <v-icon color="#5bc0de">visibility</v-icon>
+        </button>
+        <button class = "button_controls" v-if="props.item.resultAcceptPerson !=='Утверждено'" @click="onRedaction(props.item)">
           <v-icon color="#5bc0de">edit</v-icon>
         </button>
       </td>
@@ -227,6 +230,7 @@
           location.href='profile#personal_info';
 
         },
+
         onRedaction(item) {
           const index = this.profiles.indexOf(item);
           const idString = this.profiles[index].id;
@@ -323,7 +327,7 @@
 
               this.image  = this.personInfo.image
               this.showimage  = this.personInfo.showimage
-
+              this.acceptedPerson = this.personInfo.acceptedPerson;
               console.log(this.profiles)
             })
             .catch(e => {
@@ -384,6 +388,10 @@
 </script>
 
 <style scoped>
+
+  .button_controls {
+    min-width: 60px;
+  }
 
   table.v-table tbody tr{
     transition: none !important

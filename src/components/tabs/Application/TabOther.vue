@@ -239,19 +239,21 @@
 
               <!--{{ todo.text }}-->
             </div>
-          <div class="clear_save_button row">
-            <button v-if="this.resultAcceptPerson !=='Утверждено'" @click="onAcceptPerson">Утвердить</button>
-            <!--{{this.application}}-->
-            <button   @click="onSave">Сохранить</button>
-          </div>
-        </div>
+          <!--this.acceptedPerson-->
 
+        </div>
       </div>
+
+
     </div>
     <!--{{this.application}}-->
 
     <!--{{this.person}}-->
-
+    <div class="clear_save_button row">
+      <button v-if="this.resultAcceptPerson !=='Утверждено'" @click="onAcceptPerson">Утвердить</button>
+      <!--{{this.application}}-->
+      <button v-if="this.saved!== 'Сохранено' " @click="onSave">Сохранить</button>
+    </div>
   </div>
 
 </template>
@@ -302,7 +304,7 @@
             'tab_edu_military_selectedMilitaryFormDoc','tab_edu_military_militaryNumber','tab_edu_military_militarySeries',
             'tab_edu_military_militaryIssueDate','tab_edu_military_militaryIssueBy','tab_edu_military_militaryRank',
             'tab_edu_military_selectedDocType','tab_edu_military_docMilitaryShowDate','tab_edu_military_startMilitary',
-            'tab_edu_military_endMilitary', 'image', 'showimage',
+            'tab_edu_military_endMilitary', 'image', 'showimage','acceptedPerson'
           ]),
       },
 
@@ -375,7 +377,7 @@
 
 <style scoped>
   .clear_save_button {
-    margin-top: 0%;
+    margin-top: 30%;
     /*margin-left: 65%;*/
     display: flex;
     justify-content: flex-end;

@@ -23,7 +23,7 @@
 
       </div>
     </div>
-    <button class="photo-loader__control-btn btn btn_save" type="button" @click="onSave">Сохранить профиль</button>
+    <button v-if="this.acceptedPerson !=='Утверждено' " class="photo-loader__control-btn btn btn_save" type="button" @click="onSave">Сохранить профиль</button>
 
   </div>
 </template>
@@ -81,7 +81,7 @@
           'tab_edu_military_militaryIssueDate','tab_edu_military_militaryIssueBy','tab_edu_military_militaryRank',
           'tab_edu_military_selectedDocType','tab_edu_military_docMilitaryShowDate','tab_edu_military_startMilitary',
           'tab_edu_military_endMilitary', 'selectedExtraInfos1', 'selectedExtraInfos2', 'extraInfosDescription1',
-          'extraInfosDescription2', 'image', 'showimage', 'person_info_id' , 'saved'
+          'extraInfosDescription2', 'image', 'showimage', 'person_info_id' , 'saved' ,'acceptedPerson'
         ]),
 
 

@@ -184,7 +184,8 @@ export default {
         extraInfosDescription1: '',
         extraInfosDescription2: '',
         image:'',
-        showimage:'',
+        acceptedPerson:'',
+        saved:''
       },
       ege_info:[],
       parents_info:[],

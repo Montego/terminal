@@ -177,7 +177,7 @@
 
             <div class="clear_save_button row">
               <button @click="onClearFields">Очистить</button>
-              <button @click="onAddEge">Добавить</button>
+              <button v-if="this.person.ege_info.length < 3" @click="onAddEge">Добавить</button>
               <!--<button @click="onSaveParent">Сохранить изм-я</button>-->
             </div>
           </div>
