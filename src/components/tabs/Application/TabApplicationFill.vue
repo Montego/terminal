@@ -10,7 +10,7 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Дата заявления:</div>
-          <input v-model="application.application_date" class="form__input col-sm" type="date"  />
+          <input v-model="application.application_date" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01" />
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Тип доставки:</div>

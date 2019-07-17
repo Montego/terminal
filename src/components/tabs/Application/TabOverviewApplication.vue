@@ -100,6 +100,7 @@
 
       mounted(){
 
+
         // function ApplTable(tableName, tableNumber, tableDate, tableDeliveryType) {
         //   this.applTableName = tableName;
         //   this.applTableNumber = tableNumber;
@@ -171,8 +172,8 @@
   button {
     min-width: 100px;
     padding: 10px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
+    /*border-color: grey;*/
     border-radius: 5px;
     background-color: ghostwhite;
     /*background-color: #EDD19C;*/

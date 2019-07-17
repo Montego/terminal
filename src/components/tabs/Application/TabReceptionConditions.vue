@@ -110,7 +110,7 @@
               </div>
               <label class="row">
                 <div class="form__label-text col-sm">Дата согласия:</div>
-                <input v-model="date_agreement" class="form__input col-sm" type="date" name=""  />
+                <input v-model="date_agreement" class="form__input col-sm" type="date" name="" min="1918-01-01" max="2019-01-01" />
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Особое право?</div>

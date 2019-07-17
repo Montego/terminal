@@ -72,7 +72,7 @@
                 </label>
                 <label class="row">
                   <div class="form__label-text col-sm">Дата выдачи:</div>
-                  <input v-model="dateOfIssue" class="form__input col-sm" type="date"  required/>
+                  <input v-model="dateOfIssue" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
                 </label>
                 <label class="row">
                   <div class="form__label-text col-sm">Кем выдан:</div>

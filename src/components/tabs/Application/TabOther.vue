@@ -1,5 +1,7 @@
 <template>
   <div>
+    <span v-if="this.resultAcceptPerson ==='Утверждено'"> Утверждено!</span>
+
 
     <div v-if="this.resultAcceptPerson !=='Утверждено'" class="row">
       <div class="col-sm-4">
@@ -55,7 +57,7 @@
         <input v-model="tab_personal_isEquatedForeign" class="checkbox col-sm" type="checkbox" disabled>
       </label>
       <label class="row">
-        <div class="form__label-text col-sm-3">Место рождения:</div>
+        <div class="form__label-text col-sm-4">Место рождения:</div>
         <textarea v-model="tab_personal_birthplace" class="col-sm" disabled></textarea>
       </label>
       <label class="row">
@@ -71,7 +73,7 @@
         <p>Контактные данные</p>
       </div>
         <label class="row">
-          <div class="form__label-text col-sm">Мобильный телефон:</div>
+          <div class="form__label-text col-sm-4">Мобильный телефон:</div>
           <input v-model="tab_personal_cellularPhone" class="form__input col-sm" type="text" disabled/>
         </label>
         <label class="row">
@@ -116,28 +118,29 @@
         <!--<div>-->
           <!--<p>Образование</p>-->
         <!--</div>-->
+
+        <div>
+          <p>Егэ</p>
+        </div>
+        <div v-for="info in person.ege_info" >
+          <div class="row">
+            <div class="form__label-text col-sm-4">Предмет:</div>
+            <input v-model="info.tab_ege_selectedSubject" class="form__input col-sm-6" type="text" disabled/>
+          </div>
+          <div class="row">
+            <div class="form__label-text col-sm-4">Баллы:</div>
+            <input v-model="info.tab_ege_score" class="form__input col-sm-6" type="text" disabled/>
+          </div>
+        </div>
+        <hr>
         <div>
           <p>Учебное заведение</p>
         </div>
-
-        <!--<label class="row">-->
-          <!--<div class="form__label-text col-sm">Уровень образования:</div>-->
-          <!--<input v-model="tab_edu_military_educationLevel" class="minimal col-sm" disabled>-->
-        <!--</label>-->
-
-
         <label class="row">
           <div class="form__label-text col-sm-4">Наименование:</div>
           <textarea v-model="tab_edu_military_univer" class="col-sm" disabled></textarea>
         </label>
-        <!--<label class="row">-->
-          <!--<div class="form__label-text col-sm-4">Страна:</div>-->
-          <!--<input v-model="tab_edu_military_selectedCountryRegion.countryRegionId" class="minimal col-sm" disabled>-->
-        <!--</label>-->
-        <!--<label class="row">-->
-          <!--<div class="form__label-text col-sm-4">Документ об образовании:</div>-->
-          <!--<input v-model="tab_edu_military_selectedEduDoc.name" class="minimal col-sm-8"  disabled>-->
-        <!--</label>-->
+
 
         <label class="row">
           <div class="form__label-text col-sm-4">Серия:</div>
@@ -153,62 +156,102 @@
         </label>
         <hr>
 
-        <!--<div>-->
-          <!--<p>Военная служба</p>-->
-        <!--</div>-->
-
-          <!--<label class="row">-->
-            <!--<div class="form__label-text col-sm">Прохождение службы:</div>-->
-            <!--<input v-model="tab_edu_military_selectedSoldieryStatus.name" class="minimal col-sm">-->
-          <!--</label>-->
-          <!--<label class="row">-->
-            <!--<div class="form__label-text col-sm">Тип документа:</div>-->
-            <!--<input v-model="tab_edu_military_selectedMilitaryFormDoc" class="minimal col-sm">-->
-          <!--</label>-->
-          <!--<label class="row">-->
-            <!--<div class="form__label-text col-sm">Серия:</div>-->
-            <!--<input v-model="tab_edu_military_militarySeries" class="form__input col-sm" type="text" />-->
-          <!--</label>-->
-          <!--<label class="row">-->
-            <!--<div class="form__label-text col-sm">Номер военного билета:</div>-->
-            <!--<input v-model="tab_edu_military_militaryNumber" class="form__input col-sm" type="text" />-->
-          <!--</label>-->
-
-          <!--<label class="row">-->
-            <!--<div class="form__label-text col-sm">Дата выдачи:</div>-->
-            <!--<input v-model="tab_edu_military_militaryIssueDate" class="form__input col-sm" type="date" />-->
-          <!--</label>-->
-          <!--<label class="row">-->
-            <!--<div class="form__label-text col-sm">Кем выдан:</div>-->
-            <!--<textarea v-model="tab_edu_military_militaryIssueBy" class="col-sm" name=""></textarea>-->
-          <!--</label>-->
-          <!--<label class="row">-->
-            <!--<div class="form__label-text col-sm">Воинское звание:</div>-->
-            <!--<input v-model="tab_edu_military_militaryRank" class="form__input col-sm" type="text" />-->
-          <!--</label>-->
-          <!--<label class="row">-->
-            <!--<div class="form__label-text col-sm">Копия/Оригинал:</div>-->
-            <!--<input v-model="tab_edu_military_selectedDocType.name" class="minimal col-sm">-->
-          <!--</label>-->
-          <!--<label class="row">-->
-            <!--<div class="form__label-text col-sm">Дата предоставления:</div>-->
-            <!--<input v-model="tab_edu_military_docMilitaryShowDate" class="form__input col-sm" type="date" />-->
-          <!--</label>-->
-
-
-
+        <div>
+          <p>Родители/попечители</p>
+        </div>
+        <div v-for="info in person.parents_info" >
+          <div class="row">
+            <div class="form__label-text col-sm-4">ФИО:</div>
+            <input v-model="info.tab_parent_name" class="form__input col-sm-6" type="text" disabled/>
+          </div>
+          <div class="row">
+            <div class="form__label-text col-sm-4">Кем прихождится:</div>
+            <input v-model="info.tab_parent_selectedFamRelationShip.name" class="form__input col-sm-6" type="text" disabled/>
+          </div>
+          <div class="row">
+            <div class="form__label-text col-sm-4">Дом. телефон:</div>
+            <input v-model="info.tab_parent_homePhoneNumber" class="form__input col-sm-6" type="text" disabled/>
+          </div>
+          <div class="row">
+            <div class="form__label-text col-sm-4">Моб. телефон:</div>
+            <input v-model="info.tab_parent_cellularPhone" class="form__input col-sm-6" type="text" disabled/>
+          </div>
+        </div>
 
       </div>
-      <div class="col-sm-4">d</div>
+
+      <div class="col-sm-4">
+        <div>
+          <p>Заявление</p>
+        </div>
+        <label class="row">
+          <div class="form__label-text col-sm-5">Номер заявления:</div>
+          <input v-model="application.application_number" class="form__input col-sm" type="text" disabled/>
+        </label>
+        <label class="row">
+          <div class="form__label-text col-sm-5">Дата заявления:</div>
+          <input v-model="application.application_date" class="form__input col-sm" type="date" disabled />
+        </label>
+        <hr>
+        <div>
+          <p>Направление</p>
+        </div>
+        <div>
+
+            <div v-for="info in application.application_condition" >
+              <label class="row">
+                <div class="form__label-text col-sm-4">Факультет:</div>
+                <input v-model="info.selected_faculty" class="form__input col-sm-6" type="text" disabled/>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm-4">Специальность:</div>
+                <input v-model="info.selected_faculty" class="form__input col-sm-6" type="text" disabled/>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm-4">Специальное право:</div>
+                <input v-model="info.selected_typeOfSpecialRight" class="form__input col-sm-6" type="text" disabled/>
+              </label>
+            </div>
+
+        </div>
+        <hr>
+        <div>
+          <p>Документы</p>
+        </div>
+        <div>
+
+            <div v-for="info in application.application_documents" >
+              <label class="row">
+                <div class="form__label-text col-sm-4">Документы:</div>
+                <input v-model="info.name" class="form__input col-sm" type="text" disabled/>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm-4">Серия:</div>
+                <input v-model="info.serial" class="form__input col-sm" type="text" disabled/>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm-4">Номер:</div>
+                <input v-model="info.number" class="form__input col-sm" type="text" disabled/>
+              </label><label class="row">
+              <div class="form__label-text col-sm-4">Количество:</div>
+              <input v-model="info.count" class="form__input col-sm" type="text" disabled/>
+            </label>
+
+              <!--{{ todo.text }}-->
+            </div>
+          <div class="clear_save_button row">
+            <button v-if="this.resultAcceptPerson !=='Утверждено'" @click="onAcceptPerson">Утвердить</button>
+            <!--{{this.application}}-->
+            <button   @click="onSave">Сохранить</button>
+          </div>
+        </div>
+
+      </div>
     </div>
     <!--{{this.application}}-->
 
     <!--{{this.person}}-->
-    <div class="clear_save_button row">
-      <button v-if="this.resultAcceptPerson !=='Утверждено'" @click="onAcceptPerson">Утвердить</button>
-      <!--{{this.application}}-->
-      <button v-if="this.saved !=='Сохранено' " @click="onSave">Сохранить</button>
-    </div>
+
   </div>
 
 </template>

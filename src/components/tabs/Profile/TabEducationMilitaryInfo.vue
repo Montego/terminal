@@ -40,7 +40,7 @@
             </option>
           </select>
         </label>
-        <label class="row">
+        <label v-if="tab_edu_military_selectedCountryRegion.countryRegionId === 'РФ'" class="row">
           <div class="form__label-text col-sm">Регион:</div>
           <select  v-model="tab_edu_military_selectedState" class="minimal col-sm">
             <option v-for="item in addressState" v-bind:value="item">
@@ -50,8 +50,7 @@
 
         </label>
         <label class="row">
-          <div class="form__label-text col-sm">Дата окончания:</div>
-
+          <div class="form__label-text col-sm">Год окончания:</div>
           <select v-model="tab_edu_military_selectedAcademyYear" class="minimal col-sm">
             <option v-for="item in academyYear" v-bind:value="item">
               {{item.academyYearId}}
@@ -100,7 +99,7 @@
 
         <label class="row">
           <div class="form__label-text col-sm">Дата выдачи:</div>
-          <input v-model="tab_edu_military_eduDocDate" class="form__input col-sm" type="date" name="" placeholder=""/>
+          <input v-model="tab_edu_military_eduDocDate" class="form__input col-sm" type="date"  min="1918-01-01" max="2019-01-01"/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Наименование:</div>
@@ -159,7 +158,7 @@
 
         </label>
       </div>
-      <!--<div v-if="tab_edu_military_selectedSoldieryStatus =='Служил' || tab_edu_military_selectedSoldiery=='Военнообязанный'  ">-->
+      <div v-if="tab_edu_military_selectedSoldieryStatus.name ==='Служил' ">
         <div>
           <p>Документ о военной службе</p>
         </div>
@@ -184,7 +183,7 @@
 
           <label class="row">
             <div class="form__label-text col-sm">Дата выдачи:</div>
-            <input v-model="tab_edu_military_militaryIssueDate" class="form__input col-sm" type="date" name="" placeholder=""/>
+            <input v-model="tab_edu_military_militaryIssueDate" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
           </label>
           <label class="row">
             <div class="form__label-text col-sm">Кем выдан:</div>
@@ -202,9 +201,9 @@
               </option>
             </select>
           </label>
-          <label class="row">
+          <label v-if="tab_edu_military_selectedDocType.name ==='Оригинал'" class="row">
             <div class="form__label-text col-sm">Дата предоставления:</div>
-            <input v-model="tab_edu_military_docMilitaryShowDate" class="form__input col-sm" type="date" name="" placeholder=""/>
+            <input v-model="tab_edu_military_docMilitaryShowDate" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
           </label>
         </div>
         <div>
@@ -214,14 +213,14 @@
         <div>
           <label class="row">
             <div class="form__label-text col-sm">Дата начала:</div>
-            <input v-model="tab_edu_military_startMilitary" class="form__input col-sm" type="date" name="" placeholder=""/>
+            <input v-model="tab_edu_military_startMilitary" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
           </label>
           <label class="row">
             <div class="form__label-text col-sm">Дата окончания:</div>
-            <input v-model="tab_edu_military_endMilitary" class="form__input col-sm" type="date" name="" placeholder=""/>
+            <input v-model="tab_edu_military_endMilitary" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
           </label>
         </div>
-      <!--</div>-->
+      </div>
 
       <div>
         <p>Дополнительные сведения</p>
@@ -327,11 +326,13 @@
           //   parseInt(this.person.score_three)*3) / (parseInt(this.person.score_five) + parseInt(this.person.score_four)
           //   + parseInt(this.person.score_three));
 
-          this.score_full = (parseInt(this.score_five)*5 + parseInt(this.score_four)*4 +
-            parseInt(this.score_three)*3) / (parseInt(this.score_five) + parseInt(this.score_four)
-            + parseInt(this.score_three));
-          // this.person.score_full = this.score_full
 
+          this.score_full = Math.round(( (parseInt(this.score_five)*5 + parseInt(this.score_four)*4 +
+            parseInt(this.score_three)*3) / (parseInt(this.score_five) + parseInt(this.score_four)
+            + parseInt(this.score_three)) )*100)/100;
+          // this.person.score_full = this.score_full
+          // this.result = Math.round(this.score_full * 100)/100
+          // console.log(this.result)
         },
         // onAddExtraInfo() {
         //   this.extraInfos.push('');
@@ -375,18 +376,18 @@
             //   {id: 20, item: 'Сертификат'},
             // ],
             options_educationLevel: [
-              // {id: 1, item: 'Бакалавриат'},
-              // {id: 2, item: 'Магистратура'},
-              {id: 1, item: ''},
+              {id: 1, item: 'Бакалавриат'},
+              {id: 2, item: 'Магистратура'},
+              // {id: 1, item: ''},
               {id: 3, item: 'Специалитет'},
-              // {id: 4, item: 'Мед.училище'},
-              // {id: 5, item: 'СПО и техникум'},
-              // {id: 6, item: 'НПО'},
-              // {id: 7, item: 'СШД (Средняя школа дневная)'},
-              // {id: 8, item: 'СШВ (Средняя школа вечерняя'},
-              // {id: 9, item: 'Ординатура'},
-              // {id: 10, item: 'Интернатура'},
-              // {id: 11, item: 'Аспирантура'},
+              {id: 4, item: 'Мед.училище'},
+              {id: 5, item: 'СПО и техникум'},
+              {id: 6, item: 'НПО'},
+              {id: 7, item: 'СШД (Средняя школа дневная)'},
+              {id: 8, item: 'СШВ (Средняя школа вечерняя'},
+              {id: 9, item: 'Ординатура'},
+              {id: 10, item: 'Интернатура'},
+              {id: 11, item: 'Аспирантура'},
             ],
             options_soldiery: [
               {id: 1, item: 'Военнообязанный'},

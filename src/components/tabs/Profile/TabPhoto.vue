@@ -3,18 +3,23 @@
     <!--<img v-bind:src="'data:image/jpeg;base64,'+ this.image" />-->
     <div class="photo-loader">
       <div class="photo-loader__img-placeholder">
-        <div v-if="!showimage">
+        <div v-if="!person.person_info.showimage">
           <!--<h2>Выберите изображение</h2>-->
           <!--<input type="file" id="image" ref="image" @change="uploadFile">-->
         </div>
         <div v-else>
-          <img class="images_place" :src="showimage" />
+          <img  class="images_place" :src= "image" />
+          <!--<img v-else class="images_place" :src= "person.person_info.image" />-->
+          <!--<img  class="images_place" :src = "person.person_info.image"/>-->
         </div>
+        <!--<div v-if="person.person_info.image !== null">-->
+          <!--<img class="images_place" :src = "person.person_info.image"/>-->
+        <!--</div>-->
       </div>
       <div class="photo-loader__controls">
         <!--<button class="photo-loader__control-btn btn btn_load" type="button">-->
         <input type="file" id="image" ref="image" @change="uploadFile"/>
-        <button class="photo-loader__control-btn btn btn_reset" type="button" @click="removeImage">Сбросить</button>
+        <button class="photo-loader__control-btn /btn btn_reset" type="button" @click="removeImage">Сбросить</button>
 
       </div>
     </div>
@@ -332,6 +337,7 @@
             AXIOS.put('/profile/person/' + this.person_info_id,(this.person))
               .then(response =>{
                 console.log(response)
+                console.log(this.person)
                 location.href='profile#overview_personal_info';
                 this.person.ege_info = [];
                 this.person.parents_info = [];
@@ -368,12 +374,12 @@
         uploadFile(e) {
           console.log(e)
           let file = e.target.files[0];
-          this.showimage = URL.createObjectURL(file)
+          this.person.person_info.showimage = URL.createObjectURL(file)
 
            let reader = new FileReader();
            reader.onloadend = (file) => {
              this.image = reader.result
-             this.base = reader.result;
+             // this.base = reader.result;
              // console.log('RESULT',reader.result)
            }
            reader.readAsDataURL(file);
@@ -381,7 +387,7 @@
 
         removeImage: function (e) {
 
-          this.showimage = '';
+          this.person.person_info.showimage = '';
           // this.image = '';
         },
         // onFileChange(e) {
@@ -456,8 +462,10 @@
 
 
   .images_place {
-    height: 640px;
-    width: 480px
+    width: 200px;
+    height: 300px;
+    /*height: 640px;*/
+    /*width: 480px*/
   }
   .calculate_score {
     margin-top: -8px;

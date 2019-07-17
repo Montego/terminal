@@ -71,7 +71,7 @@
 
         <label class="row">
           <div class="form__label-text col-sm">Дата рождения:</div>
-          <input v-validate data-vv-as="дата рождения" v-model="tab_personal_birthDate" class="form__input col-sm" type="date" name="birthday" required/>
+          <input v-validate data-vv-as="дата рождения" v-model="tab_personal_birthDate" class="form__input col-sm" type="date" name="birthday" min="1918-01-01" max="2019-01-01"/>
         </label>
         <span class="alarm_label">{{ errors.first('birthday') }}</span>
 
@@ -88,7 +88,7 @@
         <!--<span class="alarm_label">{{ errors.first('snils') }}</span>-->
         <label class="row">
           <div class="form__label-text col-sm">СНИЛС Дата:</div>
-          <input v-validate data-vv-as="дата СНИЛС" v-model="tab_personal_INIPADate" class="form__input col-sm" type="date" name="snils_date"/>
+          <input v-validate data-vv-as="дата СНИЛС" v-model="tab_personal_INIPADate" class="form__input col-sm" type="date" name="snils_date" min="1918-01-01" max="2019-01-01"/>
         </label>
         <span class="alarm_label">{{ errors.first('snils_date') }}</span>
         <label class="row">
@@ -121,8 +121,8 @@
         <!--<span class="alarm_label" v-if="tab_personal_selectedIdentityCardCode.identityCardCode ==''">Не выбран тип документа</span>-->
         <label class="row">
           <div class="form__label-text col-sm">Серия:</div>
-          <input v-validate="'digits:4'" data-vv-as="серия паспорта" v-if="tab_personal_selectedIdentityCardCode.identityCardCode == 'Паспорт РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>
-          <input v-else-if="tab_personal_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***" v-mask="'###-###'" required/>
+          <input v-if="tab_personal_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>
+          <input v-else-if="tab_personal_selectedIdentityCardCode.identityCardCode !== 'Паспорт РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" required/>
           <input v-else v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
 
         </label>
@@ -143,7 +143,7 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Дата выдачи:</div>
-          <input v-model="tab_personal_identityCardIssueDate" class="form__input col-sm" type="date" name="doc_issued_date"/>
+          <input v-model="tab_personal_identityCardIssueDate" class="form__input col-sm" type="date" name="doc_issued_date" min="1918-01-01" max="2100-01-01"/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Код подразделения:</div>
@@ -157,14 +157,15 @@
 
         <select v-model="tab_personal_selectedCitizenship"  class="minimal col-sm">
           <option v-for="item in addressCountryRegion" v-bind:value="item">
-            {{item.countryRegionId}}
+            {{item.name}}
           </option>
         </select>
       </label>
       <label class="row">
+
         <div class="form__label-text col-sm">Соотечественник:</div>
-        <input v-if="tab_personal_selectedCitizenship=='РФ'" v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" id="compatriot" disabled="disabled">
-        <input v-else="tab_personal_selectedCitizenship=='РФ'" v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" >
+        <input v-if="tab_personal_selectedCitizenship.countryRegionId === 'РФ'" v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" disabled>
+        <input v-else v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" >
       </label>
       <label class="alarm_label">(При наличии подтверждающих документов)</label>
       <label class="row">
@@ -274,35 +275,40 @@
               {{item.languageId}}
             </option>
           </select>
+          <the-mask :mask="['Y']"
+                    v-model="language_score1"
+                    :tokens="customTokens"
+                    :masked="true"
+                    class="form__input col-sm"
+          ></the-mask>
+          <!--<input v-model="language_score1" class="form__input col-sm" type="text" v-mask="'#'"/>-->
 
-          <input v-model="language_score1" class="form__input col-sm" type="text" v-mask="'#'"/>
-          <!--<select v-model="person.language_score1" class="minimal col-sm-6">-->
-            <!--<input v-model="person.tab_personal_employDays" class="form__input col-sm" type="text" v-mask="'#'"/>-->
-            <!--<option v-for="item in languageLevel" v-bind:value="item">-->
-              <!--{{item.name}}-->
-            <!--</option>-->
-          <!--</select>-->
-          <!--<input v-model="language_score1" class="form__input col-sm-6" type="text">-->
 
           <select v-model="selected_foreignLanguageName2" class="minimal col-sm-6">
             <option v-for="item in language" v-bind:value="item">
               {{item.languageId}}
             </option>
           </select>
-
-          <input v-model="language_score2" class="form__input col-sm" type="text" v-mask="'#'"/>
-          <!--<select v-model="person.language_score2" class="minimal col-sm-6">-->
-            <!--<option v-for="item in languageLevel" v-bind:value="item">-->
-              <!--{{item.name}}-->
-            <!--</option>-->
-          <!--</select>-->
+          <the-mask :mask="['Y']"
+                    v-model="language_score2"
+                    :tokens="customTokens"
+                    :masked="true"
+                    class="form__input col-sm"
+          ></the-mask>
+          <!--<input v-model="language_score2" class="form__input col-sm" type="text" v-mask="'#'"/>-->
 
           <select v-model="selected_foreignLanguageName3" class="minimal col-sm-6">
             <option v-for="item in language" v-bind:value="item">
               {{item.languageId}}
             </option>
           </select>
-          <input v-model="language_score3" class="form__input col-sm" type="text" v-mask="'#'"/>
+          <the-mask :mask="['Y']"
+                    v-model="language_score3"
+                    :tokens="customTokens"
+                    :masked="true"
+                    class="form__input col-sm"
+          ></the-mask>
+          <!--<input v-model="language_score3" class="form__input col-sm" type="text" v-mask="'#'"/>-->
         </div>
 
         <!--</div>-->
@@ -448,6 +454,20 @@
     },
     data() {
       return {
+        customTokens: {
+          'Y': {pattern: /[0-5]/},
+        },
+        // customTokens: {
+        //   'Y': {pattern: /[0-9]/},
+        //   '#': {pattern: /\d/},
+        //   'X': {pattern: /[0-9a-zA-Z]/},
+        //   'S': {pattern: /[a-zA-Z]/},
+        //   'A': {pattern: /[a-zA-Z]/, transform: v => v.toLocaleUpperCase()},
+        //   'a': {pattern: /[a-zA-Z]/, transform: v => v.toLocaleLowerCase()},
+        //   '!': {escape: true}
+        // },
+
+        citizenshipRF : {"countryRegionId":"РФ","name":"Россия"},
         languages:[
           {
             selected_foreignLanguageName:'',

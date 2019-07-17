@@ -85,7 +85,7 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Дата рождения:</div>
-              <input v-model="tab_parent_birthDate" class="form__input col-sm" type="date" name="" placeholder=""/>
+              <input v-model="tab_parent_birthDate" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Полных лет</div>
@@ -453,7 +453,7 @@
   }
 
   .clear_save_button {
-    margin-top: 30%;
+    margin-top: 10%;
     /*margin-left: 65%;*/
     display: flex;
     justify-content: flex-end;
@@ -461,6 +461,7 @@
 
   .parent_tabs {
     margin-top: -35px;
+    margin-bottom: -10px;
     /*background: linear-gradient(45deg, #EECFBA, #C5DDE8);*/
   }
 

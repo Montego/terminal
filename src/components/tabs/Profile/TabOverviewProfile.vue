@@ -149,7 +149,7 @@
           this.person.ege_info = [];
           this.person.parents_info = [];
           this.person.futures_info = [];
-
+          this.person.person_info.image = "";
           this.id = '';
           this.image = '';
           this.showimage = '';
@@ -159,19 +159,19 @@
           this.tab_personal_lastname_genitive = '';
           this.tab_personal_firstname_genitive = '';
           this.tab_personal_middlename_genitive = '';
-          this.tab_personal_selectedGender  = null;
+          this.tab_personal_selectedGender  = {"id":1,"name":"Мужской"};
           this.tab_personal_birthDate = '';
           this.tab_personal_INIPA  = '';
           this.tab_personal_INIPADate  = '';
           this.tab_personal_note  = '';
 
-          this.tab_personal_selectedIdentityCardCode;
+          this.tab_personal_selectedIdentityCardCode = { "identityCardCode": "Паспорт РФ", "identityCardNamemiddle": "Паспорт РФ", "identityCardNameFull": "Паспорт РФ", "identityCardNameShort": "", "isUniversity": 1, "isMandatory_Number": 1, "isMandatory_Series": 1, "sort": 1 };
           this.tab_personal_identityCardSeries  = '';
           this.tab_personal_identityCardNumber  = '';
           this.tab_personal_identityCardIssueBy  = '';
           this.tab_personal_identityCardIssueDate  = '';
           this.tab_personal_identityCardIssueDep  = '';
-          this.tab_personal_selectedCitizenship  = '';
+          this.tab_personal_selectedCitizenship  = {"countryRegionId":"РФ","name":"Россия"};
           this.tab_personal_isCompatriot  = false;
           this.tab_personal_isEquatedForeign  = false;
           this.tab_personal_birthplace  = '';
@@ -186,7 +186,7 @@
           this.tab_personal_employYears  = '';
           this.tab_personal_employMonths  = '';
           this.tab_personal_employDays  = '';
-          this.tab_personal_selectedForeignLanguageInfo  = '';
+          this.tab_personal_selectedForeignLanguageInfo  = {"id":0,"name":"Нет данных"};
           this.selected_foreignLanguageName1  = null;
           this.language_score1  = '';
           this.selected_foreignLanguageName2  = null;
@@ -200,7 +200,7 @@
 
           this.tab_edu_military_educationLevel  = null;
           this.tab_edu_military_univer  = '';
-          this.tab_edu_military_selectedCountryRegion  = null;
+          this.tab_edu_military_selectedCountryRegion  = {"countryRegionId":"РФ","name":"Россия"};
           this.tab_edu_military_selectedState  = null;
           this.tab_edu_military_selectedAcademyYear  = '';
           this.tab_edu_military_selectedEduDoc  = '';
@@ -212,14 +212,14 @@
           this.tab_edu_military_attachment_number  = '';
           this.averageScore  = '';
           this.tab_edu_military_selectedSoldiery  = null;
-          this.tab_edu_military_selectedSoldieryStatus  = null;
-          this.tab_edu_military_selectedMilitaryFormDoc  = null;
+          this.tab_edu_military_selectedSoldieryStatus  = {"id":0,"name":"Не служил"};
+          this.tab_edu_military_selectedMilitaryFormDoc  = {"id":0,"name":"Не определено"};
           this.tab_edu_military_militaryNumber  = '';
           this.tab_edu_military_militarySeries  = '';
           this.tab_edu_military_militaryIssueDate  = '';
           this.tab_edu_military_militaryIssueBy  = '';
           this.tab_edu_military_militaryRank  = '';
-          this.tab_edu_military_selectedDocType  = null;
+          this.tab_edu_military_selectedDocType  = {"id":0,"name":"Копия"};
           this.tab_edu_military_docMilitaryShowDate  = '';
           this.tab_edu_military_startMilitary  = '';
           this.tab_edu_military_endMilitary  = '';
@@ -339,7 +339,7 @@
           const idString = this.profiles[index].id;
           const id = parseInt(idString,10);
           this.person_info_id = id;
-
+          this.person.applications = [];
           AXIOS.get('/profile/applicationTable/' + this.person_info_id)
             .then(response => {
               // this.applicationTable = response.data.
@@ -373,21 +373,8 @@
               // this.errors.push(e)
             })
 
-
-
-          // AXIOS.get(`/profile/getApplicationsByPersonInfo/` + id)
-          //   .then(response => {
-          //     this.application = response.data;
-          //     console.log(this.application)
-          //   })
-          //   .catch(e => {
-          //     this.errors.push(e)
-          //   });
-
-          // const index = this.profiles.indexOf(item);
-          // this.person = this.profiles[index];
-          // this.showPerson = !this.showPerson;
           console.log(this.person_info_id)
+
           location.href = 'profile#overviewApplication';
 
         },
