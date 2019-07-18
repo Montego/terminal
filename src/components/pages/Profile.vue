@@ -174,8 +174,9 @@
     methods: {
       handleClick(val) {
         this.showProfile = val;
+          // this.profiles= [];
           this.application.applicationTable.splice(0,1)
-
+        // this.application.applicationTable = [];
           // this.person_info_id='';
           // this.savedResult = '';
         // this.application = [];

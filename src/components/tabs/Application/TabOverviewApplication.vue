@@ -58,6 +58,7 @@
 
 <script>
   import {AXIOS} from "../../plugins/APIService";
+  import {AXIOS_print} from "../../plugins/APIService";
   import { createHelpers } from 'vuex-map-fields';
   import {mapGetters, mapState} from 'vuex'
 
@@ -145,11 +146,9 @@
         },
         printItem(item){
 
-          AXIOS.get(`/10.71.0.115/application/App123456.xlsm`)
+          AXIOS_print.get(`/App123456.xlsm`)
             .then(response => {
-              console.log(response.data)
               // this.application_person_name = response.data;
-
             })
             .catch(e => {
               this.errors.push(e)
