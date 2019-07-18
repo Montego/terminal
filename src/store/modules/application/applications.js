@@ -4,6 +4,7 @@ import { getField, updateField } from 'vuex-map-fields';
 export default {
   namespaced: true,
   state: {
+    apls:[],
     application: {
       saved:'',
       application_condition:[],

@@ -7,6 +7,8 @@ export default {
     showProfile: true,
     profiles:[],
 
+
+    isModalVisible:false,
     tab_ege_changePaspInf:false,
 
     tab_personal_lastname: "",

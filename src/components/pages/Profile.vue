@@ -8,13 +8,13 @@
       <!--<a class="logout col-sm-3" href="/login">Logout</a>-->
     <!--</div>-->
     <div class="control-panel">
-      <!--<div>-->
-        <!--<span>Абитуриент:</span>-->
-        <!--<input type="search" name="поиск" placeholder="Поиск по сайту">-->
-      <!--</div>-->
+      <div>
+        <span>Абитуриент:</span>
+        <input type="search" name="поиск" placeholder="Поиск по сайту">
+      </div>
       <div>
         <!--<button type="button" @click="handleClick(false)">К заявлениям</button>-->
-        <button type="button" @click="handleClick(true)">К профилям</button>
+        <button type="button" @click="handleClick(true)">К абитуриентам</button>
       </div>
 
       <!--<form action="/logout" method="post">-->
@@ -148,7 +148,7 @@
       TabDocuments, TabEntranceTests, TabOther
     },
     computed: {
-      ...person(['person', 'showProfile','person_info_id']),
+      ...person(['person', 'showProfile','person_info_id','isModalVisible']),
       ...applications(['application'])
     },
     data() {
@@ -173,8 +173,10 @@
     },
     methods: {
       handleClick(val) {
+
         this.showProfile = val;
           // this.profiles= [];
+          this.isModalVisible = false;
           this.application.applicationTable.splice(0,1)
         // this.application.applicationTable = [];
           // this.person_info_id='';
@@ -211,7 +213,7 @@
   }
 
   .control-panel > * {
-    margin: 0 300px;
+    margin: 0 150px;
   }
 
   /*.logout {*/

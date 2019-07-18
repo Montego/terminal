@@ -1,11 +1,17 @@
 <template>
   <div>
+    <modal
+      v-show="isModalVisible"
+      @close="closeModal"
+      @toApplication="onAppl(person_info_id)"
+    />
     <div>
       <!--{{this.tab_profiles[0].tab_personal_lastname}}-->
-      <button color="#5bc0de" @click="onNewProfile()">
+      <button v-if="isModalVisible === false" color="#5bc0de" @click="onNewProfile()">
         +
       </button>
     </div>
+
 
   <v-data-table data-app
     :headers="headers_profile"
@@ -22,10 +28,13 @@
       <!--<td class="text-xs-center">{{ props.item.application_number}}</td>-->
       <!--<td class="text-xs-center">{{ props.item.contact_code_pretendent}}</td>-->
       <td class="justify-center layout px-0">
-          <button class = "button_controls" type="button" @click="onApplication(props.item); handleClick(false) ">
-            <v-icon color="#5bc0de">description</v-icon>
-          </button>
-        <button class = "button_controls" type="button" @click="onRedaction(props.item)">
+          <!--<button class = "button_controls" type="button" @click="onApplication(props.item); handleClick(false) ">-->
+            <!--<v-icon color="#5bc0de">description</v-icon>-->
+          <!--</button>-->
+        <button v-if="isModalVisible === false" class = "button_controls" type="button" @click="showModal(props.item)">
+          <v-icon color="#5bc0de">description</v-icon>
+        </button>
+        <button v-if="isModalVisible === false" class = "button_controls" type="button" @click="onRedaction(props.item)">
           <v-icon color="#5bc0de">visibility</v-icon>
         </button>
         <button class = "button_controls" v-if="props.item.resultAcceptPerson !=='Утверждено'" @click="onRedaction(props.item)">
@@ -38,9 +47,11 @@
 </template>
 
 <script>
+
   import {AXIOS} from "../../plugins/APIService";
   import { createHelpers } from 'vuex-map-fields';
   import { mapMultiRowFields } from 'vuex-map-fields';
+  import modal from "../../modals/modal";
 
   // const { mapMultiRowFields: personM } = createHelpers({
   //   getterType: `person/getField`,
@@ -65,11 +76,15 @@
   });
     export default {
       name: "TabOverview",
+      components: {
+        modal
+      },
       props: {
         handleClick: Function,
       },
       data () {
         return {
+          // isModalVisible: false,
           personInfo:[],
           // profiles: [],
           titles:[
@@ -95,7 +110,7 @@
       computed: {
         // ...mapMultiRowFields(['profiles']),
         // ...application(['contacts']),
-        ...person(['person','showProfile','profiles',
+        ...person(['person','showProfile','profiles','isModalVisible',
           'tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename', 'tab_personal_lastname_genitive',
           'tab_personal_firstname_genitive', 'tab_personal_middlename_genitive', 'tab_personal_selectedGender', 'tab_personal_birthDate',
           'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note', 'tab_personal_selectedIdentityCardCode',
@@ -118,7 +133,7 @@
         ]),
 
         ...applications(['application','application_person_id','application_person_name','applId','applTableName',
-        'applTableNumber','applTableDate','applTableDeliveryType','applicationId'],),
+        'applTableNumber','applTableDate','applTableDeliveryType','applicationId','apls'],),
         showTable() {
             return this.profiles;
         },
@@ -144,6 +159,70 @@
 
 
       methods: {
+        showModal(item) {
+          const index = this.profiles.indexOf(item);
+          const idString = this.profiles[index].id;
+          const id = parseInt(idString,10);
+          this.person_info_id = id;
+          console.log(this.person_info_id);
+
+          AXIOS.get('/profile/applicationTable/' + this.person_info_id)
+
+            .then(response => {
+              console.log('response data - ' + response.data[0].applicationId)
+
+              if(response.data[0].applicationId < 0){
+                AXIOS.get(`/profile/ways`)
+                  .then(response => {
+                    this.apls = response.data;
+                    console.log(this.profiles)
+                  })
+                  .catch(e => {
+                    this.errors.push(e)
+                  })
+
+                this.isModalVisible = true;
+              }
+              else{
+                this.applId = response.data[0].applicationId;
+                this.applTableName = response.data[0].application_person_name;
+                this.applTableNumber =response.data[0].application_number;
+                this.applTableDate = response.data[0].application_date;
+                this.applTableDeliveryType = response.data[0].application_selectedDeliveryType;
+                this.resultAcceptPerson = response.data[0].resultAcceptPerson;
+                this.savedResult = response.data[0].saved;
+
+                function ApplTable(tableId,tableName, tableNumber, tableDate, tableDeliveryType, accept, saved) {
+                  this.applId = tableId
+                  this.applTableName = tableName;
+                  this.applTableNumber = tableNumber;
+                  this.applTableDate = tableDate;
+                  this.applTableDeliveryType = tableDeliveryType;
+                  this.resultAcceptPerson = accept;
+                  this.savedResult = saved;
+                }
+                let appltable = new ApplTable(
+                  this.applId,
+                  this.applTableName,this.applTableNumber,this.applTableDate,this.applTableDeliveryType, this.resultAcceptPerson,
+                  this.savedResult);
+
+                this.application.applicationTable.push(appltable);
+                this.showProfile = false;
+                location.href = 'profile#overviewApplication';
+              }
+
+            })
+            .catch(e => {
+              console.log('something wrong')
+            })
+
+
+        },
+
+        closeModal() {
+          this.isModalVisible = false;
+        },
+
         onNewProfile(){
           this.person.acceptedPerson = '';
           this.resultAcceptPerson = '';
@@ -338,7 +417,24 @@
 
         },
 
+
+        onAppl(id) {
+          console.log('in method -' + this.person_info_id)
+          AXIOS.get('/profile/applicationTable/' + this.person_info_id)
+            .then(response => {
+                console.log(response.data)
+              if(response.data.isEmpty()){
+                console.log('yes')
+              }else{
+                console.log('no')
+              }
+            })
+            .catch(e => {
+
+            })
+        },
         onApplication(item) {
+
           const index = this.profiles.indexOf(item);
           const idString = this.profiles[index].id;
           const id = parseInt(idString,10);
@@ -380,7 +476,7 @@
           console.log(this.person_info_id)
 
           location.href = 'profile#overviewApplication';
-
+          this.showModal();
         },
       },
 
@@ -546,4 +642,66 @@ table {
     align-items: flex-start;
     flex-direction: column;
   }
+
+
+  /*modal window css*/
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal {
+    background: #FFFFFF;
+    box-shadow: 2px 2px 20px 1px;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-header,
+  .modal-footer {
+    padding: 15px;
+    display: flex;
+  }
+
+  .modal-header {
+    border-bottom: 1px solid #eeeeee;
+    color: #4AAE9B;
+    justify-content: space-between;
+  }
+
+  .modal-footer {
+    border-top: 1px solid #eeeeee;
+    justify-content: flex-end;
+  }
+
+  .modal-body {
+    position: relative;
+    padding: 20px 10px;
+  }
+
+  .btn-close {
+    border: none;
+    font-size: 20px;
+    padding: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #4AAE9B;
+    background: transparent;
+  }
+
+  .btn-green {
+    color: white;
+    background: #4AAE9B;
+    border: 1px solid #4AAE9B;
+    border-radius: 2px;
+  }
+
 </style>

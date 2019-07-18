@@ -3,7 +3,10 @@
   <!--<button color="#5bc0de" @click="onNewApplication()">-->
     <!--+-->
   <!--</button>-->
-
+  <modal
+    v-show="isModalVisible"
+    @close="closeModal"
+  />
   <button  color="#5bc0de" @click="onNewApplication()">
     +
   </button>
@@ -19,9 +22,9 @@
       <td class="text-xs-center">{{ props.item.applTableNumber}}</td>
       <td class="text-xs-center">{{ props.item.applTableDate}}</td>
       <td class="text-xs-center">{{ props.item.applTableDeliveryType.name }}</td>
-      <td class="text-xs-center">
-        <input v-model="budget" class="checkbox col-sm" type="checkbox" id="budget">
-      </td>
+      <!--<td class="text-xs-center">-->
+        <!--<input v-model="budget" class="checkbox col-sm" type="checkbox" id="budget">-->
+      <!--</td>-->
       <!--<td class="text-xs-center">-->
         <!--<input v-model="approved" class="checkbox col-sm" type="checkbox" id="approved">-->
       <!--</td>-->
@@ -57,6 +60,7 @@
 </template>
 
 <script>
+  import modal from "../../modals/modal";
   import {AXIOS} from "../../plugins/APIService";
   import {AXIOS_print} from "../../plugins/APIService";
   import { createHelpers } from 'vuex-map-fields';
@@ -72,8 +76,12 @@
   });
     export default {
         name: "TabOverviewApplication",
+        components: {
+        modal
+      },
       data(){
           return{
+            isModalVisible: false,
             budget: false,
             approved: false,
             headers_applications: [
@@ -81,7 +89,7 @@
               {text: 'Номер заявления', value: 'applTableNumber', sortable: false, align: 'center'},
               {text: 'Дата заявления', value: 'applTableDate', sortable: false, align: 'center'},
               {text: 'Тип доставки', value: 'applTableDeliveryType', sortable: false, align: 'center'},
-              {text: 'Перевести на бюджет', value: 'budget', sortable: false, align: 'center'},
+              // {text: 'Перевести на бюджет', value: 'budget', sortable: false, align: 'center'},
               // {text: 'Утвердить', value: 'approved', sortable: false, align: 'center'},
               // {text: 'Отчество', value: 'patronymic_parent', sortable: false, align: 'center'},
               // {text: 'Пол', value: 'gender_parent', sortable: false, align: 'center'},
@@ -124,6 +132,12 @@
         //   })
       },
       methods:{
+        showModal() {
+          this.isModalVisible = true;
+        },
+        closeModal() {
+          this.isModalVisible = false;
+        },
         onNewApplication() {
           this.person.application_number = null;
           this.person.application_date = null;
