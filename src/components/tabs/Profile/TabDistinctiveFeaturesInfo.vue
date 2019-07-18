@@ -33,14 +33,14 @@
         </tab>
         <tab id="features_info" name="Отличительные признаки">
           <div class="inner_tab row">
-            <div class="col-sm">
+            <div class="col-sm-4">
               <div>
                 <p>Отличительные признаки</p>
               </div>
               <label class="row">
                 <div class="form__label-text col-sm">Тип признака:</div>
-                <select v-model="tab_features_selectedAttrType"  class="minimal col-sm">
-                  <option v-for="item in attrType" v-bind:value="item">
+                <select v-model="tab_features_selectedAttrType"  class="minimal col-sm" >
+                  <option v-for="item in attrType" v-bind:value="item" >
                     {{item.name}}
                   </option>
                 </select>
@@ -62,14 +62,14 @@
                   </option>
                 </select>
               </label>
-              <label class="row">
-                <div class="form__label-text col-sm">Серия</div>
-                <input v-model="tab_features_serial" class="form__input col-sm" type="text" />
-              </label>
-              <label class="row">
-                <div class="form__label-text col-sm">Номер</div>
-                <input v-model="tab_features_number" class="form__input col-sm" type="text" />
-              </label>
+              <!--<label class="row">-->
+                <!--<div class="form__label-text col-sm">Серия</div>-->
+                <!--<input v-model="tab_features_serial" class="form__input col-sm" type="text" />-->
+              <!--</label>-->
+              <!--<label class="row">-->
+                <!--<div class="form__label-text col-sm">Номер</div>-->
+                <!--<input v-model="tab_features_number" class="form__input col-sm" type="text" />-->
+              <!--</label>-->
               <label class="row">
                 <div class="form__label-text col-sm">Балл ИД</div>
                 <input v-model="tab_features_selectedPreference.points" class="form__input col-sm" type="text" disabled/>
@@ -80,7 +80,7 @@
                 <!--</select>-->
               </label>
             </div>
-            <div class="col-sm">
+            <div class="col-sm-8">
               <div>
                 <p>Прикрепленные документы</p>
               </div>
@@ -90,29 +90,145 @@
                   <!--<div class="form__label-text col-sm">№</div>-->
                   <!--<input v-model="documents.index" class="form__input col-sm" type="text" name="" placeholder="заполняется автоматически"disabled/>-->
                 <!--</label>-->
-              <div>
-                <div class="row">
-                  <div class="form__label-text col-sm">Документ 1:</div>
-                  <input v-model="doc1" class="form__input col-sm" type="text" />
-                  <!--<input type="file" id="doc1" ref="doc1" @change="uploadFile1" title="Загрузите файл"/>-->
-                </div>
-                <div class="row">
-                  <div class="form__label-text col-sm">Серия:</div>
-                  <input v-model="doc1_serial" class="form__input col-sm" type="text" />
-                </div>
-                <div class="row">
-                  <div class="form__label-text col-sm">Номер:</div>
-                  <input v-model="doc1_number" class="form__input col-sm" type="text" />
-                </div>
-                <label class="row">
-                  <div class="form__label-text col-sm">Копия/Оригинал:</div>
-                  <select v-model="tab_features_selectedDocType1" class="minimal col-sm">
-                    <option v-for="item in docType" v-bind:value="item">
-                      {{item.name}}
-                    </option>
-                  </select>
-                </label>
-              </div>
+              <!--<div class="row">-->
+                <!--<div class="col-sm-6">-->
+                  <!--<label class="row">-->
+                    <!--<div class="form__label-text col-sm">Документ 1:</div>-->
+                    <!--<input v-model="doc1" class="form__input col-sm" type="text" />-->
+                    <!--&lt;!&ndash;<input type="file" id="doc1" ref="doc1" @change="uploadFile1" title="Загрузите файл"/>&ndash;&gt;-->
+                  <!--</label>-->
+                  <!--<label class="row">-->
+                    <!--<div class="form__label-text col-sm">Серия:</div>-->
+                    <!--<input v-model="doc1_serial" class="form__input col-sm" type="text" />-->
+                  <!--</label>-->
+                  <!--<label class="row">-->
+                    <!--<div class="form__label-text col-sm">Номер/ID:</div>-->
+                    <!--<input v-model="doc1_number" class="form__input col-sm" type="text" />-->
+                  <!--</label>-->
+                  <!--<label class="row">-->
+                    <!--<div class="form__label-text col-sm">Копия/Оригинал:</div>-->
+                    <!--<select v-model="tab_features_selectedDocType1" class="minimal col-sm">-->
+                      <!--<option v-for="item in docType" v-bind:value="item">-->
+                        <!--{{item.name}}-->
+                      <!--</option>-->
+                    <!--</select>-->
+                  <!--</label>-->
+                  <!--<label v-if="tab_features_selectedDocType1.name ==='Оригинал'" class="row">-->
+                    <!--<div class="form__label-text col-sm">Дата предоставления:</div>-->
+                    <!--<input v-model="tab_featuresShowDate1" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>-->
+                  <!--</label>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;&ndash;&gt;-->
+                <!--<div class="col-sm-6">-->
+                  <!--<label  class="row">-->
+                    <!--<div class="form__label-text col-sm">Дата выдачи:</div>-->
+                    <!--<input v-model="doc1_IssuDate" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>-->
+                  <!--</label>-->
+                  <!--<label  class="row">-->
+                    <!--<div class="form__label-text col-sm">Кем выдан:</div>-->
+                    <!--<input v-model="doc1_IssueBy" class="form__input col-sm" type="text" />-->
+                  <!--</label>-->
+                  <!--<label class="row">-->
+                    <!--<div class="form__label-text col-sm">Документ:</div>-->
+                    <!--<textarea v-model="doc1_full_info" class="col-sm" name="birth_place" disabled></textarea>-->
+                  <!--</label>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<hr>-->
+              <!--<div class="row">-->
+                <!--<div class="col-sm-6">-->
+                  <!--<label class="row">-->
+                    <!--<div class="form__label-text col-sm">Документ 2:</div>-->
+                    <!--<input v-model="doc2" class="form__input col-sm" type="text" />-->
+                    <!--&lt;!&ndash;<input type="file" id="doc1" ref="doc1" @change="uploadFile1" title="Загрузите файл"/>&ndash;&gt;-->
+                  <!--</label>-->
+                  <!--<label class="row">-->
+                    <!--<div class="form__label-text col-sm">Серия:</div>-->
+                    <!--<input v-model="doc2_serial" class="form__input col-sm" type="text" />-->
+                  <!--</label>-->
+                  <!--<label class="row">-->
+                    <!--<div class="form__label-text col-sm">Номер/ID:</div>-->
+                    <!--<input v-model="doc2_number" class="form__input col-sm" type="text" />-->
+                  <!--</label>-->
+                  <!--<label class="row">-->
+                    <!--<div class="form__label-text col-sm">Копия/Оригинал:</div>-->
+                    <!--<select v-model="tab_features_selectedDocType2" class="minimal col-sm">-->
+                      <!--<option v-for="item in docType" v-bind:value="item">-->
+                        <!--{{item.name}}-->
+                      <!--</option>-->
+                    <!--</select>-->
+                  <!--</label>-->
+                  <!--<label v-if="tab_features_selectedDocType2.name ==='Оригинал'" class="row">-->
+                    <!--<div class="form__label-text col-sm">Дата предоставления:</div>-->
+                    <!--<input v-model="tab_featuresShowDate2" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>-->
+                  <!--</label>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;&ndash;&gt;-->
+                <!--<div class="col-sm-6">-->
+                  <!--<label  class="row">-->
+                    <!--<div class="form__label-text col-sm">Дата выдачи:</div>-->
+                    <!--<input v-model="doc2_IssuDate" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>-->
+                  <!--</label>-->
+                  <!--<label  class="row">-->
+                    <!--<div class="form__label-text col-sm">Кем выдан:</div>-->
+                    <!--<input v-model="doc2_IssueBy" class="form__input col-sm" type="text" />-->
+                  <!--</label>-->
+                  <!--<label class="row">-->
+                    <!--<div class="form__label-text col-sm">Документ:</div>-->
+                    <!--<textarea v-model="doc2_full_info" class="col-sm" name="birth_place" disabled></textarea>-->
+                  <!--</label>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<hr>-->
+              <!--<div class="row">-->
+                <!--<div class="col-sm-6">-->
+                  <!--<label class="row">-->
+                    <!--<div class="form__label-text col-sm">Документ 3:</div>-->
+                    <!--<input v-model="doc3" class="form__input col-sm" type="text" />-->
+                    <!--&lt;!&ndash;<input type="file" id="doc1" ref="doc1" @change="uploadFile1" title="Загрузите файл"/>&ndash;&gt;-->
+                  <!--</label>-->
+                  <!--<label class="row">-->
+                    <!--<div class="form__label-text col-sm">Серия:</div>-->
+                    <!--<input v-model="doc3_serial" class="form__input col-sm" type="text" />-->
+                  <!--</label>-->
+                  <!--<label class="row">-->
+                    <!--<div class="form__label-text col-sm">Номер/ID:</div>-->
+                    <!--<input v-model="doc3_number" class="form__input col-sm" type="text" />-->
+                  <!--</label>-->
+                  <!--<label class="row">-->
+                    <!--<div class="form__label-text col-sm">Копия/Оригинал:</div>-->
+                    <!--<select v-model="tab_features_selectedDocType3" class="minimal col-sm">-->
+                      <!--<option v-for="item in docType" v-bind:value="item">-->
+                        <!--{{item.name}}-->
+                      <!--</option>-->
+                    <!--</select>-->
+                  <!--</label>-->
+                  <!--<label v-if="tab_features_selectedDocType3.name ==='Оригинал'" class="row">-->
+                    <!--<div class="form__label-text col-sm">Дата предоставления:</div>-->
+                    <!--<input v-model="tab_featuresShowDate3" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>-->
+                  <!--</label>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;&ndash;&gt;-->
+
+                <!--<div class="col-sm-6">-->
+                  <!--<label  class="row">-->
+                    <!--<div class="form__label-text col-sm">Дата выдачи:</div>-->
+                    <!--<input v-model="doc3_IssuDate" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>-->
+                  <!--</label>-->
+                  <!--<label  class="row">-->
+                    <!--<div class="form__label-text col-sm">Кем выдан:</div>-->
+                    <!--<input v-model="doc3_IssueBy" class="form__input col-sm" type="text" />-->
+                  <!--</label>-->
+                  <!--<label class="row">-->
+                    <!--<div class="form__label-text col-sm">Документ:</div>-->
+                    <!--<textarea v-model="doc3_full_info" class="col-sm" name="birth_place" disabled></textarea>-->
+                  <!--</label>-->
+                <!--</div>-->
+              <!--</div>-->
+
+
+
+
               <hr>
               <div>
                 <div class="row">
@@ -125,7 +241,7 @@
                   <input v-model="doc2_serial" class="form__input col-sm" type="text" />
                 </div>
                 <div class="row">
-                  <div class="form__label-text col-sm">Номер:</div>
+                  <div class="form__label-text col-sm">Номер/ID:</div>
                   <input v-model="doc2_number" class="form__input col-sm" type="text" />
                 </div>
                 <label class="row">
@@ -135,6 +251,10 @@
                       {{item.name}}
                     </option>
                   </select>
+                </label>
+                <label v-if="tab_features_selectedDocType2.name ==='Оригинал'" class="row">
+                  <div class="form__label-text col-sm">Дата предоставления:</div>
+                  <input v-model="tab_featuresShowDate2" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
                 </label>
               </div>
               <hr>
@@ -149,7 +269,7 @@
                   <input v-model="doc3_serial" class="form__input col-sm" type="text" />
                 </div>
                 <div class="row">
-                  <div class="form__label-text col-sm">Номер:</div>
+                  <div class="form__label-text col-sm">Номер/ID:</div>
                   <input v-model="doc3_number" class="form__input col-sm" type="text" />
                 </div>
                 <label class="row">
@@ -160,13 +280,18 @@
                     </option>
                   </select>
                 </label>
+                <label v-if="tab_features_selectedDocType3.name ==='Оригинал'" class="row">
+                  <div class="form__label-text col-sm">Дата предоставления:</div>
+                  <input v-model="tab_featuresShowDate3" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
+                </label>
               </div>
 
-              <!--<div class="row">-->
-                <!--<input class="button_add" type="button" value="Добавить документ" @click="onAddDocuments" >-->
-                <!--<input class="button_add" type="button" value="Убрать документ" @click="onRemoveDocuments" >-->
-              <!--</div>-->
+
+
             </div>
+
+
+
           </div>
           <hr>
           <button @click="onAddFeature">Сохранить</button>
@@ -218,9 +343,10 @@
         ...mapGetters('dictionary', ['GET_preference', ]),
         ...tab_distinctive_features_info(['tab_features_selectedAttrType', 'tab_features_selectedPreference',
         'tab_features_selectedPreferencePoint','tab_features_selectedTypeDiploma','tab_features_serial','tab_features_number',
-          'doc1','doc1_serial','doc1_number', 'tab_features_selectedDocType1',
-          'doc2','doc2_serial','doc2_number','tab_features_selectedDocType2',
-          'doc3','doc3_serial','doc3_number','tab_features_selectedDocType3',
+          'doc1','doc1_serial','doc1_number', 'tab_features_selectedDocType1','tab_featuresShowDate1','doc1_IssuDate','doc1_IssueBy','doc1_full_info',
+          'doc2','doc2_serial','doc2_number','tab_features_selectedDocType2','tab_featuresShowDate2','doc2_IssuDate','doc2_IssueBy','doc2_full_info',
+          'doc3','doc3_serial','doc3_number','tab_features_selectedDocType3','tab_featuresShowDate3','doc3_IssuDate','doc3_IssueBy','doc3_full_info',
+
           ]),
         ...person(['person']),
 
@@ -258,8 +384,12 @@
             function Feature(selectedAttrType, selectedPreference ,typeDyploma,
                              features_serial, features_number,
                              doc1,doc1_serial,doc1_number, selectedDocType1,
+                             // showDate1, issuDate1, issueBy1, full_info1,
                              doc2,doc2_serial,doc2_number, selectedDocType2,
-                             doc3,doc3_serial,doc3_number, selectedDocType3) {
+                             // showDate2, issuDate2, issueBy2, full_info2,
+                             doc3,doc3_serial,doc3_number, selectedDocType3,
+                             // showDate3, issuDate3, issueBy3, full_info3
+            ) {
               this.tab_features_selectedAttrType = selectedAttrType;
               this.tab_features_selectedPreference = selectedPreference;
               this.tab_features_selectedTypeDiploma = typeDyploma;
@@ -269,14 +399,26 @@
               this.doc1_serial = doc1_serial;
               this.doc1_number = doc1_number;
               this.tab_features_selectedDocType1 = selectedDocType1;
+              // this.tab_featuresShowDate1 = showDate1;
+              // this.doc1_IssuDate = issuDate1;
+              // this.doc1_IssueBy = issueBy1;
+              // this.doc1_full_info = full_info1;
               this.doc2 = doc2;
               this.doc2_serial = doc2_serial;
               this.doc2_number = doc2_number;
               this.tab_features_selectedDocType2 = selectedDocType2;
+              // this.tab_featuresShowDate2 = showDate2;
+              // this.doc2_IssuDate = issuDate2;
+              // this.doc2_IssueBy = issueBy2;
+              // this.doc2_full_info = full_info2;
               this.doc3 = doc3;
               this.doc3_serial = doc3_serial;
               this.doc3_number = doc3_number;
               this.tab_features_selectedDocType3 = selectedDocType3;
+              // this.tab_featuresShowDate3 = showDate3;
+              // this.doc3_IssuDate = issuDate3;
+              // this.doc3_IssueBy = issueBy3;
+              // this.doc3_full_info = full_info3;
 
             }
 

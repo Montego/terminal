@@ -18,7 +18,7 @@
         <a class="form__link" href="#">Забыли пароль?</a>
       </div>
 
-      <a class="form__btn-submit btn" @click.prevent="onLogin">Войти</a>
+      <button class="form__btn-submit btn" @click.prevent="onLogin">Войти</button>
 
     </form>
   </div>

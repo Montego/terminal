@@ -35,7 +35,68 @@
       <tab id="ege_info" name="Данные для свидетельства">
         <div class="inner_tab row">
 
-          <div class="col-sm">
+          <div class="col-sm-4">
+            <div>
+              <p>Предметы</p>
+            </div>
+            <hr>
+            <label class="row">
+              <div class="form__label-text col-sm">Форма ЕГЭ:</div>
+
+              <!--<select v-model="tab_ege_selectedExamForm" class="minimal col-sm">-->
+              <!--<option v-for="item in examForm" v-bind:value="item">-->
+              <!--{{item.name}}-->
+              <!--</option>-->
+              <!--</select>-->
+              <select v-model="tab_ege_selectedExamForm" class="minimal col-sm">
+                <option v-for="option in options_ege">
+                  {{option.item}}
+                </option>
+              </select>
+            </label>
+            <label class="row">
+              <div class="form__label-text col-sm">Год сдачи:</div>
+              <input v-validate="'digits:4'" data-vv-as="год сдачи" v-model="tab_ege_year" class="form__input col-sm" type="text" name="examyear" placeholder="****" v-mask="'####'"/>
+            </label>
+
+            <span class="alarm_label">{{ errors.first('examyear') }}</span>
+
+            <label class="row">
+              <div class="form__label-text col-sm">Предмет:</div>
+              <!--<select v-model="tab_ege_selectedSubject" class="minimal col-sm">-->
+              <!--<option v-for="item in subject" v-bind:value="item">-->
+              <!--{{item.name}}-->
+              <!--</option>-->
+              <!--</select>-->
+              <select v-model="tab_ege_selectedSubject" class="minimal col-sm" required>
+                <option v-for="option in options_subject">
+                  {{option.item}}
+                </option>
+              </select>
+              <!--<input class="form__input col-sm" type="text" name="" placeholder="русский язык" disabled/>-->
+            </label>
+            <label class="row">
+              <div class="form__label-text col-sm-6">Балл:</div>
+
+              <input v-model="tab_ege_score" class="form__input col-sm-6" type="number"  min="50" max="100"/>
+            </label>
+            <hr>
+
+            <div class="clear_save_button row">
+              <button @click="onClearFields">Очистить</button>
+              <button v-if="this.person.ege_info.length < 3" @click="onAddEge">Добавить</button>
+              <!--<button @click="onSaveParent">Сохранить изм-я</button>-->
+            </div>
+
+            <label class="row">
+              <div class="form__label-text col-sm">Паспортные данные изменились:</div>
+              <input v-model="tab_ege_changePaspInf" class="checkbox col-sm" type="checkbox" id="hostel">
+            </label>
+          </div>
+
+          <!---->
+          <div v-if="tab_ege_changePaspInf" class="col-sm">
+
             <div>
               <p>Паспортные данные</p>
             </div>
@@ -121,72 +182,7 @@
 
           </div>
 
-          <div class="col-sm">
-            <div>
-              <p>Предметы</p>
-            </div>
-            <hr>
-            <label class="row">
-              <div class="form__label-text col-sm">Форма ЕГЭ:</div>
 
-              <!--<select v-model="tab_ege_selectedExamForm" class="minimal col-sm">-->
-                <!--<option v-for="item in examForm" v-bind:value="item">-->
-                  <!--{{item.name}}-->
-                <!--</option>-->
-              <!--</select>-->
-              <select v-model="tab_ege_selectedExamForm" class="minimal col-sm">
-                <option v-for="option in options_ege">
-                  {{option.item}}
-                </option>
-              </select>
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Год сдачи:</div>
-              <input v-validate="'digits:4'" data-vv-as="год сдачи" v-model="tab_ege_year" class="form__input col-sm" type="text" name="examyear" placeholder="****" v-mask="'####'"/>
-            </label>
-
-            <span class="alarm_label">{{ errors.first('examyear') }}</span>
-
-            <label class="row">
-              <div class="form__label-text col-sm">Предмет:</div>
-              <!--<select v-model="tab_ege_selectedSubject" class="minimal col-sm">-->
-                <!--<option v-for="item in subject" v-bind:value="item">-->
-                  <!--{{item.name}}-->
-                <!--</option>-->
-              <!--</select>-->
-              <select v-model="tab_ege_selectedSubject" class="minimal col-sm">
-                <option v-for="option in options_subject">
-                  {{option.item}}
-                </option>
-              </select>
-              <!--<input class="form__input col-sm" type="text" name="" placeholder="русский язык" disabled/>-->
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm-6">Балл:</div>
-              <!--<the-mask :mask="['XYZ']"-->
-                        <!--v-model="tab_ege_score"-->
-                        <!--:tokens="customTokens"-->
-                        <!--:masked="true"-->
-                        <!--class="form__input col-sm"-->
-              <!--&gt;</the-mask>-->
-              <input v-model="tab_ege_score" class="form__input col-sm-6" type="number"  min="50" max="100"/>
-            </label>
-            <!--<label class="row">-->
-              <!--<div class="form__label-text col-sm">Балл (ФИС):</div>-->
-              <!--<input v-model="tab_ege_score_fis" class="form__input col-sm" type="text" name="" placeholder=""/>-->
-            <!--</label>-->
-            <!--<label class="row">-->
-              <!--<div class="form__label-text col-sm">Статус апелляции:</div>-->
-              <!--<input v-model="tab_ege_appelation" class="form__input col-sm" type="text" name="" placeholder=""/>-->
-            <!--</label>-->
-            <hr>
-
-            <div class="clear_save_button row">
-              <button @click="onClearFields">Очистить</button>
-              <button v-if="this.person.ege_info.length < 3" @click="onAddEge">Добавить</button>
-              <!--<button @click="onSaveParent">Сохранить изм-я</button>-->
-            </div>
-          </div>
 
           <div class="col-sm">
             <!--<div>-->
@@ -299,7 +295,8 @@
         'tab_edu_military_selectedMilitaryFormDoc','tab_edu_military_militaryNumber','tab_edu_military_militarySeries',
         'tab_edu_military_militaryIssueDate','tab_edu_military_militaryIssueBy','tab_edu_military_militaryRank',
         'tab_edu_military_selectedDocType','tab_edu_military_docMilitaryShowDate','tab_edu_military_startMilitary',
-        'tab_edu_military_endMilitary']),
+        'tab_edu_military_endMilitary',
+      'tab_ege_changePaspInf']),
 
       ...mapState('dictionary',['addressCountryRegion','identityCardCode','subject']),
       ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION','GET_IDENTITY_CARD_CODE','GET_subject']),

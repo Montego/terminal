@@ -226,7 +226,7 @@
         <p>Дополнительные сведения</p>
       </div>
       <hr>
-
+      <label class="alarm_label">Внимание! Индивидуальные достижения заносятся на вкладке "Отличительные признаки"</label>
       <div class="row">
           <select v-model="selectedExtraInfos1" class="minimal col-sm">
             <option v-for="option in options_extraInfos">
@@ -404,9 +404,10 @@
               {id: 3, item: 'Военный билет'},
             ],
             options_extraInfos: [
-              {id: 1, item: 'Художственные достижения'},
-              {id: 2, item: 'Научные достижения'},
-              {id: 3, item: 'Спортивные достижения'},
+              {id: 1, item: 'Достижения в учебе'},
+              {id: 2, item: 'Художственные достижения'},
+              {id: 3, item: 'Научные достижения'},
+              {id: 4, item: 'Спортивные достижения'},
             ],
           }
         }

@@ -290,7 +290,7 @@
         this.tab_parent_cellularPhone = '';
         this.tab_parent_factAddress = '';
         this.tab_parent_selectedFamRelationShip = '';
-        this.tab_parent_selectedGender = '';
+        this.tab_parent_selectedGender = {"id":1,"name":"Неизвестно"};
         this.tab_parent_organization_name = '';
         this.tab_parent_organization_address = '';
         this.tab_parent_organization_seniority = '';
