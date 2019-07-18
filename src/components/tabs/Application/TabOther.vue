@@ -252,7 +252,10 @@
     <div class="clear_save_button row">
       <button v-if="this.resultAcceptPerson !=='Утверждено'" @click="onAcceptPerson">Утвердить</button>
       <!--{{this.application}}-->
-      <button v-if="this.saved!== 'Сохранено' " @click="onSave">Сохранить</button>
+      <div v-if="this.resultAcceptPerson ==='Утверждено'">
+        <button v-if="this.person.saved!=='Сохранено' || this.application.saved!=='Сохранено'" @click="onSave">Сохранить</button>
+      </div>
+
     </div>
   </div>
 
@@ -340,36 +343,61 @@
             });
         },
         onSave() {
+          this.person.saved = "Сохранено";
           this.application.saved = "Сохранено";
           const config = {
-            headers: {
-              'Content-Type': 'application/json'
-            }
+                headers: {
+                  'Content-Type': 'application/json'
+                }
           };
+          AXIOS.put(`/profile/saved/` + this.person_info_id,(this.person.saved), config)
+              .then(response => {
+                  this.profiles = response.data;
+              })
+              .catch(e => {
+                this.person.saved = "Не охранено";
+              });
           AXIOS.post(`/profile/application/` + this.person_info_id,(this.application))
-            .then(response => {
-              if(response.data === "Сохранено"){
-                this.savedResult = "Сохранено"
+              .then(response => {
 
-              }
-              // this.savedResult = '';
-            })
-            .catch(e => {
+              })
+              .catch(e => {
 
-            });
-
-          AXIOS.get(`/profile/personsTable`)
-            .then(response => {
-              this.profiles = response.data;
-            })
-            .catch(e => {
-              this.errors.push(e)
-            })
-
-          this.showProfile = true;
-          location.href='profile#overview_personal_info';
-
-          }
+              });
+            this.showProfile = true;
+            location.href='profile#overview_personal_info';
+        }
+        // onSave() {
+        //   this.application.saved = "Сохранено";
+        //   const config = {
+        //     headers: {
+        //       'Content-Type': 'application/json'
+        //     }
+        //   };
+        //   AXIOS.post(`/profile/application/` + this.person_info_id,(this.application))
+        //     .then(response => {
+        //       if(response.data === "Сохранено"){
+        //         this.savedResult = "Сохранено"
+        //
+        //       }
+        //       // this.savedResult = '';
+        //     })
+        //     .catch(e => {
+        //
+        //     });
+        //
+        //   AXIOS.get(`/profile/personsTable`)
+        //     .then(response => {
+        //       this.profiles = response.data;
+        //     })
+        //     .catch(e => {
+        //       this.errors.push(e)
+        //     })
+        //
+        //   this.showProfile = true;
+        //   location.href='profile#overview_personal_info';
+        //
+        //   }
 
         },
     }
@@ -377,7 +405,7 @@
 
 <style scoped>
   .clear_save_button {
-    margin-top: 30%;
+    margin-top: 5%;
     /*margin-left: 65%;*/
     display: flex;
     justify-content: flex-end;

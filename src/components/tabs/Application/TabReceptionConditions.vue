@@ -4,7 +4,7 @@
     <tab id="conditions_overview" name="Обзор">
       <div class="row">
         <button @click="onAdd">Добавить</button>
-        <button>Распечатать согласение</button>
+        <button @click="printAgreement">Распечатать согласение</button>
       </div>
 
       <v-data-table
@@ -409,7 +409,9 @@
 
       },
       methods: {
+        printAgreement(){
 
+        },
 
         uploadFile(e){
           let file = e.target.files[0];

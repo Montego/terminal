@@ -75,7 +75,7 @@
               <span class="alarm_label" v-if="tab_ege_selectedIdentityCardCode===''">Не выбран тип документа</span>
               <label class="row">
                 <div class="form__label-text col-sm">Серия:</div>
-                <input name="pspseries" v-validate="'digits:4'" data-vv-as="серия паспорта" v-if="tab_ege_selectedIdentityCardCode.identityCardCode == 'Паспорт РФ'" v-model="tab_ege_identityCardSeries" class="form__input col-sm" type="text" placeholder="****" v-mask="'####'" required/>
+                <input name="pspseries" v-if="tab_ege_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="tab_ege_identityCardSeries" class="form__input col-sm" type="text" placeholder="****" v-mask="'####'" required/>
                 <!--<input v-else-if="tab_ege_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="***-***" v-mask="'###-###'" required/>-->
                 <input v-else v-model="tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
                 <!--<input v-model="identityCardSeries" class="form__input col-sm" type="text" name="" placeholder=""/>-->
@@ -87,7 +87,7 @@
               <label class="row">
                 <div class="form__label-text col-sm">Номер:</div>
                 <!--<input v-model="identityCardNumber" class="form__input col-sm" type="text" name="" placeholder=""/>-->
-                <input name="pspnum" v-validate="'digits:6'" data-vv-as="номер паспорта" v-if="tab_ege_selectedIdentityCardCode.identityCardCode == 'Паспорт РФ'" v-model="tab_ege_identityCardNumber" class="form__input col-sm" type="text"  placeholder="******" v-mask="'######'" required/>
+                <input name="pspnum"   v-if="tab_ege_selectedIdentityCardCode.identityCardCode == 'Паспорт РФ'" v-model="tab_ege_identityCardNumber" class="form__input col-sm" type="text"  placeholder="******" v-mask="'######'" required/>
                 <input v-else-if="tab_ege_selectedIdentityCardCode.identityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_ege_identityCardNumber" class="form__input col-sm" type="text" name="doc_num" placeholder="***-***-***" v-mask="'###-###-###'" required/>
                 <input v-else v-model="tab_ege_identityCardNumber" class="form__input col-sm" type="text" name="doc_num"required/>
               </label>
@@ -163,7 +163,13 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm-6">Балл:</div>
-              <input v-model="tab_ege_score" class="form__input col-sm-6" type="text" v-mask="'###'"/>
+              <!--<the-mask :mask="['XYZ']"-->
+                        <!--v-model="tab_ege_score"-->
+                        <!--:tokens="customTokens"-->
+                        <!--:masked="true"-->
+                        <!--class="form__input col-sm"-->
+              <!--&gt;</the-mask>-->
+              <input v-model="tab_ege_score" class="form__input col-sm-6" type="number"  min="50" max="100"/>
             </label>
             <!--<label class="row">-->
               <!--<div class="form__label-text col-sm">Балл (ФИС):</div>-->
@@ -322,6 +328,12 @@
 
     data() {
       return {
+        customTokens: {
+          // 'X': {pattern: /[5-9]/},
+          // 'Y': {pattern: /[0-9]/},
+          // 'Z': {pattern: /[0]/},
+        },
+
         index_for_redaction:'',
         options_subject: [
           {id: 1, item: 'Химия'},
@@ -330,7 +342,7 @@
           ],
         options_ege: [
           {id: 1, item: 'ЕГЭ'},
-          {id: 2, item: 'Олимпиада'},
+          // {id: 2, item: 'Олимпиада'},
           // {id: 3, item: 'Химия'},
         ],
         // options_identityCardCode: [

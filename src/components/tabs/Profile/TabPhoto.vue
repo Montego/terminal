@@ -23,7 +23,7 @@
 
       </div>
     </div>
-    <button v-if="this.acceptedPerson !=='Утверждено' " class="photo-loader__control-btn btn btn_save" type="button" @click="onSave">Сохранить профиль</button>
+    <button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="onSave">Сохранить профиль</button>
 
   </div>
 </template>

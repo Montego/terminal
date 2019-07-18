@@ -27,8 +27,10 @@
       <!--</td>-->
       <td class="justify-center layout px-0">
         <button class="table_buttons" @click="printItem(props.item)">
-          <!--Печать-->
           <v-icon color="#5bc0de">print</v-icon>
+        </button>
+        <button class = "table_buttons" type="button" @click="redactionItem(props.item)">
+          <v-icon color="#5bc0de">visibility</v-icon>
         </button>
         <button v-if="props.item.resultAcceptPerson !=='Утверждено'" class="table_buttons" @click="redactionItem(props.item)">
           <v-icon color="#5bc0de">edit</v-icon>
@@ -141,7 +143,18 @@
 
           location.href='profile#applicationFill';
         },
-        printItem(){},
+        printItem(item){
+
+          AXIOS.get(`/10.71.0.115/application/App123456.xlsm`)
+            .then(response => {
+              console.log(response.data)
+              // this.application_person_name = response.data;
+
+            })
+            .catch(e => {
+              this.errors.push(e)
+            })
+        },
 
         redactionItem(item) {
           const index = this.applications.indexOf(item);

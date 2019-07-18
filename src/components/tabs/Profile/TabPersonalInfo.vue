@@ -267,7 +267,7 @@
           </select>
         </label>
 
-        <!--<div v-if="tab_personal_selectedForeignLanguageInfo =='Изучал'">-->
+        <div v-if="tab_personal_selectedForeignLanguageInfo.name ==='Изучал'">
         <div class="row">
           <!--<div v-for="(selected_foreignLanguageName,language_description, index) in languages">-->
           <select v-model="selected_foreignLanguageName1" class="minimal col-sm-6">
@@ -311,7 +311,7 @@
           <!--<input v-model="language_score3" class="form__input col-sm" type="text" v-mask="'#'"/>-->
         </div>
 
-        <!--</div>-->
+        </div>
 
       </div>
     </div>

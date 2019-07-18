@@ -104,6 +104,7 @@ export default {
     savedResult:'',
 
     person : {
+      saved:'Не сохранено',
       acceptedPerson: "",
       person_info: {
         tab_personal_lastname: "",
