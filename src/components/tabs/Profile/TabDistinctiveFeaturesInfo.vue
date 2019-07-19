@@ -227,7 +227,33 @@
               <!--</div>-->
 
 
-
+              <div>
+                <div class="row">
+                  <div class="form__label-text col-sm">Документ 1:</div>
+                  <input v-model="doc1" class="form__input col-sm" type="text" />
+                  <!--<input type="file" id="doc2" ref="doc2" @change="uploadFile2" title="Загрузите файл"/>-->
+                </div>
+                <div class="row">
+                  <div class="form__label-text col-sm">Серия:</div>
+                  <input v-model="doc1_serial" class="form__input col-sm" type="text" />
+                </div>
+                <div class="row">
+                  <div class="form__label-text col-sm">Номер/ID:</div>
+                  <input v-model="doc1_number" class="form__input col-sm" type="text" />
+                </div>
+                <label class="row">
+                  <div class="form__label-text col-sm">Копия/Оригинал:</div>
+                  <select v-model="tab_features_selectedDocType1" class="minimal col-sm">
+                    <option v-for="item in docType" v-bind:value="item">
+                      {{item.name}}
+                    </option>
+                  </select>
+                </label>
+                <label v-if="tab_features_selectedDocType1.name ==='Оригинал'" class="row">
+                  <div class="form__label-text col-sm">Дата предоставления:</div>
+                  <input v-model="tab_featuresShowDate1" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
+                </label>
+              </div>
 
               <hr>
               <div>

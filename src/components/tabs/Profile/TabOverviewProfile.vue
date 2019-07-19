@@ -31,15 +31,24 @@
           <!--<button class = "button_controls" type="button" @click="onApplication(props.item); handleClick(false) ">-->
             <!--<v-icon color="#5bc0de">description</v-icon>-->
           <!--</button>-->
-        <button v-if="isModalVisible === false" class = "button_controls" type="button" @click="showModal(props.item)">
-          <v-icon color="#5bc0de">description</v-icon>
-        </button>
-        <button v-if="isModalVisible === false" class = "button_controls" type="button" @click="onRedaction(props.item)">
-          <v-icon color="#5bc0de">visibility</v-icon>
-        </button>
-        <button class = "button_controls" v-if="props.item.resultAcceptPerson !=='Утверждено'" @click="onRedaction(props.item)">
-          <v-icon color="#5bc0de">edit</v-icon>
-        </button>
+        <div>
+          <button v-if="isModalVisible === false" class = "button_controls" type="button" @click="showModal(props.item)">
+            <v-icon color="#5bc0de">description</v-icon>
+          </button>
+        </div>
+
+        <div>
+          <button v-if="isModalVisible === false" class = "button_controls" type="button" @click="onRedaction(props.item)">
+            <v-icon color="#5bc0de">visibility</v-icon>
+          </button>
+        </div>
+
+        <div v-if="isModalVisible === false">
+          <button class = "button_controls" v-if="props.item.resultAcceptPerson !=='Утверждено'" @click="onRedaction(props.item)">
+            <v-icon color="#5bc0de">edit</v-icon>
+          </button>
+        </div>
+
       </td>
     </template>
   </v-data-table>
@@ -133,7 +142,7 @@
         ]),
 
         ...applications(['application','application_person_id','application_person_name','applId','applTableName',
-        'applTableNumber','applTableDate','applTableDeliveryType','applicationId','apls'],),
+        'applTableNumber','applTableDate','applTableDeliveryType','applicationId','apls','chooseAppls'],),
         showTable() {
             return this.profiles;
         },
@@ -169,21 +178,12 @@
           AXIOS.get('/profile/applicationTable/' + this.person_info_id)
 
             .then(response => {
-              console.log('response data - ' + response.data[0].applicationId)
+              // console.log('response data - ' + response.data[0].applicationId)
 
-              if(response.data[0].applicationId < 0){
-                AXIOS.get(`/profile/ways`)
-                  .then(response => {
-                    this.apls = response.data;
-                    console.log(this.profiles)
-                  })
-                  .catch(e => {
-                    this.errors.push(e)
-                  })
+              if(response.data[0].applicationId !==0){
 
-                this.isModalVisible = true;
-              }
-              else{
+
+                this.showProfile = false;
                 this.applId = response.data[0].applicationId;
                 this.applTableName = response.data[0].application_person_name;
                 this.applTableNumber =response.data[0].application_number;
@@ -207,12 +207,34 @@
                   this.savedResult);
 
                 this.application.applicationTable.push(appltable);
-                this.showProfile = false;
+
                 location.href = 'profile#overviewApplication';
+              }
+              else  {
+
+                this.isModalVisible = true;
+                AXIOS.get(`/profile/conditionsDto`)
+                  .then(response => {
+                    this.apls = response.data;
+                    console.log(this.profiles)
+                  })
+                  .catch(e => {
+                    this.errors.push(e)
+                  })
+
               }
 
             })
             .catch(e => {
+              this.isModalVisible = true;
+              AXIOS.get(`/profile/conditionsDto`)
+                .then(response => {
+                  this.apls = response.data;
+                  console.log(this.profiles)
+                })
+                .catch(e => {
+                  this.errors.push(e)
+                })
               console.log('something wrong')
             })
 
@@ -419,6 +441,19 @@
 
 
         onAppl(id) {
+          let i = 0;
+          for(i; i < this.apls.length; i++){
+            if(this.apls[i].chose === true){
+              this.chooseAppls.push(this.apls[i])
+              console.log(this.chooseAppls[i])
+            }
+
+
+          }
+          // console.log(this.apls[0])
+          // console.log(this.apls[1])
+          // console.log(this.apls[2])
+          // console.log(this.apls[3])
           console.log('in method -' + this.person_info_id)
           AXIOS.get('/profile/applicationTable/' + this.person_info_id)
             .then(response => {

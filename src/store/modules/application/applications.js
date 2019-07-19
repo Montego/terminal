@@ -5,6 +5,7 @@ export default {
   namespaced: true,
   state: {
     apls:[],
+    chooseAppls: [],
     application: {
       saved:'',
       application_condition:[],

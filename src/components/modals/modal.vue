@@ -21,12 +21,14 @@
                       class="elevation-1 text-xs-center"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-center">{{ props.item.tab_personal_lastname }}</td>
-            <td class="text-xs-center">{{ props.item.tab_personal_firstname}}</td>
-            <td class="text-xs-center">{{ props.item.tab_personal_middlename}}</td>
-            <td class="text-xs-center">{{ props.item.tab_personal_birthDate}}</td>
+            <td class="text-xs-center">{{ props.item.deparCode }}</td>
+            <td class="text-xs-center">{{ props.item.deparName}}</td>
+            <td class="text-xs-center">{{ props.item.dpecialityId}}</td>
+            <td class="text-xs-center">{{ props.item.environmentId}}</td>
+            <td class="text-xs-center">{{ props.item.courseNum}}</td>
+            <td class="text-xs-center">{{ props.item.thisCase}}</td>
             <td class="text-xs-center">
-              <input v-model="chose" class="checkbox col-sm" type="checkbox"  @click="choose(props.item)">
+              <input v-model="props.item.chose" class="checkbox col-sm" type="checkbox"  @click="choose(props.item)">
             </td>
 
           </template>
@@ -64,10 +66,12 @@
       return {
         chose:'',
         headers_apl: [
-          { text: 'Факультет', value: 'faculty',sortable: false, align: 'center' },
-          { text: 'Специальность', value: 'speciality',sortable: false, align: 'center' },
-          { text: 'Направление', value: 'educationType',sortable: false, align: 'center' },
-          { text: 'Согласие', value: 'agreement',sortable: false, align: 'center' },
+          { text: 'Факультет', value: 'deparCode',sortable: false, align: 'center' },
+          { text: 'Специальность', value: 'deparName',sortable: false, align: 'center' },
+          { text: 'Направление', value: 'dpecialityId',sortable: false, align: 'center' },
+          { text: 'Согласие', value: 'environmentId',sortable: false, align: 'center' },
+          { text: 'Направление', value: 'courseNum',sortable: false, align: 'center' },
+          { text: 'Согласие', value: 'thisCase',sortable: false, align: 'center' },
           { text: 'Выбрать', value: 'chose',sortable: false, align: 'center' },
           // { text: 'Действия', value: 'name', sortable: false, align: 'center' }
         ],

@@ -17,15 +17,16 @@
               <template slot="items" slot-scope="props">
                 <td class="text-xs-center">{{ props.item.tab_ege_selectedSubject}}</td>
                 <td class="text-xs-center">{{ props.item.tab_ege_score}}</td>
-                <!--<td class="text-xs-center">{{ props.item.ege_ball_2}}</td>-->
+                <td class="text-xs-center">{{ props.item.tab_ege_year}}</td>
                 <!--<td class="text-xs-center">{{ props.item.ege_appeal_status}}</td>-->
                 <td>
-                  <!--<button @click="onEdit(props.item)">-->
-                    <!--<v-icon color="#5bc0de">edit</v-icon>-->
-                  <!--</button>{{ props.item.acions}}-->
+                  <button @click="onEdit(props.item)">
+                    <v-icon color="#5bc0de">edit</v-icon>
+                  </button>{{ props.item.actions}}
                   <button @click="onDelete(props.item)">
                     <v-icon color="#5bc0de">delete</v-icon>
                   </button>{{ props.item.actions}}
+
                 </td>
               </template>
             </v-data-table>
@@ -104,21 +105,21 @@
             <div>
               <label class="row">
                 <div class="form__label-text col-sm">Фамилия:</div>
-                <input data-vv-as="фамилия" v-validate="'alpha_spaces'" v-model="tab_ege_lastname" class="form__input col-sm" type="text" name="lastname2" placeholder="" required />
+                <input  v-model="tab_ege_lastname" class="form__input col-sm" type="text" name="lastname2" placeholder="" required />
               </label>
 
               <span class="alarm_label">{{ errors.first('lastname2') }}</span>
 
               <label class="row">
                 <div class="form__label-text col-sm">Имя:</div>
-                <input  data-vv-as="имя" v-validate="'alpha_spaces'"  v-model="tab_ege_firstname" class="form__input col-sm" type="text" name="firstname2" placeholder="" required/>
+                <input    v-model="tab_ege_firstname" class="form__input col-sm" type="text" name="firstname2" placeholder="" required/>
               </label>
 
               <span class="alarm_label">{{ errors.first('firstname2') }}</span>
 
               <label class="row">
                 <div class="form__label-text col-sm">Отчество:</div>
-                <input data-vv-as="отчество"  v-validate="'alpha_spaces'" v-model="tab_ege_middlename" class="form__input col-sm" type="text" name="middlename2" placeholder=""/>
+                <input  v-model="tab_ege_middlename" class="form__input col-sm" type="text" name="middlename2" placeholder=""/>
               </label>
 
               <span class="alarm_label">{{ errors.first('middlename2') }}</span>
@@ -325,6 +326,8 @@
 
     data() {
       return {
+        editedIndex: -1,
+        editedItem:{},
         customTokens: {
           // 'X': {pattern: /[5-9]/},
           // 'Y': {pattern: /[0-9]/},
@@ -385,6 +388,7 @@
         headers_ege_subjects: [
           {text: 'Предмет', value: 'tab_ege_selectedSubject', sortable: false, align: 'center'},
           {text: 'Балл', value: 'tab_ege_score', sortable: false, align: 'center'},
+          {text: 'Год', value: 'tab_ege_year', sortable: false, align: 'center'},
           // {text: 'Балл(ФИС)', value: 'ege_ball_2', sortable: false, align: 'center'},
           // {text: 'Статус апелляция', value: 'ege_appeal_status', sortable: false, align: 'center'},
           {text: 'Действия', value: 'actions', sortable: false, align: 'center'}
@@ -406,6 +410,8 @@
         this.tab_ege_info_selectedCitizenship = null;
         this.tab_ege_selectedExamForm = null;
         this.tab_ege_selectedSubject = null;
+        this.tab_ege_year ='';
+        this.tab_ege_changePaspInf= false;
         this.tab_ege_score = '';
         location.href='profile#ege_info';
       },
@@ -419,6 +425,9 @@
       },
 
       onEdit(item) {
+        this.editedIndex = this.person.ege_info.indexOf(item);
+        this.editedItem = Object.assign({}, item);
+
         const index = this.person.ege_info.indexOf(item);
         this.index_for_redaction = index;
         location.href='profile#ege_info';
@@ -434,7 +443,7 @@
         this.tab_ege_selectedExamForm = this.person.ege_info[index].tab_ege_selectedExamForm;
         this.tab_ege_selectedSubject = this.person.ege_info[index].tab_ege_selectedSubject;
         this.tab_ege_score = this.person.ege_info[index].tab_ege_score;
-
+        this.tab_ege_changePaspInf = this.person.ege_info[index].tab_ege_changePaspInf;
       },
 
       onClearFields() {
@@ -449,44 +458,53 @@
         this.tab_ege_selectedExamForm = null;
         this.tab_ege_selectedSubject = null;
         this.tab_ege_score = '';
-
+        this.tab_ege_year = '';
+        this.tab_ege_changePaspInf = false;
 
     //TODO other fields
 
       },
       onAddEge() {
-        function Ege(ege_lastname,ege_firstname,ege_middlename,ege_selectedIdentityCardCode,
-                     ege_identityCardSeries, ege_identityCardNumber,ege_identityCardIssueDate,
-                     ege_identityCardIssueBy, ege_selectedCitizenship,ege_selectedExamForm,
-                     ege_year, ege_selectedSubject, ege_score) {
-          this.tab_ege_lastname = ege_lastname;
-          this.tab_ege_firstname = ege_firstname;
-          this.tab_ege_middlename = ege_middlename;
-          this.tab_ege_selectedIdentityCardCode = ege_selectedIdentityCardCode;
-          this.tab_ege_identityCardSeries = ege_identityCardSeries;
-          this.tab_ege_identityCardNumber = ege_identityCardNumber;
-          this.tab_ege_identityCardIssueDate = ege_identityCardIssueDate;
-          this.tab_ege_identityCardIssueBy = ege_identityCardIssueBy;
-          this.tab_ege_info_selectedCitizenship = ege_selectedCitizenship;
-          this.tab_ege_selectedExamForm = ege_selectedExamForm;
-          this.tab_ege_year = ege_year;
-          this.tab_ege_selectedSubject = ege_selectedSubject;
-          this.tab_ege_score = ege_score;
-
-        }
-        var ege = new Ege(
-          this.tab_ege_lastname, this.tab_ege_firstname, this.tab_ege_middlename,this.tab_ege_selectedIdentityCardCode,
-          this.tab_ege_identityCardSeries, this.tab_ege_identityCardNumber, this.tab_ege_identityCardIssueDate,
-          this.tab_ege_identityCardIssueBy,  this.tab_ege_info_selectedCitizenship,
-          this.tab_ege_selectedExamForm, this.tab_ege_year, this.tab_ege_selectedSubject,
-          this.tab_ege_score
-        );
-
-        if(this.index_for_redaction > -1){
-          this.person.ege_info.push(ege);
+        if (this.editedIndex > -1) {
+          console.log('its redaction ')
+          console.log('its edited item' + this.editedItem.tab_ege_score)
+          this.editedItem.tab_ege_lastname = this.tab_ege_lastname;
+          this.editedItem.tab_ege_score = this.tab_ege_score;
+          Object.assign(this.person.ege_info[this.editedIndex], this.editedItem);
+          location.href='profile#ege_overview';
+          // this.person.ege_info[this.editedIndex].push(this.editedItem)
         }
         else {
-          this.person.ege_info[this.index_for_redaction].push(ege);
+          function Ege(ege_lastname, ege_firstname, ege_middlename, ege_selectedIdentityCardCode,
+                       ege_identityCardSeries, ege_identityCardNumber, ege_identityCardIssueDate,
+                       ege_identityCardIssueBy, ege_selectedCitizenship, ege_selectedExamForm,
+                       ege_year, ege_selectedSubject, ege_score, change) {
+            this.tab_ege_lastname = ege_lastname;
+            this.tab_ege_firstname = ege_firstname;
+            this.tab_ege_middlename = ege_middlename;
+            this.tab_ege_selectedIdentityCardCode = ege_selectedIdentityCardCode;
+            this.tab_ege_identityCardSeries = ege_identityCardSeries;
+            this.tab_ege_identityCardNumber = ege_identityCardNumber;
+            this.tab_ege_identityCardIssueDate = ege_identityCardIssueDate;
+            this.tab_ege_identityCardIssueBy = ege_identityCardIssueBy;
+            this.tab_ege_info_selectedCitizenship = ege_selectedCitizenship;
+            this.tab_ege_selectedExamForm = ege_selectedExamForm;
+            this.tab_ege_year = ege_year;
+            this.tab_ege_selectedSubject = ege_selectedSubject;
+            this.tab_ege_score = ege_score;
+            this.tab_ege_changePaspInf = change
+          }
+
+          var ege = new Ege(
+            this.tab_ege_lastname, this.tab_ege_firstname, this.tab_ege_middlename, this.tab_ege_selectedIdentityCardCode,
+            this.tab_ege_identityCardSeries, this.tab_ege_identityCardNumber, this.tab_ege_identityCardIssueDate,
+            this.tab_ege_identityCardIssueBy, this.tab_ege_info_selectedCitizenship,
+            this.tab_ege_selectedExamForm, this.tab_ege_year, this.tab_ege_selectedSubject,
+            this.tab_ege_score, this.tab_ege_changePaspInf
+          );
+
+
+          this.person.ege_info.push(ege);
         }
         console.log(this.person.ege_info)
         console.log(this.tests)

@@ -3,12 +3,13 @@
     <!--<img v-bind:src="'data:image/jpeg;base64,'+ this.image" />-->
     <div class="photo-loader">
       <div class="photo-loader__img-placeholder">
-        <div v-if="!person.person_info.showimage">
+        <!--<div v-if="!person.person_info.showimage">-->
+        <div v-if="!showimage">
           <!--<h2>Выберите изображение</h2>-->
           <!--<input type="file" id="image" ref="image" @change="uploadFile">-->
         </div>
         <div v-else>
-          <img  class="images_place" :src= "image" />
+          <img  class="images_place" :src= "showimage" />
           <!--<img v-else class="images_place" :src= "person.person_info.image" />-->
           <!--<img  class="images_place" :src = "person.person_info.image"/>-->
         </div>
@@ -375,7 +376,7 @@
         uploadFile(e) {
           console.log(e)
           let file = e.target.files[0];
-          this.person.person_info.showimage = URL.createObjectURL(file)
+          this.showimage = URL.createObjectURL(file)
 
            let reader = new FileReader();
            reader.onloadend = (file) => {
