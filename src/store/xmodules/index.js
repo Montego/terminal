@@ -11,33 +11,14 @@ let boolConvert = function(b){
 };
 
 let fillLanguages = function(person){
-    // let result =
-        return [1,2,3]
+    return [1,2,3]
         .map(e=> {return {name: `selected_foreignLanguageName${e}`, score: `language_score${e}` };})
-        .filter(e=> {return person[e.name]})
-        .reduce((accum, e)=>{return accum.push({
-            "languageId": person[e.name],
-            "score": person[e.score]});}, []);
-    // //
-    // // if(person.selected_foreignLanguageName1){
-    // //     result.push({
-    // //         "languageId": person.selected_foreignLanguageName1,
-    // //         "score": person.language_score1
-    // //     })
-    // // }
-    // // if(person.selected_foreignLanguageName2){
-    // //     result.push({
-    // //         "languageId": person.selected_foreignLanguageName2,
-    // //         "score": person.language_score2
-    // //     })
-    // // }
-    // // if(person.selected_foreignLanguageName3){
-    // //     result.push({
-    // //         "languageId": person.selected_foreignLanguageName3,
-    // //         "score": person.language_score3
-    // //     })
-    // }
-    // return result;
+        .filter(e=> { return person[e.name] > ''})
+        .reduce((accum, e)=>{ accum.push({
+            "languageId" : person[e.name],
+            "score": person[e.score]});
+            return accum;
+        }, []);
 };
 
 
@@ -107,6 +88,8 @@ let fillPK = function(person){
 
 let fillTotal = function (s) {
     let person = s.state.person;
+    // console.log(s);
+    // return null;
   return {
       "lastName": person.tab_personal_lastname,
       "firstName": person.tab_personal_firstname,
@@ -133,7 +116,7 @@ let fillTotal = function (s) {
       "email": person.tab_personal_email, // "testFred1@gmail.com", //
       "cellularPhone": person.tab_personal_cellularPhone, //"88000013535", //
       "homePhoneNumber": person.tab_personal_homePhoneNumber, //"235642", // tab_personal_homePhoneNumber, //
-      "langInfo": boolConvert(tab_personal_selectedForeignLanguageInfo.id) ,// 0, // ????
+      "langInfo": boolConvert(person.tab_personal_selectedForeignLanguageInfo.id) ,// 0, // ????
 // tab_personal_isForeignLikeRussian
 // tab_personal_isEquatedForeign = приравнять к иностранцам
 // tab_personal_INIPADate - дата снилса!
@@ -156,10 +139,10 @@ export default function (fatStore) {
 
     obj = Object.assign(demoObj, obj);
 
-    Axios.post(
-        'http://10.71.0.115/ax_api/rest/contactPerson',
-        obj
-    ).then(r => console.log(r));
+    // Axios.post(
+    //     'http://10.71.0.115/ax_api/rest/contactPerson',
+    //     obj
+    // ).then(r => console.log(r));
     console.log('obj', obj);
-    console.log('fatStore', fatStore);
+    // console.log('fatStore', fatStore);
 }
