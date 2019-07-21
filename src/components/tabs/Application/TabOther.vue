@@ -307,7 +307,7 @@
             'tab_edu_military_selectedMilitaryFormDoc','tab_edu_military_militaryNumber','tab_edu_military_militarySeries',
             'tab_edu_military_militaryIssueDate','tab_edu_military_militaryIssueBy','tab_edu_military_militaryRank',
             'tab_edu_military_selectedDocType','tab_edu_military_docMilitaryShowDate','tab_edu_military_startMilitary',
-            'tab_edu_military_endMilitary', 'image', 'showimage','acceptedPerson',
+            'tab_edu_military_endMilitary', 'image', 'showimage','acceptedPerson', 'profiles'
           ]),
 
       },
@@ -450,7 +450,7 @@
                 this.person.application.application_selectedDeliveryType = '';
                 this.person.application.application_selectedDocType = '';
                 this.person.application.application_person_name = '';
-
+                this.profiles = [];
                 // AXIOS.get(`/profile/personsTable`)
                 //   .then(response => {
                 //     this.profiles = response.data;
@@ -462,6 +462,7 @@
 
               })
               .catch(e => {
+                this.person.saved ="Не сохранено";
                 // this.errors.push(e)
               })
           }else {

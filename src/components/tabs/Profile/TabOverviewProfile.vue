@@ -390,6 +390,9 @@
           this.tab_edu_military_eduDocName  = '';
           this.tab_edu_military_attachment_serial  = '';
           this.tab_edu_military_attachment_number  = '';
+          this.score_five = 0,
+          this.score_four = 0,
+          this.score_three = 0,
           this.averageScore  = '';
           this.tab_edu_military_selectedSoldiery  = null;
           this.tab_edu_military_selectedSoldieryStatus  = {"id":0,"name":"Не служил"};

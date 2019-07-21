@@ -77,7 +77,7 @@ export default {
     score_three:0,
     averageScore: '',
     score_full: '',
-    tab_edu_military_selectedSoldiery: null,
+    tab_edu_military_selectedSoldiery: {"soldieryId":"Невоеннообязанный"},
     tab_edu_military_selectedSoldieryStatus: {"id":0,"name":"Не служил"},
     tab_edu_military_selectedMilitaryFormDoc: {"id":0,"name":"Не определено"},
     tab_edu_military_militaryNumber: '',
@@ -203,7 +203,21 @@ export default {
         application_selectedDeliveryType:'',
         application_selectedDocType:{"id":0,"name":"Копия"},
         application_person_name:'',
-        choosenWizards:[],
+        choosenWizards:[
+          {
+            chose: false,
+            company: {"targOrgId":"ОЦП000004","name":"ФМБА РФ","addressStateId":"","reportName":"от ФМБА РФ","cipHer":"ФМБА","shortName":"","blocked":0},
+            courseNum: 1,
+            deparCode: "",
+            deparName: "",
+            eduForm: "",
+            environmentId: "",
+            portalApplWizardId:0,
+            specialityId: ""
+          }
+
+
+        ],
         application_documents:[],
       },
       // chooseConditions: [],

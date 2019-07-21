@@ -411,7 +411,7 @@
         this.tab_ege_identityCardNumber = '';
         this.tab_ege_identityCardIssueDate = '';
         this.tab_ege_identityCardIssueBy = '';
-        this.tab_ege_info_selectedCitizenship = null;
+        this.tab_ege_info_selectedCitizenship = {"countryRegionId":"РФ","name":"Россия"};
         this.tab_ege_selectedExamForm = null;
         this.tab_ege_selectedSubject = null;
         this.tab_ege_year ='';

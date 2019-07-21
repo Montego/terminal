@@ -28,7 +28,12 @@
             <td class="text-xs-center">{{ props.item.eduForm}}</td>
             <td>
               <div v-if="props.item.chose === true">
-                <input v-if="props.item.environmentId === 'ЦелНапр'" v-model="props.item.company" class="form__input" type="text">
+                <select v-if="props.item.environmentId === 'ЦелНапр'" v-model="props.item.company" class="minimal col-sm">
+                  <option v-for="item in targOrg" v-bind:value="item" >
+                    {{item.cipHer}}
+                  </option>
+                </select>
+                <!--<input v-if="props.item.environmentId === 'ЦелНапр'" v-model="props.item.company" class="form__input" type="text">-->
               </div>
             </td>
             <td>
@@ -65,7 +70,7 @@
 
 <script>
   import { createHelpers } from 'vuex-map-fields';
-
+  import {mapGetters, mapState} from 'vuex';
   const { mapFields: applications } = createHelpers({
     getterType: `applications/getField`,
     mutationType: `applications/updateField`,
@@ -113,11 +118,60 @@
     computed: {
       ...applications(['application','apls'],),
       ...person(['person_info_id','showProfile']),
-     }
+      ...mapState('dictionary',['targOrg'],),
+      ...mapGetters('dictionary',['GET_targOrg']),
+     },
+    mounted() {
+      this.$store.dispatch('dictionary/onLoadTargOrg');
+
+    },
   }
 </script>
 
 <style scoped>
+  select {
+    height: 25px;
+    border-radius: 3px;
+    border: 1px solid;
+    border-color: grey;
+  }
+
+  select.minimal {
+    background-image:
+      linear-gradient(45deg, transparent 50%, gray 50%),
+      linear-gradient(135deg, gray 50%, transparent 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 20px) calc(1em + 2px),
+      calc(100% - 15px) calc(1em + 2px),
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+    border-color: grey;
+  }
+
+  select.minimal:focus {
+    background-image:
+      linear-gradient(45deg, green 50%, transparent 50%),
+      linear-gradient(135deg, transparent 50%, green 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 15px) 1em,
+      calc(100% - 20px) 1em,
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+    border-color: grey;
+    outline: 0;
+    border: 1px solid;
+    border-color: grey;
+  }
   input {
     height: 25px;
     border-radius: 3px;

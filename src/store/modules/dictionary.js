@@ -14,6 +14,7 @@ export default {
     preference: [],
     famRelationShip: [],
     subject: [],
+    targOrg: [],
     speciality: [],
   },
   getters: {
@@ -50,6 +51,9 @@ export default {
     },
     GET_subject: state => {
       return state.subject;
+    },
+    GET_targOrg: state => {
+      return state.targOrg;
     },
     GET_speciality: state => {
       return state.speciality;
@@ -89,6 +93,9 @@ export default {
     },
     UPLOAD_subject(state, payload) {
       state.subject = payload
+    },
+    UPLOAD_targOrg(state, payload) {
+      state.targOrg = payload
     },
     UPLOAD_speciality(state, payload) {
       state.speciality = payload
@@ -187,6 +194,14 @@ export default {
       AXIOS.get('/dictionary/subject')
         .then((response) => {
           commit('UPLOAD_subject', response.data)
+        }).catch(e => {
+        this.errors.push(e)
+      })
+    },
+    onLoadTargOrg({commit}) {
+      AXIOS.get('/dictionary/targOrg')
+        .then((response) => {
+          commit('UPLOAD_targOrg', response.data)
         }).catch(e => {
         this.errors.push(e)
       })

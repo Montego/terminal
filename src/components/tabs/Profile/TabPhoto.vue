@@ -42,7 +42,7 @@
   import { createHelpers } from 'vuex-map-fields';
   import {AXIOS} from "../../plugins/APIService";
   import modal from "../../modals/modal";
-
+  import {mapGetters, mapState} from 'vuex'
   const { mapMultiRowFields } = createHelpers({
     getterType: `person/getField`,
     mutationType: `person/updateField`,
@@ -56,6 +56,7 @@
     getterType: `applications/getField`,
     mutationType: `applications/updateField`,
   });
+
     export default {
       name: "TabPhoto",
       components: {
@@ -68,6 +69,11 @@
           // showimage: '',
           base:''
         }
+      },
+      mounted() {
+        this.$store.dispatch('dictionary/onLoadAddressCountryRegion');
+        this.$store.dispatch('dictionary/onLoadTargOrg');
+
       },
       computed: {
         ...mapMultiRowFields(['persons']),
@@ -98,7 +104,8 @@
         ]),
         ...applications(['application','application_person_id','application_person_name','applId','applTableName',
           'applTableNumber','applTableDate','applTableDeliveryType','applicationId','apls','chooseAppls','resultApl'],),
-
+        ...mapState('dictionary',['targOrg'],),
+        ...mapGetters('dictionary',['GET_targOrg']),
 
         show(){
           return this.persons
@@ -117,6 +124,7 @@
               .then(response => {
                 console.log(response.data)
                 this.apls = response.data;
+
                 console.log(this.profiles)
               })
               .catch(e => {

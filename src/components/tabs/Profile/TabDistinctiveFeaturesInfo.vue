@@ -40,7 +40,8 @@
 
               <label class="row">
                 <div class="form__label-text col-sm">Название:</div>
-                <select v-model="tab_features_selectedPreference"  class="minimal col-sm">
+                <!--<input v-model=""/>-->
+                <select v-model="tab_features_selectedPreference" @click="getAttrTypeById(tab_features_selectedPreference.attrType)" class="minimal col-sm">
                   <option v-for="item in preference" v-bind:value="item">
                     {{item.name}}
                   </option>
@@ -49,11 +50,19 @@
 
               <label class="row">
                 <div class="form__label-text col-sm">Тип признака:</div>
-                <select v-model="tab_features_selectedAttrType"  class="minimal col-sm" >
-                  <option v-for="item in attrType" v-bind:value="item" >
-                    {{item.name}}
-                  </option>
-                </select>
+                <!--<select v-model="tab_features_selectedAttrType"  class="minimal col-sm" >-->
+                  <!--<option v-for="item in attrType" v-bind:value="item" >-->
+                    <!--{{item.name}}-->
+                  <!--</option>-->
+                <!--</select>-->
+
+                <input v-model="tab_features_selectedAttrType.name" class="uneditable form__input col-sm" type="text" disabled/>
+                <!--<input v-model="tab_features_selectedPreference.attrType" class="form__input col-sm" type="text" disabled/>-->
+                <!--<select v-model="tab_features_selectedAttrType"  class="minimal col-sm" >-->
+                  <!--<option v-for="item in preference" v-bind:value="item" >-->
+                    <!--{{item.attrType}}-->
+                  <!--</option>-->
+                <!--</select>-->
               </label>
 
               <label class="row">
@@ -349,6 +358,7 @@
 </template>
 
 <script>
+  import {AXIOS} from "../../plugins/APIService";
   import {mapGetters, mapState} from 'vuex';
   import { createHelpers } from 'vuex-map-fields';
   const { mapFields:tab_distinctive_features_info} = createHelpers({
@@ -396,7 +406,7 @@
       computed: {
         ...mapState('enums', ['attrType','docType','typeDiploma']),
         ...mapState('dictionary', ['preference', ]),
-        ...mapGetters('enums', ['GET_attrType', 'GET_DOC_TYPE','GET_TYPE_DIPLOMA']),
+        ...mapGetters('enums', ['GET_oneAttrType','GET_attrType', 'GET_DOC_TYPE','GET_TYPE_DIPLOMA']),
         ...mapGetters('dictionary', ['GET_preference', ]),
         ...tab_distinctive_features_info(['tab_features_selectedAttrType', 'tab_features_selectedPreference',
         'tab_features_selectedPreferencePoint','tab_features_selectedTypeDiploma','tab_features_serial','tab_features_number',
@@ -414,8 +424,45 @@
         },
       },
         methods: {
+          getAttrTypeById(id){
+            AXIOS.get('enums/attrType/' + id).
+            then(response => {
+              this.tab_features_selectedAttrType = response.data;
+            })
+              .catch(e => {
+
+              })
+          },
+
           onInfo() {
             location.href='profile#features_info';
+
+            // this.tab_features_selectedAttrType =  '';
+            // this.tab_features_selectedPreference =  '';
+            this.tab_features_selectedYypeDiploma = '';
+            this.doc1 = '';
+            this.doc1_serial = '';
+            this.doc1_number =  '';
+            this.tab_features_selectedDocType1 = {"id":0,"name":"Копия"};
+            this.tab_featuresShowDate1 = '';
+            this.doc1_IssuDate = '';
+            this.doc1_IssueBy = '';
+
+            this.doc2 = '';
+            this.doc2_serial =  '';
+            this.doc2_number = '';
+            this.tab_features_selectedDocType2 = {"id":0,"name":"Копия"};
+            this.tab_featuresShowDate2 = '';
+            this.doc2_IssuDate = '';
+            this.doc2_IssueBy = '';
+
+            this.doc3 =  '';
+            this.doc3_serial =  '';
+            this.doc3_number =  '';
+            this.tab_features_selectedDocType3 = {"id":0,"name":"Копия"};
+            this.tab_featuresShowDate3 =  '';
+            this.doc3_IssuDate =  '';
+            this.doc3_IssueBy =  '';
 
             // this.doc1 = '';
             // this.doc1_serial =  '';
@@ -623,7 +670,9 @@
 
 
 <style scoped>
-
+  .uneditable {
+    background-color: #F5F5F5;
+  }
   select.minimal {
     background-image:
       linear-gradient(45deg, transparent 50%, gray 50%),
