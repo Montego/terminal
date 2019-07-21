@@ -46,7 +46,7 @@
 
         <div v-if="!this.isModalVisible" class="row">
           <button @click="onAdd">Добавить/Удалить</button>
-          <button @click="printAgreement">Распечатать согласение</button>
+          <button @click="printAgreement">Распечатать согласие</button>
         </div>
 
         <v-data-table
@@ -61,6 +61,7 @@
             <td class="text-xs-center">{{ props.item.deparName}}</td>
             <td class="text-xs-center">{{ props.item.specialityId}}</td>
             <td class="text-xs-center">{{ props.item.environmentId}}</td>
+            <td class="text-xs-center">{{ props.item.company}}</td>
             <td class="text-xs-center">{{ props.item.contract}}</td>
             <td class="text-xs-center">{{ props.item.date}}</td>
             <td class="text-xs-center">{{ props.item.eduForm }}</td>
@@ -293,6 +294,7 @@
           {text: 'Факультет', value: 'deparName', sortable: false, align: 'center'},
           {text: 'Специальность', value: 'dpecialityId', sortable: false, align: 'center'},
           {text: 'Условия обучения', value: 'environmentId', sortable: false, align: 'center'},
+          {text: 'Организация', value: 'company', sortable: false, align: 'center'},
           {text: 'Договор', value: 'contract', sortable: false, align: 'center'},
           {text: 'Дата', value: 'date', sortable: false, align: 'center'},
           {text: 'Форма обучения', value: 'eduForm', sortable: false, align: 'center'},

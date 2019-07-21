@@ -21,11 +21,16 @@
                       class="elevation-1 text-xs-center"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-center">{{ props.item.deparName}}</td>
+            <!--<td class="text-xs-center">{{ props.item.deparName}}</td>-->
             <td class="text-xs-center">{{ props.item.specialityId}}</td>
             <td class="text-xs-center">{{ props.item.environmentId}}</td>
             <td class="text-xs-center">{{ props.item.courseNum}}</td>
             <td class="text-xs-center">{{ props.item.eduForm}}</td>
+            <td>
+              <div v-if="props.item.chose === true">
+                <input v-if="props.item.environmentId === 'ЦелНапр'" v-model="props.item.company" class="form__input" type="text">
+              </div>
+            </td>
             <td>
               <div v-if="props.item.chose === true">
                 <input v-if="props.item.environmentId === 'ЦелНапр'" v-model="props.item.contract" class="form__input" type="text">
@@ -75,12 +80,13 @@
       return {
         chose:'',
         headers_apl: [
-          { text: 'Факультет', value: 'deparCode',sortable: false, align: 'center' },
-          { text: 'Специальность', value: 'deparName',sortable: false, align: 'center' },
-          { text: 'Направление', value: 'specialityId',sortable: false, align: 'center' },
-          { text: 'Согласие', value: 'environmentId',sortable: false, align: 'center' },
-          { text: 'Направление', value: 'courseNum',sortable: false, align: 'center' },
-          // { text: 'Согласие', value: 'eduForm',sortable: false, align: 'center' },
+          // { text: 'Факультет', value: 'deparCode',sortable: false, align: 'center' },
+          // { text: 'Специальность', value: 'deparName',sortable: false, align: 'center' },
+          { text: 'Специальность', value: 'specialityId',sortable: false, align: 'center' },
+          { text: 'Направление', value: 'environmentId',sortable: false, align: 'center' },
+          { text: 'Курс', value: 'courseNum',sortable: false, align: 'center' },
+          { text: 'Форма обучения', value: 'eduForm',sortable: false, align: 'center' },
+          { text: 'Организация', value: 'company',sortable: false, align: 'center' },
           { text: 'Договор', value: 'contract',sortable: false, align: 'center' },
           { text: 'Дата', value: 'date',sortable: false, align: 'center' },
           { text: 'Выбрать', value: 'chose',sortable: false, align: 'center' },

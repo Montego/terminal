@@ -427,20 +427,29 @@
           this.person.saved = "Сохранено";
           this.person.application.saved = "Сохранено";
           // console.log(this.person.person_info.tab_personal_lastname)
+          this.person_info_id = '';
+          this.person.person_info_id = '';
 
 
-
-          if(this.person_info_id === ''){
+          if(this.person.person_info_id === ''){
             AXIOS.post(`/profile`, (this.person))
               .then(response => {
-                //todo push to tablePerson
-                this.info.push(response.data)
-
+                this.person.saved = response.data;
+                this.person.application.saved = response.data;
+                // this.info.push(response.data)
+                this.person_info_id = ''
                 this.person.ege_info = [];
                 this.person.parents_info = [];
                 this.person.futures_info = [];
                 this.person_info_id='';
+                this.person.person_info_id='';
                 this.person.applications = [];
+
+                this.person.application.application_number = '';
+                this.person.application.application_date = '';
+                this.person.application.application_selectedDeliveryType = '';
+                this.person.application.application_selectedDocType = '';
+                this.person.application.application_person_name = '';
 
                 // AXIOS.get(`/profile/personsTable`)
                 //   .then(response => {
@@ -456,20 +465,20 @@
                 // this.errors.push(e)
               })
           }else {
-            AXIOS.put('/profile/person/' + this.person_info_id,(this.person))
-              .then(response =>{
-                console.log(response)
-                console.log(this.person)
-                location.href='profile#overview_personal_info';
-                this.person.ege_info = [];
-                this.person.parents_info = [];
-                // this.person.person_info = {};
-                this.person.futures_info = [];
-                this.person_info_id='';
-                console.log("person was updated")})
-              .catch(e => {
-                this.errors.push(e)
-              })
+            // AXIOS.put('/profile/person/' + this.person_info_id,(this.person))
+            //   .then(response =>{
+            //     console.log(response)
+            //     console.log(this.person)
+            //     location.href='profile#overview_personal_info';
+            //     this.person.ege_info = [];
+            //     this.person.parents_info = [];
+            //     // this.person.person_info = {};
+            //     this.person.futures_info = [];
+            //     this.person_info_id='';
+            //     console.log("person was updated")})
+            //   .catch(e => {
+            //     this.errors.push(e)
+            //   })
 
 
             AXIOS.get(`/profile/personsTable`)

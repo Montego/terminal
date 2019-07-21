@@ -184,6 +184,8 @@
         },
 
         showModal(item) {
+
+
           const index = this.profiles.indexOf(item);
           const idString = this.profiles[index].id;
           const id = parseInt(idString,10);
@@ -302,7 +304,7 @@
             //     })
             //   console.log('something wrong')
             // })
-
+          location.href='profile#overview_new';
 
         },
 
@@ -311,14 +313,23 @@
         },
 
         onNewProfile(){
+          this.person.person_info.id = '';
+          this.person_info_id='';
+          this.person.person_info_id = '';
+          this.person.application.saved = '';
+          this.person.application.application_number = '';
+          this.person.application.application_date = '';
+          this.person.application.choosenWizards = [];
+          this.person.application.application_documents =[];
+
           this.person.acceptedPerson = '';
           this.resultAcceptPerson = '';
-          this.person_info_id='';
+
           // this.person.person_info = [];
           this.person.ege_info = [];
           this.person.parents_info = [];
           this.person.futures_info = [];
-          this.person.person_info.image = "";
+          // this.person.person_info.image = "";
           this.id = '';
           this.image = '';
           this.showimage = '';
@@ -393,6 +404,7 @@
           this.tab_edu_military_startMilitary  = '';
           this.tab_edu_military_endMilitary  = '';
           this.saved = '';
+          this.person.saved = '';
           location.href='profile#personal_info';
 
         },

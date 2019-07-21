@@ -5,6 +5,7 @@
         <div class="row">
           <button @click="onFill">Заполнить</button>
           <button @click="onAdd">Добавить</button>
+          <button >Печать</button>
         </div>
         <v-data-table
           :headers="headers_documents"
@@ -13,10 +14,10 @@
           class="elevation-1 text-xs-center"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-center">{{ props.item.fullname}}</td>
-            <td class="text-xs-center">{{ props.item.selected_docType.name}}</td>
-            <td class="text-xs-center">{{ props.item.dateOfIssue}}</td>
-            <td class="text-xs-center">{{ props.item.count }}</td>
+            <td class="text-xs-center">{{ props.item.fullnameDoc}}</td>
+            <td class="text-xs-center">{{ props.item.docTypeDoc.name}}</td>
+            <td class="text-xs-center">{{ props.item.dateOfIssueDoc}}</td>
+            <td class="text-xs-center">{{ props.item.countDoc }}</td>
             <td class="text-xs-center">
               <button @click="onDelete(props.item)">
                 <v-icon color="#5bc0de">delete</v-icon>
@@ -117,6 +118,15 @@
         data(){
           return {
 
+            nameDoc:'',
+            serialDoc:'',
+            numberDoc:'',
+            fullnameDoc:'',
+            docTypeDoc:{"id":0,"name":"Копия"},
+            dateOfIssueDoc:'',
+            countDoc:0,
+            IssuedByDoc: '',
+
             options_DocumentType: [
               {id: 0, item: ''},
               {id: 1, item: 'Документ, подтверждающий сиротство'},
@@ -156,10 +166,14 @@
           'tab_document_count','tab_document_selectedDocType','fullname'
         ]),
         ...mapMultiRowFields(['document','tab_document_allDocuments']),
-        ...person(['person','tab_personal_selectedIdentityCardCode','this.tab_personal_identityCardSeries',
-        'tab_personal_identityCardNumber','tab_personal_identityCardIssueDate',
-        'docTableFullname','docTableDocType','docTableDate','docTableCount', 'person_info_id'
+        ...person(['person','tab_personal_selectedIdentityCardCode','tab_personal_identityCardSeries','tab_personal_identityCardDocType',
+        'tab_personal_identityCardNumber','tab_personal_identityCardIssueDate','tab_personal_identityCardIssueBy',
+        'docTableFullname','docTableDocType','docTableDate','docTableCount', 'person_info_id','tab_personal_INIPA',
+          'tab_personal_INIPADate','tab_edu_military_selectedEduDoc','tab_edu_military_eduDocSerial',
+          'tab_edu_military_eduDocNumber','tab_edu_military_eduDocDate','tab_edu_military_univer'
         ]),
+
+
         // FullName(){
         //   return this.fullname =
         //     this.docType + ' ' +
@@ -194,15 +208,197 @@
           },
           onFill() {
 
-            AXIOS.get(`/profile/FillDocuments/` + this.person_info_id)
-              .then(response => {
-                this.person.application.application_documents = response.data;
-                // this.fillDocuments = response.data;
-                console.log(response.data)
-              })
-              .catch(e => {
-                this.errors.push(e)
-              })
+
+
+
+            function Document(name, serial, number, fullname, docType, dateOfIssue, count, IssuedBy) {
+              this.nameDoc = name,
+              this.serialDoc = serial,
+              this.numberDoc = number,
+              this.fullnameDoc = fullname,
+              this.docTypeDoc = docType,
+              this.dateOfIssueDoc = dateOfIssue,
+              this.countDoc = count,
+              this.IssuedByDoc =IssuedBy
+            }
+
+            let document1 = new Document(
+              this.nameDoc = this.tab_personal_selectedIdentityCardCode.identityCardNameFull,
+              this.serialDoc = this.tab_personal_identityCardSeries,
+              this.numberDoc = this.tab_personal_identityCardNumber,
+              this.fullnameDoc = this.tab_personal_selectedIdentityCardCode.identityCardNameFull + ' ' + this.tab_personal_identityCardSeries + ' ' + this.tab_personal_identityCardNumber,
+              this.docTypeDoc = this.tab_personal_identityCardDocType,
+              this.dateOfIssueDoc = this.tab_personal_identityCardIssueDate,
+              this.countDoc = 1,
+              this.IssuedByDoc = this.tab_personal_identityCardIssueBy,
+            );
+            let document2 = new Document(
+              this.nameDoc = "СНИЛС",
+              this.serialDoc = this.tab_personal_INIPA,
+              this.numberDoc = "",
+              this.fullnameDoc = this.nameDoc + " " + this.tab_personal_INIPA,
+              this.docTypeDoc = {"id":0,"name":"Копия"},
+              this.dateOfIssueDoc = this.tab_personal_INIPADate,
+              this.countDoc = 1,
+              this.IssuedByDoc = "",
+            );
+            if(this.tab_edu_military_selectedEduDoc.name !== ''){
+              let document3 = new Document(
+                this.nameDoc = this.tab_edu_military_selectedEduDoc.name,
+                this.serialDoc = this.tab_edu_military_eduDocSerial,
+                this.numberDoc = this.tab_edu_military_eduDocNumber,
+                this.fullnameDoc = this.nameDoc + " " + this.serialDoc + " " + this.numberDoc,
+                this.docTypeDoc = {"id":0,"name":"Копия"},
+                this.dateOfIssueDoc = this.tab_edu_military_eduDocDate,
+                this.countDoc = 1,
+                this.IssuedByDoc = this.tab_edu_military_eduDocName,
+              );
+              this.person.application.application_documents.push(document3);
+            }
+
+
+
+            let document4 = new Document(
+              this.nameDoc = "Приложение к док. об образовании",
+              this.serialDoc = this.tab_edu_military_attachment_serial,
+              this.numberDoc = this.tab_edu_military_attachment_number,
+              this.fullnameDoc = this.nameDoc + " " + this.serialDoc + " " + this.numberDoc,
+              this.docTypeDoc = {"id":0,"name":"Копия"},
+              this.dateOfIssueDoc = this.tab_edu_military_eduDocDate,
+              this.countDoc = 1,
+              this.IssuedByDoc = this.tab_edu_military_eduDocName,
+            );
+            let document5 = new Document(
+              this.nameDoc = "Заявление",
+              this.serialDoc = "",
+              this.numberDoc = "",
+              this.fullnameDoc = "Заявление",
+              this.docTypeDoc = {"id":1,"name":"Оригинал"},
+              this.dateOfIssueDoc = "",
+              this.countDoc = 1,
+              this.IssuedByDoc = "",
+            );
+            let document6 = new Document(
+              this.nameDoc = "Согласие на зачисление",
+              this.serialDoc = "",
+              this.numberDoc = "",
+              this.fullnameDoc = "Согласие на зачисление",
+              this.docTypeDoc = {"id":1,"name":"Оригинал"},
+              this.dateOfIssueDoc = "",
+              this.countDoc = 1,
+              this.IssuedByDoc = "",
+            );
+            let document7 = new Document(
+              this.nameDoc = "Согласие на обработку данных",
+              this.serialDoc = "",
+              this.numberDoc = "",
+              this.fullnameDoc = "Согласие на обработку данных",
+              this.docTypeDoc = {"id":1,"name":"Оригинал"},
+              this.dateOfIssueDoc = "",
+              this.countDoc = 1,
+              this.IssuedByDoc = "",
+            );
+            let document8 = new Document(
+              this.nameDoc = "Фотографии",
+              this.serialDoc = "",
+              this.numberDoc = "",
+              this.fullnameDoc = "Фотографии",
+              this.docTypeDoc = {"id":1,"name":"Оригинал"},
+              this.dateOfIssueDoc = "",
+              this.countDoc = 6,
+              this.IssuedByDoc = "",
+            );
+
+
+            this.person.application.application_documents.push(document1);
+            this.person.application.application_documents.push(document2);
+
+            this.person.application.application_documents.push(document4);
+            this.person.application.application_documents.push(document5);
+            this.person.application.application_documents.push(document6);
+            this.person.application.application_documents.push(document7);
+            this.person.application.application_documents.push(document8);
+
+            let i = 0;
+            for(i; i < this.person.futures_info.length; i++){
+              if(this.person.futures_info[i].doc1 !== ''){
+                let document7 = new Document(
+                  this.nameDoc = this.person.futures_info[i].doc1,
+                  this.serialDoc = this.person.futures_info[i].doc1_serial,
+                  this.numberDoc = this.person.futures_info[i].doc1_number,
+                  this.fullnameDoc = this.person.futures_info[i].doc1 + ' ' + this.person.futures_info[i].doc1_serial + ' ' + this.person.futures_info[i].doc1_number,
+                  this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType1,
+                  this.dateOfIssueDoc = this.person.futures_info[i].doc1_IssuDate,
+                  this.countDoc = 1,
+                  this.IssuedByDoc = this.person.futures_info[i].doc1_IssueBy,
+                );
+                this.person.application.application_documents.push(document7);
+              }
+              if(this.person.futures_info[i].doc2 !== ''){
+                let document8 = new Document(
+                  this.nameDoc = this.person.futures_info[i].doc2,
+                  this.serialDoc = this.person.futures_info[i].doc2_serial,
+                  this.numberDoc = this.person.futures_info[i].doc2_number,
+                  this.fullnameDoc = this.person.futures_info[i].doc2 + ' ' + this.person.futures_info[i].doc2_serial + ' ' + this.person.futures_info[i].doc2_number,
+                  this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType2,
+                  this.dateOfIssueDoc = this.person.futures_info[i].doc1_IssuDate,
+                  this.countDoc = 1,
+                  this.IssuedByDoc = this.person.futures_info[i].doc2_IssueBy,
+                );
+                this.person.application.application_documents.push(document8);
+              }
+              if(this.person.futures_info[i].doc3 !== ''){
+                let document9 = new Document(
+                  this.nameDoc = this.person.futures_info[i].doc3,
+                  this.serialDoc = this.person.futures_info[i].doc3_serial,
+                  this.numberDoc = this.person.futures_info[i].doc3_number,
+                  this.fullnameDoc = this.person.futures_info[i].doc3 + ' ' + this.person.futures_info[i].doc3_serial + ' ' + this.person.futures_info[i].doc3_number,
+                  this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType3,
+                  this.dateOfIssueDoc = this.person.futures_info[i].doc3_IssuDate,
+                  this.countDoc = 1,
+                  this.IssuedByDoc = this.person.futures_info[i].doc3_IssueBy,
+                );
+                this.person.application.application_documents.push(document9);
+              }
+            }
+
+            let j = 0;
+            for(j;j<this.person.application.choosenWizards.length; j++){
+              if(this.person.application.choosenWizards[j].environmentId === 'ЦелНапр'){
+                let document10 = new Document(
+                  this.nameDoc = this.person.application.choosenWizards[j].contract,
+                  this.serialDoc = "",
+                  this.numberDoc = "",
+                  this.fullnameDoc = this.person.application.choosenWizards[j].contract,
+                  this.docTypeDoc = {"id":1,"name":"Оригинал"},
+                  this.dateOfIssueDoc = this.person.application.choosenWizards[j].date,
+                  this.countDoc = 1,
+                  this.IssuedByDoc = this.person.application.choosenWizards[j].company,
+                );
+                this.person.application.application_documents.push(document10);
+              }
+            }
+
+
+            console.log(this.tab_personal_selectedIdentityCardCode.identityCardNameFull)
+            console.log(this.nameDoc)
+            console.log(this.countDoc)
+            console.log(this.fullnameDoc)
+            console.log(document1)
+
+
+
+
+
+            // AXIOS.get(`/profile/FillDocuments/` + this.person_info_id)
+            //   .then(response => {
+            //     this.person.application.application_documents = response.data;
+            //     // this.fillDocuments = response.data;
+            //     console.log(response.data)
+            //   })
+            //   .catch(e => {
+            //     this.errors.push(e)
+            //   })
 
           },
           onSave() {
@@ -273,7 +469,7 @@
   }
 
   .clear_save_button {
-    margin-top: 10%;
+    /*margin-top: 10%;*/
     /*margin-left: 65%;*/
     display: flex;
     justify-content: flex-end;

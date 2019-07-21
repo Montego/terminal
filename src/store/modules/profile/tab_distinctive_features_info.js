@@ -22,6 +22,7 @@ export default {
     tab_featuresShowDate2:'',
     doc2_IssuDate:'',
     doc2_IssueBy:'',
+    doc2_full_info:'',
     doc3:'',
     doc3_serial:'',
     doc3_number:'',
@@ -29,8 +30,10 @@ export default {
     tab_featuresShowDate3:'',
     doc3_IssuDate:'',
     doc3_IssueBy:'',
-    tab_features_serial:'',
-    tab_features_number:''
+    doc3_full_info:'',
+
+    // tab_features_serial:'',
+    // tab_features_number:''
   },
   getters: {
     getField,
