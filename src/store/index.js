@@ -20,8 +20,10 @@ import tab_reception_condition from './modules/application/tab_reception_conditi
 import person from './modules/profile/person'
 import applications from './modules/application/applications'
 import post from './modules/post'
+import converter from './xmodules'
 
 import test_profiles from './modules/profile/test_profiles'
+
 Vue.use(VueTheMask);
 Vue.use(VeeValidate);
 Vue.use(Vuelidate)
@@ -36,7 +38,11 @@ export const store = new Vuex.Store({
   state: {},
   getters: {},
   mutations: {},
-  actions: {},
+  actions: {
+    go(ctx, payload = null){
+        converter(ctx);
+    }
+  },
   modules: {
     enums,
     dictionary,
