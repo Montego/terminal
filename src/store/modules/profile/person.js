@@ -7,7 +7,7 @@ export default {
     showProfile: true,
     profiles:[],
 
-
+    isModalAgreementVisible: false,
     isModalVisible:false,
     tab_ege_changePaspInf:false,
 
@@ -195,7 +195,17 @@ export default {
       ege_info:[],
       parents_info:[],
       futures_info: [],
-      applications:[],
+      application:{
+        saved:'',
+        application_number:'',
+        application_date:'',
+        application_selectedDeliveryType:'',
+        application_selectedDocType:{"id":0,"name":"Копия"},
+        application_person_name:'',
+        choosenWizards:[],
+        application_documents:[],
+      },
+      // chooseConditions: [],
 
       // application_condition:[],
       // application_documents:[],

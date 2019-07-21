@@ -127,13 +127,13 @@
               {id: 6, item: 'Удостоверение'},
               {id: 7, item: 'Документ, подтверждающий принадлежность к ветеранам боевых действий'},
             ],
-
-            options_gender: [
-              {id: 0, item: '-выберите пол-'},
-              {id: 1, item: 'Мужской'},
-              {id: 2, item: 'Женский'},
-              {id: 3, item: 'Другое'},
-            ],
+            //
+            // options_gender: [
+            //   {id: 0, item: '-выберите пол-'},
+            //   {id: 1, item: 'Мужской'},
+            //   {id: 2, item: 'Женский'},
+            //   {id: 3, item: 'Другое'},
+            // ],
 
 
             headers_documents: [
@@ -168,7 +168,7 @@
         // },
 
         showTable(){
-          return this.application.application_documents;
+          return this.person.application.application_documents;
         },
       },
       mounted() {
@@ -196,7 +196,7 @@
 
             AXIOS.get(`/profile/FillDocuments/` + this.person_info_id)
               .then(response => {
-                this.application.application_documents = response.data;
+                this.person.application.application_documents = response.data;
                 // this.fillDocuments = response.data;
                 console.log(response.data)
               })
@@ -222,14 +222,14 @@
               this.number,this.name+ " " + this.serial + " " + this.number,this.selected_docType,this.dateOfIssue,
               this.count);
             console.log(doc)
-            this.application.application_documents.push(doc);
+            this.person.application.application_documents.push(doc);
 
           },
 
           onDelete(item) {
-            const index = this.application.application_documents.indexOf(item);
+            const index = this.person.application.application_documents.indexOf(item);
             console.log(index);
-            this.application.application_documents.splice(index, 1);
+            this.person.application.application_documents.splice(index, 1);
           }
         },
 

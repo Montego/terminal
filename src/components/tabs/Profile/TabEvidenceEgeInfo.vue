@@ -18,13 +18,16 @@
                 <td class="text-xs-center">{{ props.item.tab_ege_selectedSubject}}</td>
                 <td class="text-xs-center">{{ props.item.tab_ege_score}}</td>
                 <td class="text-xs-center">{{ props.item.tab_ege_year}}</td>
-                <!--<td class="text-xs-center">{{ props.item.ege_appeal_status}}</td>-->
+                <td class="text-xs-center">
+                  <input v-model="props.item.tab_ege_changePaspInf" class="checkbox col-sm" type="checkbox" disabled>
+                </td>
+
                 <td>
                   <button @click="onEdit(props.item)">
                     <v-icon color="#5bc0de">edit</v-icon>
                   </button>{{ props.item.actions}}
                   <button @click="onDelete(props.item)">
-                    <v-icon color="#5bc0de">delete</v-icon>
+                    <v-icon color="red">delete</v-icon>
                   </button>{{ props.item.actions}}
 
                 </td>
@@ -79,7 +82,7 @@
             <label class="row">
               <div class="form__label-text col-sm-6">Балл:</div>
 
-              <input v-model="tab_ege_score" class="form__input col-sm-6" type="number"  min="50" max="100"/>
+              <input v-model="tab_ege_score" class="form__input col-sm-6" type="text"  v-mask="'###'"/>
             </label>
             <hr>
 
@@ -389,6 +392,7 @@
           {text: 'Предмет', value: 'tab_ege_selectedSubject', sortable: false, align: 'center'},
           {text: 'Балл', value: 'tab_ege_score', sortable: false, align: 'center'},
           {text: 'Год', value: 'tab_ege_year', sortable: false, align: 'center'},
+          {text: 'Пасп.данные изменились', value: 'tab_ege_changePaspInf', sortable: false, align: 'center'},
           // {text: 'Балл(ФИС)', value: 'ege_ball_2', sortable: false, align: 'center'},
           // {text: 'Статус апелляция', value: 'ege_appeal_status', sortable: false, align: 'center'},
           {text: 'Действия', value: 'actions', sortable: false, align: 'center'}
@@ -469,7 +473,18 @@
           console.log('its redaction ')
           console.log('its edited item' + this.editedItem.tab_ege_score)
           this.editedItem.tab_ege_lastname = this.tab_ege_lastname;
+          this.editedItem.tab_ege_firstname = this.tab_ege_firstname;
+          this.editedItem.tab_ege_middlename = this.tab_ege_middlename;
+          this.editedItem.tab_ege_identityCardSeries = this.tab_ege_identityCardSeries;
+          this.editedItem.tab_ege_identityCardNumber = this.tab_ege_identityCardNumber;
+          this.editedItem.tab_ege_identityCardIssueDate = this.tab_ege_identityCardIssueDate;
+          this.editedItem.tab_ege_identityCardIssueBy = this.tab_ege_identityCardIssueBy;
+          this.editedItem.tab_ege_info_selectedCitizenship = this.tab_ege_info_selectedCitizenship;
+          this.editedItem.tab_ege_selectedExamForm = this.tab_ege_selectedExamForm;
+          this.editedItem.tab_ege_selectedSubject = this.tab_ege_selectedSubject;
           this.editedItem.tab_ege_score = this.tab_ege_score;
+          this.editedItem.tab_ege_year = this.tab_ege_year;
+          this.editedItem.tab_ege_changePaspInf = this.tab_ege_changePaspInf;
           Object.assign(this.person.ege_info[this.editedIndex], this.editedItem);
           location.href='profile#ege_overview';
           // this.person.ege_info[this.editedIndex].push(this.editedItem)

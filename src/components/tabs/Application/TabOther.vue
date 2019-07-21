@@ -1,9 +1,9 @@
 <template>
   <div>
-    <span v-if="this.resultAcceptPerson ==='Утверждено'"> Утверждено!</span>
+    <span v-if="person.application.saved ==='Сохранено'"> Сохранено!</span>
 
 
-    <div v-if="this.resultAcceptPerson !=='Утверждено'" class="row">
+    <div v-if="person.application.saved !=='Сохранено'" class="row">
       <div class="col-sm-4">
 
         <div>
@@ -250,11 +250,11 @@
 
     <!--{{this.person}}-->
     <div class="clear_save_button row">
-      <button v-if="this.resultAcceptPerson !=='Утверждено'" @click="onAcceptPerson">Утвердить</button>
+      <!--<button v-if="this.resultAcceptPerson !=='Утверждено'" @click="onAcceptPerson">Утвердить</button>-->
       <!--{{this.application}}-->
-      <div v-if="this.resultAcceptPerson ==='Утверждено'">
-        <button v-if="this.person.saved!=='Сохранено' || this.application.saved!=='Сохранено'" @click="onSave">Сохранить</button>
-      </div>
+      <!--<div v-if="this.resultAcceptPerson ==='Утверждено'">-->
+        <button v-if="person.application.saved !=='Сохранено'" @click="onSave">Сохранить</button>
+      <!--</div>-->
 
     </div>
   </div>
@@ -307,66 +307,220 @@
             'tab_edu_military_selectedMilitaryFormDoc','tab_edu_military_militaryNumber','tab_edu_military_militarySeries',
             'tab_edu_military_militaryIssueDate','tab_edu_military_militaryIssueBy','tab_edu_military_militaryRank',
             'tab_edu_military_selectedDocType','tab_edu_military_docMilitaryShowDate','tab_edu_military_startMilitary',
-            'tab_edu_military_endMilitary', 'image', 'showimage','acceptedPerson'
+            'tab_edu_military_endMilitary', 'image', 'showimage','acceptedPerson',
           ]),
+
       },
 
       methods: {
 
         onAcceptPerson() {
-          const config = {
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          };
-          this.person.acceptedPerson = "Утверждено";
-          this.resultAcceptPerson = "Утверждено";
-          AXIOS.put(`/profile/acceptPerson/` + this.person_info_id, (this.person.acceptedPerson),config)
+          // const config = {
+          //   headers: {
+          //     'Content-Type': 'application/json'
+          //   }
+          // };
+          // this.person.acceptedPerson = "Утверждено";
+          // this.resultAcceptPerson = "Утверждено";
+          // AXIOS.put(`/profile/acceptPerson/` + this.person_info_id, (this.person.acceptedPerson),config)
+          //   .then(response => {
+          //     AXIOS.get(`/profile/personsTable`)
+          //       .then(response => {
+          //         this.profiles = response.data;
+          //       })
+          //       .catch(e => {
+          //         this.errors.push(e)
+          //       });
+          //
+          //     console.log(response.data)
+          //     if(response.data === "Утверждено"){
+          //       this.resultAcceptPerson = "Утверждено";
+          //       console.log(this.resultAcceptPerson)
+          //
+          //     }
+          //     this.info.push(response.data)
+          //   })
+          //   .catch(e => {
+          //   });
+        },
+
+        onSave() {
+
+          this.person.person_info.tab_personal_lastname = this.tab_personal_lastname;
+          this.person.person_info.tab_personal_firstname = this.tab_personal_firstname;
+          this.person.person_info.tab_personal_middlename = this.tab_personal_middlename;
+          this.person.person_info.tab_personal_lastname_genitive = this.tab_personal_lastname_genitive;
+          this.person.person_info.tab_personal_firstname_genitive = this.tab_personal_firstname_genitive;
+          this.person.person_info.tab_personal_middlename_genitive = this.tab_personal_middlename_genitive;
+          this.person.person_info.tab_personal_selectedGender = this.tab_personal_selectedGender;
+          this.person.person_info.tab_personal_birthDate = this.tab_personal_birthDate;
+          this.person.person_info.tab_personal_INIPA = this.tab_personal_INIPA;
+          this.person.person_info.tab_personal_INIPADate = this.tab_personal_INIPADate;
+          this.person.person_info.tab_personal_note = this.tab_personal_note;
+          this.person.person_info.tab_personal_selectedIdentityCardCode = this.tab_personal_selectedIdentityCardCode;
+          this.person.person_info.tab_personal_identityCardSeries = this.tab_personal_identityCardSeries;
+          this.person.person_info.tab_personal_identityCardNumber = this.tab_personal_identityCardNumber;
+          this.person.person_info.tab_personal_identityCardIssueBy = this.tab_personal_identityCardIssueBy;
+          this.person.person_info.tab_personal_identityCardIssueDate = this.tab_personal_identityCardIssueDate;
+          this.person.person_info.tab_personal_identityCardIssueDep = this.tab_personal_identityCardIssueDep;
+          this.person.person_info.tab_personal_selectedCitizenship = this.tab_personal_selectedCitizenship;
+          this.person.person_info.tab_personal_isCompatriot = this.tab_personal_isCompatriot;
+          this.person.person_info.tab_personal_isEquatedForeign = this.tab_personal_isEquatedForeign;
+          this.person.person_info.tab_personal_birthplace = this.tab_personal_birthplace;
+          this.person.person_info.tab_personal_isHostel = this.tab_personal_isHostel;
+          this.person.person_info.tab_personal_isForeignLikeRussian = this.tab_personal_isForeignLikeRussian;
+          this.person.person_info.tab_personal_homePhoneNumber = this.tab_personal_homePhoneNumber;
+          this.person.person_info.tab_personal_cellularPhone = this.tab_personal_cellularPhone;
+          this.person.person_info.tab_personal_email = this.tab_personal_email;
+          this.person.person_info.tab_personal_company_name = this.tab_personal_company_name;
+          this.person.person_info.tab_personal_company_address = this.tab_personal_company_address;
+          this.person.person_info.tab_personal_seniority = this.tab_personal_seniority;
+          this.person.person_info.tab_personal_employYears = this.tab_personal_employYears;
+          this.person.person_info.tab_personal_employMonths = this.tab_personal_employMonths;
+          this.person.person_info.tab_personal_employDays = this.tab_personal_employDays;
+          this.person.person_info.tab_personal_selectedForeignLanguageInfo = this.tab_personal_selectedForeignLanguageInfo;
+          this.person.person_info.selected_foreignLanguageName1 = this.selected_foreignLanguageName1;
+          this.person.person_info.language_score1 = this.language_score1;
+          this.person.person_info.selected_foreignLanguageName2 = this.selected_foreignLanguageName2;
+          this.person.person_info.language_score2 = this.language_score2;
+          this.person.person_info.selected_foreignLanguageName3 = this.selected_foreignLanguageName3;
+          this.person.person_info.language_score3 = this.language_score3;
+          this.person.person_info.tab_address_registrationAddress = this.tab_address_registrationAddress;
+          this.person.person_info.tab_address_factAddress = this.tab_address_factAddress;
+          this.person.person_info.tab_address_templateRegistrationAddress = this.tab_address_templateRegistrationAddress;
+          this.person.person_info.tab_edu_military_educationLevel = this.tab_edu_military_educationLevel;
+          this.person.person_info.tab_edu_military_univer = this.tab_edu_military_univer;
+          this.person.person_info.tab_edu_military_selectedCountryRegion = this.tab_edu_military_selectedCountryRegion;
+          this.person.person_info.tab_edu_military_selectedState = this.tab_edu_military_selectedState;
+          this.person.person_info.tab_edu_military_selectedAcademyYear = this.tab_edu_military_selectedAcademyYear;
+          this.person.person_info.tab_edu_military_selectedEduDoc = this.tab_edu_military_selectedEduDoc;
+          this.person.person_info.tab_edu_military_eduDocSerial = this.tab_edu_military_eduDocSerial;
+          this.person.person_info.tab_edu_military_eduDocNumber = this.tab_edu_military_eduDocNumber;
+          this.person.person_info.tab_edu_military_eduDocDate = this.tab_edu_military_eduDocDate;
+          this.person.person_info.tab_edu_military_eduDocName = this.tab_edu_military_eduDocName;
+          this.person.person_info.tab_edu_military_attachment_serial = this.tab_edu_military_attachment_serial;
+          this.person.person_info.tab_edu_military_attachment_number = this.tab_edu_military_attachment_number;
+          this.person.person_info.averageScore = this.averageScore;
+          this.person.person_info.score_five = this.score_five;
+          this.person.person_info.score_four = this.score_four;
+          this.person.person_info.score_three = this.score_three;
+          this.person.person_info.tab_edu_military_selectedSoldiery = this.tab_edu_military_selectedSoldiery;
+          this.person.person_info.tab_edu_military_selectedSoldieryStatus = this.tab_edu_military_selectedSoldieryStatus;
+          this.person.person_info.tab_edu_military_selectedMilitaryFormDoc = this.tab_edu_military_selectedMilitaryFormDoc;
+          this.person.person_info.tab_edu_military_militaryNumber = this.tab_edu_military_militaryNumber;
+          this.person.person_info.tab_edu_military_militarySeries = this.tab_edu_military_militarySeries;
+          this.person.person_info.tab_edu_military_militaryIssueDate = this.tab_edu_military_militaryIssueDate;
+          this.person.person_info.tab_edu_military_militaryIssueBy = this.tab_edu_military_militaryIssueBy;
+          this.person.person_info.tab_edu_military_militaryRank = this.tab_edu_military_militaryRank;
+          this.person.person_info.tab_edu_military_selectedDocType = this.tab_edu_military_selectedDocType;
+          this.person.person_info.tab_edu_military_docMilitaryShowDate = this.tab_edu_military_docMilitaryShowDate;
+          this.person.person_info.tab_edu_military_startMilitary = this.tab_edu_military_startMilitary;
+          this.person.person_info.tab_edu_military_endMilitary = this.tab_edu_military_endMilitary;
+
+          this.person.person_info.selectedExtraInfos1 = this.selectedExtraInfos1;
+          this.person.person_info.extraInfosDescription1 = this.extraInfosDescription1;
+          this.person.person_info.selectedExtraInfos2 = this.selectedExtraInfos2;
+          this.person.person_info.extraInfosDescription2 = this.extraInfosDescription2;
+
+          this.person.person_info.image = this.image;
+          this.person.person_info.showimage = this.showimage;
+          this.person.saved = "Сохранено";
+          this.person.application.saved = "Сохранено";
+          // console.log(this.person.person_info.tab_personal_lastname)
+
+
+
+          if(this.person_info_id === ''){
+            AXIOS.post(`/profile`, (this.person))
+              .then(response => {
+                //todo push to tablePerson
+                this.info.push(response.data)
+
+                this.person.ege_info = [];
+                this.person.parents_info = [];
+                this.person.futures_info = [];
+                this.person_info_id='';
+                this.person.applications = [];
+
+                // AXIOS.get(`/profile/personsTable`)
+                //   .then(response => {
+                //     this.profiles = response.data;
+                //     console.log(this.profiles)
+                //   })
+                //   .catch(e => {
+                //     this.errors.push(e)
+                //   })
+
+              })
+              .catch(e => {
+                // this.errors.push(e)
+              })
+          }else {
+            AXIOS.put('/profile/person/' + this.person_info_id,(this.person))
+              .then(response =>{
+                console.log(response)
+                console.log(this.person)
+                location.href='profile#overview_personal_info';
+                this.person.ege_info = [];
+                this.person.parents_info = [];
+                // this.person.person_info = {};
+                this.person.futures_info = [];
+                this.person_info_id='';
+                console.log("person was updated")})
+              .catch(e => {
+                this.errors.push(e)
+              })
+
+
+            AXIOS.get(`/profile/personsTable`)
+              .then(response => {
+                this.profiles = response.data;
+                console.log(this.profiles)
+              })
+              .catch(e => {
+                this.errors.push(e)
+              })
+
+          }
+
+          AXIOS.get(`/profile/personsTable`)
             .then(response => {
-              AXIOS.get(`/profile/personsTable`)
-                .then(response => {
-                  this.profiles = response.data;
-                })
-                .catch(e => {
-                  this.errors.push(e)
-                });
-
-              console.log(response.data)
-              if(response.data === "Утверждено"){
-                this.resultAcceptPerson = "Утверждено";
-                console.log(this.resultAcceptPerson)
-
-              }
-              this.info.push(response.data)
+              this.profiles = response.data;
+              console.log(this.profiles)
             })
             .catch(e => {
-            });
+              this.errors.push(e)
+            })
+
+          this.showProfile = true;
+          location.href='profile#overview_personal_info';
+
         },
-        onSave() {
-          this.person.saved = "Сохранено";
-          this.application.saved = "Сохранено";
-          const config = {
-                headers: {
-                  'Content-Type': 'application/json'
-                }
-          };
-          AXIOS.put(`/profile/saved/` + this.person_info_id,(this.person.saved), config)
-              .then(response => {
-                  this.profiles = response.data;
-              })
-              .catch(e => {
-                this.person.saved = "Не охранено";
-              });
-          AXIOS.post(`/profile/application/` + this.person_info_id,(this.application))
-              .then(response => {
 
-              })
-              .catch(e => {
 
-              });
-            this.showProfile = true;
-            location.href='profile#overview_personal_info';
-        }
+        // onSave() {
+        //   this.person.saved = "Сохранено";
+        //   this.application.saved = "Сохранено";
+        //   const config = {
+        //         headers: {
+        //           'Content-Type': 'application/json'
+        //         }
+        //   };
+        //
+        //
+        //   AXIOS.post(`/profile/application/` + this.person_info_id,(this.application))
+        //       .then(response => {
+        //
+        //       })
+        //       .catch(e => {
+        //
+        //       });
+        //     this.showProfile = true;
+        //     location.href='profile#overview_personal_info';
+        // }
+
+
+
         // onSave() {
         //   this.application.saved = "Сохранено";
         //   const config = {

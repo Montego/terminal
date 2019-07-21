@@ -21,12 +21,21 @@
                       class="elevation-1 text-xs-center"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-center">{{ props.item.deparCode }}</td>
             <td class="text-xs-center">{{ props.item.deparName}}</td>
-            <td class="text-xs-center">{{ props.item.dpecialityId}}</td>
+            <td class="text-xs-center">{{ props.item.specialityId}}</td>
             <td class="text-xs-center">{{ props.item.environmentId}}</td>
             <td class="text-xs-center">{{ props.item.courseNum}}</td>
-            <td class="text-xs-center">{{ props.item.thisCase}}</td>
+            <td class="text-xs-center">{{ props.item.eduForm}}</td>
+            <td>
+              <div v-if="props.item.chose === true">
+                <input v-if="props.item.environmentId === 'ЦелНапр'" v-model="props.item.contract" class="form__input" type="text">
+              </div>
+            </td>
+            <td>
+              <div v-if="props.item.chose === true">
+                <input v-if="props.item.environmentId === 'ЦелНапр'" v-model="props.item.date" class="form__input" type="date" min="1918-01-01" max="2019-01-01">
+              </div>
+            </td>
             <td class="text-xs-center">
               <input v-model="props.item.chose" class="checkbox col-sm" type="checkbox"  @click="choose(props.item)">
             </td>
@@ -68,10 +77,12 @@
         headers_apl: [
           { text: 'Факультет', value: 'deparCode',sortable: false, align: 'center' },
           { text: 'Специальность', value: 'deparName',sortable: false, align: 'center' },
-          { text: 'Направление', value: 'dpecialityId',sortable: false, align: 'center' },
+          { text: 'Направление', value: 'specialityId',sortable: false, align: 'center' },
           { text: 'Согласие', value: 'environmentId',sortable: false, align: 'center' },
           { text: 'Направление', value: 'courseNum',sortable: false, align: 'center' },
-          { text: 'Согласие', value: 'thisCase',sortable: false, align: 'center' },
+          // { text: 'Согласие', value: 'eduForm',sortable: false, align: 'center' },
+          { text: 'Договор', value: 'contract',sortable: false, align: 'center' },
+          { text: 'Дата', value: 'date',sortable: false, align: 'center' },
           { text: 'Выбрать', value: 'chose',sortable: false, align: 'center' },
           // { text: 'Действия', value: 'name', sortable: false, align: 'center' }
         ],
@@ -101,6 +112,13 @@
 </script>
 
 <style scoped>
+  input {
+    height: 25px;
+    border-radius: 3px;
+    border: 1px solid;
+    border-color: grey;
+    /*border: 4px;*/
+  }
   .modal-backdrop {
     position: fixed;
     top: 0;
