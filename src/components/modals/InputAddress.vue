@@ -19,27 +19,27 @@
           <div class="col-sm-6">
             <label class="row">
               <span class="form__label-text col-sm">что-то</span>
-              <input   value= "" class="form__input col-sm" type="text"/>
+              <input value= "" class="form__input col-sm" type="text"/>
             </label>
             <label class="row">
               <span class="form__label-text col-sm">что-то</span>
-              <input   value= "" class="form__input col-sm" type="text"/>
+              <input value= "" class="form__input col-sm" type="text"/>
             </label>
             <label class="row">
               <span class="form__label-text col-sm">что-то</span>
-              <input   value= "" class="form__input col-sm" type="text"/>
+              <input value= "" class="form__input col-sm" type="text"/>
             </label>
             <label class="row">
               <span class="form__label-text col-sm">что-то</span>
-              <input   value= "" class="form__input col-sm" type="text"/>
+              <inpu value= "" class="form__input col-sm" type="text"/>
             </label>
             <label class="row">
               <span class="form__label-text col-sm">что-то</span>
-              <input   value= "" class="form__input col-sm" type="text"/>
+              <input value= "" class="form__input col-sm" type="text"/>
             </label>
             <label class="row">
               <span class="form__label-text col-sm">что-то</span>
-              <input   value= "" class="form__input col-sm" type="text"/>
+              <input value= "" class="form__input col-sm" type="text"/>
             </label>
             <label class="row">
               <span class="form__label-text col-sm">что-то</span>

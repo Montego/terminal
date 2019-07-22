@@ -21,7 +21,7 @@ export default {
     tests: [],
 
     tab_ege_info_selectedCitizenship:'',
-    tab_ege_score:'',
+    tab_ege_score: 0,
 
     biology_score:'',
     russian_score:'',

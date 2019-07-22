@@ -303,11 +303,12 @@
             'tab_edu_military_selectedState','tab_edu_military_selectedAcademyYear','tab_edu_military_selectedEduDoc',
             'tab_edu_military_eduDocSerial','tab_edu_military_eduDocNumber','tab_edu_military_eduDocDate',
             'tab_edu_military_eduDocName','tab_edu_military_attachment_serial','tab_edu_military_attachment_number',
-            'averageScore,tab_edu_military_selectedSoldiery','tab_edu_military_selectedSoldieryStatus',
+            'averageScore','tab_edu_military_selectedSoldiery','tab_edu_military_selectedSoldieryStatus',
             'tab_edu_military_selectedMilitaryFormDoc','tab_edu_military_militaryNumber','tab_edu_military_militarySeries',
             'tab_edu_military_militaryIssueDate','tab_edu_military_militaryIssueBy','tab_edu_military_militaryRank',
             'tab_edu_military_selectedDocType','tab_edu_military_docMilitaryShowDate','tab_edu_military_startMilitary',
-            'tab_edu_military_endMilitary', 'image', 'showimage','acceptedPerson', 'profiles'
+            'tab_edu_military_endMilitary', 'image', 'showimage','acceptedPerson', 'profiles','selectedExtraInfos1',
+            'selectedExtraInfos2','extraInfosDescription1','extraInfosDescription2'
           ]),
 
       },

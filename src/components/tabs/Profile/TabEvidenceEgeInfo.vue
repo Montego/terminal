@@ -82,7 +82,7 @@
             <label class="row">
               <div class="form__label-text col-sm-6">Балл:</div>
 
-              <input v-model="tab_ege_score" class="form__input col-sm-6" type="text"  v-mask="'###'"/>
+              <input v-model="tab_ege_score" class="form__input col-sm-6" type="number"  v-mask="'###'" />
             </label>
             <hr>
 

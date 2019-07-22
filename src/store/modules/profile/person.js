@@ -173,7 +173,7 @@ export default {
         score_four:'',
         score_three:'',
         averageScore: '',
-        tab_edu_military_selectedSoldiery: null,
+        tab_edu_military_selectedSoldiery: {"soldieryId":"Невоеннообязанный"},
         tab_edu_military_selectedSoldieryStatus: null,
         tab_edu_military_selectedMilitaryFormDoc: null,
         tab_edu_military_militaryNumber: '',

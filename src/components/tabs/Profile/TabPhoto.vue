@@ -488,8 +488,9 @@
         },
 
         removeImage: function (e) {
-
-          this.person.person_info.showimage = '';
+          this.image = '';
+          this.showimage = '';
+          // this.person.person_info.showimage = '';
           // this.image = '';
         },
         // onFileChange(e) {
@@ -547,9 +548,9 @@
 
   .photo-loader__img-placeholder {
     margin-right: 30px;
-    width: 200px;
-    height: 300px;
-    background: url('https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png') no-repeat 50% 50% / cover;
+    width: 300px;
+    height: 400px;
+    background: url('/src/assets/Portrait_Placeholder.png') no-repeat 50% 50% / cover;
   }
 
   .photo-loader__controls {
@@ -564,8 +565,8 @@
 
 
   .images_place {
-    width: 200px;
-    height: 300px;
+    width: 300px;
+    height: 400px;
     /*height: 640px;*/
     /*width: 480px*/
   }
