@@ -4,13 +4,52 @@ import { getField, updateField } from 'vuex-map-fields';
 export default {
   namespaced: true,
   state: {
+    agree:'',
+    agreeDate:'',
+    special_right:'',
+    typeOfSpecialRight: null,
+    proofSpecialRight1: '',
+    descriptionSpecialRight1: '',
+    serialSpecialRight1: '',
+    numberSpecialRight1: '',
+    docTypeSpecialRight1: null,
+    dateSpecialRight1: '',
+
+    proofSpecialRight2: '',
+    descriptionSpecialRight2: '',
+    serialSpecialRight2: '',
+    numberSpecialRight2: '',
+    docTypeSpecialRight2: null,
+    dateSpecialRight2: '',
+
+    // proofSpecialRight3: '',
+    // descriptionSpecialRight3: '',
+    // serialSpecialRight3: '',
+    // numberSpecialRight3: '',
+    // docTypeSpecialRight3: null,
+    // dateSpecialRight3: '',
+
     apls:[],
     chooseAppls: [],
+    resultApl:{},
     application: {
+      // agree: false,
+      // agreeDate:'',
+      // specialRight:false,
+      // typeOfSpecialRight: null,
+      // proofSpecialRight: null,
+      // descriptionSpecialRight: '',
+      // serialSpecialRight: '',
+      // numberSpecialRight: '',
+      // docTypeSpecialRight: null,
+      // dateSpecialRight:'',
+
       saved:'',
+
       application_condition:[],
       application_documents:[],
-      applicationTable:[]
+      applicationTable:[],
+      choosenWizards:[]
     },
     application_person_id:'',
     application_person_name:'',

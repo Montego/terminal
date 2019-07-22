@@ -64,16 +64,16 @@
     name: "TabEntranceTests",
     data(){
       return{
-        options_deliveryType: [
-          {id: 1, item: 'Лично'},
-          {id: 2, item: 'Почтой'},
-          {id: 3, item: 'По доверенности'},
-          {id: 4, item: 'Портал'},
-        ],
-        options_copy: [
-          {id: 1, item: 'Копия'},
-          {id: 2, item: 'Оригинал'},
-        ],
+        // options_deliveryType: [
+        //   {id: 1, item: 'Лично'},
+        //   {id: 2, item: 'Почтой'},
+        //   {id: 3, item: 'По доверенности'},
+        //   {id: 4, item: 'Портал'},
+        // ],
+        // options_copy: [
+        //   {id: 1, item: 'Копия'},
+        //   {id: 2, item: 'Оригинал'},
+        // ],
       }
     },
 

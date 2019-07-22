@@ -7,6 +7,10 @@
     />
     <div>
       <!--{{this.tab_profiles[0].tab_personal_lastname}}-->
+      <button v-if="isModalVisible === false" color="#5bc0de" @click="GetSavedProfile()">
+        Показать
+      </button>
+
       <button v-if="isModalVisible === false" color="#5bc0de" @click="onNewProfile()">
         +
       </button>
@@ -32,7 +36,7 @@
             <!--<v-icon color="#5bc0de">description</v-icon>-->
           <!--</button>-->
         <div>
-          <button v-if="isModalVisible === false" class = "button_controls" type="button" @click="showModal(props.item)">
+          <button v-if="props.item.saved !== 'Не сохранено'" class = "button_controls" type="button" @click="showModal(props.item)">
             <v-icon color="#5bc0de">description</v-icon>
           </button>
         </div>
@@ -43,11 +47,11 @@
           </button>
         </div>
 
-        <div v-if="isModalVisible === false">
-          <button class = "button_controls" v-if="props.item.resultAcceptPerson !=='Утверждено'" @click="onRedaction(props.item)">
-            <v-icon color="#5bc0de">edit</v-icon>
-          </button>
-        </div>
+        <!--<div v-if="isModalVisible === false">-->
+          <!--<button class = "button_controls" v-if="props.item.resultAcceptPerson !=='Утверждено'" @click="onRedaction(props.item)">-->
+            <!--<v-icon color="#5bc0de">edit</v-icon>-->
+          <!--</button>-->
+        <!--</div>-->
 
       </td>
     </template>
@@ -138,11 +142,11 @@
           'tab_edu_military_militaryNumber', 'tab_edu_military_militarySeries', 'tab_edu_military_militaryIssueDate', 'tab_edu_military_militaryIssueBy',
           'tab_edu_military_militaryRank', 'tab_edu_military_selectedDocType', 'tab_edu_military_docMilitaryShowDate', 'tab_edu_military_startMilitary',
           'tab_edu_military_endMilitary', 'selectedExtraInfos1', 'selectedExtraInfos2', 'extraInfosDescription1', 'extraInfosDescription2', 'image', 'person_info_id',
-          'resultAcceptPerson','savedResult'
+          'resultAcceptPerson','savedResult', 'saved'
         ]),
 
         ...applications(['application','application_person_id','application_person_name','applId','applTableName',
-        'applTableNumber','applTableDate','applTableDeliveryType','applicationId','apls','chooseAppls'],),
+        'applTableNumber','applTableDate','applTableDeliveryType','applicationId','apls','chooseAppls','resultApl'],),
         showTable() {
             return this.profiles;
         },
@@ -156,6 +160,19 @@
         // this.showTable()
       },
       created () {
+          // AXIOS.get(`/profile/personsTable`)
+          //   .then(response => {
+          //     this.profiles = response.data;
+          //     console.log(this.profiles)
+          //   })
+          //   .catch(e => {
+          //     this.errors.push(e)
+          //   })
+      },
+
+
+      methods: {
+        GetSavedProfile(){
           AXIOS.get(`/profile/personsTable`)
             .then(response => {
               this.profiles = response.data;
@@ -164,80 +181,130 @@
             .catch(e => {
               this.errors.push(e)
             })
-      },
+        },
 
-
-      methods: {
         showModal(item) {
+
+
           const index = this.profiles.indexOf(item);
           const idString = this.profiles[index].id;
           const id = parseInt(idString,10);
           this.person_info_id = id;
           console.log(this.person_info_id);
 
-          AXIOS.get('/profile/applicationTable/' + this.person_info_id)
-
-            .then(response => {
-              // console.log('response data - ' + response.data[0].applicationId)
-
-              if(response.data[0].applicationId !==0){
-
-
-                this.showProfile = false;
-                this.applId = response.data[0].applicationId;
-                this.applTableName = response.data[0].application_person_name;
-                this.applTableNumber =response.data[0].application_number;
-                this.applTableDate = response.data[0].application_date;
-                this.applTableDeliveryType = response.data[0].application_selectedDeliveryType;
-                this.resultAcceptPerson = response.data[0].resultAcceptPerson;
-                this.savedResult = response.data[0].saved;
-
-                function ApplTable(tableId,tableName, tableNumber, tableDate, tableDeliveryType, accept, saved) {
-                  this.applId = tableId
-                  this.applTableName = tableName;
-                  this.applTableNumber = tableNumber;
-                  this.applTableDate = tableDate;
-                  this.applTableDeliveryType = tableDeliveryType;
-                  this.resultAcceptPerson = accept;
-                  this.savedResult = saved;
-                }
-                let appltable = new ApplTable(
-                  this.applId,
-                  this.applTableName,this.applTableNumber,this.applTableDate,this.applTableDeliveryType, this.resultAcceptPerson,
-                  this.savedResult);
-
-                this.application.applicationTable.push(appltable);
-
-                location.href = 'profile#overviewApplication';
-              }
-              else  {
-
-                this.isModalVisible = true;
-                AXIOS.get(`/profile/conditionsDto`)
-                  .then(response => {
-                    this.apls = response.data;
-                    console.log(this.profiles)
-                  })
-                  .catch(e => {
-                    this.errors.push(e)
-                  })
-
-              }
+          if(this.saved !== 'Сохранено'){
+            AXIOS.get('profile/application/' + (this.person_info_id)).
+            then(response => {
+              this.person.application = response.data;
 
             })
-            .catch(e => {
-              this.isModalVisible = true;
-              AXIOS.get(`/profile/conditionsDto`)
-                .then(response => {
-                  this.apls = response.data;
-                  console.log(this.profiles)
-                })
-                .catch(e => {
-                  this.errors.push(e)
-                })
-              console.log('something wrong')
-            })
+              .catch(e => {
+                this.errors.push(e)
+              })
+            this.showProfile = false;
+          }else{
 
+          }
+
+          // AXIOS.get('/profile/conditions/' + (this.person_info_id))
+          //   .then(response => {
+          //     // console.log('appl number is:' + response.data.application_number)
+          //     if(response.data.choosenWizards.length !==0 ){
+          //       this.resultApl = response.data;
+          //
+          //       console.log('appl number is:' + this.resultApl.application_number)
+          //       this.showProfile = false;
+          //       location.href = 'profile#applicationFill';
+          //       // this.isModalVisible = true;
+          //     }else {
+          //       this.isModalVisible = true;
+          //       AXIOS.get(`/profile/conditionsDto`)
+          //         .then(response => {
+          //           this.apls = response.data;
+          //           console.log(this.profiles)
+          //         })
+          //         .catch(e => {
+          //           this.errors.push(e)
+          //         })
+          //     }
+          //
+          //   })
+          //   .catch(e => {
+          //     this.isModalVisible = true;
+          //     AXIOS.get(`/profile/conditionsDto`)
+          //       .then(response => {
+          //         this.apls = response.data;
+          //         console.log(this.profiles)
+          //       })
+          //       .catch(e => {
+          //         this.errors.push(e)
+          //       })
+          //   })
+
+
+
+          // AXIOS.get('/profile/applicationTable/' + this.person_info_id)
+          //
+          //   .then(response => {
+          //     // console.log('response data - ' + response.data[0].applicationId)
+          //
+          //     if(response.data[0].applicationId !==0){
+          //
+          //       this.showProfile = false;
+          //       this.applId = response.data[0].applicationId;
+          //       this.applTableName = response.data[0].application_person_name;
+          //       this.applTableNumber =response.data[0].application_number;
+          //       this.applTableDate = response.data[0].application_date;
+          //       this.applTableDeliveryType = response.data[0].application_selectedDeliveryType;
+          //       this.resultAcceptPerson = response.data[0].resultAcceptPerson;
+          //       this.savedResult = response.data[0].saved;
+          //
+          //       function ApplTable(tableId,tableName, tableNumber, tableDate, tableDeliveryType, accept, saved) {
+          //         this.applId = tableId
+          //         this.applTableName = tableName;
+          //         this.applTableNumber = tableNumber;
+          //         this.applTableDate = tableDate;
+          //         this.applTableDeliveryType = tableDeliveryType;
+          //         this.resultAcceptPerson = accept;
+          //         this.savedResult = saved;
+          //       }
+          //       let appltable = new ApplTable(
+          //         this.applId,
+          //         this.applTableName,this.applTableNumber,this.applTableDate,this.applTableDeliveryType, this.resultAcceptPerson,
+          //         this.savedResult);
+          //
+          //       this.application.applicationTable.push(appltable);
+          //
+          //       location.href = 'profile#overviewApplication';
+          //     }
+          //     else  {
+          //
+          //       this.isModalVisible = true;
+          //       AXIOS.get(`/profile/conditionsDto`)
+          //         .then(response => {
+          //           this.apls = response.data;
+          //           console.log(this.profiles)
+          //         })
+          //         .catch(e => {
+          //           this.errors.push(e)
+          //         })
+          //
+          //     }
+
+            // })
+            // .catch(e => {
+            //   this.isModalVisible = true;
+            //   AXIOS.get(`/profile/conditionsDto`)
+            //     .then(response => {
+            //       this.apls = response.data;
+            //       console.log(this.profiles)
+            //     })
+            //     .catch(e => {
+            //       this.errors.push(e)
+            //     })
+            //   console.log('something wrong')
+            // })
+          location.href='profile#overview_new';
 
         },
 
@@ -246,14 +313,23 @@
         },
 
         onNewProfile(){
+          this.person.person_info.id = '';
+          this.person_info_id='';
+          this.person.person_info_id = '';
+          this.person.application.saved = '';
+          this.person.application.application_number = '';
+          this.person.application.application_date = '';
+          this.person.application.choosenWizards = [];
+          this.person.application.application_documents =[];
+
           this.person.acceptedPerson = '';
           this.resultAcceptPerson = '';
-          this.person_info_id='';
+
           // this.person.person_info = [];
           this.person.ege_info = [];
           this.person.parents_info = [];
           this.person.futures_info = [];
-          this.person.person_info.image = "";
+          // this.person.person_info.image = "";
           this.id = '';
           this.image = '';
           this.showimage = '';
@@ -314,6 +390,9 @@
           this.tab_edu_military_eduDocName  = '';
           this.tab_edu_military_attachment_serial  = '';
           this.tab_edu_military_attachment_number  = '';
+          this.score_five = 0,
+          this.score_four = 0,
+          this.score_three = 0,
           this.averageScore  = '';
           this.tab_edu_military_selectedSoldiery  = null;
           this.tab_edu_military_selectedSoldieryStatus  = {"id":0,"name":"Не служил"};
@@ -327,7 +406,8 @@
           this.tab_edu_military_docMilitaryShowDate  = '';
           this.tab_edu_military_startMilitary  = '';
           this.tab_edu_military_endMilitary  = '';
-
+          this.saved = '';
+          this.person.saved = '';
           location.href='profile#personal_info';
 
         },
@@ -441,15 +521,54 @@
 
 
         onAppl(id) {
+
           let i = 0;
           for(i; i < this.apls.length; i++){
-            if(this.apls[i].chose === true){
-              this.chooseAppls.push(this.apls[i])
-              console.log(this.chooseAppls[i])
+            if(this.apls[i].chose === true) {
+              // this.chooseAppls.push(this.apls[i])
+              this.application.choosenWizards.push(this.apls[i]);
+              // this.person.chooseConditions.push(this.apls[i]);
+              // console.log(this.person.chooseConditions[0])
             }
-
-
           }
+              AXIOS.post(`/profile/application/` + this.person_info_id,(this.application))
+                .then(response => {
+                })
+                .catch(e => {
+                    console.log('what what')
+                });
+
+              // this.person.application_number = null;
+              // this.person.application_date = null;
+              // this.person.application_selectedDeliveryType = null;
+              // this.person.application_selectedDocType = null;
+              // this.person.application_condition = [];
+              // this.person.application_documents = [];
+
+
+
+
+              AXIOS.get('/profile/conditions/' + (this.person_info_id))
+                .then(response => {
+                  this.resultApl = response.data;
+                  console.log(this.resultApl.application_number)
+                })
+                .catch(e => {
+                })
+
+              AXIOS.get(`/profile/getApplicationPersonName/` + (this.person_info_id))
+                .then(response => {
+                  console.log(response.data)
+                  this.application_person_name = response.data;
+                })
+                .catch(e => {
+                  this.errors.push(e)
+                })
+              console.log('выбранные ' + this.chooseAppls[0])
+              // console.log('выбранные ' + this.chooseAppls[i].deparName)
+
+
+
           // console.log(this.apls[0])
           // console.log(this.apls[1])
           // console.log(this.apls[2])
@@ -468,6 +587,8 @@
 
             })
         },
+
+
         onApplication(item) {
 
           const index = this.profiles.indexOf(item);

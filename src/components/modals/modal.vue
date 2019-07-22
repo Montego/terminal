@@ -21,12 +21,31 @@
                       class="elevation-1 text-xs-center"
         >
           <template slot="items" slot-scope="props">
-            <td class="text-xs-center">{{ props.item.deparCode }}</td>
-            <td class="text-xs-center">{{ props.item.deparName}}</td>
-            <td class="text-xs-center">{{ props.item.dpecialityId}}</td>
+            <!--<td class="text-xs-center">{{ props.item.deparName}}</td>-->
+            <td class="text-xs-center">{{ props.item.specialityId}}</td>
             <td class="text-xs-center">{{ props.item.environmentId}}</td>
             <td class="text-xs-center">{{ props.item.courseNum}}</td>
-            <td class="text-xs-center">{{ props.item.thisCase}}</td>
+            <td class="text-xs-center">{{ props.item.eduForm}}</td>
+            <td>
+              <div v-if="props.item.chose === true">
+                <select v-if="props.item.environmentId === 'ЦелНапр'" v-model="props.item.company" class="minimal col-sm">
+                  <option v-for="item in targOrg" v-bind:value="item" >
+                    {{item.cipHer}}
+                  </option>
+                </select>
+                <!--<input v-if="props.item.environmentId === 'ЦелНапр'" v-model="props.item.company" class="form__input" type="text">-->
+              </div>
+            </td>
+            <td>
+              <div v-if="props.item.chose === true">
+                <input v-if="props.item.environmentId === 'ЦелНапр'" v-model="props.item.contract" class="form__input" type="text">
+              </div>
+            </td>
+            <td>
+              <div v-if="props.item.chose === true">
+                <input v-if="props.item.environmentId === 'ЦелНапр'" v-model="props.item.date" class="form__input" type="date" min="1918-01-01" max="2019-01-01">
+              </div>
+            </td>
             <td class="text-xs-center">
               <input v-model="props.item.chose" class="checkbox col-sm" type="checkbox"  @click="choose(props.item)">
             </td>
@@ -51,7 +70,7 @@
 
 <script>
   import { createHelpers } from 'vuex-map-fields';
-
+  import {mapGetters, mapState} from 'vuex';
   const { mapFields: applications } = createHelpers({
     getterType: `applications/getField`,
     mutationType: `applications/updateField`,
@@ -66,12 +85,15 @@
       return {
         chose:'',
         headers_apl: [
-          { text: 'Факультет', value: 'deparCode',sortable: false, align: 'center' },
-          { text: 'Специальность', value: 'deparName',sortable: false, align: 'center' },
-          { text: 'Направление', value: 'dpecialityId',sortable: false, align: 'center' },
-          { text: 'Согласие', value: 'environmentId',sortable: false, align: 'center' },
-          { text: 'Направление', value: 'courseNum',sortable: false, align: 'center' },
-          { text: 'Согласие', value: 'thisCase',sortable: false, align: 'center' },
+          // { text: 'Факультет', value: 'deparCode',sortable: false, align: 'center' },
+          // { text: 'Специальность', value: 'deparName',sortable: false, align: 'center' },
+          { text: 'Специальность', value: 'specialityId',sortable: false, align: 'center' },
+          { text: 'Направление', value: 'environmentId',sortable: false, align: 'center' },
+          { text: 'Курс', value: 'courseNum',sortable: false, align: 'center' },
+          { text: 'Форма обучения', value: 'eduForm',sortable: false, align: 'center' },
+          { text: 'Организация', value: 'company',sortable: false, align: 'center' },
+          { text: 'Договор', value: 'contract',sortable: false, align: 'center' },
+          { text: 'Дата', value: 'date',sortable: false, align: 'center' },
           { text: 'Выбрать', value: 'chose',sortable: false, align: 'center' },
           // { text: 'Действия', value: 'name', sortable: false, align: 'center' }
         ],
@@ -96,11 +118,67 @@
     computed: {
       ...applications(['application','apls'],),
       ...person(['person_info_id','showProfile']),
-     }
+      ...mapState('dictionary',['targOrg'],),
+      ...mapGetters('dictionary',['GET_targOrg']),
+     },
+    mounted() {
+      this.$store.dispatch('dictionary/onLoadTargOrg');
+
+    },
   }
 </script>
 
 <style scoped>
+  select {
+    height: 25px;
+    border-radius: 3px;
+    border: 1px solid;
+    border-color: grey;
+  }
+
+  select.minimal {
+    background-image:
+      linear-gradient(45deg, transparent 50%, gray 50%),
+      linear-gradient(135deg, gray 50%, transparent 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 20px) calc(1em + 2px),
+      calc(100% - 15px) calc(1em + 2px),
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+    border-color: grey;
+  }
+
+  select.minimal:focus {
+    background-image:
+      linear-gradient(45deg, green 50%, transparent 50%),
+      linear-gradient(135deg, transparent 50%, green 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 15px) 1em,
+      calc(100% - 20px) 1em,
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+    border-color: grey;
+    outline: 0;
+    border: 1px solid;
+    border-color: grey;
+  }
+  input {
+    height: 25px;
+    border-radius: 3px;
+    border: 1px solid;
+    border-color: grey;
+    /*border: 4px;*/
+  }
   .modal-backdrop {
     position: fixed;
     top: 0;

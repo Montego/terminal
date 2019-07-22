@@ -1,5 +1,10 @@
 <template>
   <div>
+    <modal
+      v-show="isModalVisible"
+      @close="closeModal"
+      @toApplication="onAppl"
+    />
     <!--<img v-bind:src="'data:image/jpeg;base64,'+ this.image" />-->
     <div class="photo-loader">
       <div class="photo-loader__img-placeholder">
@@ -21,11 +26,14 @@
       <div class="photo-loader__controls">
         <!--<button class="photo-loader__control-btn btn btn_load" type="button">-->
         <input type="file" id="image" ref="image" @change="uploadFile"/>
-        <button class="photo-loader__control-btn /btn btn_reset" type="button" @click="removeImage">Сбросить</button>
+        <button v-if="!this.isModalVisible" class="photo-loader__control-btn /btn btn_reset" type="button" @click="removeImage">Сбросить</button>
 
       </div>
     </div>
-    <button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="onSave">Сохранить профиль</button>
+    <!--<button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="onSave">Сохранить профиль</button>-->
+    <div v-if="!this.isModalVisible"  >
+      <button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="showModal">Заявление</button>
+    </div>
 
   </div>
 </template>
@@ -33,23 +41,27 @@
 <script>
   import { createHelpers } from 'vuex-map-fields';
   import {AXIOS} from "../../plugins/APIService";
-
+  import modal from "../../modals/modal";
+  import {mapGetters, mapState} from 'vuex'
   const { mapMultiRowFields } = createHelpers({
     getterType: `person/getField`,
     mutationType: `person/updateField`,
   });
-  const { mapFields:tab_personal_info} = createHelpers({
-    getterType: 'tab_personal_info/getField',
-    mutationType: 'tab_personal_info/updateField',
-  });
-
 
   const { mapFields:person} = createHelpers({
     getterType: 'person/getField',
     mutationType: 'person/updateField',
   });
+  const { mapFields: applications } = createHelpers({
+    getterType: `applications/getField`,
+    mutationType: `applications/updateField`,
+  });
+
     export default {
       name: "TabPhoto",
+      components: {
+        modal
+      },
       data() {
         return {
           info: [],
@@ -58,9 +70,14 @@
           base:''
         }
       },
+      mounted() {
+        this.$store.dispatch('dictionary/onLoadAddressCountryRegion');
+        this.$store.dispatch('dictionary/onLoadTargOrg');
+
+      },
       computed: {
         ...mapMultiRowFields(['persons']),
-        ...person(['person','showProfile','profiles',
+        ...person(['person','showProfile','profiles','isModalVisible',
           'tab_personal_lastname',  'tab_personal_firstname', 'tab_personal_middlename' , 'tab_personal_lastname_genitive',
           'tab_personal_firstname_genitive','tab_personal_middlename_genitive','tab_personal_selectedGender',
           'tab_personal_birthDate', 'tab_personal_INIPA', 'tab_personal_INIPADate','tab_personal_note',
@@ -85,7 +102,10 @@
           'tab_edu_military_endMilitary', 'selectedExtraInfos1', 'selectedExtraInfos2', 'extraInfosDescription1',
           'extraInfosDescription2', 'image', 'showimage', 'person_info_id' , 'saved' ,'acceptedPerson'
         ]),
-
+        ...applications(['application','application_person_id','application_person_name','applId','applTableName',
+          'applTableNumber','applTableDate','applTableDeliveryType','applicationId','apls','chooseAppls','resultApl'],),
+        ...mapState('dictionary',['targOrg'],),
+        ...mapGetters('dictionary',['GET_targOrg']),
 
         show(){
           return this.persons
@@ -94,6 +114,86 @@
       methods: {
         handleClick(val) {
           this.showProfile = val;
+        },
+        showModal() {
+
+          if(this.application.choosenWizards.length === 0) {
+            this.person.application.choosenWizards = [];
+            this.isModalVisible = true;
+            AXIOS.get(`/profile/conditionsDto`)
+              .then(response => {
+                console.log(response.data)
+                this.apls = response.data;
+
+                console.log(this.profiles)
+              })
+              .catch(e => {
+                this.errors.push(e)
+              })
+          }else{
+                  this.showProfile = false;
+                  location.href = 'profile#applicationFill';
+          }
+
+            // AXIOS.get('/profile/conditions/' + (this.person_info_id))
+            //   .then(response => {
+            //     if (response.data.choosenWizards.length !== 0) {
+            //       this.application.choosenWizards = response.data;
+            //       this.showProfile = false;
+            //       location.href = 'profile#applicationFill';
+            //     }else {
+            //       this.isModalVisible = true;
+            //       AXIOS.get(`/profile/conditionsDto`)
+            //         .then(response => {
+            //           this.apls = response.data;
+            //         })
+            //         .catch(e => {
+            //           this.errors.push(e)
+            //         })
+            //     }
+            //   })
+            //   .catch(e => {
+            //   this.isModalVisible = true;
+            //     AXIOS.get(`/profile/conditionsDto`)
+            //       .then(response => {
+            //         this.apls = response.data;
+            //         console.log(this.profiles)
+            //       })
+            //       .catch(e => {
+            //         this.errors.push(e)
+            //       })
+            //  })
+
+
+
+
+
+        },
+        closeModal() {
+          this.isModalVisible = false;
+        },
+        onAppl(id) {
+
+          console.log('in method -' + this.person_info_id);
+          let i = 0;
+          for(i; i < this.apls.length; i++){
+            if(this.apls[i].chose === true) {
+              // this.chooseAppls.push(this.apls[i]);
+              this.person.application.choosenWizards.push(this.apls[i]);
+              // this.application.choosenWizards.push(this.apls[i]);
+            }
+          }
+          this.isModalVisible = false;
+          location.href='profile#overview_new';
+          // AXIOS.get('/profile/conditions/' + (this.person_info_id))
+          //   .then(response => {
+          //     this.resultApl = response.data;
+          //
+          //     console.log(this.resultApl.application_number)
+          //   })
+          //   .catch(e => {
+          //   });
+
         },
         // uploadFile(e){
         //   console.log(e)
@@ -320,7 +420,7 @@
                 this.person.parents_info = [];
                 this.person.futures_info = [];
                 this.person_info_id='';
-                this.person.applications = [];
+                this.person.application = [];
 
                 AXIOS.get(`/profile/personsTable`)
                   .then(response => {
@@ -388,8 +488,9 @@
         },
 
         removeImage: function (e) {
-
-          this.person.person_info.showimage = '';
+          this.image = '';
+          this.showimage = '';
+          // this.person.person_info.showimage = '';
           // this.image = '';
         },
         // onFileChange(e) {
@@ -447,9 +548,9 @@
 
   .photo-loader__img-placeholder {
     margin-right: 30px;
-    width: 200px;
-    height: 300px;
-    background: url('https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png') no-repeat 50% 50% / cover;
+    width: 300px;
+    height: 400px;
+    background: url('/src/assets/Portrait_Placeholder.png') no-repeat 50% 50% / cover;
   }
 
   .photo-loader__controls {
@@ -464,8 +565,8 @@
 
 
   .images_place {
-    width: 200px;
-    height: 300px;
+    width: 300px;
+    height: 400px;
     /*height: 640px;*/
     /*width: 480px*/
   }

@@ -3,10 +3,7 @@
   <!--<button color="#5bc0de" @click="onNewApplication()">-->
     <!--+-->
   <!--</button>-->
-  <modal
-    v-show="isModalVisible"
-    @close="closeModal"
-  />
+
   <button  color="#5bc0de" @click="onNewApplication()">
     +
   </button>

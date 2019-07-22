@@ -3,6 +3,7 @@ import {AXIOS} from "../../components/plugins/APIService.js"
 export default {
   namespaced: true,
   state: {
+    // oneAttrType:{},
     attrType: [],
     gender: [],
     langInfo: [],
@@ -26,7 +27,9 @@ export default {
     GET_attrType: state => {
       return state.attrType;
     },
-
+    // GET_oneAttrType: state => {
+    //   return state.oneAttrType;
+    // },
     GET_GENDER: state => {
       return state.gender;
     },
@@ -85,6 +88,9 @@ export default {
     UPLOAD_attrType(state, payload) {
       state.attrType = payload
     },
+    // UPLOAD_oneAttrType(state, payload) {
+    //   state.oneAttrType = payload
+    // },
     UPLOAD_GENDER(state, payload) {
       state.gender = payload
     },
@@ -139,6 +145,15 @@ export default {
 
   },
   actions: {
+
+    // onLoadOneAttrType({commit}) {
+    //   AXIOS.get('/enums/oneAttrType')
+    //     .then((response) => {
+    //       commit('UPLOAD_oneAttrType', response.data)
+    //     }).catch(e => {
+    //     this.errors.push(e)
+    //   })
+    // },
     onLoadAttrType({commit}) {
       AXIOS.get('/enums/attrType')
         .then((response) => {

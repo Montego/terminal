@@ -389,20 +389,20 @@
               {id: 10, item: 'Интернатура'},
               {id: 11, item: 'Аспирантура'},
             ],
-            options_soldiery: [
-              {id: 1, item: 'Военнообязанный'},
-              {id: 2, item: 'Невоеннообязанный'},
-            ],
-            options_soldieryStatus: [
-              {id: 1, item: 'Служил'},
-              {id: 2, item: 'Не служил'},
-            ],
-
-            options_militaryFormDoc: [
-              {id: 1, item: 'Не определено'},
-              {id: 2, item: 'Приписное свид-во'},
-              {id: 3, item: 'Военный билет'},
-            ],
+            // options_soldiery: [
+            //   {id: 1, item: 'Военнообязанный'},
+            //   {id: 2, item: 'Невоеннообязанный'},
+            // ],
+            // options_soldieryStatus: [
+            //   {id: 1, item: 'Служил'},
+            //   {id: 2, item: 'Не служил'},
+            // ],
+            //
+            // options_militaryFormDoc: [
+            //   {id: 1, item: 'Не определено'},
+            //   {id: 2, item: 'Приписное свид-во'},
+            //   {id: 3, item: 'Военный билет'},
+            // ],
             options_extraInfos: [
               {id: 1, item: 'Достижения в учебе'},
               {id: 2, item: 'Художственные достижения'},

@@ -17,9 +17,12 @@
               <tab id="overview" name="Обзор">
                 <TabOverviewApplication></TabOverviewApplication>
               </tab>
-              <tab id="applicationFill" name="Заявление">
-                <TabApplicationFill></TabApplicationFill>
-              </tab>
+              <!--<tab id="overview_new" name="Заявление">-->
+                <!--<NewVersion></NewVersion>-->
+              <!--</tab>-->
+              <!--<tab id="applicationFill" name="Заявление">-->
+                <!--<TabApplicationFill></TabApplicationFill>-->
+              <!--</tab>-->
               <tab id="receptrionCondition" name="Условия приема">
                 <TabReceptionConditions></TabReceptionConditions>
               </tab>
@@ -48,6 +51,7 @@
   import TabEvidenceEgeInfo from "../tabs/Profile/TabEvidenceEgeInfo";
 
   import { createHelpers } from 'vuex-map-fields';
+  import NewVersion from "../tabs/Application/NewVersion";
 
   const { mapFields:person} = createHelpers({
     getterType: 'person/getField',
@@ -59,6 +63,7 @@
         ...person(['person']),
       },
       components: {
+        NewVersion,
         TabOverviewApplication, TabApplicationFill, TabReceptionConditions , TabDocuments,
         TabEntranceTests, TabOther,
         TabEvidenceEgeInfo

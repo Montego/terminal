@@ -174,6 +174,7 @@
     methods: {
       handleClick(val) {
 
+        location.href='profile#overview_personal_info';
         this.showProfile = val;
           // this.profiles= [];
           this.isModalVisible = false;

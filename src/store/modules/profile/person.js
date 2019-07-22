@@ -7,7 +7,7 @@ export default {
     showProfile: true,
     profiles:[],
 
-
+    isModalAgreementVisible: false,
     isModalVisible:false,
     tab_ege_changePaspInf:false,
 
@@ -32,6 +32,7 @@ export default {
     tab_personal_identityCardIssueBy: '',
     tab_personal_identityCardIssueDate: '',
     tab_personal_identityCardIssueDep: '',
+    tab_personal_identityCardDocType:{"id":0,"name":"Копия"},
     tab_personal_selectedCitizenship: {"countryRegionId":"РФ","name":"Россия"},
     tab_personal_isCompatriot: '',
     tab_personal_isEquatedForeign: '',
@@ -64,7 +65,7 @@ export default {
     tab_edu_military_selectedCountryRegion: {"countryRegionId":"РФ","name":"Россия"},
     tab_edu_military_selectedState: null,
     tab_edu_military_selectedAcademyYear: null,
-    tab_edu_military_selectedEduDoc: null,
+    tab_edu_military_selectedEduDoc: {"eduDocId":"ДиплСПО","name":"Диплом о среднем профессиональном образовании","namePrint":"Диплом о СПО","namePrintGen":"диплома СПО"},
     tab_edu_military_eduDocSerial: '',
     tab_edu_military_eduDocNumber: '',
     tab_edu_military_eduDocDate: '',
@@ -76,7 +77,7 @@ export default {
     score_three:0,
     averageScore: '',
     score_full: '',
-    tab_edu_military_selectedSoldiery: null,
+    tab_edu_military_selectedSoldiery: {"soldieryId":"Невоеннообязанный"},
     tab_edu_military_selectedSoldieryStatus: {"id":0,"name":"Не служил"},
     tab_edu_military_selectedMilitaryFormDoc: {"id":0,"name":"Не определено"},
     tab_edu_military_militaryNumber: '',
@@ -172,7 +173,7 @@ export default {
         score_four:'',
         score_three:'',
         averageScore: '',
-        tab_edu_military_selectedSoldiery: null,
+        tab_edu_military_selectedSoldiery: {"soldieryId":"Невоеннообязанный"},
         tab_edu_military_selectedSoldieryStatus: null,
         tab_edu_military_selectedMilitaryFormDoc: null,
         tab_edu_military_militaryNumber: '',
@@ -195,7 +196,31 @@ export default {
       ege_info:[],
       parents_info:[],
       futures_info: [],
-      applications:[],
+      application:{
+        saved:'',
+        application_number:'',
+        application_date:'',
+        application_selectedDeliveryType:'',
+        application_selectedDocType:{"id":0,"name":"Копия"},
+        application_person_name:'',
+        choosenWizards:[
+          {
+            chose: false,
+            company: {"targOrgId":"ОЦП000004","name":"ФМБА РФ","addressStateId":"","reportName":"от ФМБА РФ","cipHer":"ФМБА","shortName":"","blocked":0},
+            courseNum: 1,
+            deparCode: "",
+            deparName: "",
+            eduForm: "",
+            environmentId: "",
+            portalApplWizardId:0,
+            specialityId: ""
+          }
+
+
+        ],
+        application_documents:[],
+      },
+      // chooseConditions: [],
 
       // application_condition:[],
       // application_documents:[],

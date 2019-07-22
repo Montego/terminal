@@ -19,11 +19,11 @@
             <td class="text-xs-center">{{ props.item.tab_parent_middlename}}</td>
             <td class="text-xs-center">{{ props.item.tab_parent_selectedGender.name}}</td>
             <td class="text-xs-center">
-              <!--<button @click="onEdit(props.item)">-->
-                <!--<v-icon color="#5bc0de">edit</v-icon>-->
-              <!--</button>{{ props.item.actions}}-->
+              <button @click="onEdit(props.item)">
+                <v-icon color="#5bc0de">edit</v-icon>
+              </button>{{ props.item.actions}}
               <button @click="onDelete(props.item)">
-                <v-icon color="#5bc0de">delete</v-icon>
+                <v-icon color="red">delete</v-icon>
               </button>{{ props.item.actions}}
             </td>
           </template>
@@ -190,6 +190,8 @@
 
     data() {
       return {
+        editedIndex: -1,
+        editedItem:{},
         persons: [],
         // options_FamRelationShip: [
         //   {id: 1, item: 'Брат'},
@@ -260,10 +262,13 @@
         const index = this.person.parents_info.indexOf(item);
         console.log(index);
         this.person.parents_info.splice(index,1);
-
       },
       onEdit(item) {
+        this.editedIndex = this.person.parents_info.indexOf(item);
+        this.editedItem = Object.assign({}, item);
+
         const index = this.person.parents_info.indexOf(item);
+
         location.href='profile#parent_info';
         this.tab_parent_name = this.person.parents_info[index].tab_parent_name;
         this.tab_parent_lastname = this.person.parents_info[index].tab_parent_lastname;
@@ -319,37 +324,62 @@
       },
 
       onAddParent() {
-        function Parent(parent_name,parent_lastname,parent_firstname,tab_parent_middlename,
-                        parent_birthDate,parent_homePhoneNumber,parent_cellularPhone,
-                        parent_factAddress,parent_selectedFamRelationShip,parent_selectedGender,
-                        parent_organization_name, parent_organization_adress,parent_organization_seniority,
-                        parent_organization_employYears) {
-          // parent_name = this.tab_parent_name;
-          this.tab_parent_name = parent_name;
-          this.tab_parent_lastname = parent_lastname;
-          this.tab_parent_firstname = parent_firstname;
-          this.tab_parent_middlename = tab_parent_middlename;
-          this.tab_parent_birthDate = parent_birthDate;
-          this.tab_parent_homePhoneNumber = parent_homePhoneNumber;
-          this.tab_parent_cellularPhone = parent_cellularPhone;
-          this.tab_parent_factAddress = parent_factAddress;
-          this.tab_parent_selectedFamRelationShip = parent_selectedFamRelationShip;
-          this.tab_parent_selectedGender = parent_selectedGender;
-          this.tab_parent_organization_name = parent_organization_name;
-          this.tab_parent_organization_address = parent_organization_adress;
-          this.tab_parent_organization_seniority = parent_organization_seniority;
-          this.tab_parent_organization_employYears = parent_organization_employYears;
+        if (this.editedIndex > -1) {
+          console.log('its redaction ')
+
+          this.editedItem.tab_parent_name = this.tab_parent_name;
+          this.editedItem.tab_parent_lastname = this.tab_parent_lastname;
+          this.editedItem.tab_parent_firstname = this.tab_parent_firstname;
+          this.editedItem.tab_parent_middlename = this.tab_parent_middlename;
+          this.editedItem.tab_parent_birthDate = this.tab_parent_birthDate;
+          this.editedItem.tab_parent_homePhoneNumber = this.tab_parent_homePhoneNumber;
+          this.editedItem.tab_parent_cellularPhone = this.tab_parent_cellularPhone;
+          this.editedItem.tab_parent_factAddress = this.tab_parent_factAddress;
+          this.editedItem.tab_parent_selectedFamRelationShip = this.tab_parent_selectedFamRelationShip;
+          this.editedItem.tab_parent_selectedGender = this.tab_parent_selectedGender;
+          this.editedItem.tab_parent_organization_name = this.tab_parent_organization_name;
+          this.editedItem.tab_parent_organization_address = this.tab_parent_organization_address;
+          this.editedItem.tab_parent_organization_seniority = this.tab_parent_organization_seniority;
+          this.editedItem.tab_parent_organization_employYears = this.tab_parent_organization_employYears;
+
+          Object.assign(this.person.parents_info[this.editedIndex], this.editedItem);
+
+          location.href='profile#parent_overview';
+          // this.person.ege_info[this.editedIndex].push(this.editedItem)
+        }else {
+          function Parent(parent_name, parent_lastname, parent_firstname, tab_parent_middlename,
+                          parent_birthDate, parent_homePhoneNumber, parent_cellularPhone,
+                          parent_factAddress, parent_selectedFamRelationShip, parent_selectedGender,
+                          parent_organization_name, parent_organization_adress, parent_organization_seniority,
+                          parent_organization_employYears) {
+            // parent_name = this.tab_parent_name;
+            this.tab_parent_name = parent_name;
+            this.tab_parent_lastname = parent_lastname;
+            this.tab_parent_firstname = parent_firstname;
+            this.tab_parent_middlename = tab_parent_middlename;
+            this.tab_parent_birthDate = parent_birthDate;
+            this.tab_parent_homePhoneNumber = parent_homePhoneNumber;
+            this.tab_parent_cellularPhone = parent_cellularPhone;
+            this.tab_parent_factAddress = parent_factAddress;
+            this.tab_parent_selectedFamRelationShip = parent_selectedFamRelationShip;
+            this.tab_parent_selectedGender = parent_selectedGender;
+            this.tab_parent_organization_name = parent_organization_name;
+            this.tab_parent_organization_address = parent_organization_adress;
+            this.tab_parent_organization_seniority = parent_organization_seniority;
+            this.tab_parent_organization_employYears = parent_organization_employYears;
+          }
+
+          let parent = new Parent(
+            this.tab_parent_name, this.tab_parent_lastname, this.tab_parent_firstname,
+            this.tab_parent_middlename, this.tab_parent_birthDate, this.tab_parent_homePhoneNumber,
+            this.tab_parent_cellularPhone, this.tab_parent_factAddress, this.tab_parent_selectedFamRelationShip,
+            this.tab_parent_selectedGender, this.tab_parent_organization_name, this.tab_parent_organization_address,
+            this.tab_parent_organization_seniority, this.tab_parent_organization_employYears
+          );
+          location.href = 'profile#parent_overview';
+          this.person.parents_info.push(parent);
+          console.log(this.person.parents_info)
         }
-        let parent = new Parent(
-          this.tab_parent_name, this.tab_parent_lastname, this.tab_parent_firstname,
-          this.tab_parent_middlename,this.tab_parent_birthDate,this.tab_parent_homePhoneNumber,
-          this.tab_parent_cellularPhone, this.tab_parent_factAddress, this.tab_parent_selectedFamRelationShip,
-          this.tab_parent_selectedGender, this.tab_parent_organization_name,this.tab_parent_organization_address,
-          this.tab_parent_organization_seniority,this.tab_parent_organization_employYears
-        );
-        location.href='profile#parent_overview';
-        this.person.parents_info.push(parent);
-        console.log(this.person.parents_info)
       },
     }
 

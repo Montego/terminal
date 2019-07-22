@@ -1,15 +1,18 @@
 <template>
 <div>
   <tabs class="main_tab" v-show="!showProfile" :handleClick="handleClick">
-    <tab id="overviewApplication" name="Обзор">
-      <TabOverviewApplication></TabOverviewApplication>
+    <!--<tab id="overviewApplication" name="Обзор">-->
+      <!--<TabOverviewApplication></TabOverviewApplication>-->
+    <!--</tab>-->
+    <!--<tab id="applicationFill" name="Заявление">-->
+      <!--<TabApplicationFill></TabApplicationFill>-->
+    <!--</tab>-->
+    <tab id="overview_new" name="Заявление">
+    <NewVersion></NewVersion>
     </tab>
-    <tab id="applicationFill" name="Заявление">
-      <TabApplicationFill></TabApplicationFill>
-    </tab>
-    <tab id="receptrionCondition" name="Условия приема">
-      <TabReceptionConditions></TabReceptionConditions>
-    </tab>
+    <!--<tab id="receptrionCondition" name="Условия приема">-->
+      <!--<TabReceptionConditions></TabReceptionConditions>-->
+    <!--</tab>-->
     <tab id="documents" name="Документы">
       <TabDocuments></TabDocuments>
     </tab>
@@ -30,7 +33,7 @@
   import TabDocuments from "../tabs/Application/TabDocuments";
   import TabEntranceTests from "../tabs/Application/TabEntranceTests";
   import TabOther from "../tabs/Application/TabOther";
-
+  import NewVersion from "../tabs/Application/NewVersion";
   import { createHelpers } from 'vuex-map-fields';
 
   const { mapFields:person} = createHelpers({
@@ -50,7 +53,7 @@
         // TabDistinctiveFeaturesInfo,
         // TabParentInfo, TabEvidenceEge, TabEducationMilitary,
         // TabAddressInfo, TabPersonalInfo, TabOverview,
-
+        NewVersion,
         TabOverviewApplication, TabApplicationFill, TabReceptionConditions,
         TabDocuments, TabEntranceTests, TabOther
       },

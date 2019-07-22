@@ -112,6 +112,11 @@
               {{item.identityCardCode}}
             </option>
           </select>
+          <!--<select v-model="tab_personal_selectedIdentityCardCode" class="minimal col-sm">-->
+            <!--<option v-for="option in options_identityCardCode" >-->
+              <!--{{option.item}}-->
+            <!--</option>-->
+          <!--</select>-->
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Серия:</div>
