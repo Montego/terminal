@@ -24,6 +24,7 @@ import converter from './xmodules'
 import Axios from 'axios'
 
 import test_profiles from './modules/profile/test_profiles'
+import specialist from "./xmodules/specialist";
 
 Vue.use(VueTheMask);
 Vue.use(VeeValidate);
@@ -40,15 +41,14 @@ export const store = new Vuex.Store({
   getters: {},
   mutations: {},
   actions: {
-     go(ctx, payload = null){
-       let id = payload ? payload : '852';
-           let url = '/operator_api/profile/personByPersonInfo/' + id;
-       Axios.get(url)
-          .then(r=>{
-            // console.log(r.data);
-            converter(r.data);
-          })
-      ;
+     async go(ctx, payload = null){
+       let id = payload ? payload : '686';
+           let url = 'http://10.71.0.115/operator_api/profile/personByPersonInfo/' + id;
+       let r = await Axios.get(url);
+       let result = await r.data;
+       ctx.commit('updateSpecialist', result);
+       // console.log(result);
+       // converter(r.data);
     }
   },
   modules: {
@@ -67,6 +67,7 @@ export const store = new Vuex.Store({
     person,
     applications,
     // post
+    s : specialist
   },
   strict: false
 });

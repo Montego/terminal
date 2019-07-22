@@ -3,15 +3,18 @@
         <div class="row">
             <div class="info_address col-sm">
                 <div>
-                    <p>Адрес по прописке</p>
+                    <p>Адрес регистрации</p>
                 </div>
                 <hr>
                 <div class="buttons row">
-                    <button class="adress_button">Ввести адрес</button>
+                    <button @click="show=0" class="adress_button">Ввести адрес</button>
                 </div>
                 <label class="row">
                     <div class="form__label-text col-sm-2">Адрес:</div>
-                    <textarea v-model="tab_address_registrationAddress" class="uneditable col-sm-10" name=""></textarea>
+                    <!--&#45;&#45;ыv-ыmodel="tab_address_registrationAddress"-->
+                    <!--<textarea  class="uneditable col-sm-10" name=""-->
+                    <!--&gt; </textarea>-->
+                    <div class="uneditable col-sm-10">{{ ADRText()[0] }}</div>
                 </label>
             </div>
             <div class="info_address2 col-sm">
@@ -20,12 +23,13 @@
                 </div>
                 <hr>
                 <div class="buttons row">
-                    <button class="adress_button">Ввести адрес</button>
-                    <button class="adress_button" @click="onCopyAddress">Копировать</button>
+                    <button class="adress_button" @click="show=1">Ввести адрес</button>
+                    <!--<button class="adress_button" @click="onCopyAddress">Копировать</button>-->
                 </div>
                 <label class="row">
                     <div class="form__label-text col-sm-2">Адрес:</div>
-                    <textarea v-model="tab_address_factAddress" class="uneditable col-sm-10"></textarea>
+                    <!--<textarea v-model="tab_address_factAddress" class="uneditable col-sm-10"></textarea>-->
+                    <div class="uneditable col-sm-10">{{ ADRText()[1] }}</div>
                 </label>
             </div>
             <div class="info_address2 col-sm">
@@ -34,26 +38,36 @@
                 </div>
                 <hr>
                 <div class="buttons row">
-                    <button class="adress_button">Ввести адрес</button>
+                    <button @click="show=2" class="adress_button">Ввести адрес</button>
                 </div>
                 <label class="row">
                     <div class="form__label-text col-sm-2">Адрес:</div>
-                    <textarea v-model="tab_address_templateRegistrationAddress" class="uneditable col-sm-10"></textarea>
+                    <!--<v-textarea >{{ ADRText()[0] }}</v-textarea>-->
+                    <!--<div class="uneditable col-sm-10">{{ ADRText()[0] }}</div>-->
+                    <textarea class="uneditable col-sm-10">{{ ADRText()[2] }}</textarea>
                 </label>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <v-btn @click="go()">
-                    go
+                <v-btn v-if="show>=0" @click="show=-1">
+                    Скрыть
                 </v-btn>
+            </div>
+        </div>
+        <div class="row">
+            <div v-for="i in [0,1,2]" :key="i" v-if="show===i" class="col-5 offset-3">
+                <addresser :adrType="i"></addresser>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import {mapGetters} from 'vuex'
+
     import {createHelpers} from 'vuex-map-fields';
+    import addresser from "../../addresser/addresser";
 
     const {mapFields: person} = createHelpers({
         getterType: 'person/getField',
@@ -66,30 +80,25 @@
 
     export default {
         name: "TabAddressInfo",
-        computed: {
-            ...person(['person', 'tab_address_registrationAddress', 'tab_address_factAddress',
-                'tab_address_templateRegistrationAddress',]),
-            // ...tab_address_info(['tab_address_registrationAddress', 'tab_address_factAddress',
-            //   'tab_address_templateRegistrationAddress',
-            // ]),
-
-
-        },
         data() {
             return {
                 checkedAddress: [],
                 factAddress: '',
+                show: -1
             }
         },
+        // computed: {
+        //     ...person(['person', 'tab_address_registrationAddress', 'tab_address_factAddress',
+        //         'tab_address_templateRegistrationAddress',]),
+        // },
         methods: {
-            onCopyAddress() {
-                // this.factAddress = this.person.tab_address_registrationAddress;
-                this.tab_address_factAddress = this.tab_address_registrationAddress;
-            },
-            go(){
-                this.$store.dispatch('go');
-            }
-        }
+            ...mapGetters(['ADRText']),
+            // onCopyAddress() {
+            //     // this.factAddress = this.person.tab_address_registrationAddress;
+            //     this.tab_address_factAddress = this.tab_address_registrationAddress;
+            // },
+        },
+        components: {addresser}
     }
 </script>
 

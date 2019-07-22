@@ -264,6 +264,7 @@
 <script>
   import {AXIOS} from "../../plugins/APIService";
   import { createHelpers } from 'vuex-map-fields';
+  import { mapGetters } from 'vuex';
   const { mapFields:applications} = createHelpers({
     getterType: 'applications/getField',
     mutationType: 'applications/updateField',
@@ -314,7 +315,7 @@
       },
 
       methods: {
-
+        ...mapGetters(['ADRDTO']),
         onAcceptPerson() {
           // const config = {
           //   headers: {
@@ -424,6 +425,7 @@
           this.person.person_info.extraInfosDescription2 = this.extraInfosDescription2;
 
           this.person.person_info.image = this.image;
+          this.person.person_info.addressesDto = ADRDTO();
           this.person.person_info.showimage = this.showimage;
           this.person.saved = "Сохранено";
           this.person.application.saved = "Сохранено";
