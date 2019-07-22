@@ -144,7 +144,10 @@
                   </label>
                   <label class="row">
                     <div class="form__label-text col-sm">Документ:</div>
-                    <textarea :value="doc1_full_info = doc1 + ' ' + doc1_serial+ ' '+ doc1_number + ' ' + tab_features_selectedDocType1.name + ' ' +
+
+                    <textarea v-if="doc1!== null" :value="doc1_full_info = doc1.name + ' ' + doc1_serial+ ' '+ doc1_number + ' ' + tab_features_selectedDocType1.name + ' ' +
+                     doc1_IssuDate + ' ' + doc1_IssueBy" class="col-sm" name="birth_place" disabled></textarea>
+                    <textarea v-else :value="doc1_full_info = doc1 + ' ' + doc1_serial+ ' '+ doc1_number + ' ' + tab_features_selectedDocType1.name + ' ' +
                      doc1_IssuDate + ' ' + doc1_IssueBy" class="col-sm" name="birth_place" disabled></textarea>
                   </label>
                   <!--<label class="row">-->
@@ -199,7 +202,7 @@
                   </label>
                   <label class="row">
                     <div class="form__label-text col-sm">Документ:</div>
-                    <textarea :value="doc2_full_info = doc2 + ' ' + doc2_serial+ ' '+ doc2_number + ' ' + tab_features_selectedDocType2.name + ' ' +
+                    <textarea :value="doc2_full_info = doc2.name + ' ' + doc2_serial+ ' '+ doc2_number + ' ' + tab_features_selectedDocType2.name + ' ' +
                      doc2_IssuDate + ' ' + doc2_IssueBy" class="col-sm" name="birth_place" disabled></textarea>
                   </label>
                 </div>
@@ -251,7 +254,7 @@
                   </label>
                   <label class="row">
                     <div class="form__label-text col-sm">Документ:</div>
-                    <textarea :value="doc3_full_info = doc3 + ' ' + doc3_serial+ ' '+ doc3_number + ' ' + tab_features_selectedDocType3.name + ' ' +
+                    <textarea :value="doc3_full_info = doc3.name + ' ' + doc3_serial+ ' '+ doc3_number + ' ' + tab_features_selectedDocType3.name + ' ' +
                      doc3_IssuDate + ' ' + doc3_IssueBy" class="col-sm" name="birth_place" disabled></textarea>
                   </label>
                 </div>
@@ -472,7 +475,7 @@
             // this.tab_features_selectedAttrType =  '';
             // this.tab_features_selectedPreference =  '';
             this.tab_features_selectedYypeDiploma = '';
-            this.doc1 = '';
+            // this.doc1 = ;
             this.doc1_serial = '';
             this.doc1_number =  '';
             this.tab_features_selectedDocType1 = {"id":0,"name":"Копия"};
@@ -480,7 +483,7 @@
             this.doc1_IssuDate = '';
             this.doc1_IssueBy = '';
 
-            this.doc2 = '';
+            // this.doc2 = '';
             this.doc2_serial =  '';
             this.doc2_number = '';
             this.tab_features_selectedDocType2 = {"id":0,"name":"Копия"};
@@ -488,7 +491,7 @@
             this.doc2_IssuDate = '';
             this.doc2_IssueBy = '';
 
-            this.doc3 =  '';
+            // this.doc3 =  '';
             this.doc3_serial =  '';
             this.doc3_number =  '';
             this.tab_features_selectedDocType3 = {"id":0,"name":"Копия"};
@@ -521,7 +524,7 @@
 
             const index = this.person.futures_info.indexOf(item);
             location.href='profile#features_info';
-
+//todo check null
             this.tab_features_selectedAttrType = this.person.futures_info[index].tab_features_selectedAttrType;
             this.tab_features_selectedPreference = this.person.futures_info[index].tab_features_selectedPreference;
             this.tab_features_selectedYypeDiploma = this.person.futures_info[index].tab_features_selectedYypeDiploma;

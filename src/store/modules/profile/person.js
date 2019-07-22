@@ -240,7 +240,14 @@ export default {
     }
   },
   actions: {
-
+    async go(ctx, payload = null){
+      let id = payload ? payload : '852';
+      let url = '/operator_api/profile/personByPersonInfo/' + id;
+      let r = await AXIOS.get(url);
+      let result = await r.data;
+      // console.log(result);
+      converter(r.data);
+    }
   },
   computed: {
 

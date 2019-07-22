@@ -319,48 +319,49 @@
             this.person.application.application_documents.push(document7);
             this.person.application.application_documents.push(document8);
 
-            let i = 0;
-            for(i; i < this.person.futures_info.length; i++){
-              if(this.person.futures_info[i].doc1 !== ''){
-                let document7 = new Document(
-                  this.nameDoc = this.person.futures_info[i].doc1,
-                  this.serialDoc = this.person.futures_info[i].doc1_serial,
-                  this.numberDoc = this.person.futures_info[i].doc1_number,
-                  this.fullnameDoc = this.person.futures_info[i].doc1 + ' ' + this.person.futures_info[i].doc1_serial + ' ' + this.person.futures_info[i].doc1_number,
-                  this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType1,
-                  this.dateOfIssueDoc = this.person.futures_info[i].doc1_IssuDate,
-                  this.countDoc = 1,
-                  this.IssuedByDoc = this.person.futures_info[i].doc1_IssueBy,
-                );
-                this.person.application.application_documents.push(document7);
-              }
-              if(this.person.futures_info[i].doc2 !== ''){
-                let document8 = new Document(
-                  this.nameDoc = this.person.futures_info[i].doc2,
-                  this.serialDoc = this.person.futures_info[i].doc2_serial,
-                  this.numberDoc = this.person.futures_info[i].doc2_number,
-                  this.fullnameDoc = this.person.futures_info[i].doc2 + ' ' + this.person.futures_info[i].doc2_serial + ' ' + this.person.futures_info[i].doc2_number,
-                  this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType2,
-                  this.dateOfIssueDoc = this.person.futures_info[i].doc1_IssuDate,
-                  this.countDoc = 1,
-                  this.IssuedByDoc = this.person.futures_info[i].doc2_IssueBy,
-                );
-                this.person.application.application_documents.push(document8);
-              }
-              if(this.person.futures_info[i].doc3 !== ''){
-                let document9 = new Document(
-                  this.nameDoc = this.person.futures_info[i].doc3,
-                  this.serialDoc = this.person.futures_info[i].doc3_serial,
-                  this.numberDoc = this.person.futures_info[i].doc3_number,
-                  this.fullnameDoc = this.person.futures_info[i].doc3 + ' ' + this.person.futures_info[i].doc3_serial + ' ' + this.person.futures_info[i].doc3_number,
-                  this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType3,
-                  this.dateOfIssueDoc = this.person.futures_info[i].doc3_IssuDate,
-                  this.countDoc = 1,
-                  this.IssuedByDoc = this.person.futures_info[i].doc3_IssueBy,
-                );
-                this.person.application.application_documents.push(document9);
-              }
-            }
+//todo it's work but check doc.name
+            // let i = 0;
+            // for(i; i < this.person.futures_info.length; i++){
+            //   if(this.person.futures_info[i].doc1 !== ''){
+            //     let document7 = new Document(
+            //       this.nameDoc = this.person.futures_info[i].doc1.name,
+            //       this.serialDoc = this.person.futures_info[i].doc1_serial,
+            //       this.numberDoc = this.person.futures_info[i].doc1_number,
+            //       this.fullnameDoc = this.person.futures_info[i].doc1 + ' ' + this.person.futures_info[i].doc1_serial + ' ' + this.person.futures_info[i].doc1_number,
+            //       this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType1,
+            //       this.dateOfIssueDoc = this.person.futures_info[i].doc1_IssuDate,
+            //       this.countDoc = 1,
+            //       this.IssuedByDoc = this.person.futures_info[i].doc1_IssueBy,
+            //     );
+            //     this.person.application.application_documents.push(document7);
+            //   }
+            //   if(this.person.futures_info[i].doc2 !== ''){
+            //     let document8 = new Document(
+            //       this.nameDoc = this.person.futures_info[i].doc2.name,
+            //       this.serialDoc = this.person.futures_info[i].doc2_serial,
+            //       this.numberDoc = this.person.futures_info[i].doc2_number,
+            //       this.fullnameDoc = this.person.futures_info[i].doc2 + ' ' + this.person.futures_info[i].doc2_serial + ' ' + this.person.futures_info[i].doc2_number,
+            //       this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType2,
+            //       this.dateOfIssueDoc = this.person.futures_info[i].doc1_IssuDate,
+            //       this.countDoc = 1,
+            //       this.IssuedByDoc = this.person.futures_info[i].doc2_IssueBy,
+            //     );
+            //     this.person.application.application_documents.push(document8);
+            //   }
+            //   if(this.person.futures_info[i].doc3 !== ''){
+            //     let document9 = new Document(
+            //       this.nameDoc = this.person.futures_info[i].doc3.name,
+            //       this.serialDoc = this.person.futures_info[i].doc3_serial,
+            //       this.numberDoc = this.person.futures_info[i].doc3_number,
+            //       this.fullnameDoc = this.person.futures_info[i].doc3 + ' ' + this.person.futures_info[i].doc3_serial + ' ' + this.person.futures_info[i].doc3_number,
+            //       this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType3,
+            //       this.dateOfIssueDoc = this.person.futures_info[i].doc3_IssuDate,
+            //       this.countDoc = 1,
+            //       this.IssuedByDoc = this.person.futures_info[i].doc3_IssueBy,
+            //     );
+            //     this.person.application.application_documents.push(document9);
+            //   }
+            // }
 
             let j = 0;
             for(j;j<this.person.application.choosenWizards.length; j++){

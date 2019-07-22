@@ -1,4 +1,7 @@
 <template>
+  <div>
+
+
   <div class="inner_tab row">
     <div class="info_address col-sm">
       <div>
@@ -6,7 +9,7 @@
       </div>
       <hr>
       <div class="buttons row">
-        <button class="adress_button">Ввести адрес</button>
+        <button @click="addrOne()" class="adress_button">Ввести адрес</button>
       </div>
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
@@ -19,7 +22,7 @@
       </div>
       <hr>
       <div class="buttons row">
-        <button class="adress_button">Ввести адрес</button>
+        <button @click="addrTwo()" class="adress_button">Ввести адрес</button>
         <button class="adress_button" @click="onCopyAddress">Копировать</button>
       </div>
       <label class="row">
@@ -33,18 +36,24 @@
       </div>
       <hr>
       <div class="buttons row">
-        <button class="adress_button">Ввести адрес</button>
+        <button @click="addrThree()" class="adress_button">Ввести адрес</button>
       </div>
       <label class="row">
         <div class="form__label-text col-sm-2">Адрес:</div>
         <textarea v-model="tab_address_templateRegistrationAddress" class="uneditable col-sm-10" ></textarea>
       </label>
     </div>
+
+  </div>
+    <InputAddressReg v-if="isAddressFirst">
+
+    </InputAddressReg>
   </div>
 </template>
 
 <script>
   import { createHelpers } from 'vuex-map-fields';
+  import InputAddressReg from "../../modals/InputAddressReg";
   const { mapFields:person} = createHelpers({
     getterType: 'person/getField',
     mutationType: 'person/updateField',
@@ -56,6 +65,7 @@
 
   export default {
     name: "TabAddressInfo",
+    components: {InputAddressReg},
     computed: {
       ...person(['person','tab_address_registrationAddress', 'tab_address_factAddress',
         'tab_address_templateRegistrationAddress',]),
@@ -67,11 +77,24 @@
     },
     data() {
       return {
+        isAddressFirst: false,
+        isAddressTwo: false,
+        isAddressThree: false,
+
         checkedAddress: [],
         factAddress:'',
       }
     },
     methods: {
+      addrOne() {
+        this.isAddressFirst = true
+      },
+      addrTwo() {
+        this.isAddressTwo = true
+      },
+      addrThree() {
+        this.isAddressTempl = true
+      },
       onCopyAddress() {
         // this.factAddress = this.person.tab_address_registrationAddress;
         this.tab_address_factAddress = this.tab_address_registrationAddress;

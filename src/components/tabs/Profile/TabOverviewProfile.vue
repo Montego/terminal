@@ -181,16 +181,19 @@
             .catch(e => {
               this.errors.push(e)
             })
+
+
+
         },
 
         showModal(item) {
-
 
           const index = this.profiles.indexOf(item);
           const idString = this.profiles[index].id;
           const id = parseInt(idString,10);
           this.person_info_id = id;
           console.log(this.person_info_id);
+
 
           if(this.saved !== 'Сохранено'){
             AXIOS.get('profile/application/' + (this.person_info_id)).
@@ -313,6 +316,8 @@
         },
 
         onNewProfile(){
+
+
           this.person.person_info.id = '';
           this.person_info_id='';
           this.person.person_info_id = '';
@@ -418,6 +423,9 @@
           const id = parseInt(idString,10);
           this.person_info_id = id;
           // AXIOS.get(`/profile/personInfo/` + id)
+
+
+
           AXIOS.get(`/profile/personByPersonInfo/` + id)
           //todo получать dto - массивы person_info, ege_info, parent_info
             .then(response => {
