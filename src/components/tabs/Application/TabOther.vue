@@ -427,7 +427,7 @@
           this.person.person_info.extraInfosDescription2 = this.extraInfosDescription2;
 
           this.person.person_info.image = this.image;
-          this.person.person_info.addressesDto = ADRDTO();
+          this.person.person_info.addressesDto = this.ADRDTO();
           this.person.person_info.showimage = this.showimage;
           this.person.saved = "Сохранено";
           this.person.application.saved = "Сохранено";
