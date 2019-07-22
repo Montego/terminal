@@ -21,12 +21,13 @@ import person from './modules/profile/person'
 import applications from './modules/application/applications'
 import post from './modules/post'
 import converter from './xmodules'
+import Axios from 'axios'
 
 import test_profiles from './modules/profile/test_profiles'
 
 Vue.use(VueTheMask);
 Vue.use(VeeValidate);
-Vue.use(Vuelidate)
+Vue.use(Vuelidate);
 Vue.use(Vuetify);
 Vue.use(Vuex);
 
@@ -39,8 +40,15 @@ export const store = new Vuex.Store({
   getters: {},
   mutations: {},
   actions: {
-    go(ctx, payload = null){
-        converter(ctx);
+     go(ctx, payload = null){
+       let id = payload ? payload : '852';
+           let url = '/operator_api/profile/personByPersonInfo/' + id;
+       Axios.get(url)
+          .then(r=>{
+            // console.log(r.data);
+            converter(r.data);
+          })
+      ;
     }
   },
   modules: {
