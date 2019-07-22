@@ -228,7 +228,7 @@ export default {
             "nameOlympiad": "",
             "chemistry": 0,
             "biology": 1,
-            "appLineId": "1",
+            "appLineId": "",
             "isPrefApprove": 0,
             "pointRandom": 0,
             "yearCount": 0,
