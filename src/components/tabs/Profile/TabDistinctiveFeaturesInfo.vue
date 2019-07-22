@@ -41,7 +41,10 @@
               <label class="row">
                 <div class="form__label-text col-sm">Название:</div>
                 <!--<input v-model=""/>-->
-                <select v-model="tab_features_selectedPreference" @click="getAttrTypeById(tab_features_selectedPreference.attrType)" class="minimal col-sm">
+                <select v-model="tab_features_selectedPreference"
+                        @click="getAttrTypeById(tab_features_selectedPreference)"
+
+                        class="minimal col-sm">
                   <option v-for="item in preference" v-bind:value="item">
                     {{item.name}}
                   </option>
@@ -102,7 +105,7 @@
                     <div class="form__label-text col-sm">Документ 1:</div>
                     <!--<input v-model="doc1" class="form__input col-sm" type="text" />-->
                     <select v-model="doc1" class="minimal col-sm">
-                      <option v-for="item in preference" v-bind:value="item">
+                      <option v-for="item in documentsByFeatures" v-bind:value="item">
                         {{item.name}}
                       </option>
                     </select>
@@ -141,14 +144,13 @@
                   </label>
                   <label class="row">
                     <div class="form__label-text col-sm">Документ:</div>
-                    <textarea :value="doc1 + ' ' + doc1_serial+ ' '+ doc1_number + ' ' + tab_features_selectedDocType1.name + ' ' +
+                    <textarea :value="doc1_full_info = doc1 + ' ' + doc1_serial+ ' '+ doc1_number + ' ' + tab_features_selectedDocType1.name + ' ' +
                      doc1_IssuDate + ' ' + doc1_IssueBy" class="col-sm" name="birth_place" disabled></textarea>
                   </label>
                   <!--<label class="row">-->
                   <!--<div class="form__label-text col-sm">Документ:</div>-->
                   <!--<textarea v-model="doc1 + ' ' + doc1_serial+ ' ' + doc1_number" class="col-sm" name="birth_place" disabled></textarea>-->
                   <!--</label>-->
-
                 </div>
               </div>
               <hr>
@@ -156,7 +158,12 @@
                 <div class="col-sm-6">
                   <label class="row">
                     <div class="form__label-text col-sm">Документ 2:</div>
-                    <input v-model="doc2" class="form__input col-sm" type="text" />
+                    <!--<input v-model="doc2" class="form__input col-sm" type="text" />-->
+                    <select v-model="doc2" class="minimal col-sm">
+                      <option v-for="item in documentsByFeatures" v-bind:value="item">
+                        {{item.name}}
+                      </option>
+                    </select>
                     <!--<input type="file" id="doc1" ref="doc1" @change="uploadFile1" title="Загрузите файл"/>-->
                   </label>
                   <label class="row">
@@ -192,7 +199,7 @@
                   </label>
                   <label class="row">
                     <div class="form__label-text col-sm">Документ:</div>
-                    <textarea :value="doc2 + ' ' + doc2_serial+ ' '+ doc2_number + ' ' + tab_features_selectedDocType2.name + ' ' +
+                    <textarea :value="doc2_full_info = doc2 + ' ' + doc2_serial+ ' '+ doc2_number + ' ' + tab_features_selectedDocType2.name + ' ' +
                      doc2_IssuDate + ' ' + doc2_IssueBy" class="col-sm" name="birth_place" disabled></textarea>
                   </label>
                 </div>
@@ -202,7 +209,12 @@
                 <div class="col-sm-6">
                   <label class="row">
                     <div class="form__label-text col-sm">Документ 3:</div>
-                    <input v-model="doc3" class="form__input col-sm" type="text" />
+                    <!--<input v-model="doc3" class="form__input col-sm" type="text" />-->
+                    <select v-model="doc3" class="minimal col-sm">
+                      <option v-for="item in documentsByFeatures" v-bind:value="item">
+                        {{item.name}}
+                      </option>
+                    </select>
                     <!--<input type="file" id="doc1" ref="doc1" @change="uploadFile1" title="Загрузите файл"/>-->
                   </label>
                   <label class="row">
@@ -239,7 +251,7 @@
                   </label>
                   <label class="row">
                     <div class="form__label-text col-sm">Документ:</div>
-                    <textarea :value="doc3 + ' ' + doc3_serial+ ' '+ doc3_number + ' ' + tab_features_selectedDocType3.name + ' ' +
+                    <textarea :value="doc3_full_info = doc3 + ' ' + doc3_serial+ ' '+ doc3_number + ' ' + tab_features_selectedDocType3.name + ' ' +
                      doc3_IssuDate + ' ' + doc3_IssueBy" class="col-sm" name="birth_place" disabled></textarea>
                   </label>
                 </div>
@@ -331,7 +343,7 @@
                 <!--</label>-->
               <!--</div>-->
 
-
+{{documentsByFeatures}}
 
             </div>
 
@@ -378,6 +390,7 @@
         name: "TabDistinctiveFeaturesInfo",
       data () {
         return {
+          documentsByFeatures: [],
           editedIndex: -1,
           editedItem:{},
           documents: [
@@ -431,16 +444,27 @@
         methods: {
 
 
-          getAttrTypeById(id){
+          getAttrTypeById(preference){
 
-            AXIOS.get('enums/attrType/' + id).
+            this.getDocumentByPreference(preference)
+            AXIOS.get('enums/attrType/' + preference.attrType).
             then(response => {
               this.tab_features_selectedAttrType = response.data;
             })
               .catch(e => {
-
               })
           },
+
+          getDocumentByPreference(preference){
+            console.log(preference)
+            AXIOS.post(`dictionary/documentByPreference/`, preference)
+              .then(response => {
+              this.documentsByFeatures = response.data;
+            })
+              .catch(e => {
+              })
+          },
+
 
           onInfo() {
             location.href='profile#features_info';
