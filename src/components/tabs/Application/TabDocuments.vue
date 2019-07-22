@@ -257,17 +257,20 @@
             }
 
 
+            // if(this.tab_edu_military_attachment_serial !== null){
+            //   let document4 = new Document(
+            //     this.nameDoc = "Приложение к док. об образовании",
+            //     this.serialDoc = this.tab_edu_military_attachment_serial,
+            //     this.numberDoc = this.tab_edu_military_attachment_number,
+            //     this.fullnameDoc = this.nameDoc + " " + this.tab_edu_military_attachment_serial + " " + this.tab_edu_military_attachment_number,
+            //     this.docTypeDoc = {"id":0,"name":"Копия"},
+            //     this.dateOfIssueDoc = this.tab_edu_military_eduDocDate,
+            //     this.countDoc = 1,
+            //     this.IssuedByDoc = this.tab_edu_military_eduDocName,
+            //   );
+            //   this.person.application.application_documents.push(document4);
+            // }
 
-            let document4 = new Document(
-              this.nameDoc = "Приложение к док. об образовании",
-              this.serialDoc = this.tab_edu_military_attachment_serial,
-              this.numberDoc = this.tab_edu_military_attachment_number,
-              this.fullnameDoc = this.nameDoc + " " + this.serialDoc + " " + this.numberDoc,
-              this.docTypeDoc = {"id":0,"name":"Копия"},
-              this.dateOfIssueDoc = this.tab_edu_military_eduDocDate,
-              this.countDoc = 1,
-              this.IssuedByDoc = this.tab_edu_military_eduDocName,
-            );
             let document5 = new Document(
               this.nameDoc = "Заявление",
               this.serialDoc = "",
@@ -313,7 +316,7 @@
             this.person.application.application_documents.push(document1);
             this.person.application.application_documents.push(document2);
 
-            this.person.application.application_documents.push(document4);
+
             this.person.application.application_documents.push(document5);
             this.person.application.application_documents.push(document6);
             this.person.application.application_documents.push(document7);

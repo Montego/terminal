@@ -1,6 +1,6 @@
 import demoObj from "./ContactPersonExample210720191235";
 import axios from "axios";
-
+import person from "./profile/person";
 
 let dateConvert = function(date){
   let stamp = '';
@@ -512,11 +512,13 @@ export default function (fatJSON) {
   )
     .then(response => {
               person.axaptaIds = response.data;
+
+
               console.log(response.data.agreementId);
               console.log('here is Jhony! ' + person.axaptaIds)
             })
             .catch(e => {
-              this.errors.push(e)
+              console.log(this.errors.push(e));
             });
 
 

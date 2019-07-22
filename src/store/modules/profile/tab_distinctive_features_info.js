@@ -4,7 +4,7 @@ export default {
   namespaced: true,
   state: {
     tab_features_selectedAttrType:'',
-    tab_features_selectedPreference:'',
+    tab_features_selectedPreference:{"preferenceId":"AT002","name":"Наличие аттестата о среднем общем образовании с отличием","attrType":1,"prefType":0,"prefGroupId":"Отличник","prefDocQty":0,"educationLevel":1,"points":10,"isMultipleSelect":0,"priority":0,"olympYear":"","isManual":0,"documents":[]},
     tab_features_selectedPreferencePoint: '',
     tab_features_selectedTypeDiploma:{"id":0,"name":""},
     doc1: {"documentId":"015","name":"Иной документ","isManual":1,"serialNumberDocument":20,"docSeriesMandatory":0,"docNumberMandatory":0,"relatedDocument":"","documentType":4,"isDifferentEduCardAppl":0,"educationLevel":0,"isAllowEditing":1,"docOrgMandatory":1,"isDuplicatePermission":0,"diplomCopy":0},

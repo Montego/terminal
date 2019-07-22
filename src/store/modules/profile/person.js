@@ -1,5 +1,7 @@
 import { getField, updateField } from 'vuex-map-fields';
 import {AXIOS} from "../../../components/plugins/APIService";
+import converter from "../converter";
+
 
 export default {
   namespaced: true,
