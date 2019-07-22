@@ -100,7 +100,12 @@
                 <div class="col-sm-6">
                   <label class="row">
                     <div class="form__label-text col-sm">Документ 1:</div>
-                    <input v-model="doc1" class="form__input col-sm" type="text" />
+                    <!--<input v-model="doc1" class="form__input col-sm" type="text" />-->
+                    <select v-model="doc1" class="minimal col-sm">
+                      <option v-for="item in preference" v-bind:value="item">
+                        {{item.name}}
+                      </option>
+                    </select>
                     <!--<input type="file" id="doc1" ref="doc1" @change="uploadFile1" title="Загрузите файл"/>-->
                   </label>
                   <label class="row">
@@ -424,7 +429,10 @@
         },
       },
         methods: {
+
+
           getAttrTypeById(id){
+
             AXIOS.get('enums/attrType/' + id).
             then(response => {
               this.tab_features_selectedAttrType = response.data;
