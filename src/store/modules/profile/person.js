@@ -4,6 +4,10 @@ import {AXIOS} from "../../../components/plugins/APIService";
 export default {
   namespaced: true,
   state: {
+    agreementId: '',
+    applicationId: '',
+    contactPersonId: '',
+
     showProfile: true,
     profiles:[],
 
@@ -109,6 +113,7 @@ export default {
     savedResult:'',
 
     person : {
+      axaptaIds:{},
       saved:'Не сохранено',
       acceptedPerson: "",
       person_info: {

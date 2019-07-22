@@ -82,7 +82,7 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">СНИЛС</div>
-          <input v-validate="'numeric'" data-vv-as="СНИЛС" v-model="tab_personal_INIPA" class="form__input col-sm" type="text" name="snils" placeholder="***-***-***" v-mask="'###-###-###'"
+          <input v-validate="'numeric'" data-vv-as="СНИЛС" v-model="tab_personal_INIPA" class="form__input col-sm" type="text" name="snils" placeholder="***-***-***" v-mask="'###-###-### ##'"
                  required/>
         </label>
         <!--<span class="alarm_label">{{ errors.first('snils') }}</span>-->
@@ -93,9 +93,9 @@
         <span class="alarm_label">{{ errors.first('snils_date') }}</span>
         <label class="row">
           <div class="form__label-text col-sm">Примечание:</div>
-          <textarea  v-validate="'alpha_num'" data-vv-as="Примечание" v-model="tab_personal_note" class="col-sm" name="note"></textarea>
+          <textarea v-model="tab_personal_note" class="col-sm" name="note"></textarea>
         </label>
-        <span class="alarm_label">{{ errors.first('note') }}</span>
+
       </div>
     </div>
     <div class="info_pasp col-sm">

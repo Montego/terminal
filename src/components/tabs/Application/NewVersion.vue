@@ -634,7 +634,15 @@
         let value = payload.target.value;
         this.$store.commit('person/updateCurrentField', {value, objName})
       },
+
       printAgreement(){
+        AXIOS.get('/10.71.0.115/application/'+ this.person.axaptaIds.agreementId + '.xlsm' )
+          .then(response => {
+
+          }).catch(e => {
+
+            // this.errors.push(e)
+          })
 
       },
       // onAdd() {

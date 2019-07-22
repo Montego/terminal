@@ -1,6 +1,7 @@
 import demoObj from "./ContactPersonExample210720191235";
 import axios from "axios";
 
+
 let dateConvert = function(date){
   let stamp = '';
   let regexp = /^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/;
@@ -502,10 +503,27 @@ export default function (fatJSON) {
       'Content-Type': 'application/json'
     }
   };
+
+
+
   axios.post(
     'http://10.71.0.115/ax_api/rest/contactPerson',
     obj,config
-  ).then(r => console.log(r));
+  )
+    .then(response => {
+              person.axaptaIds = response.data;
+              console.log(response.data.agreementId);
+              console.log('here is Jhony! ' + person.axaptaIds)
+            })
+            .catch(e => {
+              this.errors.push(e)
+            });
+
+
+
+    // .then(r =>
+
+
   // console.log('obj', obj);
   // console.log('fatStore', fatStore);
 }
