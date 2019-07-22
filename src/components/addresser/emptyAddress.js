@@ -1,0 +1,138 @@
+export default {
+    "addressId":
+        null,
+    "addressType":
+        {
+            "id": null,
+            "name": null
+        }
+    ,
+    "countryRegion":
+        {
+            "level": 0,
+            "refId": null,
+            "name": null
+        }
+    ,
+    "house":
+        {
+            "level": 100,
+            "refId": null,
+            "name": null
+        }
+    ,
+    "flat": null,
+    "postalCode": null,
+    "addressTxt": null,
+    "addressTxtRandom":null,
+    "addressSearchText":null,
+    "addressSearchObj":
+        {
+            "level":
+                null,
+            "refId":
+                null,
+            "name":
+                null
+        }
+    ,
+    "aolevel1":
+        {
+            "level":
+                1,
+            "refId":
+                null,
+            "name":
+                null
+        }
+    ,
+    "aolevel2":
+        {
+            "level":
+                2,
+            "refId":
+                null,
+            "name":
+                null
+        }
+    ,
+    "aolevel3":
+        {
+            "level":
+                3,
+            "refId":
+                null,
+            "name":
+                null
+        }
+    ,
+    "aolevel4":
+        {
+            "level":
+                4,
+            "refId":
+                null,
+            "name":
+                null
+        }
+    ,
+    "aolevel5":
+        {
+            "level":
+                5,
+            "refId":
+                null,
+            "name":
+                null
+        }
+    ,
+    "aolevel6":
+        {
+            "level":
+                6,
+            "refId":
+                null,
+            "name":
+                null
+        }
+    ,
+    "aolevel65":
+        {
+            "level":
+                65,
+            "refId":
+                null,
+            "name":
+                null
+        }
+    ,
+    "aolevel7":
+        {
+            "level":
+                7,
+            "refId":
+                null,
+            "name":
+                null
+        }
+    ,
+    "aolevel90":
+        {
+            "level":
+                90,
+            "refId":
+                null,
+            "name":
+                null
+        }
+    ,
+    "aolevel91":
+        {
+            "level":
+                91,
+            "refId":
+                null,
+            "name":
+                null
+        }
+}

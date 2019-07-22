@@ -26,9 +26,11 @@ import post from './modules/post'
 // import {AXIOS} from "/src/components/plugins/APIService";
 import test_profiles from './modules/profile/test_profiles'
 import converter from "./modules/converter";
+import specialist from "./xmodules/specialist";
+
 Vue.use(VueTheMask);
 Vue.use(VeeValidate);
-Vue.use(Vuelidate)
+Vue.use(Vuelidate);
 Vue.use(Vuetify);
 Vue.use(Vuex);
 
@@ -66,13 +68,8 @@ export const store = new Vuex.Store({
     tab_reception_condition,
     person,
     applications,
-
     // post
+    s : specialist
   },
   strict: false
 });
-
-
-
-
-

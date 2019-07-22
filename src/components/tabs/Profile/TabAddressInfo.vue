@@ -1,198 +1,198 @@
 <template>
-  <div>
-
-
-  <div class="inner_tab row">
-    <div class="info_address col-sm">
-      <div>
-        <p>Адрес по прописке</p>
-      </div>
-      <hr>
-      <div class="buttons row">
-        <button @click="addrOne()" class="adress_button">Ввести адрес</button>
-      </div>
-      <label class="row">
-        <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea v-model="tab_address_registrationAddress" class="uneditable col-sm-10" name="" ></textarea>
-      </label>
+    <div class="inner_tab">
+        <div class="row">
+            <div class="info_address col-sm">
+                <div>
+                    <p>Адрес регистрации</p>
+                </div>
+                <hr>
+                <div class="buttons row">
+                    <button @click="show=0" class="adress_button">Ввести адрес</button>
+                </div>
+                <label class="row">
+                    <div class="form__label-text col-sm-2">Адрес:</div>
+                    <!--&#45;&#45;ыv-ыmodel="tab_address_registrationAddress"-->
+                    <!--<textarea  class="uneditable col-sm-10" name=""-->
+                    <!--&gt; </textarea>-->
+                    <div class="uneditable col-sm-10">{{ ADRText()[0] }}</div>
+                </label>
+            </div>
+            <div class="info_address2 col-sm">
+                <div>
+                    <p>Адрес фактический</p>
+                </div>
+                <hr>
+                <div class="buttons row">
+                    <button class="adress_button" @click="show=1">Ввести адрес</button>
+                    <!--<button class="adress_button" @click="onCopyAddress">Копировать</button>-->
+                </div>
+                <label class="row">
+                    <div class="form__label-text col-sm-2">Адрес:</div>
+                    <!--<textarea v-model="tab_address_factAddress" class="uneditable col-sm-10"></textarea>-->
+                    <div class="uneditable col-sm-10">{{ ADRText()[1] }}</div>
+                </label>
+            </div>
+            <div class="info_address2 col-sm">
+                <div>
+                    <p>Адрес временной регистрации</p>
+                </div>
+                <hr>
+                <div class="buttons row">
+                    <button @click="show=2" class="adress_button">Ввести адрес</button>
+                </div>
+                <label class="row">
+                    <div class="form__label-text col-sm-2">Адрес:</div>
+                    <!--<v-textarea >{{ ADRText()[0] }}</v-textarea>-->
+                    <!--<div class="uneditable col-sm-10">{{ ADRText()[0] }}</div>-->
+                    <textarea class="uneditable col-sm-10">{{ ADRText()[2] }}</textarea>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <v-btn v-if="show>=0" @click="show=-1">
+                    Скрыть
+                </v-btn>
+            </div>
+        </div>
+        <div class="row">
+            <div v-for="i in [0,1,2]" :key="i" v-if="show===i" class="col-5 offset-3">
+                <addresser :adrType="i"></addresser>
+            </div>
+        </div>
     </div>
-    <div class="info_address2 col-sm">
-      <div>
-        <p>Адрес фактический</p>
-      </div>
-      <hr>
-      <div class="buttons row">
-        <button @click="addrTwo()" class="adress_button">Ввести адрес</button>
-        <button class="adress_button" @click="onCopyAddress">Копировать</button>
-      </div>
-      <label class="row">
-        <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea v-model="tab_address_factAddress" class="uneditable col-sm-10" ></textarea>
-      </label>
-    </div>
-    <div class="info_address2 col-sm">
-      <div>
-        <p>Адрес временной регистрации</p>
-      </div>
-      <hr>
-      <div class="buttons row">
-        <button @click="addrThree()" class="adress_button">Ввести адрес</button>
-      </div>
-      <label class="row">
-        <div class="form__label-text col-sm-2">Адрес:</div>
-        <textarea v-model="tab_address_templateRegistrationAddress" class="uneditable col-sm-10" ></textarea>
-      </label>
-    </div>
-
-  </div>
-    <InputAddressReg v-if="isAddressFirst">
-
-    </InputAddressReg>
-  </div>
 </template>
 
 <script>
-  import { createHelpers } from 'vuex-map-fields';
-  import InputAddressReg from "../../modals/InputAddressReg";
-  const { mapFields:person} = createHelpers({
-    getterType: 'person/getField',
-    mutationType: 'person/updateField',
-  });
-  const { mapFields:tab_address_info } = createHelpers({
-    getterType: `tab_address_info/getField`,
-    mutationType: `tab_address_info/updateField`,
-  });
+    import {mapGetters} from 'vuex'
 
-  export default {
-    name: "TabAddressInfo",
-    components: {InputAddressReg},
-    computed: {
-      ...person(['person','tab_address_registrationAddress', 'tab_address_factAddress',
-        'tab_address_templateRegistrationAddress',]),
-      // ...tab_address_info(['tab_address_registrationAddress', 'tab_address_factAddress',
-      //   'tab_address_templateRegistrationAddress',
-      // ]),
+    import {createHelpers} from 'vuex-map-fields';
+    import addresser from "../../addresser/addresser";
 
+    const {mapFields: person} = createHelpers({
+        getterType: 'person/getField',
+        mutationType: 'person/updateField',
+    });
+    const {mapFields: tab_address_info} = createHelpers({
+        getterType: `tab_address_info/getField`,
+        mutationType: `tab_address_info/updateField`,
+    });
 
-    },
-    data() {
-      return {
-        isAddressFirst: false,
-        isAddressTwo: false,
-        isAddressThree: false,
-
-        checkedAddress: [],
-        factAddress:'',
-      }
-    },
-    methods: {
-      addrOne() {
-        this.isAddressFirst = true
-      },
-      addrTwo() {
-        this.isAddressTwo = true
-      },
-      addrThree() {
-        this.isAddressTempl = true
-      },
-      onCopyAddress() {
-        // this.factAddress = this.person.tab_address_registrationAddress;
-        this.tab_address_factAddress = this.tab_address_registrationAddress;
-      }
+    export default {
+        name: "TabAddressInfo",
+        data() {
+            return {
+                checkedAddress: [],
+                factAddress: '',
+                show: -1
+            }
+        },
+        // computed: {
+        //     ...person(['person', 'tab_address_registrationAddress', 'tab_address_factAddress',
+        //         'tab_address_templateRegistrationAddress',]),
+        // },
+        methods: {
+            ...mapGetters(['ADRText']),
+            // onCopyAddress() {
+            //     // this.factAddress = this.person.tab_address_registrationAddress;
+            //     this.tab_address_factAddress = this.tab_address_registrationAddress;
+            // },
+        },
+        components: {addresser}
     }
-  }
 </script>
 
 <style scoped>
-  input.checkbox {
-    height: 15px;
-    transform: scale(1.3);
-    opacity: 0.9;
-    cursor: pointer;
-  }
+    input.checkbox {
+        height: 15px;
+        transform: scale(1.3);
+        opacity: 0.9;
+        cursor: pointer;
+    }
 
-  .uneditable {
-    background-color: #F5F5F5;
-  }
-  label.row {
-    margin-bottom: 3px;
-  }
+    .uneditable {
+        background-color: #F5F5F5;
+    }
 
-  input {
-    height: 25px;
-    border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
-    /*border: 4px;*/
-  }
+    label.row {
+        margin-bottom: 3px;
+    }
 
-  select {
-    height: 25px;
-    border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
-  }
+    input {
+        height: 25px;
+        border-radius: 3px;
+        border: 1px solid;
+        border-color: grey;
+        /*border: 4px;*/
+    }
 
-  textarea {
-    border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
-    width: 90%;
-    height: 100px;
-    resize: none;
-  }
+    select {
+        height: 25px;
+        border-radius: 3px;
+        border: 1px solid;
+        border-color: grey;
+    }
 
-  p {
-    font-size: 25px;
-    margin-bottom: 0px;
-  }
+    textarea {
+        border-radius: 3px;
+        border: 1px solid;
+        border-color: grey;
+        width: 90%;
+        height: 100px;
+        resize: none;
+    }
 
-  button {
-    min-width: 100px;
-    padding: 10px;
-    border: 1px solid;
-    border-color: grey;
-    border-radius: 5px;
-    background-color: ghostwhite;
-    /*background-color: #EDD19C;*/
-    font-size: 16px;
-    cursor: pointer;
-    transform: scale(0.8);
-    opacity: 0.9
-  }
+    p {
+        font-size: 25px;
+        margin-bottom: 0px;
+    }
 
-  .search_place p {
-    margin-right: 10px;
-  }
+    button {
+        min-width: 100px;
+        padding: 10px;
+        border: 1px solid;
+        border-color: grey;
+        border-radius: 5px;
+        background-color: ghostwhite;
+        /*background-color: #EDD19C;*/
+        font-size: 16px;
+        cursor: pointer;
+        transform: scale(0.8);
+        opacity: 0.9
+    }
 
-  .search_form div {
-    font-size: 20px;
-  }
+    .search_place p {
+        margin-right: 10px;
+    }
 
-  .search_form input {
-    width: 500px;
-  }
+    .search_form div {
+        font-size: 20px;
+    }
 
-  .adress_button {
-    margin-left: -20px;
-  }
+    .search_form input {
+        width: 500px;
+    }
 
-  .row {
-    margin-bottom: 8px;
-  }
+    .adress_button {
+        margin-left: -20px;
+    }
 
-  .form__label-text {
-    text-align: left;
-  }
+    .row {
+        margin-bottom: 8px;
+    }
 
-  .buttons {
-    margin-left: 10px;
-  }
+    .form__label-text {
+        text-align: left;
+    }
 
-  .inner_tab {
-    margin-top: -40px;
-    /*background: linear-gradient(45deg, #EECFBA, #C5DDE8);*/
-  }
+    .buttons {
+        margin-left: 10px;
+    }
+
+    .inner_tab {
+        margin-top: -40px;
+        /*background: linear-gradient(45deg, #EECFBA, #C5DDE8);*/
+    }
 
 
 </style>

@@ -118,23 +118,15 @@
             <!--</option>-->
           <!--</select>-->
         </label>
-        <!--<span class="alarm_label" v-if="tab_personal_selectedIdentityCardCode.identityCardCode ==''">Не выбран тип документа</span>-->
         <label class="row">
           <div class="form__label-text col-sm">Серия:</div>
-          <!--<input v-if="tab_personal_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" placeholder="****" v-mask="'####'" required/>-->
-          <!--<input v-else-if="tab_personal_selectedIdentityCardCode.identityCardCode !== 'Паспорт РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" required/>-->
-          <!--<input v-else v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>-->
-          <input v-if="tab_personal_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required placeholder="****" maxlength="4"/>
+          <input v-if="tab_personal_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required placeholder="****" />
           <input v-else v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
         </label>
         <span class="alarm_label">{{ errors.first('doc_serial') }}</span>
         <label class="row">
           <div class="form__label-text col-sm">Номер:</div>
-          <!--<input v-model="identityCardNumber" class="form__input col-sm" type="text" name="doc_number" required/>-->
-          <!--<input v-validate="'digits:6'" data-vv-as="номер паспорта" v-if="tab_personal_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number" placeholder="******" v-mask="'######'" required/>-->
-          <!--<input v-else-if="tab_personal_selectedIdentityCardCode === 'Временное удостоверение лич.граждан.РФ'" v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number" placeholder="***-***-***" v-mask="'###-###-###'" required/>-->
-          <!--<input v-else v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number"required/>-->
-          <input v-if="tab_personal_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number"required placeholder="******" maxlength="6"/>
+          <input v-if="tab_personal_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number"required placeholder="******"/>
           <input v-else v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number"required />
         </label>
         <span class="alarm_label">{{ errors.first('doc_number') }}</span>
@@ -460,8 +452,6 @@
         customTokens: {
           'Y': {pattern: /[0-5]/},
         },
-
-
         // customTokens: {
         //   'Y': {pattern: /[0-9]/},
         //   '#': {pattern: /\d/},
