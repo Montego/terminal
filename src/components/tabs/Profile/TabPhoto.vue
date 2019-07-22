@@ -31,8 +31,12 @@
       </div>
     </div>
     <!--<button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="onSave">Сохранить профиль</button>-->
+
+    <!--<div v-if="!this.isModalVisible"  >-->
+      <!--<button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="showModal">Заявление</button>-->
+    <!--</div>-->
     <div v-if="!this.isModalVisible"  >
-      <button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="showModal">Заявление</button>
+      <button  class="photo-loader__control-btn btn btn_save" type="button" @click="showModal">Заявление</button>
     </div>
 
   </div>

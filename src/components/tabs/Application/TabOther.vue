@@ -253,7 +253,8 @@
       <!--<button v-if="this.resultAcceptPerson !=='Утверждено'" @click="onAcceptPerson">Утвердить</button>-->
       <!--{{this.application}}-->
       <!--<div v-if="this.resultAcceptPerson ==='Утверждено'">-->
-        <button v-if="person.application.saved !=='Сохранено'" @click="onSave">Сохранить</button>
+        <!--<button v-if="person.application.saved !=='Сохранено'" @click="onSave">Сохранить</button>-->
+      <button  @click="onSave">Сохранить</button>
       <!--</div>-->
 
     </div>
@@ -262,6 +263,7 @@
 </template>
 
 <script>
+  import axios from 'axios';
   import {AXIOS} from "../../plugins/APIService";
   import { createHelpers } from 'vuex-map-fields';
   const { mapFields:applications} = createHelpers({
@@ -433,9 +435,13 @@
 
 
           if(this.person.person_info_id === ''){
+
+
+
             AXIOS.post(`/profile`, (this.person))
               .then(response => {
-                this.person.saved = response.data;
+                this.person.saved = "Сохранено";
+
                 this.person.application.saved = response.data;
                 // this.info.push(response.data)
                 this.person_info_id = ''
@@ -461,6 +467,9 @@
                 //     this.errors.push(e)
                 //   })
 
+                console.log('saved person ' + response.data)
+
+                // this.getPerson();
               })
               .catch(e => {
                 this.person.saved ="Не сохранено";
