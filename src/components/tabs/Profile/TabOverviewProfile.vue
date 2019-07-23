@@ -14,6 +14,18 @@
       <button v-if="isModalVisible === false" color="#5bc0de" @click="onNewProfile()">
         +
       </button>
+
+      <!--<hr>-->
+      <button  color="#5bc0de" @click="onPrintApplication()">
+        Заявление
+      </button>
+      <button  color="#5bc0de" @click="onPrintAgreement()">
+        Согласие
+      </button>
+    </div>
+
+    <div>
+
     </div>
 
 
@@ -177,9 +189,25 @@
 
 
       methods: {
+
+
+
         axapta(id){
           console.log('in axapta method');
           this.$store.dispatch('go', id);
+        },
+
+        onPrintApplication(){
+          AXIOS.get('/10.71.0.115/application/'+ this.person.axaptaIds.agreementId + '.xlsm' )
+            .then(response => {
+
+            }).catch(e => {
+                console.log(e)
+            // this.errors.push(e)
+          })
+        },
+        onPrintAgreement(){
+
         },
 
         GetSavedProfile(){
