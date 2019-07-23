@@ -50,6 +50,7 @@
     import addresserLine from './addresserLine'
     import {mapGetters, mapActions} from 'vuex'
     import ADR from './addressHelper'
+    // import Axios from '../../repository/FIASRepository'
 
     export default {
         name: "addresser",
@@ -122,7 +123,7 @@
 
                 let resource = ADR.getResource(key);
 
-                Axios.post(`https://priem.szgmu.ru/fias-search/rest${resource}`,
+                Axios.post(`http://10.71.0.115/fias-search/rest${resource}`,
                     {"level": key, "name": val, "refId": "", dto: this.storedDto},
                     {cancelToken: this.source.token}
                 )
