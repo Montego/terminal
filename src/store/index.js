@@ -27,6 +27,7 @@ import post from './modules/post'
 import test_profiles from './modules/profile/test_profiles'
 import converter from "./modules/converter";
 import specialist from "./xmodules/specialist";
+import {getField, updateField} from "vuex-map-fields";
 
 Vue.use(VueTheMask);
 Vue.use(VeeValidate);
@@ -39,10 +40,27 @@ Vue.use(Vuex);
 // Vue.use(APIService);
 
 export const store = new Vuex.Store({
-  state: {},
-  getters: {},
-  mutations: {},
+  state: {
+    agreementId:'',
+    applicationId:'',
+    contactPersonId:''
+  },
+  getters: {
+    getField,
+  },
+  mutations: {
+    updateField,
+    getIdsFromAxapta(state, payload) {
+      console.log(payload);
+        state.agreementId = payload.agreementId;
+        state.applicationId = payload.applicationId ;
+        state.contactPersonId = payload.contactPersonId;
+        console.log(state.agreementId)
+    }
+
+  },
   actions: {
+
     async go(ctx, payload = null){
       let id = payload ? payload : '686';
       let url = '/operator_api/profile/personByPersonInfo/' + id;
@@ -50,12 +68,20 @@ export const store = new Vuex.Store({
       let result = await r.data;
       console.log(result);
       // return result;
-      converter(r.data);
+      // let some = this;
+      converter(r.data, ctx);
+
+      // let converterResult = converter(r.data,some);
+      //     this.agreementId = converterResult.agreementId;
+      //     console.log(this.agreementId)
+        // applicationId: '',
+        // contactPersonId: '',
     }
   },
   modules: {
     enums,
     dictionary,
+
     tab_personal_info,
     tab_evidence_ege_info,
     tab_education_military_info,
@@ -68,6 +94,7 @@ export const store = new Vuex.Store({
     tab_reception_condition,
     person,
     applications,
+
     // post
     s : specialist
   },

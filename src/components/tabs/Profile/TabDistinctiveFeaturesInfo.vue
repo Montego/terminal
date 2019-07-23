@@ -473,7 +473,7 @@
             // this.tab_features_selectedAttrType =  '';
             // this.tab_features_selectedPreference =  '';
             this.tab_features_selectedYypeDiploma = '';
-            this.doc1 = {"documentId":"015","name":"Иной документ","isManual":1,"serialNumberDocument":20,"docSeriesMandatory":0,"docNumberMandatory":0,"relatedDocument":"","documentType":4,"isDifferentEduCardAppl":0,"educationLevel":0,"isAllowEditing":1,"docOrgMandatory":1,"isDuplicatePermission":0,"diplomCopy":0};
+            this.doc1 = {};
             this.doc1_serial = '';
             this.doc1_number =  '';
             this.tab_features_selectedDocType1 = {"id":0,"name":"Копия"};
@@ -481,7 +481,7 @@
             this.doc1_IssuDate = '';
             this.doc1_IssueBy = '';
 
-            this.doc2 = {"documentId":"015","name":"Иной документ","isManual":1,"serialNumberDocument":20,"docSeriesMandatory":0,"docNumberMandatory":0,"relatedDocument":"","documentType":4,"isDifferentEduCardAppl":0,"educationLevel":0,"isAllowEditing":1,"docOrgMandatory":1,"isDuplicatePermission":0,"diplomCopy":0};
+            this.doc2 = {};
             this.doc2_serial =  '';
             this.doc2_number = '';
             this.tab_features_selectedDocType2 = {"id":0,"name":"Копия"};
@@ -489,7 +489,7 @@
             this.doc2_IssuDate = '';
             this.doc2_IssueBy = '';
 
-            this.doc3 = {"documentId":"015","name":"Иной документ","isManual":1,"serialNumberDocument":20,"docSeriesMandatory":0,"docNumberMandatory":0,"relatedDocument":"","documentType":4,"isDifferentEduCardAppl":0,"educationLevel":0,"isAllowEditing":1,"docOrgMandatory":1,"isDuplicatePermission":0,"diplomCopy":0};
+            this.doc3 = {};
             this.doc3_serial =  '';
             this.doc3_number =  '';
             this.tab_features_selectedDocType3 = {"id":0,"name":"Копия"};
