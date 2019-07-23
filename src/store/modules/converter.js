@@ -25,6 +25,14 @@ let dateConvert = function(date){
 };
 
 
+let fillAddressText = function(a, d = '', k = '', r = ''){
+  d = d === '' ? '' : ', ' + d;
+  k = k === '' ? '' : ', ' + k;
+  r = r === '' ? '' : ', ' + r;
+  return a + d + k + r;
+
+};
+
 let boolConvert = function(b){
   return b ? 1 : 0;
 };
@@ -490,7 +498,7 @@ let dtoToFias = function(dto){
     "flat": null2(dto.flat) ,//"21",
     "postalCode": "",
     "kladrCode": "",
-    "addressTxt": null2(dto.addressTxt), // "Россия, Санкт-Петербург г, Боткинская ул, д.15 корп.2, кв.21",
+    "addressTxt": fillAddressText(null2(dto.addressTxt), null2(dto.house['name']), null2(dto.flat), null2(dto.addressTxtRandom)), // , // "Россия, Санкт-Петербург г, Боткинская ул, д.15 корп.2, кв.21",
     "addressTxt_random": null2(dto.addressTxtRandom), //"",
     "aoLevel65": 65,
     "aoLevel65ObjRef": null2(dto.aolevel65['refId']),
