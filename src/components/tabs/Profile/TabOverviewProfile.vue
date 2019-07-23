@@ -451,6 +451,7 @@
           this.tab_edu_military_endMilitary  = '';
           this.saved = '';
           this.person.saved = '';
+          this.$store.dispatch('loadEmptyAdrDTO');
           location.href='profile#personal_info';
 
         },
@@ -469,6 +470,8 @@
             .then(response => {
               this.person = response.data;
 
+              this.$store.commit('updateSpecialistDto', this.person.person_info.addressesDto);
+              //
               this.personInfo = response.data.person_info;
 
               this.tab_personal_lastname = this.personInfo.tab_personal_lastname;
@@ -558,8 +561,9 @@
               console.log(this.profiles)
             })
             .catch(e => {
-              this.errors.push(e)
-            })
+              // this.errors.push(e)
+              console.log(e);
+            });
           console.log('id (person_info) for redaction is '+ id);
           location.href='profile#personal_info';
 
