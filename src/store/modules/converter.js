@@ -1,6 +1,6 @@
 import demoObj from "./ContactPersonExample210720191235";
 import axios from "axios";
-import person from "./profile/person";
+// import person from "./profile/person";
 
 let dateConvert = function(date){
   let stamp = '';
@@ -493,8 +493,10 @@ let fillTotal = function (s) {
 };
 
 
-export default function (fatJSON) {
+export default function (fatJSON,some) {
+  console.log('some33333333333 ', some);
   let obj = fillTotal(fatJSON);
+
   obj = Object.assign(demoObj, obj);
 
   console.log(fillEge(fatJSON));
@@ -503,19 +505,18 @@ export default function (fatJSON) {
       'Content-Type': 'application/json'
     }
   };
-
-
-
-  axios.post(
-    'http://10.71.0.115/ax_api/rest/contactPerson',
-    obj,config
+    console.log('converter inside')
+    axios.post('http://10.71.0.115/ax_api/rest/contactPerson', obj,config
   )
     .then(response => {
-              person.axaptaIds = response.data;
+                some.commit('getIdsFromAxapta', response.data);
 
 
-              console.log(response.data.agreementId);
-              console.log('here is Jhony! ' + person.axaptaIds)
+              // this.agreementId = response.data.agreementId;
+              // this.applicationId = response.data.applicationId;
+              // this.contactPersonId = response.data.contactPersonId;
+
+
             })
             .catch(e => {
               console.log(this.errors.push(e));

@@ -19,6 +19,9 @@
       <button  color="#5bc0de" @click="onPrintApplication()">
         Заявление
       </button>
+      <button  color="#5bc0de" @click="onPrintDocuments()">
+        Опись
+      </button>
       <button  color="#5bc0de" @click="onPrintAgreement()">
         Согласие
       </button>
@@ -77,7 +80,7 @@
 </template>
 
 <script>
-
+  import {AXIOS_print} from "../../plugins/APIService";
   import {AXIOS} from "../../plugins/APIService";
   import { createHelpers } from 'vuex-map-fields';
   import { mapMultiRowFields } from 'vuex-map-fields';
@@ -104,6 +107,10 @@
     getterType: 'person/getField',
     mutationType: 'person/updateField',
   });
+  // const { mapFields:index} = createHelpers({
+  //   getterType: 'index/getField',
+  //   mutationType: 'index/updateField',
+  // });
     export default {
       name: "TabOverview",
       components: {
@@ -140,6 +147,7 @@
       computed: {
         // ...mapMultiRowFields(['profiles']),
         // ...application(['contacts']),
+        // ...index(['agreementId', 'applicationId', 'contactPersonId']),
         ...person(['person','showProfile','profiles','isModalVisible',
           'tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename', 'tab_personal_lastname_genitive',
           'tab_personal_firstname_genitive', 'tab_personal_middlename_genitive', 'tab_personal_selectedGender', 'tab_personal_birthDate',
@@ -163,7 +171,7 @@
         ]),
 
         ...applications(['application','application_person_id','application_person_name','applId','applTableName',
-        'applTableNumber','applTableDate','applTableDeliveryType','applicationId','apls','chooseAppls','resultApl'],),
+        'applTableNumber','applTableDate','applTableDeliveryType','apls','chooseAppls','resultApl'],),
         showTable() {
             return this.profiles;
         },
@@ -190,15 +198,23 @@
 
       methods: {
 
-
-
         axapta(id){
           console.log('in axapta method');
           this.$store.dispatch('go', id);
         },
 
         onPrintApplication(){
-          AXIOS.get('/10.71.0.115/application/'+ this.person.axaptaIds.agreementId + '.xlsm' )
+          const config = {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          };
+          console.log(this.$store.state.applicationId)
+          let id = this.$store.state.applicationId;
+          console.log(id)
+          window.open('http://10.71.0.115/application/'+id+'.xlsm');
+          // 'ApW000191'
+          AXIOS_print.get('/application/'+ id + '.xlsm' ,config)
             .then(response => {
 
             }).catch(e => {
@@ -206,9 +222,45 @@
             // this.errors.push(e)
           })
         },
-        onPrintAgreement(){
 
+
+
+        onPrintDocuments(){
+          console.log(this.$store.state.applicationId)
+          const config = {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          };
+          let id = this.$store.state.applicationId;
+          window.open('http://10.71.0.115/appldoclist/'+id+'.xlsm');
+          AXIOS_print.get('/appldoclist/'+ id + '.xlsm' )
+            .then(response => {
+
+            }).catch(e => {
+            console.log(e)
+            // this.errors.push(e)
+          })
         },
+
+        onPrintAgreement(){
+          console.log(this.$store.state.agreementId)
+          const config = {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          };
+          let id = this.$store.state.agreementId;
+          window.open('http://10.71.0.115/agreement/'+id+'.xlsm');
+          AXIOS_print.get('/agreement/'+ id + '.xlsm' )
+            .then(response => {
+
+            }).catch(e => {
+            console.log(e)
+            // this.errors.push(e)
+          })
+        },
+
 
         GetSavedProfile(){
           AXIOS.get(`/profile/personsTable`)
