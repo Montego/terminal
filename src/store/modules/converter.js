@@ -439,6 +439,61 @@ let fillEge = function(s){
 };
 
 
+let fillFiasPerson = function(s){
+  let result = s.person_info['addressesDto'].map(e=>dtoToFias(e));
+  return Array.isArray(result) ? result : [];
+};
+
+let dtoToFias = function(dto){
+  return {
+    "addrTableTd": 111111111,
+    "addrRecId": "222222222",
+    "addressType": dto.addressType['id'], // 0,
+    "lineNum": 1,
+    "countryRegionId": dto.countryRegion['refId'], //"РФ",
+    "countryRegionName": dto.countryRegion['name'], //"Россия",
+    "aoLevel1": 1,
+    "aoLevel1ObjRef": dto.aolevel1['refId'], //"c2deb16a-0330-4f05-821f-1d09c93331e6",
+    "aoLevel1ObjName": dto.aolevel1['name'] , // "Санкт-Петербург г",
+    "aoLevel2": 2,
+    "aoLevel2ObjRef": dto.aolevel2['refId'] , // "",
+    "aoLevel2ObjName": dto.aolevel2['name'] , // "",
+    "aoLevel3": 3,
+    "aoLevel3ObjRef": dto.aolevel3['refId'] , // "",
+    "aoLevel3ObjName": dto.aolevel3['name'] , // "",
+    "aoLevel4": 4,
+    "aoLevel4ObjRef": dto.aolevel4['refId'] , // "",
+    "aoLevel4ObjName": dto.aolevel4['name'] , // "",
+    "aoLevel5": 5,
+    "aoLevel5ObjRef": dto.aolevel5['refId'] , // "",
+    "aoLevel5ObjName": dto.aolevel5['name'] , // "",
+    "aoLevel6": 6,
+    "aoLevel6ObjRef": dto.aolevel6['refId'] , // "",
+    "aoLevel6ObjName": dto.aolevel6['name'] , // "",
+    "aoLevel7": 7,
+    "aoLevel7ObjRef": dto.aolevel7['refId'] , // "56971303-9731-4e84-b737-7b2020d38f5d",
+    "aoLevel7ObjName": dto.aolevel7['name'] , // "Боткинская ул",
+    "aoLevel90": 90,
+    "aoLevel90ObjRef": dto.aolevel90['refId'] , // "",
+    "aoLevel90ObjName": dto.aolevel91['name'] , // "",
+    "aoLevel91": 91,
+    "aoLevel91ObjRef": dto.aolevel91['refId'] , // "",
+    "aoLevel91ObjName": dto.aolevel91['name'],
+    "houseRef": dto.house['refId'] ,// "78048f15-89e3-4a28-a47f-935ec875df89",
+    "houseName": dto.house['name'],//"д.15 корп.2",
+    "flat": dto.flat ,//"21",
+    "postalCode": "",
+    "kladrCode": "",
+    "addressTxt": dto.addressTxt, // "Россия, Санкт-Петербург г, Боткинская ул, д.15 корп.2, кв.21",
+    "addressTxt_random": dto.addressTxtRandom, //"",
+    "aoLevel65": 65,
+    "aoLevel65ObjRef": "",
+    "modifiedBy": "TSST",
+    "aoLevel65ObjName": ""
+  };
+};
+
+
 let fillTotal = function (s) {
   let person = s.person_info;
   return {
@@ -488,7 +543,8 @@ let fillTotal = function (s) {
     "entrantComments": fillComments(s),
     "application": fillApp(s),
     "entrantPreferences": fillPrefs(s),
-    "egeCertificates" : fillEge(s)
+    "egeCertificates" : fillEge(s),
+    "fiasAddress" : fillFiasPerson(s)
   };
 };
 
