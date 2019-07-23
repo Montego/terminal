@@ -2,6 +2,12 @@ import demoObj from "./ContactPersonExample210720191235";
 import axios from "axios";
 import person from "./profile/person";
 
+
+let null2 = function(e, replace = ''){
+  return e? e : replace;
+};
+
+
 let dateConvert = function(date){
   let stamp = '';
   let regexp = /^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/;
@@ -449,47 +455,47 @@ let dtoToFias = function(dto){
     "addrTableTd": 111111111,
     "addrRecId": "222222222",
     "addressType": dto.addressType['id'], // 0,
-    "lineNum": 1,
-    "countryRegionId": dto.countryRegion['refId'], //"РФ",
-    "countryRegionName": dto.countryRegion['name'], //"Россия",
+    "lineNum": dto.addressType['id'], //1,
+    "countryRegionId": null2(dto.countryRegion['refId']), //"РФ",
+    "countryRegionName": null2(dto.countryRegion['name']), //"Россия",
     "aoLevel1": 1,
-    "aoLevel1ObjRef": dto.aolevel1['refId'], //"c2deb16a-0330-4f05-821f-1d09c93331e6",
-    "aoLevel1ObjName": dto.aolevel1['name'] , // "Санкт-Петербург г",
+    "aoLevel1ObjRef": null2(dto.aolevel1['refId']), //"c2deb16a-0330-4f05-821f-1d09c93331e6",
+    "aoLevel1ObjName": null2(dto.aolevel1['name']) , // "Санкт-Петербург г",
     "aoLevel2": 2,
-    "aoLevel2ObjRef": dto.aolevel2['refId'] , // "",
-    "aoLevel2ObjName": dto.aolevel2['name'] , // "",
+    "aoLevel2ObjRef": null2(dto.aolevel2['refId']) , // "",
+    "aoLevel2ObjName": null2(dto.aolevel2['name']) , // "",
     "aoLevel3": 3,
-    "aoLevel3ObjRef": dto.aolevel3['refId'] , // "",
-    "aoLevel3ObjName": dto.aolevel3['name'] , // "",
+    "aoLevel3ObjRef": null2(dto.aolevel3['refId']) , // "",
+    "aoLevel3ObjName": null2(dto.aolevel3['name']) , // "",
     "aoLevel4": 4,
-    "aoLevel4ObjRef": dto.aolevel4['refId'] , // "",
-    "aoLevel4ObjName": dto.aolevel4['name'] , // "",
+    "aoLevel4ObjRef": null2(dto.aolevel4['refId']) , // "",
+    "aoLevel4ObjName": null2(dto.aolevel4['name']) , // "",
     "aoLevel5": 5,
-    "aoLevel5ObjRef": dto.aolevel5['refId'] , // "",
-    "aoLevel5ObjName": dto.aolevel5['name'] , // "",
+    "aoLevel5ObjRef": null2(dto.aolevel5['refId']) , // "",
+    "aoLevel5ObjName": null2(dto.aolevel5['name']) , // "",
     "aoLevel6": 6,
-    "aoLevel6ObjRef": dto.aolevel6['refId'] , // "",
-    "aoLevel6ObjName": dto.aolevel6['name'] , // "",
+    "aoLevel6ObjRef": null2(dto.aolevel6['refId']) , // "",
+    "aoLevel6ObjName": null2(dto.aolevel6['name']) , // "",
     "aoLevel7": 7,
-    "aoLevel7ObjRef": dto.aolevel7['refId'] , // "56971303-9731-4e84-b737-7b2020d38f5d",
-    "aoLevel7ObjName": dto.aolevel7['name'] , // "Боткинская ул",
+    "aoLevel7ObjRef": null2(dto.aolevel7['refId']) , // "56971303-9731-4e84-b737-7b2020d38f5d",
+    "aoLevel7ObjName": null2(dto.aolevel7['name']) , // "Боткинская ул",
     "aoLevel90": 90,
-    "aoLevel90ObjRef": dto.aolevel90['refId'] , // "",
-    "aoLevel90ObjName": dto.aolevel91['name'] , // "",
+    "aoLevel90ObjRef": null2(dto.aolevel90['refId']) , // "",
+    "aoLevel90ObjName": null2(dto.aolevel91['name']) , // "",
     "aoLevel91": 91,
-    "aoLevel91ObjRef": dto.aolevel91['refId'] , // "",
-    "aoLevel91ObjName": dto.aolevel91['name'],
-    "houseRef": dto.house['refId'] ,// "78048f15-89e3-4a28-a47f-935ec875df89",
-    "houseName": dto.house['name'],//"д.15 корп.2",
-    "flat": dto.flat ,//"21",
+    "aoLevel91ObjRef": null2(dto.aolevel91['refId']) , // "",
+    "aoLevel91ObjName": null2(dto.aolevel91['name']),
+    "houseRef": null2(dto.house['refId']) ,// "78048f15-89e3-4a28-a47f-935ec875df89",
+    "houseName": null2(dto.house['name']) ,//"д.15 корп.2",
+    "flat": null2(dto.flat) ,//"21",
     "postalCode": "",
     "kladrCode": "",
-    "addressTxt": dto.addressTxt, // "Россия, Санкт-Петербург г, Боткинская ул, д.15 корп.2, кв.21",
-    "addressTxt_random": dto.addressTxtRandom, //"",
+    "addressTxt": null2(dto.addressTxt), // "Россия, Санкт-Петербург г, Боткинская ул, д.15 корп.2, кв.21",
+    "addressTxt_random": null2(dto.addressTxtRandom), //"",
     "aoLevel65": 65,
-    "aoLevel65ObjRef": "",
+    "aoLevel65ObjRef": null2(dto.aolevel65['refId']),
     "modifiedBy": "TSST",
-    "aoLevel65ObjName": ""
+    "aoLevel65ObjName": null2(dto.aolevel65['name'])
   };
 };
 
