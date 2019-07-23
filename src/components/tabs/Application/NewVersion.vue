@@ -25,6 +25,14 @@
           </option>
         </select>
       </div>
+      <!--<div v-if="!this.isModalVisible" class="flex-column col-sm-2">-->
+        <!--<div class="form__label-text col-sm">Тип доставки:</div>-->
+        <!--<select v-model="person.application.application_selectedDeliveryType"  class="minimal col-sm">-->
+          <!--<option v-for="item in deliveryType" v-bind:value="item">-->
+            <!--{{item.name}}-->
+          <!--</option>-->
+        <!--</select>-->
+      <!--</div>-->
       <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
         <div class="form__label-text col-sm">Копия/оригинал:</div>
         <select v-model="person.application.application_selectedDocType" class="minimal col-sm">

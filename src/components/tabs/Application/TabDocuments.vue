@@ -160,7 +160,7 @@
       computed: {
         ...mapState('enums',['docType'],),
         ...mapGetters('enums',['GET_DOC_TYPE'],),
-        ...applications(['application','fillDocuments','name','serial','number','selected_docType','dateOfIssue','count','issuedBy']),
+        ...applications(['application','fillDocuments','name','serial','number','selected_docType','dateOfIssue','count','issuedBy','agree']),
         ...tab_documents(['tab_document_selectedDocumentType', 'tab_document_series', 'tab_document_number',
           'tab_document_selectedCopy', 'tab_document_date','tab_document_issuedBy','tab_document_fullName',
           'tab_document_count','tab_document_selectedDocType','fullname'
@@ -281,16 +281,20 @@
               this.countDoc = 1,
               this.IssuedByDoc = "",
             );
-            let document6 = new Document(
-              this.nameDoc = "Согласие на зачисление",
-              this.serialDoc = "",
-              this.numberDoc = "",
-              this.fullnameDoc = "Согласие на зачисление",
-              this.docTypeDoc = {"id":1,"name":"Оригинал"},
-              this.dateOfIssueDoc = "",
-              this.countDoc = 1,
-              this.IssuedByDoc = "",
-            );
+            if(this.agree){
+              let document6 = new Document(
+                this.nameDoc = "Согласие на зачисление",
+                this.serialDoc = "",
+                this.numberDoc = "",
+                this.fullnameDoc = "Согласие на зачисление",
+                this.docTypeDoc = {"id":1,"name":"Оригинал"},
+                this.dateOfIssueDoc = "",
+                this.countDoc = 1,
+                this.IssuedByDoc = "",
+              );
+              this.person.application.application_documents.push(document6);
+            }
+
             let document7 = new Document(
               this.nameDoc = "Согласие на обработку данных",
               this.serialDoc = "",
@@ -318,7 +322,7 @@
 
 
             this.person.application.application_documents.push(document5);
-            this.person.application.application_documents.push(document6);
+
             this.person.application.application_documents.push(document7);
             this.person.application.application_documents.push(document8);
 
