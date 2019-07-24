@@ -28,7 +28,9 @@
             <!--<td class="text-xs-center">{{ props.item.done }}</td>-->
             <!--<td class="text-xs-center">{{ props.item.ball_2}}</td>-->
             </template>
-
+            <template slot="no-data">
+              <div></div>
+            </template>
             </v-data-table>
         </tab>
         <tab id="features_info" name="Отличительные признаки">
@@ -111,6 +113,11 @@
                     </select>
                     <!--<input type="file" id="doc1" ref="doc1" @change="uploadFile1" title="Загрузите файл"/>-->
                   </label>
+                  <label v-if="doc1.name === 'Иной документ'" class="row">
+                    <div class="form__label-text col-sm">Документ:</div>
+                    <input v-model="doc1_newName" class="form__input col-sm" type="text" />
+                  </label>
+
                   <label class="row">
                     <div class="form__label-text col-sm">Серия:</div>
                     <input v-model="doc1_serial" class="form__input col-sm" type="text" />
@@ -145,9 +152,9 @@
                   <label class="row">
                     <div class="form__label-text col-sm">Документ:</div>
 
-                    <textarea v-if="doc1!== null" :value="doc1_full_info = doc1.name + ' ' + doc1_serial+ ' '+ doc1_number + ' ' + tab_features_selectedDocType1.name + ' ' +
+                    <textarea v-if="doc1.name!== 'Иной документ'" :value="doc1_full_info = doc1.name + ' ' + doc1_serial+ ' '+ doc1_number + ' ' + tab_features_selectedDocType1.name + ' ' +
                      doc1_IssuDate + ' ' + doc1_IssueBy" class="col-sm" name="birth_place" disabled></textarea>
-                    <textarea v-else :value="doc1_full_info = doc1 + ' ' + doc1_serial+ ' '+ doc1_number + ' ' + tab_features_selectedDocType1.name + ' ' +
+                    <textarea v-else :value="doc1_full_info = doc1_newName + ' ' + doc1_serial+ ' '+ doc1_number + ' ' + tab_features_selectedDocType1.name + ' ' +
                      doc1_IssuDate + ' ' + doc1_IssueBy" class="col-sm" name="birth_place" disabled></textarea>
                   </label>
                   <!--<label class="row">-->
@@ -168,6 +175,10 @@
                       </option>
                     </select>
                     <!--<input type="file" id="doc1" ref="doc1" @change="uploadFile1" title="Загрузите файл"/>-->
+                  </label>
+                  <label v-if="doc2.name === 'Иной документ'" class="row">
+                    <div class="form__label-text col-sm">Документ:</div>
+                    <input v-model="doc2_newName" class="form__input col-sm" type="text" />
                   </label>
                   <label class="row">
                     <div class="form__label-text col-sm">Серия:</div>
@@ -202,7 +213,9 @@
                   </label>
                   <label class="row">
                     <div class="form__label-text col-sm">Документ:</div>
-                    <textarea :value="doc2_full_info = doc2.name + ' ' + doc2_serial+ ' '+ doc2_number + ' ' + tab_features_selectedDocType2.name + ' ' +
+                    <textarea v-if="doc2.name!== 'Иной документ'" :value="doc2_full_info = doc2.name + ' ' + doc2_serial+ ' '+ doc2_number + ' ' + tab_features_selectedDocType2.name + ' ' +
+                     doc2_IssuDate + ' ' + doc2_IssueBy" class="col-sm" name="birth_place" disabled></textarea>
+                    <textarea v-else :value="doc2_full_info = doc2_newName + ' ' + doc2_serial+ ' '+ doc2_number + ' ' + tab_features_selectedDocType2.name + ' ' +
                      doc2_IssuDate + ' ' + doc2_IssueBy" class="col-sm" name="birth_place" disabled></textarea>
                   </label>
                 </div>
@@ -220,6 +233,11 @@
                     </select>
                     <!--<input type="file" id="doc1" ref="doc1" @change="uploadFile1" title="Загрузите файл"/>-->
                   </label>
+                  <label v-if="doc3.name === 'Иной документ'" class="row">
+                    <div class="form__label-text col-sm">Документ:</div>
+                    <input v-model="doc3_newName" class="form__input col-sm" type="text" />
+                  </label>
+
                   <label class="row">
                     <div class="form__label-text col-sm">Серия:</div>
                     <input v-model="doc3_serial" class="form__input col-sm" type="text" />
@@ -254,7 +272,9 @@
                   </label>
                   <label class="row">
                     <div class="form__label-text col-sm">Документ:</div>
-                    <textarea :value="doc3_full_info = doc3.name + ' ' + doc3_serial+ ' '+ doc3_number + ' ' + tab_features_selectedDocType3.name + ' ' +
+                    <textarea v-if="doc3.name!== 'Иной документ'" :value="doc3_full_info = doc3.name + ' ' + doc3_serial+ ' '+ doc3_number + ' ' + tab_features_selectedDocType3.name + ' ' +
+                     doc3_IssuDate + ' ' + doc3_IssueBy" class="col-sm" name="birth_place" disabled></textarea>
+                    <textarea v-else :value="doc3_full_info = doc3_newName + ' ' + doc3_serial+ ' '+ doc3_number + ' ' + tab_features_selectedDocType3.name + ' ' +
                      doc3_IssuDate + ' ' + doc3_IssueBy" class="col-sm" name="birth_place" disabled></textarea>
                   </label>
                 </div>
@@ -429,9 +449,9 @@
         ...mapGetters('dictionary', ['GET_preference', ]),
         ...tab_distinctive_features_info(['tab_features_selectedAttrType', 'tab_features_selectedPreference',
         'tab_features_selectedPreferencePoint','tab_features_selectedTypeDiploma','tab_features_serial','tab_features_number',
-          'doc1','doc1_serial','doc1_number', 'tab_features_selectedDocType1','tab_featuresShowDate1','doc1_IssuDate','doc1_IssueBy','doc1_full_info',
-          'doc2','doc2_serial','doc2_number','tab_features_selectedDocType2','tab_featuresShowDate2','doc2_IssuDate','doc2_IssueBy','doc2_full_info',
-          'doc3','doc3_serial','doc3_number','tab_features_selectedDocType3','tab_featuresShowDate3','doc3_IssuDate','doc3_IssueBy','doc3_full_info',
+          'doc1','doc1_newName','doc1_serial','doc1_number', 'tab_features_selectedDocType1','tab_featuresShowDate1','doc1_IssuDate','doc1_IssueBy','doc1_full_info',
+          'doc2','doc2_newName','doc2_serial','doc2_number','tab_features_selectedDocType2','tab_featuresShowDate2','doc2_IssuDate','doc2_IssueBy','doc2_full_info',
+          'doc3','doc3_newName','doc3_serial','doc3_number','tab_features_selectedDocType3','tab_featuresShowDate3','doc3_IssuDate','doc3_IssueBy','doc3_full_info',
 
           ]),
         ...person(['person']),

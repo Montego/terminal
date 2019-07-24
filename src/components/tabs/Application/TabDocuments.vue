@@ -5,7 +5,7 @@
         <div class="row">
           <button @click="onFill">Заполнить</button>
           <button @click="onAdd">Добавить</button>
-          <button >Печать</button>
+          <!--<button >Печать</button>-->
         </div>
         <v-data-table
           :headers="headers_documents"
@@ -23,6 +23,9 @@
                 <v-icon color="#5bc0de">delete</v-icon>
               </button>
             </td>
+          </template>
+          <template slot="no-data">
+            <div></div>
           </template>
         </v-data-table>
         <div class="clear_save_button row">

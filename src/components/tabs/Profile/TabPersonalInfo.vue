@@ -159,13 +159,13 @@
       <label class="row">
 
         <div class="form__label-text col-sm">Соотечественник:</div>
-        <input v-if="tab_personal_selectedCitizenship.countryRegionId === 'РФ'" v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" disabled>
+        <input v-if="tab_personal_selectedCitizenship.countryRegionId === 'РФ' || tab_personal_isForeignLikeRussian" v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" disabled>
         <input v-else v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" >
       </label>
       <label class="alarm_label">(При наличии подтверждающих документов)</label>
       <label class="row">
         <div class="form__label-text col-sm">Приравнять к иностранцам:</div>
-        <input v-if="tab_personal_isCompatriot==true" v-model="tab_personal_isEquatedForeign" class="checkbox col-sm" type="checkbox" disabled>
+        <input v-if="tab_personal_isCompatriot" v-model="tab_personal_isEquatedForeign" class="checkbox col-sm" type="checkbox" disabled>
         <input v-else v-model="tab_personal_isEquatedForeign" class="checkbox col-sm" type="checkbox" id="equate_foreign">
       </label>
       <label class="alarm_label">(Беларусь, Казахстан, Киргизия, Таджикистан)</label>
@@ -179,7 +179,7 @@
       </label>
       <label class="row">
         <div class="form__label-text col-sm">Иностранец, как гражданин РФ:</div>
-        <input v-if="tab_personal_selectedCitizenship=='РФ'" v-model="tab_personal_isForeignLikeRussian" class="checkbox col-sm" type="checkbox" id="foreign_like_russian" disabled>
+        <input v-if="tab_personal_selectedCitizenship==='РФ' || tab_personal_isCompatriot" v-model="tab_personal_isForeignLikeRussian" class="checkbox col-sm" type="checkbox" id="foreign_like_russian" disabled>
         <input v-else v-model="tab_personal_isForeignLikeRussian" class="checkbox col-sm" type="checkbox"  >
       </label>
       <div class="alarm_label">(С видом на жительство и аттестатом РФ. По соглашению)</div>
@@ -411,6 +411,43 @@
       fullseniority: function () {
         return this.tab_personal_seniority = this.person.tab_personal_employYears + ',' + this.person.tab_personal_employMonths
       },
+
+      checkSnils : function validateSnils(snils) {
+          let result = false;
+          if (typeof snils === 'number') {
+            snils = snils.toString();
+          } else if (typeof snils !== 'string') {
+            snils = '';
+          }
+          snils = snils.replace(/[\s|-]/g, '');
+          if (!snils.length) {
+            throw new Error('СНИЛС пуст');
+          } else if (/[^0-9]/.test(snils)) {
+            throw new Error('СНИЛС может состоять только из цифр');
+          } else if (snils.length !== 11) {
+            throw new Error('СНИЛС может состоять только из 11 цифр');
+          } else {
+            let sum = 0;
+            for (let i = 0; i < 9; i++) {
+              sum += parseInt(snils[i]) * (9 - i);
+            }
+            let checkDigit = 0;
+            if (sum < 100) {
+              checkDigit = sum;
+            } else if (sum > 101) {
+              checkDigit = parseInt(sum % 101);
+              if (checkDigit === 100) {
+                checkDigit = 0;
+              }
+            }
+            if (checkDigit === parseInt(snils.slice(-2))) {
+              result = true;
+            } else {
+              throw new Error('Неправильное контрольное число');
+            }
+          }
+          return result;
+        }
 
     },
 

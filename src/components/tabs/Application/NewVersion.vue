@@ -7,6 +7,7 @@
     @toApplication="onAppl"
   />
 
+    <span>{{moment(dateToday).format('YYYY-MM-DD')}}</span>
   <div class="inside_tab">
     <div class="row">
       <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
@@ -54,7 +55,7 @@
 
         <div v-if="!this.isModalVisible" class="row">
           <button @click="onAdd">Добавить/Удалить</button>
-          <button @click="printAgreement">Распечатать согласие</button>
+          <!--<button @click="printAgreement">Распечатать согласие</button>-->
         </div>
 
         <v-data-table
@@ -92,16 +93,11 @@
               <button  class="table_buttons" @click="addSomething(props.item)">
                 <v-icon color="#5bc0de">add</v-icon>
               </button>
-              <!--<button class = "table_buttons" type="button" @click="redactionItem(props.item)">-->
-                <!--<v-icon color="#5bc0de">visibility</v-icon>-->
-              <!--</button>-->
-              <!--<button class="table_buttons" @click="openModalAgreemnt(props.item)">-->
-                <!--<v-icon color="#5bc0de">блядь</v-icon>-->
-              <!--</button>-->
-              <!--<button v-if="props.item.resultAcceptPerson !=='Утверждено'" class="table_buttons" @click="deleteItem(props.item)">-->
-                <!--<v-icon color="red">delete</v-icon>-->
-              <!--</button>-->
+
             </td>
+          </template>
+          <template slot="no-data">
+            <div></div>
           </template>
         </v-data-table>
       </tab>
@@ -300,6 +296,8 @@
     },
     data(){
       return{
+        dateToday: Date.now(),
+
         counter: 0,
         isOneAgree: true,
         agrees:[],

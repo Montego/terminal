@@ -1,6 +1,8 @@
 import { getField, updateField } from 'vuex-map-fields';
 import {AXIOS} from "../../../components/plugins/APIService";
 import converter from "../converter";
+import moment from 'moment'
+
 
 
 export default {
@@ -10,6 +12,7 @@ export default {
     applicationId: '',
     contactPersonId: '',
 
+    // dateToday: moment(Date.now()).format('YYYY-MM-DD'),
     showProfile: true,
     profiles:[],
 
@@ -206,7 +209,7 @@ export default {
       application:{
         saved:'',
         application_number:'',
-        application_date:'',
+        application_date: '',
         application_selectedDeliveryType:'',
         application_selectedDocType:{"id":0,"name":"Копия"},
         application_person_name:'',

@@ -75,6 +75,9 @@
 
       </td>
     </template>
+    <template slot="no-data">
+      <div></div>
+    </template>
   </v-data-table>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
 <div>
-  <tabs class="main_tab" >
+  <tabs @clicked="tabClicked" class="main_tab" >
     <tab id="overview_personal_info" name="Обзор">
       <TabOverview :handleClick="handleClick"></TabOverview>
     </tab>
@@ -71,11 +71,11 @@
 
 
       },
-      // methods: {
-      //   handleClick(val) {
-      //     this.showProfile = val;
-      //   },
-      // }
+      methods: {
+        tabClicked (selectedTab) {
+          console.log('Current tab re-clicked:' + selectedTab.tab.name);
+        },
+      }
     }
 </script>
 

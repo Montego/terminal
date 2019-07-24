@@ -8,16 +8,16 @@
       <div>
         <label class="row">
           <div class="form__label-text col-sm">Уровень образования:</div>
-          <select v-model="tab_edu_military_educationLevel" class="minimal col-sm">
-            <option v-for="option in options_educationLevel">
-              {{option.item}}
-            </option>
-          </select>
           <!--<select v-model="tab_edu_military_educationLevel" class="minimal col-sm">-->
-            <!--<option v-for="item in educationLevel" v-bind:value="item">-->
-              <!--{{item.name}}-->
+            <!--<option v-for="option in options_educationLevel">-->
+              <!--{{option.item}}-->
             <!--</option>-->
           <!--</select>-->
+          <select v-model="tab_edu_military_educationLevel" class="minimal col-sm">
+            <option v-for="item in eduLevel" v-bind:value="item">
+              {{item.name}}
+            </option>
+          </select>
 
           <!--<input v-model="person.tab_edu_military_educationLevel.name" class="uneditable form__input col-sm-6" type="text" name="" placeholder="Заполняется автоматически"-->
                  <!--disabled="disabled"/>-->
@@ -113,14 +113,12 @@
           <div class="form__label-text col-sm">Номер приложения:</div>
           <input v-model="tab_edu_military_attachment_number" class="form__input col-sm" type="text" name="" placeholder=""/>
         </label>
+        <div class="row">
+          <label class="col-sm-9"></label>
+          <button class="calculate_score col-sm-3" @click="copyFromEdu">Копировать</button>
+        </div>
 
-        <label class="row">
-          <div class="form__label-text col-sm-6">Средний балл:</div>
-          <button class="calculate_score col-sm-4" @click="onCalculateScore">Расчет среднего балла</button>
-          <!--<input v-model="score_full" class="form__input col-sm-2 " type="text" v-mask="'#.##'" disabled hidden/>-->
-          <input v-model="score_full" class="form__input col-sm-2 " type="text" v-mask="'#.##'" placeholder="---"
-                 disabled="disabled"/>
-        </label>
+
         <div class="row">
           <div class="form__label-text col-sm-2">Пятёрок:</div>
           <input v-model="score_five" class="form__input col-sm-1" type="text" v-mask="'##'" />
@@ -129,7 +127,13 @@
           <div class="form__label-text col-sm-2">Троек:</div>
           <input v-model="score_three" class="form__input col-sm-1" type="text" v-mask="'##'"  />
         </div>
-
+        <label class="row">
+          <div class="form__label-text col-sm-6">Средний балл:</div>
+          <button class="calculate_score col-sm-4" @click="onCalculateScore">Расчет среднего балла</button>
+          <!--<input v-model="score_full" class="form__input col-sm-2 " type="text" v-mask="'#.##'" disabled hidden/>-->
+          <input v-model="score_full" class="form__input col-sm-2 " type="text" v-mask="'#.##'" placeholder="---"
+                 disabled="disabled"/>
+        </label>
       </div>
     </div>
     <div class="col-sm">
@@ -158,7 +162,8 @@
 
         </label>
       </div>
-      <div v-if="tab_edu_military_selectedSoldieryStatus.name ==='Служил' ">
+      <!--<div v-if="tab_edu_military_selectedSoldieryStatus.name ==='Служил' ">-->
+      <div v-if="tab_edu_military_selectedSoldiery.soldieryId ==='Военнообязанный'">
         <div>
           <p>Документ о военной службе</p>
         </div>
@@ -177,7 +182,7 @@
             <input v-model="tab_edu_military_militarySeries" class="form__input col-sm" type="text" name="" placeholder=""/>
           </label>
           <label class="row">
-            <div class="form__label-text col-sm">Номер военного билета:</div>
+            <div class="form__label-text col-sm">Номер:</div>
             <input v-model="tab_edu_military_militaryNumber" class="form__input col-sm" type="text" name="" placeholder=""/>
           </label>
 
@@ -272,6 +277,7 @@
       this.$store.dispatch('dictionary/onLoadAddressCountryRegion');
       this.$store.dispatch('dictionary/onLoadAddressState');
       this.$store.dispatch('dictionary/onLoadEduDoc');
+      this.$store.dispatch('dictionary/onLoadEduLevel');
       this.$store.dispatch('dictionary/onLoadAcademyYear');
       this.$store.dispatch('dictionary/onLoadSoldiery');
       this.$store.dispatch('enums/onLoadSoldieryStatus');
@@ -291,10 +297,10 @@
       'tab_edu_military_militaryNumber','tab_edu_military_militarySeries','tab_edu_military_militaryIssueDate','tab_edu_military_militaryIssueBy',
       'tab_edu_military_militaryRank','tab_edu_military_selectedDocType','tab_edu_military_docMilitaryShowDate','tab_edu_military_startMilitary',
         'tab_edu_military_endMilitary','selectedExtraInfos1',  'selectedExtraInfos2','extraInfosDescription1','extraInfosDescription2',]),
-      ...mapState('dictionary',['addressCountryRegion','addressState', 'eduDoc','academyYear','soldiery',
+      ...mapState('dictionary',['addressCountryRegion','addressState', 'eduDoc','academyYear','soldiery','eduLevel'
       ],),
       ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION','GET_ADDRESS_STATE',
-        'GET_EDU_DOC','GET_ACADEMY_YEAR','GET_SOLDIERY',],),
+        'GET_EDU_DOC','GET_ACADEMY_YEAR','GET_SOLDIERY','GET_eduLevel'],),
       ...mapState('enums',['soldieryStatus','militaryFormDoc','docType','educationLevel'],),
       ...mapGetters('enums',['GET_SOLDIERY_STATUS','GET_MILITARY_FORM_DOC','GET_DOC_TYPE','GET_EDUCATION_LEVEL'],),
 
@@ -316,31 +322,18 @@
       }
       },
       methods: {
+        copyFromEdu() {
+          this.tab_edu_military_eduDocName = this.tab_edu_military_univer;
+          this.tab_edu_military_attachment_serial = this.tab_edu_military_eduDocSerial;
+          this.tab_edu_military_attachment_number = this.tab_edu_military_eduDocNumber;
+        },
         onCalculateScore() {
-
-            // (parseInt(this.score_five)*5 + parseInt(this.score_four)*4 +
-            // parseInt(this.score_three)*3) / (parseInt(this.score_five) + parseInt(this.score_four)
-            // + parseInt(this.score_three));
-
-          // this.score_full = (parseInt(this.person.score_five)*5 + parseInt(this.person.score_four)*4 +
-          //   parseInt(this.person.score_three)*3) / (parseInt(this.person.score_five) + parseInt(this.person.score_four)
-          //   + parseInt(this.person.score_three));
-
-
           this.score_full = Math.round(( (parseInt(this.score_five)*5 + parseInt(this.score_four)*4 +
             parseInt(this.score_three)*3) / (parseInt(this.score_five) + parseInt(this.score_four)
             + parseInt(this.score_three)) )*100)/100;
-          // this.person.score_full = this.score_full
-          // this.result = Math.round(this.score_full * 100)/100
-          // console.log(this.result)
+
         },
-        // onAddExtraInfo() {
-        //   this.extraInfos.push('');
-        // },
-        // onRemoveExtraInfo() {
-        //   // var lastItem = this.documents[this.documents.length - 1];
-        //   this.extraInfos.pop(this.extraInfos.length - 1);
-        // },
+
       },
         data() {
           return {
