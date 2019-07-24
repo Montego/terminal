@@ -374,8 +374,8 @@ export default {
     ],
     "entrantComments": [
         {
-            "commentId": "Достижения в учебе",
-            "description": "Призер школьной олимпиады по химии",
+            "commentId": "",
+            "description": "",
             "recVersion": 0
         }
     ],
