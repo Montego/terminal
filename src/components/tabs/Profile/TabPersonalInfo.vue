@@ -120,13 +120,13 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Серия:</div>
-          <input v-if="tab_personal_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required placeholder="****" />
+          <input v-if="tab_personal_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required placeholder="****"  maxlength="4"/>
           <input v-else v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
         </label>
         <span class="alarm_label">{{ errors.first('doc_serial') }}</span>
         <label class="row">
           <div class="form__label-text col-sm">Номер:</div>
-          <input v-if="tab_personal_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number"required placeholder="******"/>
+          <input v-if="tab_personal_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number"required placeholder="******"  maxlength="6"/>
           <input v-else v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number"required />
         </label>
         <span class="alarm_label">{{ errors.first('doc_number') }}</span>

@@ -203,7 +203,54 @@ export default {
         acceptedPerson:'',
         saved:''
       },
-      ege_info:[],
+
+      ege_info:[
+        {
+          subject: 'Химия',
+          tab_ege_score: 0,
+          tab_ege_year:{},
+          tab_ege_changePaspInf: false,
+          tab_ege_lastname:'',
+          tab_ege_firstname:'',
+          tab_ege_middlename:'',
+          tab_ege_selectedIdentityCardCode:{},
+          tab_ege_identityCardSeries:'',
+          tab_ege_identityCardNumber:'',
+          tab_ege_identityCardIssueDate:'',
+          tab_ege_identityCardIssueBy:'',
+          tab_ege_info_selectedCitizenship:{},
+        },
+        {
+          subject: 'Биология',
+          tab_ege_score: 0,
+          tab_ege_year:{},
+          tab_ege_changePaspInf: false,
+          tab_ege_lastname:'',
+          tab_ege_firstname:'',
+          tab_ege_middlename:'',
+          tab_ege_selectedIdentityCardCode:{},
+          tab_ege_identityCardSeries:'',
+          tab_ege_identityCardNumber:'',
+          tab_ege_identityCardIssueDate:'',
+          tab_ege_identityCardIssueBy:'',
+          tab_ege_info_selectedCitizenship:{},
+        },
+        {
+          subject: 'Русский язык',
+          tab_ege_score: 0,
+          tab_ege_year:{},
+          tab_ege_changePaspInf: false,
+          tab_ege_lastname:'',
+          tab_ege_firstname:'',
+          tab_ege_middlename:'',
+          tab_ege_selectedIdentityCardCode:{},
+          tab_ege_identityCardSeries:'',
+          tab_ege_identityCardNumber:'',
+          tab_ege_identityCardIssueDate:'',
+          tab_ege_identityCardIssueBy:'',
+          tab_ege_info_selectedCitizenship:{},
+        }
+      ],
       parents_info:[],
       futures_info: [],
       application:{
@@ -214,17 +261,17 @@ export default {
         application_selectedDocType:{"id":0,"name":"Копия"},
         application_person_name:'',
         choosenWizards:[
-          {
-            chose: false,
-            company: {"targOrgId":"ОЦП000004","name":"ФМБА РФ","addressStateId":"","reportName":"от ФМБА РФ","cipHer":"ФМБА","shortName":"","blocked":0},
-            courseNum: 1,
-            deparCode: "",
-            deparName: "",
-            eduForm: "",
-            environmentId: "",
-            portalApplWizardId:0,
-            specialityId: ""
-          }
+          // {
+          //   chose: false,
+          //   company: {"targOrgId":"ОЦП000004","name":"ФМБА РФ","addressStateId":"","reportName":"от ФМБА РФ","cipHer":"ФМБА","shortName":"","blocked":0},
+          //   courseNum: 1,
+          //   deparCode: "",
+          //   deparName: "",
+          //   eduForm: "",
+          //   environmentId: "",
+          //   portalApplWizardId:0,
+          //   specialityId: ""
+          // }
 
 
         ],

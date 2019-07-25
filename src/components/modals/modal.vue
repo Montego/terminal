@@ -4,7 +4,8 @@
       <header class="modal-header">
         <slot name="header">
           Условия приема
-
+            {{this.checkTargCount}}
+          {{this.checkSpecCount}}
           <button
             type="button"
             class="btn-close"
@@ -47,7 +48,8 @@
               </div>
             </td>
             <td class="text-xs-center">
-              <input v-model="props.item.chose" class="checkbox col-sm" type="checkbox"  @click="choose(props.item)">
+              <input v-if="props.item.environmentId === 'ЦелНапр' && checkTargCount === true && props.item.chose !== true " v-model="props.item.chose" class="checkbox col-sm" type="checkbox" @change="validatorConditions" disabled>
+              <input v-else v-model="props.item.chose" class="checkbox col-sm" type="checkbox" @change="validatorConditions">
             </td>
 
           </template>
@@ -81,9 +83,20 @@
   });
   export default {
     name: 'modal',
+    computed: {
+      ...applications(['application','apls','checkTargCount','checkSpecCount'],),
+      ...person(['person_info_id','showProfile']),
+      ...mapState('dictionary',['targOrg'],),
+      ...mapGetters('dictionary',['GET_targOrg']),
+    },
     data () {
       return {
         chose:'',
+
+        // checkSpecCount: false, //может быть только 3 специальности
+        // checkTargCount: false, //может быть только 1 целевое
+        checkTargBudget: false, //у одной специальности либо целевое, либо бюджет
+
         headers_apl: [
           // { text: 'Факультет', value: 'deparCode',sortable: false, align: 'center' },
           // { text: 'Специальность', value: 'deparName',sortable: false, align: 'center' },
@@ -104,6 +117,10 @@
       handleClick: Function,
     },
     methods: {
+      validatorConditions(){
+        this.$emit('validatorConditions');
+
+      },
       choose(item) {
 
       },
@@ -115,12 +132,7 @@
         this.showProfile=false;
       }
     },
-    computed: {
-      ...applications(['application','apls'],),
-      ...person(['person_info_id','showProfile']),
-      ...mapState('dictionary',['targOrg'],),
-      ...mapGetters('dictionary',['GET_targOrg']),
-     },
+
     mounted() {
       this.$store.dispatch('dictionary/onLoadTargOrg');
 

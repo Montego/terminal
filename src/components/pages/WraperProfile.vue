@@ -73,7 +73,7 @@
       },
       methods: {
         tabClicked (selectedTab) {
-          console.log('Current tab re-clicked:' + selectedTab.tab.name);
+          console.log('Current tab re-clicked:' , selectedTab.tab);
         },
       }
     }

@@ -67,14 +67,14 @@ module.exports = {
     overlay: true,
 
     publicPath: '/dist/',
-    proxy: {
-        '/operator_api': {
-        target: 'http://localhost:8081/',
-        pathRewrite: {'^/operator_api' : ''},
-        ws: true,
-        changeOrigin: true
-      }
-    }
+    // proxy: {
+    //     '/operator_api': {
+    //     target: 'http://localhost:8081/',
+    //     pathRewrite: {'^/operator_api' : ''},
+    //     ws: true,
+    //     changeOrigin: true
+    //   }
+    // }
   },
   performance: {
     hints: false

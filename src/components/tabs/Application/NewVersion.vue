@@ -16,7 +16,7 @@
       </div>
       <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
         <div class="form__label-text col-sm">Дата заявления:</div>
-        <input v-model="person.application.application_date" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01" />
+        <input v-model="person.application.application_date" class="form__input col-sm" type="date" id= "theDate"  min="1918-01-01" max="2019-01-01" />
       </div>
       <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
         <div class="form__label-text col-sm">Тип доставки:</div>
@@ -391,6 +391,16 @@
         // return this.application.fullname = this.person.tab_personal_lastname + " "
         //   + this.person.tab_personal_firstname + " " + this.person.tab_personal_middlename
       },
+      showDate(){
+        let date = new Date();
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+        let today = year + "-" + month + "-" + day;
+        document.getElementById("theDate").value = today;
+      }
     },
 
     mounted () {

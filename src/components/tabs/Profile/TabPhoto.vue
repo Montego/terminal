@@ -4,6 +4,7 @@
       v-show="isModalVisible"
       @close="closeModal"
       @toApplication="onAppl"
+      @validatorConditions="validatorConditions"
     />
     <!--<img v-bind:src="'data:image/jpeg;base64,'+ this.image" />-->
     <div class="photo-loader">
@@ -107,7 +108,8 @@
           'extraInfosDescription2', 'image', 'showimage', 'person_info_id' , 'saved' ,'acceptedPerson'
         ]),
         ...applications(['application','application_person_id','application_person_name','applId','applTableName',
-          'applTableNumber','applTableDate','applTableDeliveryType','applicationId','apls','chooseAppls','resultApl'],),
+          'applTableNumber','applTableDate','applTableDeliveryType','applicationId','apls','chooseAppls','resultApl',
+        'checkTargCount','checkSpecCount'],),
         ...mapState('dictionary',['targOrg'],),
         ...mapGetters('dictionary',['GET_targOrg']),
 
@@ -176,6 +178,85 @@
         closeModal() {
           this.isModalVisible = false;
         },
+
+        validatorConditions(){
+          let counterCheckTargOrg = 0;
+
+          let counterLechDel = 0;
+          let counterMedProf = 0;
+          let counterStom = 0;
+          let counterSestr = 0;
+          let sumSpec = counterLechDel + counterMedProf + counterStom + counterSestr;
+          // let counterCheckSpec : 0;
+          console.log('counterLechDel ', counterLechDel);
+          console.log('counterMedProf ', counterMedProf);
+          console.log('counterStom ', counterStom);
+          console.log('counterSestr ', counterSestr);
+          console.log('sumSpec ',sumSpec);
+          let i = 0;
+          //проверка на только 1 целевое направление
+              for(i; i< this.apls.length; i++) {
+
+                if (this.apls[i].chose === true && this.apls[i].environmentId === 'ЦелНапр') {
+                  counterCheckTargOrg++;
+                  console.log('counter + ', counterCheckTargOrg)
+                } else if (this.apls[i].chose === false && this.apls[i].environmentId === 'ЦелНапр') {
+                  counterCheckTargOrg = 0;
+                  console.log('counter + ', counterCheckTargOrg);
+                }
+              }
+
+              let j=0;
+              for(j; j< this.apls.length; j++) {
+
+                if (this.apls[j].chose === true && this.apls[j].specialityId === 'ЛечДел') {
+                  counterLechDel = 1;
+                  console.log(' ++',counterLechDel)
+                }
+                if(this.apls[j].chose === true && this.apls[j].specialityId !== 'ЛечДел'){
+                  counterLechDel = 0;
+                  console.log('--',counterLechDel)
+                }
+                if(this.apls[j].chose === true && this.apls[j].specialityId === 'МедПрофДел'){
+                  counterMedProf = 1;
+                }else{
+                  counterMedProf = 0;
+                }
+
+                if(this.apls[j].chose === true && this.apls[j].specialityId === 'СтомДел'){
+                  counterStom = 1;
+                }else{
+                  counterStom = 0;
+                }
+
+                if(this.apls[j].chose === true && this.apls[j].specialityId === 'СестрДел'){
+                  counterSestr = 1;
+                }else{
+                  counterSestr = 0;
+                }
+              }
+
+              if(counterCheckTargOrg === 1 ){
+                this.checkTargCount = true;// если тру, отключать остальные чекбоксы
+                console.log('true')
+              }else{
+                this.checkTargCount = false;
+              }
+
+              if(sumSpec === 3){
+                this.checkSpecCount = true;
+              }else{
+                this.checkSpecCount = false;
+              }
+
+
+          console.log('result counter ', counterCheckTargOrg)
+        },
+
+
+
+
+
         onAppl(id) {
 
           console.log('in method -' + this.person_info_id);

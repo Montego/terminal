@@ -29,21 +29,13 @@ export default {
     // docTypeSpecialRight3: null,
     // dateSpecialRight3: '',
 
+
+    checkTargCount: false,
+    checkSpecCount: false,
     apls:[],
     chooseAppls: [],
     resultApl:{},
     application: {
-      // agree: false,
-      // agreeDate:'',
-      // specialRight:false,
-      // typeOfSpecialRight: null,
-      // proofSpecialRight: null,
-      // descriptionSpecialRight: '',
-      // serialSpecialRight: '',
-      // numberSpecialRight: '',
-      // docTypeSpecialRight: null,
-      // dateSpecialRight:'',
-
       saved:'',
 
       application_condition:[],

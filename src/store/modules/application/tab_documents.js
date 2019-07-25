@@ -10,7 +10,7 @@ export default {
     tab_document_date: '',
     tab_document_issuedBy: '',
     tab_document_fullName: '',
-
+    tab_document_auto: false,
     tab_document_selectedDocType: null,
     document: [],
     tab_document_allDocuments: [],

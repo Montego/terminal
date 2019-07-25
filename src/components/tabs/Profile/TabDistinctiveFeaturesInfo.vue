@@ -40,18 +40,23 @@
                 <p>Отличительные признаки</p>
               </div>
 
-              <label class="row">
+              <div class="row">
                 <div class="form__label-text col-sm">Название:</div>
                 <!--<input v-model=""/>-->
                 <select v-model="tab_features_selectedPreference"
-                        @click="getAttrTypeById(tab_features_selectedPreference)"
+                        @change="getAttrTypeById(tab_features_selectedPreference)"
 
                         class="minimal col-sm">
                   <option v-for="item in preference" v-bind:value="item">
                     {{item.name}}
                   </option>
                 </select>
-              </label>
+
+                <!--<v-btn icon class="mx-0" @click="clearField()">-->
+                  <v-icon @click="clearField()" color="#5bc0de">clear</v-icon>
+                <!--</v-btn>-->
+
+              </div>
 
               <label class="row">
                 <div class="form__label-text col-sm">Тип признака:</div>
@@ -463,7 +468,9 @@
         },
       },
         methods: {
-
+          clearField(){
+            this.tab_features_selectedPreference = {};
+          },
 
           getAttrTypeById(preference){
 
@@ -489,7 +496,7 @@
 
           onInfo() {
             location.href='profile#features_info';
-
+            this.tab_features_selectedPreference = {};
             // this.tab_features_selectedAttrType =  '';
             // this.tab_features_selectedPreference =  '';
             this.tab_features_selectedYypeDiploma = '';

@@ -424,7 +424,10 @@
           this.resultAcceptPerson = '';
 
           // this.person.person_info = [];
-          this.person.ege_info = [];
+          // this.person.ege_info = [];
+          this.person.ege_info[0] = {};
+          this.person.ege_info[1] = {};
+          this.person.ege_info[2] = {};
           this.person.parents_info = [];
           this.person.futures_info = [];
           // this.person.person_info.image = "";
@@ -492,7 +495,7 @@
           this.score_four = 0,
           this.score_three = 0,
           this.averageScore  = '';
-          this.tab_edu_military_selectedSoldiery  = null;
+          this.tab_edu_military_selectedSoldiery  = {"soldieryId":"Невоеннообязанный"};
           this.tab_edu_military_selectedSoldieryStatus  = {"id":0,"name":"Не служил"};
           this.tab_edu_military_selectedMilitaryFormDoc  = {"id":0,"name":"Не определено"};
           this.tab_edu_military_militaryNumber  = '';
@@ -506,6 +509,7 @@
           this.tab_edu_military_endMilitary  = '';
           this.saved = '';
           this.person.saved = '';
+          // this.tab_ege_changePaspInf = false;
           this.$store.dispatch('loadEmptyAdrDTO');
           location.href='profile#personal_info';
 
