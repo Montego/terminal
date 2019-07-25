@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 
+
 //for server
 const SERVER_URL = 'http://10.71.0.115/operator_api/';
 const SERVER_URL2 = 'http://10.71.0.115';

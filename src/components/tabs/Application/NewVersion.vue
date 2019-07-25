@@ -5,6 +5,7 @@
     v-show="isModalVisible"
     @close="closeModal"
     @toApplication="onAppl"
+    @validatorConditions="validatorConditions"
   />
 
     <span>{{moment(dateToday).format('YYYY-MM-DD')}}</span>
@@ -465,15 +466,6 @@
         Object.assign(this.person.application.choosenWizards[this.editedIndex], this.editedItem);
 
 
-        // console.log('согласие2 =' + this.application.choosenWizards[0])
-        // console.log('согласие =' + this.application.choosenWizards[0].agree)
-        // console.log('согласие2 =' + this.application.choosenWizards[1].agree)
-        // console.log('согласие =' + this.application.choosenWizards[0].agreeDate)
-        // console.log('согласие2 =' + this.application.choosenWizards[1].agreeDate)
-        // console.log('спец право =' + this.application.choosenWizards[1].special_right)
-        // console.log('сf =' + this.application.choosenWizards[0].typeOfSpecialRight)
-        // console.log('док-во =' + this.application.choosenWizards[0].proofSpecialRight1)
-
         location.href='profile#conditions_overview';
 
       },
@@ -577,6 +569,45 @@
         location.href='profile#conditions_info';
 
       },
+
+      validatorConditions(){
+        let counterCheckTargOrg = 0;
+
+        let counterLechDel = 0;
+        let counterMedProf = 0;
+        let counterStom = 0;
+        let counterSestr = 0;
+        let sumSpec = counterLechDel + counterMedProf + counterStom + counterSestr;
+        // let counterCheckSpec : 0;
+        console.log('counterLechDel ', counterLechDel);
+        console.log('counterMedProf ', counterMedProf);
+        console.log('counterStom ', counterStom);
+        console.log('counterSestr ', counterSestr);
+        console.log('sumSpec ',sumSpec);
+        let i = 0;
+        //проверка на только 1 целевое направление
+        for(i; i< this.apls.length; i++) {
+          if (this.apls[i].chose === true && this.apls[i].environmentId === 'ЦелНапр') {
+            counterCheckTargOrg++;
+            console.log('counter + ', counterCheckTargOrg)
+          } else if (this.apls[i].chose === false && this.apls[i].environmentId === 'ЦелНапр') {
+            counterCheckTargOrg = 0;
+            console.log('counter + ', counterCheckTargOrg);
+          }
+        }
+
+        if(counterCheckTargOrg === 1 ){
+          this.checkTargCount = true;// если тру, отключать остальные чекбоксы
+          console.log('true')
+        }else{
+          this.checkTargCount = false;
+        }
+
+        console.log('result counter ', counterCheckTargOrg)
+      },
+
+
+
 
       onAppl(){
         // this.application.choosenWizards = [];

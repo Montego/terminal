@@ -4,8 +4,6 @@
       <header class="modal-header">
         <slot name="header">
           Условия приема
-            {{this.checkTargCount}}
-          {{this.checkSpecCount}}
           <button
             type="button"
             class="btn-close"
@@ -55,8 +53,9 @@
           </template>
         </v-data-table>
       </section>
-      <footer class="modal-footer">
-        <slot name="footer">
+      <footer class="modal-footer flex">
+        <span class="alarm_label">{{message}}</span>
+        <slot name="footer flex-end">
           <button
             type="button"
             class="btn-green"
@@ -84,7 +83,7 @@
   export default {
     name: 'modal',
     computed: {
-      ...applications(['application','apls','checkTargCount','checkSpecCount'],),
+      ...applications(['application','apls','checkTargCount','checkSpecCount','message'],),
       ...person(['person_info_id','showProfile']),
       ...mapState('dictionary',['targOrg'],),
       ...mapGetters('dictionary',['GET_targOrg']),
@@ -141,6 +140,11 @@
 </script>
 
 <style scoped>
+  .alarm_label {
+    margin-right: 15px;
+    /*text-align: left;*/
+    color: red;
+  }
   select {
     height: 25px;
     border-radius: 3px;

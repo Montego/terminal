@@ -68,7 +68,7 @@ export default {
     count:'',
     issuedBy:'',
 
-
+    message:'',
 
     // applicationTable:[]
   },
