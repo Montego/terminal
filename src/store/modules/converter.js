@@ -76,6 +76,7 @@ let fillPK = function(s){
   console.log(info.tab_edu_military_selectedSoldiery, 'info.tab_edu_military_selectedSoldiery');
 
   return {
+    "fisSettlementTypeId" : "",
     "soldieryId": info.tab_edu_military_selectedSoldiery ? info.tab_edu_military_selectedSoldiery['soldieryId'] : "Невоеннообязанный", // //
     "soldieryStatus": info.tab_edu_military_selectedSoldieryStatus.id, // 0, // ??? tab_edu_military_selectedSoldieryStatus
     "militaryFormDoc": info.tab_edu_military_selectedMilitaryFormDoc.id,
