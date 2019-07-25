@@ -11,17 +11,19 @@ import 'vuetify/dist/vuetify.min.css';
 // import 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons';
 // import Tabs from 'vue-nav-tabs/dist/vue-tabs.js'
 import 'vue-nav-tabs/themes/vue-tabs.css'
-import ru from 'vee-validate/dist/locale/ru';
+// import ru from 'vee-validate/dist/locale/ru';
 
-import VeeValidate, { Validator } from 'vee-validate';
+// import VeeValidate, { Validator } from 'vee-validate';
+import Vuelidate from "vuelidate";
+
 
 Vue.component('tabs', Tabs);
 
 Vue.component('tab', Tab);
 
-Vue.use(VeeValidate);
-
-Validator.localize('ru', ru);
+// Vue.use(VeeValidate);
+Vue.use(Vuelidate);
+// Validator.localize('ru', ru);
 
 new Vue({
   el: '#app',
@@ -29,4 +31,4 @@ new Vue({
   router,
   components: {App},
   render: h => h(App)
-})
+});
