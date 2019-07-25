@@ -415,7 +415,7 @@ let fillEge = function(s){
       "identityCardNumber": ege.tab_ege_identityCardNumber > '' ? ege.tab_ege_identityCardNumber  :  person.tab_personal_identityCardNumber  , // "98425252",
       "identityCardIssueBy": ege.tab_ege_identityCardIssueBy  > '' ?  ege.tab_ege_identityCardIssueBy  :  person.tab_personal_identityCardIssueBy  ,
       "identityCardCode": ege.tab_ege_selectedIdentityCardCode['identityCardCode'] || 'Паспорт РФ', //"87-89",
-      "yearDeliveryEge": ege.tab_ege_year > '' ? ege.tab_ege_year : '2019', // "2019",
+      "yearDeliveryEge": ege.tab_ege_year > '' ? ege.tab_ege_year['academyYearId'] : '2019', // "2019",
 
 
 

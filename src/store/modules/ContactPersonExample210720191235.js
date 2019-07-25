@@ -113,6 +113,7 @@ export default {
             "modifiedBy": "",
             "recId": null,
             "contactPersonPk": {
+                "fisSettlementTypeId" : "",
                 "contactPersonId": null,
                 "dataAreaId": "dat",
                 "eduLevelId": "003",
