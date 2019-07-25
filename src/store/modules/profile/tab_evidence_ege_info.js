@@ -16,7 +16,8 @@ export default {
     tab_ege_documentNumber:'',
     tab_ege_typographyNumber:'',
     tab_ege_sumScores: '',
-    ege_info:[],
+    tab_ege_changePaspInf: false,
+    // ege_info:[],
 
     tests: [],
 

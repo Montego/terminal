@@ -4,7 +4,6 @@
       <header class="modal-header">
         <slot name="header">
           Условия приема
-
           <button
             type="button"
             class="btn-close"
@@ -30,7 +29,7 @@
               <div v-if="props.item.chose === true">
                 <select v-if="props.item.environmentId === 'ЦелНапр'" v-model="props.item.company" class="minimal col-sm">
                   <option v-for="item in targOrg" v-bind:value="item" >
-                    {{item.cipHer}}
+                    {{item.name}}
                   </option>
                 </select>
                 <!--<input v-if="props.item.environmentId === 'ЦелНапр'" v-model="props.item.company" class="form__input" type="text">-->
@@ -47,14 +46,16 @@
               </div>
             </td>
             <td class="text-xs-center">
-              <input v-model="props.item.chose" class="checkbox col-sm" type="checkbox"  @click="choose(props.item)">
+              <input v-if="props.item.environmentId === 'ЦелНапр' && checkTargCount === true && props.item.chose !== true " v-model="props.item.chose" class="checkbox col-sm" type="checkbox" @change="validatorConditions" disabled>
+              <input v-else v-model="props.item.chose" class="checkbox col-sm" type="checkbox" @change="validatorConditions">
             </td>
 
           </template>
         </v-data-table>
       </section>
-      <footer class="modal-footer">
-        <slot name="footer">
+      <footer class="modal-footer flex">
+        <span class="alarm_label">{{message}}</span>
+        <slot name="footer flex-end">
           <button
             type="button"
             class="btn-green"
@@ -81,9 +82,20 @@
   });
   export default {
     name: 'modal',
+    computed: {
+      ...applications(['application','apls','checkTargCount','checkSpecCount','message'],),
+      ...person(['person_info_id','showProfile']),
+      ...mapState('dictionary',['targOrg'],),
+      ...mapGetters('dictionary',['GET_targOrg']),
+    },
     data () {
       return {
         chose:'',
+
+        // checkSpecCount: false, //может быть только 3 специальности
+        // checkTargCount: false, //может быть только 1 целевое
+        checkTargBudget: false, //у одной специальности либо целевое, либо бюджет
+
         headers_apl: [
           // { text: 'Факультет', value: 'deparCode',sortable: false, align: 'center' },
           // { text: 'Специальность', value: 'deparName',sortable: false, align: 'center' },
@@ -104,6 +116,10 @@
       handleClick: Function,
     },
     methods: {
+      validatorConditions(){
+        this.$emit('validatorConditions');
+
+      },
       choose(item) {
 
       },
@@ -115,12 +131,7 @@
         this.showProfile=false;
       }
     },
-    computed: {
-      ...applications(['application','apls'],),
-      ...person(['person_info_id','showProfile']),
-      ...mapState('dictionary',['targOrg'],),
-      ...mapGetters('dictionary',['GET_targOrg']),
-     },
+
     mounted() {
       this.$store.dispatch('dictionary/onLoadTargOrg');
 
@@ -129,6 +140,11 @@
 </script>
 
 <style scoped>
+  .alarm_label {
+    margin-right: 15px;
+    /*text-align: left;*/
+    color: red;
+  }
   select {
     height: 25px;
     border-radius: 3px;

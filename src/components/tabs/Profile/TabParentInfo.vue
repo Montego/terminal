@@ -27,6 +27,9 @@
               </button>{{ props.item.actions}}
             </td>
           </template>
+          <template slot="no-data">
+            <div></div>
+          </template>
         </v-data-table>
       </tab>
       <tab id="parent_info" name="Личные данные попечителя">

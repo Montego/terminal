@@ -75,6 +75,9 @@
 
       </td>
     </template>
+    <template slot="no-data">
+      <div></div>
+    </template>
   </v-data-table>
   </div>
 </template>
@@ -421,7 +424,52 @@
           this.resultAcceptPerson = '';
 
           // this.person.person_info = [];
-          this.person.ege_info = [];
+          // this.person.ege_info = [];
+
+          this.person.ege_info[0].tab_ege_selectedSubject= 'Химия';
+          this.person.ege_info[0].tab_ege_score= 0;
+          this.person.ege_info[0].tab_ege_year= {"academyYearId":"2019","description":"2019-ый учебный год","beginPeriod":"2019-01-01","endPeriod":"2019-12-31"};
+          this.person.ege_info[0].tab_ege_changePaspInf= false;
+          this.person.ege_info[0].tab_ege_lastname= '';
+          this.person.ege_info[0].tab_ege_firstname= '';
+          this.person.ege_info[0].tab_ege_middlename= '';
+          this.person.ege_info[0].tab_ege_selectedIdentityCardCode= null;
+          this.person.ege_info[0].tab_ege_identityCardSeries=  '';
+          this.person.ege_info[0].tab_ege_identityCardNumber= '';
+          this.person.ege_info[0].tab_ege_identityCardIssueDate=  '';
+          this.person.ege_info[0].tab_ege_identityCardIssueBy= '';
+          this.person.ege_info[0].tab_ege_info_selectedCitizenship= null;
+
+          this.person.ege_info[1].tab_ege_selectedSubject= 'Биология';
+          this.person.ege_info[1].tab_ege_score= 0;
+          this.person.ege_info[1].tab_ege_year= {"academyYearId":"2019","description":"2019-ый учебный год","beginPeriod":"2019-01-01","endPeriod":"2019-12-31"};
+          this.person.ege_info[1].tab_ege_changePaspInf= false;
+          this.person.ege_info[1].tab_ege_lastname= '';
+          this.person.ege_info[1].tab_ege_firstname= '';
+          this.person.ege_info[1].tab_ege_middlename= '';
+          this.person.ege_info[1].tab_ege_selectedIdentityCardCode= null;
+          this.person.ege_info[1].tab_ege_identityCardSeries=  '';
+          this.person.ege_info[1].tab_ege_identityCardNumber= '';
+          this.person.ege_info[1].tab_ege_identityCardIssueDate=  '';
+          this.person.ege_info[1].tab_ege_identityCardIssueBy= '';
+          this.person.ege_info[1].tab_ege_info_selectedCitizenship= null;
+
+          this.person.ege_info[2].tab_ege_selectedSubject= 'Русский язык';
+          this.person.ege_info[2].tab_ege_score= 0;
+          this.person.ege_info[2].tab_ege_year= {"academyYearId":"2019","description":"2019-ый учебный год","beginPeriod":"2019-01-01","endPeriod":"2019-12-31"};
+          this.person.ege_info[2].tab_ege_changePaspInf= false;
+          this.person.ege_info[2].tab_ege_lastname= '';
+          this.person.ege_info[2].tab_ege_firstname= '';
+          this.person.ege_info[2].tab_ege_middlename= '';
+          this.person.ege_info[2].tab_ege_selectedIdentityCardCode= null;
+          this.person.ege_info[2].tab_ege_identityCardSeries=  '';
+          this.person.ege_info[2].tab_ege_identityCardNumber= '';
+          this.person.ege_info[2].tab_ege_identityCardIssueDate=  '';
+          this.person.ege_info[2].tab_ege_identityCardIssueBy= '';
+          this.person.ege_info[2].tab_ege_info_selectedCitizenship= null;
+
+
+
           this.person.parents_info = [];
           this.person.futures_info = [];
           // this.person.person_info.image = "";
@@ -489,7 +537,7 @@
           this.score_four = 0,
           this.score_three = 0,
           this.averageScore  = '';
-          this.tab_edu_military_selectedSoldiery  = null;
+          this.tab_edu_military_selectedSoldiery  = {"soldieryId":"Невоеннообязанный"};
           this.tab_edu_military_selectedSoldieryStatus  = {"id":0,"name":"Не служил"};
           this.tab_edu_military_selectedMilitaryFormDoc  = {"id":0,"name":"Не определено"};
           this.tab_edu_military_militaryNumber  = '';
@@ -503,6 +551,7 @@
           this.tab_edu_military_endMilitary  = '';
           this.saved = '';
           this.person.saved = '';
+          // this.tab_ege_changePaspInf = false;
           this.$store.dispatch('loadEmptyAdrDTO');
           location.href='profile#personal_info';
 
@@ -521,7 +570,12 @@
           //todo получать dto - массивы person_info, ege_info, parent_info
             .then(response => {
               this.person = response.data;
+              // this.person.ege_info[0] = response.data.ege_info[0];
+              // this.person.ege_info[1] = response.data.ege_info[1];
+              // this.person.ege_info[2] = response.data.ege_info[2];
 
+              // this.person.parents_info = response.data.parents_info;
+              // this.person.futures_info = response.data.futures_info;
               this.$store.commit('updateSpecialistDto', this.person.person_info.addressesDto);
               //
               this.personInfo = response.data.person_info;

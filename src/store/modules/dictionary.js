@@ -8,6 +8,7 @@ export default {
     addressCountryRegion: [],
     addressState: [],
     academyYear: [],
+    eduLevel: [],
     eduDoc: [],
     soldiery: [],
     language: [],
@@ -36,6 +37,9 @@ export default {
     },
     GET_EDU_DOC: state => {
       return state.eduDoc;
+    },
+    GET_eduLevel: state => {
+      return state.eduLevel;
     },
     GET_SOLDIERY: state => {
       return state.soldiery;
@@ -78,6 +82,9 @@ export default {
     },
     UPLOAD_EDU_DOC(state, payload) {
       state.eduDoc = payload
+    },
+    UPLOAD_eduLevel(state, payload) {
+      state.eduLevel = payload
     },
     UPLOAD_SOLDIERY(state, payload) {
       state.soldiery = payload
@@ -144,6 +151,15 @@ export default {
       // AXIOS.get('/json/acadamyYear')
         .then((response) => {
           commit('UPLOAD_ACADEMY_YEAR', response.data)
+        }).catch(e => {
+        this.errors.push(e)
+      })
+    },
+    onLoadEduLevel({commit}) {
+      AXIOS.get('/dictionary/eduLevel')
+      // AXIOS.get('/json/eduDoc')
+        .then((response) => {
+          commit('UPLOAD_eduLevel', response.data)
         }).catch(e => {
         this.errors.push(e)
       })

@@ -1,6 +1,8 @@
 import { getField, updateField } from 'vuex-map-fields';
 import {AXIOS} from "../../../components/plugins/APIService";
 import converter from "../converter";
+import moment from 'moment'
+
 
 
 export default {
@@ -10,6 +12,7 @@ export default {
     applicationId: '',
     contactPersonId: '',
 
+    // dateToday: moment(Date.now()).format('YYYY-MM-DD'),
     showProfile: true,
     profiles:[],
 
@@ -200,28 +203,77 @@ export default {
         acceptedPerson:'',
         saved:''
       },
-      ege_info:[],
+
+      ege_info:[
+        {
+          tab_ege_selectedSubject: 'Химия',
+          tab_ege_score: 0,
+          tab_ege_year:{"academyYearId":"2019","description":"2019-ый учебный год","beginPeriod":"2019-01-01","endPeriod":"2019-12-31"},
+          tab_ege_changePaspInf: false,
+          tab_ege_lastname:'',
+          tab_ege_firstname:'',
+          tab_ege_middlename:'',
+          tab_ege_selectedIdentityCardCode:null,
+          tab_ege_identityCardSeries:'',
+          tab_ege_identityCardNumber:'',
+          tab_ege_identityCardIssueDate:'',
+          tab_ege_identityCardIssueBy:'',
+          tab_ege_info_selectedCitizenship: null,
+        },
+
+
+        {
+          tab_ege_selectedSubject: 'Биология',
+          tab_ege_score: 0,
+          tab_ege_year:{"academyYearId":"2019","description":"2019-ый учебный год","beginPeriod":"2019-01-01","endPeriod":"2019-12-31"},
+          tab_ege_changePaspInf: false,
+          tab_ege_lastname:'',
+          tab_ege_firstname:'',
+          tab_ege_middlename:'',
+          tab_ege_selectedIdentityCardCode:null,
+          tab_ege_identityCardSeries:'',
+          tab_ege_identityCardNumber:'',
+          tab_ege_identityCardIssueDate:'',
+          tab_ege_identityCardIssueBy:'',
+          tab_ege_info_selectedCitizenship: null,
+        },
+        {
+          tab_ege_selectedSubject: 'Русский язык',
+          tab_ege_score: 0,
+          tab_ege_year:{"academyYearId":"2019","description":"2019-ый учебный год","beginPeriod":"2019-01-01","endPeriod":"2019-12-31"},
+          tab_ege_changePaspInf: false,
+          tab_ege_lastname:'',
+          tab_ege_firstname:'',
+          tab_ege_middlename:'',
+          tab_ege_selectedIdentityCardCode:null,
+          tab_ege_identityCardSeries:'',
+          tab_ege_identityCardNumber:'',
+          tab_ege_identityCardIssueDate:'',
+          tab_ege_identityCardIssueBy:'',
+          tab_ege_info_selectedCitizenship: null,
+        }
+      ],
       parents_info:[],
       futures_info: [],
       application:{
         saved:'',
         application_number:'',
-        application_date:'',
+        application_date: '',
         application_selectedDeliveryType:'',
         application_selectedDocType:{"id":0,"name":"Копия"},
         application_person_name:'',
         choosenWizards:[
-          {
-            chose: false,
-            company: {"targOrgId":"ОЦП000004","name":"ФМБА РФ","addressStateId":"","reportName":"от ФМБА РФ","cipHer":"ФМБА","shortName":"","blocked":0},
-            courseNum: 1,
-            deparCode: "",
-            deparName: "",
-            eduForm: "",
-            environmentId: "",
-            portalApplWizardId:0,
-            specialityId: ""
-          }
+          // {
+          //   chose: false,
+          //   company: {"targOrgId":"ОЦП000004","name":"ФМБА РФ","addressStateId":"","reportName":"от ФМБА РФ","cipHer":"ФМБА","shortName":"","blocked":0},
+          //   courseNum: 1,
+          //   deparCode: "",
+          //   deparName: "",
+          //   eduForm: "",
+          //   environmentId: "",
+          //   portalApplWizardId:0,
+          //   specialityId: ""
+          // }
 
 
         ],

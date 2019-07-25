@@ -4,7 +4,9 @@ import {store} from './store';
 import {router} from './router/routes';
 import {Tabs, Tab} from 'vue-tabs-component';
 // import './plugins/APIService'
+import moment from 'moment'
 
+Vue.prototype.moment = moment;
 
 import 'vue-tabs-component/docs/resources/tabs-component.css';
 import 'vuetify/dist/vuetify.min.css';

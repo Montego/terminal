@@ -16,87 +16,16 @@
         <!--<button type="button" @click="handleClick(false)">К заявлениям</button>-->
         <button type="button" @click="handleClick(true)">К абитуриентам</button>
       </div>
-
       <!--<form action="/logout" method="post">-->
         <!--<input type="hidden" name="_csrf" value="${_csrf.token}"/>-->
         <!--<button class="btn btn-primary" type="submit">Sign Out</button>-->
       <!--</form>-->
-
       <a class="logout" href="" @click.prevent="onLogout">Logout</a>
-
     </div>
 
-    <!--<div class="row search_place">-->
-      <!--&lt;!&ndash;<label class="row ">&ndash;&gt;-->
-        <!--<div class="col-sm-1">Абитуриент:</div>-->
-        <!--<input class="col-sm-3" type="search" name="поиск" placeholder="Поиск по сайту">-->
-      <!--&lt;!&ndash;</label>&ndash;&gt;-->
-      <!--<button class="col-sm-2" type="button" @click="handleClick(false)">К заявлениям</button>-->
-      <!--<button class="col-sm-2" type="button" @click="handleClick(true)">К профилям</button>-->
-      <!--&lt;!&ndash;<button class="logout col-sm-2">&ndash;&gt;-->
-        <!--<a class="logout col-sm" href="/login">Logout</a>-->
-      <!--&lt;!&ndash;</button>&ndash;&gt;-->
-    <!--</div>-->
-
     <div>
-      <!--<tabs class="main_tab" :options="{ useUrlFragment: false }">-->
-        <WraperProfile v-show="showProfile" :handleClick="handleClick"></WraperProfile>
-        <!--<WraperApplication></WraperApplication>-->
-        <!--<tabs class="main_tab" >-->
-          <!--<tab id="overview_personal_info" name="Обзор">-->
-            <!--<TabOverview ></TabOverview>-->
-          <!--</tab>-->
-
-          <!--<tab class="personal_tab" id="personal_info" name="Личные сведения">-->
-            <!--<TabPersonalInfo></TabPersonalInfo>-->
-          <!--</tab>-->
-
-          <!--<tab id="contacts" name="Адресные данные">-->
-            <!--<TabAddressInfo></TabAddressInfo>-->
-          <!--</tab>-->
-
-            <!--<tab id="evidence_ege" name="Свидетельства ЕГЭ">-->
-              <!--<TabEvidenceEge></TabEvidenceEge>-->
-            <!--</tab>-->
-
-          <!--<tab class="graduate_military" id="graduate_military" name="Образование, военная служба">-->
-            <!--<TabEducationMilitary></TabEducationMilitary>-->
-          <!--</tab>-->
-
-          <!--<tab id="parent_trustee" name="Родитель/Попечитель">-->
-            <!--<TabParentInfo></TabParentInfo>-->
-          <!--</tab>-->
-          <!--<tab id="distinctive_features" name="Отличительные признаки">-->
-            <!--<TabDistinctiveFeaturesInfo></TabDistinctiveFeaturesInfo>-->
-          <!--</tab>-->
-          <!--<tab id="photo" name="Фотография">-->
-            <!--<TabPhoto></TabPhoto>-->
-          <!--</tab>-->
-          <!--{{showProfile}}-->
-        <!--</tabs>-->
-
+      <WraperProfile v-show="showProfile" :handleClick="handleClick" ></WraperProfile>
       <WraperApplication v-show="!showProfile" :handleClick="handleClick"></WraperApplication>
-          <!--<tabs class="main_tab" v-show="!showProfile" :handleClick="handleClick">-->
-            <!--<tab id="overviewApplication" name="Обзор">-->
-              <!--<TabOverviewApplication></TabOverviewApplication>-->
-            <!--</tab>-->
-            <!--<tab id="applicationFill" name="Заявление">-->
-              <!--<TabApplicationFill></TabApplicationFill>-->
-            <!--</tab>-->
-            <!--<tab id="receptrionCondition" name="Условия приема">-->
-              <!--<TabReceptionConditions></TabReceptionConditions>-->
-            <!--</tab>-->
-            <!--<tab id="documents" name="Документы">-->
-              <!--<TabDocuments></TabDocuments>-->
-            <!--</tab>-->
-            <!--<tab id="entranceTests" name="Вступительные испытания">-->
-              <!--<TabEntranceTests></TabEntranceTests>-->
-            <!--</tab>-->
-            <!--<tab id="other" name="Проверить и сохранить">-->
-              <!--<TabOther></TabOther>-->
-            <!--</tab>-->
-          <!--</tabs>-->
-
 
     </div>
   </div>
@@ -136,6 +65,7 @@
   });
   export default {
     name: "Profile",
+
     components: {
       WraperProfile,WraperApplication,
 
@@ -175,15 +105,13 @@
       handleClick(val) {
 
         location.href='profile#overview_personal_info';
-        this.showProfile = val;
-          // this.profiles= [];
+          this.showProfile = val;
+
           this.isModalVisible = false;
           this.application.applicationTable.splice(0,1)
-        // this.application.applicationTable = [];
-          // this.person_info_id='';
-          // this.savedResult = '';
-        // this.application = [];
+
       },
+
 
       onLogout: () => {
           AXIOS.get("/logout")

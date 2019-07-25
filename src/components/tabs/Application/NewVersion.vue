@@ -5,8 +5,10 @@
     v-show="isModalVisible"
     @close="closeModal"
     @toApplication="onAppl"
+    @validatorConditions="validatorConditions"
   />
 
+    <span>{{moment(dateToday).format('YYYY-MM-DD')}}</span>
   <div class="inside_tab">
     <div class="row">
       <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
@@ -15,7 +17,7 @@
       </div>
       <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
         <div class="form__label-text col-sm">Дата заявления:</div>
-        <input v-model="person.application.application_date" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01" />
+        <input v-model="person.application.application_date" class="form__input col-sm" type="date" id= "theDate"  min="1918-01-01" max="2019-01-01" />
       </div>
       <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
         <div class="form__label-text col-sm">Тип доставки:</div>
@@ -25,6 +27,14 @@
           </option>
         </select>
       </div>
+      <!--<div v-if="!this.isModalVisible" class="flex-column col-sm-2">-->
+        <!--<div class="form__label-text col-sm">Тип доставки:</div>-->
+        <!--<select v-model="person.application.application_selectedDeliveryType"  class="minimal col-sm">-->
+          <!--<option v-for="item in deliveryType" v-bind:value="item">-->
+            <!--{{item.name}}-->
+          <!--</option>-->
+        <!--</select>-->
+      <!--</div>-->
       <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
         <div class="form__label-text col-sm">Копия/оригинал:</div>
         <select v-model="person.application.application_selectedDocType" class="minimal col-sm">
@@ -46,7 +56,7 @@
 
         <div v-if="!this.isModalVisible" class="row">
           <button @click="onAdd">Добавить/Удалить</button>
-          <button @click="printAgreement">Распечатать согласие</button>
+          <!--<button @click="printAgreement">Распечатать согласие</button>-->
         </div>
 
         <v-data-table
@@ -84,16 +94,11 @@
               <button  class="table_buttons" @click="addSomething(props.item)">
                 <v-icon color="#5bc0de">add</v-icon>
               </button>
-              <!--<button class = "table_buttons" type="button" @click="redactionItem(props.item)">-->
-                <!--<v-icon color="#5bc0de">visibility</v-icon>-->
-              <!--</button>-->
-              <!--<button class="table_buttons" @click="openModalAgreemnt(props.item)">-->
-                <!--<v-icon color="#5bc0de">блядь</v-icon>-->
-              <!--</button>-->
-              <!--<button v-if="props.item.resultAcceptPerson !=='Утверждено'" class="table_buttons" @click="deleteItem(props.item)">-->
-                <!--<v-icon color="red">delete</v-icon>-->
-              <!--</button>-->
+
             </td>
+          </template>
+          <template slot="no-data">
+            <div></div>
           </template>
         </v-data-table>
       </tab>
@@ -292,6 +297,8 @@
     },
     data(){
       return{
+        dateToday: Date.now(),
+
         counter: 0,
         isOneAgree: true,
         agrees:[],
@@ -385,6 +392,16 @@
         // return this.application.fullname = this.person.tab_personal_lastname + " "
         //   + this.person.tab_personal_firstname + " " + this.person.tab_personal_middlename
       },
+      showDate(){
+        let date = new Date();
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+        let today = year + "-" + month + "-" + day;
+        document.getElementById("theDate").value = today;
+      }
     },
 
     mounted () {
@@ -448,15 +465,6 @@
 
         Object.assign(this.person.application.choosenWizards[this.editedIndex], this.editedItem);
 
-
-        // console.log('согласие2 =' + this.application.choosenWizards[0])
-        // console.log('согласие =' + this.application.choosenWizards[0].agree)
-        // console.log('согласие2 =' + this.application.choosenWizards[1].agree)
-        // console.log('согласие =' + this.application.choosenWizards[0].agreeDate)
-        // console.log('согласие2 =' + this.application.choosenWizards[1].agreeDate)
-        // console.log('спец право =' + this.application.choosenWizards[1].special_right)
-        // console.log('сf =' + this.application.choosenWizards[0].typeOfSpecialRight)
-        // console.log('док-во =' + this.application.choosenWizards[0].proofSpecialRight1)
 
         location.href='profile#conditions_overview';
 
@@ -561,6 +569,45 @@
         location.href='profile#conditions_info';
 
       },
+
+      validatorConditions(){
+        let counterCheckTargOrg = 0;
+
+        let counterLechDel = 0;
+        let counterMedProf = 0;
+        let counterStom = 0;
+        let counterSestr = 0;
+        let sumSpec = counterLechDel + counterMedProf + counterStom + counterSestr;
+        // let counterCheckSpec : 0;
+        console.log('counterLechDel ', counterLechDel);
+        console.log('counterMedProf ', counterMedProf);
+        console.log('counterStom ', counterStom);
+        console.log('counterSestr ', counterSestr);
+        console.log('sumSpec ',sumSpec);
+        let i = 0;
+        //проверка на только 1 целевое направление
+        for(i; i< this.apls.length; i++) {
+          if (this.apls[i].chose === true && this.apls[i].environmentId === 'ЦелНапр') {
+            counterCheckTargOrg++;
+            console.log('counter + ', counterCheckTargOrg)
+          } else if (this.apls[i].chose === false && this.apls[i].environmentId === 'ЦелНапр') {
+            counterCheckTargOrg = 0;
+            console.log('counter + ', counterCheckTargOrg);
+          }
+        }
+
+        if(counterCheckTargOrg === 1 ){
+          this.checkTargCount = true;// если тру, отключать остальные чекбоксы
+          console.log('true')
+        }else{
+          this.checkTargCount = false;
+        }
+
+        console.log('result counter ', counterCheckTargOrg)
+      },
+
+
+
 
       onAppl(){
         // this.application.choosenWizards = [];
