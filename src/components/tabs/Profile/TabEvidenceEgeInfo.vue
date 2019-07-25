@@ -6,7 +6,7 @@
         <!--<div class="row">-->
           <!--<button @click="onInfo">Добавить</button>-->
         <!--</div>-->
-          {{this.person.ege_info}}
+          <!--{{this.person.ege_info}}-->
         <div class="row">
           <div class="col-sm">
             <v-data-table
