@@ -447,7 +447,7 @@
                 this.person.application.saved = response.data;
                 // this.info.push(response.data)
                 this.person_info_id = ''
-                this.person.ege_info = [];
+                // this.person.ege_info = [];
                 this.person.parents_info = [];
                 this.person.futures_info = [];
                 this.person_info_id='';
@@ -460,6 +460,58 @@
                 this.person.application.application_selectedDocType = '';
                 this.person.application.application_person_name = '';
                 this.profiles = [];
+
+
+
+                this.person.ege_info[0].tab_ege_selectedSubject= 'Химия';
+                this.person.ege_info[0].tab_ege_score= 0;
+                this.person.ege_info[0].tab_ege_year= {"academyYearId":"2019","description":"2019-ый учебный год","beginPeriod":"2019-01-01","endPeriod":"2019-12-31"};
+                this.person.ege_info[0].tab_ege_changePaspInf= false;
+                this.person.ege_info[0].tab_ege_lastname= '';
+                this.person.ege_info[0].tab_ege_firstname= '';
+                this.person.ege_info[0].tab_ege_middlename= '';
+                this.person.ege_info[0].tab_ege_selectedIdentityCardCode= null;
+                this.person.ege_info[0].tab_ege_identityCardSeries=  '';
+                this.person.ege_info[0].tab_ege_identityCardNumber= '';
+                this.person.ege_info[0].tab_ege_identityCardIssueDate=  '';
+                this.person.ege_info[0].tab_ege_identityCardIssueBy= '';
+                this.person.ege_info[0].tab_ege_info_selectedCitizenship= null;
+
+                this.person.ege_info[1].tab_ege_selectedSubject= 'Биология';
+                this.person.ege_info[1].tab_ege_score= 0;
+                this.person.ege_info[1].tab_ege_year= {"academyYearId":"2019","description":"2019-ый учебный год","beginPeriod":"2019-01-01","endPeriod":"2019-12-31"};
+                this.person.ege_info[1].tab_ege_changePaspInf= false;
+                this.person.ege_info[1].tab_ege_lastname= '';
+                this.person.ege_info[1].tab_ege_firstname= '';
+                this.person.ege_info[1].tab_ege_middlename= '';
+                this.person.ege_info[1].tab_ege_selectedIdentityCardCode= null;
+                this.person.ege_info[1].tab_ege_identityCardSeries=  '';
+                this.person.ege_info[1].tab_ege_identityCardNumber= '';
+                this.person.ege_info[1].tab_ege_identityCardIssueDate=  '';
+                this.person.ege_info[1].tab_ege_identityCardIssueBy= '';
+                this.person.ege_info[1].tab_ege_info_selectedCitizenship= null;
+
+                this.person.ege_info[2].tab_ege_selectedSubject= 'Русский язык';
+                this.person.ege_info[2].tab_ege_score= 0;
+                this.person.ege_info[2].tab_ege_year= {"academyYearId":"2019","description":"2019-ый учебный год","beginPeriod":"2019-01-01","endPeriod":"2019-12-31"};
+                this.person.ege_info[2].tab_ege_changePaspInf= false;
+                this.person.ege_info[2].tab_ege_lastname= '';
+                this.person.ege_info[2].tab_ege_firstname= '';
+                this.person.ege_info[2].tab_ege_middlename= '';
+                this.person.ege_info[2].tab_ege_selectedIdentityCardCode= null;
+                this.person.ege_info[2].tab_ege_identityCardSeries=  '';
+                this.person.ege_info[2].tab_ege_identityCardNumber= '';
+                this.person.ege_info[2].tab_ege_identityCardIssueDate=  '';
+                this.person.ege_info[2].tab_ege_identityCardIssueBy= '';
+                this.person.ege_info[2].tab_ege_info_selectedCitizenship= null;
+
+
+
+
+
+
+
+
                 // AXIOS.get(`/profile/personsTable`)
                 //   .then(response => {
                 //     this.profiles = response.data;

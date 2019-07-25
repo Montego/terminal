@@ -6,7 +6,7 @@
         <!--<div class="row">-->
           <!--<button @click="onInfo">Добавить</button>-->
         <!--</div>-->
-          <!--{{this.person.ege_info}}-->
+          {{this.person.ege_info}}
         <div class="row">
           <div class="col-sm">
             <v-data-table
@@ -16,16 +16,9 @@
               hide-actions
             >
               <template slot="items" slot-scope="props">
-                <td class="text-xs-center">{{ props.item.subject}}</td>
+                <td class="text-xs-center">{{ props.item.tab_ege_selectedSubject}}</td>
                 <td class="text-xs-center">
                   <input v-model="props.item.tab_ege_score" class="form__input col-sm-7" type="number"  >
-                  <!--<the-mask :mask="['YZ']"-->
-                            <!--v-model="props.item.tab_ege_score"-->
-                            <!--:tokens="customTokens"-->
-                            <!--:masked="true"-->
-                            <!--class="form__input col-sm-7"-->
-                  <!--&gt;</the-mask>-->
-                  <!--{{ props.item.tab_ege_score}}-->
                 </td>
                 <td class="text-xs-center">
                   <select  v-model="props.item.tab_ege_year" class="minimal col-sm">
@@ -33,21 +26,11 @@
                       {{item.academyYearId}}
                     </option>
                   </select>
-                  <!--{{ props.item.tab_ege_year}}-->
                 </td>
                 <td class="text-xs-center">
                   <input v-model="props.item.tab_ege_changePaspInf" class="checkbox col-sm" type="checkbox" >
                 </td>
 
-                <!--<td>-->
-                  <!--<button @click="onEdit(props.item)">-->
-                    <!--<v-icon color="#5bc0de">edit</v-icon>-->
-                  <!--</button>{{ props.item.actions}}-->
-                  <!--<button @click="onDelete(props.item)">-->
-                    <!--<v-icon color="red">delete</v-icon>-->
-                  <!--</button>{{ props.item.actions}}-->
-
-                <!--</td>-->
               </template>
               <template slot="no-data">
                 <div></div>
@@ -87,66 +70,6 @@
       </tab>
       <tab id="ege_info" name="Изменение паспортных данных">
         <div class="inner_tab row">
-
-          <!--<div class="col-sm-4">-->
-            <!--<div>-->
-              <!--<p>Предметы</p>-->
-            <!--</div>-->
-            <!--<hr>-->
-            <!--<label class="row">-->
-              <!--<div class="form__label-text col-sm">Форма ЕГЭ:</div>-->
-
-              <!--&lt;!&ndash;<select v-model="tab_ege_selectedExamForm" class="minimal col-sm">&ndash;&gt;-->
-              <!--&lt;!&ndash;<option v-for="item in examForm" v-bind:value="item">&ndash;&gt;-->
-              <!--&lt;!&ndash;{{item.name}}&ndash;&gt;-->
-              <!--&lt;!&ndash;</option>&ndash;&gt;-->
-              <!--&lt;!&ndash;</select>&ndash;&gt;-->
-              <!--<select v-model="tab_ege_selectedExamForm" class="minimal col-sm">-->
-                <!--<option v-for="option in options_ege">-->
-                  <!--{{option.item}}-->
-                <!--</option>-->
-              <!--</select>-->
-            <!--</label>-->
-            <!--<label class="row">-->
-              <!--<div class="form__label-text col-sm">Год сдачи:</div>-->
-              <!--<input v-validate="'digits:4'" data-vv-as="год сдачи" v-model="tab_ege_year" class="form__input col-sm" type="text" name="examyear" placeholder="****" v-mask="'####'"/>-->
-            <!--</label>-->
-
-            <!--<span class="alarm_label">{{ errors.first('examyear') }}</span>-->
-
-            <!--<label class="row">-->
-              <!--<div class="form__label-text col-sm">Предмет:</div>-->
-              <!--&lt;!&ndash;<select v-model="tab_ege_selectedSubject" class="minimal col-sm">&ndash;&gt;-->
-              <!--&lt;!&ndash;<option v-for="item in subject" v-bind:value="item">&ndash;&gt;-->
-              <!--&lt;!&ndash;{{item.name}}&ndash;&gt;-->
-              <!--&lt;!&ndash;</option>&ndash;&gt;-->
-              <!--&lt;!&ndash;</select>&ndash;&gt;-->
-              <!--<select v-model="tab_ege_selectedSubject" class="minimal col-sm" required>-->
-                <!--<option v-for="option in options_subject">-->
-                  <!--{{option.item}}-->
-                <!--</option>-->
-              <!--</select>-->
-              <!--&lt;!&ndash;<input class="form__input col-sm" type="text" name="" placeholder="русский язык" disabled/>&ndash;&gt;-->
-            <!--</label>-->
-            <!--<label class="row">-->
-              <!--<div class="form__label-text col-sm-6">Балл:</div>-->
-              <!--<input v-model="tab_ege_score" class="form__input col-sm-6" type="number"  v-mask="'###'" />-->
-            <!--</label>-->
-            <!--<hr>-->
-
-            <!--<div class="clear_save_button row">-->
-              <!--<button @click="onClearFields">Очистить</button>-->
-              <!--<button v-if="this.person.ege_info.length < 3" @click="onAddEge">Добавить</button>-->
-              <!--&lt;!&ndash;<button @click="onSaveParent">Сохранить изм-я</button>&ndash;&gt;-->
-            <!--</div>-->
-
-            <!--<label class="row">-->
-              <!--<div class="form__label-text col-sm">Паспортные данные изменились:</div>-->
-              <!--<input v-model="tab_ege_changePaspInf" class="checkbox col-sm" type="checkbox" id="hostel">-->
-            <!--</label>-->
-          <!--</div>-->
-
-          <!---->
           <div v-if="person.ege_info[0].tab_ege_changePaspInf" class="col-sm-4">
             <div>
               <p>Паспортные данные при сдаче химии</p>
@@ -228,7 +151,7 @@
             </div>
           </div>
 
-          <div v-if="person.ege_info[1].tab_ege_changePaspInf" class="col-sm-4">
+          <div v-if="this.person.ege_info[1].tab_ege_changePaspInf" class="col-sm-4">
             <div>
               <p>Паспортные данные при сдаче биологии</p>
             </div>
@@ -323,7 +246,7 @@
                   </option>
                 </select>
               </label>
-              <span class="alarm_label" v-if="tab_ege_selectedIdentityCardCode===''">Не выбран тип документа</span>
+              <span class="alarm_label" v-if="person.ege_info[2].tab_ege_selectedIdentityCardCode===''">Не выбран тип документа</span>
               <label class="row">
                 <div class="form__label-text col-sm">Серия:</div>
                 <input name="pspseries" v-if="tab_ege_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="person.ege_info[2].tab_ege_identityCardSeries" class="form__input col-sm" type="text" placeholder="****" v-mask="'####'" required/>
@@ -434,7 +357,7 @@
         'tab_ege_identityCardIssueBy','tab_ege_documentNumber','tab_ege_typographyNumber', 'tab_ege_info_selectedCitizenship',
         'tab_ege_sumScores','tab_ege_score','tab_ege_selectedSubject', 'tab_ege_selectedIdentityCardCode',
         'tab_ege_selectedExamForm','tab_ege_year','tab_ege_score_fis', 'tab_ege_appelation','biology_score',
-        'russian_score','chemistry_score',
+        'russian_score','chemistry_score','tab_ege_changePaspInf'
       ]),
       // ...tab_personal_info_fields(['tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename',
       //  'tab_personal_selectedIdentityCardCode','tab_personal_identityCardSeries','tab_personal_identityCardNumber',
