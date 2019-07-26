@@ -19,8 +19,9 @@
               {{item.name}}
             </option>
           </select>
-
         </label>
+
+
         <!--<label class="row">-->
           <!--<div class="form__label-text col-sm">Перевести на бюджет:</div>-->
           <!--<input class="checkbox col-sm" type="checkbox" id="budget">-->
@@ -38,6 +39,7 @@
           <input v-model="fullname" class="uneditable form__input col-sm" type="text" name="" disabled />
         </label>
     </div>
+
     </div>
     <div class="clear_save_button row">
       <button @click="onNext">Далее ->></button>
@@ -78,7 +80,7 @@
     },
 
     computed: {
-      ...applications(['application','contacts','application_person_name']),
+      ...applications(['application','contacts','application_person_name',]),
       ...mapState('enums',['deliveryType', 'docType']),
       ...mapGetters('enums',['GET_DELIVERY_TYPE','GET_DOC_TYPE']),
       ...person(['person','person_info_id']),

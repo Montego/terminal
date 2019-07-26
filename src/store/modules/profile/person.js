@@ -122,6 +122,7 @@ export default {
       saved:'Не сохранено',
       acceptedPerson: "",
       person_info: {
+        fisSettlementTypeId:"",
         tab_personal_lastname: "",
         tab_personal_firstname: '',
         tab_personal_middlename: '',
@@ -259,7 +260,8 @@ export default {
         saved:'',
         application_number:'',
         application_date: '',
-        application_selectedDeliveryType:'',
+        application_selectedDeliveryReturnType:{"id":0,"name":"Лично"},
+        application_selectedDeliveryType:{"id":0,"name":"Лично"},
         application_selectedDocType:{"id":0,"name":"Копия"},
         application_person_name:'',
         choosenWizards:[

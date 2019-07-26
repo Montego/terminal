@@ -8,16 +8,16 @@
     @validatorConditions="validatorConditions"
   />
 
-    <span>{{moment(dateToday).format('YYYY-MM-DD')}}</span>
+    <!--<span>{{moment(dateToday).format('YYYY-MM-DD')}}</span>-->
   <div class="inside_tab">
     <div class="row">
-      <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
-        <div class="form__label-text col-sm">Номер заявления:</div>
-        <input v-model="person.application.application_number" class="form__input col-sm" type="text" disabled/>
-      </div>
+      <!--<div v-if="!this.isModalVisible" class="flex-column col-sm-2">-->
+        <!--<div class="form__label-text col-sm">Номер заявления:</div>-->
+        <!--<input v-model="person.application.application_number" class="form__input col-sm-8" type="text" disabled/>-->
+      <!--</div>-->
       <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
         <div class="form__label-text col-sm">Дата заявления:</div>
-        <input v-model="person.application.application_date" class="form__input col-sm" type="date" id= "theDate"  min="1918-01-01" max="2019-01-01" />
+        <input v-model="person.application.application_date = moment(dateToday).format('YYYY-MM-DD')" class="form__input col-sm" type="date" id= "theDate"  min="1918-01-01" max="2019-01-01" />
       </div>
       <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
         <div class="form__label-text col-sm">Тип доставки:</div>
@@ -27,6 +27,15 @@
           </option>
         </select>
       </div>
+      <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
+        <div class="form__label-text col-sm">Тип возврата:</div>
+        <select v-model="application.application_selectedDeliveryReturnType"  class="minimal col-sm">
+          <option v-for="item in deliveryType" v-bind:value="item">
+            {{item.name}}
+          </option>
+        </select>
+      </div>
+
       <!--<div v-if="!this.isModalVisible" class="flex-column col-sm-2">-->
         <!--<div class="form__label-text col-sm">Тип доставки:</div>-->
         <!--<select v-model="person.application.application_selectedDeliveryType"  class="minimal col-sm">-->
@@ -35,20 +44,20 @@
           <!--</option>-->
         <!--</select>-->
       <!--</div>-->
-      <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
-        <div class="form__label-text col-sm">Копия/оригинал:</div>
-        <select v-model="person.application.application_selectedDocType" class="minimal col-sm">
+      <div v-if="!this.isModalVisible" class=" col-sm-4">
+        <div class="form__label-text col-sm-8">Документ об образовании:</div>
+        <select v-model="person.application.application_selectedDocType" class="minimal col-sm-6">
           <option v-for="item in docType" v-bind:value="item">
             {{item.name}}
           </option>
         </select>
       </div>
-      <div v-if="!this.isModalVisible" class="flex-column col-sm-4">
-        <div class="form__label-text col-sm">Абитуриент:</div>
-        <!--<input v-model="resultApl.application_person_name" class="uneditable form__input col-sm" type="text" name="" disabled />-->
-        <input :value="tab_personal_lastname + ' ' + tab_personal_firstname+ ' '+ tab_personal_middlename" class="uneditable form__input col-sm-8" type="text" name="name"
-               placeholder="Заполняется автоматически" disabled="disabled"/>
-      </div>
+      <!--<div v-if="!this.isModalVisible" class="flex-column col-sm-4">-->
+        <!--<div class="form__label-text col-sm">Абитуриент:</div>-->
+        <!--&lt;!&ndash;<input v-model="resultApl.application_person_name" class="uneditable form__input col-sm" type="text" name="" disabled />&ndash;&gt;-->
+        <!--<input :value="tab_personal_lastname + ' ' + tab_personal_firstname+ ' '+ tab_personal_middlename" class="uneditable form__input col-sm-8" type="text" name="name"-->
+               <!--placeholder="Заполняется автоматически" disabled="disabled"/>-->
+      <!--</div>-->
     </div>
 
     <tabs class="condition_tabs">
@@ -299,6 +308,7 @@
       return{
         dateToday: Date.now(),
 
+
         counter: 0,
         isOneAgree: true,
         agrees:[],
@@ -370,7 +380,7 @@
     computed: {
       ...mapState('person', {person: state => state.person,}),
       ...applications(['application','contacts','application_person_name','resultApl','apls',
-      'agree','agreeDate','special_right', 'typeOfSpecialRight',
+        'agree','agreeDate','special_right', 'typeOfSpecialRight',
         'proofSpecialRight1','descriptionSpecialRight1','serialSpecialRight1','numberSpecialRight1','docTypeSpecialRight1','dateSpecialRight1',
         'proofSpecialRight2','descriptionSpecialRight2','serialSpecialRight2','numberSpecialRight2','docTypeSpecialRight2','dateSpecialRight2',
         'proofSpecialRight3','descriptionSpecialRight3','serialSpecialRight3','numberSpecialRight3','docTypeSpecialRight3','dateSpecialRight3',
@@ -401,7 +411,8 @@
         if (day < 10) day = "0" + day;
         let today = year + "-" + month + "-" + day;
         document.getElementById("theDate").value = today;
-      }
+      },
+
     },
 
     mounted () {

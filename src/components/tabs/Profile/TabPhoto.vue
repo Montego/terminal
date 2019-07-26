@@ -28,15 +28,16 @@
         <!--<button class="photo-loader__control-btn btn btn_load" type="button">-->
         <input type="file" id="image" ref="image" @change="uploadFile"/>
         <button v-if="!this.isModalVisible" class="photo-loader__control-btn /btn btn_reset" type="button" @click="removeImage">Сбросить</button>
-
       </div>
     </div>
-    <!--<button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="onSave">Сохранить профиль</button>-->
+      <div v-if="!this.isModalVisible">
+        <button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="onSave">Сохранить профиль</button>
+      </div>
 
     <!--<div v-if="!this.isModalVisible"  >-->
       <!--<button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="showModal">Заявление</button>-->
     <!--</div>-->
-    <div v-if="!this.isModalVisible"  >
+    <div v-if="!this.isModalVisible">
       <button  class="photo-loader__control-btn btn btn_save" type="button" @click="showModal">Заявление</button>
     </div>
 
@@ -119,6 +120,7 @@
         }
       },
       methods: {
+        ...mapGetters(['ADRDTO']),
         handleClick(val) {
           this.showProfile = val;
         },
@@ -171,10 +173,6 @@
             //       })
             //  })
 
-
-
-
-
         },
         closeModal() {
           this.isModalVisible = false;
@@ -197,7 +195,6 @@
           let i = 0;
           //проверка на только 1 целевое направление
               for(i; i< this.apls.length; i++) {
-
                 if (this.apls[i].chose === true && this.apls[i].environmentId === 'ЦелНапр') {
                   counterCheckTargOrg++;
                   console.log('counter + ', counterCheckTargOrg)
@@ -213,15 +210,8 @@
               }else{
                 this.checkTargCount = false;
               }
-
-
-
-
           console.log('result counter ', counterCheckTargOrg)
         },
-
-
-
 
 
         onAppl(id) {
@@ -232,18 +222,16 @@
             if(this.apls[i].chose === true) {
                 this.person.application.choosenWizards.push(this.apls[i]);
             }
-
           }
 
           let strangeCounter =
             Object.keys(this.person.application.choosenWizards
               .reduce( (accum, el) => {accum[el.specialityId] = true;  return accum;}, [])).length;
           console.log(strangeCounter, 'strangeCounter');
-          console.log(strangeCounter, 'strangeCounter');
 
           if(strangeCounter >3){
             this.isModalVisible = true;
-            this.message = "Можно выбрать только 3 специальности!        "
+            this.message = "Можно выбрать только 3 специальности!        ";
             this.person.application.choosenWizards = [];
           }else{
             this.message = ""
@@ -356,71 +344,111 @@
           this.person.person_info.extraInfosDescription2 = this.extraInfosDescription2;
 
           this.person.person_info.image = this.image;
+          this.person.person_info.addressesDto = this.ADRDTO();
           this.person.person_info.showimage = this.showimage;
-
+          this.person.saved = "Сохранено";
+          this.person.application.saved = "Сохранено";
           // console.log(this.person.person_info.tab_personal_lastname)
+          this.person_info_id = '';
+          this.person.person_info_id = '';
 
-          if(this.person_info_id === ''){
+
+          if(this.person.person_info_id === '') {
             AXIOS.post(`/profile`, (this.person))
               .then(response => {
-                //todo push to tablePerson
-                this.info.push(response.data)
-                location.href='profile#overview_personal_info';
-                this.person.ege_info = [];
+                this.person.saved = "Сохранено";
+                this.person.application.saved = response.data;
+                // this.info.push(response.data)
+                this.person_info_id = ''
+                // this.person.ege_info = [];
                 this.person.parents_info = [];
                 this.person.futures_info = [];
-                this.person_info_id='';
-                this.person.application = [];
+                this.person_info_id = '';
+                this.person.person_info_id = '';
+                this.person.applications = [];
 
-                AXIOS.get(`/profile/personsTable`)
-                  .then(response => {
-                    this.profiles = response.data;
-                    console.log(this.profiles)
-                  })
-                  .catch(e => {
-                    this.errors.push(e)
-                  })
+                this.person.application.application_number = '';
+                this.person.application.application_date = '';
+                this.person.application.application_selectedDeliveryType = {};
+                this.person.application.application_selectedDocType = '';
+                this.person.application.application_person_name = '';
+                this.profiles = [];
 
+
+                this.person.ege_info[0].tab_ege_selectedSubject = 'Химия';
+                this.person.ege_info[0].tab_ege_score = 0;
+                this.person.ege_info[0].tab_ege_year = {
+                  "academyYearId": "2019",
+                  "description": "2019-ый учебный год",
+                  "beginPeriod": "2019-01-01",
+                  "endPeriod": "2019-12-31"
+                };
+                this.person.ege_info[0].tab_ege_changePaspInf = false;
+                this.person.ege_info[0].tab_ege_lastname = '';
+                this.person.ege_info[0].tab_ege_firstname = '';
+                this.person.ege_info[0].tab_ege_middlename = '';
+                this.person.ege_info[0].tab_ege_selectedIdentityCardCode = null;
+                this.person.ege_info[0].tab_ege_identityCardSeries = '';
+                this.person.ege_info[0].tab_ege_identityCardNumber = '';
+                this.person.ege_info[0].tab_ege_identityCardIssueDate = '';
+                this.person.ege_info[0].tab_ege_identityCardIssueBy = '';
+                this.person.ege_info[0].tab_ege_info_selectedCitizenship = null;
+
+                this.person.ege_info[1].tab_ege_selectedSubject = 'Биология';
+                this.person.ege_info[1].tab_ege_score = 0;
+                this.person.ege_info[1].tab_ege_year = {
+                  "academyYearId": "2019",
+                  "description": "2019-ый учебный год",
+                  "beginPeriod": "2019-01-01",
+                  "endPeriod": "2019-12-31"
+                };
+                this.person.ege_info[1].tab_ege_changePaspInf = false;
+                this.person.ege_info[1].tab_ege_lastname = '';
+                this.person.ege_info[1].tab_ege_firstname = '';
+                this.person.ege_info[1].tab_ege_middlename = '';
+                this.person.ege_info[1].tab_ege_selectedIdentityCardCode = null;
+                this.person.ege_info[1].tab_ege_identityCardSeries = '';
+                this.person.ege_info[1].tab_ege_identityCardNumber = '';
+                this.person.ege_info[1].tab_ege_identityCardIssueDate = '';
+                this.person.ege_info[1].tab_ege_identityCardIssueBy = '';
+                this.person.ege_info[1].tab_ege_info_selectedCitizenship = null;
+
+                this.person.ege_info[2].tab_ege_selectedSubject = 'Русский язык';
+                this.person.ege_info[2].tab_ege_score = 0;
+                this.person.ege_info[2].tab_ege_year = {
+                  "academyYearId": "2019",
+                  "description": "2019-ый учебный год",
+                  "beginPeriod": "2019-01-01",
+                  "endPeriod": "2019-12-31"
+                };
+                this.person.ege_info[2].tab_ege_changePaspInf = false;
+                this.person.ege_info[2].tab_ege_lastname = '';
+                this.person.ege_info[2].tab_ege_firstname = '';
+                this.person.ege_info[2].tab_ege_middlename = '';
+                this.person.ege_info[2].tab_ege_selectedIdentityCardCode = null;
+                this.person.ege_info[2].tab_ege_identityCardSeries = '';
+                this.person.ege_info[2].tab_ege_identityCardNumber = '';
+                this.person.ege_info[2].tab_ege_identityCardIssueDate = '';
+                this.person.ege_info[2].tab_ege_identityCardIssueBy = '';
+                this.person.ege_info[2].tab_ege_info_selectedCitizenship = null;
+
+                console.log('saved person ' + response.data)
               })
               .catch(e => {
-                this.errors.push(e)
+                this.person.saved = "Не сохранено";
+
               })
           }else {
             AXIOS.put('/profile/person/' + this.person_info_id,(this.person))
               .then(response =>{
                 console.log(response)
                 console.log(this.person)
-                location.href='profile#overview_personal_info';
-                this.person.ege_info = [];
-                this.person.parents_info = [];
-                // this.person.person_info = {};
-                this.person.futures_info = [];
-                this.person_info_id='';
               console.log("person was updated")})
               .catch(e => {
                 this.errors.push(e)
               })
-
-
-            AXIOS.get(`/profile/personsTable`)
-              .then(response => {
-                this.profiles = response.data;
-                console.log(this.profiles)
-              })
-              .catch(e => {
-                this.errors.push(e)
-              })
-
           }
 
-          AXIOS.get(`/profile/personsTable`)
-            .then(response => {
-              this.profiles = response.data;
-              console.log(this.profiles)
-            })
-            .catch(e => {
-              this.errors.push(e)
-            })
 
         },
         uploadFile(e) {

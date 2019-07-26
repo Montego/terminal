@@ -38,6 +38,10 @@ export default {
     application: {
       saved:'',
 
+      application_number:'',
+      application_date: '',
+      application_selectedDeliveryReturnType:{"id":0,"name":"Лично"},
+      application_selectedDeliveryType:{"id":0,"name":"Лично"},
       application_condition:[],
       application_documents:[],
       applicationTable:[],
@@ -47,7 +51,7 @@ export default {
     application_person_name:'',
     application_number:'',
     application_date:'',
-    application_selectedDeliveryType: null,
+    application_selectedDeliveryType: {"id":0,"name":"Лично"},
     application_selectedDocType:null,
     applicationId:'',
 
@@ -84,6 +88,8 @@ export default {
 
   },
   computed: {
-
+    now: function () {
+      return Date.now()
+    }
   }
 }

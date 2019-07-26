@@ -459,7 +459,6 @@
                 this.profiles = [];
 
 
-
                 this.person.ege_info[0].tab_ege_selectedSubject= 'Химия';
                 this.person.ege_info[0].tab_ege_score= 0;
                 this.person.ege_info[0].tab_ege_year= {"academyYearId":"2019","description":"2019-ый учебный год","beginPeriod":"2019-01-01","endPeriod":"2019-12-31"};
@@ -501,10 +500,6 @@
                 this.person.ege_info[2].tab_ege_identityCardIssueDate=  '';
                 this.person.ege_info[2].tab_ege_identityCardIssueBy= '';
                 this.person.ege_info[2].tab_ege_info_selectedCitizenship= null;
-
-
-
-
 
 
 
@@ -554,14 +549,7 @@
 
           }
 
-          AXIOS.get(`/profile/personsTable`)
-            .then(response => {
-              this.profiles = response.data;
-              console.log(this.profiles)
-            })
-            .catch(e => {
-              this.errors.push(e)
-            })
+
 
           this.showProfile = true;
           location.href='profile#overview_personal_info';

@@ -16,6 +16,18 @@
                     <!--&gt; </textarea>-->
                     <div class="uneditable col-sm-10">{{ ADRText()[0] }}</div>
                 </label>
+              <label class="row">
+                <div class="form__label-text col-sm-3 ">ФИС</div>
+                <select v-model="person.person_info.fisSettlementTypeId" class="minimal col-sm-3 ">
+                  <option v-for="option in options_FIS">
+                    {{option.item}}
+                  </option>
+                </select>
+              </label>
+
+              <!--<div class="col-sm-5">-->
+                <!--<input v-model="person.person_info.fisSettlementTypeId" class="form__input col-sm" type="text"/>-->
+              <!--</div>-->
             </div>
             <div class="info_address2 col-sm">
                 <div>
@@ -84,7 +96,13 @@
             return {
                 checkedAddress: [],
                 factAddress: '',
-                show: -1
+                show: -1,
+
+              options_FIS: [
+                {id: 1, item: '0'},
+                {id: 2, item: '1'},
+                {id: 3, item: '2'},
+              ],
             }
         },
         // computed: {
@@ -98,6 +116,9 @@
             //     this.tab_address_factAddress = this.tab_address_registrationAddress;
             // },
         },
+      computed: {
+        ...person(['person',])
+      },
         components: {addresser}
     }
 </script>

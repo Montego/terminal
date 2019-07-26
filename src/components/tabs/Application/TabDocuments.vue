@@ -16,7 +16,11 @@
           <template slot="items" slot-scope="props">
             <td class="text-xs-center">{{ props.item.fullnameDoc}}</td>
             <td class="text-xs-center">{{ props.item.docTypeDoc.name}}</td>
-            <td class="text-xs-center">{{ props.item.dateOfIssueDoc}}</td>
+
+            <td class="text-xs-center">
+              <input v-model="props.item.dateOfIssueDoc" class="form__input col-sm-7" type="date"  >
+              <!--{{ props.item.dateOfIssueDoc}}-->
+            </td>
             <td class="text-xs-center">{{ props.item.countDoc }}</td>
             <td class="text-xs-center">
               <button @click="onDelete(props.item)">
@@ -126,13 +130,13 @@
         data(){
           return {
             newName:'',
-
+            dateToday: Date.now(),
             nameDoc:'',
             serialDoc:'',
             numberDoc:'',
             fullnameDoc:'',
             docTypeDoc:{"id":0,"name":"Копия"},
-            dateOfIssueDoc:'',
+            dateOfIssueDoc:'' ,
             countDoc:0,
             IssuedByDoc: '',
             auto: '',
@@ -159,7 +163,7 @@
             headers_documents: [
               {text: 'Название', value: 'name', sortable: false, align: 'center'},
               {text: 'Копия/оригинал', value: 'copy', sortable: false, align: 'center'},
-              {text: 'Дата выдачи', value: 'date', sortable: false, align: 'center'},
+              {text: 'Дата предоставления', value: 'date', sortable: false, align: 'center'},
               {text: 'Количество', value: 'count', sortable: false, align: 'center'},
               {text: 'Действия', value: 'actions', sortable: false, align: 'center'},
             ],
@@ -231,7 +235,6 @@
               for (let g = this.person.application.application_documents.length; g--; ){
                 if(this.person.application.application_documents[g].tab_document_auto){
                   this.person.application.application_documents.splice(g,1);
-                  console.log('blad ====',this.person.application.application_documents[g])
                 }
               }
             }
@@ -254,7 +257,7 @@
                 this.numberDoc = this.tab_personal_identityCardNumber,
                 this.fullnameDoc = this.tab_personal_selectedIdentityCardCode.identityCardNameFull + ' ' + this.tab_personal_identityCardSeries + ' ' + this.tab_personal_identityCardNumber,
                 this.docTypeDoc = this.tab_personal_identityCardDocType,
-                this.dateOfIssueDoc = this.tab_personal_identityCardIssueDate,
+                this.dateOfIssueDoc = this.moment(this.dateToday).format('YYYY-MM-DD'),
                 this.countDoc = 1,
                 this.IssuedByDoc = this.tab_personal_identityCardIssueBy,
                 this.tab_document_auto = true
@@ -298,20 +301,20 @@
                 this.IssuedByDoc = "",
                 this.tab_document_auto = true
               );
-              if (this.agree) {
-                let document6 = new Document(
-                  this.nameDoc = "Согласие на зачисление",
-                  this.serialDoc = "",
-                  this.numberDoc = "",
-                  this.fullnameDoc = "Согласие на зачисление",
-                  this.docTypeDoc = {"id": 1, "name": "Оригинал"},
-                  this.dateOfIssueDoc = "",
-                  this.countDoc = 1,
-                  this.IssuedByDoc = "",
-                  this.tab_document_auto = true
-                );
-                this.person.application.application_documents.push(document6);
-              }
+              // if (this.agree) {
+              //   let document6 = new Document(
+              //     this.nameDoc = "Согласие на зачисление",
+              //     this.serialDoc = "",
+              //     this.numberDoc = "",
+              //     this.fullnameDoc = "Согласие на зачисление",
+              //     this.docTypeDoc = {"id": 1, "name": "Оригинал"},
+              //     this.dateOfIssueDoc = "",
+              //     this.countDoc = 1,
+              //     this.IssuedByDoc = "",
+              //     this.tab_document_auto = true
+              //   );
+              //   this.person.application.application_documents.push(document6);
+              // }
 
               let document7 = new Document(
                 this.nameDoc = "Согласие на обработку данных",

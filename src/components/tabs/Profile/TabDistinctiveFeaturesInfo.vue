@@ -578,7 +578,6 @@
             this.doc3_IssueBy = this.person.futures_info[index].doc3_IssueBy;
 
 
-
           },
 
           onAddDocuments() {
@@ -591,7 +590,6 @@
           onAddFeature() {
             if (this.editedIndex > -1) {
               console.log('its redaction ')
-
 
               this.editedItem.tab_features_selectedAttrType = this.tab_features_selectedAttrType;
               this.editedItem.tab_features_selectedPreference = this.tab_features_selectedPreference;
