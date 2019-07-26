@@ -20,7 +20,7 @@
                 <div class="form__label-text col-sm-3 ">ФИС</div>
                 <select v-model="person.person_info.fisSettlementTypeId" class="minimal col-sm-3 ">
                   <option v-for="option in options_FIS">
-                    {{option.item}}
+                    {{option.name}}
                   </option>
                 </select>
               </label>
@@ -98,10 +98,13 @@
                 factAddress: '',
                 show: -1,
 
+
+
               options_FIS: [
-                {id: 1, item: '0'},
-                {id: 2, item: '1'},
-                {id: 3, item: '2'},
+                {id: 1,name: 'Город федерального значения'},
+                {id: 2,name: 'Город'},
+                {id: 3,name: 'Населенный пункт городского типа'},
+                {id: 3,name: 'Населенный пункт сельского типа'},
               ],
             }
         },
@@ -124,6 +127,40 @@
 </script>
 
 <style scoped>
+  select.minimal {
+    background-image:
+      linear-gradient(45deg, transparent 50%, gray 50%),
+      linear-gradient(135deg, gray 50%, transparent 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 20px) calc(1em + 2px),
+      calc(100% - 15px) calc(1em + 2px),
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+  }
+
+  select.minimal:focus {
+    background-image:
+      linear-gradient(45deg, green 50%, transparent 50%),
+      linear-gradient(135deg, transparent 50%, green 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 15px) 1em,
+      calc(100% - 20px) 1em,
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+    border-color: grey;
+    outline: 0;
+  }
+
     input.checkbox {
         height: 15px;
         transform: scale(1.3);

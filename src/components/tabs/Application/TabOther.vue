@@ -434,9 +434,6 @@
 
 
           if(this.person.person_info_id === ''){
-
-
-
             AXIOS.post(`/profile`, (this.person))
               .then(response => {
                 this.person.saved = "Сохранено";
@@ -522,20 +519,20 @@
                 // this.errors.push(e)
               })
           }else {
-            // AXIOS.put('/profile/person/' + this.person_info_id,(this.person))
-            //   .then(response =>{
-            //     console.log(response)
-            //     console.log(this.person)
-            //     location.href='profile#overview_personal_info';
-            //     this.person.ege_info = [];
-            //     this.person.parents_info = [];
-            //     // this.person.person_info = {};
-            //     this.person.futures_info = [];
-            //     this.person_info_id='';
-            //     console.log("person was updated")})
-            //   .catch(e => {
-            //     this.errors.push(e)
-            //   })
+            AXIOS.put('/profile/person/' + this.person.id,(this.person))
+              .then(response =>{
+                console.log(response)
+                console.log(this.person)
+                location.href='profile#overview_personal_info';
+                this.person.ege_info = [];
+                this.person.parents_info = [];
+                // this.person.person_info = {};
+                this.person.futures_info = [];
+                this.person_info_id='';
+                console.log("person was updated")})
+              .catch(e => {
+                this.errors.push(e)
+              })
 
 
             AXIOS.get(`/profile/personsTable`)

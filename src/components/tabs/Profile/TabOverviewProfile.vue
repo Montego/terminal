@@ -410,7 +410,10 @@
 
         onNewProfile(){
 
+          this.successMessage = "";
+          this.errorMesages = [];
 
+          this.person.id = '';
           this.person.person_info.id = '';
           this.person_info_id='';
           this.person.person_info_id = '';

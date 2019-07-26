@@ -30,15 +30,17 @@
         <button v-if="!this.isModalVisible" class="photo-loader__control-btn /btn btn_reset" type="button" @click="removeImage">Сбросить</button>
       </div>
     </div>
+    <span>{{successMessage}}</span>
+    <span>{{errorMessages}}</span>
       <div v-if="!this.isModalVisible">
-        <button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="onSave">Сохранить профиль</button>
+        <button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="onSave">Проверить заполнение</button>
       </div>
 
     <!--<div v-if="!this.isModalVisible"  >-->
       <!--<button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="showModal">Заявление</button>-->
     <!--</div>-->
     <div v-if="!this.isModalVisible">
-      <button  class="photo-loader__control-btn btn btn_save" type="button" @click="showModal">Заявление</button>
+      <button v-if="person.saved ==='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="showModal">Заявление</button>
     </div>
 
   </div>
@@ -84,7 +86,7 @@
       },
       computed: {
         ...mapMultiRowFields(['persons']),
-        ...person(['person','showProfile','profiles','isModalVisible',
+        ...person(['person','showProfile','profiles','isModalVisible','errorMessages','successMessage',
           'tab_personal_lastname',  'tab_personal_firstname', 'tab_personal_middlename' , 'tab_personal_lastname_genitive',
           'tab_personal_firstname_genitive','tab_personal_middlename_genitive','tab_personal_selectedGender',
           'tab_personal_birthDate', 'tab_personal_INIPA', 'tab_personal_INIPADate','tab_personal_note',
@@ -346,18 +348,24 @@
           this.person.person_info.image = this.image;
           this.person.person_info.addressesDto = this.ADRDTO();
           this.person.person_info.showimage = this.showimage;
-          this.person.saved = "Сохранено";
-          this.person.application.saved = "Сохранено";
+          // this.person.saved = "Сохранено";
+          // this.person.application.saved = "Сохранено";
           // console.log(this.person.person_info.tab_personal_lastname)
           this.person_info_id = '';
           this.person.person_info_id = '';
 
 
           if(this.person.person_info_id === '') {
+            // this.person.saved = "Сохранено";
             AXIOS.post(`/profile`, (this.person))
               .then(response => {
-                this.person.saved = "Сохранено";
-                this.person.application.saved = response.data;
+                this.person.id = response.data;
+                if(this.person.id !== ''){
+                  this.person.saved = "Сохранено";
+                  this.successMessage = "Проверено, обязательные поля заполнены";
+                }
+
+                // this.person.application.saved = response.data;
                 // this.info.push(response.data)
                 this.person_info_id = ''
                 // this.person.ege_info = [];
@@ -435,6 +443,7 @@
                 console.log('saved person ' + response.data)
               })
               .catch(e => {
+                this.errorMessages.push[e];
                 this.person.saved = "Не сохранено";
 
               })

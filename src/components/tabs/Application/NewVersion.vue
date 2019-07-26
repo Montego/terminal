@@ -59,7 +59,7 @@
                <!--placeholder="Заполняется автоматически" disabled="disabled"/>-->
       <!--</div>-->
     </div>
-
+{{person.application.choosenWizards}}
     <tabs class="condition_tabs">
       <tab id="conditions_overview" name="Обзор">
 

@@ -12,7 +12,9 @@ export default {
     applicationId: '',
     contactPersonId: '',
 
-    // dateToday: moment(Date.now()).format('YYYY-MM-DD'),
+    successMessage:"",
+    errorMesages: [],
+
     showProfile: true,
     profiles:[],
 
@@ -118,6 +120,7 @@ export default {
     savedResult:'',
 
     person : {
+      id: '',
       axaptaIds:{},
       saved:'Не сохранено',
       acceptedPerson: "",
