@@ -25,6 +25,14 @@ let dateConvert = function(date){
 };
 
 
+let fillAddressText = function(a, d = '', k = '', r = ''){
+  d = d === '' ? '' : ', ' + d;
+  k = k === '' ? '' : ', ' + k;
+  r = r === '' ? '' : ', ' + r;
+  return a + d + k + r;
+
+};
+
 let boolConvert = function(b){
   return b ? 1 : 0;
 };
@@ -68,6 +76,7 @@ let fillPK = function(s){
   console.log(info.tab_edu_military_selectedSoldiery, 'info.tab_edu_military_selectedSoldiery');
 
   return {
+    "fisSettlementTypeId" : "",
     "soldieryId": info.tab_edu_military_selectedSoldiery ? info.tab_edu_military_selectedSoldiery['soldieryId'] : "Невоеннообязанный", // //
     "soldieryStatus": info.tab_edu_military_selectedSoldieryStatus.id, // 0, // ??? tab_edu_military_selectedSoldieryStatus
     "militaryFormDoc": info.tab_edu_military_selectedMilitaryFormDoc.id,
@@ -407,7 +416,7 @@ let fillEge = function(s){
       "identityCardNumber": ege.tab_ege_identityCardNumber > '' ? ege.tab_ege_identityCardNumber  :  person.tab_personal_identityCardNumber  , // "98425252",
       "identityCardIssueBy": ege.tab_ege_identityCardIssueBy  > '' ?  ege.tab_ege_identityCardIssueBy  :  person.tab_personal_identityCardIssueBy  ,
       "identityCardCode": ege.tab_ege_selectedIdentityCardCode['identityCardCode'] || 'Паспорт РФ', //"87-89",
-      "yearDeliveryEge": ege.tab_ege_year > '' ? ege.tab_ege_year : '2019', // "2019",
+      "yearDeliveryEge": ege.tab_ege_year > '' ? ege.tab_ege_year['academyYearId'] : '2019', // "2019",
 
 
 
@@ -490,7 +499,7 @@ let dtoToFias = function(dto){
     "flat": null2(dto.flat) ,//"21",
     "postalCode": "",
     "kladrCode": "",
-    "addressTxt": null2(dto.addressTxt), // "Россия, Санкт-Петербург г, Боткинская ул, д.15 корп.2, кв.21",
+    "addressTxt": fillAddressText(null2(dto.addressTxt), null2(dto.house['name']), null2(dto.flat), null2(dto.addressTxtRandom)), // , // "Россия, Санкт-Петербург г, Боткинская ул, д.15 корп.2, кв.21",
     "addressTxt_random": null2(dto.addressTxtRandom), //"",
     "aoLevel65": 65,
     "aoLevel65ObjRef": null2(dto.aolevel65['refId']),

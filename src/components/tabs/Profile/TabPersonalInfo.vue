@@ -7,89 +7,88 @@
       </div>
       <hr>
       <div>
-        <label class="row">
+        <label class="row computed-auto">
           <div class=" form__label-text col-sm-4">Ф.И.О</div>
-          <input :value="tab_personal_lastname + ' ' + tab_personal_firstname+ ' '+ tab_personal_middlename" class="uneditable form__input col-sm-8" type="text" name="name"
+          <input :value="(tab_personal_lastname + ' ' + tab_personal_firstname+ ' '+ tab_personal_middlename).trim()" class="uneditable form__input col-sm-8" type="text" name="name"
                  placeholder="Заполняется автоматически" disabled="disabled"/>
         </label>
 
-        <label class="row">
+        <label :class="{ row : true , error1 : $v.tab_personal_lastname.$invalid}">
           <span class="form__label-text col-sm">Фамилия</span>
-          <input data-vv-as="фамилия" v-validate="'alpha_spaces'" v-model="tab_personal_lastname" value= "" class="form__input col-sm" type="text" name="lastname" required/>
+          <input v-model="tab_personal_lastname" value= "" class="form__input col-sm" type="text" name="lastname" />
         </label>
-        <span class="alarm_label">{{ errors.first('lastname') }}</span>
+        <!--<span class="alarm_label">{{ errors.first('lastname') }}</span>-->
         <!--<span class="alarm_label" v-if="tab_personal_lastname===''">Не заполнено поле "Фамилия"</span>-->
-        <label class="row">
-          <div class="form__label-text col-sm">Имя</div>
-          <input data-vv-as="имя" v-validate="'alpha_spaces'"  v-model="tab_personal_firstname" class="form__input col-sm" type="text" name="firstname" required/>
+
+        <label :class="{ row : true , error1 : $v.tab_personal_firstname.$invalid}">
+          <span class="form__label-text col-sm">Имя</span>
+          <input v-model="tab_personal_firstname" class="form__input col-sm" type="text" name="firstname" />
         </label>
-        <span class="alarm_label">{{ errors.first('firstname') }}</span>
+        <!--<span class="alarm_label">{{ errors.first('firstname') }}</span>-->
         <label class="row">
-          <div class="form__label-text col-sm">Отчество</div>
+          <span class="form__label-text col-sm">Отчество</span>
           <input data-vv-as="отчество"  v-validate="'alpha_spaces'" v-model="tab_personal_middlename" class="form__input col-sm" type="text" name="middlename"/>
         </label>
-        <span class="alarm_label">{{ errors.first('middlename') }}</span>
+        <!--<span class="alarm_label">{{ errors.first('middlename') }}</span>-->
         <hr>
-        <label class="row">
-          <div class="form__label-text col-sm">Фамилия в род.п.</div>
-          <input v-validate="'alpha_spaces'" data-vv-as="фамилия в род.п." v-model="tab_personal_lastname_genitive" class="form__input col-sm" type="text" name="lastname_genitive" required/>
+        <label :class="{ row : true , error1 : $v.tab_personal_lastname_genitive.$invalid}">
+          <span class="form__label-text col-sm">Фамилия в род.п.</span>
+          <input v-model="tab_personal_lastname_genitive" class="form__input col-sm" type="text" name="lastname_genitive" />
         </label>
-        <span class="alarm_label">{{ errors.first('lastname_genitive') }}</span>
-        <label class="row">
-          <div class="form__label-text col-sm">Имя в род.п.</div>
-          <input  v-validate="'alpha_spaces'" data-vv-as="имя в род.п." v-model="tab_personal_firstname_genitive" class="form__input col-sm" type="text" name="firstname_genitive"
-                 required/>
+        <!--<span class="alarm_label">{{ errors.first('lastname_genitive') }}</span>-->
+        <label :class="{ row : true , error1 : $v.tab_personal_firstname_genitive.$invalid}">
+          <span class="form__label-text col-sm">Имя в род.п.</span>
+          <input  v-model="tab_personal_firstname_genitive" class="form__input col-sm" type="text" name="firstname_genitive" />
         </label>
-        <span class="alarm_label">{{ errors.first('firstname_genitive') }}</span>
-        <label class="row">
-          <div class="form__label-text col-sm">Отчество в род.п.</div>
-          <input v-validate="'alpha_spaces'" data-vv-as="имя в род.п."  v-model="tab_personal_middlename_genitive" class="form__input col-sm" type="text" name="middlename_genitive"
-                 required/>
+        <!--<span class="alarm_label">{{ errors.first('firstname_genitive') }}</span>-->
+        <!--<label :class=" { row : true,   error1 : $v.tab_personal_middlename_genitive.$invalid } "> &lt;!&ndash;  &ndash;&gt;-->
+        <label :class="{ row : true , error1 : $v.tab_personal_middlename_genitive.$invalid}">
+          <span class="form__label-text col">Отчество в род.п.</span>
+          <input class="form__input col" v-model="tab_personal_middlename_genitive" type="text" name="middlename_genitive" />
         </label>
-        <span class="alarm_label">{{ errors.first('middlename_genitive') }}</span>
-        <label class="row">
-          <div class="form__label-text col-sm-4">Ф.И.О.(род. п.)</div>
-          <input :value="tab_personal_lastname_genitive + ' ' + tab_personal_firstname_genitive+ ' '+ tab_personal_middlename_genitive" class="uneditable form__input col-sm-8" type="text" name="snp_genitive"
+        <!--<span class="alarm_label">{{ $v.tab_personal_middlename_genitive.$invalid }} {{ this.tab_personal_middlename.length > 0 }} </span>-->
+        <label class="row computed-auto">
+          <span class="form__label-text col-sm-4">Ф.И.О.(род. п.)</span>
+          <input :value="(tab_personal_lastname_genitive + ' ' + tab_personal_firstname_genitive+ ' '+ tab_personal_middlename_genitive).trim()" class="uneditable form__input col-sm-8" type="text" name="snp_genitive"
                  placeholder="Заполняется автоматически" disabled="disabled"/>
         </label>
-        <span class="alarm_label">{{ errors.first('middlename_genitive') }}</span>
+        <!--<span class="alarm_label">{{ errors.first('middlename_genitive') }}</span>-->
 
 
+        <label :class="{ row : true , error1 : $v.tab_personal_selectedGender.$invalid}">
+          <span class="form__label-text col-sm">Пол:</span>
 
-
-        <div class="row">
-          <div class="form__label-text col-sm">Пол:</div>
-          <select v-model="tab_personal_selectedGender" class="minimal col-sm">
+          <select v-model="tab_personal_selectedGender"  class="minimal col-sm">
             <option v-for="item in gender" v-bind:value="item">
               {{item.name}}
             </option>
           </select>
-            <!--<v-icon @click="clearSelect">clear</v-icon>-->
-        </div>
+        </label>
+        <!--<span class="alarm_label">{{ $v.tab_personal_selectedGender }}</span>-->
 
 
-
-        <label class="row">
-          <div class="form__label-text col-sm">Дата рождения:</div>
+        <label :class="{ row : true , error1 : $v.tab_personal_birthDate.$invalid}">
+          <span class="form__label-text col-sm">Дата рождения:</span>
           <input v-validate data-vv-as="дата рождения" v-model="tab_personal_birthDate" class="form__input col-sm" type="date" name="birthday" min="1918-01-01" max="2019-01-01"/>
         </label>
         <span class="alarm_label">{{ errors.first('birthday') }}</span>
 
-        <label class="row">
+        <label class="row computed-auto">
           <div class="form__label-text col-sm">Полных лет:</div>
           <input v-model="fullage" class="form__input col-sm" type="text" name="age"
                  placeholder="Заполняется автоматически" disabled="disabled"/>
         </label>
-        <label class="row">
-          <div class="form__label-text col-sm">СНИЛС</div>
-          <input v-validate="'numeric'" data-vv-as="СНИЛС" v-model="tab_personal_INIPA" class="form__input col-sm" type="text" name="snils" placeholder="***-***-***" v-mask="'###-###-### ##'"
-                 required/>
+
+        <label :class="{ row : true , error1 : $v.tab_personal_INIPA.$invalid}">
+          <span class="form__label-text col-sm">СНИЛС</span>
+          <input v-model="tab_personal_INIPA" class="form__input col-sm" type="text" name="snils" placeholder="***-***-*** **" v-mask="'###-###-### ##'" />
         </label>
         <!--<span class="alarm_label">{{ errors.first('snils') }}</span>-->
-        <label class="row">
-          <div class="form__label-text col-sm">СНИЛС Дата:</div>
-          <input v-validate data-vv-as="дата СНИЛС" v-model="tab_personal_INIPADate" class="form__input col-sm" type="date" name="snils_date" min="1918-01-01" max="2019-01-01"/>
+        <label :class="{ row : true , error1 : $v.tab_personal_INIPADate.$invalid}">
+          <span class="form__label-text col-sm">СНИЛС Дата:</span>
+          <input @change="test()" v-model="tab_personal_INIPADate" class="form__input col-sm" type="date" name="snils_date" min="1918-01-01" max="2019-01-01"/>
         </label>
+
         <span class="alarm_label">{{ errors.first('snils_date') }}</span>
         <label class="row">
           <div class="form__label-text col-sm">Примечание:</div>
@@ -118,31 +117,42 @@
             <!--</option>-->
           <!--</select>-->
         </label>
-        <label class="row">
-          <div class="form__label-text col-sm">Серия:</div>
-          <input v-if="tab_personal_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required placeholder="****"  maxlength="4"/>
-          <input v-else v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
+        <label :class="{ row : true , error1 : $v.tab_personal_identityCardSeries.$invalid}">
+          <span class="form__label-text col-sm">Серия:</span>
+          <the-mask v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" :mask="docSerialParams.mask" :placeholder="docSerialParams.placeholder" :masked="false"
+                    :tokens="customTokens"
+                    value=""
+          />
+          <!--<input v-else v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" required/>-->
         </label>
-        <span class="alarm_label">{{ errors.first('doc_serial') }}</span>
-        <label class="row">
-          <div class="form__label-text col-sm">Номер:</div>
-          <input v-if="tab_personal_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number"required placeholder="******"  maxlength="6"/>
-          <input v-else v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number"required />
+
+
+        <!--this.docSerialParams.pdocSerialParams.placeholderlaceholder = '****';-->
+
+        <!-- = '######';-->
+        <!--this.docSerialParams.placeholder = '******';-->
+
+
+        <!--<span class="alarm_label">{{ errors.first('doc_serial') }}</span>-->
+        <label :class="{ row : true , error1 : $v.tab_personal_identityCardNumber.$invalid}">
+          <span class="form__label-text col-sm">Номер:</span>
+          <input v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number" v-mask="docNumberParams['mask']" :placeholder="docNumberParams.placeholder"/>
+          <!--<input v-else v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number" required />-->
         </label>
         <span class="alarm_label">{{ errors.first('doc_number') }}</span>
 
 
-        <label class="row">
-          <div class="form__label-text col-sm">Кем выдан:</div>
+        <label :class="{ row : true , error1 : $v.tab_personal_identityCardIssueBy.$invalid}">
+          <span class="form__label-text col-sm">Кем выдан:</span>
           <textarea v-model="tab_personal_identityCardIssueBy" class="col-sm" name="doc_issued_by"></textarea>
         </label>
-        <label class="row">
-          <div class="form__label-text col-sm">Дата выдачи:</div>
+        <label :class="{ row : true , error1 : $v.tab_personal_identityCardIssueDate.$invalid}">
+          <span class="form__label-text col-sm">Дата выдачи:</span>
           <input v-model="tab_personal_identityCardIssueDate" class="form__input col-sm" type="date" name="doc_issued_date" min="1918-01-01" max="2100-01-01"/>
         </label>
-        <label class="row">
-          <div class="form__label-text col-sm">Код подразделения:</div>
-          <input v-validate="'alpha_dash'" data-vv-as="код подразделения" v-model="tab_personal_identityCardIssueDep" class="form__input col-sm" type="text" name="doc_code_unit" placeholder="***-***" v-mask="'###-###'"
+        <label :class="{ row : true , error1 : $v.tab_personal_identityCardIssueDep.$invalid}">
+          <span class="form__label-text col-sm">Код подразделения:</span>
+          <input v-model="tab_personal_identityCardIssueDep" class="form__input col-sm" type="text" name="doc_code_unit" placeholder="***-***" v-mask="'###-###'"
                  required/>
         </label>
         <span class="alarm_label">{{ errors.first('doc_code_unit') }}</span>
@@ -159,13 +169,13 @@
       <label class="row">
 
         <div class="form__label-text col-sm">Соотечественник:</div>
-        <input v-if="tab_personal_selectedCitizenship.countryRegionId === 'РФ' || tab_personal_isForeignLikeRussian" v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" disabled>
+        <input v-if="tab_personal_selectedCitizenship.countryRegionId === 'РФ'" v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" disabled>
         <input v-else v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox" >
       </label>
       <label class="alarm_label">(При наличии подтверждающих документов)</label>
       <label class="row">
         <div class="form__label-text col-sm">Приравнять к иностранцам:</div>
-        <input v-if="tab_personal_isCompatriot" v-model="tab_personal_isEquatedForeign" class="checkbox col-sm" type="checkbox" disabled>
+        <input v-if="tab_personal_isCompatriot==true" v-model="tab_personal_isEquatedForeign" class="checkbox col-sm" type="checkbox" disabled>
         <input v-else v-model="tab_personal_isEquatedForeign" class="checkbox col-sm" type="checkbox" id="equate_foreign">
       </label>
       <label class="alarm_label">(Беларусь, Казахстан, Киргизия, Таджикистан)</label>
@@ -179,7 +189,7 @@
       </label>
       <label class="row">
         <div class="form__label-text col-sm">Иностранец, как гражданин РФ:</div>
-        <input v-if="tab_personal_selectedCitizenship==='РФ' || tab_personal_isCompatriot" v-model="tab_personal_isForeignLikeRussian" class="checkbox col-sm" type="checkbox" id="foreign_like_russian" disabled>
+        <input v-if="tab_personal_selectedCitizenship=='РФ'" v-model="tab_personal_isForeignLikeRussian" class="checkbox col-sm" type="checkbox" id="foreign_like_russian" disabled>
         <input v-else v-model="tab_personal_isForeignLikeRussian" class="checkbox col-sm" type="checkbox"  >
       </label>
       <div class="alarm_label">(С видом на жительство и аттестатом РФ. По соглашению)</div>
@@ -225,7 +235,7 @@
           <div class="form__label-text col-sm">Профессия:</div>
           <input v-model="tab_personal_seniority" class="form__input col-sm" type="text" placeholder=""/>
         </label>
-        <label class="row">
+        <label class="row computed-auto">
           <div class="form__label-text col-sm">Трудовой стаж:</div>
           <input :value="tab_personal_employYears + ',' + tab_personal_employMonths" class="uneditable form__input col-sm" type="text" name="seniority"
                  placeholder="Заполняется автоматически" disabled="disabled"/>
@@ -316,8 +326,49 @@
 
 <script>
   import {mapGetters, mapState} from 'vuex'
-  import { required, minLength, between, maxLength } from 'vuelidate/lib/validators'
+  // import { required, minLength, between, maxLength } from 'vuelidate/lib/validators'
+  import { required } from "vuelidate/lib/validators";
   import { createHelpers } from 'vuex-map-fields';
+  import {TheMask, mask} from 'vue-the-mask'
+
+  const checkINIPA = function validateSnils(snils) {
+    let result = false;
+    if (typeof snils === 'number') {
+      snils = snils.toString();
+    } else if (typeof snils !== 'string') {
+      snils = '';
+    }
+    snils = snils.replace(/[\s|-]/g, '');
+    if (!snils.length) {
+      // throw new Error('СНИЛС пуст');
+      return false;
+    } else if (/[^0-9]/.test(snils)) {
+      return false;// throw new Error('СНИЛС может состоять только из цифр');
+    } else if (snils.length !== 11) {
+      return false;// throw new Error('СНИЛС может состоять только из 11 цифр');
+    } else {
+      let sum = 0;
+      for (let i = 0; i < 9; i++) {
+        sum += parseInt(snils[i]) * (9 - i);
+      }
+      let checkDigit = 0;
+      if (sum < 100) {
+        checkDigit = sum;
+      } else if (sum > 101) {
+        checkDigit = parseInt(sum % 101);
+        if (checkDigit === 100) {
+          checkDigit = 0;
+        }
+      }
+      if (checkDigit === parseInt(snils.slice(-2))) {
+        result = true;
+      } else {
+        return false; // throw new Error('Неправильное контрольное число');
+      }
+    }
+    return result;
+  };
+
 
   const { mapFields } = createHelpers({
     getterType: `tab_personal_info/getField`,
@@ -335,6 +386,7 @@
 
   export default {
     name: "TabPersonalInfo",
+    components: {TheMask},
     beforeCreate() {
       this.$store.dispatch('enums/onLoadGender');
       this.$store.dispatch('dictionary/onLoadIdentityCardCode');
@@ -395,60 +447,22 @@
         return this.person.tab_personal_contactPersonNameGenitive = this.person.tab_personal_lastname_genitive + ' ' +
           this.person.tab_personal_firstname_genitive + ' ' + this.person.tab_personal_middlename_genitive
       },
-
-      //TODO проверить, по дням неправильно
       fullage: function () {
-        var today = new Date();
-        var birth = new Date(this.tab_personal_birthDate);
-        var age = today.getFullYear() - birth.getFullYear();
-        var m = today.getMonth() - birth.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
-          age--;
+        let today = new Date();
+        let birth = new Date(this.tab_personal_birthDate);
+        let age;
+        if(birth.toString()=== 'Invalid Date'){
+          age = '';
         }
-          return (isNaN(age)) ? '' : age;
+        else{
+          age = (new Date(today - birth)).getFullYear() - 1970;
+        }
+          return age;
       },
 
       fullseniority: function () {
         return this.tab_personal_seniority = this.person.tab_personal_employYears + ',' + this.person.tab_personal_employMonths
       },
-
-      checkSnils : function validateSnils(snils) {
-          let result = false;
-          if (typeof snils === 'number') {
-            snils = snils.toString();
-          } else if (typeof snils !== 'string') {
-            snils = '';
-          }
-          snils = snils.replace(/[\s|-]/g, '');
-          if (!snils.length) {
-            throw new Error('СНИЛС пуст');
-          } else if (/[^0-9]/.test(snils)) {
-            throw new Error('СНИЛС может состоять только из цифр');
-          } else if (snils.length !== 11) {
-            throw new Error('СНИЛС может состоять только из 11 цифр');
-          } else {
-            let sum = 0;
-            for (let i = 0; i < 9; i++) {
-              sum += parseInt(snils[i]) * (9 - i);
-            }
-            let checkDigit = 0;
-            if (sum < 100) {
-              checkDigit = sum;
-            } else if (sum > 101) {
-              checkDigit = parseInt(sum % 101);
-              if (checkDigit === 100) {
-                checkDigit = 0;
-              }
-            }
-            if (checkDigit === parseInt(snils.slice(-2))) {
-              result = true;
-            } else {
-              throw new Error('Неправильное контрольное число');
-            }
-          }
-          return result;
-        }
-
     },
 
     methods: {
@@ -468,26 +482,45 @@
       }
 
     },
-    validations: {
-      // Название поля должно совпадать с полем в data
-      identityCardSeries: {
-        required,
-        validFormat: val => /^\d{4} \d{6}$/.test(val),
-      },
-      // passportDate: {
-      //   required,
-      //   validDate: val => moment(val, 'DD.MM.YYYY', true).isValid(),
-      // },
-      name: {
-        required,
-        maxLength: maxLength(10),
-        alpha: val => /^[а-яё]*$/i.test(val),
-      },
+    watch: {
+      tab_personal_selectedIdentityCardCode :
+              {
+                immediate: true,
+                handler : function(newVal){
+                  if(newVal !== undefined && newVal.identityCardCode === 'Паспорт РФ'){
+                    this.docSerialParams.required = true;
+                    this.docSerialParams.mask = 'qqqq';
+                    this.docSerialParams.placeholder = '****';
+
+                    this.docNumberParams.required = true;
+                    this.docNumberParams.mask = '######';
+                    this.docNumberParams.placeholder = '******';
+
+                    this.docIssuedRequred = true;
+                  }else{
+                    this.docSerialParams.required = false;
+                    this.docSerialParams.mask = 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq';
+                    this.docSerialParams.placeholder = '';
+
+                    this.docNumberParams.required = false;
+                    this.docNumberParams.mask = '###########################################################################';
+                    this.docNumberParams.placeholder = '';
+
+                    this.docIssuedRequred = false;
+                  }
+                }
+              },
+
+
     },
     data() {
       return {
+        docSerialParams: {},
+        docNumberParams : {},
+        docIssuedRequred: true,
         customTokens: {
           'Y': {pattern: /[0-5]/},
+          'q': {pattern: /[.]*/}
         },
         // customTokens: {
         //   'Y': {pattern: /[0-9]/},
@@ -559,7 +592,69 @@
           {id: 3, item: 'немецкий'},
         ]
       }
+    },
+    validations() {
+      let obj = {};
+        obj.tab_personal_middlename_genitive = this.tab_personal_middlename.length > 0 ? {required} : {};
+        obj.tab_personal_lastname =  {required};
+        obj.tab_personal_firstname =  {required};
+        obj.tab_personal_lastname_genitive =  {required};
+        obj.tab_personal_firstname_genitive =  {required};
+        obj.tab_personal_INIPADate =  {
+          validDate: function(val){
+            if (val == '') {
+              return true;
+            }
+
+            if((new Date(val)).toString() === 'Invalid Date'){
+              return false;
+            }
+
+            if(new Date(val).getFullYear() > 1990 && (new Date(val)) < new Date()){
+              return true;
+            }
+            return false;
+          }
+        };
+        obj.tab_personal_birthDate =  {
+          required,
+          validDate: val =>  (new Date(val)).toString()!== 'Invalid Date',
+          foreverYang: function(val){return (this.fullage > 16) && (this.fullage < 75);}
+        };
+        obj.tab_personal_selectedGender =  {
+          required,
+          validFormat: val => val.id>0,
+        };
+        obj.tab_personal_INIPA = {
+          required,
+          checkINIPA
+        };
+
+        obj.tab_personal_identityCardSeries =  this.docSerialParams.required ? {required} : {};
+        obj.tab_personal_identityCardNumber =  this.docNumberParams.required ? {required} : {};
+        obj.tab_personal_identityCardIssueBy =  this.docIssuedRequred ? {required} : {};
+        obj.tab_personal_identityCardIssueDate =  this.docIssuedRequred ? {required} : {};
+        obj.tab_personal_identityCardIssueDep =  this.docIssuedRequred ? {required} : {};
+
+      return obj;
+
     }
+      // validations: {
+    //   // Название поля должно совпадать с полем в data
+    //   identityCardSeries: {
+    //     required,
+    //     validFormat: val => /^\d{4} \d{6}$/.test(val),
+    //   },
+    //   // passportDate: {
+    //   //   required,
+    //   //   validDate: val => moment(val, 'DD.MM.YYYY', true).isValid(),
+    //   // },
+    //   name: {
+    //     required,
+    //     maxLength: maxLength(10),
+    //     alpha: val => /^[а-яё]*$/i.test(val),
+    //   },
+    // },
 
   }
 </script>
@@ -704,5 +799,17 @@
     color: red;
   }
 
+  label.computed-auto input{
+    border: none;
+    border-bottom: solid 1px gray;
+  }
+
+  .error1 span{
+    color: red;
+  }
+
+  .disabled1 span{
+    color: gray;
+  }
 
 </style>
