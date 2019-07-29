@@ -373,30 +373,11 @@
 
             </div>
 
-
-
           </div>
           <hr>
           <button @click="onAddFeature">Сохранить</button>
         </tab>
       </tabs>
-  <div class="row">
-    <div class="col-sm">
-      <label>
-        <span class="col-sm"></span>
-      </label>
-    </div>
-    <div class="col-sm">
-      <label>
-        <div class="col-sm"></div>
-      </label>
-    </div>
-    <div class="col-sm">
-      <label>
-        <div class="col-sm"></div>
-      </label>
-    </div>
-  </div>
     </div>
 </template>
 
@@ -426,7 +407,7 @@
             // { text: 'Код', value: 'code', sortable: false, align: 'center' },
             { text: 'Тип признака', value: 'tab_features_selectedAttrType',sortable: false, align: 'center' },
             { text: 'Название', value: 'tab_features_selectedPreference',sortable: false, align: 'center' },
-            { text: 'Тип диплома', value: 'tab_features_selectedYypeDiploma', sortable: false,align: 'center' },
+            { text: 'Тип диплома', value: 'tab_features_selectedTypeDiploma', sortable: false,align: 'center' },
             { text: 'Балл ИД', value: 'tab_features_selectedPreferencePoint', sortable: false, align: 'center' },
             { text: 'Действия', value: 'actions', sortable: false, align: 'center'},
             // { text: 'Выполнено', value: 'done', sortable: false, align: 'center' },
@@ -501,7 +482,7 @@
             this.tab_features_selectedPreference = {};
             // this.tab_features_selectedAttrType =  '';
             // this.tab_features_selectedPreference =  '';
-            this.tab_features_selectedYypeDiploma = '';
+            this.tab_features_selectedTypeDiploma = '';
             this.doc1 = {};
             this.doc1_serial = '';
             this.doc1_number =  '';
@@ -554,7 +535,7 @@
 //todo check null
             this.tab_features_selectedAttrType = this.person.futures_info[index].tab_features_selectedAttrType;
             this.tab_features_selectedPreference = this.person.futures_info[index].tab_features_selectedPreference;
-            this.tab_features_selectedYypeDiploma = this.person.futures_info[index].tab_features_selectedYypeDiploma;
+            this.tab_features_selectedTypeDiploma = this.person.futures_info[index].tab_features_selectedTypeDiploma;
             this.doc1 = this.person.futures_info[index].doc1;
             this.doc1_serial = this.person.futures_info[index].doc1_serial;
             this.doc1_number = this.person.futures_info[index].doc1_number;
@@ -595,7 +576,7 @@
 
               this.editedItem.tab_features_selectedAttrType = this.tab_features_selectedAttrType;
               this.editedItem.tab_features_selectedPreference = this.tab_features_selectedPreference;
-              this.editedItem.tab_features_selectedYypeDiploma = this.tab_features_selectedYypeDiploma;
+              this.editedItem.tab_features_selectedTypeDiploma = this.tab_features_selectedTypeDiploma;
               this.editedItem.doc1 = this.doc1;
               this.editedItem.doc1_serial = this.doc1_serial;
               this.editedItem.doc1_number = this.doc1_number;

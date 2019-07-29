@@ -394,8 +394,6 @@
         editedIndex: -1,
         editedItem:{},
 
-
-        index_for_redaction:'',
         options_subject: [
           {id: 1, item: 'Химия'},
           {id: 2, item: 'Биология'},
@@ -423,6 +421,7 @@
     },
 
     methods: {
+
       // onInfo(){
       //   this.tab_ege_lastname = '';
       //   this.tab_ege_firstname = '';

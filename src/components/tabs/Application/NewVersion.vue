@@ -59,7 +59,7 @@
                <!--placeholder="Заполняется автоматически" disabled="disabled"/>-->
       <!--</div>-->
     </div>
-{{person.application.choosenWizards}}
+
     <tabs class="condition_tabs">
       <tab id="conditions_overview" name="Обзор">
 
@@ -90,8 +90,8 @@
 
 
             <td class="text-xs-center">
-              <div v-if="((props.item.environmentId ===  'Договор' && !props.item.agree) && countD > 0)||
-                         ((props.item.environmentId ===  'Бюджет' && !props.item.agree) && countB > 0)">
+              <div v-if="((props.item.environmentId ===  'Договор' && !props.item.agree) && countContract > 0)||
+                         ((props.item.environmentId ===  'Бюджет' && !props.item.agree) && countBudget > 0)">
                 <input v-model="props.item.agree" class="checkbox col-sm" type="checkbox" @change="checkCount(props.item)" disabled>
               </div>
               <div v-else>
@@ -128,7 +128,6 @@
       </tab>
       <tab v-if="!this.isModalVisible" id="conditions_info" name="Условия приема">
 
-
         <div class="row">
           <div class="col-sm-6">
 
@@ -154,7 +153,7 @@
               <!--<input  v-model="agree" class="checkbox col-sm" type="checkbox" name=""/>-->
             <!--</div>-->
             <div class="row" >
-              <div class="form__label-text col-sm">Добавить согласие:</div>
+              <!--<div class="form__label-text col-sm">Добавить согласие:</div>-->
               <!--<input v-if="environment === 'Бюджет'" v-model="agree" class="checkbox col-sm" type="checkbox" name="" />-->
               <!--<input v-else v-model="agree" class="checkbox col-sm" type="checkbox" name="" disabled/>-->
 
@@ -189,14 +188,12 @@
           </div>
 
           <div class="col-sm-6">
-
             <label class="row">
               <div class="form__label-text col-sm">Добавить особое право:</div>
               <input v-if="environment=== 'Договор'" v-model="special_right" class="checkbox col-sm" type="checkbox" name="" disabled/>
               <input v-else-if="environment=== 'ЦелНапр'" v-model="special_right" class="checkbox col-sm" type="checkbox" name="" disabled/>
 
                 <input v-else v-model="special_right" class="checkbox col-sm" type="checkbox" name=""/>
-
 
             </label>
             <div  v-if="special_right">
@@ -332,8 +329,8 @@
       return{
         dateToday: Date.now(),
 
-        countD: 0,
-        countB: 0,
+        countContract: 0,
+        countBudget: 0,
 
         counter: 0,
         isOneAgree: true,
@@ -448,22 +445,21 @@
     methods: {
       checkCount(item){
         let i = 0;
-
           if(item.environmentId === 'Бюджет' && item.agree) {
-            this.countB++;
+            this.countBudget++;
           }
           if(item.environmentId === 'Бюджет' && !item.agree){
-            this.countB--;
+            this.countBudget--;
           }
            if(item.environmentId === 'Договор' && item.agree) {
-             this.countD++;
+             this.countContract++;
            }
            if(item.environmentId === 'Договор' && !item.agree) {
-             this.countD--;
+             this.countContract--;
            }
 
-          console.log('count D ', this.countD);
-          console.log('count B ', this.countB);
+          // console.log('count D ', this.countD);
+          // console.log('count B ', this.countB);
 
       },
 
@@ -550,11 +546,7 @@
           this.speciality = this.application.choosenWizards[index].specialityId;
           this.environment = this.application.choosenWizards[index].environmentId;
           this.eduForm = this.application.choosenWizards[index].eduForm;
-        // this.application.choosenWizards[index].deparName;
-        // this.application.choosenWizards[index].specialityId;
-        // this.application.choosenWizards[index].environmentId;
-        // this.application.choosenWizards[index].environmentId;
-        // this.application.choosenWizards[index].deparName;
+
 
         location.href='profile#conditions_info';
 
@@ -575,7 +567,7 @@
         for(i; i< this.apls.length; i++) {
           if (this.apls[i].chose === true && this.apls[i].environmentId === 'ЦелНапр') {
             counterCheckTargOrg++;
-            console.log('counter + ', counterCheckTargOrg)
+            // console.log('counter + ', counterCheckTargOrg)
           } else if (this.apls[i].chose === false && this.apls[i].environmentId === 'ЦелНапр') {
             counterCheckTargOrg = 0;
 
@@ -592,13 +584,11 @@
         console.log('result counter ', counterCheckTargOrg)
       },
 
-
-
-
       onAppl(){
         // this.application.choosenWizards = [];
-        this.countD= 0;
-        this.countB= 0;
+
+        this.countContract= 0;
+        this.countBudget= 0;
 
         let i = 0;
         for(i; i < this.apls.length; i++) {
@@ -621,14 +611,12 @@
 
           }
         }
-        console.log('on Appl ' + this.person.application.choosenWizards);
-        console.log(this.person.application.choosenWizards);
+        // console.log('on Appl ' + this.person.application.choosenWizards);
+        // console.log(this.person.application.choosenWizards);
         this.isModalVisible = false;
       },
 
       onAdd() {
-
-
 
           this.person.application.choosenWizards = [];
           this.isModalVisible = true;
@@ -646,19 +634,14 @@
 
 
       },
-      openModalAgreemnt(item) {
-        this.isModalAgreementVisible = true;
-      },
+
       closeModal() {
         this.isModalVisible = false;
-      },
-      closeModalAgreemnt() {
-        this.isModalAgreementVisible = false;
       },
 
       deleteItem(item){
           const index = this.application.choosenWizards.indexOf(item);
-          console.log(index);
+          // console.log(index);
           this.application.choosenWizards.splice(index,1);
 
       },
@@ -667,9 +650,8 @@
         this.$store.commit('person/updateCurrentField', {value, objName})
       },
 
-
       onNext() {
-        console.log(this.application.application_selectedDeliveryType);
+        // console.log(this.application.application_selectedDeliveryType);
         location.href='profile#documents';
       },
     },

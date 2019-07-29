@@ -251,7 +251,8 @@
       <!--{{this.application}}-->
       <!--<div v-if="this.resultAcceptPerson ==='Утверждено'">-->
         <!--<button v-if="person.application.saved !=='Сохранено'" @click="onSave">Сохранить</button>-->
-      <button  @click="onSave">Сохранить</button>
+      <button @click="checkFields">Проверить</button>
+      <button @click="onSave">Сохранить</button>
       <!--</div>-->
 
     </div>
@@ -310,11 +311,23 @@
             'tab_edu_military_endMilitary', 'image', 'showimage','acceptedPerson', 'profiles','selectedExtraInfos1',
             'selectedExtraInfos2','extraInfosDescription1','extraInfosDescription2'
           ]),
-
+          ...mapGetters(['ADRDTO']),
       },
 
       methods: {
-        ...mapGetters(['ADRDTO']),
+          checkFields() {
+            if('доделать'){
+              console.log(true);
+              return true;
+
+            }else{
+              console.log(false);
+              return false;
+            }
+          },
+
+
+
         onAcceptPerson() {
           // const config = {
           //   headers: {
