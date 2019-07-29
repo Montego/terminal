@@ -89,9 +89,24 @@
             <td class="text-xs-center">{{ props.item.eduForm }}</td>
 
 
-            <!--<td class="text-xs-center">-->
-              <!--<input v-model="props.item.agree" class="checkbox col-sm" type="checkbox" disabled>-->
-            <!--</td>-->
+            <td class="text-xs-center">
+              <div v-if="((props.item.environmentId ===  'Договор' && !props.item.agree) && countD > 0)||
+                         ((props.item.environmentId ===  'Бюджет' && !props.item.agree) && countB > 0)">
+                <input v-model="props.item.agree" class="checkbox col-sm" type="checkbox" @change="checkCount(props.item)" disabled>
+              </div>
+              <div v-else>
+                <input v-model="props.item.agree" class="checkbox col-sm" type="checkbox" @change="checkCount(props.item)">
+              </div>
+
+            <div v-if="props.item.agree === true">
+              <input v-model="props.item.agreeDate" class="form__input col-sm" type="date"  min="1918-01-01" max="2020-01-01"/>
+            </div>
+              <div v-else>
+                <input v-model="props.item.agreeDate" class="form__input col-sm" type="date"  min="1918-01-01" max="2020-01-01" hidden/>
+              </div>
+
+            </td>
+
             <!--<td class="text-xs-center">-->
               <!--<input v-model="props.item.special_right" class="checkbox col-sm" type="checkbox" disabled>-->
             <!--</td>-->
@@ -142,7 +157,14 @@
               <div class="form__label-text col-sm">Добавить согласие:</div>
               <!--<input v-if="environment === 'Бюджет'" v-model="agree" class="checkbox col-sm" type="checkbox" name="" />-->
               <!--<input v-else v-model="agree" class="checkbox col-sm" type="checkbox" name="" disabled/>-->
-              <input v-model="agree" class="checkbox col-sm" type="checkbox" name="" />
+
+
+                <!--<input v-if="((agree === false) && (eduForm ==='Договор') && (countDogAgree > 0))" v-model="agree" class="checkbox col-sm" type="checkbox" name="" disabled/>-->
+
+                <!--<input v-else v-model="agree" class="checkbox col-sm" type="checkbox" name=""/>-->
+
+
+
               <!--<div v-if="agree">-->
                 <!--<input v-model="agree" class="checkbox col-sm" type="checkbox" name="" />-->
               <!--</div>-->
@@ -172,7 +194,10 @@
               <div class="form__label-text col-sm">Добавить особое право:</div>
               <input v-if="environment=== 'Договор'" v-model="special_right" class="checkbox col-sm" type="checkbox" name="" disabled/>
               <input v-else-if="environment=== 'ЦелНапр'" v-model="special_right" class="checkbox col-sm" type="checkbox" name="" disabled/>
-              <input v-else v-model="special_right" class="checkbox col-sm" type="checkbox" name=""/>
+
+                <input v-else v-model="special_right" class="checkbox col-sm" type="checkbox" name=""/>
+
+
             </label>
             <div  v-if="special_right">
               <label class="row">
@@ -308,11 +333,11 @@
       return{
         dateToday: Date.now(),
 
+        countD: 0,
+        countB: 0,
 
         counter: 0,
         isOneAgree: true,
-        agrees:[],
-
 
         editedIndex: -1,
         editedItem:{},
@@ -333,7 +358,7 @@
           {text: 'Договор', value: 'contract', sortable: false, align: 'center'},
           {text: 'Дата', value: 'date', sortable: false, align: 'center'},
           {text: 'Форма обучения', value: 'eduForm', sortable: false, align: 'center'},
-          // {text: 'Согласие', value: 'accepted', sortable: false, align: 'center'},
+          {text: 'Согласие', value: 'accepted', sortable: false, align: 'center'},
           // {text: 'Спец. право', value: 'special_right', sortable: false, align: 'center'},
           {text: 'Действия', value: 'actions', sortable: false, align: 'center'},
         ],
@@ -380,7 +405,7 @@
     computed: {
       ...mapState('person', {person: state => state.person,}),
       ...applications(['application','contacts','application_person_name','resultApl','apls',
-        'agree','agreeDate','special_right', 'typeOfSpecialRight',
+        'agree','agreeDate','special_right', 'typeOfSpecialRight','checkTargCount',
         'proofSpecialRight1','descriptionSpecialRight1','serialSpecialRight1','numberSpecialRight1','docTypeSpecialRight1','dateSpecialRight1',
         'proofSpecialRight2','descriptionSpecialRight2','serialSpecialRight2','numberSpecialRight2','docTypeSpecialRight2','dateSpecialRight2',
         'proofSpecialRight3','descriptionSpecialRight3','serialSpecialRight3','numberSpecialRight3','docTypeSpecialRight3','dateSpecialRight3',
@@ -422,29 +447,29 @@
     },
 
     methods: {
+      checkCount(item){
+        let i = 0;
 
-      // onChangeAgee(agree){
-      //
-      //   if(agree){
-      //     this.agrees.push(agree);
-      //   }else{
-      //     if(this.agrees.length!== 0){
-      //       this.agrees.splice(0,1)
-      //     }
-      //
-      //   }
-      // },
+          if(item.environmentId === 'Бюджет' && item.agree) {
+            this.countB++;
+          }
+          if(item.environmentId === 'Бюджет' && !item.agree){
+            this.countB--;
+          }
+           if(item.environmentId === 'Договор' && item.agree) {
+             this.countD++;
+           }
+           if(item.environmentId === 'Договор' && !item.agree) {
+             this.countD--;
+           }
+
+          console.log('count D ', this.countD);
+          console.log('count B ', this.countB);
+
+      },
 
 
       onSave(item){
-        // if(this.editedItem.agree){
-          //   this.agrees.push(true)
-          // }else{
-          //   if(this.agrees.length !== 0){
-          //     this.agrees.splice(0,1)
-          //   }
-          //
-          // }
 
         this.editedItem.agree = this.agree;
         this.editedItem.agreeDate = this.agreeDate;
@@ -476,46 +501,11 @@
 
         Object.assign(this.person.application.choosenWizards[this.editedIndex], this.editedItem);
 
-
         location.href='profile#conditions_overview';
 
       },
       addSomething(item){
 
-        console.log('addSomething ' + this.person.application.choosenWizards.length)
-        let i = 0;
-        for(i; i< this.person.application.choosenWizards.length; i++) {
-          console.log('addSomething in for')
-          if(this.person.application.choosenWizards[i].agree === true){
-            console.log('addSomething in for in if')
-            this.agrees.push(true)
-          }
-        // else{
-        //     console.log('addSomething in for in else')
-        //     if(this.agrees.length !== 0){
-        //       this.agrees.splice(0,1)
-        //     }
-        //   }
-        }
-
-        // if(this.editedItem.agree){
-        //   this.agrees.push(true)
-        // }else{
-        //   if(this.agrees.length !== 0){
-        //     this.agrees.splice(0,1)
-        //   }
-        //
-        // }
-
-        // let i = 0;
-        // for(i; i< this.application.choosenWizards.length; i++){
-        //   if(this.application.choosenWizards[i].agree === true){
-        //     this.counter++
-        //   }
-        // }
-        // if(this.counter > 1){
-        //   this.isOneAgree = false;
-        // }
 
         this.editedIndex = this.person.application.choosenWizards.indexOf(item);
         this.editedItem = Object.assign({}, item);
@@ -546,16 +536,6 @@
         this.docTypeSpecialRight2 = this.person.application.choosenWizards[index].docTypeSpecialRight2;
         this.dateSpecialRight2 = this.person.application.choosenWizards[index].dateSpecialRight2;
 
-        // let i = 0;
-        // for(i; i< this.person.application.choosenWizards.length; i++){
-        //   if(this.person.application.choosenWizards[i].agree === true){
-        //     this.agrees.push[true];
-        //     this.counter +=1;
-        //   }
-        // }
-        // if(this.counter > 1){
-        //   this.isOneAgree= false;
-        // }
 
         location.href='profile#conditions_info';
       },
@@ -590,11 +570,7 @@
         let counterSestr = 0;
         let sumSpec = counterLechDel + counterMedProf + counterStom + counterSestr;
         // let counterCheckSpec : 0;
-        console.log('counterLechDel ', counterLechDel);
-        console.log('counterMedProf ', counterMedProf);
-        console.log('counterStom ', counterStom);
-        console.log('counterSestr ', counterSestr);
-        console.log('sumSpec ',sumSpec);
+
         let i = 0;
         //проверка на только 1 целевое направление
         for(i; i< this.apls.length; i++) {
@@ -603,12 +579,12 @@
             console.log('counter + ', counterCheckTargOrg)
           } else if (this.apls[i].chose === false && this.apls[i].environmentId === 'ЦелНапр') {
             counterCheckTargOrg = 0;
-            console.log('counter + ', counterCheckTargOrg);
+
           }
         }
 
         if(counterCheckTargOrg === 1 ){
-          this.checkTargCount = true;// если тру, отключать остальные чекбоксы
+          this.checkTargCount = true;
           console.log('true')
         }else{
           this.checkTargCount = false;
@@ -622,6 +598,8 @@
 
       onAppl(){
         // this.application.choosenWizards = [];
+        this.countD= 0;
+        this.countB= 0;
 
         let i = 0;
         for(i; i < this.apls.length; i++) {
@@ -644,32 +622,29 @@
 
           }
         }
-        console.log('on Appl ' + this.person.application.choosenWizards)
-        console.log(this.person.application.choosenWizards)
+        console.log('on Appl ' + this.person.application.choosenWizards);
+        console.log(this.person.application.choosenWizards);
         this.isModalVisible = false;
       },
 
       onAdd() {
-        let i = 0;
-        let j = 0;
-        // for(i; i < this.apls.length; i++){
-        //   for(j; j < this.application.choosenWizards[j].length)
-        //
-        // }
+
+
+
           this.person.application.choosenWizards = [];
           this.isModalVisible = true;
-          // this.apls[i]
+
           // AXIOS.get(`/profile/conditionsDto`)
           //   .then(response => {
-          //     console.log(response.data);
+          //     console.log(response.data)
           //     this.apls = response.data;
+          //
+          //     console.log(this.profiles)
           //   })
           //   .catch(e => {
           //     this.errors.push(e)
           //   })
-          //
-          //   this.showProfile = false;
-          //   location.href = 'profile#applicationFill';
+
 
       },
       openModalAgreemnt(item) {
@@ -693,22 +668,7 @@
         this.$store.commit('person/updateCurrentField', {value, objName})
       },
 
-      printAgreement(){
-        AXIOS.get('/10.71.0.115/application/'+ this.person.axaptaIds.agreementId + '.xlsm' )
-          .then(response => {
 
-          }).catch(e => {
-
-            // this.errors.push(e)
-          })
-
-      },
-      // onAdd() {
-      //
-      //
-      //
-      //   // location.href='profile#conditions_info';
-      // },
       onNext() {
         console.log(this.application.application_selectedDeliveryType);
         location.href='profile#documents';

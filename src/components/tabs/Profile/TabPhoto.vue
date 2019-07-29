@@ -146,35 +146,6 @@
                   location.href = 'profile#applicationFill';
           }
 
-            // AXIOS.get('/profile/conditions/' + (this.person_info_id))
-            //   .then(response => {
-            //     if (response.data.choosenWizards.length !== 0) {
-            //       this.application.choosenWizards = response.data;
-            //       this.showProfile = false;
-            //       location.href = 'profile#applicationFill';
-            //     }else {
-            //       this.isModalVisible = true;
-            //       AXIOS.get(`/profile/conditionsDto`)
-            //         .then(response => {
-            //           this.apls = response.data;
-            //         })
-            //         .catch(e => {
-            //           this.errors.push(e)
-            //         })
-            //     }
-            //   })
-            //   .catch(e => {
-            //   this.isModalVisible = true;
-            //     AXIOS.get(`/profile/conditionsDto`)
-            //       .then(response => {
-            //         this.apls = response.data;
-            //         console.log(this.profiles)
-            //       })
-            //       .catch(e => {
-            //         this.errors.push(e)
-            //       })
-            //  })
-
         },
         closeModal() {
           this.isModalVisible = false;
