@@ -7,9 +7,10 @@ import Registation from "../components/pages/Registation";
 import Profile from "../components/pages/Profile";
 import Application from "../components/pages/Application";
 import TabPersonalInfo from "../components/tabs/Profile/TabPersonalInfo";
-import InputAddress from "../components/modals/InputAddress";
-import InputAddressReg from "../components/modals/InputAddressReg";
+
+
 Vue.use(VueRouter);
+
 
 const routes = [
   {
@@ -41,12 +42,6 @@ const routes = [
     name:'profile#personal_info',
     path:'/profile#personal_info',
     component: Profile
-  },
-
-  {
-    name:'inputAddressReg',
-    path:'/inputAddressReg',
-    component: InputAddressReg
   },
 
   {

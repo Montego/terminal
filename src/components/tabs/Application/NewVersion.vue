@@ -313,7 +313,7 @@
   import { createHelpers } from 'vuex-map-fields';
   import {mapGetters, mapState} from 'vuex'
   import modal from "../../modals/modal";
-  import modalAgreement from "../../modals/modalAgreement";
+
 
   const { mapFields:applications} = createHelpers({
     getterType: 'applications/getField',
@@ -326,8 +326,7 @@
   export default {
     name: "newVersion",
     components: {
-      modal,
-      modalAgreement
+      modal
     },
     data(){
       return{

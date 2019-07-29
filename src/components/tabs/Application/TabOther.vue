@@ -114,8 +114,8 @@
             <h2>Егэ</h2>
           </div>
           <div v-for="info in person.ege_info" >
-            <label class="row">
-              <div>
+            <div>
+              <label class="row">
                 <div class="row">
                   <div class="form__label-text col-sm-4">Предмет:</div>
                   <input v-model="info.tab_ege_selectedSubject" class="form__input col-sm-6" type="text" disabled/>
@@ -124,9 +124,9 @@
                   <div class="form__label-text col-sm-4">Баллы:</div>
                   <input v-model="info.tab_ege_score" class="form__input col-sm-6" type="text" disabled/>
                 </div>
-              </div>
+              </label>
 
-            </label>
+            </div>
           </div>
         </section>
         <!--<hr>-->
@@ -633,7 +633,16 @@
     /*height: 30px;*/
   /*}*/
 
-
+  input.checkbox {
+    margin-top: 8px;
+    height: 15px;
+    transform: scale(1.3);
+    opacity: 0.9;
+    cursor: pointer;
+  }
+  .form__label-text {
+    margin-top: 5px;
+  }
 
   label {
     border-bottom: 1px solid gray;
@@ -649,6 +658,7 @@
   }
 
   input {
+    margin-top: 5px;
     vertical-align: center;
     /*padding: 10px 5px;*/
   }

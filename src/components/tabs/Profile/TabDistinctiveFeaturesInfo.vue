@@ -496,6 +496,8 @@
 
           onInfo() {
             location.href='profile#features_info';
+            this.editedIndex = -1;
+            this.editedItem = {};
             this.tab_features_selectedPreference = {};
             // this.tab_features_selectedAttrType =  '';
             // this.tab_features_selectedPreference =  '';
