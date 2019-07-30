@@ -10,7 +10,12 @@
     <div class="control-panel">
       <div>
         <span>Абитуриент:</span>
-        <input type="search" name="поиск" placeholder="Поиск по сайту">
+        <input @change="searchPersonBySNP(searchForm)" v-model="searchForm.tab_personal_lastname.input" type="search" name="поиск" placeholder="Поиск по сайту">
+        <select v-model="searchForm.tab_personal_lastname.select" class="minimal exta_info_select col-sm">
+          <option v-for="option in search_options">
+            {{option.item}}
+          </option>
+        </select>
       </div>
       <div>
         <!--<button type="button" @click="handleClick(false)">К заявлениям</button>-->
@@ -52,7 +57,6 @@
   import TabEntranceTests from "../tabs/Application/TabEntranceTests";
   import TabOther from "../tabs/Application/TabOther";
 
-
   import { createHelpers } from 'vuex-map-fields';
   import {AXIOS} from "../plugins/APIService";
   const { mapFields:person} = createHelpers({
@@ -68,42 +72,65 @@
 
     components: {
       WraperProfile,WraperApplication,
-
-      TabPhoto,
-      TabDistinctiveFeaturesInfo,
-      TabParentInfo, TabEvidenceEge, TabEducationMilitary,
-      TabAddressInfo, TabPersonalInfo, TabOverview,
-
-      TabOverviewApplication, TabApplicationFill, TabReceptionConditions,
-      TabDocuments, TabEntranceTests, TabOther
+      TabPhoto, TabDistinctiveFeaturesInfo, TabParentInfo, TabEvidenceEge, TabEducationMilitary,
+      TabAddressInfo, TabPersonalInfo, TabOverview, TabOverviewApplication, TabApplicationFill,
+      TabReceptionConditions, TabDocuments, TabEntranceTests, TabOther
     },
     computed: {
-      ...person(['person', 'showProfile','person_info_id','isModalVisible']),
-      ...applications(['application'])
+      ...person(['person', 'showProfile','person_info_id','isModalVisible','profiles']),
     },
     data() {
       return {
+      searchForm: {
+          tab_personal_lastname:
+            {
+              select: 'содержит',
+              input: '',
+              fromDate: null,
+              toDate: null
+            },
+            sortProperty:"",
+            sortDirection:"",
+            size:20,
+            page:0
+        },
+
+        selectedSearchOption:'',
+        searchContext:'',
         options_select: [
           {id: 1, item: 'да'},
           {id: 2, item: 'нет'},
         ],
-        titles:[
-          {
-            title: 'Заявление'
-          },
 
+        search_options: [
+          {id: 0, item: '='},
+          {id: 1, item: 'содержит'},
+          // {id: 2, item: 'от/до'},
+          // {id: 3, item: '>'},
+          // {id: 4, item: '<'},
+          {id: 5, item: 'начинается'},
+          // {id: 6, item: 'в списке'},
         ],
         dialog: false,
       }
     },
     methods: {
-      handleClick(val) {
+      searchPersonBySNP(){
+          console.log(this.searchForm);
+          AXIOS.post("/profile/search/",(this.searchForm))
+            .then((response) => {
+              console.log(response);
+            })
+            .catch( (e) => {
+              console.error(e);
+            });
+      },
 
+      handleClick(val) {
         location.href='profile#overview_personal_info';
           this.showProfile = val;
           this.isModalVisible = false;
           this.application.applicationTable.splice(0,1)
-
       },
 
       onLogout: () => {
@@ -125,8 +152,43 @@
 </script>
 
 <style scoped>
-  .control-panel {
 
+
+  select.minimal {
+    background-image:
+      linear-gradient(45deg, transparent 50%, gray 50%),
+      linear-gradient(135deg, gray 50%, transparent 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 20px) calc(1em + 2px),
+      calc(100% - 15px) calc(1em + 2px),
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+  }
+
+  select.minimal:focus {
+    background-image:
+      linear-gradient(45deg, green 50%, transparent 50%),
+      linear-gradient(135deg, transparent 50%, green 50%),
+      linear-gradient(to right, #ccc, #ccc);
+    background-position:
+      calc(100% - 15px) 1em,
+      calc(100% - 20px) 1em,
+      calc(100% - 2.5em) 0.5em;
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em;
+    background-repeat: no-repeat;
+    border-color: grey;
+    outline: 0;
+  }
+
+  .control-panel {
     display: flex;
     align-items: center;
     margin-top: 30px;
