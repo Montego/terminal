@@ -117,9 +117,15 @@
     methods: {
       searchPersonBySNP(){
           console.log(this.searchForm);
+
           AXIOS.post("/profile/search/",(this.searchForm))
             .then((response) => {
-              console.log(response);
+              let i = 0;
+              for(i; i<response.data.length; i++){
+                this.profiles.push(response.data[i]);
+              }
+
+              console.log(response.data);
             })
             .catch( (e) => {
               console.error(e);
