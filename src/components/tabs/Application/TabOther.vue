@@ -218,18 +218,18 @@
         <div>
 
             <div v-for="info in application.application_documents" >
-              <label class="row">
+              <div class="row">
                 <div class="form__label-text col-sm-4">Документы:</div>
                 <input v-model="info.name" class="form__input col-sm" type="text" disabled/>
-              </label>
-              <label class="row">
+              </div>
+              <div class="row">
                 <div class="form__label-text col-sm-4">Серия:</div>
                 <input v-model="info.serial" class="form__input col-sm" type="text" disabled/>
-              </label>
-              <label class="row">
+              </div>
+              <div class="row">
                 <div class="form__label-text col-sm-4">Номер:</div>
                 <input v-model="info.number" class="form__input col-sm" type="text" disabled/>
-              </label><label class="row">
+              </div><label class="row">
               <div class="form__label-text col-sm-4">Количество:</div>
               <input v-model="info.count" class="form__input col-sm" type="text" disabled/>
             </label>
@@ -244,7 +244,15 @@
 
     </div>
     <!--{{this.application}}-->
-
+    <button @click="onPrintApplication()">
+      Заявление
+    </button>
+    <button @click="onPrintDocuments()">
+      Опись
+    </button>
+    <button @click="onPrintAgreement()">
+      Согласие
+    </button>
     <!--{{this.person}}-->
     <div class="clear_save_button row">
       <!--<button v-if="this.resultAcceptPerson !=='Утверждено'" @click="onAcceptPerson">Утвердить</button>-->
@@ -316,6 +324,7 @@
 
       methods: {
           checkFields() {
+            //TODO make validation
             if('доделать'){
               console.log(true);
               return true;
@@ -359,7 +368,7 @@
         },
 
         onSave() {
-
+          //TODO check double save person_inf(id)
           this.person.person_info.tab_personal_lastname = this.tab_personal_lastname;
           this.person.person_info.tab_personal_firstname = this.tab_personal_firstname;
           this.person.person_info.tab_personal_middlename = this.tab_personal_middlename;
@@ -437,7 +446,7 @@
           this.person.person_info.extraInfosDescription2 = this.extraInfosDescription2;
 
           this.person.person_info.image = this.image;
-          this.person.person_info.addressesDto = this.ADRDTO();
+          // this.person.person_info.addressesDto = this.ADRDTO();
           this.person.person_info.showimage = this.showimage;
           this.person.saved = "Сохранено";
           this.person.application.saved = "Сохранено";
@@ -453,7 +462,7 @@
 
                 this.person.application.saved = response.data;
                 // this.info.push(response.data)
-                this.person_info_id = ''
+                this.person_info_id = '';
                 // this.person.ege_info = [];
                 this.person.parents_info = [];
                 this.person.futures_info = [];
@@ -532,6 +541,7 @@
                 // this.errors.push(e)
               })
           }else {
+            //TODO if part of person will save inf tabPhoto, check this flow(post/put)
             AXIOS.put('/profile/person/' + this.person.id,(this.person))
               .then(response =>{
                 console.log(response)

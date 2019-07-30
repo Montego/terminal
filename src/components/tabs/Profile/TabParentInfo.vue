@@ -195,20 +195,6 @@
       return {
         editedIndex: -1,
         editedItem:{},
-        persons: [],
-        // options_FamRelationShip: [
-        //   {id: 1, item: 'Брат'},
-        //   {id: 2, item: 'Дети'},
-        //   {id: 3, item: 'Дядя'},
-        //   {id: 4, item: 'Жена'},
-        //   {id: 4, item: 'Мать'},
-        //   {id: 4, item: 'Муж'},
-        //   {id: 4, item: 'Опекун'},
-        //   {id: 4, item: 'Отец'},
-        //   {id: 4, item: 'Отчим'},
-        //   {id: 4, item: 'Сестра'},
-        // ],
-
         headers_parent: [
           {text: 'Кем приходится', value: 'tab_parent_selectedFamRelationShip', sortable: false, align: 'center'},
           // {text: 'Ф.И.О.', value: 'snp_parent', sortable: false, align: 'center'},
@@ -258,7 +244,6 @@
         'tab_parent_organization_seniority','tab_parent_organization_employYears'
       ]),
 
-      // ...tab_address_info(['tab_address_factAddress',]),
     },
     methods: {
       onDelete(item) {

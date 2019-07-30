@@ -151,13 +151,6 @@
               {id: 6, item: 'Удостоверение'},
               {id: 7, item: 'Документ, подтверждающий принадлежность к ветеранам боевых действий'},
             ],
-            //
-            // options_gender: [
-            //   {id: 0, item: '-выберите пол-'},
-            //   {id: 1, item: 'Мужской'},
-            //   {id: 2, item: 'Женский'},
-            //   {id: 3, item: 'Другое'},
-            // ],
 
 
             headers_documents: [
@@ -186,14 +179,6 @@
           'tab_personal_INIPADate','tab_edu_military_selectedEduDoc','tab_edu_military_eduDocSerial',
           'tab_edu_military_eduDocNumber','tab_edu_military_eduDocDate','tab_edu_military_univer'
         ]),
-
-
-        // FullName(){
-        //   return this.fullname =
-        //     this.docType + ' ' +
-        //      this.serial +
-        //     ' ' + this.number;
-        // },
 
         showTable(){
           return this.person.application.application_documents;
@@ -386,14 +371,6 @@
               //   }
               // }
 
-
-              // console.log(this.tab_personal_selectedIdentityCardCode.identityCardNameFull)
-              // console.log(this.nameDoc)
-              // console.log(this.countDoc)
-              // console.log(this.fullnameDoc)
-              // console.log(document1)
-
-
               // AXIOS.get(`/profile/FillDocuments/` + this.person_info_id)
               //   .then(response => {
               //     this.person.application.application_documents = response.data;
@@ -494,8 +471,6 @@
               this.tab_document_auto = false
             );
 
-
-
             console.log(doc)
             this.person.application.application_documents.push(doc);
 
@@ -555,20 +530,6 @@
   }
   .inside_tab {
     margin-top: -90px;
-  }
-  .button_add {
-    min-width: 100px;
-    min-height: 40px;
-    padding: 10px;
-    border: 1px solid;
-    border-color: grey;
-    border-radius:5px;
-    background-color: ghostwhite;
-    /*background-color: #EDD19C;*/
-    font-size: 16px;
-    cursor: pointer;
-    transform:scale(0.8);
-    opacity:0.9
   }
 
   label.row {
@@ -630,20 +591,12 @@
     width: 500px;
   }
 
-  .adress_button {
-    margin-left: -20px;
-  }
-
   .row {
     margin-bottom: 8px;
   }
 
   .form__label-text {
     text-align: left;
-  }
-
-  .buttons {
-    margin-left: 10px;
   }
 
   .inner_tab {

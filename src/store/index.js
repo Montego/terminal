@@ -71,11 +71,7 @@ export const store = new Vuex.Store({
       // let some = this;
       converter(r.data, ctx);
 
-      // let converterResult = converter(r.data,some);
-      //     this.agreementId = converterResult.agreementId;
-      //     console.log(this.agreementId)
-        // applicationId: '',
-        // contactPersonId: '',
+
     }
   },
   modules: {

@@ -25,8 +25,7 @@
                   <v-icon color="#5bc0de">delete</v-icon>
                 </button>{{ props.item.actions}}
               </td>
-            <!--<td class="text-xs-center">{{ props.item.done }}</td>-->
-            <!--<td class="text-xs-center">{{ props.item.ball_2}}</td>-->
+
             </template>
             <template slot="no-data">
               <div></div>
@@ -60,19 +59,7 @@
 
               <label class="row">
                 <div class="form__label-text col-sm">Тип признака:</div>
-                <!--<select v-model="tab_features_selectedAttrType"  class="minimal col-sm" >-->
-                  <!--<option v-for="item in attrType" v-bind:value="item" >-->
-                    <!--{{item.name}}-->
-                  <!--</option>-->
-                <!--</select>-->
-
                 <input v-model="tab_features_selectedAttrType.name" class="uneditable form__input col-sm" type="text" disabled/>
-                <!--<input v-model="tab_features_selectedPreference.attrType" class="form__input col-sm" type="text" disabled/>-->
-                <!--<select v-model="tab_features_selectedAttrType"  class="minimal col-sm" >-->
-                  <!--<option v-for="item in preference" v-bind:value="item" >-->
-                    <!--{{item.attrType}}-->
-                  <!--</option>-->
-                <!--</select>-->
               </label>
 
               <label class="row">
@@ -83,22 +70,9 @@
                   </option>
                 </select>
               </label>
-              <!--<label class="row">-->
-                <!--<div class="form__label-text col-sm">Серия</div>-->
-                <!--<input v-model="tab_features_serial" class="form__input col-sm" type="text" />-->
-              <!--</label>-->
-              <!--<label class="row">-->
-                <!--<div class="form__label-text col-sm">Номер</div>-->
-                <!--<input v-model="tab_features_number" class="form__input col-sm" type="text" />-->
-              <!--</label>-->
               <label class="row">
                 <div class="form__label-text col-sm">Балл ИД</div>
                 <input v-model="tab_features_selectedPreference.points" class="form__input col-sm" type="text" disabled/>
-                <!--<select v-model="tab_features_selectedPreferencePoint"  class="minimal col-sm">-->
-                  <!--<option v-for="item in preference" v-bind:value="item">-->
-                    <!--{{item.points}}-->
-                  <!--</option>-->
-                <!--</select>-->
               </label>
             </div>
             <div class="col-sm-8">
@@ -110,7 +84,6 @@
                 <div class="col-sm-6">
                   <label class="row">
                     <div class="form__label-text col-sm">Документ 1:</div>
-                    <!--<input v-model="doc1" class="form__input col-sm" type="text" />-->
                     <select v-model="doc1" class="minimal col-sm">
                       <option v-for="item in documentsByFeatures" v-bind:value="item">
                         {{item.name}}
@@ -162,10 +135,7 @@
                     <textarea v-else :value="doc1_full_info = doc1_newName + ' ' + doc1_serial+ ' '+ doc1_number + ' ' + tab_features_selectedDocType1.name + ' ' +
                      doc1_IssuDate + ' ' + doc1_IssueBy" class="col-sm" name="birth_place" disabled></textarea>
                   </label>
-                  <!--<label class="row">-->
-                  <!--<div class="form__label-text col-sm">Документ:</div>-->
-                  <!--<textarea v-model="doc1 + ' ' + doc1_serial+ ' ' + doc1_number" class="col-sm" name="birth_place" disabled></textarea>-->
-                  <!--</label>-->
+
                 </div>
               </div>
               <hr>
@@ -173,7 +143,6 @@
                 <div class="col-sm-6">
                   <label class="row">
                     <div class="form__label-text col-sm">Документ 2:</div>
-                    <!--<input v-model="doc2" class="form__input col-sm" type="text" />-->
                     <select v-model="doc2" class="minimal col-sm">
                       <option v-for="item in documentsByFeatures" v-bind:value="item">
                         {{item.name}}
@@ -230,7 +199,6 @@
                 <div class="col-sm-6">
                   <label class="row">
                     <div class="form__label-text col-sm">Документ 3:</div>
-                    <!--<input v-model="doc3" class="form__input col-sm" type="text" />-->
                     <select v-model="doc3" class="minimal col-sm">
                       <option v-for="item in documentsByFeatures" v-bind:value="item">
                         {{item.name}}
@@ -265,7 +233,6 @@
                   </label>
                 </div>
                 <!---->
-
                 <div class="col-sm-6">
                   <label  class="row">
                     <div class="form__label-text col-sm">Дата выдачи:</div>
@@ -284,93 +251,6 @@
                   </label>
                 </div>
               </div>
-
-
-              <!--<div>-->
-                <!--<div class="row">-->
-                  <!--<div class="form__label-text col-sm">Документ 1:</div>-->
-                  <!--<input v-model="doc1" class="form__input col-sm" type="text" />-->
-                  <!--&lt;!&ndash;<input type="file" id="doc2" ref="doc2" @change="uploadFile2" title="Загрузите файл"/>&ndash;&gt;-->
-                <!--</div>-->
-                <!--<div class="row">-->
-                  <!--<div class="form__label-text col-sm">Серия:</div>-->
-                  <!--<input v-model="doc1_serial" class="form__input col-sm" type="text" />-->
-                <!--</div>-->
-                <!--<div class="row">-->
-                  <!--<div class="form__label-text col-sm">Номер/ID:</div>-->
-                  <!--<input v-model="doc1_number" class="form__input col-sm" type="text" />-->
-                <!--</div>-->
-                <!--<label class="row">-->
-                  <!--<div class="form__label-text col-sm">Копия/Оригинал:</div>-->
-                  <!--<select v-model="tab_features_selectedDocType1" class="minimal col-sm">-->
-                    <!--<option v-for="item in docType" v-bind:value="item">-->
-                      <!--{{item.name}}-->
-                    <!--</option>-->
-                  <!--</select>-->
-                <!--</label>-->
-                <!--<label v-if="tab_features_selectedDocType1.name ==='Оригинал'" class="row">-->
-                  <!--<div class="form__label-text col-sm">Дата предоставления:</div>-->
-                  <!--<input v-model="tab_featuresShowDate1" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>-->
-                <!--</label>-->
-              <!--</div>-->
-
-              <!--<hr>-->
-              <!--<div>-->
-                <!--<div class="row">-->
-                  <!--<div class="form__label-text col-sm">Документ 2:</div>-->
-                  <!--<input v-model="doc2" class="form__input col-sm" type="text" />-->
-                  <!--&lt;!&ndash;<input type="file" id="doc2" ref="doc2" @change="uploadFile2" title="Загрузите файл"/>&ndash;&gt;-->
-                <!--</div>-->
-                <!--<div class="row">-->
-                  <!--<div class="form__label-text col-sm">Серия:</div>-->
-                  <!--<input v-model="doc2_serial" class="form__input col-sm" type="text" />-->
-                <!--</div>-->
-                <!--<div class="row">-->
-                  <!--<div class="form__label-text col-sm">Номер/ID:</div>-->
-                  <!--<input v-model="doc2_number" class="form__input col-sm" type="text" />-->
-                <!--</div>-->
-                <!--<label class="row">-->
-                  <!--<div class="form__label-text col-sm">Копия/Оригинал:</div>-->
-                  <!--<select v-model="tab_features_selectedDocType2" class="minimal col-sm">-->
-                    <!--<option v-for="item in docType" v-bind:value="item">-->
-                      <!--{{item.name}}-->
-                    <!--</option>-->
-                  <!--</select>-->
-                <!--</label>-->
-                <!--<label v-if="tab_features_selectedDocType2.name ==='Оригинал'" class="row">-->
-                  <!--<div class="form__label-text col-sm">Дата предоставления:</div>-->
-                  <!--<input v-model="tab_featuresShowDate2" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>-->
-                <!--</label>-->
-              <!--</div>-->
-              <!--<hr>-->
-              <!--<div>-->
-                <!--<div class="row">-->
-                  <!--<div class="form__label-text col-sm">Документ 3:</div>-->
-                  <!--<input v-model="doc3" class="form__input col-sm" type="text" />-->
-                  <!--&lt;!&ndash;<input type="file" id="doc3" ref="doc3" @change="uploadFile3" title="Загрузите файл"/>&ndash;&gt;-->
-                <!--</div>-->
-                <!--<div class="row">-->
-                  <!--<div class="form__label-text col-sm">Серия:</div>-->
-                  <!--<input v-model="doc3_serial" class="form__input col-sm" type="text" />-->
-                <!--</div>-->
-                <!--<div class="row">-->
-                  <!--<div class="form__label-text col-sm">Номер/ID:</div>-->
-                  <!--<input v-model="doc3_number" class="form__input col-sm" type="text" />-->
-                <!--</div>-->
-                <!--<label class="row">-->
-                  <!--<div class="form__label-text col-sm">Копия/Оригинал:</div>-->
-                  <!--<select v-model="tab_features_selectedDocType3" class="minimal col-sm">-->
-                    <!--<option v-for="item in docType" v-bind:value="item">-->
-                      <!--{{item.name}}-->
-                    <!--</option>-->
-                  <!--</select>-->
-                <!--</label>-->
-                <!--<label v-if="tab_features_selectedDocType3.name ==='Оригинал'" class="row">-->
-                  <!--<div class="form__label-text col-sm">Дата предоставления:</div>-->
-                  <!--<input v-model="tab_featuresShowDate3" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>-->
-                <!--</label>-->
-              <!--</div>-->
-
             </div>
 
           </div>
@@ -415,12 +295,6 @@
           ],
           info_features_info: [],
 
-          // headers_features_documents: [
-          //   { text: '№', value: 'num', sortable: false, align: 'center' },
-          //   { text: 'Документ', value: 'documents',sortable: false, align: 'center' },
-          //   { text: 'Копия(Оригинал)', value: 'copy_or_origin',sortable: false, align: 'center' },
-          // ],
-          // info_features_documents: [],
         }
       },
       mounted() {
@@ -441,8 +315,6 @@
 
           ]),
         ...person(['person']),
-
-
 
         table_show() {
           return this.person.futures_info;
@@ -507,18 +379,6 @@
             this.doc3_IssuDate =  '';
             this.doc3_IssueBy =  '';
 
-            // this.doc1 = '';
-            // this.doc1_serial =  '';
-            // this.doc1_number =  '';
-            // this.tab_features_selectedDocType1 = null;
-            // this.doc2 =  '';
-            // this.doc2_serial =  '';
-            // this.doc2_number =  '';
-            // this.tab_features_selectedDocType2 = null;
-            // this.doc3 =  '';
-            // this.doc3_serial =  '';
-            // this.doc3_number =  '';
-            // this.tab_features_selectedDocType3 = null;
           },
           onDelete(item) {
             const index = this.person.futures_info.indexOf(item);
@@ -563,13 +423,6 @@
 
           },
 
-          onAddDocuments() {
-            this.documents.push('');
-          },
-          onRemoveDocuments() {
-            // var lastItem = this.documents[this.documents.length - 1];
-            this.documents.pop(this.documents.length - 1);
-          },
           onAddFeature() {
             if (this.editedIndex > -1) {
               console.log('its redaction ')
@@ -662,48 +515,7 @@
               console.log(this.person.futures_info)
             }
           },
-          uploadFile1(e) {
-            console.log(e)
-            let file = e.target.files[0];
-            let reader = new FileReader();
-            reader.onloadend = (file) => {
-              this.doc1 = reader.result;
-            }
-            reader.readAsDataURL(file);
-          },
-          uploadFile2(e) {
-            console.log(e)
-            let file = e.target.files[0];
-            let reader = new FileReader();
-            reader.onloadend = (file) => {
-              this.doc2 = reader.result;
-            }
-            reader.readAsDataURL(file);
-          },
-          uploadFile3(e) {
-            console.log(e)
-            let file = e.target.files[0];
-            let reader = new FileReader();
-            reader.onloadend = (file) => {
-              this.doc3 = reader.result;
-            }
-            reader.readAsDataURL(file);
-          },
-          // uploadFile1(e) {
-          //   console.log(e)
-          //   let file = e.target.files[0];
-          //   this.doc1 = URL.createObjectURL(file)
-          // },
-          // uploadFile2(e) {
-          //   console.log(e)
-          //   let file = e.target.files[0];
-          //   this.doc2 = URL.createObjectURL(file)
-          // },
-          // uploadFile3(e) {
-          //   console.log(e)
-          //   let file = e.target.files[0];
-          //   this.doc3 = URL.createObjectURL(file)
-          // },
+
        },
 
     }
@@ -747,12 +559,7 @@
     border-color: grey;
     outline: 0;
   }
-  .calculate_score {
-    margin-top: -8px;
-  }
-  .adress_button {
-    margin-left: -20px;
-  }
+
   label.row {
     margin-bottom: 3px;
   }
@@ -761,23 +568,14 @@
     background-color: #FFEFC6;
     cursor: pointer;
   }
-  tr:hover {
-    ackground-color: red;
-  }
+
   .search_form div {
     font-size: 20px;
   }
   .search_form input {
     width: 500px;
   }
-  .search_form {
-    margin-top: 14px;
-    height: 15px;
-  }
-  .search_button {
-    margin-top: 7px;
-    margin-left: 30px;
-  }
+
   input {
     height: 25px;
     border-radius: 3px;
@@ -803,35 +601,13 @@
     border: 1px solid;
     border-color: grey;
   }
-  .clear_save_button {
-    margin-top: 75%;
-    margin-left: 65%;
-    display: flex;
-    /*justify-content: space-between;*/
-  }
-  .outer {
-    /*margin: 5px;*/
-    /*margin-top: -5px;*/
-    background: linear-gradient(45deg, #EECFBA, #C5DDE8);
-    /*background: linear-gradient(to top left, powderblue, pink);*/
-  }
-  .distinctive_features_top {
-    height: 50%;
-  }
-  .distinctive_features_bottom {
-    height: 50%;
-  }
+
   textarea {
     width: 90%; /* Ширина поля в процентах */
     height: 100px; /* Высота поля в пикселах */
     resize: none; /* Запрещаем изменять размер */
   }
-  .buttons {
-    margin-left: 10px;
-  }
-  .ege_tabs {
-    margin-top: -35px;
-  }
+
   .parent_tabs {
     margin-top: -35px;
     /*background: linear-gradient(45deg, #EECFBA, #C5DDE8);*/
@@ -858,54 +634,15 @@
     opacity:0.9
   }
 
-  .button_add {
-    min-width: 100px;
-    min-height: 40px;
-    padding: 10px;
-    border: 1px solid;
-    border-color: grey;
-    border-radius:5px;
-    background-color: ghostwhite;
-    /*background-color: #EDD19C;*/
-    font-size: 16px;
-    cursor: pointer;
-    transform:scale(0.8);
-    opacity:0.9
-  }
-
-  /*.checkbox {*/
-  /*transform:scale(1.3);*/
-  /*opacity:0.9;*/
-  /*cursor:pointer;*/
-  /*}*/
-  .main_tab {
-    margin-top: 2px;
-    margin-left: 5px;
-    /*margin-right: 5px;*/
-    /*background: linear-gradient(45deg, #EECFBA, #C5DDE8);*/
-  }
   .row {
     margin-bottom: 8px;
   }
   .form__label-text {
     text-align: left;
   }
-  .alarm_label {
-    /*text-align: left;*/
-    color: red;
-  }
 
-  .search_place {
-    /*height: auto;*/
-    margin-top: 30px;
-    margin-left: 20px;
-  }
   .search_place p{
     margin-right: 10px;
   }
-  .input_profile_part1 {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-  }
+
 </style>

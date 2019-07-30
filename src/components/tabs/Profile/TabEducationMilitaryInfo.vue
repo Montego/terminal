@@ -8,12 +8,7 @@
       <div>
         <label class="row">
           <div class="form__label-text col-sm">Уровень образования:</div>
-          <!--<select v-model="tab_edu_military_educationLevel" class="minimal col-sm">-->
-            <!--<option v-for="option in options_educationLevel">-->
-              <!--{{option.item}}-->
-            <!--</option>-->
-          <!--</select>-->
-          <select v-model="tab_edu_military_educationLevel" class="minimal col-sm">
+                   <select v-model="tab_edu_military_educationLevel" class="minimal col-sm">
             <option v-for="item in eduLevel" v-bind:value="item">
               {{item.name}}
             </option>
@@ -304,22 +299,7 @@
       ...mapState('enums',['soldieryStatus','militaryFormDoc','docType','educationLevel'],),
       ...mapGetters('enums',['GET_SOLDIERY_STATUS','GET_MILITARY_FORM_DOC','GET_DOC_TYPE','GET_EDUCATION_LEVEL'],),
 
-      // ...tab_education_military_info(['tab_edu_military_militaryNumber', 'tab_edu_military_militarySeries',
-      //   'tab_edu_military_militaryIssueBy', 'tab_edu_military_militaryIssueDate', 'tab_edu_military_militaryRank',
-      //   'tab_edu_military_soldieryBegDate', 'tab_edu_military_soldieryEndDate', 'tab_personal_identityCardIssueBy',
-      //   'tab_edu_military_eduDocSerial', 'tab_edu_military_eduDocNumber', 'tab_edu_military_selectedEduDoc',
-      //   'tab_edu_military_educationLevel', 'tab_edu_military_selectedSoldiery', 'tab_edu_military_selectedSoldieryStatus',
-      //   'tab_edu_military_selectedMilitaryFormDoc', 'selectedExtraInfos1',  'selectedExtraInfos2',
-      //   'selectedExtraInfos3', 'selectedExtraInfos4','extraInfosDescription1','extraInfosDescription2',
-      //   'extraInfosDescription3','extraInfosDescription4', 'tab_edu_military_selectedCountryRegion',
-      //   'tab_edu_military_selectedState','tab_edu_military_selectedAcademyYear','tab_edu_military_selectedDocType'
-      // ]),
-      // ...mapState('enums'['educationLevel','soldieryStatus','militaryFormDoc','docType']),
-      // ...mapGetters('enums'['GET_EDUCATION_LEVEL','GET_SOLDIERY_STATUS','GET_MILITARY_FORM_DOC','GET_DOC_TYPE']),
-      // },
-      update(){
-        return this.person.score_full;
-      }
+
       },
       methods: {
         copyFromEdu() {
@@ -345,57 +325,6 @@
               }
             ],
 
-
-            // options_eduDoc: [
-            //   {id: 1, item: 'Академическая справка'},
-            //   {id: 2, item: 'Аттестат о полном среднем образовании'},
-            //   {id: 3, item: 'Аттестат о среднем общем образовании'},
-            //   {id: 4, item: 'Аттестат о среднем общем образовании без корочки'},
-            //   {id: 5, item: 'Аттестат иного государства'},
-            //   {id: 6, item: 'Выписка из протокола заседания комиссии'},
-            //   {id: 7, item: 'Диплом об окончании аспирантуры (адъюнкатуры)'},
-            //   {id: 8, item: 'Диплом бакалавра'},
-            //   {id: 9, item: 'Диплом ВУЗа'},
-            //   {id: 10, item: 'Диплом кандидата наук'},
-            //   {id: 11, item: 'Диплом лицея'},
-            //   {id: 12, item: 'Диплом магистра'},
-            //   {id: 13, item: 'Диплом о начальном профессиональном образовании'},
-            //   {id: 14, item: 'Диплом'},
-            //   {id: 15, item: 'Диплом иностранного государства (ВУЗ)'},
-            //   {id: 16, item: 'Диплом специалиста'},
-            //   {id: 17, item: 'Диплом о среднем профессиональном образовании'},
-            //   {id: 18, item: 'Свидетельство'},
-            //   {id: 19, item: 'Свидетельство об аккредитации'},
-            //   {id: 20, item: 'Сертификат'},
-            // ],
-            options_educationLevel: [
-              {id: 1, item: 'Бакалавриат'},
-              {id: 2, item: 'Магистратура'},
-              // {id: 1, item: ''},
-              {id: 3, item: 'Специалитет'},
-              {id: 4, item: 'Мед.училище'},
-              {id: 5, item: 'СПО и техникум'},
-              {id: 6, item: 'НПО'},
-              {id: 7, item: 'СШД (Средняя школа дневная)'},
-              {id: 8, item: 'СШВ (Средняя школа вечерняя'},
-              {id: 9, item: 'Ординатура'},
-              {id: 10, item: 'Интернатура'},
-              {id: 11, item: 'Аспирантура'},
-            ],
-            // options_soldiery: [
-            //   {id: 1, item: 'Военнообязанный'},
-            //   {id: 2, item: 'Невоеннообязанный'},
-            // ],
-            // options_soldieryStatus: [
-            //   {id: 1, item: 'Служил'},
-            //   {id: 2, item: 'Не служил'},
-            // ],
-            //
-            // options_militaryFormDoc: [
-            //   {id: 1, item: 'Не определено'},
-            //   {id: 2, item: 'Приписное свид-во'},
-            //   {id: 3, item: 'Военный билет'},
-            // ],
             options_extraInfos: [
               {id: 1, item: 'Достижения в учебе'},
               {id: 2, item: 'Художственные достижения'},

@@ -3,10 +3,7 @@ import VueRouter from 'vue-router'
 import Login from "../components/pages/Login";
 import E404 from "../components/pages/E404";
 import Registation from "../components/pages/Registation";
-// import Main from "../components/pages/Main";
 import Profile from "../components/pages/Profile";
-import Application from "../components/pages/Application";
-import TabPersonalInfo from "../components/tabs/Profile/TabPersonalInfo";
 
 
 Vue.use(VueRouter);
@@ -23,11 +20,7 @@ const routes = [
     path:'/registration',
     component: Registation
   },
-  // {
-  //   name:'application',
-  //   path:'/application',
-  //   component: Application
-  // },
+
   {
     path:'',
     redirect: {name :'login'}

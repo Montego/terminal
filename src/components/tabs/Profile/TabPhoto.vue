@@ -6,26 +6,17 @@
       @toApplication="onAppl"
       @validatorConditions="validatorConditions"
     />
-    <!--<img v-bind:src="'data:image/jpeg;base64,'+ this.image" />-->
     <div class="photo-loader">
       <div class="photo-loader__img-placeholder">
-        <!--<div v-if="!person.person_info.showimage">-->
         <div v-if="!showimage">
-          <!--<h2>Выберите изображение</h2>-->
-          <!--<input type="file" id="image" ref="image" @change="uploadFile">-->
         </div>
         <div v-else>
           <img  class="images_place" :src= "showimage" />
-          <!--<img v-else class="images_place" :src= "person.person_info.image" />-->
-          <!--<img  class="images_place" :src = "person.person_info.image"/>-->
         </div>
-        <!--<div v-if="person.person_info.image !== null">-->
-          <!--<img class="images_place" :src = "person.person_info.image"/>-->
-        <!--</div>-->
-      </div>
+             </div>
 
       <div class="photo-loader__controls">
-        <!--<button class="photo-loader__control-btn btn btn_load" type="button">-->
+          <!--<button class="photo-loader__control-btn btn btn_load" type="button">-->
         <input type="file" id="image" ref="image" @change="uploadFile"/>
         <button v-if="!this.isModalVisible" class="photo-loader__control-btn /btn btn_reset" type="button" @click="removeImage">Сбросить</button>
       </div>
@@ -33,7 +24,7 @@
     <span>{{successMessage}}</span>
     <span>{{errorMessages}}</span>
       <!--<div v-if="!this.isModalVisible">-->
-        <!--<button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="onSave">Проверить заполнение</button>-->
+        <button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="onSave">Проверить заполнение</button>
       <!--</div>-->
 
     <!--<div v-if="!this.isModalVisible"  >-->
@@ -338,7 +329,7 @@
 
                 // this.person.application.saved = response.data;
                 // this.info.push(response.data)
-                this.person_info_id = ''
+                this.person_info_id = '';
                 // this.person.ege_info = [];
                 this.person.parents_info = [];
                 this.person.futures_info = [];

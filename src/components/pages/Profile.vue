@@ -94,11 +94,6 @@
 
         ],
         dialog: false,
-
-        // currentTab: 'Home',
-        // tabs: ['TabOverview', 'TabPersonalInfo', 'TabAddressInfo', 'TabEducationMilitary',
-        //   'TabEvidenceEge', 'TabParentInfo', 'TabDistinctiveFeaturesInfo', 'TabPhoto'],
-
       }
     },
     methods: {
@@ -106,12 +101,10 @@
 
         location.href='profile#overview_personal_info';
           this.showProfile = val;
-
           this.isModalVisible = false;
           this.application.applicationTable.splice(0,1)
 
       },
-
 
       onLogout: () => {
           AXIOS.get("/logout")
@@ -122,7 +115,6 @@
               .catch( (e) => {
                   console.error(e);
               });
-
       },
 
       onApplication(data) {
@@ -155,22 +147,10 @@
     padding-bottom: -30px;
   }
 
-  .calculate_score {
-    margin-top: -8px;
-  }
-
-  .adress_button {
-    margin-left: -20px;
-  }
-
   tbody tr:hover td {
     background-color: #FFEFC6;
     cursor: pointer;
   }
-
-  /*tr:hover {*/
-    /*background-color: red;*/
-  /*}*/
 
   .search_form div {
     font-size: 20px;
@@ -178,16 +158,6 @@
 
   .search_form input {
     width: 500px;
-  }
-
-  .search_form {
-    margin-top: 14px;
-    height: 15px;
-  }
-
-  .search_button {
-    margin-top: 7px;
-    margin-left: 30px;
   }
 
   input {
@@ -218,12 +188,6 @@
     border-color: grey;
   }
 
-  .clear_save_button {
-    margin-top: 75%;
-    margin-left: 65%;
-    display: flex;
-    /*justify-content: space-between;*/
-  }
 
   .outer {
     /*margin: 5px;*/
@@ -232,36 +196,10 @@
     /*background: linear-gradient(to top left, powderblue, pink);*/
   }
 
-  .distinctive_features_top {
-    height: 50%;
-  }
-
-  .distinctive_features_bottom {
-    height: 50%;
-  }
-
   textarea {
     width: 90%; /* Ширина поля в процентах */
     height: 100px; /* Высота поля в пикселах */
     resize: none; /* Запрещаем изменять размер */
-  }
-
-  .buttons {
-    margin-left: 10px;
-  }
-
-  .ege_tabs {
-    margin-top: -35px;
-  }
-
-  .parent_tabs {
-    margin-top: -35px;
-    /*background: linear-gradient(45deg, #EECFBA, #C5DDE8);*/
-  }
-
-  .inner_tab {
-    margin-top: -40px;
-    /*background: linear-gradient(45deg, #EECFBA, #C5DDE8);*/
   }
 
   p {
@@ -283,45 +221,8 @@
     opacity: 0.9
   }
 
-  /*.checkbox {*/
-  /*transform:scale(1.3);*/
-  /*opacity:0.9;*/
-  /*cursor:pointer;*/
-  /*}*/
-  .main_tab {
-    margin-top: 2px;
-    margin-left: 5px;
-
-    /*margin-right: 5px;*/
-    /*background: linear-gradient(45deg, #EECFBA, #C5DDE8);*/
-  }
-
-  .row {
-    margin-bottom: 8px;
-  }
-
-  .form__label-text {
-    text-align: left;
-  }
-
-  .alarm_label {
-    /*text-align: left;*/
-    color: red;
-  }
-
-  .search_place {
-    /*height: auto;*/
-    margin-top: 30px;
-    margin-left: 20px;
-  }
-
   .search_place p {
     margin-right: 10px;
   }
 
-  .input_profile_part1 {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-  }
 </style>

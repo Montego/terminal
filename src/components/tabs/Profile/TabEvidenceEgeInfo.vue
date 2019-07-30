@@ -2,11 +2,6 @@
   <div>
     <tabs class="ege_tabs">
       <tab id="ege_overview" name="Обзор">
-        <!--<tab id="" name="Свидетельства ЕГЭ">-->
-        <!--<div class="row">-->
-          <!--<button @click="onInfo">Добавить</button>-->
-        <!--</div>-->
-          <!--{{this.person.ege_info}}-->
         <div class="row">
           <div class="col-sm">
             <v-data-table
@@ -30,41 +25,12 @@
                 <td class="text-xs-center">
                   <input v-model="props.item.tab_ege_changePaspInf" class="checkbox col-sm" type="checkbox" >
                 </td>
-
               </template>
               <template slot="no-data">
                 <div></div>
               </template>
             </v-data-table>
 
-            <!--<v-data-table-->
-              <!--:headers="headers_ege_subjects"-->
-              <!--:items="table_show"-->
-              <!--class="elevation-1 text-xs-center"-->
-              <!--hide-actions-->
-            <!--&gt;-->
-              <!--<template slot="items" slot-scope="props">-->
-                <!--<td class="text-xs-center">{{ props.item.tab_ege_selectedSubject}}</td>-->
-                <!--<td class="text-xs-center">{{ props.item.tab_ege_score}}</td>-->
-                <!--<td class="text-xs-center">{{ props.item.tab_ege_year}}</td>-->
-                <!--<td class="text-xs-center">-->
-                  <!--<input v-model="props.item.tab_ege_changePaspInf" class="checkbox col-sm" type="checkbox" disabled>-->
-                <!--</td>-->
-
-                <!--<td>-->
-                  <!--<button @click="onEdit(props.item)">-->
-                    <!--<v-icon color="#5bc0de">edit</v-icon>-->
-                  <!--</button>{{ props.item.actions}}-->
-                  <!--<button @click="onDelete(props.item)">-->
-                    <!--<v-icon color="red">delete</v-icon>-->
-                  <!--</button>{{ props.item.actions}}-->
-
-                <!--</td>-->
-              <!--</template>-->
-              <!--<template slot="no-data">-->
-                <!--<div></div>-->
-              <!--</template>-->
-            <!--</v-data-table>-->
           </div>
         </div>
       </tab>
@@ -306,20 +272,12 @@
     getterType: `tab_evidence_ege_info/getField`,
     mutationType: `tab_evidence_ege_info/updateField`,
   });
-  // const { mapFields:tab_personal_info_fields } = createHelpers({
-  //   getterType: 'tab_personal_info/getField',
-  //   mutationType: 'tab_personal_info/updateField',
-  // });
-  // const { mapFields:tab_entrance_tests } = createHelpers({
-  //   getterType: 'tab_personal_info/getField',
-  //   mutationType: 'tab_personal_info/updateField',
-  // });
+
 
   export default {
     name: "TabEvidenceEge",
     mounted () {
       this.$store.dispatch('dictionary/onLoadIdentityCardCode');
-      // this.$store.dispatch('dictionary/onLoadOtherCountryRegion');
       this.$store.dispatch('dictionary/onLoadAddressCountryRegion');
       this.$store.dispatch('enums/onLoadExamForm');
       this.$store.dispatch('dictionary/onLoadSubject');
@@ -359,12 +317,7 @@
         'tab_ege_selectedExamForm','tab_ege_year','tab_ege_score_fis', 'tab_ege_appelation','biology_score',
         'russian_score','chemistry_score','tab_ege_changePaspInf'
       ]),
-      // ...tab_personal_info_fields(['tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename',
-      //  'tab_personal_selectedIdentityCardCode','tab_personal_identityCardSeries','tab_personal_identityCardNumber',
-      //   'tab_personal_identityCardIssueDate','tab_personal_identityCardIssueDep','tab_personal_identityCardIssueBy'
-      // ]),
-      // ...mapMultiRowFields(['ege_info','tests']),
-      // ...tab_entrance_tests(['tab_entrance_test_score', 'tab_entrance_test_subject']),
+
       table_show() {
         return this.person.ege_info;
       },
@@ -422,23 +375,6 @@
 
     methods: {
 
-      // onInfo(){
-      //   this.tab_ege_lastname = '';
-      //   this.tab_ege_firstname = '';
-      //   this.tab_ege_middlename = '';
-      //   this.tab_ege_selectedIdentityCardCode = { "identityCardCode": "Паспорт РФ", "identityCardNamemiddle": "Паспорт РФ", "identityCardNameFull": "Паспорт РФ", "identityCardNameShort": "", "isUniversity": 1, "isMandatory_Number": 1, "isMandatory_Series": 1, "sort": 1 };
-      //   this.tab_ege_identityCardSeries = '';
-      //   this.tab_ege_identityCardNumber = '';
-      //   this.tab_ege_identityCardIssueDate = '';
-      //   this.tab_ege_identityCardIssueBy = '';
-      //   this.tab_ege_info_selectedCitizenship = {"countryRegionId":"РФ","name":"Россия"};
-      //   this.tab_ege_selectedExamForm = null;
-      //   this.tab_ege_selectedSubject = null;
-      //   this.tab_ege_year ='';
-      //   this.tab_ege_changePaspInf= false;
-      //   this.tab_ege_score = '';
-      //   location.href='profile#ege_info';
-      // },
       onDelete(item) {
         const index = this.person.ege_info.indexOf(item);
         console.log(index);
@@ -447,105 +383,6 @@
         // this.tests.splice(index,1);
 
       },
-
-      // onEdit(item) {
-      //   this.editedIndex = this.person.ege_info.indexOf(item);
-      //   this.editedItem = Object.assign({}, item);
-      //
-      //   const index = this.person.ege_info.indexOf(item);
-      //   this.index_for_redaction = index;
-      //   location.href='profile#ege_info';
-      //   this.tab_ege_lastname = this.person.ege_info[index].tab_ege_lastname;
-      //   this.tab_ege_firstname = this.person.ege_info[index].tab_ege_firstname;
-      //   this.tab_ege_middlename = this.person.ege_info[index].tab_ege_middlename;
-      //   this.tab_ege_selectedIdentityCardCode = this.person.ege_info[index].tab_ege_selectedIdentityCardCode;
-      //   this.tab_ege_identityCardSeries = this.person.ege_info[index].tab_ege_identityCardSeries;
-      //   this.tab_ege_identityCardNumber = this.person.ege_info[index].tab_ege_identityCardNumber;
-      //   this.tab_ege_identityCardIssueDate = this.person.ege_info[index].tab_ege_identityCardIssueDate;
-      //   this.tab_ege_identityCardIssueBy = this.person.ege_info[index].tab_ege_identityCardIssueBy;
-      //   this.tab_ege_info_selectedCitizenship = this.person.ege_info[index].tab_ege_info_selectedCitizenship;
-      //   this.tab_ege_selectedExamForm = this.person.ege_info[index].tab_ege_selectedExamForm;
-      //   this.tab_ege_selectedSubject = this.person.ege_info[index].tab_ege_selectedSubject;
-      //   this.tab_ege_score = this.person.ege_info[index].tab_ege_score;
-      //   this.tab_ege_changePaspInf = this.person.ege_info[index].tab_ege_changePaspInf;
-      // },
-
-      // onClearFields() {
-      //   this.tab_ege_lastname = '';
-      //   this.tab_ege_firstname = '';
-      //   this.tab_ege_middlename = '';
-      //   this.tab_ege_identityCardSeries = '';
-      //   this.tab_ege_identityCardNumber = '';
-      //   this.tab_ege_identityCardIssueDate = '';
-      //   this.tab_ege_identityCardIssueBy = '';
-      //   this.tab_ege_info_selectedCitizenship = null;
-      //   this.tab_ege_selectedExamForm = null;
-      //   this.tab_ege_selectedSubject = null;
-      //   this.tab_ege_score = '';
-      //   this.tab_ege_year = '';
-      //   this.tab_ege_changePaspInf = false;
-
-    //TODO other fields
-
-      // },
-      // onAddEge() {
-      //   if (this.editedIndex > -1) {
-      //     console.log('its redaction ')
-      //     console.log('its edited item' + this.editedItem.tab_ege_score)
-      //     this.editedItem.tab_ege_lastname = this.tab_ege_lastname;
-      //     this.editedItem.tab_ege_firstname = this.tab_ege_firstname;
-      //     this.editedItem.tab_ege_middlename = this.tab_ege_middlename;
-      //     this.editedItem.tab_ege_identityCardSeries = this.tab_ege_identityCardSeries;
-      //     this.editedItem.tab_ege_identityCardNumber = this.tab_ege_identityCardNumber;
-      //     this.editedItem.tab_ege_identityCardIssueDate = this.tab_ege_identityCardIssueDate;
-      //     this.editedItem.tab_ege_identityCardIssueBy = this.tab_ege_identityCardIssueBy;
-      //     this.editedItem.tab_ege_info_selectedCitizenship = this.tab_ege_info_selectedCitizenship;
-      //     this.editedItem.tab_ege_selectedExamForm = this.tab_ege_selectedExamForm;
-      //     this.editedItem.tab_ege_selectedSubject = this.tab_ege_selectedSubject;
-      //     this.editedItem.tab_ege_score = this.tab_ege_score;
-      //     this.editedItem.tab_ege_year = this.tab_ege_year;
-      //     this.editedItem.tab_ege_changePaspInf = this.tab_ege_changePaspInf;
-      //     Object.assign(this.person.ege_info[this.editedIndex], this.editedItem);
-      //     location.href='profile#ege_overview';
-      //     // this.person.ege_info[this.editedIndex].push(this.editedItem)
-      //   }
-      //   else {
-      //     function Ege(ege_lastname, ege_firstname, ege_middlename, ege_selectedIdentityCardCode,
-      //                  ege_identityCardSeries, ege_identityCardNumber, ege_identityCardIssueDate,
-      //                  ege_identityCardIssueBy, ege_selectedCitizenship, ege_selectedExamForm,
-      //                  ege_year, ege_selectedSubject, ege_score, change) {
-      //       this.tab_ege_lastname = ege_lastname;
-      //       this.tab_ege_firstname = ege_firstname;
-      //       this.tab_ege_middlename = ege_middlename;
-      //       this.tab_ege_selectedIdentityCardCode = ege_selectedIdentityCardCode;
-      //       this.tab_ege_identityCardSeries = ege_identityCardSeries;
-      //       this.tab_ege_identityCardNumber = ege_identityCardNumber;
-      //       this.tab_ege_identityCardIssueDate = ege_identityCardIssueDate;
-      //       this.tab_ege_identityCardIssueBy = ege_identityCardIssueBy;
-      //       this.tab_ege_info_selectedCitizenship = ege_selectedCitizenship;
-      //       this.tab_ege_selectedExamForm = ege_selectedExamForm;
-      //       this.tab_ege_year = ege_year;
-      //       this.tab_ege_selectedSubject = ege_selectedSubject;
-      //       this.tab_ege_score = ege_score;
-      //       this.tab_ege_changePaspInf = change
-      //     }
-      //
-      //     var ege = new Ege(
-      //       this.tab_ege_lastname, this.tab_ege_firstname, this.tab_ege_middlename, this.tab_ege_selectedIdentityCardCode,
-      //       this.tab_ege_identityCardSeries, this.tab_ege_identityCardNumber, this.tab_ege_identityCardIssueDate,
-      //       this.tab_ege_identityCardIssueBy, this.tab_ege_info_selectedCitizenship,
-      //       this.tab_ege_selectedExamForm, this.tab_ege_year, this.tab_ege_selectedSubject,
-      //       this.tab_ege_score, this.tab_ege_changePaspInf
-      //     );
-      //
-      //
-      //     this.person.ege_info.push(ege);
-      //   }
-      //   console.log(this.person.ege_info)
-      //   console.log(this.tests)
-      //   location.href='profile#ege_overview';
-      // },
-
 
       onCopyInfoFromProfileTab() {
         let i = 0;
@@ -566,9 +403,6 @@
 </script>
 
 <style scoped>
-  .uneditable {
-    background-color: #F5F5F5;
-  }
 
   select.minimal {
     background-image:
@@ -604,13 +438,6 @@
     outline: 0;
   }
 
-
-  .clear_save_button {
-    /*margin-top: 30%;*/
-    /*margin-left: 65%;*/
-    display: flex;
-    justify-content: flex-end;
-  }
 
   label.row {
     margin-bottom: 3px;

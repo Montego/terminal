@@ -55,11 +55,7 @@
       props: {
         handleClick: Function,
       },
-      // data() {
-      //   return {
-      //     showProfile: true,
-      //   }
-      // },
+
       computed: {
         ...person(['person', 'showProfile']),
       },
@@ -68,8 +64,6 @@
         TabDistinctiveFeaturesInfo,
         TabParentInfo, TabEvidenceEge, TabEducationMilitary,
         TabAddressInfo, TabPersonalInfo, TabOverview,
-
-
       },
       methods: {
         tabClicked (selectedTab) {

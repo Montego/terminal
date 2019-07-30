@@ -16,19 +16,15 @@
       </button>
 
       <!--<hr>-->
-      <button  color="#5bc0de" @click="onPrintApplication()">
-        Заявление
-      </button>
-      <button  color="#5bc0de" @click="onPrintDocuments()">
-        Опись
-      </button>
-      <button  color="#5bc0de" @click="onPrintAgreement()">
-        Согласие
-      </button>
-    </div>
-
-    <div>
-
+      <!--<button  color="#5bc0de" @click="onPrintApplication()">-->
+        <!--Заявление-->
+      <!--</button>-->
+      <!--<button  color="#5bc0de" @click="onPrintDocuments()">-->
+        <!--Опись-->
+      <!--</button>-->
+      <!--<button  color="#5bc0de" @click="onPrintAgreement()">-->
+        <!--Согласие-->
+      <!--</button>-->
     </div>
 
 
@@ -230,38 +226,30 @@
 
         onPrintDocuments(){
           console.log(this.$store.state.applicationId)
-          const config = {
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            }
-          };
+
           let id = this.$store.state.applicationId;
           window.open('http://10.71.0.115/appldoclist/'+id+'.xlsm');
-          AXIOS_print.get('/appldoclist/'+ id + '.xlsm' )
-            .then(response => {
-
-            }).catch(e => {
-            console.log(e)
-            // this.errors.push(e)
-          })
+          // AXIOS_print.get('/appldoclist/'+ id + '.xlsm' )
+          //   .then(response => {
+          //
+          //   }).catch(e => {
+          //   console.log(e)
+          //   // this.errors.push(e)
+          // })
         },
 
         onPrintAgreement(){
           console.log(this.$store.state.agreementId)
-          const config = {
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            }
-          };
+
           let id = this.$store.state.agreementId;
           window.open('http://10.71.0.115/agreement/'+id+'.xlsm');
-          AXIOS_print.get('/agreement/'+ id + '.xlsm' )
-            .then(response => {
-
-            }).catch(e => {
-            console.log(e)
-            // this.errors.push(e)
-          })
+          // AXIOS_print.get('/agreement/'+ id + '.xlsm' )
+          //   .then(response => {
+          //
+          //   }).catch(e => {
+          //   console.log(e)
+          //   // this.errors.push(e)
+          // })
         },
 
 
@@ -281,11 +269,11 @@
 
         showModal(item) {
 
-          const index = this.profiles.indexOf(item);
-          const idString = this.profiles[index].id;
-          const id = parseInt(idString,10);
-          this.person_info_id = id;
-          console.log(this.person_info_id);
+          // const index = this.profiles.indexOf(item);
+          // const idString = this.profiles[index].id;
+          // const id = parseInt(idString,10);
+          // this.person_info_id = id;
+          // console.log(this.person_info_id);
 
 
           if(this.saved !== 'Сохранено'){
@@ -767,7 +755,7 @@
               this.savedResult = response.data[0].saved;
 
               function ApplTable(tableId,tableName, tableNumber, tableDate, tableDeliveryType, accept, saved) {
-                this.applId = tableId
+                this.applId = tableId;
                 this.applTableName = tableName;
                 this.applTableNumber = tableNumber;
                 this.applTableDate = tableDate;
@@ -781,12 +769,12 @@
               this.savedResult);
 
               this.application.applicationTable.push(appltable);
-              console.log(response.data[0].saved)
+              console.log(response.data[0].saved);
               console.log(response.data[0]);
             })
             .catch(e => {
               // this.errors.push(e)
-            })
+            });
 
           console.log(this.person_info_id)
 
