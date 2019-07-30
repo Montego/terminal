@@ -68,28 +68,19 @@
               {{item.name}}
             </option>
           </select>
-
         </label>
-<label class="row">
-  <!--<input v-model="tab_edu_military_selectedEduDoc" class="uneditable form__input col-sm-12" type="text" name="" placeholder="Заполняется автоматически"-->
-         <!--disabled/>-->
-</label>
-
-
         <span class="alarm_label" v-if="tab_edu_military_selectedEduDoc===''">Не выбран документ об образовании</span>
 
         <label class="row">
           <div class="form__label-text col-sm">Серия:</div>
           <input data-vv-as="серия" v-validate v-model="tab_edu_military_eduDocSerial" class="form__input col-sm" type="text" name="eduDocSerial" placeholder="" required/>
         </label>
-
         <span class="alarm_label">{{ errors.first('eduDocSerial') }}</span>
 
         <label class="row">
           <div class="form__label-text col-sm">Номер:</div>
           <input data-vv-as="номер" v-validate v-model="tab_edu_military_eduDocNumber" class="form__input col-sm" type="text" name="eduDocNumber" placeholder="" required/>
         </label>
-
         <span class="alarm_label">{{ errors.first('eduDocNumber') }}</span>
 
         <label class="row">
@@ -110,9 +101,8 @@
         </label>
         <div class="row">
           <label class="col-sm-9"></label>
-          <button class="calculate_score col-sm-3" @click="copyFromEdu">Копировать</button>
+          <button class="copy_button col-sm-3" @click="copyFromEdu">Копировать</button>
         </div>
-
 
         <div class="row">
           <div class="form__label-text col-sm-2">Пятёрок:</div>
@@ -123,11 +113,11 @@
           <input v-model="score_three" class="form__input col-sm-1" type="text" v-mask="'##'"  />
         </div>
         <label class="row">
-          <div class="form__label-text col-sm-6">Средний балл:</div>
-          <button class="calculate_score col-sm-4" @click="onCalculateScore">Расчет среднего балла</button>
-          <!--<input v-model="score_full" class="form__input col-sm-2 " type="text" v-mask="'#.##'" disabled hidden/>-->
+          <div class="form__label-text col-sm-2">Средний балл:</div>
           <input v-model="score_full" class="form__input col-sm-2 " type="text" v-mask="'#.##'" placeholder="---"
                  disabled="disabled"/>
+          <button class="calculate_score col-sm" @click="onCalculateScore">Расчет среднего балла</button>
+
         </label>
       </div>
     </div>
@@ -157,7 +147,6 @@
 
         </label>
       </div>
-      <!--<div v-if="tab_edu_military_selectedSoldieryStatus.name ==='Служил' ">-->
       <div v-if="tab_edu_military_selectedSoldiery.soldieryId ==='Военнообязанный'">
         <div>
           <p>Документ о военной службе</p>
@@ -228,7 +217,7 @@
       <hr>
       <label class="alarm_label">Внимание! Индивидуальные достижения заносятся на вкладке "Отличительные признаки"</label>
       <div class="row">
-          <select v-model="selectedExtraInfos1" class="minimal col-sm">
+          <select v-model="selectedExtraInfos1" class="minimal exta_info_select col-sm">
             <option v-for="option in options_extraInfos">
               {{option.item}}
             </option>
@@ -236,7 +225,7 @@
           <input v-model="extraInfosDescription1" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
       </div>
       <div class="row">
-        <select v-model="selectedExtraInfos2" class="minimal col-sm">
+        <select v-model="selectedExtraInfos2" class="minimal exta_info_select col-sm">
           <option v-for="option in options_extraInfos">
             {{option.item}}
           </option>
@@ -244,13 +233,6 @@
         <input v-model="extraInfosDescription2" class="form__input col-sm" type="text" name="" placeholder="Описание"/>
       </div>
     </div>
-        <!--</label>-->
-      <!--</div>-->
-
-      <!--<label class="row">-->
-        <!--<input class="button_add" type="button" value="Добавить" @click="onAddExtraInfo" >-->
-        <!--<input class="button_add" type="button" value="Убрать" @click="onRemoveExtraInfo" >-->
-      <!--</label>-->
 
   </div>
 </template>
@@ -339,8 +321,12 @@
 </script>
 
 <style scoped>
-  .uneditable {
-    background-color: #F5F5F5;
+  .exta_info_select {
+    margin-left: 10px;
+  }
+
+  .copy_button {
+    margin-top: 1px;
   }
 
   select.minimal {
@@ -468,6 +454,7 @@
   .calculate_score {
     margin-top: -8px;
     padding: -10px;
+    margin-left: 300px;
   }
 
   .row {
