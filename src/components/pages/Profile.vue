@@ -7,11 +7,11 @@
       <!--<button class="col-sm-2" type="button" @click="handleClick(true)">К профилям</button>-->
       <!--<a class="logout col-sm-3" href="/login">Logout</a>-->
     <!--</div>-->
-    <div class="control-panel">
+    <div class="control-panel col-sm">
       <div>
         <span>Абитуриент:</span>
         <input @change="searchPersonBySNP(searchForm)" v-model="searchForm.tab_personal_lastname.input" type="search" name="поиск" placeholder="Поиск по сайту">
-        <select v-model="searchForm.tab_personal_lastname.select" class="minimal exta_info_select col-sm">
+        <select v-model="searchForm.tab_personal_lastname.select" class="minimal exta_info_select col-sm-3">
           <option v-for="option in search_options">
             {{option.item}}
           </option>
@@ -116,6 +116,7 @@
     },
     methods: {
       searchPersonBySNP(){
+        this.profiles = [];
           console.log(this.searchForm);
 
           AXIOS.post("/profile/search/",(this.searchForm))
