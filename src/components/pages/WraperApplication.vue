@@ -8,21 +8,18 @@
     <tab id="documents" name="Документы">
       <TabDocuments></TabDocuments>
     </tab>
-
     <tab id="other" name="Утвердить и сохранить">
-      <TabOther></TabOther>
+      <TabCheckAndSave></TabCheckAndSave>
     </tab>
+
   </tabs>
 </div>
 </template>
 
 <script>
-  import TabOverviewApplication from "../tabs/Application/TabOverviewApplication";
   import TabApplicationFill from "../tabs/Application/TabApplicationFill";
-  import TabReceptionConditions from "../tabs/Application/TabReceptionConditions";
   import TabDocuments from "../tabs/Application/TabDocuments";
-  import TabEntranceTests from "../tabs/Application/TabEntranceTests";
-  import TabOther from "../tabs/Application/TabOther";
+  import TabCheckAndSave from "../tabs/Application/TabCheckAndSave";
   import { createHelpers } from 'vuex-map-fields';
 
   const { mapFields:person} = createHelpers({
@@ -38,8 +35,8 @@
         ...person(['person', 'showProfile']),
       },
       components: {
-        TabOverviewApplication, TabApplicationFill, TabReceptionConditions,
-        TabDocuments, TabEntranceTests, TabOther
+        TabApplicationFill,
+        TabDocuments, TabCheckAndSave
       },
     }
 </script>

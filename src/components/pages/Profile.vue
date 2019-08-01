@@ -50,12 +50,9 @@
   import WraperProfile from "./WraperProfile";
   import WraperApplication from "./WraperApplication";
 
-  import TabOverviewApplication from "../tabs/Application/TabOverviewApplication";
   import TabApplicationFill from "../tabs/Application/TabApplicationFill";
-  import TabReceptionConditions from "../tabs/Application/TabReceptionConditions";
   import TabDocuments from "../tabs/Application/TabDocuments";
-  import TabEntranceTests from "../tabs/Application/TabEntranceTests";
-  import TabOther from "../tabs/Application/TabOther";
+  import TabOther from "../tabs/Application/TabCheckAndSave";
 
   import { createHelpers } from 'vuex-map-fields';
   import {AXIOS} from "../plugins/APIService";
@@ -71,10 +68,7 @@
     name: "Profile",
 
     components: {
-      WraperProfile,WraperApplication,
-      TabPhoto, TabDistinctiveFeaturesInfo, TabParentInfo, TabEvidenceEge, TabEducationMilitary,
-      TabAddressInfo, TabPersonalInfo, TabOverview, TabOverviewApplication, TabApplicationFill,
-      TabReceptionConditions, TabDocuments, TabEntranceTests, TabOther
+      WraperProfile,WraperApplication
     },
     computed: {
       ...person(['person', 'showProfile','person_info_id','isModalVisible','profiles']),
@@ -125,7 +119,6 @@
               for(i; i<response.data.length; i++){
                 this.profiles.push(response.data[i]);
               }
-
               console.log(response.data);
             })
             .catch( (e) => {

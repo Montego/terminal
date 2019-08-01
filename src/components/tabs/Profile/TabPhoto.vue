@@ -24,7 +24,7 @@
     <span>{{successMessage}}</span>
     <span>{{errorMessages}}</span>
       <!--<div v-if="!this.isModalVisible">-->
-        <button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="onSave">Проверить заполнение</button>
+        <!--<button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="onSave">Проверить заполнение</button>-->
       <!--</div>-->
 
     <!--<div v-if="!this.isModalVisible"  >-->
@@ -108,9 +108,9 @@
         ...mapState('dictionary',['targOrg'],),
         ...mapGetters('dictionary',['GET_targOrg']),
 
-        show(){
-          return this.persons
-        }
+        // show(){
+        //   return this.persons
+        // }
       },
       methods: {
         ...mapGetters(['ADRDTO']),
@@ -118,6 +118,7 @@
           this.showProfile = val;
         },
         showModal() {
+          this.onSave();
 
           if(this.application.choosenWizards.length === 0) {
             this.person.application.choosenWizards = [];
@@ -173,6 +174,18 @@
                 console.log('true')
               }else{
                 this.checkTargCount = false;
+              }
+//TODO finish it
+          let j = 0;
+              for(j; j < this.apls.length; j++){
+
+                // if (this.apls[i].chose === true && this.apls[i].environmentId === 'ЦелНапр') {
+                //   counterCheckTargOrg++;
+                  // console.log('counter + ', counterCheckTargOrg)
+                // } else if (this.apls[i].chose === false && this.apls[i].environmentId === 'ЦелНапр') {
+                //   counterCheckTargOrg = 0;
+                  // console.log('counter + ', counterCheckTargOrg);
+                // }
               }
           console.log('result counter ', counterCheckTargOrg)
         },

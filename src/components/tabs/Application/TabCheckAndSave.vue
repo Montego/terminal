@@ -32,8 +32,6 @@
           </label>
 
           <!--<hr>-->
-
-
           <input v-model="tab_personal_selectedIdentityCardCode.identityCardNameFull" class="minimal col-sm-7" disabled>
           <label class="row">
             <div class="form__label-text col-sm-5">Серия:</div>
@@ -259,7 +257,7 @@
       <!--{{this.application}}-->
       <!--<div v-if="this.resultAcceptPerson ==='Утверждено'">-->
         <!--<button v-if="person.application.saved !=='Сохранено'" @click="onSave">Сохранить</button>-->
-      <button @click="checkFields">Проверить</button>
+      <!--<button @click="checkFields">Проверить</button>-->
       <button @click="onSave">Сохранить</button>
       <!--</div>-->
 
@@ -546,7 +544,7 @@
               .then(response =>{
                 console.log(response)
                 console.log(this.person)
-                location.href='profile#overview_personal_info';
+                // location.href='profile#overview_personal_info';
                 this.person.ege_info = [];
                 this.person.parents_info = [];
                 // this.person.person_info = {};
