@@ -107,26 +107,28 @@
         <!--<div>-->
           <!--<p>Образование</p>-->
         <!--</div>-->
-        <section>
-          <div>
-            <h2>Егэ</h2>
-          </div>
-          <div v-for="info in person.ege_info" >
-            <div>
-              <label class="row">
-                <div class="row">
-                  <div class="form__label-text col-sm-4">Предмет:</div>
-                  <input v-model="info.tab_ege_selectedSubject" class="form__input col-sm-6" type="text" disabled/>
-                </div>
-                <div class="row">
-                  <div class="form__label-text col-sm-4">Баллы:</div>
-                  <input v-model="info.tab_ege_score" class="form__input col-sm-6" type="text" disabled/>
-                </div>
-              </label>
 
-            </div>
-          </div>
-        </section>
+        <!--<section>-->
+          <!--<div>-->
+            <!--<h2>Егэ</h2>-->
+          <!--</div>-->
+          <!--<div v-for="info in person.ege_info" >-->
+            <!--<div>-->
+              <!--<label class="row">-->
+                <!--<div class="row">-->
+                  <!--<div class="form__label-text col-sm-4">Предмет:</div>-->
+                  <!--<input v-model="info.tab_ege_selectedSubject" class="form__input col-sm-6" type="text" disabled/>-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                  <!--<div class="form__label-text col-sm-4">Баллы:</div>-->
+                  <!--<input v-model="info.tab_ege_score" class="form__input col-sm-6" type="text" disabled/>-->
+                <!--</div>-->
+              <!--</label>-->
+
+            <!--</div>-->
+          <!--</div>-->
+        <!--</section>-->
+
         <!--<hr>-->
         <section>
           <div>
