@@ -12,6 +12,8 @@ export default {
     applicationId: '',
     contactPersonId: '',
 
+
+    personInfoSavedId: '',
     successMessage:"",
     errorMesages: [],
 

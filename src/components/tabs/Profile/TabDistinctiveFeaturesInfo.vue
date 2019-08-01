@@ -354,7 +354,7 @@
             this.tab_features_selectedPreference = {};
             // this.tab_features_selectedAttrType =  '';
             // this.tab_features_selectedPreference =  '';
-            this.tab_features_selectedTypeDiploma = '';
+            this.tab_features_selectedTypeDiploma = {"id":0,"name":""};
             this.doc1 = {};
             this.doc1_serial = '';
             this.doc1_number =  '';

@@ -242,15 +242,18 @@
 
     </div>
     <!--{{this.application}}-->
-    <button @click="onPrintApplication()">
-      Заявление
-    </button>
-    <button @click="onPrintDocuments()">
-      Опись
-    </button>
-    <button @click="onPrintAgreement()">
-      Согласие
-    </button>
+    <div v-if="this.person.saved === 'Сохранено'">
+      <button @click="onPrintApplication()">
+        Заявление
+      </button>
+      <button @click="onPrintDocuments()">
+        Опись
+      </button>
+      <button @click="onPrintAgreement()">
+        Согласие
+      </button>
+    </div>
+
     <!--{{this.person}}-->
     <div class="clear_save_button row">
       <!--<button v-if="this.resultAcceptPerson !=='Утверждено'" @click="onAcceptPerson">Утвердить</button>-->
@@ -293,7 +296,7 @@
         computed: {
           ...applications(['application',]),
           ...tab_reception_condition([ 'file',]),
-          ...person(['person','showProfile','person_info_id','resultAcceptPerson','saved','savedResult',
+          ...person(['person','showProfile','person_info_id','resultAcceptPerson','saved','savedResult','personInfoSavedId',
             'tab_personal_lastname',  'tab_personal_firstname', 'tab_personal_middlename' , 'tab_personal_lastname_genitive',
             'tab_personal_firstname_genitive','tab_personal_middlename_genitive','tab_personal_selectedGender',
             'tab_personal_birthDate', 'tab_personal_INIPA', 'tab_personal_INIPADate','tab_personal_note',
@@ -321,49 +324,32 @@
       },
 
       methods: {
-          checkFields() {
-            //TODO make validation
-            if('доделать'){
-              console.log(true);
-              return true;
-
-            }else{
-              console.log(false);
-              return false;
-            }
-          },
-
-
-
-        onAcceptPerson() {
-          // const config = {
-          //   headers: {
-          //     'Content-Type': 'application/json'
-          //   }
-          // };
-          // this.person.acceptedPerson = "Утверждено";
-          // this.resultAcceptPerson = "Утверждено";
-          // AXIOS.put(`/profile/acceptPerson/` + this.person_info_id, (this.person.acceptedPerson),config)
-          //   .then(response => {
-          //     AXIOS.get(`/profile/personsTable`)
-          //       .then(response => {
-          //         this.profiles = response.data;
-          //       })
-          //       .catch(e => {
-          //         this.errors.push(e)
-          //       });
-          //
-          //     console.log(response.data)
-          //     if(response.data === "Утверждено"){
-          //       this.resultAcceptPerson = "Утверждено";
-          //       console.log(this.resultAcceptPerson)
-          //
-          //     }
-          //     this.info.push(response.data)
-          //   })
-          //   .catch(e => {
-          //   });
+        axapta(id) {
+          console.log('in axapta method');
+          this.$store.dispatch('go', id);
         },
+
+        onPrintApplication() {
+          console.log(this.$store.state.applicationId);
+          let id = this.$store.state.applicationId;
+          window.open('http://10.71.0.115/application/' + id + '.xlsm');
+          // 'ApW000191'
+
+        },
+
+
+        onPrintDocuments() {
+          console.log(this.$store.state.applicationId);
+          let id = this.$store.state.applicationId;
+          window.open('http://10.71.0.115/appldoclist/' + id + '.xlsm');
+        },
+
+        onPrintAgreement() {
+          console.log(this.$store.state.agreementId);
+          let id = this.$store.state.agreementId;
+          window.open('http://10.71.0.115/agreement/' + id + '.xlsm');
+        },
+
 
         onSave() {
           //TODO check double save person_inf(id)
@@ -457,8 +443,8 @@
             AXIOS.post(`/profile`, (this.person))
               .then(response => {
                 this.person.saved = "Сохранено";
-
-                this.person.application.saved = response.data;
+                this.personInfoSavedId = response.data;
+                // this.person.application.saved = response.data;
                 // this.info.push(response.data)
                 this.person_info_id = '';
                 // this.person.ege_info = [];
@@ -474,7 +460,6 @@
                 this.person.application.application_selectedDocType = '';
                 this.person.application.application_person_name = '';
                 this.profiles = [];
-
 
                 this.person.ege_info[0].tab_ege_selectedSubject= 'Химия';
                 this.person.ege_info[0].tab_ege_score= 0;
@@ -537,13 +522,16 @@
               .catch(e => {
                 this.person.saved ="Не сохранено";
                 // this.errors.push(e)
-              })
+              });
+
+
+
           }else {
             //TODO if part of person will save inf tabPhoto, check this flow(post/put)
             AXIOS.put('/profile/person/' + this.person.id,(this.person))
               .then(response =>{
-                console.log(response)
-                console.log(this.person)
+                console.log(response);
+                console.log(this.person);
                 // location.href='profile#overview_personal_info';
                 this.person.ege_info = [];
                 this.person.parents_info = [];
@@ -553,24 +541,26 @@
                 console.log("person was updated")})
               .catch(e => {
                 this.errors.push(e)
-              })
+              });
 
 
-            AXIOS.get(`/profile/personsTable`)
-              .then(response => {
-                this.profiles = response.data;
-                console.log(this.profiles)
-              })
-              .catch(e => {
-                this.errors.push(e)
-              })
+            this.axapta(this.personInfoSavedId);
+
+            // AXIOS.get(`/profile/personsTable`)
+            //   .then(response => {
+            //     this.profiles = response.data;
+            //     console.log(this.profiles)
+            //   })
+            //   .catch(e => {
+            //     this.errors.push(e)
+            //   })
 
           }
 
 
 
           this.showProfile = true;
-          location.href='profile#overview_personal_info';
+          // location.href='profile#overview_personal_info';
 
         },
 
