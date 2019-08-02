@@ -244,7 +244,7 @@
 
     </div>
     <!--{{this.application}}-->
-    <div v-if="this.person.saved === 'Сохранено'">
+    <div v-if="showButtons">
       <button @click="onPrintApplication()">
         Заявление
       </button>
@@ -292,6 +292,7 @@
         name: "Other",
       data(){
           return {
+            showButtons: false,
             savedInfo: [],
           }
       },
@@ -339,7 +340,6 @@
 
         },
 
-
         onPrintDocuments() {
           console.log(this.$store.state.applicationId);
           let id = this.$store.state.applicationId;
@@ -351,7 +351,6 @@
           let id = this.$store.state.agreementId;
           window.open('http://10.71.0.115/agreement/' + id + '.xlsm');
         },
-
 
         onSave() {
           //TODO check double save person_inf(id)
@@ -437,191 +436,45 @@
           this.person.saved = "Сохранено";
           this.person.application.saved = "Сохранено";
           // console.log(this.person.person_info.tab_personal_lastname)
-          this.person_info_id = '';
-          this.person.person_info_id = '';
 
 
-          if(this.person.person_info_id === ''){
+
+          if(this.person_info_id === ''){
             AXIOS.post(`/profile`, (this.person))
               .then(response => {
-                this.person.saved = "Сохранено";
-                this.personInfoSavedId = response.data;
-                // this.person.application.saved = response.data;
-                // this.info.push(response.data)
-                this.person_info_id = '';
-                // this.person.ege_info = [];
-                this.person.parents_info = [];
-                this.person.futures_info = [];
-                this.person_info_id='';
-                this.person.person_info_id='';
-                this.person.applications = [];
-
-                this.person.application.application_number = '';
-                this.person.application.application_date = '';
-                this.person.application.application_selectedDeliveryType = '';
-                this.person.application.application_selectedDocType = '';
-                this.person.application.application_person_name = '';
-                this.profiles = [];
-
-                this.person.ege_info[0].tab_ege_selectedSubject= 'Химия';
-                this.person.ege_info[0].tab_ege_score= 0;
-                this.person.ege_info[0].tab_ege_year= {"academyYearId":"2019","description":"2019-ый учебный год","beginPeriod":"2019-01-01","endPeriod":"2019-12-31"};
-                this.person.ege_info[0].tab_ege_changePaspInf= false;
-                this.person.ege_info[0].tab_ege_lastname= '';
-                this.person.ege_info[0].tab_ege_firstname= '';
-                this.person.ege_info[0].tab_ege_middlename= '';
-                this.person.ege_info[0].tab_ege_selectedIdentityCardCode= null;
-                this.person.ege_info[0].tab_ege_identityCardSeries=  '';
-                this.person.ege_info[0].tab_ege_identityCardNumber= '';
-                this.person.ege_info[0].tab_ege_identityCardIssueDate=  '';
-                this.person.ege_info[0].tab_ege_identityCardIssueBy= '';
-                this.person.ege_info[0].tab_ege_info_selectedCitizenship= null;
-
-                this.person.ege_info[1].tab_ege_selectedSubject= 'Биология';
-                this.person.ege_info[1].tab_ege_score= 0;
-                this.person.ege_info[1].tab_ege_year= {"academyYearId":"2019","description":"2019-ый учебный год","beginPeriod":"2019-01-01","endPeriod":"2019-12-31"};
-                this.person.ege_info[1].tab_ege_changePaspInf= false;
-                this.person.ege_info[1].tab_ege_lastname= '';
-                this.person.ege_info[1].tab_ege_firstname= '';
-                this.person.ege_info[1].tab_ege_middlename= '';
-                this.person.ege_info[1].tab_ege_selectedIdentityCardCode= null;
-                this.person.ege_info[1].tab_ege_identityCardSeries=  '';
-                this.person.ege_info[1].tab_ege_identityCardNumber= '';
-                this.person.ege_info[1].tab_ege_identityCardIssueDate=  '';
-                this.person.ege_info[1].tab_ege_identityCardIssueBy= '';
-                this.person.ege_info[1].tab_ege_info_selectedCitizenship= null;
-
-                this.person.ege_info[2].tab_ege_selectedSubject= 'Русский язык';
-                this.person.ege_info[2].tab_ege_score= 0;
-                this.person.ege_info[2].tab_ege_year= {"academyYearId":"2019","description":"2019-ый учебный год","beginPeriod":"2019-01-01","endPeriod":"2019-12-31"};
-                this.person.ege_info[2].tab_ege_changePaspInf= false;
-                this.person.ege_info[2].tab_ege_lastname= '';
-                this.person.ege_info[2].tab_ege_firstname= '';
-                this.person.ege_info[2].tab_ege_middlename= '';
-                this.person.ege_info[2].tab_ege_selectedIdentityCardCode= null;
-                this.person.ege_info[2].tab_ege_identityCardSeries=  '';
-                this.person.ege_info[2].tab_ege_identityCardNumber= '';
-                this.person.ege_info[2].tab_ege_identityCardIssueDate=  '';
-                this.person.ege_info[2].tab_ege_identityCardIssueBy= '';
-                this.person.ege_info[2].tab_ege_info_selectedCitizenship= null;
-
-
-
-
-                // AXIOS.get(`/profile/personsTable`)
-                //   .then(response => {
-                //     this.profiles = response.data;
-                //     console.log(this.profiles)
-                //   })
-                //   .catch(e => {
-                //     this.errors.push(e)
-                //   })
-
                 console.log('saved person ' + response.data)
-
-                // this.getPerson();
+                this.person_info_id = response.data;
+                this.showButtons = true;
+                this.axapta(this.person_info_id);
               })
               .catch(e => {
                 this.person.saved ="Не сохранено";
                 // this.errors.push(e)
               });
 
-
-
           }else {
             //TODO if part of person will save inf tabPhoto, check this flow(post/put)
-            AXIOS.put('/profile/person/' + this.person.id,(this.person))
+            AXIOS.put('/profile/person/' + this.person_info_id,(this.person))
               .then(response =>{
                 console.log(response);
                 console.log(this.person);
                 // location.href='profile#overview_personal_info';
-                this.person.ege_info = [];
-                this.person.parents_info = [];
-                // this.person.person_info = {};
-                this.person.futures_info = [];
-                this.person_info_id='';
-                console.log("person was updated")})
+                // this.person.ege_info = [];
+                // this.person.parents_info = [];
+                // // this.person.person_info = {};
+                // this.person.futures_info = [];
+                // this.person_info_id='';
+                console.log("person was updated")
+                this.showButtons = true;
+                this.axapta(this.person_info_id);
+              })
               .catch(e => {
                 this.errors.push(e)
               });
-
-
-            this.axapta(this.personInfoSavedId);
-
-            // AXIOS.get(`/profile/personsTable`)
-            //   .then(response => {
-            //     this.profiles = response.data;
-            //     console.log(this.profiles)
-            //   })
-            //   .catch(e => {
-            //     this.errors.push(e)
-            //   })
-
+            console.log('before axapta: ' + this.person_info_id);
+            this.axapta(this.person_info_id);
           }
-
-
-
-          this.showProfile = true;
-          // location.href='profile#overview_personal_info';
-
         },
-
-
-        // onSave() {
-        //   this.person.saved = "Сохранено";
-        //   this.application.saved = "Сохранено";
-        //   const config = {
-        //         headers: {
-        //           'Content-Type': 'application/json'
-        //         }
-        //   };
-        //
-        //
-        //   AXIOS.post(`/profile/application/` + this.person_info_id,(this.application))
-        //       .then(response => {
-        //
-        //       })
-        //       .catch(e => {
-        //
-        //       });
-        //     this.showProfile = true;
-        //     location.href='profile#overview_personal_info';
-        // }
-
-
-
-        // onSave() {
-        //   this.application.saved = "Сохранено";
-        //   const config = {
-        //     headers: {
-        //       'Content-Type': 'application/json'
-        //     }
-        //   };
-        //   AXIOS.post(`/profile/application/` + this.person_info_id,(this.application))
-        //     .then(response => {
-        //       if(response.data === "Сохранено"){
-        //         this.savedResult = "Сохранено"
-        //
-        //       }
-        //       // this.savedResult = '';
-        //     })
-        //     .catch(e => {
-        //
-        //     });
-        //
-        //   AXIOS.get(`/profile/personsTable`)
-        //     .then(response => {
-        //       this.profiles = response.data;
-        //     })
-        //     .catch(e => {
-        //       this.errors.push(e)
-        //     })
-        //
-        //   this.showProfile = true;
-        //   location.href='profile#overview_personal_info';
-        //
-        //   }
-
         },
     }
 </script>

@@ -4,6 +4,10 @@ import { getField, updateField } from 'vuex-map-fields';
 export default {
   namespaced: true,
   state: {
+    countContract: 0,
+    countBudget: 0,
+
+
     agree:'',
     agreeDate:'',
     special_right:'',

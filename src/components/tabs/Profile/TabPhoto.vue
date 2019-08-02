@@ -118,7 +118,7 @@
           this.showProfile = val;
         },
         showModal() {
-          this.onSave();
+          // this.onSave();
 
           if(this.application.choosenWizards.length === 0) {
             this.person.application.choosenWizards = [];
@@ -191,8 +191,8 @@
         },
 
 
-        onAppl(id) {
 
+        onAppl(id) {
           console.log('in method -' + this.person_info_id);
           let i = 0;
           for(i; i < this.apls.length; i++){
@@ -326,107 +326,34 @@
           // this.person.saved = "Сохранено";
           // this.person.application.saved = "Сохранено";
           // console.log(this.person.person_info.tab_personal_lastname)
-          this.person_info_id = '';
-          this.person.person_info_id = '';
+
+          // this.person_info_id = '';
+          // this.person.person_info_id = '';
 
 
-          if(this.person.person_info_id === '') {
+          if(this.person_info_id === '') {
             // this.person.saved = "Сохранено";
             AXIOS.post(`/profile`, (this.person))
               .then(response => {
-                this.person.id = response.data;
-                if(this.person.id !== ''){
+                this.person_info_id = response.data;
+
+                if(this.person_info_id !== ''){
                   this.person.saved = "Сохранено";
                   this.successMessage = "Проверено, обязательные поля заполнены";
                 }
 
-                // this.person.application.saved = response.data;
-                // this.info.push(response.data)
-                this.person_info_id = '';
-                // this.person.ege_info = [];
-                this.person.parents_info = [];
-                this.person.futures_info = [];
-                this.person_info_id = '';
-                this.person.person_info_id = '';
-                this.person.applications = [];
-
-                this.person.application.application_number = '';
-                this.person.application.application_date = '';
-                this.person.application.application_selectedDeliveryType = {};
-                this.person.application.application_selectedDocType = '';
-                this.person.application.application_person_name = '';
-                this.profiles = [];
-
-
-                this.person.ege_info[0].tab_ege_selectedSubject = 'Химия';
-                this.person.ege_info[0].tab_ege_score = 0;
-                this.person.ege_info[0].tab_ege_year = {
-                  "academyYearId": "2019",
-                  "description": "2019-ый учебный год",
-                  "beginPeriod": "2019-01-01",
-                  "endPeriod": "2019-12-31"
-                };
-                this.person.ege_info[0].tab_ege_changePaspInf = false;
-                this.person.ege_info[0].tab_ege_lastname = '';
-                this.person.ege_info[0].tab_ege_firstname = '';
-                this.person.ege_info[0].tab_ege_middlename = '';
-                this.person.ege_info[0].tab_ege_selectedIdentityCardCode = null;
-                this.person.ege_info[0].tab_ege_identityCardSeries = '';
-                this.person.ege_info[0].tab_ege_identityCardNumber = '';
-                this.person.ege_info[0].tab_ege_identityCardIssueDate = '';
-                this.person.ege_info[0].tab_ege_identityCardIssueBy = '';
-                this.person.ege_info[0].tab_ege_info_selectedCitizenship = null;
-
-                this.person.ege_info[1].tab_ege_selectedSubject = 'Биология';
-                this.person.ege_info[1].tab_ege_score = 0;
-                this.person.ege_info[1].tab_ege_year = {
-                  "academyYearId": "2019",
-                  "description": "2019-ый учебный год",
-                  "beginPeriod": "2019-01-01",
-                  "endPeriod": "2019-12-31"
-                };
-                this.person.ege_info[1].tab_ege_changePaspInf = false;
-                this.person.ege_info[1].tab_ege_lastname = '';
-                this.person.ege_info[1].tab_ege_firstname = '';
-                this.person.ege_info[1].tab_ege_middlename = '';
-                this.person.ege_info[1].tab_ege_selectedIdentityCardCode = null;
-                this.person.ege_info[1].tab_ege_identityCardSeries = '';
-                this.person.ege_info[1].tab_ege_identityCardNumber = '';
-                this.person.ege_info[1].tab_ege_identityCardIssueDate = '';
-                this.person.ege_info[1].tab_ege_identityCardIssueBy = '';
-                this.person.ege_info[1].tab_ege_info_selectedCitizenship = null;
-
-                this.person.ege_info[2].tab_ege_selectedSubject = 'Русский язык';
-                this.person.ege_info[2].tab_ege_score = 0;
-                this.person.ege_info[2].tab_ege_year = {
-                  "academyYearId": "2019",
-                  "description": "2019-ый учебный год",
-                  "beginPeriod": "2019-01-01",
-                  "endPeriod": "2019-12-31"
-                };
-                this.person.ege_info[2].tab_ege_changePaspInf = false;
-                this.person.ege_info[2].tab_ege_lastname = '';
-                this.person.ege_info[2].tab_ege_firstname = '';
-                this.person.ege_info[2].tab_ege_middlename = '';
-                this.person.ege_info[2].tab_ege_selectedIdentityCardCode = null;
-                this.person.ege_info[2].tab_ege_identityCardSeries = '';
-                this.person.ege_info[2].tab_ege_identityCardNumber = '';
-                this.person.ege_info[2].tab_ege_identityCardIssueDate = '';
-                this.person.ege_info[2].tab_ege_identityCardIssueBy = '';
-                this.person.ege_info[2].tab_ege_info_selectedCitizenship = null;
-
                 console.log('saved person ' + response.data)
               })
               .catch(e => {
-                this.errorMessages.push[e];
+                // this.errorMessages.push[e];
                 this.person.saved = "Не сохранено";
 
               })
           }else {
             AXIOS.put('/profile/person/' + this.person_info_id,(this.person))
               .then(response =>{
-                console.log(response)
-                console.log(this.person)
+                console.log(response);
+                console.log(this.person);
               console.log("person was updated")})
               .catch(e => {
                 this.errors.push(e)

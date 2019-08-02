@@ -279,8 +279,8 @@
       return{
         dateToday: Date.now(),
 
-        countContract: 0,
-        countBudget: 0,
+        // countContract: 0,
+        // countBudget: 0,
 
         counter: 0,
         isOneAgree: true,
@@ -355,7 +355,8 @@
         'proofSpecialRight1','descriptionSpecialRight1','serialSpecialRight1','numberSpecialRight1','docTypeSpecialRight1','dateSpecialRight1',
         'proofSpecialRight2','descriptionSpecialRight2','serialSpecialRight2','numberSpecialRight2','docTypeSpecialRight2','dateSpecialRight2',
         'proofSpecialRight3','descriptionSpecialRight3','serialSpecialRight3','numberSpecialRight3','docTypeSpecialRight3','dateSpecialRight3',
-      ]),
+        'countContract','countBudget'
+  ]),
       ...mapState('enums',['deliveryType', 'docType']),
       ...mapGetters('enums',['GET_DELIVERY_TYPE','GET_DOC_TYPE']),
       ...person(['person','person_info_id','isModalVisible','isModalAgreementVisible',

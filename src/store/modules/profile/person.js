@@ -146,7 +146,7 @@ export default {
         tab_personal_identityCardIssueBy: '',
         tab_personal_identityCardIssueDate: '',
         tab_personal_identityCardIssueDep: '',
-        tab_personal_selectedCitizenship: null,
+        tab_personal_selectedCitizenship: {"countryRegionId":"РФ","name":"Россия"},
         tab_personal_isCompatriot: false,
         tab_personal_isEquatedForeign: false,
         tab_personal_birthplace: '',

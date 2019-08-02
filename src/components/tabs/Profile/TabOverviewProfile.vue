@@ -44,13 +44,14 @@
         <!--<td class="text-xs-center">{{ props.item.contact_code_pretendent}}</td>-->
         <td class="justify-center layout px-0">
           <!--<button class = "button_controls" type="button" @click="onApplication(props.item); handleClick(false) ">-->
-          <!--<v-icon color="#5bc0de">description</v-icon>-->
-          <!--</button>-->
+          <button class = "button_controls" type="button" @click="onRedaction(props.item), handleClick(false) ">
+          <v-icon color="#5bc0de">description</v-icon>
+          </button>
           <div>
-            <button v-if="props.item.saved !== 'Не сохранено'" class="button_controls" type="button"
-                    @click="showModal(props.item)">
-              <v-icon color="#5bc0de">description</v-icon>
-            </button>
+            <!--<button v-if="props.item.saved !== 'Не сохранено'" class="button_controls" type="button"-->
+                    <!--@click="showModal(props.item)">-->
+              <!--<v-icon color="#5bc0de">description</v-icon>-->
+            <!--</button>-->
           </div>
 
           <div>
@@ -171,7 +172,8 @@
       ]),
 
       ...applications(['application', 'application_person_id', 'application_person_name', 'applId', 'applTableName',
-        'applTableNumber', 'applTableDate', 'applTableDeliveryType', 'apls', 'chooseAppls', 'resultApl'],),
+        'applTableNumber', 'applTableDate', 'applTableDeliveryType', 'apls', 'chooseAppls', 'resultApl',
+        'countContract','countBudget'],),
       showTable() {
         return this.profiles;
       },
@@ -216,7 +218,6 @@
         // 'ApW000191'
         AXIOS_print.get('/application/' + id + '.xlsm', config)
           .then(response => {
-
           }).catch(e => {
           console.log(e)
           // this.errors.push(e)
@@ -288,103 +289,6 @@
 
         }
 
-        // AXIOS.get('/profile/conditions/' + (this.person_info_id))
-        //   .then(response => {
-        //     // console.log('appl number is:' + response.data.application_number)
-        //     if(response.data.choosenWizards.length !==0 ){
-        //       this.resultApl = response.data;
-        //
-        //       console.log('appl number is:' + this.resultApl.application_number)
-        //       this.showProfile = false;
-        //       location.href = 'profile#applicationFill';
-        //       // this.isModalVisible = true;
-        //     }else {
-        //       this.isModalVisible = true;
-        //       AXIOS.get(`/profile/conditionsDto`)
-        //         .then(response => {
-        //           this.apls = response.data;
-        //           console.log(this.profiles)
-        //         })
-        //         .catch(e => {
-        //           this.errors.push(e)
-        //         })
-        //     }
-        //
-        //   })
-        //   .catch(e => {
-        //     this.isModalVisible = true;
-        //     AXIOS.get(`/profile/conditionsDto`)
-        //       .then(response => {
-        //         this.apls = response.data;
-        //         console.log(this.profiles)
-        //       })
-        //       .catch(e => {
-        //         this.errors.push(e)
-        //       })
-        //   })
-
-
-        // AXIOS.get('/profile/applicationTable/' + this.person_info_id)
-        //
-        //   .then(response => {
-        //     // console.log('response data - ' + response.data[0].applicationId)
-        //
-        //     if(response.data[0].applicationId !==0){
-        //
-        //       this.showProfile = false;
-        //       this.applId = response.data[0].applicationId;
-        //       this.applTableName = response.data[0].application_person_name;
-        //       this.applTableNumber =response.data[0].application_number;
-        //       this.applTableDate = response.data[0].application_date;
-        //       this.applTableDeliveryType = response.data[0].application_selectedDeliveryType;
-        //       this.resultAcceptPerson = response.data[0].resultAcceptPerson;
-        //       this.savedResult = response.data[0].saved;
-        //
-        //       function ApplTable(tableId,tableName, tableNumber, tableDate, tableDeliveryType, accept, saved) {
-        //         this.applId = tableId
-        //         this.applTableName = tableName;
-        //         this.applTableNumber = tableNumber;
-        //         this.applTableDate = tableDate;
-        //         this.applTableDeliveryType = tableDeliveryType;
-        //         this.resultAcceptPerson = accept;
-        //         this.savedResult = saved;
-        //       }
-        //       let appltable = new ApplTable(
-        //         this.applId,
-        //         this.applTableName,this.applTableNumber,this.applTableDate,this.applTableDeliveryType, this.resultAcceptPerson,
-        //         this.savedResult);
-        //
-        //       this.application.applicationTable.push(appltable);
-        //
-        //       location.href = 'profile#overviewApplication';
-        //     }
-        //     else  {
-        //
-        //       this.isModalVisible = true;
-        //       AXIOS.get(`/profile/conditionsDto`)
-        //         .then(response => {
-        //           this.apls = response.data;
-        //           console.log(this.profiles)
-        //         })
-        //         .catch(e => {
-        //           this.errors.push(e)
-        //         })
-        //
-        //     }
-
-        // })
-        // .catch(e => {
-        //   this.isModalVisible = true;
-        //   AXIOS.get(`/profile/conditionsDto`)
-        //     .then(response => {
-        //       this.apls = response.data;
-        //       console.log(this.profiles)
-        //     })
-        //     .catch(e => {
-        //       this.errors.push(e)
-        //     })
-        //   console.log('something wrong')
-        // })
         location.href = 'profile#overview_new';
 
       },
@@ -394,6 +298,16 @@
       },
 
       onNewProfile() {
+        this.countContract = 0;
+        this.countBudget = 0;
+        // this.person.ege_info = [];
+        this.person.parents_info = [];
+        this.person.futures_info = [];
+        this.person_info_id = '';
+        this.person.person_info_id = '';
+        this.person.applications = [];
+
+        this.profiles = [];
 
         this.successMessage = "";
         this.errorMesages = [];
@@ -407,6 +321,9 @@
         this.person.application.application_date = '';
         this.person.application.choosenWizards = [];
         this.person.application.application_documents = [];
+        this.person.application.application_selectedDeliveryType = {};
+        this.person.application.application_selectedDocType = '';
+        this.person.application.application_person_name = '';
 
         this.person.acceptedPerson = '';
         this.resultAcceptPerson = '';
@@ -731,67 +648,68 @@
         console.log('выбранные ' + this.chooseAppls[0])
 
         console.log('in method -' + this.person_info_id)
-        AXIOS.get('/profile/applicationTable/' + this.person_info_id)
-          .then(response => {
-            console.log(response.data)
-            if (response.data.isEmpty()) {
-              console.log('yes')
-            } else {
-              console.log('no')
-            }
-          })
-          .catch(e => {
 
-          })
+        // AXIOS.get('/profile/applicationTable/' + this.person_info_id)
+        //   .then(response => {
+        //     console.log(response.data)
+        //     if (response.data.isEmpty()) {
+        //       console.log('yes')
+        //     } else {
+        //       console.log('no')
+        //     }
+        //   })
+        //   .catch(e => {
+        //
+        //   })
       },
 
 
-      onApplication(item) {
-
-        const index = this.profiles.indexOf(item);
-        const idString = this.profiles[index].id;
-        const id = parseInt(idString, 10);
-        this.person_info_id = id;
-        this.person.applications = [];
-        AXIOS.get('/profile/applicationTable/' + this.person_info_id)
-          .then(response => {
-            // this.applicationTable = response.data.
-            this.applId = response.data[0].applicationId;
-            this.applTableName = response.data[0].application_person_name;
-            this.applTableNumber = response.data[0].application_number;
-            this.applTableDate = response.data[0].application_date;
-            this.applTableDeliveryType = response.data[0].application_selectedDeliveryType;
-            this.resultAcceptPerson = response.data[0].resultAcceptPerson;
-            this.savedResult = response.data[0].saved;
-
-            function ApplTable(tableId, tableName, tableNumber, tableDate, tableDeliveryType, accept, saved) {
-              this.applId = tableId;
-              this.applTableName = tableName;
-              this.applTableNumber = tableNumber;
-              this.applTableDate = tableDate;
-              this.applTableDeliveryType = tableDeliveryType;
-              this.resultAcceptPerson = accept;
-              this.savedResult = saved;
-            }
-
-            let applTable = new ApplTable(
-              this.applId,
-              this.applTableName, this.applTableNumber, this.applTableDate, this.applTableDeliveryType, this.resultAcceptPerson,
-              this.savedResult);
-
-            this.application.applicationTable.push(applTable);
-            console.log(response.data[0].saved);
-            console.log(response.data[0]);
-          })
-          .catch(e => {
-            // this.errors.push(e)
-          });
-
-        console.log(this.person_info_id);
-
-        location.href = 'profile#overviewApplication';
-        this.showModal();
-      },
+      // onApplication(item) {
+      //
+      //   const index = this.profiles.indexOf(item);
+      //   const idString = this.profiles[index].id;
+      //   const id = parseInt(idString, 10);
+      //   this.person_info_id = id;
+      //   this.person.applications = [];
+      //   AXIOS.get('/profile/applicationTable/' + this.person_info_id)
+      //     .then(response => {
+      //       // this.applicationTable = response.data.
+      //       this.applId = response.data[0].applicationId;
+      //       this.applTableName = response.data[0].application_person_name;
+      //       this.applTableNumber = response.data[0].application_number;
+      //       this.applTableDate = response.data[0].application_date;
+      //       this.applTableDeliveryType = response.data[0].application_selectedDeliveryType;
+      //       this.resultAcceptPerson = response.data[0].resultAcceptPerson;
+      //       this.savedResult = response.data[0].saved;
+      //
+      //       function ApplTable(tableId, tableName, tableNumber, tableDate, tableDeliveryType, accept, saved) {
+      //         this.applId = tableId;
+      //         this.applTableName = tableName;
+      //         this.applTableNumber = tableNumber;
+      //         this.applTableDate = tableDate;
+      //         this.applTableDeliveryType = tableDeliveryType;
+      //         this.resultAcceptPerson = accept;
+      //         this.savedResult = saved;
+      //       }
+      //
+      //       let applTable = new ApplTable(
+      //         this.applId,
+      //         this.applTableName, this.applTableNumber, this.applTableDate, this.applTableDeliveryType, this.resultAcceptPerson,
+      //         this.savedResult);
+      //
+      //       this.application.applicationTable.push(applTable);
+      //       console.log(response.data[0].saved);
+      //       console.log(response.data[0]);
+      //     })
+      //     .catch(e => {
+      //       // this.errors.push(e)
+      //     });
+      //
+      //   console.log(this.person_info_id);
+      //
+      //   location.href = 'profile#overviewApplication';
+      //   this.showModal();
+      // },
     },
 
   }

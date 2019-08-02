@@ -11,11 +11,11 @@
       <div>
         <span>Абитуриент:</span>
         <input @change="searchPersonBySNP(searchForm)" v-model="searchForm.tab_personal_lastname.input" type="search" name="поиск" placeholder="Поиск по сайту">
-        <select v-model="searchForm.tab_personal_lastname.select" class="minimal exta_info_select col-sm-3">
-          <option v-for="option in search_options">
-            {{option.item}}
-          </option>
-        </select>
+        <!--<select v-model="searchForm.tab_personal_lastname.select" class="minimal exta_info_select col-sm-3">-->
+          <!--<option v-for="option in search_options">-->
+            <!--{{option.item}}-->
+          <!--</option>-->
+        <!--</select>-->
       </div>
       <div>
         <!--<button type="button" @click="handleClick(false)">К заявлениям</button>-->
@@ -120,6 +120,8 @@
                 this.profiles.push(response.data[i]);
               }
               console.log(response.data);
+              location.href='profile#overview_personal_info';
+
             })
             .catch( (e) => {
               console.error(e);
@@ -130,7 +132,7 @@
         location.href='profile#overview_personal_info';
           this.showProfile = val;
           this.isModalVisible = false;
-          this.application.applicationTable.splice(0,1)
+          // this.application.applicationTable.splice(0,1)
       },
 
       onLogout: () => {
