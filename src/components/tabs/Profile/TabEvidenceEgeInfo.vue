@@ -50,21 +50,21 @@
                 <input  v-model="person.ege_info[0].tab_ege_lastname" class="form__input col-sm" type="text" name="lastname2" placeholder="" required />
               </label>
 
-              <span class="alarm_label">{{ errors.first('lastname2') }}</span>
+              <!--<span class="alarm_label">{{ errors.first('lastname2') }}</span>-->
 
               <label class="row">
                 <div class="form__label-text col-sm">Имя:</div>
                 <input v-model="person.ege_info[0].tab_ege_firstname" class="form__input col-sm" type="text" name="firstname2" placeholder="" required/>
               </label>
 
-              <span class="alarm_label">{{ errors.first('firstname2') }}</span>
+              <!--<span class="alarm_label">{{ errors.first('firstname2') }}</span>-->
 
               <label class="row">
                 <div class="form__label-text col-sm">Отчество:</div>
                 <input  v-model="person.ege_info[0].tab_ege_middlename" class="form__input col-sm" type="text" name="middlename2" placeholder=""/>
               </label>
 
-              <span class="alarm_label">{{ errors.first('middlename2') }}</span>
+              <!--<span class="alarm_label">{{ errors.first('middlename2') }}</span>-->
 
               <label class="row">
                 <div class="form__label-text col-sm">Документ</div>
@@ -88,8 +88,8 @@
                 <input v-else v-model="person.ege_info[0].tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
               </label>
 
-              <span class="alarm_label">{{ errors.first('pspseries') }}</span>
-              <span class="alarm_label">{{ errors.first('doc_serial') }}</span>
+              <!--<span class="alarm_label">{{ errors.first('pspseries') }}</span>-->
+              <!--<span class="alarm_label">{{ errors.first('doc_serial') }}</span>-->
 
               <label class="row">
                 <div class="form__label-text col-sm">Номер:</div>
@@ -99,8 +99,8 @@
               </label>
 
 
-              <span class="alarm_label">{{ errors.first('pspnum') }}</span>
-              <span class="alarm_label">{{ errors.first('doc_num') }}</span>
+              <!--<span class="alarm_label">{{ errors.first('pspnum') }}</span>-->
+              <!--<span class="alarm_label">{{ errors.first('doc_num') }}</span>-->
 
 
               <label class="row">
@@ -141,17 +141,17 @@
                 <div class="form__label-text col-sm">Фамилия:</div>
                 <input  v-model="person.ege_info[1].tab_ege_lastname" class="form__input col-sm" type="text" name="lastname2" placeholder="" required />
               </label>
-              <span class="alarm_label">{{ errors.first('lastname2') }}</span>
+              <!--<span class="alarm_label">{{ errors.first('lastname2') }}</span>-->
               <label class="row">
                 <div class="form__label-text col-sm">Имя:</div>
                 <input v-model="person.ege_info[1].tab_ege_firstname" class="form__input col-sm" type="text" name="firstname2" placeholder="" required/>
               </label>
-              <span class="alarm_label">{{ errors.first('firstname2') }}</span>
+              <!--<span class="alarm_label">{{ errors.first('firstname2') }}</span>-->
               <label class="row">
                 <div class="form__label-text col-sm">Отчество:</div>
                 <input  v-model="person.ege_info[1].tab_ege_middlename" class="form__input col-sm" type="text" name="middlename2" placeholder=""/>
               </label>
-              <span class="alarm_label">{{ errors.first('middlename2') }}</span>
+              <!--<span class="alarm_label">{{ errors.first('middlename2') }}</span>-->
               <label class="row">
                 <div class="form__label-text col-sm">Документ</div>
                 <select v-if="person.ege_info[1].tab_ege_changePaspInf" v-model="person.ege_info[1].tab_ege_selectedIdentityCardCode" class="minimal col-sm">
@@ -171,15 +171,15 @@
                 <input name="pspseries" v-if="tab_ege_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="person.ege_info[1].tab_ege_identityCardSeries" class="form__input col-sm" type="text" placeholder="****" v-mask="'####'" required/>
                 <input v-else v-model="person.ege_info[1].tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
               </label>
-              <span class="alarm_label">{{ errors.first('pspseries') }}</span>
-              <span class="alarm_label">{{ errors.first('doc_serial') }}</span>
+              <!--<span class="alarm_label">{{ errors.first('pspseries') }}</span>-->
+              <!--<span class="alarm_label">{{ errors.first('doc_serial') }}</span>-->
               <label class="row">
                 <div class="form__label-text col-sm">Номер:</div>
                 <input name="pspnum" v-if="tab_ege_selectedIdentityCardCode.identityCardCode == 'Паспорт РФ'" v-model="person.ege_info[1].tab_ege_identityCardNumber" class="form__input col-sm" type="text"  placeholder="******" v-mask="'######'" required/>
                 <input v-else v-model="person.ege_info[1].tab_ege_identityCardNumber" class="form__input col-sm" type="text" name="doc_num"required/>
               </label>
-              <span class="alarm_label">{{ errors.first('pspnum') }}</span>
-              <span class="alarm_label">{{ errors.first('doc_num') }}</span>
+              <!--<span class="alarm_label">{{ errors.first('pspnum') }}</span>-->
+              <!--<span class="alarm_label">{{ errors.first('doc_num') }}</span>-->
               <label class="row">
                 <div class="form__label-text col-sm">Дата выдачи:</div>
                 <input v-model="person.ege_info[1].tab_ege_identityCardIssueDate" class="form__input col-sm" type="date" name="" placeholder=""/>
@@ -217,17 +217,17 @@
                 <div class="form__label-text col-sm">Фамилия:</div>
                 <input  v-model="person.ege_info[2].tab_ege_lastname" class="form__input col-sm" type="text" name="lastname2" placeholder="" required />
               </label>
-              <span class="alarm_label">{{ errors.first('lastname2') }}</span>
+              <!--<span class="alarm_label">{{ errors.first('lastname2') }}</span>-->
               <label class="row">
                 <div class="form__label-text col-sm">Имя:</div>
                 <input v-model="person.ege_info[2].tab_ege_firstname" class="form__input col-sm" type="text" name="firstname2" placeholder="" required/>
               </label>
-              <span class="alarm_label">{{ errors.first('firstname2') }}</span>
+              <!--<span class="alarm_label">{{ errors.first('firstname2') }}</span>-->
               <label class="row">
                 <div class="form__label-text col-sm">Отчество:</div>
                 <input  v-model="person.ege_info[2].tab_ege_middlename" class="form__input col-sm" type="text" name="middlename2" placeholder=""/>
               </label>
-              <span class="alarm_label">{{ errors.first('middlename2') }}</span>
+              <!--<span class="alarm_label">{{ errors.first('middlename2') }}</span>-->
               <label class="row">
                 <div class="form__label-text col-sm">Документ</div>
                 <select v-if="person.ege_info[2].tab_ege_changePaspInf" v-model="person.ege_info[2].tab_ege_selectedIdentityCardCode" class="minimal col-sm">
@@ -247,16 +247,16 @@
                 <input name="pspseries" v-if="tab_ege_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="person.ege_info[2].tab_ege_identityCardSeries" class="form__input col-sm" type="text" placeholder="****" v-mask="'####'" required/>
                 <input v-else v-model="person.ege_info[2].tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
               </label>
-              <span class="alarm_label">{{ errors.first('pspseries') }}</span>
-              <span class="alarm_label">{{ errors.first('doc_serial') }}</span>
+              <!--<span class="alarm_label">{{ errors.first('pspseries') }}</span>-->
+              <!--<span class="alarm_label">{{ errors.first('doc_serial') }}</span>-->
               <label class="row">
                 <div class="form__label-text col-sm">Номер:</div>
                 <!--<input v-model="identityCardNumber" class="form__input col-sm" type="text" name="" placeholder=""/>-->
                 <input name="pspnum"   v-if="tab_ege_selectedIdentityCardCode.identityCardCode == 'Паспорт РФ'" v-model="person.ege_info[2].tab_ege_identityCardNumber" class="form__input col-sm" type="text"  placeholder="******" v-mask="'######'" required/>
                 <input v-else v-model="person.ege_info[2].tab_ege_identityCardNumber" class="form__input col-sm" type="text" name="doc_num"required/>
               </label>
-              <span class="alarm_label">{{ errors.first('pspnum') }}</span>
-              <span class="alarm_label">{{ errors.first('doc_num') }}</span>
+              <!--<span class="alarm_label">{{ errors.first('pspnum') }}</span>-->
+              <!--<span class="alarm_label">{{ errors.first('doc_num') }}</span>-->
               <label class="row">
                 <div class="form__label-text col-sm">Дата выдачи:</div>
                 <input v-model="person.ege_info[2].tab_ege_identityCardIssueDate" class="form__input col-sm" type="date" name="" placeholder=""/>
@@ -292,6 +292,7 @@
 </template>
 
 <script>
+  import { required, minLength, between } from 'vuelidate/lib/validators'
   import {mapGetters, mapState} from 'vuex'
   import { createHelpers } from 'vuex-map-fields';
   const { mapFields:person} = createHelpers({
@@ -366,10 +367,13 @@
       }
 
     },
-
+    // validations: {
+    //   tab_ege_score: {
+    //     between: between(65, 100)
+    //   }
+    // },
     data() {
       return {
-
         customTokens: {
           'Y': {pattern: /(4[5-9])/},
           'Z':{pattern: /[0-9]/}
