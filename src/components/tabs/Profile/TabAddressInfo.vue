@@ -17,7 +17,7 @@
                     <div class="uneditable col-sm-10">{{ ADRText()[0] }}</div>
                 </label>
               <label class="row">
-                <div class="form__label-text col-sm-3 ">ФИС</div>
+                <div class="form__label-text col-sm-3 ">Тип населенного пункта</div>
                 <select v-model="person.person_info.fisSettlementTypeId" class="minimal col-sm-3 ">
                   <option v-for="option in options_FIS">
                     {{option.name}}
@@ -44,21 +44,39 @@
                     <div class="uneditable col-sm-10">{{ ADRText()[1] }}</div>
                 </label>
             </div>
-            <div class="info_address2 col-sm">
-                <div>
-                    <p>Адрес временной регистрации</p>
-                </div>
-                <hr>
-                <div class="buttons row">
-                    <button @click="show=2" class="adress_button">Ввести адрес</button>
-                </div>
-                <label class="row">
-                    <div class="form__label-text col-sm-2">Адрес:</div>
-                    <!--<v-textarea >{{ ADRText()[0] }}</v-textarea>-->
-                    <!--<div class="uneditable col-sm-10">{{ ADRText()[0] }}</div>-->
-                    <textarea class="uneditable col-sm-10">{{ ADRText()[2] }}</textarea>
-                </label>
+
+          <div class="info_address3 col-sm">
+            <div>
+              <p>Адрес временной регистрации</p>
             </div>
+            <hr>
+            <div class="buttons row">
+              <button class="adress_button" @click="show=2">Ввести адрес</button>
+              <!--<button class="adress_button" @click="onCopyAddress">Копировать</button>-->
+            </div>
+            <label class="row">
+              <div class="form__label-text col-sm-2">Адрес:</div>
+              <!--<textarea v-model="tab_address_factAddress" class="uneditable col-sm-10"></textarea>-->
+              <div class="uneditable col-sm-10">{{ ADRText()[2] }}</div>
+            </label>
+          </div>
+
+            <!--<div class="info_address3 col-sm">-->
+                <!--<div>-->
+                    <!--<p>Адрес временной регистрации</p>-->
+                <!--</div>-->
+                <!--<hr>-->
+                <!--<div class="buttons row">-->
+                    <!--<button @click="show=2" class="adress_button">Ввести адрес</button>-->
+                <!--</div>-->
+                <!--<label class="row">-->
+                    <!--<div class="form__label-text col-sm-2">Адрес:</div>-->
+                    <!--&lt;!&ndash;<v-textarea >{{ ADRText()[0] }}</v-textarea>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="uneditable col-sm-10">{{ ADRText()[0] }}</div>&ndash;&gt;-->
+                    <!--<textarea class="uneditable col-sm-10">{{ ADRText()[2] }}</textarea>-->
+                <!--</label>-->
+            <!--</div>-->
+
         </div>
         <div class="row">
             <div class="col">

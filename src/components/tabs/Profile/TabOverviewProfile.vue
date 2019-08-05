@@ -343,12 +343,20 @@
         this.person.ege_info[0].tab_ege_lastname = '';
         this.person.ege_info[0].tab_ege_firstname = '';
         this.person.ege_info[0].tab_ege_middlename = '';
-        this.person.ege_info[0].tab_ege_selectedIdentityCardCode = null;
+        this.person.ege_info[0].tab_ege_selectedIdentityCardCode =
+          {"identityCardCode":"Паспорт РФ",
+          "identityCardNamemiddle":"Паспорт РФ",
+          "identityCardNameFull":"Паспорт РФ",
+          "identityCardNameShort":"",
+          "isUniversity":1,
+          "isMandatory_Number":1,
+          "isMandatory_Series":1,
+          "sort":1};
         this.person.ege_info[0].tab_ege_identityCardSeries = '';
         this.person.ege_info[0].tab_ege_identityCardNumber = '';
         this.person.ege_info[0].tab_ege_identityCardIssueDate = '';
         this.person.ege_info[0].tab_ege_identityCardIssueBy = '';
-        this.person.ege_info[0].tab_ege_info_selectedCitizenship = null;
+        this.person.ege_info[0].tab_ege_info_selectedCitizenship = {"countryRegionId":"РФ","name":"Россия"};
 
         this.person.ege_info[1].tab_ege_selectedSubject = 'Биология';
         this.person.ege_info[1].tab_ege_score = 0;
@@ -362,12 +370,20 @@
         this.person.ege_info[1].tab_ege_lastname = '';
         this.person.ege_info[1].tab_ege_firstname = '';
         this.person.ege_info[1].tab_ege_middlename = '';
-        this.person.ege_info[1].tab_ege_selectedIdentityCardCode = null;
+        this.person.ege_info[1].tab_ege_selectedIdentityCardCode =
+          {"identityCardCode":"Паспорт РФ",
+            "identityCardNamemiddle":"Паспорт РФ",
+            "identityCardNameFull":"Паспорт РФ",
+            "identityCardNameShort":"",
+            "isUniversity":1,
+            "isMandatory_Number":1,
+            "isMandatory_Series":1,
+            "sort":1};
         this.person.ege_info[1].tab_ege_identityCardSeries = '';
         this.person.ege_info[1].tab_ege_identityCardNumber = '';
         this.person.ege_info[1].tab_ege_identityCardIssueDate = '';
         this.person.ege_info[1].tab_ege_identityCardIssueBy = '';
-        this.person.ege_info[1].tab_ege_info_selectedCitizenship = null;
+        this.person.ege_info[1].tab_ege_info_selectedCitizenship = {"countryRegionId":"РФ","name":"Россия"};
 
         this.person.ege_info[2].tab_ege_selectedSubject = 'Русский язык';
         this.person.ege_info[2].tab_ege_score = 0;
@@ -381,12 +397,20 @@
         this.person.ege_info[2].tab_ege_lastname = '';
         this.person.ege_info[2].tab_ege_firstname = '';
         this.person.ege_info[2].tab_ege_middlename = '';
-        this.person.ege_info[2].tab_ege_selectedIdentityCardCode = null;
+        this.person.ege_info[2].tab_ege_selectedIdentityCardCode =
+          {"identityCardCode":"Паспорт РФ",
+            "identityCardNamemiddle":"Паспорт РФ",
+            "identityCardNameFull":"Паспорт РФ",
+            "identityCardNameShort":"",
+            "isUniversity":1,
+            "isMandatory_Number":1,
+            "isMandatory_Series":1,
+            "sort":1};
         this.person.ege_info[2].tab_ege_identityCardSeries = '';
         this.person.ege_info[2].tab_ege_identityCardNumber = '';
         this.person.ege_info[2].tab_ege_identityCardIssueDate = '';
         this.person.ege_info[2].tab_ege_identityCardIssueBy = '';
-        this.person.ege_info[2].tab_ege_info_selectedCitizenship = null;
+        this.person.ege_info[2].tab_ege_info_selectedCitizenship = {"countryRegionId":"РФ","name":"Россия"};
 
 
         this.person.parents_info = [];

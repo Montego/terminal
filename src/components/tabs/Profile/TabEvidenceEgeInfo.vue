@@ -65,7 +65,12 @@
 
               <label class="row">
                 <div class="form__label-text col-sm">Документ</div>
-                <select v-model="person.ege_info[0].tab_ege_selectedIdentityCardCode" class="minimal col-sm">
+                <select v-if="person.ege_info[0].tab_ege_changePaspInf" v-model="person.ege_info[0].tab_ege_selectedIdentityCardCode" class="minimal col-sm">
+                  <option v-for="item in identityCardCode" v-bind:value="item">
+                    {{item.identityCardCode}}
+                  </option>
+                </select>
+                <select v-else v-model="person.ege_info[0].tab_ege_selectedIdentityCardCode = tab_personal_selectedIdentityCardCode" class="minimal col-sm">
                   <option v-for="item in identityCardCode" v-bind:value="item">
                     {{item.identityCardCode}}
                   </option>
@@ -105,7 +110,13 @@
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Гражданство:</div>
-                <select v-model="person.ege_info[0].tab_ege_info_selectedCitizenship" class="minimal col-sm">
+
+                <select v-if="person.ege_info[0].tab_ege_changePaspInf" v-model="person.ege_info[0].tab_ege_info_selectedCitizenship" class="minimal col-sm">
+                  <option v-for="item in addressCountryRegion" v-bind:value="item">
+                    {{item.countryRegionId}}
+                  </option>
+                </select>
+                <select v-else v-model="person.ege_info[0].tab_ege_info_selectedCitizenship = tab_personal_selectedCitizenship" class="minimal col-sm">
                   <option v-for="item in addressCountryRegion" v-bind:value="item">
                     {{item.countryRegionId}}
                   </option>
@@ -117,7 +128,7 @@
             </div>
           </div>
 
-          <div v-if="this.person.ege_info[1].tab_ege_changePaspInf" class="col-sm-4">
+          <div v-if="person.ege_info[1].tab_ege_changePaspInf" class="col-sm-4">
             <div>
               <p>Паспортные данные при сдаче биологии</p>
             </div>
@@ -140,7 +151,12 @@
               <span class="alarm_label">{{ errors.first('middlename2') }}</span>
               <label class="row">
                 <div class="form__label-text col-sm">Документ</div>
-                <select v-model="person.ege_info[1].tab_ege_selectedIdentityCardCode" class="minimal col-sm">
+                <select v-if="person.ege_info[1].tab_ege_changePaspInf" v-model="person.ege_info[1].tab_ege_selectedIdentityCardCode" class="minimal col-sm">
+                  <option v-for="item in identityCardCode" v-bind:value="item">
+                    {{item.identityCardCode}}
+                  </option>
+                </select>
+                <select v-else v-model="person.ege_info[1].tab_ege_selectedIdentityCardCode = tab_personal_selectedIdentityCardCode" class="minimal col-sm">
                   <option v-for="item in identityCardCode" v-bind:value="item">
                     {{item.identityCardCode}}
                   </option>
@@ -156,7 +172,7 @@
               <span class="alarm_label">{{ errors.first('doc_serial') }}</span>
               <label class="row">
                 <div class="form__label-text col-sm">Номер:</div>
-                <input name="pspnum"   v-if="tab_ege_selectedIdentityCardCode.identityCardCode == 'Паспорт РФ'" v-model="person.ege_info[1].tab_ege_identityCardNumber" class="form__input col-sm" type="text"  placeholder="******" v-mask="'######'" required/>
+                <input name="pspnum" v-if="tab_ege_selectedIdentityCardCode.identityCardCode == 'Паспорт РФ'" v-model="person.ege_info[1].tab_ege_identityCardNumber" class="form__input col-sm" type="text"  placeholder="******" v-mask="'######'" required/>
                 <input v-else v-model="person.ege_info[1].tab_ege_identityCardNumber" class="form__input col-sm" type="text" name="doc_num"required/>
               </label>
               <span class="alarm_label">{{ errors.first('pspnum') }}</span>
@@ -171,7 +187,12 @@
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Гражданство:</div>
-                <select v-model="person.ege_info[1].tab_ege_info_selectedCitizenship" class="minimal col-sm">
+                <select v-if="person.ege_info[1].tab_ege_changePaspInf" v-model="person.ege_info[1].tab_ege_info_selectedCitizenship" class="minimal col-sm">
+                  <option v-for="item in addressCountryRegion" v-bind:value="item">
+                    {{item.countryRegionId}}
+                  </option>
+                </select>
+                <select v-else v-model="person.ege_info[1].tab_ege_info_selectedCitizenship = tab_personal_selectedCitizenship" class="minimal col-sm">
                   <option v-for="item in addressCountryRegion" v-bind:value="item">
                     {{item.countryRegionId}}
                   </option>
@@ -206,7 +227,12 @@
               <span class="alarm_label">{{ errors.first('middlename2') }}</span>
               <label class="row">
                 <div class="form__label-text col-sm">Документ</div>
-                <select v-model="person.ege_info[2].tab_ege_selectedIdentityCardCode" class="minimal col-sm">
+                <select v-if="person.ege_info[2].tab_ege_changePaspInf" v-model="person.ege_info[2].tab_ege_selectedIdentityCardCode" class="minimal col-sm">
+                  <option v-for="item in identityCardCode" v-bind:value="item">
+                    {{item.identityCardCode}}
+                  </option>
+                </select>
+                <select v-else v-model="person.ege_info[2].tab_ege_selectedIdentityCardCode = tab_personal_selectedIdentityCardCode" class="minimal col-sm">
                   <option v-for="item in identityCardCode" v-bind:value="item">
                     {{item.identityCardCode}}
                   </option>
@@ -238,7 +264,12 @@
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Гражданство:</div>
-                <select v-model="person.ege_info[2].tab_ege_info_selectedCitizenship" class="minimal col-sm">
+                <select v-if="person.ege_info[2].tab_ege_changePaspInf" v-model="person.ege_info[2].tab_ege_info_selectedCitizenship" class="minimal col-sm">
+                  <option v-for="item in addressCountryRegion" v-bind:value="item">
+                    {{item.countryRegionId}}
+                  </option>
+                </select>
+                <select v-else v-model="person.ege_info[2].tab_ege_info_selectedCitizenship = tab_personal_selectedCitizenship" class="minimal col-sm">
                   <option v-for="item in addressCountryRegion" v-bind:value="item">
                     {{item.countryRegionId}}
                   </option>

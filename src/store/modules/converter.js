@@ -116,6 +116,7 @@ let fillPK = function(s){
     // -----------------------
 
 
+
     "isForeigners": 0,
     "specConditions": "Не требуется",
     "specDescription": "",
@@ -161,7 +162,7 @@ let fillParents = function(s){
       "birthDate": dateConvert(info.tab_parent_birthDate), // "10.07.1970 00:00",
       "cellularPhone": info.tab_parent_cellularPhone, // "88001113535",
       "homePhoneNumber": info.tab_parent_homePhoneNumber, // "321724",
-
+//TODO обязательные поля??
       "parentOrgName" : info.tab_parent_organization_name,
       "parentOrgAddress" : info.tab_parent_organization_address,
       "profession" : info.tab_parent_organization_seniority,
@@ -539,6 +540,11 @@ let fillTotal = function (s) {
     "homePhoneNumber": person.tab_personal_homePhoneNumber, //"235642", // tab_personal_homePhoneNumber, //
     "langInfo": boolConvert(person.tab_personal_selectedForeignLanguageInfo.id) ,// 0, // ????
 
+
+    "parentOrgName": person.tab_personal_company_name,
+    "parentOrgAddress": person.tab_personal_company_address,
+    "profession": person.tab_personal_seniority,
+    "employTime": person.tab_personal_employYears,
 
 // tab_personal_isForeignLikeRussian
 // tab_personal_isEquatedForeign = приравнять к иностранцам

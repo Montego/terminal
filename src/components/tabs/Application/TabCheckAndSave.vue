@@ -244,14 +244,14 @@
 
     </div>
     <!--{{this.application}}-->
-    <div v-if="showButtons">
-      <button @click="onPrintApplication()">
+    <div>
+      <button v-if="showPrintApplication" @click="onPrintApplication()">
         Заявление
       </button>
-      <button @click="onPrintDocuments()">
+      <button v-if="showPrintDocuments" @click="onPrintDocuments()">
         Опись
       </button>
-      <button @click="onPrintAgreement()">
+      <button v-if="showPrintAgreement" @click="onPrintAgreement()">
         Согласие
       </button>
     </div>
@@ -293,6 +293,9 @@
       data(){
           return {
             showButtons: false,
+            showPrintApplication: false,
+            showPrintDocuments: false,
+            showPrintAgreement: false,
             savedInfo: [],
           }
       },
@@ -442,10 +445,24 @@
           if(this.person_info_id === ''){
             AXIOS.post(`/profile`, (this.person))
               .then(response => {
-                console.log('saved person ' + response.data)
+                console.log('saved person ' + response.data);
                 this.person_info_id = response.data;
-                this.showButtons = true;
+
                 this.axapta(this.person_info_id);
+
+                if(this.agreementId !== ""){
+                  this.showPrintAgreement = true;
+                }
+                if(this.applicationId !== ""){
+                  this.showPrintApplication = true;
+                }
+                if(this.contactPersonId !== ""){
+                  this.showPrintDocuments = true;
+                }
+
+                // if(this.agreementId!== ''){
+                //   this.showButtons = true;
+                // }
               })
               .catch(e => {
                 this.person.saved ="Не сохранено";
@@ -464,7 +481,7 @@
                 // // this.person.person_info = {};
                 // this.person.futures_info = [];
                 // this.person_info_id='';
-                console.log("person was updated")
+                console.log("person was updated");
                 this.showButtons = true;
                 this.axapta(this.person_info_id);
               })

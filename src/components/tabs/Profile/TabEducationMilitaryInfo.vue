@@ -147,7 +147,7 @@
 
         </label>
       </div>
-      <div v-if="tab_edu_military_selectedSoldiery.soldieryId ==='Военнообязанный'">
+      <div v-if="(tab_edu_military_selectedSoldiery.soldieryId ==='Военнообязанный') || (tab_edu_military_selectedSoldieryStatus.name ==='Служил')">
         <div>
           <p>Документ о военной службе</p>
         </div>
@@ -264,8 +264,6 @@
 
     },
     computed: {
-
-
       ...person(['person','tab_edu_military_educationLevel', 'tab_edu_military_univer','tab_edu_military_selectedCountryRegion','tab_edu_military_selectedState',
       'tab_edu_military_selectedAcademyYear','tab_edu_military_selectedEduDoc','tab_edu_military_eduDocSerial','tab_edu_military_eduDocNumber',
       'tab_edu_military_eduDocDate','tab_edu_military_eduDocName','tab_edu_military_attachment_serial','tab_edu_military_attachment_number',
@@ -293,7 +291,6 @@
           this.score_full = Math.round(( (parseInt(this.score_five)*5 + parseInt(this.score_four)*4 +
             parseInt(this.score_three)*3) / (parseInt(this.score_five) + parseInt(this.score_four)
             + parseInt(this.score_three)) )*100)/100;
-
         },
 
       },

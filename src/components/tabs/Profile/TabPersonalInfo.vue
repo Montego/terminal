@@ -86,7 +86,7 @@
         <!--<span class="alarm_label">{{ errors.first('snils') }}</span>-->
         <label :class="{ row : true , error1 : $v.tab_personal_INIPADate.$invalid}">
           <span class="form__label-text col-sm">СНИЛС Дата:</span>
-          <input @change="test()" v-model="tab_personal_INIPADate" class="form__input col-sm" type="date" name="snils_date" min="1918-01-01" max="2019-01-01"/>
+          <input v-model="tab_personal_INIPADate" class="form__input col-sm" type="date" name="snils_date" min="1918-01-01" max="2019-01-01"/>
         </label>
 
         <span class="alarm_label">{{ errors.first('snils_date') }}</span>
@@ -213,11 +213,11 @@
 
         <span class="alarm_label">{{ errors.first('mobile_number') }}</span>
 
-        <label class="row">
+        <label :class="{ row : true , error1 : $v.tab_personal_INIPA.$invalid}">
           <div class="form__label-text col-sm">Эл. почта:</div>
           <input v-model="tab_personal_email" class="form__input col-sm" v-validate="'required|email'"  placeholder="" name="email" type="email">
         </label>
-        <label class="alarm_label col-sm">{{ errors.first('email') }}</label>
+        <!--<label class="alarm_label col-sm">{{ errors.first('email') }}</label>-->
         <hr>
         <div>
           <p>Сведения о работе</p>

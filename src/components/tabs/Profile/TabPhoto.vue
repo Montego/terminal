@@ -175,7 +175,7 @@
               }else{
                 this.checkTargCount = false;
               }
-//TODO finish it
+          //TODO finish it
           let j = 0;
               for(j; j < this.apls.length; j++){
 
@@ -216,7 +216,8 @@
           }
           // this.isModalVisible = false;
 
-          location.href='profile#overview_new';
+          // location.href='profile#overview_new';
+
           // AXIOS.get('/profile/conditions/' + (this.person_info_id))
           //   .then(response => {
           //     this.resultApl = response.data;
