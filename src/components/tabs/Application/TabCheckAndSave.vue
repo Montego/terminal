@@ -266,7 +266,7 @@
       <!--</div>-->
 
 
-      <button v-if="showButtons || saved !== 'Сохранено'" @click="onSave">Сохранить</button>
+      <button v-if="person.saved !== 'Сохранено'" @click="onSave">Сохранить</button>
       <!--<button v-if="showButtons || person.application.saved ==='Сохранено'" @click="onSave">Сохранить</button>-->
 
 

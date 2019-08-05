@@ -398,9 +398,6 @@
 
     },
     computed: {
-      // ...mapState('tab_personal_info', ['lastname_personal_info_tab','lastname_personal_info','gender', 'identityCardCode', 'otherCountryRegion', 'langInfo', 'languageName',]),
-      // ...mapGetters('tab_personal_info', ['GET_LASTNAME_PERSONAL_INFO','GET_GENDER', 'GET_IDENTITY_CARD_CODE', 'GET_OTHER_COUNTRY_REGION', 'GET_LANGINFO']),
-      // ...mapMutations('tab_personal_info', ['set_lastname_personal_info_tab']),
       ...mapState('person', {person: state => state.person,}),
 
       ...mapState('enums', ['gender', 'langInfo','languageLevel'],),
@@ -422,23 +419,6 @@
         'tab_personal_bithplace', 'tab_personal_email','tab_personal_company_name','tab_personal_company_address',
       'language_score1','language_score2','language_score3','selected_foreignLanguageName1',
       'selected_foreignLanguageName2','selected_foreignLanguageName3']),
-
-
-      // ...tab_personal_info(['tab_personal_name', 'tab_personal_lastname', 'tab_personal_firstname',
-      //   'tab_personal_middlename','tab_personal_birthDate','tab_personal_age',
-      //   'tab_personal_seniority','tab_personal_employYears','tab_personal_employMonths',
-      //   'tab_personal_employDays','tab_personal_lastname_genitive','tab_personal_firstname_genitive',
-      //   'tab_personal_middlename_genitive','tab_personal_contactPersonNameGenitive',
-      //   'tab_personal_identityCardSeries','tab_personal_identityCardNumber',
-      //   'tab_personal_identityCardIssueDate','tab_personal_identityCardIssueDep','tab_personal_identityCardIssueBy',
-      //   'tab_personal_homePhoneNumber','tab_personal_cellularPhone','tab_personal_isCompatriot',
-      //   'tab_personal_isEquatedForeign', 'tab_personal_birthplace','tab_personal_isHostel',
-      //   'tab_personal_isForeignLikeRussian','tab_personal_selectedGender',
-      //   'tab_personal_selectedIdentityCardCode','tab_personal_selectedForeignLanguageInfo',
-      //   'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
-      //   'tab_personal_bithplace', 'tab_personal_email','tab_personal_company_name','tab_personal_company_address',
-      //
-      // ]),
 
       fullname: function () {
         return this.person.tab_personal_name = this.person.tab_personal_lastname + ' ' + this.person.tab_personal_firstname + ' ' + this.person.tab_personal_middlename
@@ -473,13 +453,6 @@
         let value = payload.target.value
         this.$store.commit('person/updateCurrentField', {value, objName})
       },
-
-      onAddLanguage(){
-        this.conditions.push('');
-      },
-      onRemoveLanguage(){
-        this.conditions.pop(this.conditions.length - 1);
-      }
 
     },
     watch: {
@@ -539,12 +512,7 @@
             language_description:''
           }
         ],
-        // language_score1:'',
-        // language_score2:'',
-        // language_score3:'',
-        // selected_foreignLanguageName1:'',
-        // selected_foreignLanguageName2:'',
-        // selected_foreignLanguageName3:'',
+
         options_gender: [
           {id: 0, item: '-выберите пол-'},
           {id: 1, item: 'Мужской'},
