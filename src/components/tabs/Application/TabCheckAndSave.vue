@@ -263,8 +263,12 @@
       <!--<div v-if="this.resultAcceptPerson ==='Утверждено'">-->
         <!--<button v-if="person.application.saved !=='Сохранено'" @click="onSave">Сохранить</button>-->
       <!--<button @click="checkFields">Проверить</button>-->
-      <button @click="onSave">Сохранить</button>
       <!--</div>-->
+
+
+      <button v-if="showButtons || saved !== 'Сохранено'" @click="onSave">Сохранить</button>
+      <!--<button v-if="showButtons || person.application.saved ==='Сохранено'" @click="onSave">Сохранить</button>-->
+
 
     </div>
   </div>
@@ -292,7 +296,7 @@
         name: "Other",
       data(){
           return {
-            showButtons: false,
+            showButtons: true,
             showPrintApplication: false,
             showPrintDocuments: false,
             showPrintAgreement: false,
@@ -447,6 +451,10 @@
               .then(response => {
                 console.log('saved person ' + response.data);
                 this.person_info_id = response.data;
+                if(response.data!== ''){
+                  this.showButtons = false;
+                }
+
 
                 this.axapta(this.person_info_id);
 
@@ -458,6 +466,7 @@
                 }
                 if(this.contactPersonId !== ""){
                   this.showPrintDocuments = true;
+                  this.showButtons = false;
                 }
 
                 // if(this.agreementId!== ''){

@@ -13,7 +13,9 @@
               <template slot="items" slot-scope="props">
                 <td class="text-xs-center">{{ props.item.tab_ege_selectedSubject}}</td>
                 <td class="text-xs-center">
-                  <input v-model="props.item.tab_ege_score" class="form__input col-sm-7" type="number"  >
+                  <!--TODO маска 65-100-->
+                  <input v-if="props.item.tab_ege_score >=65 && props.item.tab_ege_score <= 100" v-model="props.item.tab_ege_score"  class="form__input col-sm-7" type="number" >
+                  <input v-else v-model="props.item.tab_ege_score = 0"  class="form__input col-sm-7" type="number" >
                 </td>
                 <td class="text-xs-center">
                   <select  v-model="props.item.tab_ege_year" class="minimal col-sm">
@@ -353,7 +355,14 @@
         return this.person.ege_info;
       },
 
-
+      checkScore(value){
+        if(value >= 65 && value <= 100){
+          return value;
+        }else{
+          return 0
+        }
+        // return result = value && value >= 65 && value <= 100;
+      }
 
     },
 
