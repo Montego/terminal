@@ -67,7 +67,7 @@ export default {
 
     fillDocuments: [],
 
-    name:'',
+    selected_document:'',
     serial:'',
     number :'',
     fullname:'',

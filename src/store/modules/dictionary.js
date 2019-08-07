@@ -7,6 +7,7 @@ export default {
     otherCountryRegion: [],
     addressCountryRegion: [],
     addressState: [],
+    document: [],
     academyYear: [],
     eduLevel: [],
     eduDoc: [],
@@ -31,6 +32,9 @@ export default {
     },
     GET_ADDRESS_STATE: state => {
       return state.addressState;
+    },
+    GET_document: state => {
+      return state.document;
     },
     GET_ACADEMY_YEAR: state => {
       return state.academyYear;
@@ -76,6 +80,9 @@ export default {
     },
     UPLOAD_ADDRESS_STATE(state, payload) {
       state.addressState = payload
+    },
+    UPLOAD_document(state, payload) {
+      state.document = payload
     },
     UPLOAD_ACADEMY_YEAR(state, payload) {
       state.academyYear = payload
@@ -135,6 +142,14 @@ export default {
         this.errors.push(e)
       })
     },
+    onLoadDocument({commit}) {
+      AXIOS.get('/dictionary/document')
+        .then((response) => {
+          commit('UPLOAD_document', response.data)
+        }).catch(e => {
+        this.errors.push(e)
+      })
+    },
     onLoadAddressState({commit}) {
       AXIOS.get('/dictionary/addressState')
       // AXIOS.get('/json/addressState')
@@ -143,7 +158,6 @@ export default {
         }).catch(e => {
         this.errors.push(e)
       })
-
     },
 
     onLoadAcademyYear({commit}) {

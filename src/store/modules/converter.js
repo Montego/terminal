@@ -288,7 +288,7 @@ let fillApp = function (s) {
 let fillAppDocs = function (docs) {
   let result = docs.map( (doc) => {
       return {
-        "documentId": doc.id,
+        "documentId": doc.selected_document.documentId,
         "docSeries": doc.docSeries ? doc.docSeries : '',
         "docNumber":  '',
         "docIssueDate": dateConvert(doc.dateOfIssueDoc),
