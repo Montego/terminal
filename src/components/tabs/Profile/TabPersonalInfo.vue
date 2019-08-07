@@ -82,8 +82,8 @@
           <span class="alarm_label">{{ errors.first('birthday') }}</span>
 
           <label class="row computed-auto">
-            <div class="form__label-text col-sm">Полных лет:</div>
-            <input v-model="fullage" class="form__input col-sm" type="text" name="age"
+            <span class="form__label-text col-sm">Полных лет:</span>
+            <input v-model="fullage" class="uneditable form__input col-sm" type="text" name="age"
                    placeholder="Заполняется автоматически" disabled="disabled"/>
           </label>
 

@@ -38,13 +38,6 @@
       <!--<p class="typo__p" v-if="submitStatus === 'OK'">Спасибо</p>-->
       <p class="typo__p" v-if="submitStatus === 'ERROR'">Некорректно заполнены/не заполнены поля: </p>
       <p class="typo__p" v-if="submitStatus === 'PENDING'">Проверка...</p>
-       <!--<p>-->
-        <!--<ol>-->
-          <!--<li v-for="item in validAnswer">-->
-            <!--{{ item }}-->
-          <!--</li>-->
-        <!--</ol>-->
-       <!--</p>-->
       <div class="box">
         <span>
            <ul >
@@ -106,7 +99,6 @@
         imagesData: [],
         // showimage: '',
         base: '',
-
 
         optionsErrorAnswer:[
           {
@@ -267,6 +259,7 @@
       check(GroupsValidationInfo) {
         let entries = Object.entries(GroupsValidationInfo);
         let i = 0;
+
         for (i; i < entries.length; i++) {
           for(let j = 0; j < this.optionsErrorAnswer.length; j++){
             if (entries[i][0] === this.optionsErrorAnswer[j].field) {
@@ -276,9 +269,9 @@
             }
           }
         }
-        if(person.parents_info.length ===0){
-          this.validAnswer.push(this.optionsErrorAnswer[0])
-        }
+        // if(person.parents_info.length === 0){
+        //   this.validAnswer.push(this.optionsErrorAnswer[0])
+        // }
       },
 
       handleClick(val) {

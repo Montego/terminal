@@ -10,8 +10,10 @@
     <div class="control-panel col-sm">
       <div>
         <span>Абитуриент:</span>
-        <input @change="searchPersonBySNP(searchForm)" v-model="searchForm.tab_personal_lastname.input" type="search" name="поиск" placeholder="Поиск по сайту">
-        <!--<select v-model="searchForm.tab_personal_lastname.select" class="minimal exta_info_select col-sm-3">-->
+        <div class="box">
+          <input @change="searchPersonBySNP(searchForm)" v-model="searchForm.tab_personal_lastname.input" type="search" name="поиск" placeholder="Поиск по сайту">
+        </div>
+          <!--<select v-model="searchForm.tab_personal_lastname.select" class="minimal exta_info_select col-sm-3">-->
           <!--<option v-for="option in search_options">-->
             <!--{{option.item}}-->
           <!--</option>-->
@@ -154,7 +156,15 @@
 </script>
 
 <style scoped>
+  .box {
+    background: #e6e3df;
+    text-align: left;
+  }
+  .box input {
 
+    display: inline-block;
+    /*box-shadow: inset 2px 2px 5px rgba(154, 147, 140, 0.5), 1px 1px 5px rgba(255, 255, 255, 1);*/
+  }
 
   select.minimal {
     background-image:
