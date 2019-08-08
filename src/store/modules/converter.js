@@ -270,7 +270,8 @@ let fillApp = function (s) {
 
     "changeEnvBudget": 1,
     "docType": info.application_selectedDocType['id'],
-    "grantDateOriginal": "15.03.2007 00:00",
+    //TODO что возвращает info.application_selectedDocType['id'], проверить
+    "grantDateOriginal": info.application_selectedDocType['id'].name === 'Копия'? "" : "15.03.2007 00:00",
     "courseNumber": 0,
     "isDocReturn": 0,
     "docReturnDate": "01.01.1900 00:00",
@@ -317,7 +318,8 @@ let fillAppLines = function(wiz){
         "refNum": "",
         "refDate": "01.01.2019 00:00",
         "contrNum": "",
-        "contrDate": "01.01.1900 00:00",
+        //TODO проверить
+        "contrDate": line.environmentId === "ЦелНапр"? line.date : "01.01.1900 00:00",
         "targOrgId": "",
         "orgName": "",
 

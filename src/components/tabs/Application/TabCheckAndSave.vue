@@ -157,6 +157,8 @@
           </label>
 
         </section>
+
+
         <!--<div>-->
         <!--<p>Родители/попечители</p>-->
         <!--</div>-->
@@ -272,17 +274,23 @@
 
 
       <button v-if="person.saved !== 'Сохранено'" @click="onSave">Сохранить</button>
-      <!--<p class="typo__p" v-if="submitStatus === 'ERROR'"></p>-->
-      <!--<p class="typo__p" v-if="submitStatus === 'PENDING'">Проверка...</p>-->
-      <!--<div class="box">-->
-        <!--<span>-->
-           <!--<ul >-->
-          <!--<li v-for="value in validAnswer">-->
-             <!--&#45;&#45; {{ value.answer }}-->
-          <!--</li>-->
-        <!--</ul>-->
-        <!--</span>-->
-      <!--</div>-->
+      <p class="typo__p" v-if="submitStatus === 'ERROR'"></p>
+      <p class="typo__p" v-if="submitStatus === 'PENDING'">Проверка...</p>
+      <div class="box">
+        <span>
+           <ul >
+          <li v-for="value in validAnswer">
+             -- {{ value.answer }}
+          </li>
+        </ul>
+        </span>
+      </div>
+
+      <!--TODO исправить говнокод: достает данные из вложенного this.person.application.application_date в application_date для валидации-->
+      <input v-model="application_date = this.person.application.application_date" hidden>
+      <input v-model="application_selectedDeliveryType = this.person.application.application_selectedDeliveryType" hidden>
+      <input v-model="application_selectedDeliveryReturnType = this.person.application.application_selectedDeliveryReturnType" hidden>
+      <input v-model="application_selectedDocType = this.person.application.application_selectedDocType" hidden>
       <!--<button v-if="showButtons || person.application.saved ==='Сохранено'" @click="onSave">Сохранить</button>-->
 
 
@@ -313,7 +321,6 @@
     name: "Other",
     data() {
       return {
-
         showButtons: true,
         showPrintApplication: false,
         showPrintDocuments: false,
@@ -321,6 +328,10 @@
         savedInfo: [],
 
         application_date: '',
+        application_selectedDeliveryType: '',
+        application_selectedDeliveryReturnType: '',
+        application_selectedDocType:'',
+
 
         submitStatus: null,
         validAnswer: [],
@@ -346,18 +357,18 @@
     },
 
     computed: {
-  //     fromApplDate(){
-  //       return this.application_date = this.person.application.application_date
-  // },
-  //     fromApplDelivery(){
-  //       return this.application_selectedDeliveryType = this.person.application.application_selectedDeliveryType
-  //     },
-  //     fromApplDeliveryReturn(){
-  //       return this.application_selectedDeliveryReturnType = this.person.application.application_selectedDeliveryReturnType
-  //     },
-  //     fromApplDocType(){
-  //       return this.application_selectedDocType = this.person.application.application_selectedDocType
-  //     },
+      fromApplDate(){
+        return this.application_date = this.person.application.application_date
+  },
+      fromApplDelivery(){
+        return this.application_selectedDeliveryType = this.person.application.application_selectedDeliveryType
+      },
+      fromApplDeliveryReturn(){
+        return this.application_selectedDeliveryReturnType = this.person.application.application_selectedDeliveryReturnType
+      },
+      fromApplDocType(){
+        return this.application_selectedDocType = this.person.application.application_selectedDocType
+      },
   ...applications(['application',]),
       ...tab_reception_condition(['file',]),
       ...person(['person', 'showProfile', 'person_info_id', 'resultAcceptPerson', 'saved', 'savedResult', 'personInfoSavedId',
@@ -386,20 +397,20 @@
       ]),
       ...mapGetters(['ADRDTO']),
     },
-    // validations: {
-    //   //validations rules
-    //   fromApplDate: {required},
-    //   fromApplDelivery: {required},
-    //   fromApplDeliveryReturn: {required},
-    //   fromApplDocType: {required},
-    //
-    //
-    //   //validations inside groups
-    //   GroupsValidationInfo: ['application_date', 'application_selectedDeliveryType',
-    //     'application_selectedDeliveryReturnType', 'application_selectedDocType'
-    //
-    //   ],
-    // },
+    validations: {
+      //validations rules
+      application_date: {required},
+      application_selectedDeliveryType: {required},
+      application_selectedDeliveryReturnType: {required},
+      application_selectedDocType: {required},
+
+
+      //validations inside groups
+      GroupsValidationInfo: ['application_date', 'application_selectedDeliveryType',
+        'application_selectedDeliveryReturnType', 'application_selectedDocType'
+
+      ],
+    },
     methods: {
       check(GroupsValidationInfo) {
         let entries = Object.entries(GroupsValidationInfo);
@@ -444,13 +455,13 @@
 
       onSave() {
         //TODO check double save person_inf(id)
-        // this.validAnswer = [];
-        // if (this.$v.$invalid) {
-        //   this.submitStatus = 'ERROR';
-        //
-        //   this.check(this.$v.GroupsValidationInfo);
-        // }
-        // else {
+        this.validAnswer = [];
+        if (this.$v.$invalid) {
+          this.submitStatus = 'ERROR';
+
+          this.check(this.$v.GroupsValidationInfo);
+        }
+        else {
 
           this.person.person_info.tab_personal_lastname = this.tab_personal_lastname;
           this.person.person_info.tab_personal_firstname = this.tab_personal_firstname;
@@ -558,7 +569,7 @@
                     this.showPrintDocuments = true;
                     this.showButtons = false;
                   }
-                  }, 500);
+                  }, 1000);
 
 
 
@@ -589,11 +600,11 @@
               });
             console.log('before axapta: ' + this.person_info_id);
             this.axapta(this.person_info_id);
-          // }
-          // this.submitStatus = 'PENDING';
-          // setTimeout(() => {
-          //   this.submitStatus = 'OK'
-          // }, 500)
+          }
+          this.submitStatus = 'PENDING';
+          setTimeout(() => {
+            this.submitStatus = 'OK'
+          }, 500)
         }
       },
     },

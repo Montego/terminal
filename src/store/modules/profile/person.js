@@ -308,6 +308,7 @@ export default {
       ],
       parents_info: [],
       futures_info: [],
+
       application: {
         saved: '',
         application_number: '',
@@ -316,27 +317,9 @@ export default {
         application_selectedDeliveryType: {"id": 0, "name": "Лично"},
         application_selectedDocType: {"id": 0, "name": "Копия"},
         application_person_name: '',
-        choosenWizards: [
-          // {
-          //   chose: false,
-          //   company: {"targOrgId":"ОЦП000004","name":"ФМБА РФ","addressStateId":"","reportName":"от ФМБА РФ","cipHer":"ФМБА","shortName":"","blocked":0},
-          //   courseNum: 1,
-          //   deparCode: "",
-          //   deparName: "",
-          //   eduForm: "",
-          //   environmentId: "",
-          //   portalApplWizardId:0,
-          //   specialityId: ""
-          // }
-
-
-        ],
+        choosenWizards: [],
         application_documents: [],
       },
-      // chooseConditions: [],
-
-      // application_condition:[],
-      // application_documents:[],
     }
   },
   getters: {

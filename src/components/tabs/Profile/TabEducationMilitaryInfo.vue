@@ -194,6 +194,7 @@
             <div class="form__label-text col-sm">Дата предоставления:</div>
             <input v-model="tab_edu_military_docMilitaryShowDate" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
           </label>
+
         </div>
         <div>
           <p>Срок службы</p>
