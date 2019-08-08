@@ -321,20 +321,20 @@
               // }
 
 
-              let document4 = new Document(
-
-                this.selected_document = this.documentByEduDoc,
-                this.nameDoc = this.tab_edu_military_selectedEduDoc.name,
-                this.serialDoc = this.tab_edu_military_eduDocSerial,
-                this.numberDoc = this.tab_edu_military_eduDocNumber,
-                this.fullnameDoc = this.nameDoc + ", серия:" + this.serialDoc + ", номер:" + this.numberDoc,
-                this.docTypeDoc = {"id":0,"name":"Копия"},
-                this.dateOfIssueDoc = this.tab_edu_military_eduDocDate,
-                this.countDoc = 1,
-                this.IssuedByDoc = this.tab_edu_military_eduDocName,
-                this.tab_document_auto = true
-              );
-              this.person.application.application_documents.push(document4);
+              // let document4 = new Document(
+              //
+              //   this.selected_document = this.documentByEduDoc,
+              //   this.nameDoc = this.tab_edu_military_selectedEduDoc.name,
+              //   this.serialDoc = this.tab_edu_military_eduDocSerial,
+              //   this.numberDoc = this.tab_edu_military_eduDocNumber,
+              //   this.fullnameDoc = this.nameDoc + ", серия:" + this.serialDoc + ", номер:" + this.numberDoc,
+              //   this.docTypeDoc = {"id":0,"name":"Копия"},
+              //   this.dateOfIssueDoc = this.tab_edu_military_eduDocDate,
+              //   this.countDoc = 1,
+              //   this.IssuedByDoc = this.tab_edu_military_eduDocName,
+              //   this.tab_document_auto = true
+              // );
+              // this.person.application.application_documents.push(document4);
 
 
 
@@ -395,12 +395,13 @@
           //todo it's work but check doc.name
               let i = 0;
               for(i; i < this.person.futures_info.length; i++){
-                if(this.person.futures_info[i].doc1 !== ''){
+                if(this.person.futures_info[i].doc1 !== null){
                   let document7 = new Document(
+                    this.selected_document = this.person.futures_info[i].doc1.documentId,
                     this.nameDoc = this.person.futures_info[i].doc1.name,
                     this.serialDoc = this.person.futures_info[i].doc1_serial,
                     this.numberDoc = this.person.futures_info[i].doc1_number,
-                    this.fullnameDoc = this.person.futures_info[i].doc1 + ' ' + this.person.futures_info[i].doc1_serial + ' ' + this.person.futures_info[i].doc1_number,
+                    this.fullnameDoc = this.person.futures_info[i].doc1.name + ' ' + this.person.futures_info[i].doc1_serial + ' ' + this.person.futures_info[i].doc1_number,
                     this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType1,
                     this.dateOfIssueDoc = this.person.futures_info[i].doc1_IssuDate,
                     this.countDoc = 1,
@@ -409,12 +410,13 @@
                   );
                   this.person.application.application_documents.push(document7);
                 }
-                if(this.person.futures_info[i].doc2 !== ''){
+                if(this.person.futures_info[i].doc2 !== null){
                   let document8 = new Document(
+                    this.selected_document = this.person.futures_info[i].doc2.documentId,
                     this.nameDoc = this.person.futures_info[i].doc2.name,
                     this.serialDoc = this.person.futures_info[i].doc2_serial,
                     this.numberDoc = this.person.futures_info[i].doc2_number,
-                    this.fullnameDoc = this.person.futures_info[i].doc2 + ' ' + this.person.futures_info[i].doc2_serial + ' ' + this.person.futures_info[i].doc2_number,
+                    this.fullnameDoc = this.person.futures_info[i].doc2.name + ' ' + this.person.futures_info[i].doc2_serial + ' ' + this.person.futures_info[i].doc2_number,
                     this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType2,
                     this.dateOfIssueDoc = this.person.futures_info[i].doc1_IssuDate,
                     this.countDoc = 1,
@@ -423,12 +425,13 @@
                   );
                   this.person.application.application_documents.push(document8);
                 }
-                if(this.person.futures_info[i].doc3 !== ''){
+                if(this.person.futures_info[i].doc3.name !== null){
                   let document9 = new Document(
+                    this.selected_document = this.person.futures_info[i].doc3.documentId,
                     this.nameDoc = this.person.futures_info[i].doc3.name,
                     this.serialDoc = this.person.futures_info[i].doc3_serial,
                     this.numberDoc = this.person.futures_info[i].doc3_number,
-                    this.fullnameDoc = this.person.futures_info[i].doc3 + ' ' + this.person.futures_info[i].doc3_serial + ' ' + this.person.futures_info[i].doc3_number,
+                    this.fullnameDoc = this.person.futures_info[i].doc3.name + ' ' + this.person.futures_info[i].doc3_serial + ' ' + this.person.futures_info[i].doc3_number,
                     this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType3,
                     this.dateOfIssueDoc = this.person.futures_info[i].doc3_IssuDate,
                     this.countDoc = 1,
