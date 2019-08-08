@@ -63,7 +63,8 @@
 
         <label class="row">
           <div class="form__label-text col-sm">Документ об образовании:</div>
-          <select v-model="tab_edu_military_selectedEduDoc" class="minimal col-sm-8">
+          <select v-model="tab_edu_military_selectedEduDoc" class="minimal col-sm-8"
+                  @change="getDocumentByEduDoc(tab_edu_military_selectedEduDoc)">
             <option class="col-sm-12" v-for="item in eduDoc" v-bind:value="item">
               {{item.name}}
             </option>
@@ -93,7 +94,7 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Серия приложения:</div>
-          <input v-model="tab_edu_military_attachment_serial" class="form__input col-sm" type="text" name="" placeholder=""/>
+          <input v-model="tab_edu_military_attachment_serial" class="form__input col-sm" type="text" name="" placeholder="" v-mask="'#########'"/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Номер приложения:</div>
@@ -239,6 +240,7 @@
 </template>
 
 <script>
+  import {AXIOS} from "../../plugins/APIService";
   import {mapGetters, mapState} from 'vuex'
   import { createHelpers } from 'vuex-map-fields';
   const { mapFields:tab_education_military_info } = createHelpers({
@@ -272,7 +274,8 @@
         'averageScore','tab_edu_military_selectedSoldiery','tab_edu_military_selectedSoldieryStatus','tab_edu_military_selectedMilitaryFormDoc',
       'tab_edu_military_militaryNumber','tab_edu_military_militarySeries','tab_edu_military_militaryIssueDate','tab_edu_military_militaryIssueBy',
       'tab_edu_military_militaryRank','tab_edu_military_selectedDocType','tab_edu_military_docMilitaryShowDate','tab_edu_military_startMilitary',
-        'tab_edu_military_endMilitary','selectedExtraInfos1',  'selectedExtraInfos2','extraInfosDescription1','extraInfosDescription2',]),
+        'tab_edu_military_endMilitary','selectedExtraInfos1',  'selectedExtraInfos2','extraInfosDescription1','extraInfosDescription2',
+      'documentByEduDoc']),
       ...mapState('dictionary',['addressCountryRegion','addressState', 'eduDoc','academyYear','soldiery','eduLevel'
       ],),
       ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION','GET_ADDRESS_STATE',
@@ -283,6 +286,18 @@
 
       },
       methods: {
+        getDocumentByEduDoc(eduDoc){
+          // let idEduDoc = eduDoc.eduDocId;
+          AXIOS.post(`dictionary/documentByEduDoc/`, eduDoc)
+            .then(response => {
+              console.log(response.data[0]);
+              this.documentByEduDoc = response.data[0];
+            })
+            .catch(e => {
+            })
+        },
+
+
         copyFromEdu() {
           this.tab_edu_military_eduDocName = this.tab_edu_military_univer;
           this.tab_edu_military_attachment_serial = this.tab_edu_military_eduDocSerial;

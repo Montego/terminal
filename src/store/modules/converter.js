@@ -88,7 +88,7 @@ let fillPK = function(s){
     "soldieryBegDate": dateConvert(info.tab_edu_military_startMilitary),// "01.01.1900 00:00",
     "soldieryEndDate": dateConvert(info.tab_edu_military_endMilitary),
     "militaryDocType": info.tab_edu_military_selectedDocType.id,
-    "militaryDocGrantDate": dateConvert(info.tab_edu_military_docMilitaryShowDate), // "01.01.1900 00:00",
+    "militaryDocGrantDate": info.tab_edu_military_selectedDocType.id.name === 'Копия' ? "01.01.1900 00:00" : dateConvert(info.tab_edu_military_docMilitaryShowDate), // "01.01.1900 00:00",
 
 
     "eduLevelId": "003", // ????
@@ -271,7 +271,7 @@ let fillApp = function (s) {
     "changeEnvBudget": 1,
     "docType": info.application_selectedDocType['id'],
     //TODO что возвращает info.application_selectedDocType['id'], проверить
-    "grantDateOriginal": "15.03.2007 00:00",
+    "grantDateOriginal": info.application_selectedDocType['id'].name === "Копия"? "01.01.1900 00:00" : (dateConvert(info.application_date)),
     "courseNumber": 0,
     "isDocReturn": 0,
     "docReturnDate": "01.01.1900 00:00",
@@ -312,6 +312,8 @@ let fillAppDocs = function (docs) {
 let fillAppLines = function(wiz){
   let result = wiz.map(
     line => {
+      console.log(line.date);
+      console.log(dateConvert(line.date));
       return {
         "appLineId": line.id,
         "priority": 0,
@@ -329,8 +331,9 @@ let fillAppLines = function(wiz){
         // ru.vitasoft.admissionForPersistToAx.dto.SCApplicationDTO["applicationLines"]->java.util.ArrayList[2]->
         // ru.vitasoft.admissionForPersistToAx.dto.SCApplicationLineDTO["contrDate"])
 
+        "contrDate": line.environmentId === "ЦелНапр"? (dateConvert(line.date)) : "01.01.1900 00:00",
         // "contrDate": line.environmentId === "ЦелНапр"? dateConvert(line.date) : "01.01.1900 00:00",
-        "contrDate": "01.01.1900 00:00",
+        // "contrDate": "01.01.1900 00:00",
         "targOrgId": "",
         "orgName": "",
 

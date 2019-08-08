@@ -280,7 +280,6 @@
                 this.IssuedByDoc = "",
                 this.tab_document_auto = true
               );
-              //TODO finish it
 
               if(this.tab_edu_military_selectedMilitaryFormDoc.name === 'Военный билет'){
                 let document10 = new Document(
@@ -304,14 +303,12 @@
               }
 
 
-
-
-
-
+              //TODO нужно ли приложение док об образовании?
 
               // if(this.tab_edu_military_attachment_serial !== null){
               //   let document4 = new Document(
-              //     this.nameDoc = "Приложение к док. об образовании",
+              //     this.selected_document;
+              //     this.nameDoc = "Документ об образовании",
               //     this.serialDoc = this.tab_edu_military_attachment_serial,
               //     this.numberDoc = this.tab_edu_military_attachment_number,
               //     this.fullnameDoc = this.nameDoc + " " + this.tab_edu_military_attachment_serial + " " + this.tab_edu_military_attachment_number,
@@ -322,6 +319,25 @@
               //   );
               //   this.person.application.application_documents.push(document4);
               // }
+
+
+              let document4 = new Document(
+
+                this.selected_document = this.documentByEduDoc,
+                this.nameDoc = this.tab_edu_military_selectedEduDoc.name,
+                this.serialDoc = this.tab_edu_military_eduDocSerial,
+                this.numberDoc = this.tab_edu_military_eduDocNumber,
+                this.fullnameDoc = this.nameDoc + ", серия:" + this.serialDoc + ", номер:" + this.numberDoc,
+                this.docTypeDoc = {"id":0,"name":"Копия"},
+                this.dateOfIssueDoc = this.tab_edu_military_eduDocDate,
+                this.countDoc = 1,
+                this.IssuedByDoc = this.tab_edu_military_eduDocName,
+                this.tab_document_auto = true
+              );
+              this.person.application.application_documents.push(document4);
+
+
+
 
               let document5 = new Document(
                 this.selected_document =
@@ -376,73 +392,57 @@
               );
 
 
-
-
-//todo it's work but check doc.name
-              // let i = 0;
-              // for(i; i < this.person.futures_info.length; i++){
-              //   if(this.person.futures_info[i].doc1 !== ''){
-              //     let document7 = new Document(
-              //       this.nameDoc = this.person.futures_info[i].doc1.name,
-              //       this.serialDoc = this.person.futures_info[i].doc1_serial,
-              //       this.numberDoc = this.person.futures_info[i].doc1_number,
-              //       this.fullnameDoc = this.person.futures_info[i].doc1 + ' ' + this.person.futures_info[i].doc1_serial + ' ' + this.person.futures_info[i].doc1_number,
-              //       this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType1,
-              //       this.dateOfIssueDoc = this.person.futures_info[i].doc1_IssuDate,
-              //       this.countDoc = 1,
-              //       this.IssuedByDoc = this.person.futures_info[i].doc1_IssueBy,
-              //     );
-              //     this.person.application.application_documents.push(document7);
-              //   }
-              //   if(this.person.futures_info[i].doc2 !== ''){
-              //     let document8 = new Document(
-              //       this.nameDoc = this.person.futures_info[i].doc2.name,
-              //       this.serialDoc = this.person.futures_info[i].doc2_serial,
-              //       this.numberDoc = this.person.futures_info[i].doc2_number,
-              //       this.fullnameDoc = this.person.futures_info[i].doc2 + ' ' + this.person.futures_info[i].doc2_serial + ' ' + this.person.futures_info[i].doc2_number,
-              //       this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType2,
-              //       this.dateOfIssueDoc = this.person.futures_info[i].doc1_IssuDate,
-              //       this.countDoc = 1,
-              //       this.IssuedByDoc = this.person.futures_info[i].doc2_IssueBy,
-              //     );
-              //     this.person.application.application_documents.push(document8);
-              //   }
-              //   if(this.person.futures_info[i].doc3 !== ''){
-              //     let document9 = new Document(
-              //       this.nameDoc = this.person.futures_info[i].doc3.name,
-              //       this.serialDoc = this.person.futures_info[i].doc3_serial,
-              //       this.numberDoc = this.person.futures_info[i].doc3_number,
-              //       this.fullnameDoc = this.person.futures_info[i].doc3 + ' ' + this.person.futures_info[i].doc3_serial + ' ' + this.person.futures_info[i].doc3_number,
-              //       this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType3,
-              //       this.dateOfIssueDoc = this.person.futures_info[i].doc3_IssuDate,
-              //       this.countDoc = 1,
-              //       this.IssuedByDoc = this.person.futures_info[i].doc3_IssueBy,
-              //     );
-              //     this.person.application.application_documents.push(document9);
-              //   }
-              // }
+          //todo it's work but check doc.name
+              let i = 0;
+              for(i; i < this.person.futures_info.length; i++){
+                if(this.person.futures_info[i].doc1 !== ''){
+                  let document7 = new Document(
+                    this.nameDoc = this.person.futures_info[i].doc1.name,
+                    this.serialDoc = this.person.futures_info[i].doc1_serial,
+                    this.numberDoc = this.person.futures_info[i].doc1_number,
+                    this.fullnameDoc = this.person.futures_info[i].doc1 + ' ' + this.person.futures_info[i].doc1_serial + ' ' + this.person.futures_info[i].doc1_number,
+                    this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType1,
+                    this.dateOfIssueDoc = this.person.futures_info[i].doc1_IssuDate,
+                    this.countDoc = 1,
+                    this.IssuedByDoc = this.person.futures_info[i].doc1_IssueBy,
+                    this.tab_document_auto = true
+                  );
+                  this.person.application.application_documents.push(document7);
+                }
+                if(this.person.futures_info[i].doc2 !== ''){
+                  let document8 = new Document(
+                    this.nameDoc = this.person.futures_info[i].doc2.name,
+                    this.serialDoc = this.person.futures_info[i].doc2_serial,
+                    this.numberDoc = this.person.futures_info[i].doc2_number,
+                    this.fullnameDoc = this.person.futures_info[i].doc2 + ' ' + this.person.futures_info[i].doc2_serial + ' ' + this.person.futures_info[i].doc2_number,
+                    this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType2,
+                    this.dateOfIssueDoc = this.person.futures_info[i].doc1_IssuDate,
+                    this.countDoc = 1,
+                    this.IssuedByDoc = this.person.futures_info[i].doc2_IssueBy,
+                    this.tab_document_auto = true
+                  );
+                  this.person.application.application_documents.push(document8);
+                }
+                if(this.person.futures_info[i].doc3 !== ''){
+                  let document9 = new Document(
+                    this.nameDoc = this.person.futures_info[i].doc3.name,
+                    this.serialDoc = this.person.futures_info[i].doc3_serial,
+                    this.numberDoc = this.person.futures_info[i].doc3_number,
+                    this.fullnameDoc = this.person.futures_info[i].doc3 + ' ' + this.person.futures_info[i].doc3_serial + ' ' + this.person.futures_info[i].doc3_number,
+                    this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType3,
+                    this.dateOfIssueDoc = this.person.futures_info[i].doc3_IssuDate,
+                    this.countDoc = 1,
+                    this.IssuedByDoc = this.person.futures_info[i].doc3_IssueBy,
+                    this.tab_document_auto = true
+                  );
+                  this.person.application.application_documents.push(document9);
+                }
+              }
 
 
 
               this.person.application.application_documents.push(document1);
               this.person.application.application_documents.push(document2);
-              //TODO this.selected_document как-то искать по тому что выбрано в tab_edu_military_selectedEduDoc
-              // if (this.tab_edu_military_selectedEduDoc.name !== '') {
-              //   let document3 = new Document(
-              //     // this.selected_document = ????????,
-              //     this.nameDoc = this.tab_edu_military_selectedEduDoc.name,
-              //     this.serialDoc = this.tab_edu_military_eduDocSerial,
-              //     this.numberDoc = this.tab_edu_military_eduDocNumber,
-              //     this.fullnameDoc = this.nameDoc + " " + this.serialDoc + " " + this.numberDoc,
-              //     this.docTypeDoc = {"id": 0, "name": "Копия"},
-              //     this.dateOfIssueDoc = this.tab_edu_military_eduDocDate,
-              //     this.countDoc = 1,
-              //     this.IssuedByDoc = this.tab_edu_military_eduDocName,
-              //     this.tab_document_auto = true
-              //   );
-              //   this.person.application.application_documents.push(document3);
-              // }
-
               this.person.application.application_documents.push(document5);
             // person.application.choosenWizards
               for(let i = 0; i < this.person.application.choosenWizards.length; i++){
