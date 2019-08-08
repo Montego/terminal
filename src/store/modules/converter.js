@@ -271,7 +271,7 @@ let fillApp = function (s) {
     "changeEnvBudget": 1,
     "docType": info.application_selectedDocType['id'],
     //TODO что возвращает info.application_selectedDocType['id'], проверить
-    "grantDateOriginal": info.application_selectedDocType['id'].name === 'Копия'? "" : "15.03.2007 00:00",
+    "grantDateOriginal": "15.03.2007 00:00",
     "courseNumber": 0,
     "isDocReturn": 0,
     "docReturnDate": "01.01.1900 00:00",
@@ -318,8 +318,19 @@ let fillAppLines = function(wiz){
         "refNum": "",
         "refDate": "01.01.2019 00:00",
         "contrNum": "",
-        //TODO проверить
-        "contrDate": line.environmentId === "ЦелНапр"? line.date : "01.01.1900 00:00",
+        //TODO JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "2003-02-02":
+        // Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '2003-02-02'
+        // could not be parsed at index 2; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException:
+        // Cannot deserialize value of type `java.time.LocalDateTime` from String "2003-02-02":
+        // Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException)
+        // Text '2003-02-02' could not be parsed at index 2↵ at [Source: (PushbackInputStream);
+        // line: 1, column: 1816] (through reference chain:
+        // ru.vitasoft.admissionForPersistToAx.dto.ContactPersonDTO["application"]->
+        // ru.vitasoft.admissionForPersistToAx.dto.SCApplicationDTO["applicationLines"]->java.util.ArrayList[2]->
+        // ru.vitasoft.admissionForPersistToAx.dto.SCApplicationLineDTO["contrDate"])
+
+        // "contrDate": line.environmentId === "ЦелНапр"? dateConvert(line.date) : "01.01.1900 00:00",
+        "contrDate": "01.01.1900 00:00",
         "targOrgId": "",
         "orgName": "",
 
