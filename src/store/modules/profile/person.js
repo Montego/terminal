@@ -125,8 +125,8 @@ export default {
     saved: '',
     savedResult: '',
 
-    documentByEduDoc: '',
-    documentByPrefDoc: '',
+    documentByEduDoc: {},
+
 
 
     person: {

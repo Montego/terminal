@@ -292,6 +292,7 @@
             .then(response => {
               console.log(response.data[0]);
               this.documentByEduDoc = response.data[0];
+              console.log(this.documentByEduDoc);
             })
             .catch(e => {
             })

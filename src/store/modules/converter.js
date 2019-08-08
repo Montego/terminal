@@ -300,7 +300,7 @@ let fillAppDocs = function (docs) {
         "altDocName": doc.fullnameDoc,
         "docGrantDate": "01.01.1900 00:00",
         "documentKindId": "",
-        "isauto": 0
+        "isauto": doc.tab_document_auto ? 1 : 0
       }
     }
   );
