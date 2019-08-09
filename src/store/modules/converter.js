@@ -320,20 +320,7 @@ let fillAppLines = function(wiz){
         "refNum": "",
         "refDate": "01.01.2019 00:00",
         "contrNum": "",
-        //TODO JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "2003-02-02":
-        // Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '2003-02-02'
-        // could not be parsed at index 2; nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException:
-        // Cannot deserialize value of type `java.time.LocalDateTime` from String "2003-02-02":
-        // Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException)
-        // Text '2003-02-02' could not be parsed at index 2↵ at [Source: (PushbackInputStream);
-        // line: 1, column: 1816] (through reference chain:
-        // ru.vitasoft.admissionForPersistToAx.dto.ContactPersonDTO["application"]->
-        // ru.vitasoft.admissionForPersistToAx.dto.SCApplicationDTO["applicationLines"]->java.util.ArrayList[2]->
-        // ru.vitasoft.admissionForPersistToAx.dto.SCApplicationLineDTO["contrDate"])
-
         "contrDate": line.environmentId === "ЦелНапр"? (dateConvert(line.date)) : "01.01.1900 00:00",
-        // "contrDate": line.environmentId === "ЦелНапр"? dateConvert(line.date) : "01.01.1900 00:00",
-        // "contrDate": "01.01.1900 00:00",
         "targOrgId": "",
         "orgName": "",
 
@@ -348,7 +335,10 @@ let fillAppLines = function(wiz){
         "eduForm": 1,
         "agreements": line.agree ? [
           {
-            "orderGroupType": 4,
+            "orderGroupType":
+               line.orderGroupType === 'Общий набор'? 4 :
+              (line.orderGroupType === 'Целевой набор' ? 3 :
+              (line.orderGroupType === 'Особое право'? 2 : 1)),
             "refTableId": 51222,
             "refusalDate": "01.01.1900 00:00",
             "agreementDate": dateConvert(line.agreeDate)

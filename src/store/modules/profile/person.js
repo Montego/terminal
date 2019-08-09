@@ -131,7 +131,7 @@ export default {
 
     person: {
       id: '',
-      axaptaIds: {},
+      axaptaCode: {},
       saved: 'Не сохранено',
       acceptedPerson: "",
       person_info: {

@@ -81,7 +81,8 @@
 
             <td class="text-xs-center">
               <div v-if="((props.item.environmentId ===  'Договор' && !props.item.agree) && countContract > 0)||
-                         ((props.item.environmentId ===  'Бюджет' && !props.item.agree) && countBudget > 0)">
+                         ((props.item.environmentId ===  'Бюджет' && !props.item.agree) && countBudget > 0) ||
+                         ((props.item.environmentId ===  'ЦелНапр' && !props.item.agree) && countBudget > 0)">
                 <input v-model="props.item.agree" class="checkbox col-sm" type="checkbox" @change="checkCount(props.item)" disabled>
               </div>
               <div v-else>
@@ -90,11 +91,17 @@
 
               <div v-if="props.item.agree === true">
                 <input v-model="props.item.agreeDate" class="form__input col-sm" type="date"  min="1918-01-01" max="2020-01-01"/>
+                <label v-if="props.item.environmentId ==='Договор'" v-model="props.item.orderGroupType = options_orderGroupType[3].item">{{options_orderGroupType[3].item}}</label>
+                <label v-if="props.item.environmentId ==='ЦелНапр' " v-model="props.item.orderGroupType = options_orderGroupType[2].item">{{options_orderGroupType[2].item}}</label>
+                <label v-if="props.item.environmentId ==='Бюджет' && props.item.special_right" v-model="props.item.orderGroupType = options_orderGroupType[1].item">{{options_orderGroupType[1].item}}</label>
+                <label v-if="props.item.environmentId ==='Бюджет' && !props.item.special_right" v-model="props.item.orderGroupType = options_orderGroupType[3].item">{{options_orderGroupType[3].item}}</label>
               </div>
               <div v-else>
-                <input v-model="props.item.agreeDate" class="form__input col-sm" type="date"  min="1918-01-01" max="2020-01-01" hidden/>
               </div>
-
+              <div >
+                <!--<label v-if="props.item.environmentId ==='Договор'" v-model="props.item.orderGroupType = options_orderGroupType[3].item">{{options_orderGroupType[3].item}}</label>-->
+                <!--<label v-if="props.item.environmentId ==='ЦелНапр'" v-model="props.item.orderGroupType = options_orderGroupType[2].item">{{options_orderGroupType[2].item}}</label>-->
+              </div>
             </td>
 
             <!--<td class="text-xs-center">-->
@@ -310,6 +317,13 @@
         ],
         results: [
 
+        ],
+
+        options_orderGroupType: [
+          {id: 1, item: 'БезВступ'},
+          {id: 2, item: 'Особое право'},
+          {id: 3, item: 'Целевой набор'},
+          {id: 4, item: 'Общий набор'},
         ],
 
         options_DocumentType: [

@@ -350,12 +350,7 @@
         let counterStom = 0;
         let counterSestr = 0;
         let sumSpec = counterLechDel + counterMedProf + counterStom + counterSestr;
-        // let counterCheckSpec : 0;
-        // console.log('counterLechDel ', counterLechDel);
-        // console.log('counterMedProf ', counterMedProf);
-        // console.log('counterStom ', counterStom);
-        // console.log('counterSestr ', counterSestr);
-        // console.log('sumSpec ',sumSpec);
+
         let i = 0;
         //проверка на только 1 целевое направление
         for (i; i < this.apls.length; i++) {

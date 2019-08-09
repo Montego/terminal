@@ -559,6 +559,7 @@
                 this.axapta(this.person_info_id);
 
                 setTimeout(() => {
+                  // this.submitStatus = 'PENDING';
                   if (this.agreementId !== "") {
                     this.showPrintAgreement = true;
                   }
@@ -571,7 +572,18 @@
                   }
                   }, 1000);
 
+                // this.person.axaptaCode.agreementId = this.agreementId;
+                // this.person.axaptaCode.applicationId = this.applicationId;
+                // this.person.axaptaCode.contactPersonId = this.contactPersonId;
 
+                // AXIOS.put('/profile/person/' + this.person_info_id, (this.person))
+                //   .then(response => {
+                //     console.log("person was updated");
+                //     this.showButtons = true;
+                //   })
+                //   .catch(e => {
+                //     this.errors.push(e)
+                //   });
 
               })
               .catch(e => {
@@ -581,25 +593,15 @@
 
           } else {
             //TODO if part of person will save in tabPhoto, check this flow(post/put)
-            AXIOS.put('/profile/person/' + this.person_info_id, (this.person))
-              .then(response => {
-                console.log(response);
-                console.log(this.person);
-                // location.href='profile#overview_personal_info';
-                // this.person.ege_info = [];
-                // this.person.parents_info = [];
-                // // this.person.person_info = {};
-                // this.person.futures_info = [];
-                // this.person_info_id='';
-                console.log("person was updated");
-                this.showButtons = true;
-                this.axapta(this.person_info_id);
-              })
-              .catch(e => {
-                this.errors.push(e)
-              });
-            console.log('before axapta: ' + this.person_info_id);
-            this.axapta(this.person_info_id);
+            // AXIOS.put('/profile/person/' + this.person_info_id, (this.person))
+            //   .then(response => {
+            //     console.log("person was updated");
+            //     this.showButtons = true;
+            //   })
+            //   .catch(e => {
+            //     this.errors.push(e)
+            //   });
+
           }
           this.submitStatus = 'PENDING';
           setTimeout(() => {
