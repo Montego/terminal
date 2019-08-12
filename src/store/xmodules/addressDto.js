@@ -136,12 +136,9 @@ export default {
             ctx.commit('updateADRText', {adrType: data.adrType});
         },
         updateHouse(ctx, data){
-            const adrType = {
-                "id": 0,
-                "name": "Адрес регистрации"
-            };
-            ctx.commit('updateHouse', {house: data, adrType: adrType.id});
-            ctx.commit('updateADRText', {adrType: adrType.id});
+            ctx.commit('updateHouse', {house: data.data, adrType: data.adrType});
+            ctx.commit('updateAoL', {adrType: data.adrType});
+            ctx.commit('updateADRText', {adrType: data.adrType});
         }
     }
 }

@@ -82,7 +82,7 @@
             },
             newValue(aolevel, e) {
                 if(aolevel === 'aolevel100'){
-                    this.updateHouse(e);
+                    this.updateHouse({data: e, adrType: this.adrType});
                 }
                 else {
                     this.fill({data: e, adrType: this.adrType});

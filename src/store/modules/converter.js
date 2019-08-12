@@ -91,7 +91,7 @@ let fillPK = function(s){
     "militaryDocGrantDate": info.tab_edu_military_selectedDocType.id.name === 'Копия' ? "01.01.1900 00:00" : dateConvert(info.tab_edu_military_docMilitaryShowDate), // "01.01.1900 00:00",
 
 
-    "eduLevelId": "003", // ????
+    "eduLevelId": info.tab_edu_military_educationLevel['eduLevelId'], // ????
     "eduCountryRegionId": info.tab_edu_military_selectedState['countryRegionId'], // "РФ",
     "eduState": info.tab_edu_military_selectedState['stateId'], // "Приморский",
     "acadamyYearId" : info.tab_edu_military_selectedAcademyYear['academyYearId'], // "2015",
@@ -262,8 +262,8 @@ let fillComments = function(s){
 let fillApp = function (s) {
   let info = s.application;
   return {
-    "deliveryType": 0,
-    "docReturnType": 0,
+    "deliveryType": info.application_selectedDeliveryType,
+    "docReturnType": info.application_selectedDeliveryReturnType,
 
     "applDate": dateConvert(info.application_date), // "01.01.2016 00:00",
 
@@ -319,10 +319,10 @@ let fillAppLines = function(wiz){
         "priority": 0,
         "refNum": "",
         "refDate": "01.01.2019 00:00",
-        "contrNum": "",
+        "contrNum": line.environmentId === "ЦелНапр"? line.contract : "",
         "contrDate": line.environmentId === "ЦелНапр"? (dateConvert(line.date)) : "01.01.1900 00:00",
-        "targOrgId": "",
-        "orgName": "",
+        "targOrgId": line.environmentId === "ЦелНапр"? line.company.targOrgId : "",
+        "orgName": line.environmentId === "ЦелНапр"? line.company.name : "",
 
         "compGroupsId":"",
         "compGroupLineId":"",
@@ -551,7 +551,7 @@ let fillTotal = function (s) {
     "parentOrgAddress": person.tab_personal_company_address,
     "profession": person.tab_personal_seniority,
     "employTime": person.tab_personal_employYears,
-
+    "description" : person.tab_personal_note,
 // tab_personal_isForeignLikeRussian
 // tab_personal_isEquatedForeign = приравнять к иностранцам
 // tab_personal_INIPADate - дата снилса!
@@ -593,23 +593,8 @@ export default function (fatJSON,some) {
   )
     .then(response => {
                 some.commit('getIdsFromAxapta', response.data);
-
-
-              // this.agreementId = response.data.agreementId;
-              // this.applicationId = response.data.applicationId;
-              // this.contactPersonId = response.data.contactPersonId;
-
-
             })
             .catch(e => {
               console.log(this.errors.push(e));
             });
-
-
-
-    // .then(r =>
-
-
-  // console.log('obj', obj);
-  // console.log('fatStore', fatStore);
 }

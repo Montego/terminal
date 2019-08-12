@@ -29,7 +29,7 @@
               <div v-if="props.item.chose === true">
                 <select v-if="props.item.environmentId === 'ЦелНапр'" v-model="props.item.company" class="minimal col-sm">
                   <option v-for="item in targOrg" v-bind:value="item" >
-                    {{item.name}}
+                    {{item.targOrgId}} -- {{item.name}}
                   </option>
                 </select>
                 <!--<input v-if="props.item.environmentId === 'ЦелНапр'" v-model="props.item.company" class="form__input" type="text">-->

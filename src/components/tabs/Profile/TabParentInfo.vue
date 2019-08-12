@@ -62,21 +62,21 @@
               <input data-vv-as="фамилия" v-validate="'alpha_spaces'" v-model="tab_parent_lastname" class="form__input col-sm" type="text" name="tab_parent_lastname" placeholder="" required/>
             </label>
 
-            <span class="alarm_label">{{ errors.first('tab_parent_lastname') }}</span>
+            <!--<span class="alarm_label">{{ errors.first('tab_parent_lastname') }}</span>-->
 
             <label class="row">
               <div class="form__label-text col-sm">Имя:</div>
               <input data-vv-as="имя" v-validate="'alpha_spaces'" v-model="tab_parent_firstname" class="form__input col-sm" type="text" name="tab_parent_firstname" placeholder=""/>
             </label>
 
-            <span class="alarm_label">{{ errors.first('tab_parent_firstname') }}</span>
+            <!--<span class="alarm_label">{{ errors.first('tab_parent_firstname') }}</span>-->
 
             <label class="row">
               <div class="form__label-text col-sm">Отчество:</div>
               <input data-vv-as="отчество" v-validate="'alpha_spaces'" v-model="tab_parent_middlename" class="form__input col-sm" type="text" name="tab_parent_middlename" placeholder=""/>
             </label>
 
-            <span class="alarm_label">{{ errors.first('tab_parent_middlename') }}</span>
+            <!--<span class="alarm_label">{{ errors.first('tab_parent_middlename') }}</span>-->
 
             <label class="row">
               <div class="form__label-text col-sm">Пол:</div>
@@ -126,14 +126,14 @@
               <input v-validate data-vv-as="домашний телефон" v-model="tab_parent_homePhoneNumber" class="form__input col-sm" type="text" name="tab_parent_homePhoneNumber" placeholder="(XXX)XXX-XX-XX" v-mask="'(###)###-##-##'" />
             </label>
 
-            <span class="alarm_label">{{ errors.first('tab_parent_homePhoneNumber') }}</span>
+            <!--<span class="alarm_label">{{ errors.first('tab_parent_homePhoneNumber') }}</span>-->
 
             <label class="row">
               <div class="form__label-text col-sm">Мобильный телефон:</div>
               <input v-validate data-vv-as="мобильный телефон" v-model="tab_parent_cellularPhone" class="form__input col-sm" type="text" name="tab_parent_cellularPhone" v-mask="'+#-###-###-##-##'" required />
             </label>
 
-            <span class="alarm_label">{{ errors.first('tab_parent_cellularPhone') }}</span>
+            <!--<span class="alarm_label">{{ errors.first('tab_parent_cellularPhone') }}</span>-->
 
             <!--<label class="row">-->
               <!--<div class="form__label-text col-sm">Мобильный телефон:</div>-->

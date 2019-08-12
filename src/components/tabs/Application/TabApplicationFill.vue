@@ -29,7 +29,7 @@
       </div>
       <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
         <div class="form__label-text col-sm">Тип возврата:</div>
-        <select v-model="application.application_selectedDeliveryReturnType"  class="minimal col-sm">
+        <select v-model="person.application.application_selectedDeliveryReturnType"  class="minimal col-sm">
           <option v-for="item in deliveryType" v-bind:value="item">
             {{item.name}}
           </option>

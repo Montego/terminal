@@ -581,7 +581,7 @@
               this.countDoc = this.count,
               this.issuedByDoc = this.issuedBy,
               this.tab_document_auto = false,
-              this.fullnameDoc = this.nameDoc + " Серия " + this.serial + " № " + this.number + " от " + this.dateOfIssueDoc + " выдан " + this.issuedByDoc + " ("+ this.docTypeDoc +")"
+              this.fullnameDoc = this.nameDoc + " Серия " + this.serial + " № " + this.number + " от " + this.dateOfIssueDoc + " выдан " + this.issuedByDoc + " ("+ this.docTypeDoc.name +")"
 
               );
 

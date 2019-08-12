@@ -382,7 +382,8 @@
         'tab_edu_military_militaryIssueDate', 'tab_edu_military_militaryIssueBy', 'tab_edu_military_militaryRank',
         'tab_edu_military_selectedDocType', 'tab_edu_military_docMilitaryShowDate', 'tab_edu_military_startMilitary',
         'tab_edu_military_endMilitary', 'image', 'showimage', 'acceptedPerson', 'profiles', 'selectedExtraInfos1',
-        'selectedExtraInfos2', 'extraInfosDescription1', 'extraInfosDescription2'
+        'selectedExtraInfos2', 'extraInfosDescription1', 'extraInfosDescription2', 'score_five','score_four','score_three',
+        'score_full'
       ]),
 
     },
@@ -506,7 +507,7 @@
           this.person.person_info.tab_edu_military_eduDocName = this.tab_edu_military_eduDocName;
           this.person.person_info.tab_edu_military_attachment_serial = this.tab_edu_military_attachment_serial;
           this.person.person_info.tab_edu_military_attachment_number = this.tab_edu_military_attachment_number;
-          this.person.person_info.averageScore = this.averageScore;
+          this.person.person_info.score_full = this.score_full;
           this.person.person_info.score_five = this.score_five;
           this.person.person_info.score_four = this.score_four;
           this.person.person_info.score_three = this.score_three;
