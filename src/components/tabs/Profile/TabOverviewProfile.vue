@@ -86,6 +86,7 @@
   import {AXIOS, AXIOS_print} from "../../plugins/APIService";
   import {createHelpers} from 'vuex-map-fields';
   import modal from "../../modals/modal";
+  import {mapGetters} from "vuex";
 
   // const { mapMultiRowFields: personM } = createHelpers({
   //   getterType: `person/getField`,
@@ -174,6 +175,7 @@
       ...applications(['application', 'application_person_id', 'application_person_name', 'applId', 'applTableName',
         'applTableNumber', 'applTableDate', 'applTableDeliveryType', 'apls', 'chooseAppls', 'resultApl',
         'countContract','countBudget'],),
+      ...mapGetters(['ADRText']),
       showTable() {
         return this.profiles;
       },
@@ -298,6 +300,11 @@
       },
 
       onNewProfile() {
+        // this.fullAdrText = [];
+        // this.ADRText[0] = [];
+        // this.ADRText[0] = [];
+        // this.ADRText[0] = [];
+
         this.countContract = 0;
         this.countBudget = 0;
         // this.person.ege_info = [];

@@ -16,6 +16,8 @@
                   <!--TODO маска 65-100-->
                   <!--<input v-if="props.item.tab_ege_score >=65 && props.item.tab_ege_score <= 100" v-model="props.item.tab_ege_score"  class="form__input col-sm-7" type="number" >-->
                   <!--<input v-else v-model="props.item.tab_ege_score = 0"  class="form__input col-sm-7" type="number" >-->
+
+
                   <input v-model="props.item.tab_ege_score"  class="form__input col-sm-7" type="number" >
                 </td>
                 <td class="text-xs-center">

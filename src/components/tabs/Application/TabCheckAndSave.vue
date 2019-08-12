@@ -369,8 +369,9 @@
       fromApplDocType(){
         return this.application_selectedDocType = this.person.application.application_selectedDocType
       },
-  ...applications(['application',]),
+      ...applications(['application',]),
       ...tab_reception_condition(['file',]),
+      ...mapGetters(['ADRDTO']),
       ...person(['person', 'showProfile', 'person_info_id', 'resultAcceptPerson', 'saved', 'savedResult', 'personInfoSavedId',
         'tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename', 'tab_personal_lastname_genitive',
         'tab_personal_firstname_genitive', 'tab_personal_middlename_genitive', 'tab_personal_selectedGender',
@@ -395,7 +396,7 @@
         'tab_edu_military_endMilitary', 'image', 'showimage', 'acceptedPerson', 'profiles', 'selectedExtraInfos1',
         'selectedExtraInfos2', 'extraInfosDescription1', 'extraInfosDescription2'
       ]),
-      ...mapGetters(['ADRDTO']),
+
     },
     validations: {
       //validations rules
@@ -540,8 +541,7 @@
           this.person.person_info.extraInfosDescription2 = this.extraInfosDescription2;
 
           this.person.person_info.image = this.image;
-          this.person.person_info.addressesDto = this.addressesDto;
-            // this.ADRDTO();
+          this.person.person_info.addressesDto = this.ADRDTO;
           this.person.person_info.showimage = this.showimage;
           this.person.saved = "Сохранено";
           this.person.application.saved = "Сохранено";
@@ -561,13 +561,13 @@
 
                 setTimeout(() => {
                   // this.submitStatus = 'PENDING';
-                  if (this.agreementId !== "") {
+                  if (this.agreementId !== '' || this.agreementId !== null) {
                     this.showPrintAgreement = true;
                   }
-                  if (this.applicationId !== "") {
+                  if (this.applicationId !== '' || this.applicationId !== null) {
                     this.showPrintApplication = true;
                   }
-                  if (this.contactPersonId !== "") {
+                  if (this.contactPersonId !== '' || this.contactPersonId !== null) {
                     this.showPrintDocuments = true;
                     this.showButtons = false;
                   }
