@@ -18,7 +18,7 @@
             <td class="text-xs-center">{{ props.item.docTypeDoc.name}}</td>
 
             <td class="text-xs-center">
-              <input v-model="props.item.dateOfIssueDoc" class="form__input col-sm-8" type="date"  >
+              <input v-model="props.item.dateOfShow" class="form__input col-sm-8" type="date"  >
               <!--{{ props.item.dateOfIssueDoc}}-->
             </td>
             <td class="text-xs-center">{{ props.item.countDoc }}</td>
@@ -143,7 +143,7 @@
             docTypeDoc:{"id":0,"name":"Копия"},
             dateOfIssueDoc:'' ,
             countDoc:0,
-            IssuedByDoc: '',
+            issuedByDoc: '',
             auto: '',
 
             options_DocumentType: [
@@ -185,7 +185,8 @@
         'docTableFullname','docTableDocType','docTableDate','docTableCount', 'person_info_id','tab_personal_INIPA',
           'tab_personal_INIPADate','tab_edu_military_selectedEduDoc','tab_edu_military_eduDocSerial',
           'tab_edu_military_eduDocNumber','tab_edu_military_eduDocDate','tab_edu_military_univer','tab_edu_military_selectedMilitaryFormDoc',
-          'tab_edu_military_militarySeries', 'tab_edu_military_militaryNumber','documentByEduDoc'
+          'tab_edu_military_militarySeries', 'tab_edu_military_militaryNumber','documentByEduDoc','tab_edu_military_militaryIssueDate',
+          'tab_edu_military_militaryIssueBy'
         ]),
 
         showTable(){
@@ -224,6 +225,22 @@
           },
           onFill() {
 
+            let dateConvert = function(date){
+              let stamp = '';
+              let regexp = /^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/;
+              if (!date || !date.match(regexp)) {
+                stamp = -2208988800000;
+              } else {
+                stamp = Date.parse(date);
+              }
+
+              let parsedDate = new Date(stamp);
+              let year = parsedDate.getFullYear();
+              let month = ('0' + (parsedDate.getMonth()+1)).slice(-2);
+              let day = ('0' + parsedDate.getDate()).slice(-2);
+              return day + '.' + month + '.' + year + ' ';
+            };
+
             if(this.person.application.application_documents.length !==0){
               let g =0;
               for (let g = this.person.application.application_documents.length; g--; ){
@@ -233,37 +250,42 @@
               }
             }
 
-            function Document(selected_document ,name, serial, number, fullname, docType, dateOfIssue, count, IssuedBy, auto) {
-              this.selected_document = selected_document;
+            function Document(dateOfShow,selected_document ,name, serial, number, docType, dateOfIssue, count, IssuedBy, auto, fullname) {
+              this.dateOfShow = dateOfShow,
+              this.selected_document = selected_document,
               this.nameDoc = name,
               this.serialDoc = serial,
               this.numberDoc = number,
-              this.fullnameDoc = fullname,
               this.docTypeDoc = docType,
               this.dateOfIssueDoc = dateOfIssue,
               this.countDoc = count,
-              this.IssuedByDoc =IssuedBy,
-              this.tab_document_auto = auto
+              this.issuedByDoc =IssuedBy,
+              this.tab_document_auto = auto,
+              this.fullnameDoc = fullname
             }
 
               let document1 = new Document(
+                this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
                 this.selected_document =
                   {"documentId":"001","name":"Документ, удостоверяющий личность",
                     "isManual":0,"serialNumberDocument":13,"docSeriesMandatory":1,
                     "docNumberMandatory":1,"relatedDocument":"","documentType":13,
                     "isDifferentEduCardAppl":0,"educationLevel":0,"isAllowEditing":0,
                     "docOrgMandatory":0,"isDuplicatePermission":0,"diplomCopy":0},
-                this.nameDoc = this.tab_personal_selectedIdentityCardCode.identityCardNameFull,
+                this.nameDoc = "Документ, удостоверяющий личность",
                 this.serialDoc = this.tab_personal_identityCardSeries,
                 this.numberDoc = this.tab_personal_identityCardNumber,
-                this.fullnameDoc = this.tab_personal_selectedIdentityCardCode.identityCardNameFull + ', серия: ' + this.tab_personal_identityCardSeries + ', номер: ' + this.tab_personal_identityCardNumber,
                 this.docTypeDoc = this.tab_personal_identityCardDocType,
-                this.dateOfIssueDoc = this.moment(this.dateToday).format('YYYY-MM-DD'),
+                this.dateOfIssueDoc = this.tab_personal_identityCardIssueDate,
+                  // this.moment(this.dateToday).format('YYYY-MM-DD'),
                 this.countDoc = 1,
-                this.IssuedByDoc = this.tab_personal_identityCardIssueBy,
-                this.tab_document_auto = true
+                this.issuedByDoc = this.tab_personal_identityCardIssueBy,
+                this.tab_document_auto = true,
+                this.fullnameDoc = this.nameDoc + ' Cерия ' + this.tab_personal_identityCardSeries + ' № ' + this.tab_personal_identityCardNumber + ' от ' + (dateConvert(this.dateOfIssueDoc)) + ' выдан ' + this.issuedByDoc + ' ' + '('+this.docTypeDoc.name+')',
+
               );
               let document2 = new Document(
+                this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
                 this.selected_document =
                   {"documentId":"094","name":"СНИЛС","isManual":0,"serialNumberDocument":0,
                     "docSeriesMandatory":0,"docNumberMandatory":1,"relatedDocument":"",
@@ -272,17 +294,19 @@
                 this.nameDoc = "СНИЛС",
                 this.serialDoc = this.tab_personal_INIPA,
                 this.numberDoc = "",
-                this.fullnameDoc = this.nameDoc + " " + this.tab_personal_INIPA,
                 this.docTypeDoc = {"id": 0, "name": "Копия"},
-                this.dateOfIssueDoc = this.moment(this.dateToday).format('YYYY-MM-DD'),
-                  // this.tab_personal_INIPADate,
+                this.dateOfIssueDoc = this.tab_personal_INIPADate,
+                  // this.moment(this.dateToday).format('YYYY-MM-DD'),
+                  //
                 this.countDoc = 1,
-                this.IssuedByDoc = "",
-                this.tab_document_auto = true
+                this.issuedByDoc = "",
+                this.tab_document_auto = true,
+                this.fullnameDoc = this.nameDoc + " № " + this.tab_personal_INIPA + " от " + (dateConvert(this.dateOfIssueDoc)) + " выдан ПФР " + "(Копия)",
               );
 
               if(this.tab_edu_military_selectedMilitaryFormDoc.name === 'Военный билет'){
                 let document10 = new Document(
+                  this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
                   this.selected_document =
                     {"documentId":"014","name":"Военный билет","isManual":0,"serialNumberDocument":6,
                       "docSeriesMandatory":1,"docNumberMandatory":1,"relatedDocument":"","documentType":12,
@@ -291,13 +315,12 @@
                   this.nameDoc = "Военный билет",
                   this.serialDoc = this.tab_edu_military_militarySeries,
                   this.numberDoc = this.tab_edu_military_militaryNumber,
-                  this.fullnameDoc = this.nameDoc + ",серия: " + this.serialDoc + ",номер: " + this.numberDoc,
                   this.docTypeDoc = {"id": 0, "name": "Копия"},
-                  this.dateOfIssueDoc = this.moment(this.dateToday).format('YYYY-MM-DD'),
-                    // this.tab_edu_military_militaryIssueDate,
+                  this.dateOfIssueDoc = this.tab_edu_military_militaryIssueDate,
                   this.countDoc = 1,
-                  this.IssuedByDoc = "",
-                  this.tab_document_auto = true
+                  this.issuedByDoc = this.tab_edu_military_militaryIssueBy,
+                  this.tab_document_auto = true,
+                  this.fullnameDoc = this.nameDoc + " Серия: " + this.serialDoc + " № " + this.numberDoc + " от " + (dateConvert(this.dateOfIssueDoc)) + " выдан " + this.issuedByDoc + '('+this.docTypeDoc.name+')' ,
                 );
                 this.person.application.application_documents.push(document10);
               }
@@ -315,24 +338,27 @@
               //     this.docTypeDoc = {"id":0,"name":"Копия"},
               //     this.dateOfIssueDoc = this.tab_edu_military_eduDocDate,
               //     this.countDoc = 1,
-              //     this.IssuedByDoc = this.tab_edu_military_eduDocName,
+              //     this.issuedByDoc = this.tab_edu_military_eduDocName,
               //   );
               //   this.person.application.application_documents.push(document4);
               // }
 
 
               let document4 = new Document(
+                this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
                 this.selected_document = this.documentByEduDoc,
                 this.nameDoc = this.tab_edu_military_selectedEduDoc.name,
                 this.serialDoc = this.tab_edu_military_eduDocSerial,
                 this.numberDoc = this.tab_edu_military_eduDocNumber,
-                this.fullnameDoc = this.nameDoc + ", серия:" + this.serialDoc + ", номер:" + this.numberDoc,
                 this.docTypeDoc = {"id":0,"name":"Копия"},
-                this.dateOfIssueDoc = this.moment(this.dateToday).format('YYYY-MM-DD'),
-                  // this.tab_edu_military_eduDocDate,
+                this.dateOfIssueDoc = this.tab_edu_military_eduDocDate,
+                  // this.moment(this.dateToday).format('YYYY-MM-DD'),
+                  //
                 this.countDoc = 1,
-                this.IssuedByDoc = this.tab_edu_military_eduDocName,
-                this.tab_document_auto = true
+                this.issuedByDoc = this.tab_edu_military_univer,
+                this.tab_document_auto = true,
+                this.fullnameDoc = this.nameDoc + " Серия " + this.serialDoc + " № " + this.numberDoc + " от " + (dateConvert(this.dateOfIssueDoc)) + " выдан " + this.issuedByDoc + "(Копия)",
+
               );
               this.person.application.application_documents.push(document4);
 
@@ -340,6 +366,7 @@
 
 
               let document5 = new Document(
+                this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
                 this.selected_document =
                   {"documentId":"019","name":"Заявление ректору","isManual":0,
                     "serialNumberDocument":1,"docSeriesMandatory":0,"docNumberMandatory":0,
@@ -349,32 +376,36 @@
                 this.nameDoc = "Заявление ректору",
                 this.serialDoc = "",
                 this.numberDoc = "",
-                this.fullnameDoc = "Заявление ректору",
                 this.docTypeDoc = {"id": 1, "name": "Оригинал"},
                 this.dateOfIssueDoc = this.moment(this.dateToday).format('YYYY-MM-DD'),
                 this.countDoc = 1,
-                this.IssuedByDoc = "",
-                this.tab_document_auto = true
+                this.issuedByDoc = "",
+                this.tab_document_auto = true,
+                this.fullnameDoc = "Заявление ректору (Оригинал)",
+
               );
 
 
               let document7 = new Document(
+                this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
                 this.selected_document =
                   {"documentId":"081","name":"Согласие на обработку персональных данных","isManual":0,
                     "serialNumberDocument":0,"docSeriesMandatory":0,"docNumberMandatory":0,
                     "relatedDocument":"","documentType":4,"isDifferentEduCardAppl":0,"educationLevel":1,
                     "isAllowEditing":1,"docOrgMandatory":1,"isDuplicatePermission":0,"diplomCopy":0},
-                this.nameDoc = "Согласие на обработку данных",
+                this.nameDoc = "Согласие на обработку персональных данных",
                 this.serialDoc = "",
                 this.numberDoc = "",
-                this.fullnameDoc = "Согласие на обработку данных",
                 this.docTypeDoc = {"id": 1, "name": "Оригинал"},
                 this.dateOfIssueDoc = this.moment(this.dateToday).format('YYYY-MM-DD'),
                 this.countDoc = 1,
-                this.IssuedByDoc = "",
-                this.tab_document_auto = true
+                this.issuedByDoc = "",
+                this.tab_document_auto = true,
+                this.fullnameDoc = this.nameDoc + " (Оригинал)",
+
               );
               let document8 = new Document(
+                this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
                 this.selected_document =
                   {"documentId":"022","name":"Фотокарточка","isManual":0,"serialNumberDocument":6,
                     "docSeriesMandatory":0,"docNumberMandatory":0,"relatedDocument":"",
@@ -383,64 +414,71 @@
                 this.nameDoc = "Фотографии",
                 this.serialDoc = "",
                 this.numberDoc = "",
-                this.fullnameDoc = "Фотографии",
                 this.docTypeDoc = {"id": 1, "name": "Оригинал"},
                 this.dateOfIssueDoc = this.moment(this.dateToday).format('YYYY-MM-DD'),
                 this.countDoc = 6,
-                this.IssuedByDoc = "",
-                this.tab_document_auto = true
+                this.issuedByDoc = "",
+                this.tab_document_auto = true,
+                this.fullnameDoc = "Фотокарточка (6 шт.) (Оригинал)",
+
               );
 
 
-          //todo it's work but check doc.name
               let i = 0;
               for(i; i < this.person.futures_info.length; i++){
                 if(typeof this.person.futures_info[i].doc1.name !== 'undefined'){
                   let document7 = new Document(
+                    this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
                     this.selected_document = this.person.futures_info[i].doc1,
                     this.nameDoc = this.person.futures_info[i].doc1.name,
                     this.serialDoc = this.person.futures_info[i].doc1_serial,
                     this.numberDoc = this.person.futures_info[i].doc1_number,
-                    this.fullnameDoc = this.person.futures_info[i].doc1.name + ', серия:' + this.person.futures_info[i].doc1_serial + ', номер:' + this.person.futures_info[i].doc1_number,
                     this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType1,
-                    this.dateOfIssueDoc = this.moment(this.dateToday).format('YYYY-MM-DD'),
+                    this.dateOfIssueDoc = this.person.futures_info[i].doc1_IssuDate,
+                      // this.moment(this.dateToday).format('YYYY-MM-DD'),
                       // this.person.futures_info[i].doc1_IssuDate,
                     this.countDoc = 1,
-                    this.IssuedByDoc = this.person.futures_info[i].doc1_IssueBy,
-                    this.tab_document_auto = true
+                    this.issuedByDoc = this.person.futures_info[i].doc1_IssueBy,
+                    this.tab_document_auto = true,
+                    this.fullnameDoc = this.nameDoc + ' Cерия ' + this.person.futures_info[i].doc1_serial + ' № ' + this.person.futures_info[i].doc1_number + ' от ' + (dateConvert(this.dateOfIssueDoc)) + " выдан " + this.issuedByDoc + " ("+ this.docTypeDoc +")",
+
                   );
                   this.person.application.application_documents.push(document7);
                 }
 
                 if(typeof this.person.futures_info[i].doc2.name !== 'undefined'){
                   let document8 = new Document(
+                    this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
                     this.selected_document = this.person.futures_info[i].doc2,
                     this.nameDoc = this.person.futures_info[i].doc2.name,
                     this.serialDoc = this.person.futures_info[i].doc2_serial,
                     this.numberDoc = this.person.futures_info[i].doc2_number,
-                    this.fullnameDoc = this.person.futures_info[i].doc2.name + ' ' + this.person.futures_info[i].doc2_serial + ' ' + this.person.futures_info[i].doc2_number,
                     this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType2,
                     this.dateOfIssueDoc = this.moment(this.dateToday).format('YYYY-MM-DD'),
                       // this.person.futures_info[i].doc1_IssuDate,
                     this.countDoc = 1,
-                    this.IssuedByDoc = this.person.futures_info[i].doc2_IssueBy,
-                    this.tab_document_auto = true
+                    this.issuedByDoc = this.person.futures_info[i].doc2_IssueBy,
+                    this.tab_document_auto = true,
+                    this.fullnameDoc = this.nameDoc + ' Серия ' + this.person.futures_info[i].doc2_serial + ' № ' + this.person.futures_info[i].doc2_number + ' от ' + (dateConvert(this.dateOfIssueDoc)) + " выдан " + this.issuedByDoc + " ("+ this.docTypeDoc +")",
+
                   );
                   this.person.application.application_documents.push(document8);
                 }
                 if(typeof this.person.futures_info[i].doc3.name !== 'undefined'){
                   let document9 = new Document(
+                    this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
                     this.selected_document = this.person.futures_info[i].doc3,
                     this.nameDoc = this.person.futures_info[i].doc3.name,
                     this.serialDoc = this.person.futures_info[i].doc3_serial,
                     this.numberDoc = this.person.futures_info[i].doc3_number,
-                    this.fullnameDoc = this.person.futures_info[i].doc3.name + ' ' + this.person.futures_info[i].doc3_serial + ' ' + this.person.futures_info[i].doc3_number,
                     this.docTypeDoc = this.person.futures_info[i].tab_features_selectedDocType3,
                     this.dateOfIssueDoc = this.moment(this.dateToday).format('YYYY-MM-DD'),
                       // this.person.futures_info[i].doc3_IssuDate,
                     this.countDoc = 1,
-                    this.IssuedByDoc = this.person.futures_info[i].doc3_IssueBy,
-                    this.tab_document_auto = true
+                    this.issuedByDoc = this.person.futures_info[i].doc3_IssueBy,
+                    this.tab_document_auto = true,
+                    this.fullnameDoc = this.nameDoc + ' Серия ' + this.person.futures_info[i].doc3_serial + ' № ' + this.person.futures_info[i].doc3_number + ' от ' + (dateConvert(this.dateOfIssueDoc)) + " выдан " + this.issuedByDoc + " ("+ this.docTypeDoc +")",
+
                   );
                   this.person.application.application_documents.push(document9);
                 }
@@ -455,6 +493,7 @@
                 if(this.person.application.choosenWizards[i].agree){
 
                   let document6 = new Document(
+                    this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
                     this.selected_document =
                       {"documentId":"053","name":"Согласие на зачисление","isManual":0,
                         "serialNumberDocument":0,"docSeriesMandatory":0,"docNumberMandatory":0,
@@ -464,12 +503,13 @@
                     this.nameDoc = "Согласие на зачисление",
                     this.serialDoc = "",
                     this.numberDoc = "",
-                    this.fullnameDoc = "Согласие на зачисление: "+ this.person.application.choosenWizards[i].deparName + ", " + this.person.application.choosenWizards[i].environmentId,
                     this.docTypeDoc = {"id": 1, "name": "Оригинал"},
                     this.dateOfIssueDoc = this.moment(this.dateToday).format('YYYY-MM-DD'),
                     this.countDoc = 1,
-                    this.IssuedByDoc = "",
-                    this.tab_document_auto = true
+                    this.issuedByDoc = "",
+                    this.tab_document_auto = true,
+                    this.fullnameDoc = "Заявление о согласии на зачисление: " + this.person.application.choosenWizards[i].deparName + ", " + this.person.application.choosenWizards[i].environmentId + " (Оригинал)",
+
                   );
                   this.person.application.application_documents.push(document6);
                 }
@@ -482,6 +522,7 @@
               for (j; j < this.person.application.choosenWizards.length; j++) {
                 if (this.person.application.choosenWizards[j].environmentId === 'ЦелНапр') {
                   let document10 = new Document(
+                    this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
                     this.selected_document =
                       {"documentId":"023","name":"Целевое направление","isManual":0,"serialNumberDocument":8,
                         "docSeriesMandatory":0,"docNumberMandatory":0,"relatedDocument":"","documentType":4,
@@ -490,13 +531,14 @@
                     this.nameDoc = this.person.application.choosenWizards[j].contract,
                     this.serialDoc = "",
                     this.numberDoc = "",
-                    this.fullnameDoc = "Целевое направление: " + this.person.application.choosenWizards[j].company.name + ".Договор №: " + this.person.application.choosenWizards[j].contract,
                     this.docTypeDoc = {"id": 1, "name": "Оригинал"},
                     this.dateOfIssueDoc = this.moment(this.dateToday).format('YYYY-MM-DD'),
                       // this.person.application.choosenWizards[j].date,
                     this.countDoc = 1,
-                    this.IssuedByDoc = this.person.application.choosenWizards[j].company,
-                    this.tab_document_auto = true
+                    this.issuedByDoc = this.person.application.choosenWizards[j].company.name,
+                    this.tab_document_auto = true,
+                    this.fullnameDoc = "Целевое направление: " + this.person.application.choosenWizards[j].company.name + ".Договор №: " + this.person.application.choosenWizards[j].contract,
+
                   );
                   this.person.application.application_documents.push(document10);
                 }
@@ -508,17 +550,19 @@
           },
           onSave() {
             location.href='profile#documents_overview';
-            function Document(selected_document, name, serial, number, fullname, docType, dateOfIssue, count, IssuedBy, auto) {
+            function Document(dateOfShow, selected_document, name, serial, number, docType, dateOfIssue, count, IssuedBy, auto,fullname) {
+                this.dateOfShow = dateOfShow,
                 this.selected_document = selected_document,
                 this.nameDoc = name,
                 this.serialDoc = serial,
                 this.numberDoc = number,
-                this.fullnameDoc = fullname,
                 this.docTypeDoc = docType,
                 this.dateOfIssueDoc = dateOfIssue,
                 this.countDoc = count,
-                this.IssuedByDoc =IssuedBy,
-                this.tab_document_auto = auto
+                this.issuedByDoc =IssuedBy,
+                this.tab_document_auto = auto,
+                this.fullnameDoc = fullname
+
             }
 
             if(this.name === 'Иной документ') {
@@ -527,18 +571,19 @@
 
             }
               let doc = new Document(
+              this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
               this.selected_document,
-
-              this.nameDoc = this.newName,
+              this.nameDoc = this.name === 'Иной документ' ? this.newName : this.selected_document.name,
               this.serialDoc = this.serial,
               this.numberDoc = this.number,
-              this.fullnameDoc = this.nameDoc + " " + this.serial + " " + this.number,
               this.docTypeDoc = this.selected_docType,
               this.dateOfIssueDoc = this.dateOfIssue,
               this.countDoc = this.count,
-              this.IssuedByDoc = this.issuedBy,
-              this.tab_document_auto = false
-            );
+              this.issuedByDoc = this.issuedBy,
+              this.tab_document_auto = false,
+              this.fullnameDoc = this.nameDoc + " Серия " + this.serial + " № " + this.number + " от " + this.dateOfIssueDoc + " выдан " + this.issuedByDoc + " ("+ this.docTypeDoc +")"
+
+              );
 
             console.log(doc)
             this.person.application.application_documents.push(doc);

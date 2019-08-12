@@ -290,14 +290,14 @@ let fillAppDocs = function (docs) {
   let result = docs.map( (doc) => {
       return {
         "documentId": doc.selected_document.documentId,
-        "docSeries": doc.docSeries ? doc.docSeries : '',
-        "docNumber":  '',
+        "docSeries": doc.serialDoc ? doc.serialDoc : '',
+        "docNumber": doc.numberDoc ? doc.numberDoc : '',
         "docIssueDate": dateConvert(doc.dateOfIssueDoc),
         "docIssueBy": doc.issuedByDoc ? doc.issuedByDoc : '',
-        "docName": doc.nameDoc,
+        "docName": doc.fullnameDoc,
         "docType": doc.docTypeDoc['id'],
         "docQuantity": doc.countDoc,
-        "altDocName": doc.fullnameDoc,
+        "altDocName": doc.nameDoc,
         "docGrantDate": "01.01.1900 00:00",
         "documentKindId": "",
         "isauto": doc.tab_document_auto ? 1 : 0

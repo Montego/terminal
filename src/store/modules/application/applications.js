@@ -7,6 +7,7 @@ export default {
     countContract: 0,
     countBudget: 0,
 
+    checCountBudgetAndCel: false,
 
     agree:'',
     agreeDate:'',

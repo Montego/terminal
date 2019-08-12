@@ -249,7 +249,7 @@
       ]),
       ...applications(['application', 'application_person_id', 'application_person_name', 'applId', 'applTableName',
         'applTableNumber', 'applTableDate', 'applTableDeliveryType', 'applicationId', 'apls', 'chooseAppls', 'resultApl',
-        'checkTargCount', 'checkSpecCount', 'message'],),
+        'checkTargCount', 'checkSpecCount', 'message', 'checCountBudgetAndCel'],),
       ...mapState('dictionary', ['targOrg'],),
       ...mapGetters('dictionary', ['GET_targOrg']),
       ...mapGetters(['ADRDTO']),
@@ -373,6 +373,20 @@
         //TODO finish it
         let j = 0;
         for (j; j < this.apls.length; j++) {
+          // if(this.apls[i].specialityId === 'ЛечДел'){
+          //   if(this.apls[i].chose === true && this.apls[i].environmentId === 'Бюджет') {
+          //     if(this.apls[i].environmentId === 'ЦелНапр' && this.apls[i].chose === false){
+          //       this.checCountBudgetAndCel = true;
+          //     }
+          //   }
+          //   if(this.apls[i].chose === true && this.apls[i].environmentId === 'ЦелНапр') {
+          //     if(this.apls[i].environmentId === 'Бюджет' && this.apls[i].chose === false){
+          //       this.checCountBudgetAndCel = true;
+          //     }
+          //   }
+
+          // }
+
 
           // if (this.apls[i].chose === true && this.apls[i].environmentId === 'ЦелНапр') {
           //   counterCheckTargOrg++;

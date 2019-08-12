@@ -357,18 +357,6 @@
     },
 
     computed: {
-      fromApplDate(){
-        return this.application_date = this.person.application.application_date
-  },
-      fromApplDelivery(){
-        return this.application_selectedDeliveryType = this.person.application.application_selectedDeliveryType
-      },
-      fromApplDeliveryReturn(){
-        return this.application_selectedDeliveryReturnType = this.person.application.application_selectedDeliveryReturnType
-      },
-      fromApplDocType(){
-        return this.application_selectedDocType = this.person.application.application_selectedDocType
-      },
       ...applications(['application',]),
       ...tab_reception_condition(['file',]),
       ...mapGetters(['ADRDTO']),
@@ -561,7 +549,7 @@
 
                 setTimeout(() => {
                   // this.submitStatus = 'PENDING';
-                  if (this.agreementId !== '' || this.agreementId !== null) {
+                  if (this.agreementId !== "" || this.agreementId !== null) {
                     this.showPrintAgreement = true;
                   }
                   if (this.applicationId !== '' || this.applicationId !== null) {
@@ -571,7 +559,7 @@
                     this.showPrintDocuments = true;
                     this.showButtons = false;
                   }
-                  }, 1000);
+                  }, 1500);
 
                 // this.person.axaptaCode.agreementId = this.agreementId;
                 // this.person.axaptaCode.applicationId = this.applicationId;
