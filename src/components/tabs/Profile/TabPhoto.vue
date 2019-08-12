@@ -337,6 +337,7 @@
         //     location.href = 'profile#applicationFill';
         //   }
 
+
       },
       closeModal() {
         this.isModalVisible = false;

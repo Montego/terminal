@@ -436,7 +436,7 @@
       onPrintApplication() {
         console.log(this.$store.state.applicationId);
         let id = this.$store.state.applicationId;
-        window.open('http://10.71.0.115/application/' + id + '.xlsm');
+        window.open('http://10.71.0.115/application/' + id + '_.xlsm');
         // 'ApW000191'
 
       },
@@ -540,7 +540,8 @@
           this.person.person_info.extraInfosDescription2 = this.extraInfosDescription2;
 
           this.person.person_info.image = this.image;
-          // this.person.person_info.addressesDto = this.ADRDTO();
+          this.person.person_info.addressesDto = this.addressesDto;
+            // this.ADRDTO();
           this.person.person_info.showimage = this.showimage;
           this.person.saved = "Сохранено";
           this.person.application.saved = "Сохранено";
