@@ -6,8 +6,9 @@ export default {
   state: {
     countContract: 0,
     countBudget: 0,
-
+    countTarg: 0,
     checCountBudgetAndCel: false,
+
 
     lechDelCel: true,
     lechDelBudget: true,

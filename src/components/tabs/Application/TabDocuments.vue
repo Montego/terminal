@@ -281,7 +281,7 @@
                 this.countDoc = 1,
                 this.issuedByDoc = this.tab_personal_identityCardIssueBy,
                 this.tab_document_auto = true,
-                this.fullnameDoc = this.nameDoc + ' Cерия ' + this.tab_personal_identityCardSeries + ' № ' + this.tab_personal_identityCardNumber + ' от ' + (dateConvert(this.dateOfIssueDoc)) + ' выдан ' + this.issuedByDoc + ' ' + '('+this.docTypeDoc.name+')',
+                this.fullnameDoc = this.nameDoc + ' Cерия ' + this.tab_personal_identityCardSeries + ' № ' + this.tab_personal_identityCardNumber + ' от ' + (dateConvert(this.dateOfIssueDoc)) + ' выдан ' + this.issuedByDoc + ' ' + ' ('+this.docTypeDoc.name+')',
 
               );
               let document2 = new Document(
@@ -320,7 +320,7 @@
                   this.countDoc = 1,
                   this.issuedByDoc = this.tab_edu_military_militaryIssueBy,
                   this.tab_document_auto = true,
-                  this.fullnameDoc = this.nameDoc + " Серия: " + this.serialDoc + " № " + this.numberDoc + " от " + (dateConvert(this.dateOfIssueDoc)) + " выдан " + this.issuedByDoc + '('+this.docTypeDoc.name+')' ,
+                  this.fullnameDoc = this.nameDoc + " Серия: " + this.serialDoc + " № " + this.numberDoc + " от " + (dateConvert(this.dateOfIssueDoc)) + " выдан " + this.issuedByDoc + ' ('+this.docTypeDoc.name+')' ,
                 );
                 this.person.application.application_documents.push(document10);
               }
@@ -357,7 +357,7 @@
                 this.countDoc = 1,
                 this.issuedByDoc = this.tab_edu_military_univer,
                 this.tab_document_auto = true,
-                this.fullnameDoc = this.nameDoc + " Серия " + this.serialDoc + " № " + this.numberDoc + " от " + (dateConvert(this.dateOfIssueDoc)) + " выдан " + this.issuedByDoc + "(Копия)",
+                this.fullnameDoc = this.nameDoc + " Серия " + this.serialDoc + " № " + this.numberDoc + " от " + (dateConvert(this.dateOfIssueDoc)) + " выдан " + this.issuedByDoc + " (Копия)",
 
               );
               this.person.application.application_documents.push(document4);

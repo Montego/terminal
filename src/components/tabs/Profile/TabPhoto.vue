@@ -286,6 +286,7 @@
         this.medProfBudget = true;
         this.stomDelCel = true;
         this.stomDelBudget = true;
+        this.howMuchTarg = [];
         this.validAnswer = [];
         if (this.$v.$invalid) {
           this.submitStatus = 'ERROR';
@@ -351,25 +352,34 @@
       },
 
       validatorConditions() {
+        let counterCheckTargOrg = 0;
+
+        let counterLechDel = 0;
+        let counterMedProf = 0;
+        let counterStom = 0;
+        let counterSestr = 0;
+        let sumSpec = counterLechDel + counterMedProf + counterStom + counterSestr;
+
         let i = 0;
         for (i; i < this.apls.length; i++) {
+          // if(this.apls[i].specialityId === 'ЛечДел')
             switch (this.apls[i].specialityId) {
               case 'ЛечДел':
-                if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true) ) {
+                if( (this.apls[i].environmentId === 'Бюджет') & (this.apls[i].chose === true) ) {
                   return this.lechDelCel = false;
                 }
-                if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true) ) {
+                if( (this.apls[i].environmentId === 'ЦелНапр') & (this.apls[i].chose === true) ) {
                   this.howMuchTarg.push(1);
                   return this.lechDelBudget = false;
                 }
-                if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.lechDelCel === false) ) {
+                if( (this.apls[i].environmentId === 'Бюджет') & (this.apls[i].chose === false) & (this.lechDelCel === false) ) {
                   return this.lechDelCel = true;
                 }
-                if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.lechDelBudget === false) ) {
+                if( (this.apls[i].environmentId === 'ЦелНапр') & (this.apls[i].chose === false) & (this.lechDelBudget === false) ) {
                   this.howMuchTarg.splice(0,1);
                   return this.lechDelBudget = true;
                 }
-                break;
+                continue;
               case 'МедПрофДел':
                   if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true) ) {
                     return this.medProfCel = false
@@ -385,7 +395,7 @@
                     this.howMuchTarg.splice(0,1);
                     return this.medProfBudget = true
                   }
-                break;
+                continue;
               case 'СтомДел':
                   if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true) ) {
                     return this.stomDelCel = false
@@ -401,9 +411,20 @@
                     this.howMuchTarg.splice(0,1);
                     return this.stomDelBudget = true
                   }
-                break;
+
             }
+
+          if (this.apls[i].chose === true && this.apls[i].environmentId === 'ЦелНапр') {
+            counterCheckTargOrg++;
+            console.log('counter + ', counterCheckTargOrg)
+          } if (this.apls[i].chose === false && this.apls[i].environmentId === 'ЦелНапр') {
+            counterCheckTargOrg = 0;
+            console.log('counter - ', counterCheckTargOrg);
+          }
         }
+
+
+        console.log('result counter ', counterCheckTargOrg)
       },
 
 

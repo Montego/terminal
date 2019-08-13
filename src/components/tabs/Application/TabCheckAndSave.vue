@@ -251,7 +251,7 @@
 
     </div>
     <!--{{this.application}}-->
-    <div>
+    <div v-if="showPrintAgreement || showPrintApplication || showPrintDocuments">
       <button v-if="showPrintApplication" @click="onPrintApplication()">
         Заявление
       </button>
@@ -272,10 +272,10 @@
       <!--<button @click="checkFields">Проверить</button>-->
       <!--</div>-->
 
-      <!--<button v-if="person.saved !== 'Сохранено'" @click="onSave">Сохранить</button>-->
-      //TODO или поставить условие через и
-      <button v-if="showPrintAgreement || showPrintApplication || showPrintDocuments"
-              @click="onSave">Сохранить</button>
+      <button v-if="person.saved !== 'Сохранено'" @click="onSave">Сохранить</button>
+
+      <!--<button v-if="showPrintAgreement || showPrintApplication || showPrintDocuments"-->
+              <!--@click="onSave">Сохранить</button>-->
 
       <p class="typo__p" v-if="submitStatus === 'ERROR'"></p>
       <p class="typo__p" v-if="submitStatus === 'PENDING'">Проверка...</p>

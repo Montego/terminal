@@ -49,13 +49,14 @@
               <!--<input v-if="props.item.environmentId === 'ЦелНапр' && checkTargCount === true && props.item.chose !== true && !checCountBudgetAndCel " v-model="props.item.chose" class="checkbox col-sm" type="checkbox" @change="validatorConditions" disabled>-->
 
               <input v-if="
-              ( (props.item.specialityId === 'ЛечДел') && (props.item.environmentId === 'Бюджет') && (lechDelBudget === false) && (props.item.chose !== true) ) ||
-              ( (props.item.specialityId === 'ЛечДел') && (props.item.environmentId === 'ЦелНапр') && (lechDelCel === false) && (props.item.chose !== true) ) ||
-              ( (props.item.specialityId === 'МедПрофДел') && (props.item.environmentId === 'Бюджет') && (medProfBudget === false) && (props.item.chose !== true) ) ||
-              ( (props.item.specialityId === 'МедПрофДел') && (props.item.environmentId === 'ЦелНапр') && (medProfCel === false) && (props.item.chose !== true) ) ||
-              ( (props.item.specialityId === 'СтомДел') && (props.item.environmentId === 'Бюджет') && (stomDelBudget === false) && (props.item.chose !== true) )||
-              ( (props.item.specialityId === 'СтомДел')  && (props.item.environmentId === 'ЦелНапр') && (stomDelCel === false) && (props.item.chose !== true) )||
-              ( (props.item.environmentId === 'ЦелНапр') && (howMuchTarg.length === 2) && (props.item.chose !== true) )"
+              ( (props.item.specialityId === 'ЛечДел') & (props.item.environmentId === 'Бюджет') & (lechDelBudget === false) & (props.item.chose !== true) ) ||
+              ( (props.item.specialityId === 'ЛечДел') & (props.item.environmentId === 'ЦелНапр') & (lechDelCel === false) & (props.item.chose !== true) ) ||
+              ( (props.item.specialityId === 'МедПрофДел') & (props.item.environmentId === 'Бюджет') & (medProfBudget === false) & (props.item.chose !== true) ) ||
+              ( (props.item.specialityId === 'МедПрофДел') & (props.item.environmentId === 'ЦелНапр') & (medProfCel === false) & (props.item.chose !== true) ) ||
+              ( (props.item.specialityId === 'СтомДел') & (props.item.environmentId === 'Бюджет') & (stomDelBudget === false) & (props.item.chose !== true) )||
+              ( (props.item.specialityId === 'СтомДел')  & (props.item.environmentId === 'ЦелНапр') & (stomDelCel === false) &&(props.item.chose !== true) )
+              // || ( (props.item.environmentId === 'ЦелНапр') && (howMuchTarg.length === 2) & (props.item.chose !== true) )
+                        "
                      v-model="props.item.chose" class="checkbox col-sm" type="checkbox" @change="validatorConditions" disabled>
 
               <input v-else v-model="props.item.chose" class="checkbox col-sm" type="checkbox" @change="validatorConditions">
