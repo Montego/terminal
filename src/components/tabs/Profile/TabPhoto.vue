@@ -365,53 +365,76 @@
           // if(this.apls[i].specialityId === 'ЛечДел')
             switch (this.apls[i].specialityId) {
               case 'ЛечДел':
-                if( (this.apls[i].environmentId === 'Бюджет') & (this.apls[i].chose === true) ) {
-                  return this.lechDelCel = false;
+                if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true) ) {
+                  this.lechDelCel = false;
+                  console.log('Бюджет, ЛечДел', this.apls[i].chose, "открыть лечДел целевое ",this.lechDelCel );
+
                 }
-                if( (this.apls[i].environmentId === 'ЦелНапр') & (this.apls[i].chose === true) ) {
+                if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true) ) {
                   this.howMuchTarg.push(1);
-                  return this.lechDelBudget = false;
+                  this.lechDelBudget = false;
+                  console.log('ЦелНапр, ЛечДел', this.apls[i].chose, "открыть лечДел бюджет ",this.lechDelBudget );
+
                 }
-                if( (this.apls[i].environmentId === 'Бюджет') & (this.apls[i].chose === false) & (this.lechDelCel === false) ) {
-                  return this.lechDelCel = true;
+                if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.lechDelCel === false) ) {
+                  this.lechDelCel = true;
+                  console.log('Бюджет, ЛечДел', this.apls[i].chose, "открыть лечДел целевое ",this.lechDelCel );
+
                 }
-                if( (this.apls[i].environmentId === 'ЦелНапр') & (this.apls[i].chose === false) & (this.lechDelBudget === false) ) {
+                if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.lechDelBudget === false) ) {
                   this.howMuchTarg.splice(0,1);
-                  return this.lechDelBudget = true;
+                  this.lechDelBudget = true;
+                  console.log('ЦелНапр, ЛечДел', this.apls[i].chose, "открыть лечДел бюджет ",this.lechDelBudget );
+
                 }
-                continue;
+                break;
               case 'МедПрофДел':
                   if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true) ) {
-                    return this.medProfCel = false
+                    this.medProfCel = false
+                    console.log('Бюджет, МедПрофДел', this.apls[i].chose, "открыть медПроф целевое ", this.medProfCel );
+
                   }
                   if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true) ) {
                     this.howMuchTarg.push(1);
-                    return this.medProfBudget = false
+                    this.medProfBudget = false
+                    console.log('ЦелНапр, МедПрофДел', this.apls[i].chose, "открыть медПроф бюджет ", this.medProfBudget );
+
                   }
                   if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.medProfCel === false)) {
-                    return this.medProfCel = true
+                    this.medProfCel = true
+                    console.log('Бюджет, МедПрофДел', this.apls[i].chose, "открыть медПроф целевое ", this.medProfCel );
+
                   }
                   if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.medProfBudget === false)) {
                     this.howMuchTarg.splice(0,1);
-                    return this.medProfBudget = true
+                    this.medProfBudget = true
+                    console.log('ЦелНапр, МедПрофДел', this.apls[i].chose, "открыть медПроф бюджет ", this.medProfBudget );
+
                   }
-                continue;
+                break;
               case 'СтомДел':
                   if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true) ) {
-                    return this.stomDelCel = false
+                    this.stomDelCel = false
+                    console.log('Бюджет, СтомДел', this.apls[i].chose, "открыть СтомДел целевое ", this.stomDelCel );
+
                   }
                   if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true) ) {
                     this.howMuchTarg.push(1);
-                    return this.stomDelBudget = false
+                    this.stomDelBudget = false
+                    console.log('ЦелНапр, СтомДел', this.apls[i].chose, "открыть СтомДел бюджет ", this.stomDelBudget );
+
                   }
                   if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.stomDelCel === false) ) {
-                    return this.stomDelCel = true
+                    this.stomDelCel = true;
+                    console.log('ЦелНапр, СтомДел', this.apls[i].chose, "открыть СтомДел целевое ", this.stomDelCel );
                   }
                   if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.stomDelBudget === false) ) {
                     this.howMuchTarg.splice(0,1);
-                    return this.stomDelBudget = true
+                    console.log('ЦелНапр, СтомДел', this.apls[i].chose, "открыть СтомДел бюджет ", this.stomDelBudget );
+                    this.stomDelBudget = true
                   }
-
+              default:
+                break;
             }
 
           if (this.apls[i].chose === true && this.apls[i].environmentId === 'ЦелНапр') {
