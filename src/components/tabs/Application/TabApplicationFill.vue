@@ -369,7 +369,8 @@
         'proofSpecialRight1','descriptionSpecialRight1','serialSpecialRight1','numberSpecialRight1','docTypeSpecialRight1','dateSpecialRight1',
         'proofSpecialRight2','descriptionSpecialRight2','serialSpecialRight2','numberSpecialRight2','docTypeSpecialRight2','dateSpecialRight2',
         'proofSpecialRight3','descriptionSpecialRight3','serialSpecialRight3','numberSpecialRight3','docTypeSpecialRight3','dateSpecialRight3',
-        'countContract','countBudget'
+        'countContract','countBudget',
+        'lechDelCel','lechDelBudget','medProfCel', 'medProfBudget','stomDelCel','stomDelBudget','howMuchTarg'
   ]),
       ...mapState('enums',['deliveryType', 'docType']),
       ...mapGetters('enums',['GET_DELIVERY_TYPE','GET_DOC_TYPE']),
@@ -483,33 +484,59 @@
       },
 
       validatorConditions(){
-        let counterCheckTargOrg = 0;
-        let counterLechDel = 0;
-        let counterMedProf = 0;
-        let counterStom = 0;
-        let counterSestr = 0;
-        let sumSpec = counterLechDel + counterMedProf + counterStom + counterSestr;
-        // let counterCheckSpec : 0;
-
         let i = 0;
-        //проверка на только 1 целевое направление
-        for(i; i< this.apls.length; i++) {
-          if (this.apls[i].chose === true && this.apls[i].environmentId === 'ЦелНапр') {
-            counterCheckTargOrg++;
-            // console.log('counter + ', counterCheckTargOrg)
-          } else if (this.apls[i].chose === false && this.apls[i].environmentId === 'ЦелНапр') {
-            counterCheckTargOrg = 0;
+        for (i; i < this.apls.length; i++) {
+          switch (this.apls[i].specialityId) {
+            case 'ЛечДел':
+              if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true) ) {
+                return this.lechDelCel = false;
+              }
+              if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true) ) {
+                this.howMuchTarg.push(1);
+                return this.lechDelBudget = false;
+              }
+              if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.lechDelCel === false) ) {
+                return this.lechDelCel = true;
+              }
+              if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.lechDelBudget === false) ) {
+                this.howMuchTarg.splice(0,1);
+                return this.lechDelBudget = true;
+              }
+              break;
+            case 'МедПрофДел':
+              if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true) ) {
+                return this.medProfCel = false
+              }
+              if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true) ) {
+                this.howMuchTarg.push(1);
+                return this.medProfBudget = false
+              }
+              if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.medProfCel === false)) {
+                return this.medProfCel = true
+              }
+              if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.medProfBudget === false)) {
+                this.howMuchTarg.splice(0,1);
+                return this.medProfBudget = true
+              }
+              break;
+            case 'СтомДел':
+              if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true) ) {
+                return this.stomDelCel = false
+              }
+              if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true) ) {
+                this.howMuchTarg.push(1);
+                return this.stomDelBudget = false
+              }
+              if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.stomDelCel === false) ) {
+                return this.stomDelCel = true
+              }
+              if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.stomDelBudget === false) ) {
+                this.howMuchTarg.splice(0,1);
+                return this.stomDelBudget = true
+              }
+              break;
           }
         }
-
-        if(counterCheckTargOrg === 1 ){
-          this.checkTargCount = true;
-          console.log('true')
-        }else{
-          this.checkTargCount = false;
-        }
-
-        console.log('result counter ', counterCheckTargOrg)
       },
 
       onAppl(){
@@ -545,8 +572,14 @@
       },
 
       onAdd() {
-          this.person.application.choosenWizards = [];
-          this.isModalVisible = true;
+        this.lechDelCel = true;
+        this.lechDelBudget = true;
+        this.medProfCel = true;
+        this.medProfBudget = true;
+        this.stomDelCel = true;
+        this.stomDelBudget = true;
+        this.person.application.choosenWizards = [];
+        this.isModalVisible = true;
       },
 
       closeModal() {

@@ -46,7 +46,18 @@
               </div>
             </td>
             <td class="text-xs-center">
-              <input v-if="props.item.environmentId === 'ЦелНапр' && checkTargCount === true && props.item.chose !== true && !checCountBudgetAndCel " v-model="props.item.chose" class="checkbox col-sm" type="checkbox" @change="validatorConditions" disabled>
+              <!--<input v-if="props.item.environmentId === 'ЦелНапр' && checkTargCount === true && props.item.chose !== true && !checCountBudgetAndCel " v-model="props.item.chose" class="checkbox col-sm" type="checkbox" @change="validatorConditions" disabled>-->
+
+              <input v-if="
+              ( (props.item.specialityId === 'ЛечДел') && (props.item.environmentId === 'Бюджет') && (lechDelBudget === false) && (props.item.chose !== true) ) ||
+              ( (props.item.specialityId === 'ЛечДел') && (props.item.environmentId === 'ЦелНапр') && (lechDelCel === false) && (props.item.chose !== true) ) ||
+              ( (props.item.specialityId === 'МедПрофДел') && (props.item.environmentId === 'Бюджет') && (medProfBudget === false) && (props.item.chose !== true) ) ||
+              ( (props.item.specialityId === 'МедПрофДел') && (props.item.environmentId === 'ЦелНапр') && (medProfCel === false) && (props.item.chose !== true) ) ||
+              ( (props.item.specialityId === 'СтомДел') && (props.item.environmentId === 'Бюджет') && (stomDelBudget === false) && (props.item.chose !== true) )||
+              ( (props.item.specialityId === 'СтомДел')  && (props.item.environmentId === 'ЦелНапр') && (stomDelCel === false) && (props.item.chose !== true) )||
+              ( (props.item.environmentId === 'ЦелНапр') && (howMuchTarg.length === 2) && (props.item.chose !== true) )"
+                     v-model="props.item.chose" class="checkbox col-sm" type="checkbox" @change="validatorConditions" disabled>
+
               <input v-else v-model="props.item.chose" class="checkbox col-sm" type="checkbox" @change="validatorConditions">
             </td>
 
@@ -83,7 +94,8 @@
   export default {
     name: 'modal',
     computed: {
-      ...applications(['application','apls','checkTargCount','checkSpecCount','message', 'checCountBudgetAndCel'],),
+      ...applications(['application','apls','checkTargCount','checkSpecCount','message', 'checCountBudgetAndCel',
+        'lechDelCel','lechDelBudget','medProfCel', 'medProfBudget','stomDelCel','stomDelBudget','howMuchTarg'],),
       ...person(['person_info_id','showProfile']),
       ...mapState('dictionary',['targOrg'],),
       ...mapGetters('dictionary',['GET_targOrg']),

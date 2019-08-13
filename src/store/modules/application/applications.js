@@ -9,6 +9,15 @@ export default {
 
     checCountBudgetAndCel: false,
 
+    lechDelCel: true,
+    lechDelBudget: true,
+    medProfCel: true,
+    medProfBudget: true,
+    stomDelCel: true,
+    stomDelBudget: true,
+    howMuchTarg:[],
+
+
     agree:'',
     agreeDate:'',
     special_right:'',

@@ -40,9 +40,9 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    agreementId:'',
-    applicationId:'',
-    contactPersonId:''
+    agreementId:'nothing',
+    applicationId:'nothing',
+    contactPersonId:'nothing'
   },
   getters: {
     getField,

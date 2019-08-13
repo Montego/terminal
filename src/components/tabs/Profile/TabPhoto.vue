@@ -99,7 +99,7 @@
         imagesData: [],
         // showimage: '',
         base: '',
-
+        // howMuchTarg: [],
         optionsErrorAnswer:[
           {
             field: 'parent_info',
@@ -249,7 +249,8 @@
       ]),
       ...applications(['application', 'application_person_id', 'application_person_name', 'applId', 'applTableName',
         'applTableNumber', 'applTableDate', 'applTableDeliveryType', 'applicationId', 'apls', 'chooseAppls', 'resultApl',
-        'checkTargCount', 'checkSpecCount', 'message', 'checCountBudgetAndCel'],),
+        'checkTargCount', 'checkSpecCount', 'message', 'checCountBudgetAndCel',
+      'lechDelCel','lechDelBudget','medProfCel', 'medProfBudget','stomDelCel','stomDelBudget','howMuchTarg'],),
       ...mapState('dictionary', ['targOrg'],),
       ...mapGetters('dictionary', ['GET_targOrg']),
       ...mapGetters(['ADRDTO']),
@@ -279,6 +280,12 @@
       },
 
       showModal() {
+        this.lechDelCel = true;
+        this.lechDelBudget = true;
+        this.medProfCel = true;
+        this.medProfBudget = true;
+        this.stomDelCel = true;
+        this.stomDelBudget = true;
         this.validAnswer = [];
         if (this.$v.$invalid) {
           this.submitStatus = 'ERROR';
@@ -344,59 +351,59 @@
       },
 
       validatorConditions() {
-        let counterCheckTargOrg = 0;
-
-        let counterLechDel = 0;
-        let counterMedProf = 0;
-        let counterStom = 0;
-        let counterSestr = 0;
-        let sumSpec = counterLechDel + counterMedProf + counterStom + counterSestr;
-
         let i = 0;
-        //проверка на только 1 целевое направление
         for (i; i < this.apls.length; i++) {
-          if (this.apls[i].chose === true && this.apls[i].environmentId === 'ЦелНапр') {
-            counterCheckTargOrg++;
-            // console.log('counter + ', counterCheckTargOrg)
-          } else if (this.apls[i].chose === false && this.apls[i].environmentId === 'ЦелНапр') {
-            counterCheckTargOrg = 0;
-            // console.log('counter + ', counterCheckTargOrg);
-          }
+            switch (this.apls[i].specialityId) {
+              case 'ЛечДел':
+                if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true) ) {
+                  return this.lechDelCel = false;
+                }
+                if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true) ) {
+                  this.howMuchTarg.push(1);
+                  return this.lechDelBudget = false;
+                }
+                if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.lechDelCel === false) ) {
+                  return this.lechDelCel = true;
+                }
+                if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.lechDelBudget === false) ) {
+                  this.howMuchTarg.splice(0,1);
+                  return this.lechDelBudget = true;
+                }
+                break;
+              case 'МедПрофДел':
+                  if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true) ) {
+                    return this.medProfCel = false
+                  }
+                  if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true) ) {
+                    this.howMuchTarg.push(1);
+                    return this.medProfBudget = false
+                  }
+                  if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.medProfCel === false)) {
+                    return this.medProfCel = true
+                  }
+                  if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.medProfBudget === false)) {
+                    this.howMuchTarg.splice(0,1);
+                    return this.medProfBudget = true
+                  }
+                break;
+              case 'СтомДел':
+                  if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true) ) {
+                    return this.stomDelCel = false
+                  }
+                  if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true) ) {
+                    this.howMuchTarg.push(1);
+                    return this.stomDelBudget = false
+                  }
+                  if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.stomDelCel === false) ) {
+                    return this.stomDelCel = true
+                  }
+                  if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.stomDelBudget === false) ) {
+                    this.howMuchTarg.splice(0,1);
+                    return this.stomDelBudget = true
+                  }
+                break;
+            }
         }
-
-        if (counterCheckTargOrg === 1) {
-          this.checkTargCount = true;// если тру, отключать остальные чекбоксы
-          console.log('true')
-        } else {
-          this.checkTargCount = false;
-        }
-        //TODO finish it
-        let j = 0;
-        for (j; j < this.apls.length; j++) {
-          // if(this.apls[i].specialityId === 'ЛечДел'){
-          //   if(this.apls[i].chose === true && this.apls[i].environmentId === 'Бюджет') {
-          //     if(this.apls[i].environmentId === 'ЦелНапр' && this.apls[i].chose === false){
-          //       this.checCountBudgetAndCel = true;
-          //     }
-          //   }
-          //   if(this.apls[i].chose === true && this.apls[i].environmentId === 'ЦелНапр') {
-          //     if(this.apls[i].environmentId === 'Бюджет' && this.apls[i].chose === false){
-          //       this.checCountBudgetAndCel = true;
-          //     }
-          //   }
-
-          // }
-
-
-          // if (this.apls[i].chose === true && this.apls[i].environmentId === 'ЦелНапр') {
-          //   counterCheckTargOrg++;
-          // console.log('counter + ', counterCheckTargOrg)
-          // } else if (this.apls[i].chose === false && this.apls[i].environmentId === 'ЦелНапр') {
-          //   counterCheckTargOrg = 0;
-          // console.log('counter + ', counterCheckTargOrg);
-          // }
-        }
-        console.log('result counter ', counterCheckTargOrg)
       },
 
 
