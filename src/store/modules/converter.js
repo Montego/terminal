@@ -564,7 +564,7 @@ let fillTotal = function (s) {
     "recId": null,
     "contactPersonId": null,
     "dataAreaId": "dat",
-    "educationLevel": 0, // ????
+    "educationLevel": person.tab_edu_military_educationLevel.eduLevelId, // ????
     "contactPersonPk" : fillPK(s),
     "entrantLanguages" : fillLanguages(person),
     "parents" : fillParents(s),
