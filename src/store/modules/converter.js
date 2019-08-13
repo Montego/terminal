@@ -262,8 +262,9 @@ let fillComments = function(s){
 let fillApp = function (s) {
   let info = s.application;
   return {
-    "deliveryType": info.application_selectedDeliveryType,
-    "docReturnType": info.application_selectedDeliveryReturnType,
+    //TODO id или объект?
+    "deliveryType": info.application_selectedDeliveryType.id,
+    "docReturnType": info.application_selectedDeliveryReturnType.id,
 
     "applDate": dateConvert(info.application_date), // "01.01.2016 00:00",
 

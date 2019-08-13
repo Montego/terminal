@@ -440,7 +440,7 @@
                     this.countDoc = 1,
                     this.issuedByDoc = this.person.futures_info[i].doc1_IssueBy,
                     this.tab_document_auto = true,
-                    this.fullnameDoc = this.nameDoc + ' Cерия ' + this.person.futures_info[i].doc1_serial + ' № ' + this.person.futures_info[i].doc1_number + ' от ' + (dateConvert(this.dateOfIssueDoc)) + " выдан " + this.issuedByDoc + " ("+ this.docTypeDoc +")",
+                    this.fullnameDoc = this.nameDoc + ' Cерия ' + this.person.futures_info[i].doc1_serial + ' № ' + this.person.futures_info[i].doc1_number + ' от ' + (dateConvert(this.dateOfIssueDoc)) + " выдан " + this.issuedByDoc + " ("+ this.docTypeDoc.name +")",
 
                   );
                   this.person.application.application_documents.push(document7);
@@ -459,7 +459,7 @@
                     this.countDoc = 1,
                     this.issuedByDoc = this.person.futures_info[i].doc2_IssueBy,
                     this.tab_document_auto = true,
-                    this.fullnameDoc = this.nameDoc + ' Серия ' + this.person.futures_info[i].doc2_serial + ' № ' + this.person.futures_info[i].doc2_number + ' от ' + (dateConvert(this.dateOfIssueDoc)) + " выдан " + this.issuedByDoc + " ("+ this.docTypeDoc +")",
+                    this.fullnameDoc = this.nameDoc + ' Серия ' + this.person.futures_info[i].doc2_serial + ' № ' + this.person.futures_info[i].doc2_number + ' от ' + (dateConvert(this.dateOfIssueDoc)) + " выдан " + this.issuedByDoc + " ("+ this.docTypeDoc.name +")",
 
                   );
                   this.person.application.application_documents.push(document8);
@@ -477,7 +477,7 @@
                     this.countDoc = 1,
                     this.issuedByDoc = this.person.futures_info[i].doc3_IssueBy,
                     this.tab_document_auto = true,
-                    this.fullnameDoc = this.nameDoc + ' Серия ' + this.person.futures_info[i].doc3_serial + ' № ' + this.person.futures_info[i].doc3_number + ' от ' + (dateConvert(this.dateOfIssueDoc)) + " выдан " + this.issuedByDoc + " ("+ this.docTypeDoc +")",
+                    this.fullnameDoc = this.nameDoc + ' Серия ' + this.person.futures_info[i].doc3_serial + ' № ' + this.person.futures_info[i].doc3_number + ' от ' + (dateConvert(this.dateOfIssueDoc)) + " выдан " + this.issuedByDoc + " ("+ this.docTypeDoc.name +")",
 
                   );
                   this.person.application.application_documents.push(document9);
