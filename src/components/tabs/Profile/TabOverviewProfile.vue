@@ -304,7 +304,12 @@
         // this.ADRText[0] = [];
         // this.ADRText[0] = [];
         // this.ADRText[0] = [];
+        // this.addressesDto = [];
+        // this.aolevelss = [];
+        // this.searchObject = [];
+        // this.fullAdrText = [];
 
+        this.searchObject = null;
         this.countContract = 0;
         this.countBudget = 0;
         // this.person.ege_info = [];

@@ -484,10 +484,10 @@
 
         if (strangeCounter > 3) {
           this.isModalVisible = true;
-          this.message = "Можно выбрать только 3 специальности!        ";
+          this.message = "МОЖНО ВЫБРАТЬ ТОЛЬКО 3 СПЕЦИАЛЬНОСТИ!        ";
           this.person.application.choosenWizards = [];
         } else {
-          this.message = ""
+          this.message = "";
           this.isModalVisible = false;
         }
         // this.isModalVisible = false;

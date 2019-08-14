@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form class="inner_tab row" @submit.prevent="someAction()">
+    <form class="inner_tab row">
       <div class="info_main col-sm">
         <div>
           <p>Личные сведения</p>
