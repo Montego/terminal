@@ -18,6 +18,10 @@ export default {
     stomDelBudget: true,
     howMuchTarg:[],
 
+    targEduLechDel: true,
+    targEduMedProf: true,
+    targEduStomDel: true,
+    targCountCheck: true,
 
     agree:'',
     agreeDate:'',
