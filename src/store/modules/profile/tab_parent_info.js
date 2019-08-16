@@ -10,7 +10,7 @@ export default {
     tab_parent_birthDate: '',
     tab_parent_homePhoneNumber: '',
     tab_parent_cellularPhone:'',
-    tab_parent_factAddress: '',
+    tab_parent_factAddress: {},
 
     tab_parent_organization_name: '',
     tab_parent_organization_address: '',
@@ -19,6 +19,7 @@ export default {
     tab_parent_selectedFamRelationShip: '',
     tab_parent_selectedGender: {"id":1,"name":"Неизвестно"},
 
+    // countOfAddParent: 3,
 
   },
   getters: {

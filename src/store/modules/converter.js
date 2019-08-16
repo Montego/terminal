@@ -73,8 +73,7 @@ let fillLanguages = function(person){
 // Заглушка военнообязанный, meanScoreEduDocf
 let fillPK = function(s){
   let info = s.person_info;
-  console.log(info.tab_edu_military_selectedSoldiery, 'info.tab_edu_military_selectedSoldiery');
-
+  console.log(info.tab_edu_military_educationLevel.eduLevelId, 'info.tab_edu_military_educationLevel.eduLevelId');
   return {
     "fisSettlementTypeId" : "",
     "soldieryId": info.tab_edu_military_selectedSoldiery ? info.tab_edu_military_selectedSoldiery['soldieryId'] : "Невоеннообязанный", // //
@@ -187,51 +186,52 @@ let fillParents = function(s){
       "email": "",
       // ------------------------------
 
+
       "fiasAddress": [{
         "addrTableTd": 520,
         "addrRecId": "",
-        "addressType": 0,
-        "lineNum": 1,
-        "countryRegionId": "РФ",
-        "countryRegionName": "Россия",
+        "addressType": info.addressDto.addressType.id,
+        "lineNum": info.addressDto.addressType.id,
+        "countryRegionId": null2(info.addressDto.countryRegion.refId),
+        "countryRegionName": null2(info.addressDto.countryRegion.name),
         "aoLevel1": 1,
-        "aoLevel1ObjRef": "c2deb16a-0330-4f05-821f-1d09c93331e6",
-        "aoLevel1ObjName": "Санкт-Петербург г",
-        "aoLevel2": 0,
-        "aoLevel2ObjRef": "",
-        "aoLevel2ObjName": "",
-        "aoLevel3": 0,
-        "aoLevel3ObjRef": "",
-        "aoLevel3ObjName": "",
-        "aoLevel4": 0,
-        "aoLevel4ObjRef": "",
-        "aoLevel4ObjName": "",
-        "aoLevel5": 0,
-        "aoLevel5ObjRef": "",
-        "aoLevel5ObjName": "",
-        "aoLevel6": 0,
-        "aoLevel6ObjRef": "",
-        "aoLevel6ObjName": "",
+        "aoLevel1ObjRef": null2(info.addressDto.aolevel1.refId),
+        "aoLevel1ObjName": null2(info.addressDto.aolevel1.name),
+        "aoLevel2": 2,
+        "aoLevel2ObjRef": null2(info.addressDto.aolevel2.refId),
+        "aoLevel2ObjName": null2(info.addressDto.aolevel2.name),
+        "aoLevel3": 3,
+        "aoLevel3ObjRef": null2(info.addressDto.aolevel3.refId),
+        "aoLevel3ObjName": null2(info.addressDto.aolevel3.name),
+        "aoLevel4": 4,
+        "aoLevel4ObjRef": null2(info.addressDto.aolevel4.refId),
+        "aoLevel4ObjName": null2(info.addressDto.aolevel4.name),
+        "aoLevel5": 5,
+        "aoLevel5ObjRef": null2(info.addressDto.aolevel5.refId),
+        "aoLevel5ObjName": null2(info.addressDto.aolevel5.name),
+        "aoLevel6": 6,
+        "aoLevel6ObjRef": null2(info.addressDto.aolevel6.refId),
+        "aoLevel6ObjName": null2(info.addressDto.aolevel6.name),
         "aoLevel7": 7,
-        "aoLevel7ObjRef": "56971303-9731-4e84-b737-7b2020d38f5d",
-        "aoLevel7ObjName": "Боткинская ул",
-        "aoLevel90": 0,
-        "aoLevel90ObjRef": "",
-        "aoLevel90ObjName": "",
-        "aoLevel91": 0,
-        "aoLevel91ObjRef": "",
-        "aoLevel91ObjName": "",
-        "houseRef": "78048f15-89e3-4a28-a47f-935ec875df89",
-        "houseName": "д.15 корп.2",
-        "flat": "21",
-        "postalCode": "194044",
-        "kladrCode": "78000000000018900",
-        "addressTxt": "Россия, Санкт-Петербург г, Боткинская ул, д.15 корп.2, кв. 21",
-        "addressTxt_random": "",
-        "aoLevel65": 0,
-        "aoLevel65ObjRef": "",
+        "aoLevel7ObjRef": null2(info.addressDto.aolevel7.refId),
+        "aoLevel7ObjName": null2(info.addressDto.aolevel7.name),
+        "aoLevel90": 90,
+        "aoLevel90ObjRef": null2(info.addressDto.aolevel90.refId),
+        "aoLevel90ObjName": null2(info.addressDto.aolevel90.name),
+        "aoLevel91": 91,
+        "aoLevel91ObjRef": null2(info.addressDto.aolevel91.refId),
+        "aoLevel91ObjName": null2(info.addressDto.aolevel91.name),
+        "houseRef": null2(info.addressDto.house.refId),
+        "houseName": null2(info.addressDto.house.name),
+        "flat": null2(info.addressDto.flat),
+        "postalCode": null2(info.addressDto.postalCode),
+        "kladrCode": "",
+        "addressTxt": fillAddressText(null2(info.addressDto.addressTxt), null2(info.addressDto.house.name), null2(info.addressDto.flat), null2(info.addressDto.addressTxtRandom)),
+        "addressTxt_random": null2(info.addressDto.addressTxtRandom),
+        "aoLevel65": 65,
+        "aoLevel65ObjRef": null2(info.addressDto.aolevel65['refId']),
         "modifiedBy": "TSST",
-        "aoLevel65ObjName": ""
+        "aoLevel65ObjName": null2(info.addressDto.aolevel65['name'])
       }
       ],
       "modifiedBy": "TSST",
@@ -271,7 +271,6 @@ let fillApp = function (s) {
 
     "changeEnvBudget": 1,
     "docType": info.application_selectedDocType['id'],
-    //TODO что возвращает info.application_selectedDocType['id'], проверить
     "grantDateOriginal": info.application_selectedDocType['id'].name === "Копия"? "01.01.1900 00:00" : (dateConvert(info.application_date)),
     "courseNumber": 0,
     "isDocReturn": 0,
@@ -498,14 +497,14 @@ let dtoToFias = function(dto){
     "aoLevel7ObjName": null2(dto.aolevel7['name']) , // "Боткинская ул",
     "aoLevel90": 90,
     "aoLevel90ObjRef": null2(dto.aolevel90['refId']) , // "",
-    "aoLevel90ObjName": null2(dto.aolevel91['name']) , // "",
+    "aoLevel90ObjName": null2(dto.aolevel90['name']) , // "",
     "aoLevel91": 91,
     "aoLevel91ObjRef": null2(dto.aolevel91['refId']) , // "",
     "aoLevel91ObjName": null2(dto.aolevel91['name']),
     "houseRef": null2(dto.house['refId']) ,// "78048f15-89e3-4a28-a47f-935ec875df89",
     "houseName": null2(dto.house['name']) ,//"д.15 корп.2",
     "flat": null2(dto.flat) ,//"21",
-    "postalCode": "",
+    "postalCode": null2(dto.postalCode),
     "kladrCode": "",
     "addressTxt": fillAddressText(null2(dto.addressTxt), null2(dto.house['name']), null2(dto.flat), null2(dto.addressTxtRandom)), // , // "Россия, Санкт-Петербург г, Боткинская ул, д.15 корп.2, кв.21",
     "addressTxt_random": null2(dto.addressTxtRandom), //"",
@@ -519,6 +518,8 @@ let dtoToFias = function(dto){
 
 let fillTotal = function (s) {
   let person = s.person_info;
+  console.log(person.tab_edu_military_educationLevel.eduLevelId, 'person.tab_edu_military_educationLevel.eduLevelId')
+  console.log(person.tab_edu_military_educationLevel, 'person.tab_edu_military_educationLevel')
   return {
     "lastName": person.tab_personal_lastname,
     "firstName": person.tab_personal_firstname,
@@ -564,7 +565,7 @@ let fillTotal = function (s) {
     "recId": null,
     "contactPersonId": null,
     "dataAreaId": "dat",
-    "educationLevel": person.tab_edu_military_educationLevel.eduLevelId, // ????
+    "educationLevel" : person.tab_edu_military_educationLevel.eduLevelId, // ????
     "contactPersonPk" : fillPK(s),
     "entrantLanguages" : fillLanguages(person),
     "parents" : fillParents(s),

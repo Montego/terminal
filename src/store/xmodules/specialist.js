@@ -1,5 +1,6 @@
 import addressDto from './addressDto'
 import RepositoryFactory from '../../repository'
+import {getField, updateField} from "vuex-map-fields";
 const specialistRepo = RepositoryFactory.getRepository('specialist');
 // const authRepo = RepositoryFactory.getRepository('aus');
 
@@ -7,39 +8,48 @@ const specialistRepo = RepositoryFactory.getRepository('specialist');
 export default {
     state: {
         data: {},
+        countOfAddParent: 3
     },
     getters: {
+      // getField,
         SPECIALIST: state => {return state.data;},
+      countOfAddParent: state => {
+        return state.countOfAddParent;
+      }
     },
     computed: {
 
     },
     mutations: {
+      increment (state) {
+        state.countOfAddParent += 1
+      },
+      decrement (state) {
+        state.countOfAddParent -= 1
+      },
+      default (state) {
+        state.countOfAddParent = 3
+      },
+      // updateField,
         updateSpecialist(state, data) {
             state.data = data;
         }
     },
     actions: {
-        async loadEmptyAdrDTO(ctx, payload = null) {
+        async loadEmptyAdrDTO(ctx) {
             const r = await specialistRepo.getEmptyAdrDTO();
             const tmpDto = await r.data;
             ctx.commit('updateSpecialistDto', tmpDto);
         },
-        async loadSpecialist(ctx, id) {
-            // const a = await authRepo.aus();
-            const r = await specialistRepo.getById(id);
-            const specialist = await r.data;
-            ctx.commit('updateSpecialist', specialist);
+        async loadEmptyAdrParentDTO(ctx) {
+            const r = await specialistRepo.getEmptyAdrParentDTO();
+            const tmpDto = await r.data;
+            console.log(tmpDto);
+            console.log(ctx.getters.countOfAddParent);
+            // console.log('countParentt: ',this.countOfAddParent);
+            tmpDto.addressType = {"id": "1", "name": "Адрес фактический"};
+            ctx.commit('updateSpecialistParentDto', tmpDto);
         },
-        async saveSpecialist(ctx) {
-            // data.person_info.addressesDto
-            // console.log('saveSpecialist', this.getters.SPECIALIST.person_info.addressesDto);
-            let saveObj = this.getters.SPECIALIST;
-            saveObj.person_info.addressesDto = ctx.state.addressDto.addressesDto;
-            // console.log('saveSpecialist', ctx.state.addressDto);
-            const r = await specialistRepo.save(saveObj);
-            console.log(r);
-        }
     },
     modules: {
         addressDto

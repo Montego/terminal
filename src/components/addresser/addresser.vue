@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3>{{ title }}</h3>
+
         <div>
             <div class="adr-text">{{ ADRText()[adrType] }}</div>
             <!--<div class="adr-text">{{ compADRAoLevels }}</div>-->
@@ -27,13 +27,22 @@
             >
             </addresserLine>
         </div>
+      <div style="margin: 0 10% 0 20%;">
+        <v-text-field
+          :value="compPostalCode"
+          label="Индекс"
+          @change="updatePostalCodeDTO($event)"
+          v-mask="'######'">
+        </v-text-field>
+      </div>
         <div style="margin: 0 10% 0 20%;">
             <v-text-field
                     :value="compFlat"
-                    @change="updateFlatDTO($event)"
                     label="Квартира"
+                    @change="updateFlatDTO($event)"
             ></v-text-field>
         </div>
+
         <div style="margin: 0 10% 0 20%;">
             <v-textarea
                     label="Уточнение адреса"
@@ -72,8 +81,11 @@
             }
         },
         methods: {
-            ...mapGetters(['ADRText', 'ADRDTO', 'ADRSearchObject', 'ADRAoLevels', 'flatDTO', 'addressTxtRandomDTO']),
+            ...mapGetters(['ADRText', 'ADRDTO', 'ADRSearchObject', 'ADRAoLevels', 'flatDTO','postalCodeDTO', 'addressTxtRandomDTO']),
             ...mapActions(['clear', 'fill', 'updateHouse']),
+            updatePostalCodeDTO (e) {
+              this.$store.dispatch('updatePostalCodeDTO', {newValue : e, adrType : this.adrType});
+            },
             updateFlatDTO (e) {
                 this.$store.dispatch('updateFlatDTO', {newValue : e, adrType : this.adrType});
             },
@@ -145,7 +157,11 @@
             },
             compFlat(){
                 return this.flatDTO()[this.adrType];
-            },compADRAoLevels(){
+            },
+            compPostalCode(){
+              return this.postalCodeDTO()[this.adrType];
+            }
+            ,compADRAoLevels(){
                 return this.ADRAoLevels()[this.adrType];
             },
             compADRSearchObject(){

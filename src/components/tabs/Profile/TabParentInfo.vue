@@ -1,6 +1,7 @@
 <template>
   <div>
     <tabs class="parent_tabs">
+      {{countOfAddParent}}
       <tab id="parent_overview" name="Обзор">
         <div class="row">
           <button @click="onInfo">Добавить</button>
@@ -133,13 +134,6 @@
               <input v-validate data-vv-as="мобильный телефон" v-model="tab_parent_cellularPhone" class="form__input col-sm" type="text" name="tab_parent_cellularPhone" v-mask="'+#-###-###-##-##'" required />
             </label>
 
-            <!--<span class="alarm_label">{{ errors.first('tab_parent_cellularPhone') }}</span>-->
-
-            <!--<label class="row">-->
-              <!--<div class="form__label-text col-sm">Мобильный телефон:</div>-->
-              <!--<input class="form__input col-sm" type="text" name="" placeholder="" v-mask="'+7-###-###-##-##'"/>-->
-            <!--</label>-->
-
             <div>
               <p>Адрес фактический</p>
             </div>
@@ -147,15 +141,37 @@
             <div class="row">
               <label class="col-sm"></label>
               <div class="row">
-                <button class="">Ввести адрес</button>
+                <button @click="fillAddress()">Ввести адрес</button>
                 <button @click="onCopyAddressFromStudent">Копировать из студента</button>
               </div>
 
             </div>
             <label class="row">
-              <div class="form__label-text col-sm">Адрес:</div>
-              <textarea v-model="tab_parent_factAddress" class="col-sm" name=""></textarea>
+              <label v-if="copy !== 1" class="row">
+                <div class="form__label-text col-sm-2">Адрес:</div>
+                <div class="uneditable col-sm-10">{{ ADRText()[countOfAddParent] }}</div>
+                <textarea :value="(ADRSearchObject[1])" class="uneditable col-sm-10" hidden></textarea>
+              </label>
+              <label v-else class="row">
+                <div class="form__label-text col-sm-2">Адрес:</div>
+                <div class="uneditable col-sm-10">{{ ADRText()[0] }}</div>
+                <textarea :value="(ADRSearchObject[0])" class="uneditable col-sm-10" hidden></textarea>
+              </label>
+
+              <!--<div class="form__label-text col-sm">Адрес:</div>-->
+              <!--<textarea v-model="tab_parent_factAddress" class="col-sm" name=""></textarea>-->
             </label>
+            <div class="col">
+              <v-btn v-if="show>=0" @click="show=-1">
+                Скрыть
+              </v-btn>
+            </div>
+            <div class="row">
+              <div v-if="show === countOfAddParent" class="col-5 offset-3">
+                <addresser :adrType="countOfAddParent"></addresser>
+              </div>
+            </div>
+
             <div class="clear_save_button row">
               <button @click="onClearFields">Очистить</button>
               <button @click="onAddParent">Добавить</button>
@@ -172,6 +188,7 @@
 <script>
   import {mapGetters, mapState, mapActions, mapMutations} from 'vuex'
   import { createHelpers } from 'vuex-map-fields';
+  import addresser from "../../addresser/addresser";
   const { mapFields:person} = createHelpers({
     getterType: 'person/getField',
     mutationType: 'person/updateField',
@@ -184,15 +201,19 @@
     getterType: `tab_parent_info/getField`,
     mutationType: `tab_parent_info/updateField`,
   });
-  const { mapFields:tab_address_info } = createHelpers({
-    getterType: 'tab_address_info/getField',
-    mutationType: 'tab_address_info/updateField',
-  });
+  // const { mapFields: specialist } = createHelpers({
+  //   getterType: `specialist/getField`,
+  //   mutationType: `specialist/updateField`,
+  // });
+
   export default {
     name: "TabParentInfo",
-
+    components: {addresser},
     data() {
       return {
+        // countOfAddParent: 3,
+        show: -1,
+        copy: -1,
         editedIndex: -1,
         editedItem:{},
         headers_parent: [
@@ -215,8 +236,6 @@
       table_show() {
         return this.person.parents_info;
       },
-
-
 
       fullname: function () {
         return this.tab_parent_name = this.tab_parent_lastname + ' ' + this.tab_parent_firstname + ' ' + this.tab_parent_middlename
@@ -241,15 +260,39 @@
         'tab_parent_birthDate', 'tab_parent_seniority', 'tab_parent_homePhoneNumber', 'tab_parent_cellularPhone',
         'tab_parent_factAddress', 'tab_parent_selectedFamRelationShip', 'tab_parent_selectedGender',
         'tab_parent_organization_name','tab_parent_organization_address',
-        'tab_parent_organization_seniority','tab_parent_organization_employYears'
+        'tab_parent_organization_seniority','tab_parent_organization_employYears',
+        // 'countOfAddParent'
       ]),
-
+      // ...specialist(['countOfAddParent']),
+      ...mapGetters(['ADRSearchObject']),
+      ...mapState('addressDto', {addressDto: state => state.fullAdrText,}),
+      ...mapGetters(['ADRDTO']),
+      ...mapGetters(['countOfAddParent']),
     },
     methods: {
+      ...mapGetters(['ADRText']),
+      ...mapMutations([
+        'increment', // `this.increment()` будет вызывать `this.$store.commit('increment')`
+        'decrement'
+      ]),
+      // ...mapGetters(['ADRDTO']),
+
+      updateCurrentField(payload, objName) {
+        let value = payload.target.value;
+        this.$store.commit('addressDto/updateCurrentField', {value, objName})
+      },
+      fillAddress(){
+        this.show = this.countOfAddParent;
+        this.copy = -1;
+      },
+
       onDelete(item) {
         const index = this.person.parents_info.indexOf(item);
         console.log(index);
         this.person.parents_info.splice(index,1);
+        //TODO надо ли
+        this.decrement();
+        // this.countOfAddParent--;
       },
       onEdit(item) {
         this.editedIndex = this.person.parents_info.indexOf(item);
@@ -288,6 +331,8 @@
         this.tab_parent_organization_address = '';
         this.tab_parent_organization_seniority = '';
         this.tab_parent_organization_employYears = '';
+
+        this.$store.dispatch('loadEmptyAdrParentDTO');
         location.href='profile#parent_info';
       },
       onCopyAddressFromStudent() {
@@ -348,22 +393,28 @@
             this.tab_parent_birthDate = parent_birthDate;
             this.tab_parent_homePhoneNumber = parent_homePhoneNumber;
             this.tab_parent_cellularPhone = parent_cellularPhone;
-            this.tab_parent_factAddress = parent_factAddress;
+            this.addressDto = parent_factAddress;
             this.tab_parent_selectedFamRelationShip = parent_selectedFamRelationShip;
             this.tab_parent_selectedGender = parent_selectedGender;
             this.tab_parent_organization_name = parent_organization_name;
             this.tab_parent_organization_address = parent_organization_adress;
             this.tab_parent_organization_seniority = parent_organization_seniority;
             this.tab_parent_organization_employYears = parent_organization_employYears;
+
           }
 
           let parent = new Parent(
             this.tab_parent_name, this.tab_parent_lastname, this.tab_parent_firstname,
             this.tab_parent_middlename, this.tab_parent_birthDate, this.tab_parent_homePhoneNumber,
-            this.tab_parent_cellularPhone, this.tab_parent_factAddress, this.tab_parent_selectedFamRelationShip,
+            this.tab_parent_cellularPhone,
+            // this.tab_parent_factAddress,
+            this.ADRDTO[this.countOfAddParent],
+            this.tab_parent_selectedFamRelationShip,
             this.tab_parent_selectedGender, this.tab_parent_organization_name, this.tab_parent_organization_address,
             this.tab_parent_organization_seniority, this.tab_parent_organization_employYears
           );
+          this.increment();
+          // this.countOfAddParent++;
           location.href = 'profile#parent_overview';
           this.person.parents_info.push(parent);
           console.log(this.person.parents_info)

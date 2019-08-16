@@ -27,6 +27,7 @@ import test_profiles from './modules/profile/test_profiles'
 import converter from "./modules/converter";
 import specialist from "./xmodules/specialist";
 import {getField, updateField} from "vuex-map-fields";
+import addressDto from "./xmodules/addressDto";
 
 Vue.use(VueTheMask);
 Vue.use(VeeValidate);
@@ -89,7 +90,7 @@ export const store = new Vuex.Store({
     tab_reception_condition,
     person,
     applications,
-
+    // addressDto,
     // post
     s : specialist
   },

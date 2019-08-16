@@ -86,16 +86,8 @@
   import {AXIOS, AXIOS_print} from "../../plugins/APIService";
   import {createHelpers} from 'vuex-map-fields';
   import modal from "../../modals/modal";
-  import {mapGetters} from "vuex";
-
-  // const { mapMultiRowFields: personM } = createHelpers({
-  //   getterType: `person/getField`,
-  //   mutationType: `person/updateField`,
-  // });
-  // const { mapMultiRowFields:application } = createHelpers({
-  //   getterType: `application/getField`,
-  //   mutationType: `application/updateField`,
-  // });
+  import {mapGetters, mapMutations} from "vuex";
+  // import {mapGetters} from "vuex";
 
   const {mapFields: tab_personal_info} = createHelpers({
     getterType: `tab_personal_info/getField`,
@@ -109,9 +101,10 @@
     getterType: 'person/getField',
     mutationType: 'person/updateField',
   });
-  // const { mapFields:index} = createHelpers({
-  //   getterType: 'index/getField',
-  //   mutationType: 'index/updateField',
+
+  // const {mapFields: addressDto} = createHelpers({
+  //   getterType: 'addressDto/getField',
+  //   mutationType: 'addressDto/updateField',
   // });
   export default {
     name: "TabOverview",
@@ -175,7 +168,9 @@
       ...applications(['application', 'application_person_id', 'application_person_name', 'applId', 'applTableName',
         'applTableNumber', 'applTableDate', 'applTableDeliveryType', 'apls', 'chooseAppls', 'resultApl',
         'countContract','countBudget'],),
-      ...mapGetters(['ADRText']),
+      // ...mapGetters(['ADRText']),
+      // ...addressDto(['fullAdrText']),
+      ...mapGetters(['countOfAddParent']),
       showTable() {
         return this.profiles;
       },
@@ -201,7 +196,7 @@
 
 
     methods: {
-
+      ...mapMutations(['increment', 'decrement', 'default']),
       axapta(id) {
         console.log('in axapta method');
         this.$store.dispatch('go', id);
@@ -298,18 +293,14 @@
       closeModal() {
         this.isModalVisible = false;
       },
-
+      ...mapGetters(['ADRDTO']),
+      ...mapGetters(['ADRText']),
+      ...mapGetters(['ADRSearchObject']),
       onNewProfile() {
-        // this.fullAdrText = [];
-        // this.ADRText[0] = [];
-        // this.ADRText[0] = [];
-        // this.ADRText[0] = [];
-        // this.addressesDto = [];
-        // this.aolevelss = [];
-        // this.searchObject = [];
-        // this.fullAdrText = [];
+        this.ADRSearchObject()[0] = {};
+        this.ADRSearchObject()[1] = {};
+        this.ADRSearchObject()[2] = {};
 
-        this.searchObject = null;
         this.countContract = 0;
         this.countBudget = 0;
         // this.person.ege_info = [];
@@ -467,7 +458,7 @@
         this.tab_personal_homePhoneNumber = '';
         this.tab_personal_cellularPhone = '';
         this.tab_personal_email = '';
-        this.tab_personal_company = '';
+        this.tab_personal_company_name = '';
         this.tab_personal_company_address = '';
         this.tab_personal_seniority = '';
         this.tab_personal_employYears = '';
@@ -480,11 +471,11 @@
         this.language_score2 = '';
         this.selected_foreignLanguageName3 = null;
         this.language_score3 = '';
-
+        this.score_full=0;
         this.tab_address_registrationAddress = '';
         this.tab_address_factAddress = '';
         this.tab_address_templateRegistrationAddress = '';
-
+        this.person.person_info.fisSettlementTypeId = '';
         this.tab_edu_military_educationLevel = null;
         this.tab_edu_military_univer = '';
         this.tab_edu_military_selectedCountryRegion = {"countryRegionId": "РФ", "name": "Россия"};
@@ -497,9 +488,9 @@
         this.tab_edu_military_eduDocName = '';
         this.tab_edu_military_attachment_serial = '';
         this.tab_edu_military_attachment_number = '';
-        this.score_five = 0,
-        this.score_four = 0,
-        this.score_three = 0,
+        this.score_five = 0;
+        this.score_four = 0;
+        this.score_three = 0;
         this.averageScore = '';
         this.tab_edu_military_selectedSoldiery = {"soldieryId": "Невоеннообязанный"};
         this.tab_edu_military_selectedSoldieryStatus = {"id": 0, "name": "Не служил"};
@@ -513,6 +504,18 @@
         this.tab_edu_military_docMilitaryShowDate = '';
         this.tab_edu_military_startMilitary = '';
         this.tab_edu_military_endMilitary = '';
+
+        this.doc1_newName= '';
+        this.doc2_newName= '';
+        this.doc3_newName= '';
+        this.selectedExtraInfos1 = '';
+        this.selectedExtraInfos2 = '';
+        this.extraInfosDescription1 = '';
+        this.extraInfosDescription2 = '';
+
+        // this.countOfAddParent = 3;
+        this.default();
+
         this.saved = '';
         this.person.saved = '';
         // this.tab_ege_changePaspInf = false;
@@ -530,7 +533,6 @@
 
 
         AXIOS.get(`/profile/personByPersonInfo/` + id)
-        //todo получать dto - массивы person_info, ege_info, parent_info
           .then(response => {
             this.person = response.data;
             // this.person.ege_info[0] = response.data.ege_info[0];

@@ -538,7 +538,14 @@
           this.person.person_info.extraInfosDescription2 = this.extraInfosDescription2;
 
           this.person.person_info.image = this.image;
-          this.person.person_info.addressesDto = this.ADRDTO;
+
+          let x = this.ADRDTO;
+          for(let i = 0; i < 3; i++){
+            this.person.person_info.addressesDto.push(x[i])
+          }
+
+          // this.person.person_info.addressesDto
+
           this.person.person_info.showimage = this.showimage;
           this.person.saved = "Сохранено";
           this.person.application.saved = "Сохранено";
