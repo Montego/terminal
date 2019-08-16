@@ -248,7 +248,19 @@ let fillParents = function(s){
 
 // заглушка
 let fillComments = function(s){
-  return []; /*
+  let info = s.person_info;
+  return [
+    {
+      "commentId": info.selectedExtraInfos1,
+      "description": info.extraInfosDescription1,
+      "recVersion": 0
+    },
+    {
+      "commentId": info.selectedExtraInfos2,
+      "description": info.extraInfosDescription2,
+      "recVersion": 0
+    },
+  ]; /*
     {
         "commentId": "Достижения в учебе",
         "description": "Призер школьной олимпиады по химии",
