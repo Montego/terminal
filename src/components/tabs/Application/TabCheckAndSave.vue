@@ -391,7 +391,7 @@
         'tab_edu_military_selectedDocType', 'tab_edu_military_docMilitaryShowDate', 'tab_edu_military_startMilitary',
         'tab_edu_military_endMilitary', 'image', 'showimage', 'acceptedPerson', 'profiles', 'selectedExtraInfos1',
         'selectedExtraInfos2', 'extraInfosDescription1', 'extraInfosDescription2', 'score_five','score_four','score_three',
-        'score_full'
+        'score_full', 'subjectScores'
       ]),
 
     },
@@ -539,6 +539,24 @@
 
           this.person.person_info.image = this.image;
 
+          for (let j = 0; j < 3; j++){
+            if (this.person.ege_info[j].tab_ege_score !== 0){
+              if(this.person.ege_info[j].tab_ege_selectedSubject === "Химия"){
+                this.person.subjectScores[0].examPoint = this.person.ege_info[j].tab_ege_score;
+                this.person.subjectScores[0].examForm = {"id":0,"name":"ЕГЭ"};
+              }
+              if(this.person.ege_info[j].tab_ege_selectedSubject === "Биология"){
+                this.person.subjectScores[1].examPoint = this.person.ege_info[j].tab_ege_score;
+                this.person.subjectScores[1].examForm = {"id":0,"name":"ЕГЭ"};
+              }
+              if(this.person.ege_info[j].tab_ege_selectedSubject === "Русский язык"){
+                this.person.subjectScores[2].examPoint = this.person.ege_info[j].tab_ege_score;
+                this.person.subjectScores[2].examForm = {"id":0,"name":"ЕГЭ"};
+              }
+            }
+          }
+
+
           let x = this.ADRDTO;
           for(let i = 0; i < 3; i++){
             this.person.person_info.addressesDto.push(x[i])
@@ -547,8 +565,8 @@
           // this.person.person_info.addressesDto
 
           this.person.person_info.showimage = this.showimage;
-          this.person.saved = "Сохранено";
-          this.person.application.saved = "Сохранено";
+          // this.person.saved = "Сохранено";
+          // this.person.application.saved = "Сохранено";
           // console.log(this.person.person_info.tab_personal_lastname)
 
 

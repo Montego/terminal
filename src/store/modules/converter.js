@@ -70,6 +70,8 @@ let fillLanguages = function(person){
 };
 
 
+
+
 // Заглушка военнообязанный, meanScoreEduDocf
 let fillPK = function(s){
   let info = s.person_info;
@@ -148,6 +150,26 @@ let fillPK = function(s){
   };
 };
 
+
+
+let fillSubjectScore = function(s){
+  let result = s.subjectScores.map((info) => {
+    return {
+      "subjectId": info.subjectId,
+      "contactPersonId": s.id,
+      "examPoint": info.examPoint,
+      "examForm": info.examForm.id,
+
+      "examNote": 0,
+      "examPoint_test": 0,
+      "examPoint_interview": 0,
+      "examListNum": "",
+      "examListDate": "01.01.1900 00:00",
+      "eisExamPoint": 0
+    }
+  });
+  return Array.isArray(result) ? result : [];
+};
 
 let fillParents = function(s){
   let result = s.parents_info.map((info) => {
@@ -405,7 +427,7 @@ let fillPrefs = function(s) {
             "docName": pref[`doc${n}_full_info`], //  "Диплом победителя/призера олимпиады школьников Серия 234234 № 23423423423423 от 24.05.2017 выдан ОргКом (Копия)",
             "docType": pref[`tab_features_selectedDocType${n}`]['id'], //0,
             "docQuantity": 1, // /????
-            "altDocName": "",
+            "altDocName":  ( pref[`tab_features_selectedDocType${n}`]['id'] === "015" && pref[`doc${n}_newName`] === "")? "[Иной документ]" : pref[`doc${n}_newName`],
             "docGrantDate": "01.01.2010 00:00",
             "isDublicate": 0,
             "documentKindId": ""
@@ -572,7 +594,7 @@ let fillTotal = function (s) {
 // tab_personal_note // DESCRIPTION = Примечание !!! А ЕГО НЕТ В СЕРВИСЕ !!!
 
 
-    "subjectScores": [],
+    "subjectScores": fillSubjectScore(s),
     "modifiedBy": "TSST",
     "recId": null,
     "contactPersonId": null,

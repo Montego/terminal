@@ -114,7 +114,7 @@
                   </label>
                   <label v-if="tab_features_selectedDocType1.name ==='Оригинал'" class="row">
                     <div class="form__label-text col-sm">Дата предоставления:</div>
-                    <input v-model="tab_featuresShowDate1" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
+                    <input v-model="tab_featuresShowDate1 = moment(dateToday).format('YYYY-MM-DD')" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
                   </label>
                 </div>
                 <!---->
@@ -172,7 +172,7 @@
                   </label>
                   <label v-if="tab_features_selectedDocType2.name ==='Оригинал'" class="row">
                     <div class="form__label-text col-sm">Дата предоставления:</div>
-                    <input v-model="tab_featuresShowDate2" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
+                    <input v-model="tab_featuresShowDate2 = moment(dateToday).format('YYYY-MM-DD')" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
                   </label>
                 </div>
                 <!---->
@@ -229,7 +229,7 @@
                   </label>
                   <label v-if="tab_features_selectedDocType3.name ==='Оригинал'" class="row">
                     <div class="form__label-text col-sm">Дата предоставления:</div>
-                    <input v-model="tab_featuresShowDate3" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
+                    <input v-model="tab_featuresShowDate3 = moment(dateToday).format('YYYY-MM-DD')" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
                   </label>
                 </div>
                 <!---->
@@ -277,6 +277,7 @@
         name: "TabDistinctiveFeaturesInfo",
       data () {
         return {
+          dateToday: Date.now(),
           documentsByFeatures: [],
           editedIndex: -1,
           editedItem:{},
@@ -356,6 +357,7 @@
             // this.tab_features_selectedPreference =  '';
             this.tab_features_selectedTypeDiploma = {"id":0,"name":""};
             this.doc1 = {};
+            this.doc1_newName = '';
             this.doc1_serial = '';
             this.doc1_number =  '';
             this.tab_features_selectedDocType1 = {"id":0,"name":"Копия"};
@@ -364,6 +366,7 @@
             this.doc1_IssueBy = '';
 
             this.doc2 = {};
+            this.doc2_newName = '';
             this.doc2_serial =  '';
             this.doc2_number = '';
             this.tab_features_selectedDocType2 = {"id":0,"name":"Копия"};
@@ -372,6 +375,7 @@
             this.doc2_IssueBy = '';
 
             this.doc3 = {};
+            this.doc3_newName = '';
             this.doc3_serial =  '';
             this.doc3_number =  '';
             this.tab_features_selectedDocType3 = {"id":0,"name":"Копия"};
@@ -396,7 +400,9 @@
             this.tab_features_selectedAttrType = this.person.futures_info[index].tab_features_selectedAttrType;
             this.tab_features_selectedPreference = this.person.futures_info[index].tab_features_selectedPreference;
             this.tab_features_selectedTypeDiploma = this.person.futures_info[index].tab_features_selectedTypeDiploma;
+
             this.doc1 = this.person.futures_info[index].doc1;
+            this.doc1_newName = this.person.futures_info[index].doc1_newName;
             this.doc1_serial = this.person.futures_info[index].doc1_serial;
             this.doc1_number = this.person.futures_info[index].doc1_number;
             this.tab_features_selectedDocType1 = this.person.futures_info[index].tab_features_selectedDocType1;
@@ -405,6 +411,7 @@
             this.doc1_IssueBy = this.person.futures_info[index].doc1_IssueBy;
 
             this.doc2 = this.person.futures_info[index].doc2;
+            this.doc2_newName = this.person.futures_info[index].doc2_newName;
             this.doc2_serial = this.person.futures_info[index].doc2_serial;
             this.doc2_number = this.person.futures_info[index].doc2_number;
             this.tab_features_selectedDocType2 = this.person.futures_info[index].tab_features_selectedDocType2;
@@ -413,6 +420,7 @@
             this.doc2_IssueBy = this.person.futures_info[index].doc2_IssueBy;
 
             this.doc3 = this.person.futures_info[index].doc3;
+            this.doc3_newName = this.person.futures_info[index].doc3_newName;
             this.doc3_serial = this.person.futures_info[index].doc3_serial;
             this.doc3_number = this.person.futures_info[index].doc3_number;
             this.tab_features_selectedDocType3 = this.person.futures_info[index].tab_features_selectedDocType3;
@@ -430,7 +438,9 @@
               this.editedItem.tab_features_selectedAttrType = this.tab_features_selectedAttrType;
               this.editedItem.tab_features_selectedPreference = this.tab_features_selectedPreference;
               this.editedItem.tab_features_selectedTypeDiploma = this.tab_features_selectedTypeDiploma;
+
               this.editedItem.doc1 = this.doc1;
+              this.editedItem.doc1_newName = this.doc1_newName;
               this.editedItem.doc1_serial = this.doc1_serial;
               this.editedItem.doc1_number = this.doc1_number;
               this.editedItem.tab_features_selectedDocType1 = this.tab_features_selectedDocType1;
@@ -439,6 +449,7 @@
               this.editedItem.doc1_IssueBy = this.doc1_IssueBy;
 
               this.editedItem.doc2 = this.doc2;
+              this.editedItem.doc2_newName = this.doc2_newName;
               this.editedItem.doc2_serial = this.doc2_serial;
               this.editedItem.doc2_number = this.doc2_number;
               this.editedItem.tab_features_selectedDocType2 = this.tab_features_selectedDocType2;
@@ -447,6 +458,7 @@
               this.editedItem.doc2_IssueBy = this.doc2_IssueBy;
 
               this.editedItem.doc3 = this.doc3;
+              this.editedItem.doc3_newName = this.doc3_newName;
               this.editedItem.doc3_serial = this.doc3_serial;
               this.editedItem.doc3_number = this.doc3_number;
               this.editedItem.tab_features_selectedDocType3 = this.tab_features_selectedDocType3;
@@ -459,11 +471,11 @@
             }else {
               function Feature(selectedAttrType, selectedPreference, typeDyploma,
                                features_serial, features_number,
-                               doc1, doc1_serial, doc1_number, selectedDocType1,
+                               doc1, doc1_newName, doc1_serial, doc1_number, selectedDocType1,
                                showDate1, issuDate1, issueBy1, full_info1,
-                               doc2, doc2_serial, doc2_number, selectedDocType2,
+                               doc2, doc2_newName, doc2_serial, doc2_number, selectedDocType2,
                                showDate2, issuDate2, issueBy2, full_info2,
-                               doc3, doc3_serial, doc3_number, selectedDocType3,
+                               doc3,  doc3_newName, doc3_serial, doc3_number, selectedDocType3,
                                showDate3, issuDate3, issueBy3, full_info3
               ) {
                 this.tab_features_selectedAttrType = selectedAttrType;
@@ -471,7 +483,9 @@
                 this.tab_features_selectedTypeDiploma = typeDyploma;
                 this.tab_features_serial = features_serial;
                 this.tab_features_number = features_number;
+
                 this.doc1 = doc1;
+                this.doc1_newName = doc1_newName;
                 this.doc1_serial = doc1_serial;
                 this.doc1_number = doc1_number;
                 this.tab_features_selectedDocType1 = selectedDocType1;
@@ -479,7 +493,9 @@
                 this.doc1_IssuDate = issuDate1;
                 this.doc1_IssueBy = issueBy1;
                 this.doc1_full_info = full_info1;
+
                 this.doc2 = doc2;
+                this.doc2_newName = doc2_newName;
                 this.doc2_serial = doc2_serial;
                 this.doc2_number = doc2_number;
                 this.tab_features_selectedDocType2 = selectedDocType2;
@@ -487,7 +503,9 @@
                 this.doc2_IssuDate = issuDate2;
                 this.doc2_IssueBy = issueBy2;
                 this.doc2_full_info = full_info2;
+
                 this.doc3 = doc3;
+                this.doc3_newName = doc3_newName;
                 this.doc3_serial = doc3_serial;
                 this.doc3_number = doc3_number;
                 this.tab_features_selectedDocType3 = selectedDocType3;
@@ -503,11 +521,11 @@
                 this.tab_features_selectedTypeDiploma,
                 this.tab_features_serial,
                 this.tab_features_number,
-                this.doc1, this.doc1_serial, this.doc1_number, this.tab_features_selectedDocType1,
+                this.doc1, this.doc1_newName, this.doc1_serial, this.doc1_number, this.tab_features_selectedDocType1,
                 this.tab_featuresShowDate1,this.doc1_IssuDate,this.doc1_IssueBy,this.doc1_full_info,
-                this.doc2, this.doc2_serial, this.doc2_number, this.tab_features_selectedDocType2,
+                this.doc2, this.doc2_newName, this.doc2_serial, this.doc2_number, this.tab_features_selectedDocType2,
                 this.tab_featuresShowDate2,this.doc2_IssuDate,this.doc2_IssueBy,this.doc2_full_info,
-                this.doc3, this.doc3_serial, this.doc3_number, this.tab_features_selectedDocType3,
+                this.doc3, this.doc3_newName, this.doc3_serial, this.doc3_number, this.tab_features_selectedDocType3,
                 this.tab_featuresShowDate3,this.doc3_IssuDate,this.doc3_IssueBy,this.doc3_full_info,
               );
               location.href = 'profile#features_overview';

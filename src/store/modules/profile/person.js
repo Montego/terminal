@@ -324,6 +324,26 @@ export default {
         choosenWizards: [],
         application_documents: [],
       },
+      subjectScores : [
+        {
+          subjectId:'Хим',
+          // person:{},
+          examPoint: 0,
+          examForm: {"id":10,"name":"Вступит. испытания"}
+        },
+        {
+          subjectId:'Биол',
+          // person:{},
+          examPoint: 0,
+          examForm: {"id":10,"name":"Вступит. испытания"}
+        },
+        {
+          subjectId:'РусскЯз',
+          // person:{},
+          examPoint: 0,
+          examForm: {"id":10,"name":"Вступит. испытания"}
+        },
+      ]
     }
   },
   getters: {

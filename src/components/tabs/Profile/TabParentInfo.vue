@@ -1,7 +1,6 @@
 <template>
   <div>
     <tabs class="parent_tabs">
-      {{countOfAddParent}}
       <tab id="parent_overview" name="Обзор">
         <div class="row">
           <button @click="onInfo">Добавить</button>
@@ -336,7 +335,38 @@
         location.href='profile#parent_info';
       },
       onCopyAddressFromStudent() {
-        this.tab_parent_factAddress = this.tab_address_factAddress;
+        this.copy = 1;
+        // this.ADRDTO[1].addressType = {"id": "1", "name": "Адрес фактический"};
+        // this.ADRDTO[1].lineNum = 1;
+
+        this.ADRDTO[this.countOfAddParent].addressAdmObject = this.ADRDTO[0].addressAdmObject;
+        this.ADRDTO[this.countOfAddParent].addressSearchObj = this.ADRDTO[0].addressSearchObj;
+        this.ADRDTO[this.countOfAddParent].addressSearchText = this.ADRDTO[0].addressSearchText;
+        this.ADRDTO[this.countOfAddParent].addressTxt = this.ADRDTO[0].addressTxt;
+        this.ADRDTO[this.countOfAddParent].addressTxtRandom = this.ADRDTO[0].addressTxtRandom;
+        this.ADRDTO[this.countOfAddParent].aolevel1 = this.ADRDTO[0].aolevel1;
+        this.ADRDTO[this.countOfAddParent].aolevel2 = this.ADRDTO[0].aolevel2;
+        this.ADRDTO[this.countOfAddParent].aolevel3 = this.ADRDTO[0].aolevel3;
+        this.ADRDTO[this.countOfAddParent].aolevel4 = this.ADRDTO[0].aolevel4;
+        this.ADRDTO[this.countOfAddParent].aolevel5 = this.ADRDTO[0].aolevel5;
+        this.ADRDTO[this.countOfAddParent].aolevel6 = this.ADRDTO[0].aolevel6;
+        this.ADRDTO[this.countOfAddParent].aolevel7 = this.ADRDTO[0].aolevel7;
+        this.ADRDTO[this.countOfAddParent].aolevel65 = this.ADRDTO[0].aolevel65;
+        this.ADRDTO[this.countOfAddParent].aolevel90 = this.ADRDTO[0].aolevel90;
+        this.ADRDTO[this.countOfAddParent].aolevel91 = this.ADRDTO[0].aolevel91;
+        this.ADRDTO[this.countOfAddParent].countryRegion = this.ADRDTO[0].countryRegion;
+        this.ADRDTO[this.countOfAddParent].flat = this.ADRDTO[0].flat;
+        this.ADRDTO[this.countOfAddParent].house = this.ADRDTO[0].house;
+        this.ADRDTO[this.countOfAddParent].postalCode = this.ADRDTO[0].postalCode;
+
+        if(this.ADRSearchObject[this.countOfAddParent].hasOwnProperty(name) && this.ADRSearchObject[0].hasOwnProperty(name)){
+          this.ADRSearchObject[this.countOfAddParent].name = this.ADRSearchObject[0].name;
+          this.ADRSearchObject[this.countOfAddParent].name = this.ADRSearchObject[0].name;
+        }
+
+        this.ADRText()[this.countOfAddParent] = this.ADRText()[0];
+
+        // this.tab_parent_factAddress = this.tab_address_factAddress;
       },
       onClearFields() {
           this.tab_parent_name = '';

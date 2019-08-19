@@ -17,7 +17,8 @@
       <!--</div>-->
       <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
         <div class="form__label-text col-sm">Дата заявления:</div>
-        <input v-model="person.application.application_date = moment(dateToday).format('YYYY-MM-DD')" class="form__input col-sm" type="date" id= "theDate"  min="1918-01-01" max="2019-01-01" />
+        <input v-if="person.application.application_selectedDocType.name === 'Оригинал'" v-model="person.application.application_date = moment(dateToday).format('YYYY-MM-DD')" class="form__input col-sm" type="date" id= "theDate"  min="1918-01-01" max="2019-01-01" />
+        <input v-else v-model="person.application.application_date = moment(dateToday).format('YYYY-MM-DD')" class="uneditable form__input col-sm" type="date" id= "theDate2"  min="1918-01-01" max="2019-01-01" disabled/>
       </div>
       <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
         <div class="form__label-text col-sm">Тип доставки:</div>
@@ -83,7 +84,8 @@
               <div v-if="
                         ((props.item.environmentId ===  'Договор' & !props.item.agree) & countContract > 0)|
                          ((props.item.environmentId ===  'Бюджет' & !props.item.agree) & countBudget > 0) |
-                         ((props.item.environmentId ===  'ЦелНапр' & !props.item.agree) & countBudget > 0)
+                         ((props.item.environmentId ===  'ЦелНапр' & !props.item.agree) & countBudget > 0) |
+                         (person.application.application_selectedDocType.name === 'Копия' & props.item.environmentId ===  'Бюджет')
 
 ">
                 <input v-model="props.item.agree" class="checkbox col-sm" type="checkbox" @change="checkCount(props.item)" disabled>
@@ -586,6 +588,10 @@
 </script>
 
 <style scoped>
+  .uneditable {
+    background-color: #F5F5F5;
+  }
+
   .inside_tab {
     margin-bottom: -10px;
   }
