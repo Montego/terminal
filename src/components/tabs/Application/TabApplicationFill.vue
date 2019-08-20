@@ -37,6 +37,11 @@
         </select>
       </div>
 
+      <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
+        <div class="form__label-text col-sm">Дата предоставления:</div>
+        <input v-model="person.application.application_date = moment(dateToday).format('YYYY-MM-DD')" class="uneditable form__input col-sm" type="date" id= "theDate23"  min="1918-01-01" max="2019-01-01" disabled/>
+      </div>
+
       <div v-if="!this.isModalVisible" class=" col-sm-4">
         <div class="form__label-text col-sm-8">Документ об образовании:</div>
         <select v-model="person.application.application_selectedDocType" class="minimal col-sm-6">

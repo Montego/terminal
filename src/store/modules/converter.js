@@ -352,7 +352,7 @@ let fillAppLines = function(wiz){
         "appLineId": line.id,
         "priority": 0,
         "refNum": "",
-        "refDate": "01.01.2019 00:00",
+        "refDate": "01.01.1900 00:00",
         "contrNum": line.environmentId === "ЦелНапр"? line.contract : "",
         "contrDate": line.environmentId === "ЦелНапр"? (dateConvert(line.date)) : "01.01.1900 00:00",
         "targOrgId": line.environmentId === "ЦелНапр"? line.company.targOrgId : "",
@@ -419,7 +419,7 @@ let fillPrefs = function(s) {
         if(pref[`doc${n}`] > ''){
           let doc = {
             "modifiedBy": "TSST",
-            "documentId": "015",
+            "documentId": pref[`doc${n}`].documentId,
             "docSeries": pref[`doc${n}_serial`], // "АБ",
             "docNumber": pref[`doc${n}_number`], // "55596932а",
             "docIssueDate": dateConvert(pref[`doc${n}_IssuDate`]), //  "01.01.2008 00:00",
@@ -449,15 +449,15 @@ let egeDocComparator = (a, b) => {
 
   return
   // (a.otherCountyRegionId      === b.otherCountyRegionId)
-  //   && (a.docFirstName             === b.docFirstName)
-  //   && (a.docMiddleName            === b.docMiddleName)
-  //   && (a.docLastName              === b.docLastName)
-  //   && (a.identityCardIssueDate    === b.identityCardIssueDate)
-       (a.identityCardSeries       === b.identityCardSeries)
+     (a.docFirstName             === b.docFirstName)
+    && (a.docMiddleName            === b.docMiddleName)
+    && (a.docLastName              === b.docLastName)
+    && (a.identityCardIssueDate    === b.identityCardIssueDate)
+    &&  (a.identityCardSeries       === b.identityCardSeries)
     && (a.identityCardNumber       === b.identityCardNumber)
-    // && (a.identityCardIssueBy      === b.identityCardIssueBy)
-    // && (a.identityCardCode         === b.identityCardCode)
-    // && (a.yearDeliveryEge          === b.yearDeliveryEge);
+    && (a.identityCardIssueBy      === b.identityCardIssueBy)
+    && (a.identityCardCode         === b.identityCardCode)
+    && (a.yearDeliveryEge          === b.yearDeliveryEge);
 };
 
 
@@ -471,6 +471,20 @@ let fillEge = function(s){
   let array2 = [];
   for(let j=0; j<array.length; j++){
     if(array[j].tab_ege_score !== 0 ){
+
+      if(array[j].tab_ege_changePaspInf === false){
+        array[j].tab_ege_info_selectedCitizenship = '';
+        array[j].tab_ege_firstname = '';
+        array[j].tab_ege_middlename = '';
+        array[j].tab_ege_lastname = '';
+        array[j].tab_ege_identityCardIssueDate = '';
+        array[j].tab_ege_identityCardSeries = '';
+        array[j].tab_ege_identityCardNumber = '';
+        array[j].tab_ege_identityCardIssueBy = '';
+        array[j].tab_ege_selectedIdentityCardCode = '';
+
+      }
+
       array2.push(array[j]);
     }
   }
@@ -483,7 +497,7 @@ let fillEge = function(s){
           "docFirstName": ege.tab_ege_firstname,
           "docMiddleName": ege.tab_ege_middlename,
           "docLastName": ege.tab_ege_lastname,
-          "identityCardIssueDate": dateConvert(ege.tab_ege_identityCardIssueDate),
+          "identityCardIssueDate": ege.tab_ege_identityCardIssueDate === '' ? "01.01.1900 00:00" : dateConvert(ege.tab_ege_identityCardIssueDate),
           "identityCardSeries": ege.tab_ege_identityCardSeries,
           "identityCardNumber": ege.tab_ege_identityCardNumber,
           "identityCardIssueBy": ege.tab_ege_identityCardIssueBy,
