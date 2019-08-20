@@ -61,9 +61,9 @@
 
           <!--<div>-->
           <!--TODO скрыть-->
-            <button class="button_controls" type="button" @click="axapta(props.item.id)">
-              <v-icon color="#5bc0de">save</v-icon>
-            </button>
+            <!--<button class="button_controls" type="button" @click="axapta(props.item.id)">-->
+              <!--<v-icon color="#5bc0de">save</v-icon>-->
+            <!--</button>-->
 
 
           <!--</div>-->
