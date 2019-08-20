@@ -18,6 +18,7 @@
                   <!--<input v-else v-model="props.item.tab_ege_score = 0"  class="form__input col-sm-7" type="number" >-->
 
                   <input v-model="props.item.tab_ege_score" name='account-field-3' v-validate="'min:50|max:100'"  class="form__input col-sm-7" type="text" v-mask="'###'">
+
                   <span>{{ errors.first('min') }}</span>
                 </td>
                 <td class="text-xs-center">
@@ -294,8 +295,8 @@
 </template>
 
 <script>
-
-  import {mapGetters, mapState} from 'vuex'
+  import {required,between} from 'vuelidate/lib/validators';
+  import {mapGetters, mapState} from 'vuex';
   import { createHelpers } from 'vuex-map-fields';
   const { mapFields:person} = createHelpers({
     getterType: 'person/getField',
@@ -357,15 +358,13 @@
         return this.person.ege_info;
       },
 
-      checkScore(value){
-        if(value >= 65 && value <= 100){
-          return value;
-        }else{
-          return 0
-        }
-        // return result = value && value >= 65 && value <= 100;
-      }
 
+
+    },
+    validations: {
+      score_ege:{
+        between: between(65, 100)
+      }
     },
     // validations: {
     //   tab_ege_score: {
@@ -374,6 +373,8 @@
     // },
     data() {
       return {
+        score_ege: 0,
+
         customTokens: {
           'Y': {pattern: /(4[5-9])/},
           'Z':{pattern: /[0-9]/}

@@ -48,11 +48,9 @@
           <v-icon color="#5bc0de">description</v-icon>
           </button>
           <div>
-            <!--<button v-if="props.item.saved !== 'Не сохранено'" class="button_controls" type="button"-->
-                    <!--@click="showModal(props.item)">-->
-              <!--<v-icon color="#5bc0de">description</v-icon>-->
-            <!--</button>-->
+
           </div>
+
 
           <div>
             <button v-if="isModalVisible === false" class="button_controls" type="button"
@@ -62,9 +60,10 @@
           </div>
 
           <!--<div>-->
-            <!--<button class="button_controls" type="button" @click="axapta(props.item.id)">-->
-              <!--<v-icon color="#5bc0de">save</v-icon>-->
-            <!--</button>-->
+          <!--TODO скрыть-->
+            <button class="button_controls" type="button" @click="axapta(props.item.id)">
+              <v-icon color="#5bc0de">save</v-icon>
+            </button>
           <!--</div>-->
           <!--<div v-if="isModalVisible === false">-->
             <!--<button class="button_controls" v-if="props.item.resultAcceptPerson !=='Утверждено'"-->

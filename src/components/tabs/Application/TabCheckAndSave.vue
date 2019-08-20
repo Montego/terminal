@@ -89,18 +89,18 @@
           <div>
             <h2>Адреса</h2>
           </div>
-          <label  class="row">
+          <label v-if="typeof this.ADRDTO[0].addressTxt !== 'undefined'" class="row">
             <div class="form__label-text col-sm-4">Адрес по прописке:</div>
             {{ this.ADRDTO[0].addressTxt }}
             <!--<textarea v-model="tab_address_registrationAddress" class="uneditable col-sm-8" name=""></textarea>-->
           </label>
-          <label class="row">
+          <label v-if="typeof this.ADRDTO[1].addressTxt !== 'undefined'" class="row">
             <div class="form__label-text col-sm-5">Адрес фактический:</div>
             <!--{{ typeof this.ADRDTO[1].addressTxt !== 'undefined' ? this.ADRDTO[1].addressTxt : "" }}-->
             {{this.ADRDTO[1].addressTxt}}
             <!--<textarea v-model="tab_address_factAddress" class="uneditable col-sm-8"></textarea>-->
           </label>
-          <label class="row">
+          <label v-if="typeof this.ADRDTO[2].addressTxt !== 'undefined'" class="row">
             <div class="form__label-text col-sm-7">Адрес временной регистрации:</div>
             <!--{{ typeof this.ADRDTO[2].addressTxt !== 'undefined' ? this.ADRDTO[2].addressTxt : "" }}-->
             {{this.ADRDTO[2].addressTxt}}
@@ -247,30 +247,30 @@
         <!--<div>-->
         <!--<p>Документы</p>-->
         <!--</div>-->
-        <div>
+        <!--<div>-->
 
-          <div v-for="info in application.application_documents">
-            <div class="row">
-              <div class="form__label-text col-sm-4">Документы:</div>
-              <input v-model="info.name" class="form__input col-sm" type="text" disabled/>
-            </div>
-            <div class="row">
-              <div class="form__label-text col-sm-4">Серия:</div>
-              <input v-model="info.serial" class="form__input col-sm" type="text" disabled/>
-            </div>
-            <div class="row">
-              <div class="form__label-text col-sm-4">Номер:</div>
-              <input v-model="info.number" class="form__input col-sm" type="text" disabled/>
-            </div>
-            <label class="row">
-              <div class="form__label-text col-sm-4">Количество:</div>
-              <input v-model="info.count" class="form__input col-sm" type="text" disabled/>
-            </label>
+          <!--<div v-for="info in application.application_documents">-->
+            <!--<div class="row">-->
+              <!--<div class="form__label-text col-sm-4">Документы:</div>-->
+              <!--<input v-model="info.name" class="form__input col-sm" type="text" disabled/>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+              <!--<div class="form__label-text col-sm-4">Серия:</div>-->
+              <!--<input v-model="info.serial" class="form__input col-sm" type="text" disabled/>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+              <!--<div class="form__label-text col-sm-4">Номер:</div>-->
+              <!--<input v-model="info.number" class="form__input col-sm" type="text" disabled/>-->
+            <!--</div>-->
+            <!--<label class="row">-->
+              <!--<div class="form__label-text col-sm-4">Количество:</div>-->
+              <!--<input v-model="info.count" class="form__input col-sm" type="text" disabled/>-->
+            <!--</label>-->
 
-            <!--{{ todo.text }}-->
-          </div>
-          <!--this.acceptedPerson-->
-        </div>
+            <!--&lt;!&ndash;{{ todo.text }}&ndash;&gt;-->
+          <!--</div>-->
+          <!--&lt;!&ndash;this.acceptedPerson&ndash;&gt;-->
+        <!--</div>-->
       </div>
 
 
@@ -386,6 +386,7 @@
           },
           ]
       }
+
     },
 
     computed: {
@@ -608,13 +609,13 @@
 
                 setTimeout(() => {
                   // this.submitStatus = 'PENDING';
-                  if (this.agreementId !== "" || this.agreementId !== null) {
+                  if (this.agreementId !== "nothing" || this.agreementId !== null) {
                     this.showPrintAgreement = true;
                   }
-                  if (this.applicationId !== '' || this.applicationId !== null) {
+                  if (this.applicationId !== 'nothing' || this.applicationId !== null) {
                     this.showPrintApplication = true;
                   }
-                  if (this.contactPersonId !== '' || this.contactPersonId !== null) {
+                  if (this.contactPersonId !== 'nothing' || this.contactPersonId !== null) {
                     this.showPrintDocuments = true;
                     this.showButtons = false;
                   }
