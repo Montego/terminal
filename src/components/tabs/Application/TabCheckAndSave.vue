@@ -89,17 +89,22 @@
           <div>
             <h2>Адреса</h2>
           </div>
-          <label class="row">
+          <label  class="row">
             <div class="form__label-text col-sm-4">Адрес по прописке:</div>
-            <textarea v-model="tab_address_registrationAddress" class="uneditable col-sm-8" name=""></textarea>
+            {{ this.ADRDTO[0].addressTxt }}
+            <!--<textarea v-model="tab_address_registrationAddress" class="uneditable col-sm-8" name=""></textarea>-->
           </label>
           <label class="row">
-            <div class="form__label-text col-sm-4">Адрес фактический:</div>
-            <textarea v-model="tab_address_factAddress" class="uneditable col-sm-8"></textarea>
+            <div class="form__label-text col-sm-5">Адрес фактический:</div>
+            <!--{{ typeof this.ADRDTO[1].addressTxt !== 'undefined' ? this.ADRDTO[1].addressTxt : "" }}-->
+            {{this.ADRDTO[1].addressTxt}}
+            <!--<textarea v-model="tab_address_factAddress" class="uneditable col-sm-8"></textarea>-->
           </label>
           <label class="row">
-            <div class="form__label-text col-sm-4">Адрес временной регистрации:</div>
-            <textarea v-model="tab_address_templateRegistrationAddress" class="uneditable col-sm-8"></textarea>
+            <div class="form__label-text col-sm-7">Адрес временной регистрации:</div>
+            <!--{{ typeof this.ADRDTO[2].addressTxt !== 'undefined' ? this.ADRDTO[2].addressTxt : "" }}-->
+            {{this.ADRDTO[2].addressTxt}}
+            <!--<textarea v-model="tab_address_templateRegistrationAddress" class="uneditable col-sm-8"></textarea>-->
           </label>
         </section>
       </div>
@@ -158,6 +163,15 @@
 
         </section>
 
+        <section>
+          <div>
+            <h2>Выбранные направления</h2>
+          </div>
+          <label class="row" v-for="item in this.person.application.choosenWizards">
+            <div class="form__label-text col-sm-6">{{ item.deparName }}</div>
+            <div class="form__label-text col-sm-4">{{ item.environmentId }}</div>
+          </label>
+        </section>
 
         <!--<div>-->
         <!--<p>Родители/попечители</p>-->
@@ -186,17 +200,28 @@
       <div class="col-sm-4">
         <section>
           <div>
-            <h2>Заявление</h2>
+            <h2>Предоставленные документы</h2>
           </div>
-          <label class="row">
-            <div class="form__label-text col-sm-5">Номер заявления:</div>
-            <input v-model="application.application_number" class="form__input col-sm" type="text" disabled/>
-          </label>
-          <label class="row">
-            <div class="form__label-text col-sm-5">Дата заявления:</div>
-            <input v-model="application.application_date" class="form__input col-sm" type="date" disabled/>
+          <label class="row" v-for="item in this.person.application.application_documents">
+            <!--{{this.person.application.application_documents}}-->
+            <div class="form__label-text col-sm">{{ item.fullnameDoc }}</div>
+            <!--<div class="form__label-text col-sm-4">{{ item.environmentId }}</div>-->
           </label>
         </section>
+        <!--<section>-->
+          <!--<div>-->
+            <!--<h2>Заявление</h2>-->
+          <!--</div>-->
+          <!--<label class="row">-->
+            <!--<div class="form__label-text col-sm-5">Номер заявления:</div>-->
+            <!--<input v-model="application.application_number" class="form__input col-sm" type="text" disabled/>-->
+          <!--</label>-->
+          <!--<label class="row">-->
+            <!--<div class="form__label-text col-sm-5">Дата заявления:</div>-->
+            <!--<input v-model="application.application_date" class="form__input col-sm" type="date" disabled/>-->
+          <!--</label>-->
+        <!--</section>-->
+
         <!--<hr>-->
         <!--<div>-->
         <!--<p>Направление</p>-->
@@ -565,8 +590,8 @@
           // this.person.person_info.addressesDto
 
           this.person.person_info.showimage = this.showimage;
-          // this.person.saved = "Сохранено";
-          // this.person.application.saved = "Сохранено";
+          this.person.saved = "Сохранено";
+          this.person.application.saved = "Сохранено";
           // console.log(this.person.person_info.tab_personal_lastname)
 
 
@@ -629,7 +654,7 @@
           this.submitStatus = 'PENDING';
           setTimeout(() => {
             this.submitStatus = 'OK'
-          }, 500)
+          }, 3000)
         }
       },
     },

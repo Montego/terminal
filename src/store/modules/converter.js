@@ -358,8 +358,8 @@ let fillAppLines = function(wiz){
         "targOrgId": line.environmentId === "ЦелНапр"? line.company.targOrgId : "",
         "orgName": line.environmentId === "ЦелНапр"? line.company.name : "",
 
-        "compGroupsId": line.compGroupsId,
-        "compGroupsLineId": line.compGroupsLineId,
+        "compGroupsId": line.compGroupsId === "" ? "" : line.compGroupsId,
+        "compGroupsLineId": line.compGroupsLineId === "" ? "" : line.compGroupsLineId,
 
 
         "deparCode": line.deparCode,
