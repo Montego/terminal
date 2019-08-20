@@ -593,7 +593,7 @@
                     this.showPrintDocuments = true;
                     this.showButtons = false;
                   }
-                  }, 1500);
+                  }, 3000);
 
                 // this.person.axaptaCode.agreementId = this.agreementId;
                 // this.person.axaptaCode.applicationId = this.applicationId;

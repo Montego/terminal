@@ -69,15 +69,15 @@
 
                 <label class="row">
                   <div class="form__label-text col-sm">Количество:</div>
-                  <input v-model="count" class="form__input col-sm" type="text"  required/>
+                  <input v-model="count" class="form__input col-sm" type="text" v-mask="'##'" required/>
                 </label>
                 <label class="row">
                   <div class="form__label-text col-sm">Серия:</div>
-                  <input v-model="serial" class="form__input col-sm" type="text"  required/>
+                  <input v-model="serial" class="form__input col-sm" type="text" v-mask="'##############'" required/>
                 </label>
                 <label class="row">
                   <div class="form__label-text col-sm">Номер/ID:</div>
-                  <input v-model="number" class="form__input col-sm" type="text"  required/>
+                  <input v-model="number" class="form__input col-sm" type="text" v-mask="'##############'" required/>
                 </label>
 
                 <label class="row">

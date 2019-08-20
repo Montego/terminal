@@ -17,8 +17,8 @@
                   <!--<input v-if="props.item.tab_ege_score >=65 && props.item.tab_ege_score <= 100" v-model="props.item.tab_ege_score"  class="form__input col-sm-7" type="number" >-->
                   <!--<input v-else v-model="props.item.tab_ege_score = 0"  class="form__input col-sm-7" type="number" >-->
 
-
-                  <input v-model="props.item.tab_ege_score"  class="form__input col-sm-7" type="number" >
+                  <input v-model="props.item.tab_ege_score" name='account-field-3' v-validate="'min:50|max:100'"  class="form__input col-sm-7" type="text" v-mask="'###'">
+                  <span>{{ errors.first('min') }}</span>
                 </td>
                 <td class="text-xs-center">
                   <select  v-model="props.item.tab_ege_year" class="minimal col-sm">
@@ -294,21 +294,19 @@
 </template>
 
 <script>
-  import { required, minLength, between } from 'vuelidate/lib/validators'
+
   import {mapGetters, mapState} from 'vuex'
   import { createHelpers } from 'vuex-map-fields';
   const { mapFields:person} = createHelpers({
     getterType: 'person/getField',
     mutationType: 'person/updateField',
   });
-  const { mapMultiRowFields } = createHelpers({
-    getterType: `tab_evidence_ege_info/getField`,
-    mutationType: `tab_evidence_ege_info/updateField`,
-  });
   const { mapFields:tab_evidence_ege_info_fields } = createHelpers({
     getterType: `tab_evidence_ege_info/getField`,
     mutationType: `tab_evidence_ege_info/updateField`,
   });
+
+
 
 
   export default {

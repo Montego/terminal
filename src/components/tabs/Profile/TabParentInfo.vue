@@ -283,6 +283,7 @@
       fillAddress(){
         this.show = this.countOfAddParent;
         this.copy = -1;
+        this.$store.dispatch('loadEmptyAdrParentDTO');
       },
 
       onDelete(item) {
@@ -296,6 +297,8 @@
       onEdit(item) {
         this.editedIndex = this.person.parents_info.indexOf(item);
         this.editedItem = Object.assign({}, item);
+        this.$store.dispatch('loadEmptyAdrParentDTO');
+        this.increment();
 
         const index = this.person.parents_info.indexOf(item);
 
@@ -307,6 +310,33 @@
         this.tab_parent_birthDate = this.person.parents_info[index].tab_parent_birthDate;
         this.tab_parent_homePhoneNumber = this.person.parents_info[index].tab_parent_homePhoneNumber;
         this.tab_parent_cellularPhone = this.person.parents_info[index].tab_parent_cellularPhone;
+        //TODO доделать адреса
+        this.ADRDTO[this.countOfAddParent].addressAdmObject = this.person.parents_info[index].addressDto.addressAdmObject;
+        this.ADRDTO[this.countOfAddParent].addressSearchObj = this.person.parents_info[index].addressDto.addressSearchObj;
+        this.ADRDTO[this.countOfAddParent].addressSearchText = this.person.parents_info[index].addressDto.addressSearchText;
+        this.ADRDTO[this.countOfAddParent].addressTxt = this.person.parents_info[index].addressDto.addressTxt;
+        this.ADRDTO[this.countOfAddParent].addressTxtRandom = this.person.parents_info[index].addressDto.addressTxtRandom;
+        this.ADRDTO[this.countOfAddParent].aolevel1 = this.person.parents_info[index].addressDto.aolevel1;
+        this.ADRDTO[this.countOfAddParent].aolevel2 = this.person.parents_info[index].addressDto.aolevel2;
+        this.ADRDTO[this.countOfAddParent].aolevel3 = this.person.parents_info[index].addressDto.aolevel3;
+        this.ADRDTO[this.countOfAddParent].aolevel4 = this.person.parents_info[index].addressDto.aolevel4;
+        this.ADRDTO[this.countOfAddParent].aolevel5 = this.person.parents_info[index].addressDto.aolevel5;
+        this.ADRDTO[this.countOfAddParent].aolevel6 = this.person.parents_info[index].addressDto.aolevel6;
+        this.ADRDTO[this.countOfAddParent].aolevel7 = this.person.parents_info[index].addressDto.aolevel7;
+        this.ADRDTO[this.countOfAddParent].aolevel65 = this.person.parents_info[index].addressDto.aolevel65;
+        this.ADRDTO[this.countOfAddParent].aolevel90 = this.person.parents_info[index].addressDto.aolevel90;
+        this.ADRDTO[this.countOfAddParent].aolevel91 = this.person.parents_info[index].addressDto.aolevel91;
+        this.ADRDTO[this.countOfAddParent].countryRegion = this.person.parents_info[index].addressDto.countryRegion;
+        this.ADRDTO[this.countOfAddParent].flat = this.person.parents_info[index].addressDto.flat;
+        this.ADRDTO[this.countOfAddParent].house = this.person.parents_info[index].addressDto.house;
+        this.ADRDTO[this.countOfAddParent].postalCode = this.person.parents_info[index].addressDto.postalCode;
+
+        if(this.ADRSearchObject[this.countOfAddParent].hasOwnProperty(name) && this.ADRSearchObject[0].hasOwnProperty(name)){
+          this.ADRSearchObject[this.countOfAddParent].name = this.person.parents_info[index].addressDto.addressSearchObj.name;
+        }
+
+        this.ADRText()[this.countOfAddParent] = this.person.parents_info[index].addressDto.addressTxt;
+
         this.tab_parent_factAddress = this.person.parents_info[index].tab_parent_factAddress;
         this.tab_parent_selectedFamRelationShip = this.person.parents_info[index].tab_parent_selectedFamRelationShip;
         this.tab_parent_selectedGender = this.person.parents_info[index].tab_parent_selectedGender;
@@ -316,6 +346,8 @@
         this.tab_parent_organization_employYears = this.person.parents_info[index].tab_parent_organization_employYears;
       },
       onInfo() {
+        this.editedIndex = -1;
+        this.editedItem = {};
         this.tab_parent_name = '';
         this.tab_parent_lastname = '';
         this.tab_parent_firstname = '';
@@ -360,7 +392,6 @@
         this.ADRDTO[this.countOfAddParent].postalCode = this.ADRDTO[0].postalCode;
 
         if(this.ADRSearchObject[this.countOfAddParent].hasOwnProperty(name) && this.ADRSearchObject[0].hasOwnProperty(name)){
-          this.ADRSearchObject[this.countOfAddParent].name = this.ADRSearchObject[0].name;
           this.ADRSearchObject[this.countOfAddParent].name = this.ADRSearchObject[0].name;
         }
 

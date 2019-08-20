@@ -74,13 +74,13 @@
 
         <label class="row">
           <div class="form__label-text col-sm">Серия:</div>
-          <input data-vv-as="серия" v-validate v-model="tab_edu_military_eduDocSerial" class="form__input col-sm" type="text" name="eduDocSerial" placeholder="" required/>
+          <input data-vv-as="серия" v-validate v-model="tab_edu_military_eduDocSerial" class="form__input col-sm" type="text" name="eduDocSerial" placeholder="" v-mask="'##################'" required/>
         </label>
         <!--<span class="alarm_label">{{ errors.first('eduDocSerial') }}</span>-->
 
         <label class="row">
           <div class="form__label-text col-sm">Номер:</div>
-          <input data-vv-as="номер" v-validate v-model="tab_edu_military_eduDocNumber" class="form__input col-sm" type="text" name="eduDocNumber" placeholder="" required/>
+          <input data-vv-as="номер" v-validate v-model="tab_edu_military_eduDocNumber" class="form__input col-sm" type="text" name="eduDocNumber" placeholder="" v-mask="'##################'" required/>
         </label>
         <!--<span class="alarm_label">{{ errors.first('eduDocNumber') }}</span>-->
 
@@ -98,7 +98,7 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Номер приложения:</div>
-          <input v-model="tab_edu_military_attachment_number" class="form__input col-sm" type="text" name="" placeholder=""/>
+          <input v-model="tab_edu_military_attachment_number" class="form__input col-sm" type="text" name="" placeholder="" v-mask="'#########'"/>
         </label>
         <div class="row">
           <label class="col-sm-9"></label>

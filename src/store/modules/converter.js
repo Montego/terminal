@@ -115,10 +115,10 @@ let fillPK = function(s){
 
 
     // -----------------------
+    "description" : info.tab_personal_note,
 
 
-
-    "isForeigners": 0,
+    "isForeigners": boolConvert(info.tab_personal_isEquatedForeign),
     "specConditions": "Не требуется",
     "specDescription": "",
 
@@ -358,8 +358,8 @@ let fillAppLines = function(wiz){
         "targOrgId": line.environmentId === "ЦелНапр"? line.company.targOrgId : "",
         "orgName": line.environmentId === "ЦелНапр"? line.company.name : "",
 
-        "compGroupsId":"",
-        "compGroupLineId":"",
+        "compGroupsId": line.compGroupsId,
+        "compGroupsLineId": line.compGroupsLineId,
 
 
         "deparCode": line.deparCode,
@@ -587,7 +587,10 @@ let fillTotal = function (s) {
     "parentOrgAddress": person.tab_personal_company_address,
     "profession": person.tab_personal_seniority,
     "employTime": person.tab_personal_employYears,
-    "description" : person.tab_personal_note,
+
+
+    "isForeignLikeRus" : boolConvert(person.tab_personal_isForeignLikeRussian),
+
 // tab_personal_isForeignLikeRussian
 // tab_personal_isEquatedForeign = приравнять к иностранцам
 // tab_personal_INIPADate - дата снилса!
