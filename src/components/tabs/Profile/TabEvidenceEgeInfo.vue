@@ -13,13 +13,9 @@
               <template slot="items" slot-scope="props">
                 <td class="text-xs-center">{{ props.item.tab_ege_selectedSubject}}</td>
                 <td class="text-xs-center">
-                  <!--TODO маска 65-100-->
-                  <!--<input v-if="props.item.tab_ege_score >=65 && props.item.tab_ege_score <= 100" v-model="props.item.tab_ege_score"  class="form__input col-sm-7" type="number" >-->
-                  <!--<input v-else v-model="props.item.tab_ege_score = 0"  class="form__input col-sm-7" type="number" >-->
 
-                  <input v-model="props.item.tab_ege_score" name='account-field-3' v-validate="'min:50|max:100'"  class="form__input col-sm-7" type="text" v-mask="'###'">
+                  <input v-model="props.item.tab_ege_score" name='account-field-3' class="form__input col-sm-7" type="text" v-mask="'###'">
 
-                  <span>{{ errors.first('min') }}</span>
                 </td>
                 <td class="text-xs-center">
                   <select  v-model="props.item.tab_ege_year" class="minimal col-sm">
@@ -37,6 +33,11 @@
               </template>
             </v-data-table>
 
+            <input v-model="ege1 = this.person.ege_info[0].tab_ege_score" hidden>
+            <input v-model="ege2 = this.person.ege_info[1].tab_ege_score" hidden>
+            <input v-model="ege3 = this.person.ege_info[2].tab_ege_score" hidden>
+
+            <span class="alarm_label" v-if="$v.ege1.$invalid || $v.ege2.$invalid || $v.ege3.$invalid" > Балл по егэ не может быть меньше 50 или больше 100 </span>
           </div>
         </div>
       </tab>
@@ -53,21 +54,15 @@
                 <input  v-model="person.ege_info[0].tab_ege_lastname" class="form__input col-sm" type="text" name="lastname2" placeholder="" required />
               </label>
 
-              <!--<span class="alarm_label">{{ errors.first('lastname2') }}</span>-->
-
               <label class="row">
                 <div class="form__label-text col-sm">Имя:</div>
                 <input v-model="person.ege_info[0].tab_ege_firstname" class="form__input col-sm" type="text" name="firstname2" placeholder="" required/>
               </label>
 
-              <!--<span class="alarm_label">{{ errors.first('firstname2') }}</span>-->
-
               <label class="row">
                 <div class="form__label-text col-sm">Отчество:</div>
                 <input  v-model="person.ege_info[0].tab_ege_middlename" class="form__input col-sm" type="text" name="middlename2" placeholder=""/>
               </label>
-
-              <!--<span class="alarm_label">{{ errors.first('middlename2') }}</span>-->
 
               <label class="row">
                 <div class="form__label-text col-sm">Документ</div>
@@ -91,19 +86,12 @@
                 <input v-else v-model="person.ege_info[0].tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
               </label>
 
-              <!--<span class="alarm_label">{{ errors.first('pspseries') }}</span>-->
-              <!--<span class="alarm_label">{{ errors.first('doc_serial') }}</span>-->
-
               <label class="row">
                 <div class="form__label-text col-sm">Номер:</div>
                 <!--<input v-model="identityCardNumber" class="form__input col-sm" type="text" name="" placeholder=""/>-->
                 <input name="pspnum"   v-if="tab_ege_selectedIdentityCardCode.identityCardCode == 'Паспорт РФ'" v-model="person.ege_info[0].tab_ege_identityCardNumber" class="form__input col-sm" type="text"  placeholder="******" v-mask="'######'" required/>
                 <input v-else v-model="person.ege_info[0].tab_ege_identityCardNumber" class="form__input col-sm" type="text" name="doc_num"required/>
               </label>
-
-
-              <!--<span class="alarm_label">{{ errors.first('pspnum') }}</span>-->
-              <!--<span class="alarm_label">{{ errors.first('doc_num') }}</span>-->
 
 
               <label class="row">
@@ -174,15 +162,13 @@
                 <input name="pspseries" v-if="tab_ege_selectedIdentityCardCode.identityCardCode === 'Паспорт РФ'" v-model="person.ege_info[1].tab_ege_identityCardSeries" class="form__input col-sm" type="text" placeholder="****" v-mask="'####'" required/>
                 <input v-else v-model="person.ege_info[1].tab_ege_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial"required/>
               </label>
-              <!--<span class="alarm_label">{{ errors.first('pspseries') }}</span>-->
-              <!--<span class="alarm_label">{{ errors.first('doc_serial') }}</span>-->
+
               <label class="row">
                 <div class="form__label-text col-sm">Номер:</div>
                 <input name="pspnum" v-if="tab_ege_selectedIdentityCardCode.identityCardCode == 'Паспорт РФ'" v-model="person.ege_info[1].tab_ege_identityCardNumber" class="form__input col-sm" type="text"  placeholder="******" v-mask="'######'" required/>
                 <input v-else v-model="person.ege_info[1].tab_ege_identityCardNumber" class="form__input col-sm" type="text" name="doc_num"required/>
               </label>
-              <!--<span class="alarm_label">{{ errors.first('pspnum') }}</span>-->
-              <!--<span class="alarm_label">{{ errors.first('doc_num') }}</span>-->
+
               <label class="row">
                 <div class="form__label-text col-sm">Дата выдачи:</div>
                 <input v-model="person.ege_info[1].tab_ege_identityCardIssueDate" class="form__input col-sm" type="date" name="" placeholder=""/>
@@ -308,8 +294,6 @@
   });
 
 
-
-
   export default {
     name: "TabEvidenceEge",
     mounted () {
@@ -358,23 +342,25 @@
         return this.person.ege_info;
       },
 
-
-
     },
     validations: {
-      score_ege:{
-        between: between(65, 100)
+      ege1:{
+        between: between(50, 100)
+      },
+      ege2:{
+        between: between(50, 100)
+      },
+      ege3:{
+        between: between(50, 100)
       }
     },
-    // validations: {
-    //   tab_ege_score: {
-    //     between: between(65, 100)
-    //   }
-    // },
+
     data() {
       return {
         score_ege: 0,
-
+        ege1: 0 ,
+        ege2: 0,
+        ege3: 0,
         customTokens: {
           'Y': {pattern: /(4[5-9])/},
           'Z':{pattern: /[0-9]/}

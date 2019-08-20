@@ -446,16 +446,18 @@ let fillPrefs = function(s) {
 
 //TODO check ege
 let egeDocComparator = (a, b) => {
-  return (a.otherCountyRegionId      === b.otherCountyRegionId)
-    && (a.docFirstName             === b.docFirstName)
-    && (a.docMiddleName            === b.docMiddleName)
-    && (a.docLastName              === b.docLastName)
-    && (a.identityCardIssueDate    === b.identityCardIssueDate)
-    && (a.identityCardSeries       === b.identityCardSeries)
+
+  return
+  // (a.otherCountyRegionId      === b.otherCountyRegionId)
+  //   && (a.docFirstName             === b.docFirstName)
+  //   && (a.docMiddleName            === b.docMiddleName)
+  //   && (a.docLastName              === b.docLastName)
+  //   && (a.identityCardIssueDate    === b.identityCardIssueDate)
+       (a.identityCardSeries       === b.identityCardSeries)
     && (a.identityCardNumber       === b.identityCardNumber)
-    && (a.identityCardIssueBy      === b.identityCardIssueBy)
-    && (a.identityCardCode         === b.identityCardCode)
-    && (a.yearDeliveryEge          === b.yearDeliveryEge);
+    // && (a.identityCardIssueBy      === b.identityCardIssueBy)
+    // && (a.identityCardCode         === b.identityCardCode)
+    // && (a.yearDeliveryEge          === b.yearDeliveryEge);
 };
 
 
@@ -465,49 +467,59 @@ let fillEge = function(s){
 
   let person = s.person_info;
 
-  let flatArray = s.ege_info.map((ege) => {
-
-    return {
-      "otherCountyRegionId": ege.tab_ege_changePaspInf === false ? "" : ege.tab_ege_info_selectedCitizenship['countryRegionId'],
-      "docFirstName": ege.tab_ege_firstname,
-      "docMiddleName": ege.tab_ege_middlename,
-      "docLastName": ege.tab_ege_lastname,
-      "identityCardIssueDate": dateConvert(ege.tab_ege_identityCardIssueDate),
-      "identityCardSeries": ege.tab_ege_identityCardSeries,
-      "identityCardNumber": ege.tab_ege_identityCardNumber,
-      "identityCardIssueBy": ege.tab_ege_identityCardIssueBy,
-      "identityCardCode": ege.tab_ege_changePaspInf === false ? "" : ege.tab_ege_selectedIdentityCardCode['identityCardCode'],
-      "yearDeliveryEge": ege.tab_ege_year['academyYearId'],
+  let array = s.ege_info;
+  let array2 = [];
+  for(let j=0; j<array.length; j++){
+    if(array[j].tab_ege_score !== 0 ){
+      array2.push(array[j]);
+    }
+  }
 
 
-      "egeCertificateId": "123",
-      "dataAreaId": "dat",
-      "contactPersonId": "",
-      "egeCertificateNumber": "",
-      "printingNumber": "",
-      "egeCertificateIssueDate": "01.01.1900 00:00",
-      "docType": 0,
-      "examFormEge": 0,
-      "document": 0,
-      "certificateStatus": 0,
-      "locationEge": "",
+  // let flatArray = s.ege_info.map((ege) => {
+  let flatArray = array2.map((ege) => {
+        return {
+          "otherCountyRegionId": ege.tab_ege_changePaspInf === false ? "" : ege.tab_ege_info_selectedCitizenship['countryRegionId'],
+          "docFirstName": ege.tab_ege_firstname,
+          "docMiddleName": ege.tab_ege_middlename,
+          "docLastName": ege.tab_ege_lastname,
+          "identityCardIssueDate": dateConvert(ege.tab_ege_identityCardIssueDate),
+          "identityCardSeries": ege.tab_ege_identityCardSeries,
+          "identityCardNumber": ege.tab_ege_identityCardNumber,
+          "identityCardIssueBy": ege.tab_ege_identityCardIssueBy,
+          "identityCardCode": ege.tab_ege_changePaspInf === false ? "" : ege.tab_ege_selectedIdentityCardCode['identityCardCode'],
+          "yearDeliveryEge": ege.tab_ege_year['academyYearId'],
 
-      "egeCertificateGrantDate": "01.01.1900 00:00",
+
+          "egeCertificateId": "123",
+          "dataAreaId": "dat",
+          "contactPersonId": "",
+          "egeCertificateNumber": "",
+          "printingNumber": "",
+          "egeCertificateIssueDate": "01.01.1900 00:00",
+          "docType": 0,
+          "examFormEge": 0,
+          "document": 0,
+          "certificateStatus": 0,
+          "locationEge": "",
+
+          "egeCertificateGrantDate": "01.01.1900 00:00",
 
 
-      "modifiedBy": "TSST",
-      "egeSubjects": [
-        {
-          "subjectId": getIdEgeSubject(ege.tab_ege_selectedSubject), // "РусскЯз",
-          "score": ege.tab_ege_score,
-          "scoreFis": 0,
-          "orderBy": getOrderEgeSubject(ege.tab_ege_selectedSubject),
           "modifiedBy": "TSST",
-          "lastCheckDate": "01.01.1900 00:00",
-          "egeAppealStatus": 1
-        }
-      ]
-    };
+          "egeSubjects": [
+            {
+              "subjectId": getIdEgeSubject(ege.tab_ege_selectedSubject), // "РусскЯз",
+              "score": ege.tab_ege_score,
+              "scoreFis": 0,
+              "orderBy": getOrderEgeSubject(ege.tab_ege_selectedSubject),
+              "modifiedBy": "TSST",
+              "lastCheckDate": "01.01.1900 00:00",
+              "egeAppealStatus": 1
+            }
+          ]
+        };
+
   });
 
   let result = flatArray.reduce((accum, el)=> {
@@ -515,9 +527,7 @@ let fillEge = function(s){
     const i = accum.findIndex((e) => {
       return egeDocComparator(el, e)
     });
-    // some((function(e, index)) => {
-    //   return egeDocComparator(el, e)
-    // });
+
     if (i === -1) {
       accum.push(el);
     } else {
@@ -526,106 +536,16 @@ let fillEge = function(s){
     return accum;
   }, []);
 
+  // for(let j=0;j<result.length;j++){
+  //   for(let x=0; x<result[j].egeSubjects.length; x++){
+  //     if(result.egeSubjects[x].score === 0){
+  //       result.egeSubjects.splice(x,1)
+  //     }
+  //   }
+  // }
+
   return result = Array.isArray(result) ? result : [];
 };
-
-
-// let fillEge = function(s){
-//   let person = s.person_info;
-//
-//   let result = s.ege_info.map((ege) => {
-//     if(ege.tab_ege_score !== 0) {
-//       return ege;
-//     }
-//
-//       // return {
-//       //   "otherCountyRegionId": ege.tab_ege_info_selectedCitizenship['countryRegionId'],// "КАЗАХСТАН",
-//       //   "docFirstName": ege.tab_ege_firstname > '' ? ege.tab_ege_firstname : person.tab_personal_firstname,
-//       //   "docMiddleName": ege.tab_ege_middlename > '' ? ege.tab_ege_middlename : person.tab_personal_middlename,
-//       //   "docLastName": ege.tab_ege_lastname > '' ? ege.tab_ege_lastname : person.tab_personal_lastname,
-//       //   "identityCardIssueDate": ege.tab_ege_identityCardIssueDate > '' ? dateConvert(ege.tab_ege_identityCardIssueDate) : dateConvert(person.tab_personal_identityCardIssueDate),   // "01.07.2000 00:00",
-//       //   "identityCardSeries": ege.tab_ege_identityCardSeries > '' ? ege.tab_ege_identityCardSeries : person.tab_personal_identityCardSeries, // "4587",
-//       //   "identityCardNumber": ege.tab_ege_identityCardNumber > '' ? ege.tab_ege_identityCardNumber : person.tab_personal_identityCardNumber, // "98425252",
-//       //   "identityCardIssueBy": ege.tab_ege_identityCardIssueBy > '' ? ege.tab_ege_identityCardIssueBy : person.tab_personal_identityCardIssueBy,
-//       //   "identityCardCode": ege.tab_ege_selectedIdentityCardCode['identityCardCode'] || 'Паспорт РФ', //"87-89",
-//       //   "yearDeliveryEge": ege.tab_ege_year > '' ? ege.tab_ege_year['academyYearId'] : '2019', // "2019",
-//       //
-//       //
-//       //   "egeCertificateId": "123",
-//       //   "dataAreaId": "dat",
-//       //   "contactPersonId": "",
-//       //   "egeCertificateNumber": "",
-//       //   "printingNumber": "",
-//       //   "egeCertificateIssueDate": "01.01.1900 00:00",
-//       //   "docType": 0,
-//       //   "examFormEge": 0,
-//       //   "document": 0,
-//       //   "certificateStatus": 0,
-//       //   "locationEge": "",
-//       //
-//       //   "egeCertificateGrantDate": "01.01.1900 00:00",
-//       //
-//       //
-//       //   "modifiedBy": "TSST",
-//       //   "egeSubjects": [
-//       //     {
-//       //       "modifiedBy": "TSST",
-//       //       "subjectId": getIdEgeSubject(ege.tab_ege_selectedSubject), // "РусскЯз",
-//       //       "score": ege.tab_ege_score,
-//       //       "scoreFis": 0,
-//       //       "orderBy": getOrderEgeSubject(ege.tab_ege_selectedSubject),
-//       //       "lastCheckDate": "01.01.1900 00:00",
-//       //       "egeAppealStatus": 1
-//       //     }
-//       //   ]
-//       // };
-//
-//   });
-//   // let anotherMass = result.map((ege) =>{
-//   //
-//   // });
-//
-//   let resultAfterCheckingScoreExistAndYearEqualsAndPasSeriesNumber  = [];
-//
-//   for(let i = 0; i<result.length; i++){
-//     if(result.length !== 0){
-//       if(result.length === 1){
-//         //TODO push formated object to return result massive (result[0])
-//       }
-//       if(result.length === 2){
-//         if( (result[0].tab_ege_year !== result[1].tab_ege_year) &&
-//             (result[0].tab_ege_identityCardSeries !== result[1].tab_ege_identityCardSeries) &&
-//             (result[0].tab_ege_identityCardNumber !== result[1].tab_ege_identityCardNumber)){
-//           //TODO push formated object to return result massive (result[0], result[1] in two different cert)
-//         }else{
-//           //TODO push formated object to return result massive (result[0], result[1] in one cert)
-//         }
-//
-//       }
-//       let checkAB = false;
-//       let checkBC = false;
-//       let checkAC = false;
-//       if(result.length === 3){
-//         if( ((result[0].tab_ege_year === result[1].tab_ege_year) &&
-//           (result[0].tab_ege_identityCardSeries === result[1].tab_ege_identityCardSeries) &&
-//           (result[0].tab_ege_identityCardNumber === result[1].tab_ege_identityCardNumber)) &&
-//
-//           ((result[1].tab_ege_year === result[2].tab_ege_year) &&
-//           (result[1].tab_ege_identityCardSeries === result[2].tab_ege_identityCardSeries) &&
-//           (result[1].tab_ege_identityCardNumber === result[2].tab_ege_identityCardNumber)) &&
-//
-//           ((result[0].tab_ege_year === result[2].tab_ege_year) &&
-//            (result[0].tab_ege_identityCardSeries === result[2].tab_ege_identityCardSeries) &&
-//            (result[0].tab_ege_identityCardNumber === result[2].tab_ege_identityCardNumber))
-//         ) {
-//           //TODO push formated object to return result massive (result[0], result[1], result[2] in one cert)
-//         }
-//       }
-//     }
-//   }
-//
-//   return result = Array.isArray(result) ? result : [];
-// };
 
 
 let fillFiasPerson = function(s){

@@ -193,6 +193,10 @@
             field: 'tab_personal_birthplace',
             answer: 'место рождения (вкладка личные сведения)'
           },
+          {
+            field: 'tab_personal_email',
+            answer: 'электронная почта (вкладка личные сведения)'
+          },
           //--------------------------------------------------------------------
           {
             field: 'tab_edu_military_educationLevel',
@@ -235,6 +239,7 @@
       tab_personal_identityCardIssueDate: {required},
       tab_personal_selectedCitizenship: {required},
       tab_personal_birthplace: {required},
+      tab_personal_email: {required},
 
       tab_edu_military_educationLevel: {required},
       tab_edu_military_univer: {required},
@@ -249,7 +254,8 @@
         'tab_personal_firstname_genitive', 'tab_personal_birthDate',
         'tab_personal_selectedIdentityCardCode', 'tab_personal_identityCardSeries',
         'tab_personal_identityCardNumber','tab_personal_identityCardIssueBy',
-        'tab_personal_identityCardIssueDate','tab_personal_selectedCitizenship','tab_personal_birthplace',
+        'tab_personal_identityCardIssueDate','tab_personal_selectedCitizenship','tab_personal_birthplace','tab_personal_email',
+
         'tab_edu_military_educationLevel', 'tab_edu_military_univer', 'tab_edu_military_selectedAcademyYear',
         'tab_edu_military_selectedEduDoc', 'tab_edu_military_eduDocSerial', 'tab_edu_military_eduDocNumber'
       ],
