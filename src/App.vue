@@ -17,11 +17,26 @@
 <script>
 import Header from "./components/layouts/Header";
 import Profile from "./components/pages/Profile";
+import {AxiosInstance as AXIOS} from "axios";
 
 export default {
   name: 'app',
   components: {Header, Profile},
 
+  // created: function () {
+  //   AXIOS.interceptors.response.use(undefined, function (err) {
+  //     return new Promise(function (resolve, reject) {
+  //       if (err.status === 401 && err.config) {
+  //         // if you ever get an unauthorized, logout the user
+  //         // this.$store.dispatch(AUTH_LOGOUT)
+  //         // location.href='/login';
+  //         console.log("==============================================================================")
+  //         // you can also redirect to /login if needed !
+  //       }
+  //       throw err;
+  //     });
+  //   });
+  // }
 }
 </script>
 

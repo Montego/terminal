@@ -218,37 +218,20 @@
           .then(response => {
           }).catch(e => {
           console.log(e)
-          // this.errors.push(e)
         })
       },
 
 
       onPrintDocuments() {
-        console.log(this.$store.state.applicationId)
-
+        console.log(this.$store.state.applicationId);
         let id = this.$store.state.applicationId;
         window.open('http://10.71.0.115/appldoclist/' + id + '.xlsm');
-        // AXIOS_print.get('/appldoclist/'+ id + '.xlsm' )
-        //   .then(response => {
-        //
-        //   }).catch(e => {
-        //   console.log(e)
-        //   // this.errors.push(e)
-        // })
       },
 
       onPrintAgreement() {
         console.log(this.$store.state.agreementId)
-
         let id = this.$store.state.agreementId;
         window.open('http://10.71.0.115/agreement/' + id + '.xlsm');
-        // AXIOS_print.get('/agreement/'+ id + '.xlsm' )
-        //   .then(response => {
-        //
-        //   }).catch(e => {
-        //   console.log(e)
-        //   // this.errors.push(e)
-        // })
       },
 
 
@@ -298,6 +281,9 @@
       ...mapGetters(['ADRText']),
       ...mapGetters(['ADRSearchObject']),
       onNewProfile() {
+
+
+        this.$store.dispatch('onClearIdsFromAxapta');
         this.ADRSearchObject()[0] = {};
         this.ADRSearchObject()[1] = {};
         this.ADRSearchObject()[2] = {};

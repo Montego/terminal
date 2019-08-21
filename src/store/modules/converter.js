@@ -447,9 +447,7 @@ let fillPrefs = function(s) {
 //TODO check ege
 let egeDocComparator = (a, b) => {
 
-  return
-  // (a.otherCountyRegionId      === b.otherCountyRegionId)
-     (a.docFirstName             === b.docFirstName)
+  return (a.docFirstName             === b.docFirstName)
     && (a.docMiddleName            === b.docMiddleName)
     && (a.docLastName              === b.docLastName)
     && (a.identityCardIssueDate    === b.identityCardIssueDate)
@@ -458,6 +456,8 @@ let egeDocComparator = (a, b) => {
     && (a.identityCardIssueBy      === b.identityCardIssueBy)
     && (a.identityCardCode         === b.identityCardCode)
     && (a.yearDeliveryEge          === b.yearDeliveryEge);
+  // (a.otherCountyRegionId      === b.otherCountyRegionId)
+
 };
 
 
@@ -469,6 +469,7 @@ let fillEge = function(s){
 
   let array = s.ege_info;
   let array2 = [];
+
   for(let j=0; j<array.length; j++){
     if(array[j].tab_ege_score !== 0 ){
 
@@ -537,7 +538,7 @@ let fillEge = function(s){
   });
 
   let result = flatArray.reduce((accum, el)=> {
-    console.log(accum);
+    console.log('accum: ',accum);
     const i = accum.findIndex((e) => {
       return egeDocComparator(el, e)
     });
@@ -549,14 +550,6 @@ let fillEge = function(s){
     }
     return accum;
   }, []);
-
-  // for(let j=0;j<result.length;j++){
-  //   for(let x=0; x<result[j].egeSubjects.length; x++){
-  //     if(result.egeSubjects[x].score === 0){
-  //       result.egeSubjects.splice(x,1)
-  //     }
-  //   }
-  // }
 
   return result = Array.isArray(result) ? result : [];
 };

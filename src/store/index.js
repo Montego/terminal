@@ -28,6 +28,7 @@ import converter from "./modules/converter";
 import specialist from "./xmodules/specialist";
 import {getField, updateField} from "vuex-map-fields";
 import addressDto from "./xmodules/addressDto";
+import {AXIOS} from "../components/plugins/APIService";
 
 Vue.use(VueTheMask);
 Vue.use(VeeValidate);
@@ -56,10 +57,20 @@ export const store = new Vuex.Store({
         state.applicationId = payload.applicationId ;
         state.contactPersonId = payload.contactPersonId;
         console.log(state.agreementId)
+    },
+    clearIdsFromAxapta(state){
+      state.agreementId = 'nothing';
+      state.applicationId = 'nothing' ;
+      state.contactPersonId = 'nothing';
+      console.log(state.agreementId)
     }
 
   },
   actions: {
+    onClearIdsFromAxapta({commit}) {
+          commit('clearIdsFromAxapta');
+    },
+
 
     async go(ctx, payload = null){
       let id = payload ? payload : '686';

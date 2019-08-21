@@ -231,7 +231,11 @@
       tab_personal_firstname: {required},
       tab_personal_lastname_genitive: {required},
       tab_personal_firstname_genitive: {required},
-      tab_personal_birthDate: {required},
+      tab_personal_birthDate: {required,
+        validDate: val => (new Date(val)).toString() !== 'Invalid Date',
+        foreverYang: function (val) {
+          return (this.fullage > 16) && (this.fullage < 75);
+        }},
       tab_personal_selectedIdentityCardCode: {required},
       tab_personal_identityCardSeries: {required},
       tab_personal_identityCardNumber: {required},
@@ -267,6 +271,19 @@
 
     },
     computed: {
+      fullage: function () {
+        let today = new Date();
+        let birth = new Date(this.tab_personal_birthDate);
+        let age;
+        if (birth.toString() === 'Invalid Date') {
+          age = '';
+        } else {
+          age = (new Date(today - birth)).getFullYear() - 1970;
+        }
+        return age;
+      },
+
+
       ...mapMultiRowFields(['persons']),
       ...person(['person', 'showProfile', 'profiles', 'isModalVisible', 'errorMessages', 'successMessage',
         'tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename', 'tab_personal_lastname_genitive',
@@ -296,8 +313,8 @@
       ...applications(['application', 'application_person_id', 'application_person_name', 'applId', 'applTableName',
         'applTableNumber', 'applTableDate', 'applTableDeliveryType', 'applicationId', 'apls', 'chooseAppls', 'resultApl',
         'checkTargCount', 'checkSpecCount', 'message', 'checCountBudgetAndCel',
-      'lechDelCel','lechDelBudget','medProfCel', 'medProfBudget','stomDelCel','stomDelBudget','howMuchTarg',
-      'targEduLechDel','targEduMedProf','targEduStomDel','targCountCheck'],),
+        'lechDelCel','lechDelBudget','medProfCel', 'medProfBudget','stomDelCel','stomDelBudget','howMuchTarg',
+        'targEduLechDel','targEduMedProf','targEduStomDel','targCountCheck'],),
       ...mapState('dictionary', ['targOrg'],),
       ...mapGetters('dictionary', ['GET_targOrg']),
       ...mapGetters(['ADRDTO']),

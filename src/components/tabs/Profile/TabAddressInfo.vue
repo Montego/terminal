@@ -134,7 +134,7 @@
 
       copyAddress(){
         this.copy = 1;
-        this.ADRDTO[1].addressType = {"id": "1", "name": "Адрес фактический"};
+        this.ADRDTO[1].addressType = {"id": 1, "name": "Адрес фактический"};
         this.ADRDTO[1].lineNum = 1;
 
         this.ADRDTO[1].addressAdmObject = this.ADRDTO[0].addressAdmObject;

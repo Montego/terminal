@@ -595,31 +595,62 @@
           this.person.application.saved = "Сохранено";
           // console.log(this.person.person_info.tab_personal_lastname)
 
-
+//TODO чейнинг операций
           if (this.person_info_id === '') {
             AXIOS.post(`/profile`, (this.person))
               .then(response => {
                 console.log('saved person ' + response.data);
-                this.person_info_id = response.data;
+
                 if (response.data !== '') {
                   this.showButtons = false;
                 }
+                let id = response.data;
+                return id;
+              })
+              .then(id => {
+                  this.axapta(id);
+                  // let codesAxapta = this.axapta(id);
+                })
+              .then(() => {
+                if (this.agreementId !== "nothing" || this.agreementId !== null) {
+                      this.showPrintAgreement = true;
+                    }
+                    if (this.applicationId !== 'nothing' || this.applicationId !== null) {
+                      this.showPrintApplication = true;
+                    }
+                    if (this.contactPersonId !== 'nothing' || this.contactPersonId !== null) {
+                      this.showPrintDocuments = true;
+                    }
 
-                this.axapta(this.person_info_id);
+                // setTimeout(() => {
+                //   // this.submitStatus = 'PENDING';
+                //
+                //   if (this.agreementId !== "nothing" || this.agreementId !== null) {
+                //     this.showPrintAgreement = true;
+                //   }
+                //   if (this.applicationId !== 'nothing' || this.applicationId !== null) {
+                //     this.showPrintApplication = true;
+                //   }
+                //   if (this.contactPersonId !== 'nothing' || this.contactPersonId !== null) {
+                //     this.showPrintDocuments = true;
+                //     this.showButtons = false;
+                //   }
+                // }, 3000);
+              })
 
-                setTimeout(() => {
-                  // this.submitStatus = 'PENDING';
-                  if (this.agreementId !== "nothing" || this.agreementId !== null) {
-                    this.showPrintAgreement = true;
-                  }
-                  if (this.applicationId !== 'nothing' || this.applicationId !== null) {
-                    this.showPrintApplication = true;
-                  }
-                  if (this.contactPersonId !== 'nothing' || this.contactPersonId !== null) {
-                    this.showPrintDocuments = true;
-                    this.showButtons = false;
-                  }
-                  }, 3000);
+                // setTimeout(() => {
+                //   // this.submitStatus = 'PENDING';
+                //   if (this.agreementId !== "nothing" || this.agreementId !== null) {
+                //     this.showPrintAgreement = true;
+                //   }
+                //   if (this.applicationId !== 'nothing' || this.applicationId !== null) {
+                //     this.showPrintApplication = true;
+                //   }
+                //   if (this.contactPersonId !== 'nothing' || this.contactPersonId !== null) {
+                //     this.showPrintDocuments = true;
+                //     this.showButtons = false;
+                //   }
+                //   }, 3000);
 
                 // this.person.axaptaCode.agreementId = this.agreementId;
                 // this.person.axaptaCode.applicationId = this.applicationId;
@@ -634,7 +665,7 @@
                 //     this.errors.push(e)
                 //   });
 
-              })
+
               .catch(e => {
                 this.person.saved = "Не сохранено";
                 // this.errors.push(e)
@@ -655,7 +686,7 @@
           this.submitStatus = 'PENDING';
           setTimeout(() => {
             this.submitStatus = 'OK'
-          }, 3000)
+          }, 1000)
         }
       },
     },
