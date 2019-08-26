@@ -703,9 +703,9 @@
 
       },
       uploadFile(e) {
-        console.log(e)
+        // console.log(e)
         let file = e.target.files[0];
-        this.showimage = URL.createObjectURL(file)
+        this.showimage = URL.createObjectURL(file);
 
         let reader = new FileReader();
         reader.onloadend = (file) => {

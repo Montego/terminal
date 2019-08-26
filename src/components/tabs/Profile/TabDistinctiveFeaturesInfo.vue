@@ -60,6 +60,7 @@
               <label class="row">
                 <div class="form__label-text col-sm">Тип признака:</div>
                 <input v-model="tab_features_selectedAttrType.name" class="uneditable form__input col-sm" type="text" disabled/>
+                <v-icon  color="white">clear</v-icon>
               </label>
 
               <label class="row">
@@ -69,10 +70,12 @@
                     {{item.name}}
                   </option>
                 </select>
+                <v-icon  color="white">clear</v-icon>
               </label>
               <label class="row">
                 <div class="form__label-text col-sm">Балл ИД</div>
                 <input v-model="tab_features_selectedPreference.points" class="form__input col-sm" type="text" disabled/>
+                <v-icon  color="white">clear</v-icon>
               </label>
             </div>
             <div class="col-sm-8">
