@@ -612,8 +612,8 @@ let dtoToFias = function(dto){
 
 let fillTotal = function (s) {
   let person = s.person_info;
-  console.log(person.tab_edu_military_educationLevel.eduLevelId, 'person.tab_edu_military_educationLevel.eduLevelId')
-  console.log(person.tab_edu_military_educationLevel, 'person.tab_edu_military_educationLevel')
+  // console.log(person.tab_edu_military_educationLevel.eduLevelId, 'person.tab_edu_military_educationLevel.eduLevelId')
+  // console.log(person.tab_edu_military_educationLevel, 'person.tab_edu_military_educationLevel')
   return {
     "lastName": person.tab_personal_lastname,
     "firstName": person.tab_personal_firstname,

@@ -550,6 +550,7 @@
         } else {
           this.message = "";
           this.isModalVisible = false;
+          location.href='profile#conditions_overview';
         }
         // this.isModalVisible = false;
 

@@ -8,11 +8,15 @@ export default {
     applicationId: '',
     contactPersonId: '',
     //TODO массив для проверки всех обязательных форм на заполнение и корректность
-    fullValidations:[],
 
     personInfoSavedId: '',
     successMessage: "",
     errorMesages: [],
+
+    showPrintApplication: false,
+    showPrintDocuments: false,
+    showPrintAgreement: false,
+
 
     showProfile: true,
     profiles: [],
@@ -327,19 +331,16 @@ export default {
       subjectScores : [
         {
           subjectId:'Хим',
-          // person:{},
           examPoint: 0,
           examForm: {"id":10,"name":"Вступит. испытания"}
         },
         {
           subjectId:'Биол',
-          // person:{},
           examPoint: 0,
           examForm: {"id":10,"name":"Вступит. испытания"}
         },
         {
           subjectId:'РусскЯз',
-          // person:{},
           examPoint: 0,
           examForm: {"id":10,"name":"Вступит. испытания"}
         },
@@ -359,19 +360,9 @@ export default {
     }
   },
   actions: {
-    // async go(ctx, payload = null){
-    //   let id = payload ? payload : '852';
-    //   let url = '/operator_api/profile/personByPersonInfo/' + id;
-    //   let r = await AXIOS.get(url);
-    //   let result = await r.data;
-    //   // console.log(result);
-    //   converter(r.data);
-    //
-    // }
   },
   computed: {
     function(state){
-
     }
   }
 }

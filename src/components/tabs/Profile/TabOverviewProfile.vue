@@ -163,7 +163,7 @@
         'tab_edu_military_militaryNumber', 'tab_edu_military_militarySeries', 'tab_edu_military_militaryIssueDate', 'tab_edu_military_militaryIssueBy',
         'tab_edu_military_militaryRank', 'tab_edu_military_selectedDocType', 'tab_edu_military_docMilitaryShowDate', 'tab_edu_military_startMilitary',
         'tab_edu_military_endMilitary', 'selectedExtraInfos1', 'selectedExtraInfos2', 'extraInfosDescription1', 'extraInfosDescription2', 'image', 'person_info_id',
-        'resultAcceptPerson', 'savedResult', 'saved'
+        'resultAcceptPerson', 'savedResult', 'saved','showPrintApplication','showPrintDocuments','showPrintAgreement'
       ]),
 
       ...applications(['application', 'application_person_id', 'application_person_name', 'applId', 'applTableName',
@@ -282,8 +282,13 @@
       ...mapGetters(['ADRSearchObject']),
       onNewProfile() {
 
+        this.showPrintApplication =  false;
+          this.showPrintDocuments = false;
+          this.showPrintAgreement = false;
 
+        console.log(this.$store.state.applicationId);
         this.$store.dispatch('onClearIdsFromAxapta');
+        console.log(this.$store.state.applicationId);
         this.ADRSearchObject()[0] = {};
         this.ADRSearchObject()[1] = {};
         this.ADRSearchObject()[2] = {};
@@ -300,7 +305,8 @@
         this.profiles = [];
 
         this.successMessage = "";
-        this.errorMesages = [];
+
+        this.person.person_info.addressesDto = [];
 
         this.person.id = '';
         this.person.person_info.id = '';

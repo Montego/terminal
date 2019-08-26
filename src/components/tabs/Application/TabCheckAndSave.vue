@@ -1,7 +1,8 @@
 <template>
   <div>
-    <span v-if="person.application.saved ==='Сохранено'"> Сохранено!</span>
+    <span v-if="person_info_id !==''"> Сохранено!</span>
     <div v-if="person.application.saved !=='Сохранено'" class="row">
+     <!--<div v-if="person_info_id ===''" class="row">-->
       <div class="col-sm-4">
         <section>
           <div>
@@ -139,7 +140,6 @@
         <!--<hr>-->
 
 
-
         <section>
           <div>
             <h2>Учебное заведение</h2>
@@ -194,7 +194,6 @@
         <!--<input v-model="info.tab_parent_cellularPhone" class="form__input col-sm-6" type="text" disabled/>-->
         <!--</div>-->
         <!--</div>-->
-
       </div>
 
       <div class="col-sm-4">
@@ -203,79 +202,13 @@
             <h2>Предоставленные документы</h2>
           </div>
           <label class="row" v-for="item in this.person.application.application_documents">
-            <!--{{this.person.application.application_documents}}-->
             <div class="form__label-text col-sm">{{ item.fullnameDoc }}</div>
-            <!--<div class="form__label-text col-sm-4">{{ item.environmentId }}</div>-->
           </label>
         </section>
-        <!--<section>-->
-          <!--<div>-->
-            <!--<h2>Заявление</h2>-->
-          <!--</div>-->
-          <!--<label class="row">-->
-            <!--<div class="form__label-text col-sm-5">Номер заявления:</div>-->
-            <!--<input v-model="application.application_number" class="form__input col-sm" type="text" disabled/>-->
-          <!--</label>-->
-          <!--<label class="row">-->
-            <!--<div class="form__label-text col-sm-5">Дата заявления:</div>-->
-            <!--<input v-model="application.application_date" class="form__input col-sm" type="date" disabled/>-->
-          <!--</label>-->
-        <!--</section>-->
-
-        <!--<hr>-->
-        <!--<div>-->
-        <!--<p>Направление</p>-->
-        <!--</div>-->
-        <!--<div>-->
-        <!--<div v-for="info in application.choosenWizards" >-->
-        <!--<label class="row">-->
-        <!--<div class="form__label-text col-sm-4">Факультет:</div>-->
-        <!--<input v-model="info.deparName" class="form__input col-sm-6" type="text" disabled/>-->
-        <!--</label>-->
-        <!--<label class="row">-->
-        <!--<div class="form__label-text col-sm-4">Специальность:</div>-->
-        <!--<input v-model="info.specialityId" class="form__input col-sm-6" type="text" disabled/>-->
-        <!--</label>-->
-        <!--&lt;!&ndash;<label class="row">&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="form__label-text col-sm-4">Специальное право:</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;<input v-model="info.selected_typeOfSpecialRight" class="form__input col-sm-6" type="text" disabled/>&ndash;&gt;-->
-        <!--&lt;!&ndash;</label>&ndash;&gt;-->
-        <!--</div>-->
-
-        <!--</div>-->
-        <!--<hr>-->
-        <!--<div>-->
-        <!--<p>Документы</p>-->
-        <!--</div>-->
-        <!--<div>-->
-
-          <!--<div v-for="info in application.application_documents">-->
-            <!--<div class="row">-->
-              <!--<div class="form__label-text col-sm-4">Документы:</div>-->
-              <!--<input v-model="info.name" class="form__input col-sm" type="text" disabled/>-->
-            <!--</div>-->
-            <!--<div class="row">-->
-              <!--<div class="form__label-text col-sm-4">Серия:</div>-->
-              <!--<input v-model="info.serial" class="form__input col-sm" type="text" disabled/>-->
-            <!--</div>-->
-            <!--<div class="row">-->
-              <!--<div class="form__label-text col-sm-4">Номер:</div>-->
-              <!--<input v-model="info.number" class="form__input col-sm" type="text" disabled/>-->
-            <!--</div>-->
-            <!--<label class="row">-->
-              <!--<div class="form__label-text col-sm-4">Количество:</div>-->
-              <!--<input v-model="info.count" class="form__input col-sm" type="text" disabled/>-->
-            <!--</label>-->
-
-            <!--&lt;!&ndash;{{ todo.text }}&ndash;&gt;-->
-          <!--</div>-->
-          <!--&lt;!&ndash;this.acceptedPerson&ndash;&gt;-->
-        <!--</div>-->
       </div>
 
 
     </div>
-    <!--{{this.application}}-->
     <div v-if="showPrintAgreement || showPrintApplication || showPrintDocuments">
       <button v-if="showPrintApplication" @click="onPrintApplication()">
         Заявление
@@ -288,7 +221,6 @@
       </button>
     </div>
 
-    <!--{{this.person}}-->
     <div class="clear_save_button row">
       <!--<button v-if="this.resultAcceptPerson !=='Утверждено'" @click="onAcceptPerson">Утвердить</button>-->
       <!--{{this.application}}-->
@@ -300,13 +232,13 @@
       <button v-if="person.saved !== 'Сохранено'" @click="onSave">Сохранить</button>
 
       <!--<button v-if="showPrintAgreement || showPrintApplication || showPrintDocuments"-->
-              <!--@click="onSave">Сохранить</button>-->
+      <!--@click="onSave">Сохранить</button>-->
 
       <p class="typo__p" v-if="submitStatus === 'ERROR'"></p>
       <p class="typo__p" v-if="submitStatus === 'PENDING'">Проверка...</p>
       <div class="box">
         <span>
-           <ul >
+           <ul>
           <li v-for="value in validAnswer">
              -- {{ value.answer }}
           </li>
@@ -316,8 +248,11 @@
 
       <!--TODO исправить говнокод: достает данные из вложенного this.person.application.application_date в application_date для валидации-->
       <input v-model="application_date = this.person.application.application_date" hidden>
-      <input v-model="application_selectedDeliveryType = this.person.application.application_selectedDeliveryType" hidden>
-      <input v-model="application_selectedDeliveryReturnType = this.person.application.application_selectedDeliveryReturnType" hidden>
+      <input v-model="application_selectedDeliveryType = this.person.application.application_selectedDeliveryType"
+             hidden>
+      <input
+        v-model="application_selectedDeliveryReturnType = this.person.application.application_selectedDeliveryReturnType"
+        hidden>
       <input v-model="application_selectedDocType = this.person.application.application_selectedDocType" hidden>
       <!--<button v-if="showButtons || person.application.saved ==='Сохранено'" @click="onSave">Сохранить</button>-->
 
@@ -345,29 +280,27 @@
     getterType: 'person/getField',
     mutationType: 'person/updateField',
   });
-  // const {mapFields: index} = createHelpers({
-  //   getterType: 'index/getField',
-  //   mutationType: 'index/updateField',
-  // });
+
   export default {
     name: "Other",
     data() {
       return {
         showButtons: true,
-        showPrintApplication: false,
-        showPrintDocuments: false,
-        showPrintAgreement: false,
+        // showPrintApplication: false,
+        // showPrintDocuments: false,
+        // showPrintAgreement: false,
+
         savedInfo: [],
 
         application_date: '',
         application_selectedDeliveryType: '',
         application_selectedDeliveryReturnType: '',
-        application_selectedDocType:'',
+        application_selectedDocType: '',
 
 
         submitStatus: null,
         validAnswer: [],
-        optionsErrorAnswer:[
+        optionsErrorAnswer: [
           {
             field: 'application_date',
             answer: 'Не заполнена дата заявления'
@@ -384,13 +317,12 @@
             field: 'application_selectedDocType',
             answer: 'Не заполнено поле документ об образовании'
           },
-          ]
+        ]
       }
 
     },
 
     computed: {
-      // ...index(['agreementId','applicationId','contactPersonId']),
       ...applications(['application',]),
       ...tab_reception_condition(['file',]),
       ...mapGetters(['ADRDTO']),
@@ -416,10 +348,12 @@
         'tab_edu_military_militaryIssueDate', 'tab_edu_military_militaryIssueBy', 'tab_edu_military_militaryRank',
         'tab_edu_military_selectedDocType', 'tab_edu_military_docMilitaryShowDate', 'tab_edu_military_startMilitary',
         'tab_edu_military_endMilitary', 'image', 'showimage', 'acceptedPerson', 'profiles', 'selectedExtraInfos1',
-        'selectedExtraInfos2', 'extraInfosDescription1', 'extraInfosDescription2', 'score_five','score_four','score_three',
-        'score_full', 'subjectScores'
+        'selectedExtraInfos2', 'extraInfosDescription1', 'extraInfosDescription2', 'score_five', 'score_four', 'score_three',
+        'score_full', 'subjectScores','showPrintApplication','showPrintDocuments','showPrintAgreement'
       ]),
-
+      agreement() {
+        return this.agreementId;
+      }
     },
     validations: {
       //validations rules
@@ -435,15 +369,32 @@
 
       ],
     },
+    watch: {
+
+
+      agreementId: {function (){
+          console.log('agreementId watcher')
+        }
+      },
+      applicationId: {function (){
+          console.log('applicationId watcher')
+        }
+      },
+      contactPersonId: {function (){
+          console.log('contactPersonId watcher')
+        }
+      },
+
+    },
     methods: {
       check(GroupsValidationInfo) {
         let entries = Object.entries(GroupsValidationInfo);
         let i = 0;
 
         for (i; i < entries.length; i++) {
-          for(let j = 0; j < this.optionsErrorAnswer.length; j++){
+          for (let j = 0; j < this.optionsErrorAnswer.length; j++) {
             if (entries[i][0] === this.optionsErrorAnswer[j].field) {
-              if(entries[i][1].$invalid){
+              if (entries[i][1].$invalid) {
                 this.validAnswer.push(this.optionsErrorAnswer[j]);
               }
             }
@@ -484,8 +435,7 @@
           this.submitStatus = 'ERROR';
 
           this.check(this.$v.GroupsValidationInfo);
-        }
-        else {
+        } else {
 
           this.person.person_info.tab_personal_lastname = this.tab_personal_lastname;
           this.person.person_info.tab_personal_firstname = this.tab_personal_firstname;
@@ -565,107 +515,63 @@
 
           this.person.person_info.image = this.image;
 
-          for (let j = 0; j < 3; j++){
-            if (this.person.ege_info[j].tab_ege_score !== 0){
-              if(this.person.ege_info[j].tab_ege_selectedSubject === "Химия"){
+          for (let j = 0; j < 3; j++) {
+            if (this.person.ege_info[j].tab_ege_score !== 0) {
+              if (this.person.ege_info[j].tab_ege_selectedSubject === "Химия") {
                 this.person.subjectScores[0].examPoint = this.person.ege_info[j].tab_ege_score;
-                this.person.subjectScores[0].examForm = {"id":0,"name":"ЕГЭ"};
+                this.person.subjectScores[0].examForm = {"id": 0, "name": "ЕГЭ"};
               }
-              if(this.person.ege_info[j].tab_ege_selectedSubject === "Биология"){
+              if (this.person.ege_info[j].tab_ege_selectedSubject === "Биология") {
                 this.person.subjectScores[1].examPoint = this.person.ege_info[j].tab_ege_score;
-                this.person.subjectScores[1].examForm = {"id":0,"name":"ЕГЭ"};
+                this.person.subjectScores[1].examForm = {"id": 0, "name": "ЕГЭ"};
               }
-              if(this.person.ege_info[j].tab_ege_selectedSubject === "Русский язык"){
+              if (this.person.ege_info[j].tab_ege_selectedSubject === "Русский язык") {
                 this.person.subjectScores[2].examPoint = this.person.ege_info[j].tab_ege_score;
-                this.person.subjectScores[2].examForm = {"id":0,"name":"ЕГЭ"};
+                this.person.subjectScores[2].examForm = {"id": 0, "name": "ЕГЭ"};
               }
             }
           }
 
 
           let x = this.ADRDTO;
-          for(let i = 0; i < 3; i++){
+          for (let i = 0; i < 3; i++) {
             this.person.person_info.addressesDto.push(x[i])
           }
-
-          // this.person.person_info.addressesDto
-
+          console.log('АДРЕСА ПЕРЕД СОХРАНЕНИЕМ',this.person.person_info.addressesDto);
           this.person.person_info.showimage = this.showimage;
-          this.person.saved = "Сохранено";
+          // this.person.saved = "Сохранено";
           this.person.application.saved = "Сохранено";
-          // console.log(this.person.person_info.tab_personal_lastname)
 
-//TODO чейнинг операций
+//TODO проверить чейнинг операций
           if (this.person_info_id === '') {
             AXIOS.post(`/profile`, (this.person))
               .then(response => {
                 console.log('saved person ' + response.data);
-
+                //todo check out next line
+                // this.person.saved = response.data.saved;
+                this.person.saved = "Сохранено";
                 if (response.data !== '') {
                   this.showButtons = false;
                 }
                 let id = response.data;
+                console.log('returned id ----------',id);
                 return id;
               })
               .then(id => {
-                  this.axapta(id);
-                  // let codesAxapta = this.axapta(id);
-                })
-              .then(() => {
-                if (this.agreementId !== "nothing" || this.agreementId !== null) {
-                      this.showPrintAgreement = true;
-                    }
-                    if (this.applicationId !== 'nothing' || this.applicationId !== null) {
-                      this.showPrintApplication = true;
-                    }
-                    if (this.contactPersonId !== 'nothing' || this.contactPersonId !== null) {
-                      this.showPrintDocuments = true;
-                    }
-
-                // setTimeout(() => {
-                //   // this.submitStatus = 'PENDING';
-                //
-                //   if (this.agreementId !== "nothing" || this.agreementId !== null) {
-                //     this.showPrintAgreement = true;
-                //   }
-                //   if (this.applicationId !== 'nothing' || this.applicationId !== null) {
-                //     this.showPrintApplication = true;
-                //   }
-                //   if (this.contactPersonId !== 'nothing' || this.contactPersonId !== null) {
-                //     this.showPrintDocuments = true;
-                //     this.showButtons = false;
-                //   }
-                // }, 3000);
+                this.axapta(id);
               })
+              .then(() => {
 
-                // setTimeout(() => {
-                //   // this.submitStatus = 'PENDING';
-                //   if (this.agreementId !== "nothing" || this.agreementId !== null) {
-                //     this.showPrintAgreement = true;
-                //   }
-                //   if (this.applicationId !== 'nothing' || this.applicationId !== null) {
-                //     this.showPrintApplication = true;
-                //   }
-                //   if (this.contactPersonId !== 'nothing' || this.contactPersonId !== null) {
-                //     this.showPrintDocuments = true;
-                //     this.showButtons = false;
-                //   }
-                //   }, 3000);
-
-                // this.person.axaptaCode.agreementId = this.agreementId;
-                // this.person.axaptaCode.applicationId = this.applicationId;
-                // this.person.axaptaCode.contactPersonId = this.contactPersonId;
-
-                // AXIOS.put('/profile/person/' + this.person_info_id, (this.person))
-                //   .then(response => {
-                //     console.log("person was updated");
-                //     this.showButtons = true;
-                //   })
-                //   .catch(e => {
-                //     this.errors.push(e)
-                //   });
-
-
+                if (this.$store.state.applicationId !== "nothing" || this.agreementId !== null) {
+                  this.showPrintAgreement = true;
+                }
+                if (this.$store.state.applicationId !== 'nothing' || this.applicationId !== null) {
+                  this.showPrintApplication = true;
+                }
+                if (this.$store.state.applicationId !== 'nothing' || this.contactPersonId !== null) {
+                  this.showPrintDocuments = true;
+                }
+              })
               .catch(e => {
                 this.person.saved = "Не сохранено";
                 // this.errors.push(e)
@@ -703,29 +609,12 @@
     background: #e6e3df;
     text-align: left;
   }
+
   .box span {
 
     display: inline-block;
     box-shadow: inset 2px 2px 5px rgba(154, 147, 140, 0.5), 1px 1px 5px rgba(255, 255, 255, 1);
   }
-
-  /*.section-data {*/
-  /*padding: 10px 20px;*/
-  /*background: rgba(114, 172, 196, 0.2);*/
-  /*}*/
-
-  /*.section-data__title {*/
-  /*font-size: 30px;*/
-  /*}*/
-
-  /*.section-data__label-text {*/
-  /*margin-bottom: 5px;*/
-  /*font-weight: 700;*/
-  /*}*/
-
-  /*.section-data__input {*/
-  /*height: 30px;*/
-  /*}*/
 
   input.checkbox {
     margin-top: 8px;
@@ -769,8 +658,7 @@
   button {
     min-width: 100px;
     padding: 10px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     border-radius: 5px;
     background-color: ghostwhite;
     /*background-color: #EDD19C;*/

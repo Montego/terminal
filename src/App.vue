@@ -1,16 +1,9 @@
 <template>
   <div id="app" data-app>
     <div class="header">
-      <!--<Header></Header>-->
     </div>
-    <!--<div class="container">-->
-    <!--<Profile>-->
-      <!---->
-    <!--</Profile>-->
       <router-view>
-
       </router-view>
-    <!--</div>-->
   </div>
 </template>
 
@@ -22,7 +15,7 @@ import {AxiosInstance as AXIOS} from "axios";
 export default {
   name: 'app',
   components: {Header, Profile},
-
+//TODO check it --> part of making login/logout with vuex
   // created: function () {
   //   AXIOS.interceptors.response.use(undefined, function (err) {
   //     return new Promise(function (resolve, reject) {
