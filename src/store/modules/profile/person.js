@@ -17,6 +17,7 @@ export default {
     showPrintDocuments: false,
     showPrintAgreement: false,
 
+    preferencesByEduLevel:[],
 
     showProfile: true,
     profiles: [],

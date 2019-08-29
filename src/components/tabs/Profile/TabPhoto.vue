@@ -702,6 +702,7 @@
 
 
       },
+      //console/log(check) for
       uploadFile(e) {
         // console.log(e)
         let file = e.target.files[0];

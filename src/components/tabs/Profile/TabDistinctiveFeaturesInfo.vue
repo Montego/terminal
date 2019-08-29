@@ -46,7 +46,8 @@
                         @change="getAttrTypeById(tab_features_selectedPreference)"
 
                         class="minimal col-sm">
-                  <option v-for="item in preference" v-bind:value="item">
+                  <!--<option v-for="item in preference" v-bind:value="item">-->
+                  <option v-for="item in preferencesByEduLevel" v-bind:value="item">
                     {{item.name}}
                   </option>
                 </select>
@@ -65,7 +66,12 @@
 
               <label class="row">
                 <div class="form__label-text col-sm">Тип диплома:</div>
-                <select v-model="tab_features_selectedTypeDiploma"  class="minimal col-sm">
+                <select v-if="tab_features_selectedPreference.attrType === 2" v-model="tab_features_selectedTypeDiploma"  class="minimal col-sm">
+                  <option v-for="item in typeDiploma" v-bind:value="item">
+                    {{item.name}}
+                  </option>
+                </select>
+                <select v-else v-model="tab_features_selectedTypeDiploma"  class="uneditable minimal col-sm" disabled>
                   <option v-for="item in typeDiploma" v-bind:value="item">
                     {{item.name}}
                   </option>
@@ -133,10 +139,10 @@
                   <label class="row">
                     <div class="form__label-text col-sm">Документ:</div>
 
-                    <textarea v-if="doc1.name!== 'Иной документ'" :value="doc1_full_info = doc1.name + ' ' + doc1_serial+ ' '+ doc1_number + ' ' + tab_features_selectedDocType1.name + ' ' +
-                     doc1_IssuDate + ' ' + doc1_IssueBy" class="col-sm" name="birth_place" disabled></textarea>
-                    <textarea v-else :value="doc1_full_info = doc1_newName + ' ' + doc1_serial+ ' '+ doc1_number + ' ' + tab_features_selectedDocType1.name + ' ' +
-                     doc1_IssuDate + ' ' + doc1_IssueBy" class="col-sm" name="birth_place" disabled></textarea>
+                    <textarea v-if="doc1.name!== 'Иной документ'" :value="doc1_full_info = doc1.name + ' Серия ' + doc1_serial+ ' № '+ doc1_number + ' от ' +
+                    doc1_IssuDate + ' выдан ' + doc1_IssueBy + '('+tab_features_selectedDocType1.name + ')' " class="col-sm" name="birth_place" disabled></textarea>
+                    <textarea v-else :value="doc1_full_info = doc1_newName + ' Серия ' + doc1_serial+ ' № '+ doc1_number + ' от ' +
+                    doc1_IssuDate + ' выдан ' + doc1_IssueBy + '('+tab_features_selectedDocType1.name + ')' " class="col-sm" name="birth_place" disabled></textarea>
                   </label>
 
                 </div>
@@ -229,6 +235,7 @@
                         {{item.name}}
                       </option>
                     </select>
+
                   </label>
                   <label v-if="tab_features_selectedDocType3.name ==='Оригинал'" class="row">
                     <div class="form__label-text col-sm">Дата предоставления:</div>
@@ -318,7 +325,7 @@
           'doc3','doc3_newName','doc3_serial','doc3_number','tab_features_selectedDocType3','tab_featuresShowDate3','doc3_IssuDate','doc3_IssueBy','doc3_full_info',
 
           ]),
-        ...person(['person']),
+        ...person(['person','preferencesByEduLevel']),
 
         table_show() {
           return this.person.futures_info;
@@ -327,11 +334,12 @@
         methods: {
           clearField(){
             this.tab_features_selectedPreference = {};
+            this.tab_features_selectedAttrType = {};
           },
 
           getAttrTypeById(preference){
 
-            this.getDocumentByPreference(preference)
+            this.getDocumentByPreference(preference);
             AXIOS.get('enums/attrType/' + preference.attrType).
             then(response => {
               this.tab_features_selectedAttrType = response.data;
@@ -341,7 +349,7 @@
           },
 
           getDocumentByPreference(preference){
-            console.log(preference)
+            console.log(preference);
             AXIOS.post(`dictionary/documentByPreference/`, preference)
               .then(response => {
               this.documentsByFeatures = response.data;

@@ -8,7 +8,8 @@
       <div>
         <label class="row">
           <div class="form__label-text col-sm">Уровень образования:</div>
-                   <select v-model="tab_edu_military_educationLevel" class="minimal col-sm">
+                   <select v-model="tab_edu_military_educationLevel" class="minimal col-sm"
+                           @change="getPreferByEduLevel(tab_edu_military_educationLevel)">
             <option v-for="item in eduLevel" v-bind:value="item">
               {{item.name}}
             </option>
@@ -275,7 +276,7 @@
       'tab_edu_military_militaryNumber','tab_edu_military_militarySeries','tab_edu_military_militaryIssueDate','tab_edu_military_militaryIssueBy',
       'tab_edu_military_militaryRank','tab_edu_military_selectedDocType','tab_edu_military_docMilitaryShowDate','tab_edu_military_startMilitary',
         'tab_edu_military_endMilitary','selectedExtraInfos1',  'selectedExtraInfos2','extraInfosDescription1','extraInfosDescription2',
-      'documentByEduDoc']),
+      'documentByEduDoc','preferencesByEduLevel']),
       ...mapState('dictionary',['addressCountryRegion','addressState', 'eduDoc','academyYear','soldiery','eduLevel'
       ],),
       ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION','GET_ADDRESS_STATE',
@@ -293,6 +294,16 @@
               console.log(response.data[0]);
               this.documentByEduDoc = response.data[0];
               console.log(this.documentByEduDoc);
+            })
+            .catch(e => {
+            })
+        },
+
+        getPreferByEduLevel(educationLevel){
+          let educationLev  = educationLevel.educationLevel;
+          AXIOS.post(`dictionary/preferByEduLevel/`+ educationLev)
+            .then(response => {
+              this.preferencesByEduLevel = response.data;
             })
             .catch(e => {
             })
