@@ -28,6 +28,7 @@
           <div class="form__label-text col-sm">Наименование:</div>
           <textarea v-model="tab_edu_military_univer" class="col-sm" name=""></textarea>
         </label>
+        
         <label class="row">
           <div class="form__label-text col-sm">Страна:</div>
           <select v-model="tab_edu_military_selectedCountryRegion" class="minimal col-sm">

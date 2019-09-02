@@ -209,7 +209,7 @@
 
 
     </div>
-    <div v-if="showPrintAgreement || showPrintApplication || showPrintDocuments">
+    <div>
       <button v-if="showPrintApplication" @click="onPrintApplication()">
         Заявление
       </button>
@@ -403,10 +403,10 @@
       },
 
 
-      axapta(id) {
-        console.log('in axapta method');
-        this.$store.dispatch('go', id);
-      },
+      // async axapta(id) {
+      //   console.log('in axapta method');
+      //   await this.$store.dispatch('go', id);
+      // },
 
       onPrintApplication() {
         console.log(this.$store.state.applicationId);
@@ -542,7 +542,7 @@
           // this.person.saved = "Сохранено";
           this.person.application.saved = "Сохранено";
 
-//TODO проверить чейнинг операций
+
           if (this.person_info_id === '') {
             AXIOS.post(`/profile`, (this.person))
               .then(response => {
@@ -550,27 +550,47 @@
                 //todo check out next line
                 // this.person.saved = response.data.saved;
                 this.person.saved = "Сохранено";
-                if (response.data !== '') {
-                  this.showButtons = false;
-                }
+                // if (response.data !== '') {
+                //   this.showButtons = false;
+                // }
                 let id = response.data;
                 console.log('returned id ----------',id);
                 return id;
               })
               .then(id => {
-                this.axapta(id);
-              })
-              .then(() => {
+                let resultAxapta = this.$store.dispatch('go', id);
+                // this.axapta(id);
 
-                if (this.$store.state.applicationId !== "nothing" || this.agreementId !== null) {
+                console.log(resultAxapta);
+                return resultAxapta;
+              })
+              .then(resultAxapta => {
+                  console.log('we are in last promise ');
+                //   console.log('resultAxapta: ',resultAxapta.agreementId)
+                // if (resultAxapta.agreementId !== "nothing" || resultAxapta.agreementId !== null) {
+                //   this.showPrintAgreement = true;
+                // }
+                // if (resultAxapta.applicationId !== 'nothing' || resultAxapta.applicationId !== null) {
+                //   this.showPrintApplication = true;
+                // }
+                // if (resultAxapta.contactPersonId !== 'nothing' || resultAxapta.contactPersonId !== null) {
+                //   this.showPrintDocuments = true;
+                // }
+
+
+                if (this.$store.state.agreementId !== "nothing" || this.agreementId !== null) {
                   this.showPrintAgreement = true;
                 }
                 if (this.$store.state.applicationId !== 'nothing' || this.applicationId !== null) {
                   this.showPrintApplication = true;
                 }
-                if (this.$store.state.applicationId !== 'nothing' || this.contactPersonId !== null) {
+                if (this.$store.state.contactPersonId !== 'nothing' || this.contactPersonId !== null) {
                   this.showPrintDocuments = true;
                 }
+//TODO check it setTimeout
+                setTimeout(() => {
+                }, 1000)
+
               })
               .catch(e => {
                 this.person.saved = "Не сохранено";
