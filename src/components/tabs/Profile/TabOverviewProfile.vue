@@ -163,7 +163,7 @@
         'tab_edu_military_militaryNumber', 'tab_edu_military_militarySeries', 'tab_edu_military_militaryIssueDate', 'tab_edu_military_militaryIssueBy',
         'tab_edu_military_militaryRank', 'tab_edu_military_selectedDocType', 'tab_edu_military_docMilitaryShowDate', 'tab_edu_military_startMilitary',
         'tab_edu_military_endMilitary', 'selectedExtraInfos1', 'selectedExtraInfos2', 'extraInfosDescription1', 'extraInfosDescription2', 'image', 'person_info_id',
-        'resultAcceptPerson', 'savedResult', 'saved','showPrintApplication','showPrintDocuments','showPrintAgreement'
+        'resultAcceptPerson', 'savedResult', 'saved','showPrintApplication','showPrintDocuments','showPrintAgreement','imageOf'
       ]),
 
       ...applications(['application', 'application_person_id', 'application_person_name', 'applId', 'applTableName',
@@ -283,9 +283,8 @@
       onNewProfile() {
 
         this.showPrintApplication =  false;
-          this.showPrintDocuments = false;
-          this.showPrintAgreement = false;
-
+        this.showPrintDocuments = false;
+        this.showPrintAgreement = false;
         console.log(this.$store.state.applicationId);
         this.$store.dispatch('onClearIdsFromAxapta');
         console.log(this.$store.state.applicationId);
@@ -414,6 +413,7 @@
         // this.person.person_info.image = "";
         this.id = '';
         this.image = '';
+        this.imageOf = false;
         this.showimage = '';
         this.tab_personal_lastname = '';
         this.tab_personal_firstname = '';
@@ -537,7 +537,6 @@
             this.$store.commit('updateSpecialistDto', this.person.person_info.addressesDto);
             //
             this.personInfo = response.data.person_info;
-
             this.tab_personal_lastname = this.personInfo.tab_personal_lastname;
 
             console.log(this.personInfo.tab_personal_lastname)
@@ -619,8 +618,8 @@
             this.extraInfosDescription1 = this.personInfo.extraInfosDescription1
             this.extraInfosDescription2 = this.personInfo.extraInfosDescription2
 
-            this.image = this.personInfo.image
-            this.showimage = this.personInfo.showimage
+            this.image = this.personInfo.image;
+            this.showimage = this.personInfo.showimage;
             this.acceptedPerson = this.personInfo.acceptedPerson;
             console.log(this.profiles)
           })

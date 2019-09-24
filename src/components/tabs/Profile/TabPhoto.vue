@@ -8,7 +8,8 @@
     />
     <div class="photo-loader">
       <div class="photo-loader__img-placeholder">
-        <div v-if="!showimage">
+        <div v-if="!imageOf">
+          <img id="image" class="images_place" :src="image"/>
         </div>
         <div v-else>
           <img class="images_place" :src="showimage"/>
@@ -17,21 +18,16 @@
 
       <div class="photo-loader__controls">
         <!--<button class="photo-loader__control-btn btn btn_load" type="button">-->
-        <input type="file" id="image" ref="image" @change="uploadFile"/>
+        <input type="file" id="imag" ref="image" @change="uploadFile"/>
         <button v-if="!this.isModalVisible" class="photo-loader__control-btn /btn btn_reset" type="button"
                 @click="removeImage">Сбросить
         </button>
       </div>
     </div>
+
     <span>{{successMessage}}</span>
     <span>{{errorMessages}}</span>
-    <!--<div v-if="!this.isModalVisible">-->
-    <!--<button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="onSave">Проверить заполнение</button>-->
-    <!--</div>-->
 
-    <!--<div v-if="!this.isModalVisible"  >-->
-    <!--<button v-if="person.saved !=='Сохранено' " class="photo-loader__control-btn btn btn_save" type="button" @click="showModal">Заявление</button>-->
-    <!--</div>-->
     <div v-if="!this.isModalVisible">
 
       <button class="button" type="button" @click="showModal">Зявление</button>
@@ -40,15 +36,13 @@
       <p class="typo__p" v-if="submitStatus === 'PENDING'">Проверка...</p>
       <div class="box">
         <span>
-           <ul >
+           <ul>
           <li v-for="value in validAnswer">
              -- {{ value.answer }}
           </li>
         </ul>
         </span>
       </div>
-
-
     </div>
 
   </div>
@@ -80,43 +74,6 @@
     mutationType: `applications/updateField`,
   });
 
-  const checkINIPA = function validateSnils(snils) {
-    let result = false;
-    if (typeof snils === 'number') {
-      snils = snils.toString();
-    } else if (typeof snils !== 'string') {
-      snils = '';
-    }
-    snils = snils.replace(/[\s|-]/g, '');
-    if (!snils.length) {
-      // throw new Error('СНИЛС пуст');
-      return false;
-    } else if (/[^0-9]/.test(snils)) {
-      return false;// throw new Error('СНИЛС может состоять только из цифр');
-    } else if (snils.length !== 11) {
-      return false;// throw new Error('СНИЛС может состоять только из 11 цифр');
-    } else {
-      let sum = 0;
-      for (let i = 0; i < 9; i++) {
-        sum += parseInt(snils[i]) * (9 - i);
-      }
-      let checkDigit = 0;
-      if (sum < 100) {
-        checkDigit = sum;
-      } else if (sum > 101) {
-        checkDigit = parseInt(sum % 101);
-        if (checkDigit === 100) {
-          checkDigit = 0;
-        }
-      }
-      if (checkDigit === parseInt(snils.slice(-2))) {
-        result = true;
-      } else {
-        return false; // throw new Error('Неправильное контрольное число');
-      }
-    }
-    return result;
-  };
 
   export default {
     name: "TabPhoto",
@@ -130,17 +87,15 @@
     },
     data() {
       return {
-        counterTarg:0,
+        counterTarg: 0,
 
         testMessage: '',
         validAnswer: [],
         submitStatus: null,
         info: [],
         imagesData: [],
-        // showimage: '',
         base: '',
-        // howMuchTarg: [],
-        optionsErrorAnswer:[
+        optionsErrorAnswer: [
           {
             field: 'parent_info',
             answer: 'Не добавлен ни один родитель/попечитель'
@@ -231,11 +186,13 @@
       tab_personal_firstname: {required},
       tab_personal_lastname_genitive: {required},
       tab_personal_firstname_genitive: {required},
-      tab_personal_birthDate: {required,
+      tab_personal_birthDate: {
+        required,
         validDate: val => (new Date(val)).toString() !== 'Invalid Date',
         foreverYang: function (val) {
           return (this.fullage > 16) && (this.fullage < 75);
-        }},
+        }
+      },
       tab_personal_selectedIdentityCardCode: {required},
       tab_personal_identityCardSeries: {required},
       tab_personal_identityCardNumber: {required},
@@ -257,9 +214,8 @@
       GroupsValidationInfo: ['tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_lastname_genitive',
         'tab_personal_firstname_genitive', 'tab_personal_birthDate',
         'tab_personal_selectedIdentityCardCode', 'tab_personal_identityCardSeries',
-        'tab_personal_identityCardNumber','tab_personal_identityCardIssueBy',
-        'tab_personal_identityCardIssueDate','tab_personal_selectedCitizenship','tab_personal_birthplace','tab_personal_email',
-
+        'tab_personal_identityCardNumber', 'tab_personal_identityCardIssueBy',
+        'tab_personal_identityCardIssueDate', 'tab_personal_selectedCitizenship', 'tab_personal_birthplace', 'tab_personal_email',
         'tab_edu_military_educationLevel', 'tab_edu_military_univer', 'tab_edu_military_selectedAcademyYear',
         'tab_edu_military_selectedEduDoc', 'tab_edu_military_eduDocSerial', 'tab_edu_military_eduDocNumber'
       ],
@@ -268,7 +224,6 @@
     mounted() {
       this.$store.dispatch('dictionary/onLoadAddressCountryRegion');
       this.$store.dispatch('dictionary/onLoadTargOrg');
-
     },
     computed: {
       fullage: function () {
@@ -282,7 +237,6 @@
         }
         return age;
       },
-
 
       ...mapMultiRowFields(['persons']),
       ...person(['person', 'showProfile', 'profiles', 'isModalVisible', 'errorMessages', 'successMessage',
@@ -308,13 +262,13 @@
         'tab_edu_military_militaryIssueDate', 'tab_edu_military_militaryIssueBy', 'tab_edu_military_militaryRank',
         'tab_edu_military_selectedDocType', 'tab_edu_military_docMilitaryShowDate', 'tab_edu_military_startMilitary',
         'tab_edu_military_endMilitary', 'selectedExtraInfos1', 'selectedExtraInfos2', 'extraInfosDescription1',
-        'extraInfosDescription2', 'image', 'showimage', 'person_info_id', 'saved', 'acceptedPerson'
+        'extraInfosDescription2', 'image', 'showimage', 'person_info_id', 'saved', 'acceptedPerson', 'imageOf'
       ]),
       ...applications(['application', 'application_person_id', 'application_person_name', 'applId', 'applTableName',
         'applTableNumber', 'applTableDate', 'applTableDeliveryType', 'applicationId', 'apls', 'chooseAppls', 'resultApl',
         'checkTargCount', 'checkSpecCount', 'message', 'checCountBudgetAndCel',
-        'lechDelCel','lechDelBudget','medProfCel', 'medProfBudget','stomDelCel','stomDelBudget','howMuchTarg',
-        'targEduLechDel','targEduMedProf','targEduStomDel','targCountCheck'],),
+        'lechDelCel', 'lechDelBudget', 'medProfCel', 'medProfBudget', 'stomDelCel', 'stomDelBudget', 'howMuchTarg',
+        'targEduLechDel', 'targEduMedProf', 'targEduStomDel', 'targCountCheck'],),
       ...mapState('dictionary', ['targOrg'],),
       ...mapGetters('dictionary', ['GET_targOrg']),
       ...mapGetters(['ADRDTO']),
@@ -326,9 +280,9 @@
         let i = 0;
 
         for (i; i < entries.length; i++) {
-          for(let j = 0; j < this.optionsErrorAnswer.length; j++){
+          for (let j = 0; j < this.optionsErrorAnswer.length; j++) {
             if (entries[i][0] === this.optionsErrorAnswer[j].field) {
-              if(entries[i][1].$invalid){
+              if (entries[i][1].$invalid) {
                 this.validAnswer.push(this.optionsErrorAnswer[j]);
               }
             }
@@ -362,7 +316,6 @@
           //----------------------------------------
           // this.onSave();
 
-
           if (this.application.choosenWizards.length === 0) {
             this.person.application.choosenWizards = [];
             this.isModalVisible = true;
@@ -381,7 +334,6 @@
             this.showProfile = false;
             location.href = 'profile#applicationFill';
           }
-
           //----------------------------------------
           this.submitStatus = 'PENDING';
           setTimeout(() => {
@@ -430,84 +382,84 @@
         let i = 0;
         for (i; i < this.apls.length; i++) {
           // if(this.apls[i].specialityId === 'ЛечДел')
-            switch (this.apls[i].specialityId) {
-              case 'ЛечДел':
-                if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true) ) {
-                  this.lechDelCel = false;
-                  console.log('Бюджет, ЛечДел', this.apls[i].chose, "открыть лечДел целевое ",this.lechDelCel );
-                }
-                if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true) ) {
-                  this.lechDelBudget = false;
-                  this.targEduLechDel = false;
-                  console.log('targLechDel--',this.targEduLechDel);
-                  console.log('ЦелНапр, ЛечДел', this.apls[i].chose, "открыть лечДел бюджет ",this.lechDelBudget );
-                }
-                if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.lechDelCel === false) ) {
-                  this.lechDelCel = true;
+          switch (this.apls[i].specialityId) {
+            case 'ЛечДел':
+              if ((this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true)) {
+                this.lechDelCel = false;
+                console.log('Бюджет, ЛечДел', this.apls[i].chose, "открыть лечДел целевое ", this.lechDelCel);
+              }
+              if ((this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true)) {
+                this.lechDelBudget = false;
+                this.targEduLechDel = false;
+                console.log('targLechDel--', this.targEduLechDel);
+                console.log('ЦелНапр, ЛечДел', this.apls[i].chose, "открыть лечДел бюджет ", this.lechDelBudget);
+              }
+              if ((this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.lechDelCel === false)) {
+                this.lechDelCel = true;
 
-                  console.log('Бюджет, ЛечДел', this.apls[i].chose, "открыть лечДел целевое ",this.lechDelCel );
-                }
-                if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.lechDelBudget === false) ) {
-                  this.lechDelBudget = true;
-                  this.targEduLechDel = true;
-                  console.log('targLechDel--',this.targEduLechDel);
-                  console.log('ЦелНапр, ЛечДел', this.apls[i].chose, "открыть лечДел бюджет ",this.lechDelBudget );
-                }
-                break;
-              case 'МедПрофДел':
-                  if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true) ) {
-                    this.medProfCel = false;
-                    console.log('Бюджет, МедПрофДел', this.apls[i].chose, "открыть медПроф целевое ", this.medProfCel );
-                  }
-                  if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true) ) {
-                    this.medProfBudget = false;
-                    this.targEduMedProf = false;
-                    console.log('targMedProf--',this.targEduMedProf);
-                    console.log('ЦелНапр, МедПрофДел', this.apls[i].chose, "открыть медПроф бюджет ", this.medProfBudget );
-                  }
-                  if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.medProfCel === false)) {
-                    this.medProfCel = true;
-                    console.log('Бюджет, МедПрофДел', this.apls[i].chose, "открыть медПроф целевое ", this.medProfCel );
-                  }
-                  if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.medProfBudget === false)) {
-                    this.medProfBudget = true;
-                    this.targEduMedProf = true;
-                    console.log('targMedProf--',this.targEduMedProf);
-                    console.log('ЦелНапр, МедПрофДел', this.apls[i].chose, "открыть медПроф бюджет ", this.medProfBudget );
-                  }
-                break;
-              case 'СтомДел':
-                  if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true) ) {
-                    this.stomDelCel = false;
-                    console.log('Бюджет, СтомДел', this.apls[i].chose, "открыть СтомДел целевое ", this.stomDelCel );
-                  }
-                  if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true) ) {
-                    this.stomDelBudget = false;
-                    this.targEduStomDel = false;
-                    console.log('targStom--',this.targEduStomDel);
-                    console.log('ЦелНапр, СтомДел', this.apls[i].chose, "открыть СтомДел бюджет ", this.stomDelBudget );
-                  }
-                  if( (this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.stomDelCel === false) ) {
-                    this.stomDelCel = true;
-                    console.log('ЦелНапр, СтомДел', this.apls[i].chose, "открыть СтомДел целевое ", this.stomDelCel );
-                  }
-                  if( (this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.stomDelBudget === false) ) {
-                    this.stomDelBudget = true;
-                    this.targEduStomDel = true;
-                    console.log('targStom--',this.targEduStomDel);
-                    console.log('ЦелНапр, СтомДел', this.apls[i].chose, "открыть СтомДел бюджет ", this.stomDelBudget );
-                  }
-              default:
-                break;
-            }
+                console.log('Бюджет, ЛечДел', this.apls[i].chose, "открыть лечДел целевое ", this.lechDelCel);
+              }
+              if ((this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.lechDelBudget === false)) {
+                this.lechDelBudget = true;
+                this.targEduLechDel = true;
+                console.log('targLechDel--', this.targEduLechDel);
+                console.log('ЦелНапр, ЛечДел', this.apls[i].chose, "открыть лечДел бюджет ", this.lechDelBudget);
+              }
+              break;
+            case 'МедПрофДел':
+              if ((this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true)) {
+                this.medProfCel = false;
+                console.log('Бюджет, МедПрофДел', this.apls[i].chose, "открыть медПроф целевое ", this.medProfCel);
+              }
+              if ((this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true)) {
+                this.medProfBudget = false;
+                this.targEduMedProf = false;
+                console.log('targMedProf--', this.targEduMedProf);
+                console.log('ЦелНапр, МедПрофДел', this.apls[i].chose, "открыть медПроф бюджет ", this.medProfBudget);
+              }
+              if ((this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.medProfCel === false)) {
+                this.medProfCel = true;
+                console.log('Бюджет, МедПрофДел', this.apls[i].chose, "открыть медПроф целевое ", this.medProfCel);
+              }
+              if ((this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.medProfBudget === false)) {
+                this.medProfBudget = true;
+                this.targEduMedProf = true;
+                console.log('targMedProf--', this.targEduMedProf);
+                console.log('ЦелНапр, МедПрофДел', this.apls[i].chose, "открыть медПроф бюджет ", this.medProfBudget);
+              }
+              break;
+            case 'СтомДел':
+              if ((this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true)) {
+                this.stomDelCel = false;
+                console.log('Бюджет, СтомДел', this.apls[i].chose, "открыть СтомДел целевое ", this.stomDelCel);
+              }
+              if ((this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true)) {
+                this.stomDelBudget = false;
+                this.targEduStomDel = false;
+                console.log('targStom--', this.targEduStomDel);
+                console.log('ЦелНапр, СтомДел', this.apls[i].chose, "открыть СтомДел бюджет ", this.stomDelBudget);
+              }
+              if ((this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.stomDelCel === false)) {
+                this.stomDelCel = true;
+                console.log('ЦелНапр, СтомДел', this.apls[i].chose, "открыть СтомДел целевое ", this.stomDelCel);
+              }
+              if ((this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.stomDelBudget === false)) {
+                this.stomDelBudget = true;
+                this.targEduStomDel = true;
+                console.log('targStom--', this.targEduStomDel);
+                console.log('ЦелНапр, СтомДел', this.apls[i].chose, "открыть СтомДел бюджет ", this.stomDelBudget);
+              }
+            default:
+              break;
+          }
         }
 
         this.howMuchTarg.push(this.targEduLechDel);
         this.howMuchTarg.push(this.targEduMedProf);
         this.howMuchTarg.push(this.targEduStomDel);
 //todo
-        for(let x=0;x<this.howMuchTarg.length; x++){
-          if(this.howMuchTarg[x] === false){
+        for (let x = 0; x < this.howMuchTarg.length; x++) {
+          if (this.howMuchTarg[x] === false) {
             this.counterTarg++;
             console.log(x, 'here')
           }
@@ -517,7 +469,7 @@
           // }
 
         }
-        if (this.counterTarg === 2 ){
+        if (this.counterTarg === 2) {
           this.targCountCheck = false;
         }
         console.log(this.howMuchTarg);
@@ -550,36 +502,10 @@
         } else {
           this.message = "";
           this.isModalVisible = false;
-          location.href='profile#conditions_overview';
+          location.href = 'profile#conditions_overview';
         }
-        // this.isModalVisible = false;
-
-        // location.href='profile#overview_new';
-
-        // AXIOS.get('/profile/conditions/' + (this.person_info_id))
-        //   .then(response => {
-        //     this.resultApl = response.data;
-        //
-        //     console.log(this.resultApl.application_number)
-        //   })
-        //   .catch(e => {
-        //   });
 
       },
-      // uploadFile(e){
-      //   console.log(e)
-      //   let file = e.target.files[0];
-      //   this.image = URL.createObjectURL(file)
-
-      // let file = e.target.files[0];
-      //  let reader = new FileReader();
-      //  reader.onloadend = (file) => {
-      //    this.person.photo = reader.result
-      //    this.base = reader.result;
-      //    // console.log('RESULT',reader.result)
-      //  }
-      //  reader.readAsDataURL(file);
-
 
       onSave() {
 
@@ -680,7 +606,6 @@
                 this.person.saved = "Сохранено";
                 this.successMessage = "Проверено, обязательные поля заполнены";
               }
-
               console.log('saved person ' + response.data)
             })
             .catch(e => {
@@ -699,10 +624,7 @@
               this.errors.push(e)
             })
         }
-
-
       },
-      //console/log(check) for
       uploadFile(e) {
         // console.log(e)
         let file = e.target.files[0];
@@ -710,11 +632,13 @@
 
         let reader = new FileReader();
         reader.onloadend = (file) => {
-          this.image = reader.result
+          this.image = reader.result;
+          this.imageOf= true;
           // this.base = reader.result;
           // console.log('RESULT',reader.result)
-        }
+        };
         reader.readAsDataURL(file);
+
       },
 
       removeImage: function (e) {
@@ -723,45 +647,7 @@
         // this.person.person_info.showimage = '';
         // this.image = '';
       },
-      // onFileChange(e) {
-      //   var files = e.target.files || e.dataTransfer.files;
-      //   if (!files.length)
-      //     return;
-      //   this.createImage(files[0]);
-      //
-      // },
-      // createImage(file) {
-      //   var image = new Image();
-      //   var reader = new FileReader();
-      //   var vm = this;
-      //
-      //   reader.onload = (e) => {
-      //     vm.image = e.target.result;
-      //   };
-      //   reader.readAsDataURL(file);
-      //   // this.base = reader.readAsDataURL(file);
-      //
-      // },
-
-
     }
-
-
-    // clearPhoto() {
-    //   this.imagesData.pop(this.imagesData.length-1);
-    // },
-    // previewImages: function(event) {
-    //   this.imagesData = [];
-    //   var pictures = event.target.files;
-    //   for (var i = 0; i < pictures.length; i++) {
-    //     var reader = new FileReader();
-    //     reader.onload = (e) => {
-    //       this.imagesData.push(e.target.result);
-    //     }
-    //     reader.readAsDataURL(pictures[i]);
-    //   }
-    // }
-
   }
 </script>
 
@@ -775,6 +661,7 @@
     background: #e6e3df;
     text-align: left;
   }
+
   .box span {
 
     display: inline-block;
@@ -810,7 +697,6 @@
     /*height: 640px;*/
     /*width: 480px*/
   }
-
 
 
   tbody tr:hover td {

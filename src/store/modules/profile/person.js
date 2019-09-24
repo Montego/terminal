@@ -8,6 +8,7 @@ export default {
     applicationId: '',
     contactPersonId: '',
     //TODO массив для проверки всех обязательных форм на заполнение и корректность
+    imageOf:false,
 
     personInfoSavedId: '',
     successMessage: "",

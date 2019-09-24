@@ -428,7 +428,7 @@ let fillPrefs = function(s) {
             "docType": pref[`tab_features_selectedDocType${n}`]['id'], //0,
             "docQuantity": 1, // /????
             "altDocName":  ( pref[`tab_features_selectedDocType${n}`]['id'] === "015" && pref[`doc${n}_newName`] === "")? "[Иной документ]" : pref[`doc${n}_newName`],
-            "docGrantDate": "01.01.2010 00:00",
+            "docGrantDate": pref[`tab_features_selectedDocType${n}`]['id'].name === "Копия" ? "01.01.1900 00:00" : dateConvert(pref[`tab_featuresShowDate${n}`]),
             "isDublicate": 0,
             "documentKindId": ""
           };
