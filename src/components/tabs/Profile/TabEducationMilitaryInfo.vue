@@ -28,7 +28,7 @@
           <div class="form__label-text col-sm">Наименование:</div>
           <textarea v-model="tab_edu_military_univer" class="col-sm" name=""></textarea>
         </label>
-        
+
         <label class="row">
           <div class="form__label-text col-sm">Страна:</div>
           <select v-model="tab_edu_military_selectedCountryRegion" class="minimal col-sm">
@@ -277,7 +277,8 @@
       'tab_edu_military_militaryNumber','tab_edu_military_militarySeries','tab_edu_military_militaryIssueDate','tab_edu_military_militaryIssueBy',
       'tab_edu_military_militaryRank','tab_edu_military_selectedDocType','tab_edu_military_docMilitaryShowDate','tab_edu_military_startMilitary',
         'tab_edu_military_endMilitary','selectedExtraInfos1',  'selectedExtraInfos2','extraInfosDescription1','extraInfosDescription2',
-      'documentByEduDoc','preferencesByEduLevel']),
+      'documentByEduDoc','preferencesByEduLevel',
+      'docNumberMandatory','docSeriesMandatory']),
       ...mapState('dictionary',['addressCountryRegion','addressState', 'eduDoc','academyYear','soldiery','eduLevel'
       ],),
       ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION','GET_ADDRESS_STATE',
@@ -292,16 +293,21 @@
           // let idEduDoc = eduDoc.eduDocId;
           AXIOS.post(`dictionary/documentByEduDoc/`, eduDoc)
             .then(response => {
-              console.log(response.data[0]);
+              this.docNumberMandatory = response.data[0].docNumberMandatory;
+              this.docSeriesMandatory = response.data[0].docSeriesMandatory;
+
+              console.log(this.docSeriesMandatory);
+              console.log(this.docNumberMandatory);
               this.documentByEduDoc = response.data[0];
-              console.log(this.documentByEduDoc);
+              console.log('resp',this.documentByEduDoc);
             })
             .catch(e => {
             })
         },
 
         getPreferByEduLevel(educationLevel){
-          let educationLev  = educationLevel.educationLevel;
+          // let educationLev  = educationLevel.educationLevel;
+          let educationLev  = 1;
           AXIOS.post(`dictionary/preferByEduLevel/`+ educationLev)
             .then(response => {
               this.preferencesByEduLevel = response.data;
@@ -325,6 +331,8 @@
       },
         data() {
           return {
+            // docNumberMandatory: '',
+            // docSeriesMandatory: '',
             full:'',
             extraInfos: [
               {

@@ -12,10 +12,20 @@
             >
               <template slot="items" slot-scope="props">
                 <td class="text-xs-center">{{ props.item.tab_ege_selectedSubject}}</td>
+<!--{{this.tab_ege_selectedExamForm}}-->
+                <!--<td class="text-xs-center">-->
+                  <!--<select  v-model="props.item.tab_ege_selectedExamForm" class="minimal col-sm">-->
+                    <!--<option v-for="items in options_ege">-->
+                      <!--{{items.item}}-->
+                    <!--</option>-->
+                    <!--&lt;!&ndash;<option v-for="item in options_ege" v-bind:value="item">&ndash;&gt;-->
+                      <!--&lt;!&ndash;{{item}}&ndash;&gt;-->
+                    <!--&lt;!&ndash;</option>&ndash;&gt;-->
+                  <!--</select>-->
+                <!--</td>-->
+
                 <td class="text-xs-center">
-
-                  <input v-model="props.item.tab_ege_score" name='account-field-3' class="form__input col-sm-7" type="text" v-mask="'###'">
-
+                  <input  v-model="props.item.tab_ege_score" name='account-field-3' class="form__input col-sm-7" type="text" v-mask="'###'" >
                 </td>
                 <td class="text-xs-center">
                   <select  v-model="props.item.tab_ege_year" class="minimal col-sm">
@@ -37,7 +47,44 @@
             <input v-model="ege2 = this.person.ege_info[1].tab_ege_score" hidden>
             <input v-model="ege3 = this.person.ege_info[2].tab_ege_score" hidden>
 
-            <span class="alarm_label" v-if="$v.ege1.$invalid || $v.ege2.$invalid || $v.ege3.$invalid" > Балл по егэ не может быть меньше 50 или больше 100 </span>
+            <input v-model="ege11 = this.person.ege_info[0].tab_ege_score" hidden>
+            <input v-model="ege22 = this.person.ege_info[1].tab_ege_score" hidden>
+            <input v-model="ege33 = this.person.ege_info[2].tab_ege_score" hidden>
+
+            <!--<span class="alarm_label" v-if="$v.ege1.$invalid || $v.ege2.$invalid || $v.ege3.$invalid" > Балл по егэ не может быть меньше 50 или больше 100 </span>-->
+            <!--<div v-if="(this.person.ege_info[0].tab_ege_selectedExamForm ='ЕГЭ') || (this.person.ege_info[0].tab_ege_selectedExamForm ='ЕГЭ') || (this.person.ege_info[0].tab_ege_selectedExamForm ='ЕГЭ')">-->
+            <div v-if="(this.person.ege_info[0].tab_ege_selectedExamForm ==='ЕГЭ')">
+               <span  class="alarm_label" v-if="$v.ege1.$invalid">
+                 Балл по егэ (химия) не может быть меньше 50 или больше 100
+              </span>
+            </div>
+            <div v-if="(this.person.ege_info[1].tab_ege_selectedExamForm ==='ЕГЭ')">
+                <span class="alarm_label" v-if="$v.ege2.$invalid">
+                Балл по егэ (биология) не может быть меньше 50 или больше 100
+              </span>
+            </div>
+            <div v-if="(this.person.ege_info[2].tab_ege_selectedExamForm ==='ЕГЭ')">
+                <span  class="alarm_label" v-if="$v.ege3.$invalid">
+                Балл по егэ (русский язык) не может быть меньше 50 или больше 100
+              </span>
+            </div>
+
+            <div v-if="(this.person.ege_info[0].tab_ege_selectedExamForm ==='Олимпиада')">
+                <span  class="alarm_label" v-if="$v.ege11.$invalid">
+                  Балл по егэ (химия) не может быть меньше 75 или больше 100
+                </span>
+            </div>
+            <div v-if="(this.person.ege_info[1].tab_ege_selectedExamForm ==='Олимпиада')">
+                <span class="alarm_label" v-if="$v.ege22.$invalid">
+                          Балл по егэ (биология) не может быть меньше 75 или больше 100
+                        </span>
+            </div>
+            <div v-if="(this.person.ege_info[2].tab_ege_selectedExamForm ==='Олимпиада')">
+               <span class="alarm_label" v-if="$v.ege33.$invalid">
+                          Балл по егэ (русский язык) не может быть меньше 75 или больше 100
+                        </span>
+            </div>
+
           </div>
         </div>
       </tab>
@@ -324,7 +371,8 @@
         'tab_edu_military_selectedMilitaryFormDoc','tab_edu_military_militaryNumber','tab_edu_military_militarySeries',
         'tab_edu_military_militaryIssueDate','tab_edu_military_militaryIssueBy','tab_edu_military_militaryRank',
         'tab_edu_military_selectedDocType','tab_edu_military_docMilitaryShowDate','tab_edu_military_startMilitary',
-        'tab_edu_military_endMilitary',]),
+        'tab_edu_military_endMilitary',
+      ]),
 
       ...mapState('dictionary',['addressCountryRegion','identityCardCode','subject','academyYear',]),
       ...mapGetters('dictionary',['GET_ADDRESS_COUNTRY_REGION','GET_IDENTITY_CARD_CODE','GET_subject','GET_ACADEMY_YEAR']),
@@ -345,26 +393,60 @@
     },
     validations: {
       ege1:{
-        between: between(50, 100)
+        normalScore: function (val) {
+          return ((this.ege1 >= 50) && (this.ege1 <= 100)) || (this.ege1 == 0);
+        }
+
       },
       ege2:{
-        between: between(50, 100)
+        normalScore: function (val) {
+          return ((this.ege2 >= 50) && (this.ege2 <= 100)) || (this.ege2 == 0);
+        }
+        // between: between(50, 100)
       },
       ege3:{
-        between: between(50, 100)
-      }
+        normalScore: function (val) {
+          return ((this.ege3 >= 50) && (this.ege3 <= 100)) || (this.ege3 == 0);
+        }
+        // between: between(50, 100)
+      },
+
+
+      ege11:{
+        normalScore: function (val) {
+          return ((this.ege11 >= 75) && (this.ege11 <= 100)) || (this.ege11 == 0);
+        }
+
+      },
+      ege22:{
+        normalScore: function (val) {
+          return ((this.ege22 >= 75) && (this.ege22 <= 100)) || (this.ege22 == 0);
+        }
+        // between: between(50, 100)
+      },
+      ege33:{
+        normalScore: function (val) {
+          return ((this.ege33 >= 75) && (this.ege33 <= 100)) || (this.ege33 == 0);
+        }
+        // between: between(50, 100)
+      },
+
+
     },
 
     data() {
       return {
         score_ege: 0,
-        ege1: 0 ,
+        ege1: 0,
         ege2: 0,
         ege3: 0,
+        ege11: 0,
+        ege22: 0,
+        ege33: 0,
         customTokens: {
-          'Y': {pattern: /(4[5-9])/},
-          'Z':{pattern: /[0-9]/}
-
+          // 'Y': {pattern: /(4[5-9])/},
+          // 'Z':{pattern: /[0-9]/},
+          F:{pattern: /[0, 50-100 (0|[5-9][0-9]|100]/}
         },
         // customTokens: {
         //   'Y': {pattern: /[0-9]/},
@@ -386,7 +468,7 @@
           ],
         options_ege: [
           {id: 1, item: 'ЕГЭ'},
-          // {id: 2, item: 'Олимпиада'},
+          {id: 2, item: 'Олимпиада'},
           // {id: 3, item: 'Химия'},
         ],
 
@@ -394,6 +476,7 @@
 
         headers_ege_subjects: [
           {text: 'Предмет', value: 'tab_ege_selectedSubject', sortable: false, align: 'center'},
+          // {text: 'Форма', value: 'tab_ege_selectedSubject', sortable: false, align: 'center'},
           {text: 'Балл', value: 'tab_ege_score', sortable: false, align: 'center'},
           {text: 'Год', value: 'tab_ege_year', sortable: false, align: 'center'},
           {text: 'Пасп.данные изменились', value: 'tab_ege_changePaspInf', sortable: false, align: 'center'},

@@ -42,7 +42,7 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    agreementId:'nothing',
+    agreementId:[],
     applicationId:'nothing',
     contactPersonId:'nothing'
   },
@@ -53,16 +53,16 @@ export const store = new Vuex.Store({
     updateField,
     getIdsFromAxapta(state, payload) {
       console.log(payload);
-        state.agreementId = payload.agreementId;
+        state.agreementId = payload.agreementsId;
         state.applicationId = payload.applicationId ;
         state.contactPersonId = payload.contactPersonId;
         console.log(state.agreementId)
     },
     clearIdsFromAxapta(state){
-      state.agreementId = 'nothing';
+      state.agreementId.length = 0;
       state.applicationId = 'nothing' ;
       state.contactPersonId = 'nothing';
-      console.log(state.agreementId)
+      // console.log(state.agreementId)
     }
 
   },

@@ -219,6 +219,9 @@
       <button v-if="showPrintAgreement" @click="onPrintAgreement()">
         Согласие
       </button>
+      <button v-if="$store.state.agreementId.length>1" @click="onPrintAgreement2()">
+        Согласие-2
+      </button>
     </div>
 
     <div class="clear_save_button row">
@@ -230,6 +233,9 @@
       <!--</div>-->
 
       <button v-if="person.saved !== 'Сохранено'" @click="onSave">Сохранить</button>
+
+      <!--<button v-if="(($store.state.agreementId.length===0) && ($store.state.applicationId==='nothing'))" @click="onSave">Сохранить</button>-->
+
 
       <!--<button v-if="showPrintAgreement || showPrintApplication || showPrintDocuments"-->
       <!--@click="onSave">Сохранить</button>-->
@@ -254,6 +260,8 @@
         v-model="application_selectedDeliveryReturnType = this.person.application.application_selectedDeliveryReturnType"
         hidden>
       <input v-model="application_selectedDocType = this.person.application.application_selectedDocType" hidden>
+
+<!--{{agreementId}}{{applicationId}}-->
       <!--<button v-if="showButtons || person.application.saved ==='Сохранено'" @click="onSave">Сохранить</button>-->
 
 
@@ -266,7 +274,7 @@
   import {required} from 'vuelidate/lib/validators';
   import {AXIOS} from "../../plugins/APIService";
   import {createHelpers} from 'vuex-map-fields';
-  import {mapGetters} from 'vuex';
+  import {mapGetters, mapState} from 'vuex';
 
   const {mapFields: applications} = createHelpers({
     getterType: 'applications/getField',
@@ -321,11 +329,11 @@
       }
 
     },
-
     computed: {
       ...applications(['application',]),
       ...tab_reception_condition(['file',]),
       ...mapGetters(['ADRDTO']),
+      ...mapState(['agreementId','applicationId']),
       ...person(['person', 'showProfile', 'person_info_id', 'resultAcceptPerson', 'saved', 'savedResult', 'personInfoSavedId',
         'tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename', 'tab_personal_lastname_genitive',
         'tab_personal_firstname_genitive', 'tab_personal_middlename_genitive', 'tab_personal_selectedGender',
@@ -422,10 +430,42 @@
         window.open('http://10.71.0.115/appldoclist/' + id + '.xlsm');
       },
 
+      onPrintAgreement2() {
+        let id = this.$store.state.agreementId;
+        let second_id="";
+        if(id.length>1) {
+          for (let i = 0; i < id.length; i++) {
+            second_id = id[1];
+            window.open('http://10.71.0.115/agreement/' + second_id + '.xlsm');
+          }
+        }
+      },
+
       onPrintAgreement() {
         console.log(this.$store.state.agreementId);
         let id = this.$store.state.agreementId;
-        window.open('http://10.71.0.115/agreement/' + id + '.xlsm');
+        let first_id="";
+        if(id.length>1) {
+          for (let i = 0; i < id.length; i++) {
+            first_id = id[0];
+
+            window.open('http://10.71.0.115/agreement/' + first_id + '.xlsm');
+          }
+        }
+        else{
+          first_id = id[0];
+          window.open('http://10.71.0.115/agreement/' + first_id + '.xlsm');
+        }
+
+        // window.open('http://10.71.0.115/agreement/' + id[i] + '.xlsm');
+        // window.open('http://10.71.0.115/agreement/' + id[i] + '.xlsm');
+
+        // for(let i=0;i<id.length;i++){
+        //   console.log(id[i]);
+        //   window.open('http://10.71.0.115/agreement/' + id[i] + '.xlsm');
+        // }
+        console.log('after for')
+        // window.open('http://10.71.0.115/agreement/' + id + '.xlsm');
       },
 
       onSave() {

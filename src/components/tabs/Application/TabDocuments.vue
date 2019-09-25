@@ -24,6 +24,9 @@
             </td>
             <td class="text-xs-center">{{ props.item.countDoc }}</td>
             <td class="text-xs-center">
+              <button v-if="!props.item.tab_document_auto" @click="onEdit(props.item)">
+                <v-icon color="#5bc0de">edit</v-icon>
+              </button>
               <button @click="onDelete(props.item)">
                 <v-icon color="#5bc0de">delete</v-icon>
               </button>
@@ -63,24 +66,31 @@
                       </option>
                     </select>
                   </label>
+                <!--{{$v}}-->
+                <!--<span class="alarm_label" v-if="$v.selected_document.$invalid">Не выбран документ</span>-->
+                <!--{{$v.selected_document.$invalid}}-->
                 <label v-if="selected_document.name === 'Иной документ'" class="row">
                   <div class="form__label-text col-sm">Документ:</div>
                   <input v-model="newName" class="form__input col-sm" type="text" />
                 </label>
-
                 <label class="row">
                   <div class="form__label-text col-sm">Количество:</div>
                   <input v-model="count" class="form__input col-sm" type="text" v-mask="'##'" required/>
                 </label>
+                  <span class="alarm_label" v-if="$v.count.$invalid">Не введено количество</span>
+                <!--{{$v.count.$invalid}}-->
                 <label class="row">
                   <div class="form__label-text col-sm">Серия:</div>
                   <input v-model="serial" class="form__input col-sm" type="text" v-mask="'##############'" required/>
                 </label>
+                    <span class="alarm_label" v-if="$v.serial.$invalid">Не введена серия документа</span>
+                <!--{{$v.serial.$invalid}}-->
                 <label class="row">
                   <div class="form__label-text col-sm">Номер/ID:</div>
                   <input v-model="number" class="form__input col-sm" type="text" v-mask="'##############'" required/>
                 </label>
-
+                    <span class="alarm_label" v-if="$v.number.$invalid">Не введен номер документа</span>
+                <!--{{$v.number.$invalid}}-->
                 <label class="row">
                   <div class="form__label-text col-sm">Копия/Оригинал:</div>
                   <select v-model="selected_docType" class="minimal col-sm">
@@ -89,19 +99,32 @@
                     </option>
                   </select>
                 </label>
+                      <!--<span class="alarm_label" v-if="$v.selected_docType.$invalid">Не выбран тип документа</span>-->
+                <!--{{$v.selected_docType.$invalid}}-->
                 <label class="row">
                   <div class="form__label-text col-sm">Дата выдачи:</div>
                   <input v-model="dateOfIssue" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
                 </label>
+                        <span class="alarm_label" v-if="$v.dateOfIssue.$invalid">Не введена дата выдачи</span>
+                <!--{{$v.dateOfIssue.$invalid}}-->
                 <label class="row">
                   <div class="form__label-text col-sm">Кем выдан:</div>
                   <textarea v-model="issuedBy" class="col-sm" ></textarea>
                 </label>
+                      <span class="alarm_label" v-if="$v.issuedBy.$invalid">Не введено, кем выдан</span>
+                <!--{{$v.issuedBy.$invalid}}-->
               </div>
             </div>
             <div class="row">
               <button @click="onClear">Очистить</button>
-              <button @click="onSave">Сохранить</button>
+              <!--{{$v.name.$invalid | $v.count.$invalid | $v.serial.$invalid |-->
+              <!--$v.number.$invalid | $v.selected_docType.$invalid | $v.dateOfIssue.$invalid |-->
+              <!--$v.issuedBy.$invalid}}-->
+              <button v-if="(($v.count.$invalid) | ($v.serial.$invalid) |
+                            ($v.number.$invalid) | ($v.dateOfIssue.$invalid) |
+                            ($v.issuedBy.$invalid))"
+                      @click="onSave" class="uneditable" disabled>Сохранить</button>
+              <button v-else @click="onSave">Сохранить</button>
             </div>
           </div>
         </div>
@@ -112,6 +135,7 @@
 </template>
 
 <script>
+  import {required} from 'vuelidate/lib/validators';
   import {AXIOS} from "../../plugins/APIService";
   import {mapGetters, mapState} from 'vuex';
   import { createHelpers } from 'vuex-map-fields';
@@ -135,6 +159,9 @@
         name: "TabDocuments",
         data(){
           return {
+            editedIndex: -1,
+            editedItem:{},
+
             newName:'',
             dateToday: Date.now(),
             nameDoc:'',
@@ -198,6 +225,17 @@
         this.$store.dispatch('dictionary/onLoadDocument');
         this.$store.dispatch('enums/onLoadDocType');
       },
+      validations: {
+        // selected_document:{required},
+        name:{required},
+        count:{required},
+        serial:{required},
+        number:{required},
+        // selected_docType:{required},
+        dateOfIssue:{required},
+        issuedBy:{required},
+
+        },
         methods: {
           remove(arr, item) {
               for (let i = arr.length; i--;) {
@@ -213,6 +251,14 @@
           },
           onAdd(){
             location.href='profile#documents_info';
+            this.name = null;
+            this.count = null;
+            this.serial = null;
+            this.number = null;
+            this.selected_docType = null;
+            this.dateOfIssue = null;
+            this.issuedBy= null;
+            this.auto= false;
           },
           onClear() {
             this.name = null;
@@ -669,44 +715,66 @@
 
           },
           onSave() {
-            location.href='profile#documents_overview';
-            function Document(dateOfShow, selected_document, name, serial, number, docType, dateOfIssue, count, IssuedBy, auto,fullname) {
+            if (this.editedIndex > -1) {
+              console.log('its redaction ')
+              this.editedItem.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD');
+              this.editedItem.nameDoc = this.selected_document.name;
+              console.log(this.selected_document.name)
+              this.editedItem.selected_document = this.selected_document;
+              this.editedItem.countDoc = this.count;
+              this.editedItem.serialDoc = this.serial;
+              this.editedItem.numberDoc = this.number;
+              this.editedItem.docTypeDoc = this.selected_docType;
+              this.editedItem.dateOfIssueDoc = this.dateOfIssue;
+              this.editedItem.issuedByDoc = this.issuedBy;
+              this.editedItem.tab_document_auto = false;
+              this.editedItem.fullnameDoc = this.selected_document.name + " Серия " + this.serial + " № " + this.number + " от " + this.dateOfIssue + " выдан " + this.issuedBy + " ("+ this.selected_docType.name +")"
+              console.log(this.editedItem.fullnameDoc)
+                // this.nameDoc = this.name === 'Иной документ' ? this.newName : this.selected_document.name,
+
+              Object.assign(this.person.application.application_documents[this.editedIndex], this.editedItem);
+              location.href='profile#documents_overview';
+            }
+            else {
+              function Document(dateOfShow, selected_document, name, serial, number, docType, dateOfIssue, count, IssuedBy, auto,fullname) {
                 this.dateOfShow = dateOfShow,
-                this.selected_document = selected_document,
-                this.nameDoc = name,
-                this.serialDoc = serial,
-                this.numberDoc = number,
-                this.docTypeDoc = docType,
-                this.dateOfIssueDoc = dateOfIssue,
-                this.countDoc = count,
-                this.issuedByDoc =IssuedBy,
-                this.tab_document_auto = auto,
-                this.fullnameDoc = fullname
+                  this.selected_document = selected_document,
+                  this.nameDoc = name,
+                  this.serialDoc = serial,
+                  this.numberDoc = number,
+                  this.docTypeDoc = docType,
+                  this.dateOfIssueDoc = dateOfIssue,
+                  this.countDoc = count,
+                  this.issuedByDoc =IssuedBy,
+                  this.tab_document_auto = auto,
+                  this.fullnameDoc = fullname
+              }
 
-            }
+              if(this.name === 'Иной документ') {
+                this.name = this.newName
+              }else{
 
-            if(this.name === 'Иной документ') {
-              this.name = this.newName
-            }else{
-
-            }
+              }
               let doc = new Document(
-              this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
-              this.selected_document,
-              this.nameDoc = this.name === 'Иной документ' ? this.newName : this.selected_document.name,
-              this.serialDoc = this.serial,
-              this.numberDoc = this.number,
-              this.docTypeDoc = this.selected_docType,
-              this.dateOfIssueDoc = this.dateOfIssue,
-              this.countDoc = this.count,
-              this.issuedByDoc = this.issuedBy,
-              this.tab_document_auto = false,
-              this.fullnameDoc = this.nameDoc + " Серия " + this.serial + " № " + this.number + " от " + this.dateOfIssueDoc + " выдан " + this.issuedByDoc + " ("+ this.docTypeDoc.name +")"
+                this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
+                this.selected_document,
+                this.nameDoc = this.name === 'Иной документ' ? this.newName : this.selected_document.name,
+                this.serialDoc = this.serial,
+                this.numberDoc = this.number,
+                this.docTypeDoc = this.selected_docType,
+                this.dateOfIssueDoc = this.dateOfIssue,
+                this.countDoc = this.count,
+                this.issuedByDoc = this.issuedBy,
+                this.tab_document_auto = false,
+                this.fullnameDoc = this.nameDoc + " Серия " + this.serial + " № " + this.number + " от " + this.dateOfIssueDoc + " выдан " + this.issuedByDoc + " ("+ this.docTypeDoc.name +")"
 
               );
+              console.log(doc)
+              this.person.application.application_documents.push(doc);
+            }
 
-            console.log(doc)
-            this.person.application.application_documents.push(doc);
+            location.href='profile#documents_overview';
+
 
           },
 
@@ -714,6 +782,25 @@
             const index = this.person.application.application_documents.indexOf(item);
             console.log(index);
             this.person.application.application_documents.splice(index, 1);
+          },
+
+          onEdit(item) {
+            this.editedIndex = this.person.application.application_documents.indexOf(item);
+            this.editedItem = Object.assign({}, item);
+
+            const index = this.person.application.application_documents.indexOf(item);
+            console.log(index);
+            console.log(this.person.application.application_documents[index]);
+
+            this.selected_document = this.person.application.application_documents[index].selected_document;
+            this.count = this.person.application.application_documents[index].countDoc;
+            this.serial = this.person.application.application_documents[index].serialDoc;
+            this.number = this.person.application.application_documents[index].numberDoc;
+            this.selected_docType = this.person.application.application_documents[index].docTypeDoc;
+            this.dateOfIssue = this.person.application.application_documents[index].dateOfIssueDoc;
+            this.issuedBy = this.person.application.application_documents[index].issuedByDoc;
+
+            location.href='profile#documents_info';
           }
         },
 
@@ -836,5 +923,12 @@
   .inner_tab {
     margin-top: -40px;
     /*background: linear-gradient(45deg, #EECFBA, #C5DDE8);*/
+  }
+  .alarm_label {
+    /*text-align: left;*/
+    color: red;
+  }
+  .uneditable {
+    background-color: grey;
   }
 </style>

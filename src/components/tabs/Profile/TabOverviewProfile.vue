@@ -159,7 +159,7 @@
         'tab_edu_military_univer', 'tab_edu_military_selectedCountryRegion', 'tab_edu_military_selectedState', 'tab_edu_military_selectedAcademyYear',
         'tab_edu_military_selectedEduDoc', 'tab_edu_military_eduDocSerial', 'tab_edu_military_eduDocNumber', 'tab_edu_military_eduDocDate',
         'tab_edu_military_eduDocName', 'tab_edu_military_attachment_serial', 'tab_edu_military_attachment_number', 'score_five', 'score_four',
-        'score_three', 'averageScore', 'tab_edu_military_selectedSoldiery', 'tab_edu_military_selectedSoldieryStatus', 'tab_edu_military_selectedMilitaryFormDoc',
+        'score_three', 'score_full', 'averageScore', 'tab_edu_military_selectedSoldiery', 'tab_edu_military_selectedSoldieryStatus', 'tab_edu_military_selectedMilitaryFormDoc',
         'tab_edu_military_militaryNumber', 'tab_edu_military_militarySeries', 'tab_edu_military_militaryIssueDate', 'tab_edu_military_militaryIssueBy',
         'tab_edu_military_militaryRank', 'tab_edu_military_selectedDocType', 'tab_edu_military_docMilitaryShowDate', 'tab_edu_military_startMilitary',
         'tab_edu_military_endMilitary', 'selectedExtraInfos1', 'selectedExtraInfos2', 'extraInfosDescription1', 'extraInfosDescription2', 'image', 'person_info_id',
@@ -464,7 +464,7 @@
         this.language_score2 = '';
         this.selected_foreignLanguageName3 = null;
         this.language_score3 = '';
-        this.score_full=0;
+        this.score_full = 0.00;
         this.tab_address_registrationAddress = '';
         this.tab_address_factAddress = '';
         this.tab_address_templateRegistrationAddress = '';

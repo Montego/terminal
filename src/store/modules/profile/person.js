@@ -4,6 +4,9 @@ import {getField, updateField} from 'vuex-map-fields';
 export default {
   namespaced: true,
   state: {
+    docSeriesMandatory:0,
+    docNumberMandatory:0,
+
     agreementId: '',
     applicationId: '',
     contactPersonId: '',
@@ -228,6 +231,7 @@ export default {
       ege_info: [
         {
           tab_ege_selectedSubject: 'Химия',
+          tab_ege_selectedExamForm: 'ЕГЭ',
           tab_ege_score: 0,
           tab_ege_year: {
             "academyYearId": "2019",
@@ -259,6 +263,7 @@ export default {
 
         {
           tab_ege_selectedSubject: 'Биология',
+          tab_ege_selectedExamForm: 'ЕГЭ',
           tab_ege_score: 0,
           tab_ege_year: {
             "academyYearId": "2019",
@@ -288,6 +293,7 @@ export default {
         },
         {
           tab_ege_selectedSubject: 'Русский язык',
+          tab_ege_selectedExamForm: 'ЕГЭ',
           tab_ege_score: 0,
           tab_ege_year: {
             "academyYearId": "2019",

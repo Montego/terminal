@@ -37,12 +37,7 @@
         </select>
       </div>
 
-      <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
-        <div class="form__label-text col-sm">Дата предоставления:</div>
-        <input v-if="person.application.application_selectedDocType.name === 'Оригинал'" v-model="some_date = moment(dateToday).format('YYYY-MM-DD')" class="uneditable form__input col-sm" type="date" id= "theDate23"  min="1918-01-01" max="2019-01-01" disabled/>
-        <input v-else v-model="some_date2" class="uneditable form__input col-sm" type="date" id= "theDate24"  min="1918-01-01" max="2019-01-01" disabled/>
 
-      </div>
 
       <div v-if="!this.isModalVisible" class=" col-sm-4">
         <div class="form__label-text col-sm-8">Документ об образовании:</div>
@@ -51,6 +46,12 @@
             {{item.name}}
           </option>
         </select>
+      </div>
+
+      <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
+        <div class="form__label-text col-sm">Дата предоставления:</div>
+        <input v-if="person.application.application_selectedDocType.name === 'Оригинал'" v-model="some_date = moment(dateToday).format('YYYY-MM-DD')" class="uneditable form__input col-sm" type="date" id= "theDate23"  min="1918-01-01" max="2019-01-01" disabled/>
+        <input v-else v-model="some_date2" class="uneditable form__input col-sm" type="date" id= "theDate24"  min="1918-01-01" max="2019-01-01" />
       </div>
       <!--<div v-if="!this.isModalVisible" class="flex-column col-sm-4">-->
         <!--<div class="form__label-text col-sm">Абитуриент:</div>-->
@@ -92,10 +93,10 @@
                         ((props.item.environmentId ===  'Договор' & !props.item.agree) & countContract > 0)|
                          ((props.item.environmentId ===  'Бюджет' & !props.item.agree) & countBudget > 0) |
                          ((props.item.environmentId ===  'ЦелНапр' & !props.item.agree) & countBudget > 0) |
-                         (person.application.application_selectedDocType.name === 'Копия' & props.item.environmentId ===  'Бюджет')
+                         (person.application.application_selectedDocType.name === 'Копия' & (props.item.environmentId === 'Бюджет'| props.item.environmentId === 'ЦелНапр'))
 
 ">
-                <input v-model="props.item.agree" class="checkbox col-sm" type="checkbox" @change="checkCount(props.item)" disabled>
+                <input v-model="props.item.agree = false" class="checkbox col-sm" type="checkbox" @change="checkCount(props.item)" disabled>
               </div>
               <div v-else>
                 <input v-model="props.item.agree" class="checkbox col-sm" type="checkbox" @change="checkCount(props.item)">
@@ -121,7 +122,10 @@
             <!--</td>-->
 
             <td class="justify-center layout px-0">
-              <button  class="table_buttons" @click="addSomething(props.item)">
+              <button v-if="person.application.application_selectedDocType.name === 'Копия' || props.item.environmentId ==='Договор'" class=" table_buttons" hidden @click="addSomething(props.item)">
+                <v-icon color="#5bc0de">add</v-icon>
+              </button>
+              <button v-else class=" table_buttons" @click="addSomething(props.item)">
                 <v-icon color="#5bc0de">add</v-icon>
               </button>
             </td>
@@ -327,7 +331,7 @@
           {text: 'Форма обучения', value: 'eduForm', sortable: false, align: 'center'},
           {text: 'Согласие', value: 'accepted', sortable: false, align: 'center'},
           // {text: 'Спец. право', value: 'special_right', sortable: false, align: 'center'},
-          {text: 'Действия', value: 'actions', sortable: false, align: 'center'},
+          {text: 'Особое право', value: 'actions', sortable: false, align: 'center'},
         ],
         results: [
 
@@ -408,6 +412,10 @@
 
     methods: {
       checkCount(item){
+          // if(this.person.application.application_selectedDocType.name === 'Копия' && item.igree){
+          //   item.igree=false;
+          // }
+
           if(item.environmentId === 'Бюджет' && item.agree) {
             this.countBudget++;
           }
@@ -433,9 +441,11 @@
 
         this.editedItem.agree = this.agree;
         this.editedItem.agreeDate = this.agreeDate;
+        // this.editedItem.orderGroupType = "Особое право";
 
         this.editedItem.special_right = this.special_right;
         this.editedItem.typeOfSpecialRight = this.typeOfSpecialRight ;
+
 
         this.editedItem.proofSpecialRight1 = this.proofSpecialRight1 ;
         this.editedItem.descriptionSpecialRight1 = this.descriptionSpecialRight1;
@@ -727,4 +737,5 @@
     /*text-align: left;*/
     color: red;
   }
+
 </style>

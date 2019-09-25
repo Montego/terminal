@@ -24,6 +24,7 @@
         </button>
       </div>
     </div>
+    <!--{{this.docSeriesMandatory}}-->
 
     <span>{{successMessage}}</span>
     <span>{{errorMessages}}</span>
@@ -44,6 +45,20 @@
         </span>
       </div>
     </div>
+
+<!--{{person.ege_info[0].tab_ege_changePaspInf}}-->
+    <input v-if="this.person.ege_info[0].tab_ege_changePaspInf" v-model="tab_ege_identityCardNumber_1 = this.person.ege_info[0].tab_ege_identityCardNumber" hidden>
+    <input v-model="tab_ege_identityCardNumber_1" hidden>
+
+    <input v-if="this.person.ege_info[1].tab_ege_changePaspInf" v-model="tab_ege_identityCardNumber_2 = this.person.ege_info[1].tab_ege_identityCardNumber" hidden>
+    <input v-if="this.person.ege_info[2].tab_ege_changePaspInf" v-model="tab_ege_identityCardNumber_3 = this.person.ege_info[2].tab_ege_identityCardNumber" hidden>
+
+    <input v-if="this.person.ege_info[0].tab_ege_changePaspInf" v-model="tab_ege_identityCardSeries_1 = this.person.ege_info[0].tab_ege_identityCardSeries" hidden>
+    <input v-if="this.person.ege_info[1].tab_ege_changePaspInf" v-model="tab_ege_identityCardSeries_2 = this.person.ege_info[1].tab_ege_identityCardNumber" hidden>
+    <input v-if="this.person.ege_info[2].tab_ege_changePaspInf" v-model="tab_ege_identityCardSeries_3 = this.person.ege_info[2].tab_ege_identityCardNumber" hidden>
+
+    <!--<input v-model="ege1 = this.person.ege_info[2].tab_ege_identityCardNumber" hidden>-->
+    <!--{{ege1}}-->
 
   </div>
 </template>
@@ -87,6 +102,17 @@
     },
     data() {
       return {
+
+        checkSeries: false,
+        checkNumber: false,
+
+        tab_ege_identityCardNumber_1: 1,
+        tab_ege_identityCardNumber_2: 1,
+        tab_ege_identityCardNumber_3: 1,
+        tab_ege_identityCardSeries_1: 1,
+        tab_ege_identityCardSeries_2: 1,
+        tab_ege_identityCardSeries_3: 1,
+
         counterTarg: 0,
 
         testMessage: '',
@@ -177,6 +203,45 @@
             field: 'tab_edu_military_eduDocNumber',
             answer: 'номер док-а об образовании (вкладка Образование, военная служба)'
           },
+          // ---------------------------------------------------------------------
+          // {
+          //   field: 'ege1',
+          //   answer: 'некорректное значение баллов по ЕГЭ(Химия)'
+          // },
+          // {
+          //   field: 'ege2',
+          //   answer: 'некорректное значение баллов по ЕГЭ(Биология)'
+          // },
+          // {
+          //   field: 'ege3',
+          //   answer: 'некорректное значение баллов по ЕГЭ(Русский язык)'
+          // },
+          // ---------------------------------------------------------------------
+          {
+            field: 'tab_ege_identityCardNumber_1',
+            answer: 'номер док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ -> Изменение паспортных данных)'
+          },
+          {
+            field: 'tab_ege_identityCardNumber_2',
+            answer: 'номер док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ -> Изменение паспортных данных)'
+          },
+        {
+          field: 'tab_ege_identityCardNumber_3',
+          answer: 'номер док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ -> Изменение паспортных данных)'
+        },
+        {
+          field: 'tab_ege_identityCardSeries_1',
+          answer: 'серия док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ -> Изменение паспортных данных)'
+        },
+        {
+          field: 'tab_ege_identityCardSeries_2',
+          answer: 'серия док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ -> Изменение паспортных данных)'
+        },
+        {
+          field: 'tab_ege_identityCardSeries_3',
+          answer: 'серия док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ -> Изменение паспортных данных)'
+        },
+
         ]
       }
     },
@@ -206,10 +271,44 @@
       tab_edu_military_univer: {required},
       tab_edu_military_selectedAcademyYear: {required},
       tab_edu_military_selectedEduDoc: {required},
-      tab_edu_military_eduDocSerial: {required},
+      tab_edu_military_eduDocSerial: {
+        required
+        // isNeed: function (val) {
+          // val => this.docSeriesMandatory === 1 ? : {required}: ""
+          // if (this.docSeriesMandatory === 1){
+          //   return required
+          // }
+        // }
+      },
       tab_edu_military_eduDocNumber: {required},
 
+      // ege1:{
+      //   // required,
+      //   normalScore: function (val) {
+      //     return ((this.ege1 >= 50) && (this.ege1 <= 100)) || (this.ege1 == 0);
+      //   }
+      //
+      // },
+      // ege2:{
+      //   // required,
+      //   normalScore: function (val) {
+      //     return ((this.ege2 >= 50) && (this.ege2 <= 100)) || (this.ege2 == 0);
+      //   }
+      //   // between: between(50, 100)
+      // },
+      // ege3: {
+      //   // required,
+      //   normalScore: function (val) {
+      //     return ((this.ege3 >= 50) && (this.ege3 <= 100)) || (this.ege3 == 0);
+      //   },
+      // },
 
+      tab_ege_identityCardNumber_1: {required},
+      tab_ege_identityCardNumber_2: {required},
+      tab_ege_identityCardNumber_3: {required},
+      tab_ege_identityCardSeries_1: {required},
+      tab_ege_identityCardSeries_2: {required},
+      tab_ege_identityCardSeries_3: {required},
       //validations inside groups
       GroupsValidationInfo: ['tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_lastname_genitive',
         'tab_personal_firstname_genitive', 'tab_personal_birthDate',
@@ -217,7 +316,9 @@
         'tab_personal_identityCardNumber', 'tab_personal_identityCardIssueBy',
         'tab_personal_identityCardIssueDate', 'tab_personal_selectedCitizenship', 'tab_personal_birthplace', 'tab_personal_email',
         'tab_edu_military_educationLevel', 'tab_edu_military_univer', 'tab_edu_military_selectedAcademyYear',
-        'tab_edu_military_selectedEduDoc', 'tab_edu_military_eduDocSerial', 'tab_edu_military_eduDocNumber'
+        'tab_edu_military_selectedEduDoc', 'tab_edu_military_eduDocSerial', 'tab_edu_military_eduDocNumber',
+        'tab_ege_identityCardNumber_1','tab_ege_identityCardNumber_2','tab_ege_identityCardNumber_3',
+        'tab_ege_identityCardSeries_1','tab_ege_identityCardSeries_2','tab_ege_identityCardSeries_3'
       ],
 
     },
@@ -262,7 +363,8 @@
         'tab_edu_military_militaryIssueDate', 'tab_edu_military_militaryIssueBy', 'tab_edu_military_militaryRank',
         'tab_edu_military_selectedDocType', 'tab_edu_military_docMilitaryShowDate', 'tab_edu_military_startMilitary',
         'tab_edu_military_endMilitary', 'selectedExtraInfos1', 'selectedExtraInfos2', 'extraInfosDescription1',
-        'extraInfosDescription2', 'image', 'showimage', 'person_info_id', 'saved', 'acceptedPerson', 'imageOf'
+        'extraInfosDescription2', 'image', 'showimage', 'person_info_id', 'saved', 'acceptedPerson', 'imageOf',
+        'docSeriesMandatory','docNumberMandatory'
       ]),
       ...applications(['application', 'application_person_id', 'application_person_name', 'applId', 'applTableName',
         'applTableNumber', 'applTableDate', 'applTableDeliveryType', 'applicationId', 'apls', 'chooseAppls', 'resultApl',
