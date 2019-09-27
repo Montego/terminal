@@ -1,6 +1,7 @@
 <template>
 <div>
-  <tabs class="main_tab" v-show="!showProfile" :handleClick="handleClick">
+  <tabs @clicked="tabClicked"
+        class="main_tab" v-show="!showProfile" :handleClick="handleClick">
 
     <tab id="applicationFill" name="Заявление">
       <TabApplicationFill></TabApplicationFill>
@@ -34,6 +35,16 @@
       computed: {
         ...person(['person', 'showProfile']),
       },
+      methods: {
+        tabClicked (selectedTab) {
+          console.log(selectedTab.tab.name)
+          if(selectedTab.tab.name === 'Документы'){
+            console.log('im in document')
+            location.href='profile#documents_overview';
+          }
+          console.log('Current tab re-clicked:' , selectedTab.tab);
+        }
+        },
       components: {
         TabApplicationFill,
         TabDocuments, TabCheckAndSave

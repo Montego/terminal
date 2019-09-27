@@ -4,6 +4,10 @@ import {getField, updateField} from 'vuex-map-fields';
 export default {
   namespaced: true,
   state: {
+    requiredPrefEge1:[],
+    requiredPrefEge2:[],
+    requiredPrefEge3:[],
+
     docSeriesMandatory:0,
     docNumberMandatory:0,
 
@@ -329,9 +333,10 @@ export default {
         saved: '',
         application_number: '',
         application_date: '',
-        application_selectedDeliveryReturnType: '',
-        application_selectedDeliveryType: '',
-        application_selectedDocType: '',
+        application_selectedDeliveryReturnType: {"id":0,"name":"Лично"},
+        application_selectedDeliveryType: {"id":0,"name":"Лично"},
+        application_selectedDocType: {"id": 0,"name":"Копия"}
+        ,
         application_person_name: '',
         choosenWizards: [],
         application_documents: [],

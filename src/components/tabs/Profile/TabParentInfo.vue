@@ -88,7 +88,7 @@
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Дата рождения:</div>
-              <input v-model="tab_parent_birthDate" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
+              <input v-model="tab_parent_birthDate" class="form__input col-sm" type="date" min="1918-01-01" max="2100-01-01"/>
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Полных лет</div>

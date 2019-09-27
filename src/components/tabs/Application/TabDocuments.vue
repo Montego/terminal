@@ -19,7 +19,7 @@
             <td class="text-xs-center">{{ props.item.docTypeDoc.name}}</td>
 
             <td class="text-xs-center">
-              <input v-model="props.item.dateOfShow" class="form__input col-sm-8" type="date"  >
+              <input v-model="props.item.dateOfShow" class="form__input col-sm-8" type="date" min="1918-01-01" max="2100-01-01" >
               <!--{{ props.item.dateOfIssueDoc}}-->
             </td>
             <td class="text-xs-center">{{ props.item.countDoc }}</td>
@@ -60,6 +60,7 @@
                         <!--{{option.item}}-->
                       <!--</option>-->
                     <!--</select>-->
+
                     <select v-model="selected_document" class="minimal col-sm">
                       <option v-for="item in document" v-bind:value="item">
                         {{item.name}}
@@ -103,7 +104,7 @@
                 <!--{{$v.selected_docType.$invalid}}-->
                 <label class="row">
                   <div class="form__label-text col-sm">Дата выдачи:</div>
-                  <input v-model="dateOfIssue" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
+                  <input v-model="dateOfIssue" class="form__input col-sm" type="date" min="1918-01-01" max="2100-01-01"/>
                 </label>
                         <span class="alarm_label" v-if="$v.dateOfIssue.$invalid">Не введена дата выдачи</span>
                 <!--{{$v.dateOfIssue.$invalid}}-->
@@ -227,7 +228,7 @@
       },
       validations: {
         // selected_document:{required},
-        name:{required},
+        // name:{required},
         count:{required},
         serial:{required},
         number:{required},
@@ -251,7 +252,8 @@
           },
           onAdd(){
             location.href='profile#documents_info';
-            this.name = null;
+            // this.name = null;
+            this.selected_document = {};
             this.count = null;
             this.serial = null;
             this.number = null;
@@ -261,7 +263,8 @@
             this.auto= false;
           },
           onClear() {
-            this.name = null;
+            // this.name = null;
+            this.selected_document = {};
             this.count = null;
             this.serial = null;
             this.number = null;
@@ -310,6 +313,52 @@
               this.tab_document_auto = auto,
               this.fullnameDoc = fullname
             }
+
+
+            for(let x=0; x< this.person.application.choosenWizards.length;x++){
+              if(typeof this.person.application.choosenWizards[x].special_right!== 'undefined'){
+                  console.log('this',this.person.application.choosenWizards[x])
+
+                  if(this.person.application.choosenWizards[x].proofSpecialRight1!==null){
+                    let document0 = new Document(
+                      this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
+                      this.selected_document = this.person.application.choosenWizards[x].proofSpecialRight1,
+                      this.nameDoc = this.person.application.choosenWizards[x].proofSpecialRight1.name,
+                      this.serialDoc = this.person.application.choosenWizards[x].serialSpecialRight1,
+                      this.numberDoc = this.person.application.choosenWizards[x].numberSpecialRight1,
+                      this.docTypeDoc = this.person.application.choosenWizards[x].docTypeSpecialRight1,
+                      this.dateOfIssueDoc = this.person.application.choosenWizards[x].dateSpecialRight1,
+                      // this.moment(this.dateToday).format('YYYY-MM-DD'),
+                      this.countDoc = 1,
+                      this.issuedByDoc = "",
+                      this.tab_document_auto = true,
+                      this.fullnameDoc = this.nameDoc + ' Cерия ' + this.serialDoc + ' № ' + this.numberDoc + ' от ' + (dateConvert(this.dateOfIssueDoc)) + ' ('+this.docTypeDoc.name+')',
+                    );
+                    this.person.application.application_documents.push(document0);
+                  }
+                if(typeof this.person.application.choosenWizards[x].proofSpecialRight2!== 'undefined'){
+                  console.log(this.person.application.choosenWizards[x])
+                  console.log('proofSpecialRight2!==null')
+                  let document02 = new Document(
+                    this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
+                    this.selected_document = this.person.application.choosenWizards[x].proofSpecialRight2 ,
+                    this.nameDoc = this.person.application.choosenWizards[x].proofSpecialRight2.name,
+                    this.serialDoc = this.person.application.choosenWizards[x].serialSpecialRight2,
+                    this.numberDoc = this.person.application.choosenWizards[x].numberSpecialRight2,
+                    this.docTypeDoc = this.person.application.choosenWizards[x].docTypeSpecialRight2,
+                    this.dateOfIssueDoc = this.person.application.choosenWizards[x].dateSpecialRight2,
+                    // this.moment(this.dateToday).format('YYYY-MM-DD'),
+                    this.countDoc = 1,
+                    this.issuedByDoc = "",
+                    this.tab_document_auto = true,
+                    this.fullnameDoc = this.nameDoc + ' Cерия ' + this.serialDoc + ' № ' + this.numberDoc + ' от ' + (dateConvert(this.dateOfIssueDoc))  + ' ('+this.docTypeDoc.name+')',
+                  );
+                  this.person.application.application_documents.push(document02);
+                }
+              }
+            }
+
+
 
               let document1 = new Document(
                 this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),

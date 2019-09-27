@@ -584,6 +584,7 @@
 
 
           if (this.person_info_id === '') {
+            console.log('person before save: ',this.person);
             AXIOS.post(`/profile`, (this.person))
               .then(response => {
                 console.log('saved person ' + response.data);
@@ -618,7 +619,8 @@
                 // }
 
 
-                if (this.$store.state.agreementId !== "nothing" || this.agreementId !== null) {
+
+                if (this.$store.state.agreementId.length !== "nothing" || this.agreementId !== null) {
                   this.showPrintAgreement = true;
                 }
                 if (this.$store.state.applicationId !== 'nothing' || this.applicationId !== null) {

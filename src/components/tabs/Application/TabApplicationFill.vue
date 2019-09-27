@@ -17,8 +17,8 @@
       <!--</div>-->
       <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
         <div class="form__label-text col-sm">Дата заявления:</div>
-        <input v-if="person.application.application_selectedDocType.name === 'Оригинал'" v-model="person.application.application_date = moment(dateToday).format('YYYY-MM-DD')" class="uneditable form__input col-sm" type="date" id= "theDate"  min="1918-01-01" max="2019-01-01" disabled/>
-        <input v-else v-model="person.application.application_date = moment(dateToday).format('YYYY-MM-DD')" class="uneditable form__input col-sm" type="date" id= "theDate2"  min="1918-01-01" max="2019-01-01" disabled/>
+        <input v-if="person.application.application_selectedDocType.name === 'Оригинал'" v-model="person.application.application_date = moment(dateToday).format('YYYY-MM-DD')" class="uneditable form__input col-sm" type="date" id= "theDate"  min="1918-01-01" max="2100-01-01" disabled/>
+        <input v-else v-model="person.application.application_date = moment(dateToday).format('YYYY-MM-DD')" class="uneditable form__input col-sm" type="date" id= "theDate2"  min="1918-01-01" max="2100-01-01" disabled/>
       </div>
       <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
         <div class="form__label-text col-sm">Тип доставки:</div>
@@ -28,9 +28,12 @@
           </option>
         </select>
       </div>
+
+      <!--{{person.application.application_selectedDeliveryType}}-->
+<!--{{person.application.application_selectedDeliveryReturnType}}-->
       <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
         <div class="form__label-text col-sm">Тип возврата:</div>
-        <select v-model="person.application.application_selectedDeliveryReturnType"  class="minimal col-sm">
+        <select v-model="person.application.application_selectedDeliveryReturnType"  class="minimal col-sm" >
           <option v-for="item in deliveryType" v-bind:value="item">
             {{item.name}}
           </option>
@@ -38,7 +41,7 @@
       </div>
 
 
-
+      <!--{{person.application.application_selectedDocType}}-->
       <div v-if="!this.isModalVisible" class=" col-sm-4">
         <div class="form__label-text col-sm-8">Документ об образовании:</div>
         <select v-model="person.application.application_selectedDocType" class="minimal col-sm-6">
@@ -156,7 +159,7 @@
               <div class="form__label-text col-sm">Форма обучения:</div>
               <input v-model="eduForm" class="form__input col-sm" type="text" name="" disabled/>
             </label>
-
+<!--{{person.application.choosenWizards}}-->
             <div v-if="agree" class="row">
               <div class="col-sm">
                 <label class="row">
@@ -180,9 +183,18 @@
             <div  v-if="special_right">
               <label class="row">
                 <div class="form__label-text col-sm">Тип особого права</div>
-                <select v-model="typeOfSpecialRight" class="minimal col-sm">
-                  <option v-for="option in options_typeOfSpecialRight">
-                    {{option.item}}
+                <!--<select v-model="typeOfSpecialRight" class="minimal col-sm">-->
+                  <!--<option v-for="option in options_typeOfSpecialRight">-->
+                    <!--{{option.item}}-->
+                  <!--</option>-->
+                <!--</select>-->
+                <!--{{preference_special}}-->
+                <!--{{typeOfSpecialRight}}-->
+                <select v-model="typeOfSpecialRight"
+                        @change="getDocumentByPreference(typeOfSpecialRight)"
+                        class="minimal col-sm">
+                  <option v-for="item in preference_special" v-bind:value="item">
+                    {{item.name}}
                   </option>
                 </select>
               </label>
@@ -191,8 +203,8 @@
                 <label class="row">
                   <div class="form__label-text col-sm">Подтверждающий док-т(1):</div>
                   <select v-model="proofSpecialRight1" class="minimal col-sm">
-                    <option v-for="option in options_DocumentType">
-                      {{option.item}}
+                    <option v-for="option in documentsForSpecial" v-bind:value="option">
+                      {{option.name}}
                     </option>
                   </select>
                 </label>
@@ -225,12 +237,11 @@
               <hr>
 
               <div>
-
                 <label class="row">
                   <div class="form__label-text col-sm">Подтверждающий док-т(2):</div>
                   <select v-model="proofSpecialRight2" class="minimal col-sm">
-                    <option v-for="option in options_DocumentType">
-                      {{option.item}}
+                    <option v-for="option in documentsForSpecial" v-bind:value="option">
+                      {{option.name}}
                     </option>
                   </select>
                 </label>
@@ -300,6 +311,7 @@
     },
     data(){
       return{
+        documentsForSpecial:[],
         some_date:'',
         some_date2:'',
         dateToday: Date.now(),
@@ -369,7 +381,7 @@
           {id: 1, item: 'Лично'},
           {id: 2, item: 'Почтой'},
           {id: 3, item: 'По доверенности'},
-          {id: 4, item: 'Портал'},
+          // {id: 4, item: 'Портал'},
         ],
         options_copy: [
           {id: 1, item: 'Копия'},
@@ -379,7 +391,7 @@
     },
 
     computed: {
-      ...mapState('person', {person: state => state.person,}),
+      // ...mapState('person', {person: state => state.person,}),
       ...applications(['application','contacts','application_person_name','resultApl','apls',
         'agree','agreeDate','special_right', 'typeOfSpecialRight','checkTargCount',
         'proofSpecialRight1','descriptionSpecialRight1','serialSpecialRight1','numberSpecialRight1','docTypeSpecialRight1','dateSpecialRight1',
@@ -389,6 +401,8 @@
         'lechDelCel','lechDelBudget','medProfCel', 'medProfBudget','stomDelCel','stomDelBudget','howMuchTarg',
   ]),
       ...mapState('enums',['deliveryType', 'docType']),
+      ...mapState('dictionary',['preference_special']),
+      ...mapGetters('dictionary',['GET_preference_special']),
       ...mapGetters('enums',['GET_DELIVERY_TYPE','GET_DOC_TYPE']),
       ...person(['person','person_info_id','isModalVisible','isModalAgreementVisible',
         'tab_personal_lastname','tab_personal_firstname','tab_personal_middlename']),
@@ -408,9 +422,23 @@
     mounted () {
       this.$store.dispatch('enums/onLoadDocType');
       this.$store.dispatch('enums/onLoadDeliveryType');
+      this.$store.dispatch('dictionary/onLoadPreferenceSpecial');
     },
 
     methods: {
+      getDocumentByPreference(preference){
+        console.log(preference);
+        AXIOS.post(`dictionary/documentByPreference/`, preference)
+          .then(response => {
+            this.documentsForSpecial = response.data;
+            console.log(response.data)
+          })
+          .catch(e => {
+          })
+      },
+
+
+
       checkCount(item){
           // if(this.person.application.application_selectedDocType.name === 'Копия' && item.igree){
           //   item.igree=false;
@@ -444,8 +472,8 @@
         // this.editedItem.orderGroupType = "Особое право";
 
         this.editedItem.special_right = this.special_right;
-        this.editedItem.typeOfSpecialRight = this.typeOfSpecialRight ;
-
+        this.editedItem.typeOfSpecialRight = this.typeOfSpecialRight  === ""? null : this.typeOfSpecialRight;
+console.log('this.typeOfSpecialRight',this.typeOfSpecialRight);
 
         this.editedItem.proofSpecialRight1 = this.proofSpecialRight1 ;
         this.editedItem.descriptionSpecialRight1 = this.descriptionSpecialRight1;
@@ -601,6 +629,7 @@
       onNext() {
         // console.log(this.application.application_selectedDeliveryType);
         location.href='profile#documents';
+        // location.href='profile#documents_overview';
       },
     },
   }

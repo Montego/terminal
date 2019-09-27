@@ -15,6 +15,9 @@
           <img class="images_place" :src="showimage"/>
         </div>
       </div>
+      <!--{{validChim}}-->
+      <!--{{validBiol}}-->
+      <!--{{validRus}}-->
 
       <div class="photo-loader__controls">
         <!--<button class="photo-loader__control-btn btn btn_load" type="button">-->
@@ -25,7 +28,7 @@
       </div>
     </div>
     <!--{{this.docSeriesMandatory}}-->
-
+<!--<button @click="checkOlympPref">____</button>-->
     <span>{{successMessage}}</span>
     <span>{{errorMessages}}</span>
 
@@ -102,6 +105,10 @@
     },
     data() {
       return {
+
+        validChim: true,
+        validBiol: true,
+        validRus: true,
 
         checkSeries: false,
         checkNumber: false,
@@ -241,12 +248,40 @@
           field: 'tab_ege_identityCardSeries_3',
           answer: 'серия док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ -> Изменение паспортных данных)'
         },
+          // -------------------------------------------------------------------------------
+          {
+            field: 'validChim',
+            answer: 'не выбрана олимпиада с документами по химии (вкладка Отличительные признаки -> добавить)'
+          },
+          {
+            field: 'validBiol',
+            answer: 'не выбрана олимпиада с документами по биологии (вкладка Отличительные признаки -> добавить)'
+          },
+          {
+            field: 'validRus',
+            answer: 'не выбрана олимпиада с документами по русскому (вкладка Отличительные признаки -> добавить)'
+          },
 
         ]
       }
     },
     validations: {
       //validations rules
+      validChim: {
+        check:function (val) {
+          return (this.validChim);
+        }
+      },
+      validBiol: {
+        check:function (val) {
+          return (this.validBiol);
+        }
+      },
+      validRus: {
+        check:function (val) {
+          return (this.validRus);
+        }
+      },
       tab_personal_lastname: {required},
       tab_personal_firstname: {required},
       tab_personal_lastname_genitive: {required},
@@ -318,7 +353,8 @@
         'tab_edu_military_educationLevel', 'tab_edu_military_univer', 'tab_edu_military_selectedAcademyYear',
         'tab_edu_military_selectedEduDoc', 'tab_edu_military_eduDocSerial', 'tab_edu_military_eduDocNumber',
         'tab_ege_identityCardNumber_1','tab_ege_identityCardNumber_2','tab_ege_identityCardNumber_3',
-        'tab_ege_identityCardSeries_1','tab_ege_identityCardSeries_2','tab_ege_identityCardSeries_3'
+        'tab_ege_identityCardSeries_1','tab_ege_identityCardSeries_2','tab_ege_identityCardSeries_3',
+        'validChim','validBiol','validRus'
       ],
 
     },
@@ -327,6 +363,8 @@
       this.$store.dispatch('dictionary/onLoadTargOrg');
     },
     computed: {
+
+
       fullage: function () {
         let today = new Date();
         let birth = new Date(this.tab_personal_birthDate);
@@ -364,7 +402,8 @@
         'tab_edu_military_selectedDocType', 'tab_edu_military_docMilitaryShowDate', 'tab_edu_military_startMilitary',
         'tab_edu_military_endMilitary', 'selectedExtraInfos1', 'selectedExtraInfos2', 'extraInfosDescription1',
         'extraInfosDescription2', 'image', 'showimage', 'person_info_id', 'saved', 'acceptedPerson', 'imageOf',
-        'docSeriesMandatory','docNumberMandatory'
+        'docSeriesMandatory','docNumberMandatory',
+        'requiredPrefEge1','requiredPrefEge2','requiredPrefEge3'
       ]),
       ...applications(['application', 'application_person_id', 'application_person_name', 'applId', 'applTableName',
         'applTableNumber', 'applTableDate', 'applTableDeliveryType', 'applicationId', 'apls', 'chooseAppls', 'resultApl',
@@ -377,6 +416,105 @@
 
     },
     methods: {
+
+
+      checkOlympPref () {
+        let egeChim = 0;
+        let egeBiol = 0;
+        let egeRus = 0;
+
+        let subject1 = this.requiredPrefEge1;
+        let subject2 = this.requiredPrefEge2;
+        let subject3 = this.requiredPrefEge3;
+        let checkedArray = this.person.futures_info;
+
+        if(this.person.ege_info[0].tab_ege_selectedExamForm !== "Олимпиада"){
+          egeChim = 1;
+        }
+        if(this.person.ege_info[1].tab_ege_selectedExamForm !== "Олимпиада"){
+          egeBiol = 1;
+        }
+        if(this.person.ege_info[2].tab_ege_selectedExamForm !== "Олимпиада"){
+          egeRus = 1;
+        }
+
+        if(this.person.ege_info[0].tab_ege_selectedExamForm === "Олимпиада"){
+          if(checkedArray.length === 0){
+            console.log('нет префов вообще химия')
+          }
+          if(checkedArray.length > 0){
+            for(let i=0;i<checkedArray.length; i++){
+
+              for(let j=0;j<subject1.length;j++){
+                if(checkedArray[i].tab_features_selectedPreference.preferenceId === subject1[j].preferenceId){
+                  egeChim=1;
+                }
+              }
+
+            }
+          }
+        }
+        if(this.person.ege_info[1].tab_ege_selectedExamForm === "Олимпиада"){
+          if(checkedArray.length === 0){
+            console.log('нет префов вообще биол')
+          }
+          if(checkedArray.length > 0){
+            for(let i=0;i<checkedArray.length; i++){
+
+              for(let j=0;j<subject2.length;j++){
+                if(checkedArray[i].tab_features_selectedPreference.preferenceId === subject2[j].preferenceId){
+                  egeChim=1;
+                }
+              }
+
+            }
+          }
+        }
+        if(this.person.ege_info[2].tab_ege_selectedExamForm === "Олимпиада"){
+          if(checkedArray.length === 0){
+            console.log('нет префов вообще рус')
+          }
+          if(checkedArray.length > 0){
+            for(let i=0;i<checkedArray.length; i++){
+
+              for(let j=0;j<subject3.length;j++){
+                if(checkedArray[i].tab_features_selectedPreference.preferenceId === subject3[j].preferenceId){
+                  egeChim=1;
+                }
+              }
+
+            }
+          }
+        }
+
+
+        if(egeChim===0){
+          this.validChim = false;
+        }
+        if(egeChim===1){
+          this.validChim = true;
+        }
+
+        if(egeBiol===0){
+          this.validBiol = false;
+        }
+        if(egeBiol===1){
+          this.validBiol = true;
+        }
+
+        if(egeRus===0){
+          this.validRus = false;
+        }
+        if(egeRus===1){
+          this.validRus = true;
+        }
+
+        console.log(egeChim);
+        console.log(egeBiol);
+        console.log(egeRus);
+
+      },
+
       check(GroupsValidationInfo) {
         let entries = Object.entries(GroupsValidationInfo);
         let i = 0;
@@ -400,6 +538,7 @@
       },
 
       showModal() {
+        this.checkOlympPref ();
         this.lechDelCel = true;
         this.lechDelBudget = true;
         this.medProfCel = true;
@@ -606,6 +745,10 @@
           this.isModalVisible = false;
           location.href = 'profile#conditions_overview';
         }
+
+        console.log('result docType========',this.person.application.application_selectedDocType);
+        console.log('result DeliveryType========',this.person.application.application_selectedDeliveryType);
+        console.log('result ReturnType========',this.person.application.application_selectedDeliveryReturnType);
 
       },
 

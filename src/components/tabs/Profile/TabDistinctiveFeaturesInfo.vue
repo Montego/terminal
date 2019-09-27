@@ -123,14 +123,14 @@
                   </label>
                   <label v-if="tab_features_selectedDocType1.name ==='Оригинал'" class="row">
                     <div class="form__label-text col-sm">Дата предоставления:</div>
-                    <input v-model="tab_featuresShowDate1 = moment(dateToday).format('YYYY-MM-DD')" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
+                    <input v-model="tab_featuresShowDate1 = moment(dateToday).format('YYYY-MM-DD')" class="form__input col-sm" type="date" min="1918-01-01" max="2100-01-01"/>
                   </label>
                 </div>
                 <!---->
                 <div class="col-sm-6">
                   <label  class="row">
                     <div class="form__label-text col-sm">Дата выдачи:</div>
-                    <input v-model="doc1_IssuDate" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
+                    <input v-model="doc1_IssuDate" class="form__input col-sm" type="date" min="1918-01-01" max="2100-01-01" />
                   </label>
                   <label  class="row">
                     <div class="form__label-text col-sm">Кем выдан:</div>
@@ -181,14 +181,14 @@
                   </label>
                   <label v-if="tab_features_selectedDocType2.name ==='Оригинал'" class="row">
                     <div class="form__label-text col-sm">Дата предоставления:</div>
-                    <input v-model="tab_featuresShowDate2 = moment(dateToday).format('YYYY-MM-DD')" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
+                    <input v-model="tab_featuresShowDate2 = moment(dateToday).format('YYYY-MM-DD')" class="form__input col-sm" type="date" min="1918-01-01" max="2100-01-01"/>
                   </label>
                 </div>
                 <!---->
                 <div class="col-sm-6">
                   <label  class="row">
                     <div class="form__label-text col-sm">Дата выдачи:</div>
-                    <input v-model="doc2_IssuDate" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
+                    <input v-model="doc2_IssuDate" class="form__input col-sm" type="date" min="1918-01-01" max="2100-01-01"/>
                   </label>
                   <label  class="row">
                     <div class="form__label-text col-sm">Кем выдан:</div>
@@ -239,14 +239,14 @@
                   </label>
                   <label v-if="tab_features_selectedDocType3.name ==='Оригинал'" class="row">
                     <div class="form__label-text col-sm">Дата предоставления:</div>
-                    <input v-model="tab_featuresShowDate3 = moment(dateToday).format('YYYY-MM-DD')" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
+                    <input v-model="tab_featuresShowDate3 = moment(dateToday).format('YYYY-MM-DD')" class="form__input col-sm" type="date" min="1918-01-01" max="2100-01-01"/>
                   </label>
                 </div>
                 <!---->
                 <div class="col-sm-6">
                   <label  class="row">
                     <div class="form__label-text col-sm">Дата выдачи:</div>
-                    <input v-model="doc3_IssuDate" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
+                    <input v-model="doc3_IssuDate" class="form__input col-sm" type="date" min="1918-01-01" max="2100-01-01"/>
                   </label>
                   <label  class="row">
                     <div class="form__label-text col-sm">Кем выдан:</div>

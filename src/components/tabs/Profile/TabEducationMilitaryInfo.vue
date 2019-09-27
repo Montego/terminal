@@ -88,7 +88,7 @@
 
         <label class="row">
           <div class="form__label-text col-sm">Дата выдачи:</div>
-          <input v-model="tab_edu_military_eduDocDate" class="form__input col-sm" type="date"  min="1918-01-01" max="2019-01-01"/>
+          <input v-model="tab_edu_military_eduDocDate" class="form__input col-sm" type="date"  min="1918-01-01" max="2100-01-01"/>
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Наименование:</div>
@@ -175,7 +175,7 @@
 
           <label class="row">
             <div class="form__label-text col-sm">Дата выдачи:</div>
-            <input v-model="tab_edu_military_militaryIssueDate" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
+            <input v-model="tab_edu_military_militaryIssueDate" class="form__input col-sm" type="date" min="1918-01-01" max="2100-01-01"/>
           </label>
           <label class="row">
             <div class="form__label-text col-sm">Кем выдан:</div>
@@ -195,7 +195,7 @@
           </label>
           <label v-if="tab_edu_military_selectedDocType.name ==='Оригинал'" class="row">
             <div class="form__label-text col-sm">Дата предоставления:</div>
-            <input v-model="tab_edu_military_docMilitaryShowDate" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
+            <input v-model="tab_edu_military_docMilitaryShowDate" class="form__input col-sm" type="date" min="1918-01-01" max="2100-01-01"/>
           </label>
 
         </div>
@@ -206,11 +206,11 @@
         <div>
           <label class="row">
             <div class="form__label-text col-sm">Дата начала:</div>
-            <input v-model="tab_edu_military_startMilitary" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
+            <input v-model="tab_edu_military_startMilitary" class="form__input col-sm" type="date" min="1918-01-01" max="2100-01-01"/>
           </label>
           <label class="row">
             <div class="form__label-text col-sm">Дата окончания:</div>
-            <input v-model="tab_edu_military_endMilitary" class="form__input col-sm" type="date" min="1918-01-01" max="2019-01-01"/>
+            <input v-model="tab_edu_military_endMilitary" class="form__input col-sm" type="date" min="1918-01-01" max="2100-01-01"/>
           </label>
         </div>
       </div>

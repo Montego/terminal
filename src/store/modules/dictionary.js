@@ -14,6 +14,7 @@ export default {
     soldiery: [],
     language: [],
     preference: [],
+    preference_special: [],
     famRelationShip: [],
     subject: [],
     targOrg: [],
@@ -53,6 +54,9 @@ export default {
     },
     GET_preference: state => {
       return state.preference;
+    },
+    GET_preference_special: state => {
+      return state.preference_special;
     },
     GET_famRelationShip: state => {
       return state.famRelationShip;
@@ -101,6 +105,9 @@ export default {
     },
     UPLOAD_preference(state, payload) {
       state.preference = payload
+    },
+    UPLOAD_preference_special(state, payload) {
+      state.preference_special = payload
     },
     UPLOAD_famRelationShip(state, payload) {
       state.famRelationShip = payload
@@ -208,6 +215,14 @@ export default {
       AXIOS.get('/dictionary/preference')
         .then((response) => {
           commit('UPLOAD_preference', response.data)
+        }).catch(e => {
+        this.errors.push(e)
+      })
+    },
+    onLoadPreferenceSpecial({commit}) {
+      AXIOS.get('/dictionary/preferenceSpecial')
+        .then((response) => {
+          commit('UPLOAD_preference_special', response.data)
         }).catch(e => {
         this.errors.push(e)
       })

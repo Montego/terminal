@@ -300,7 +300,12 @@
         this.person_info_id = '';
         this.person.person_info_id = '';
         this.person.applications = [];
-
+        this.person.application.application_selectedDocType = {"id": 0, "name": "Копия"};
+        this.person.application.application_selectedDeliveryType = {"id":0,"name":"Лично"};
+        this.person.application.application_selectedDeliveryReturnType = {"id":0,"name":"Лично"};
+        console.log('result docType========',this.person.application.application_selectedDocType);
+        console.log('result DeliveryType========',this.person.application.application_selectedDeliveryType);
+        console.log('result ReturnType========',this.person.application.application_selectedDeliveryReturnType);
         this.profiles = [];
 
         this.successMessage = "";

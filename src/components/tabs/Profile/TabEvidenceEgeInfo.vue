@@ -13,16 +13,18 @@
               <template slot="items" slot-scope="props">
                 <td class="text-xs-center">{{ props.item.tab_ege_selectedSubject}}</td>
 <!--{{this.tab_ege_selectedExamForm}}-->
-                <!--<td class="text-xs-center">-->
-                  <!--<select  v-model="props.item.tab_ege_selectedExamForm" class="minimal col-sm">-->
-                    <!--<option v-for="items in options_ege">-->
-                      <!--{{items.item}}-->
+                <td class="text-xs-center">
+                  <select  v-model="props.item.tab_ege_selectedExamForm"
+                           @change="getPrefByEge(props.item.tab_ege_selectedExamForm,props.item.tab_ege_selectedSubject)"
+                           class="minimal col-sm">
+                    <option v-for="items in options_ege">
+                      {{items.item}}
+                    </option>
+                    <!--<option v-for="item in options_ege" v-bind:value="item">-->
+                      <!--{{item}}-->
                     <!--</option>-->
-                    <!--&lt;!&ndash;<option v-for="item in options_ege" v-bind:value="item">&ndash;&gt;-->
-                      <!--&lt;!&ndash;{{item}}&ndash;&gt;-->
-                    <!--&lt;!&ndash;</option>&ndash;&gt;-->
-                  <!--</select>-->
-                <!--</td>-->
+                  </select>
+                </td>
 
                 <td class="text-xs-center">
                   <input  v-model="props.item.tab_ege_score" name='account-field-3' class="form__input col-sm-7" type="text" v-mask="'###'" >
@@ -143,7 +145,7 @@
 
               <label class="row">
                 <div class="form__label-text col-sm">Дата выдачи:</div>
-                <input v-model="person.ege_info[0].tab_ege_identityCardIssueDate" class="form__input col-sm" type="date" name="" placeholder=""/>
+                <input v-model="person.ege_info[0].tab_ege_identityCardIssueDate" class="form__input col-sm" type="date" name="" placeholder="" min="1918-01-01" max="2100-01-01"/>
               </label>
               <label class="row">
                 <div class="form__label-text col-sm-2">Кем выдан:</div>
@@ -218,7 +220,7 @@
 
               <label class="row">
                 <div class="form__label-text col-sm">Дата выдачи:</div>
-                <input v-model="person.ege_info[1].tab_ege_identityCardIssueDate" class="form__input col-sm" type="date" name="" placeholder=""/>
+                <input v-model="person.ege_info[1].tab_ege_identityCardIssueDate" class="form__input col-sm" type="date" name="" placeholder="" min="1918-01-01" max="2100-01-01"/>
               </label>
               <label class="row">
                 <div class="form__label-text col-sm-2">Кем выдан:</div>
@@ -295,7 +297,7 @@
               <!--<span class="alarm_label">{{ errors.first('doc_num') }}</span>-->
               <label class="row">
                 <div class="form__label-text col-sm">Дата выдачи:</div>
-                <input v-model="person.ege_info[2].tab_ege_identityCardIssueDate" class="form__input col-sm" type="date" name="" placeholder=""/>
+                <input v-model="person.ege_info[2].tab_ege_identityCardIssueDate" class="form__input col-sm" type="date" name="" placeholder="" min="1918-01-01" max="2100-01-01"/>
               </label>
               <label class="row">
                 <div class="form__label-text col-sm-2">Кем выдан:</div>
@@ -328,6 +330,7 @@
 </template>
 
 <script>
+  import {AXIOS} from "../../plugins/APIService";
   import {required,between} from 'vuelidate/lib/validators';
   import {mapGetters, mapState} from 'vuex';
   import { createHelpers } from 'vuex-map-fields';
@@ -372,6 +375,7 @@
         'tab_edu_military_militaryIssueDate','tab_edu_military_militaryIssueBy','tab_edu_military_militaryRank',
         'tab_edu_military_selectedDocType','tab_edu_military_docMilitaryShowDate','tab_edu_military_startMilitary',
         'tab_edu_military_endMilitary',
+        'requiredPrefEge1','requiredPrefEge2','requiredPrefEge3'
       ]),
 
       ...mapState('dictionary',['addressCountryRegion','identityCardCode','subject','academyYear',]),
@@ -436,6 +440,9 @@
 
     data() {
       return {
+        // requiredPrefEge1:[],
+        // requiredPrefEge2:[],
+        // requiredPrefEge3:[],
         score_ege: 0,
         ege1: 0,
         ege2: 0,
@@ -476,7 +483,7 @@
 
         headers_ege_subjects: [
           {text: 'Предмет', value: 'tab_ege_selectedSubject', sortable: false, align: 'center'},
-          // {text: 'Форма', value: 'tab_ege_selectedSubject', sortable: false, align: 'center'},
+          {text: 'Форма', value: 'tab_ege_selectedSubject', sortable: false, align: 'center'},
           {text: 'Балл', value: 'tab_ege_score', sortable: false, align: 'center'},
           {text: 'Год', value: 'tab_ege_year', sortable: false, align: 'center'},
           {text: 'Пасп.данные изменились', value: 'tab_ege_changePaspInf', sortable: false, align: 'center'},
@@ -489,6 +496,57 @@
     },
 
     methods: {
+      getPrefByEge(type,subject){
+        console.log(type)
+        console.log(subject)
+        // const config = {
+        //   headers: {
+        //     'Content-Type': 'application/json'
+        //   }
+        // };
+        if(type==="Олимпиада" && subject ==="Химия"){
+          let body = {"name": "Химия"}
+          AXIOS.post(`/dictionary/preferenceOlymp`, body)
+            .then(response => {
+              this.requiredPrefEge1 = response.data;
+              console.log('after olymp choose',this.requiredPrefEge1)
+            })
+            .catch(e => {
+            })
+        }
+        if(type==="Олимпиада" && subject ==="Биология"){
+          let body = {"name": "Биология"}
+          AXIOS.post(`/dictionary/preferenceOlymp/`, body)
+            .then(response => {
+              this.requiredPrefEge2 = response.data;
+              console.log('after olymp choose biol',this.requiredPrefEge2)
+            })
+            .catch(e => {
+            })
+        }
+        if(type==="Олимпиада" && subject ==="Русский язык"){
+          let body = {"name": "Русский язык"}
+          AXIOS.post(`/dictionary/preferenceOlymp/`, body)
+            .then(response => {
+              this.requiredPrefEge3 = response.data;
+              console.log('after olymp choose rus',this.requiredPrefEge3)
+            })
+            .catch(e => {
+            })
+        }
+        if(type==="ЕГЭ" && subject ==="Химия"){
+          this.requiredPrefEge1 = [];
+          console.log('after ege choose',this.requiredPrefEge1)
+        }
+        if(type==="ЕГЭ" && subject ==="Биология"){
+          this.requiredPrefEge2 = [];
+        }
+        if(type==="ЕГЭ" && subject ==="Русский язык"){
+          this.requiredPrefEge3 = [];
+        }
+
+      },
+
 
       onDelete(item) {
         const index = this.person.ege_info.indexOf(item);

@@ -97,7 +97,7 @@
     computed: {
       ...applications(['application','apls','checkTargCount','checkSpecCount','message', 'checCountBudgetAndCel',
         'lechDelCel','lechDelBudget','medProfCel', 'medProfBudget','stomDelCel','stomDelBudget','howMuchTarg','targCountCheck'],),
-      ...person(['person_info_id','showProfile']),
+      ...person(['person_info_id','showProfile','person']),
       ...mapState('dictionary',['targOrg'],),
       ...mapGetters('dictionary',['GET_targOrg']),
     },
@@ -141,7 +141,12 @@
       },
       toApplication() {
         this.$emit('toApplication');
+        this.person.application.application_selectedDocType = { "id": 0, "name": "Копия" };
+        this.person.application.application_selectedDeliveryType = {"id":0,"name":"Лично"};
+        this.person.application.application_selectedDeliveryReturnType = {"id":0,"name":"Лично"};
+
         this.showProfile=false;
+        location.href='profile#applicationFill';
       }
     },
 

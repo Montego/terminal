@@ -76,7 +76,7 @@
 
           <label :class="{ row : true , error1 : $v.tab_personal_birthDate.$invalid}">
             <span class="form__label-text col-sm">Дата рождения:</span>
-            <input v-validate data-vv-as="дата рождения" v-model="tab_personal_birthDate" class="form__input col-sm" type="date" name="birthday" min="1918-01-01" max="2020-01-01"/>
+            <input v-validate data-vv-as="дата рождения" v-model="tab_personal_birthDate" class="form__input col-sm" type="date" name="birthday" min="1918-01-01" max="2100-01-01"/>
           </label>
           <span class="alarm_label">{{ errors.first('birthday') }}</span>
 
@@ -95,7 +95,7 @@
           <label :class="{ row : true , error1 : $v.tab_personal_INIPADate.$invalid}">
             <span class="form__label-text col-sm">СНИЛС Дата:</span>
             <input v-model="tab_personal_INIPADate" class="form__input col-sm" type="date" name="snils_date"
-                   min="1918-01-01" max="2019-01-01"/>
+                   min="1918-01-01" max="2100-01-01"/>
           </label>
 
           <span class="alarm_label">{{ errors.first('snils_date') }}</span>

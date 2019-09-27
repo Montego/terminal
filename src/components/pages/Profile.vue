@@ -132,6 +132,7 @@
 
       handleClick(val) {
         location.href='profile#overview_personal_info';
+          // location.reload(true);
           this.showProfile = val;
           this.isModalVisible = false;
           // this.application.applicationTable.splice(0,1)
