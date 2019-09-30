@@ -74,7 +74,7 @@
         <v-data-table
           v-if="!this.isModalVisible"
           :headers="headers_result"
-          :items="person.application.choosenWizards"
+          :items="showTable"
           hide-actions
           class="elevation-1 text-xs-center"
         >
@@ -109,11 +109,16 @@
                 <input v-model="props.item.agreeDate" class="form__input col-sm" type="date"  min="1918-01-01" max="2020-01-01"/>
                 <label v-if="props.item.environmentId ==='Договор'" v-model="props.item.orderGroupType = options_orderGroupType[3].item">{{options_orderGroupType[3].item}}</label>
                 <label v-if="props.item.environmentId ==='ЦелНапр' " v-model="props.item.orderGroupType = options_orderGroupType[2].item">{{options_orderGroupType[2].item}}</label>
-                <label v-if="props.item.environmentId ==='Бюджет' && props.item.special_right" v-model="props.item.orderGroupType = options_orderGroupType[1].item">{{options_orderGroupType[1].item}}</label>
-                <label v-if="props.item.environmentId ==='Бюджет' && !props.item.special_right" v-model="props.item.orderGroupType = options_orderGroupType[3].item">{{options_orderGroupType[3].item}}</label>
+                <label v-if="props.item.environmentId ==='Бюджет' && props.item.specialRight" v-model="props.item.orderGroupType = options_orderGroupType[1].item">{{props.item.orderGroupType}}</label>
+                <label v-if="props.item.environmentId ==='Бюджет' && !props.item.specialRight" v-model="props.item.orderGroupType = options_orderGroupType[3].item">{{options_orderGroupType[3].item}}</label>
               </div>
-              <div v-else>
-              </div>
+
+              <!--</div>-->
+
+
+              <!--<div v-if="props.item.agree === true && props.item.specialRight">-->
+                <!--<label>{{options_orderGroupType[1].item}}</label>-->
+              <!--</div>-->
               <div >
                 <!--<label v-if="props.item.environmentId ==='Договор'" v-model="props.item.orderGroupType = options_orderGroupType[3].item">{{options_orderGroupType[3].item}}</label>-->
                 <!--<label v-if="props.item.environmentId ==='ЦелНапр'" v-model="props.item.orderGroupType = options_orderGroupType[2].item">{{options_orderGroupType[2].item}}</label>-->
@@ -174,13 +179,13 @@
           <div class="col-sm-6">
             <label class="row">
               <div class="form__label-text col-sm">Добавить особое право:</div>
-              <input v-if="environment=== 'Договор'" v-model="special_right" class="checkbox col-sm" type="checkbox" name="" disabled/>
-              <input v-else-if="environment=== 'ЦелНапр'" v-model="special_right" class="checkbox col-sm" type="checkbox" name="" disabled/>
+              <input v-if="environment=== 'Договор'" v-model="specialRight" class="checkbox col-sm" type="checkbox" name="" disabled/>
+              <input v-else-if="environment=== 'ЦелНапр'" v-model="specialRight" class="checkbox col-sm" type="checkbox" name="" disabled/>
 
-                <input v-else v-model="special_right" class="checkbox col-sm" type="checkbox" name=""/>
+                <input v-else v-model="specialRight" class="checkbox col-sm" type="checkbox" @click="clearSpesialRight(specialRight)"name=""/>
 
             </label>
-            <div  v-if="special_right">
+            <div  v-if="specialRight">
               <label class="row">
                 <div class="form__label-text col-sm">Тип особого права</div>
                 <!--<select v-model="typeOfSpecialRight" class="minimal col-sm">-->
@@ -274,7 +279,7 @@
           </div>
         </div>
 
-        <div v-if="special_right" class="row">
+        <div v-if="specialRight" class="row">
         </div>
         <div class="clear_save_button row">
           <button @click="onSave">Сохранить</button>
@@ -311,6 +316,7 @@
     },
     data(){
       return{
+        specialRight: '',
         documentsForSpecial:[],
         some_date:'',
         some_date2:'',
@@ -391,6 +397,8 @@
     },
 
     computed: {
+
+
       // ...mapState('person', {person: state => state.person,}),
       ...applications(['application','contacts','application_person_name','resultApl','apls',
         'agree','agreeDate','special_right', 'typeOfSpecialRight','checkTargCount',
@@ -426,6 +434,26 @@
     },
 
     methods: {
+      clearSpesialRight(specialRight){
+        if(specialRight === false){
+          this.typeOfSpecialRight = null;
+
+          this.proofSpecialRight1 = null;
+          this.descriptionSpecialRight1 = "";
+          this.serialSpecialRight1 = "";
+          this.numberSpecialRight1 = "";
+          this. docTypeSpecialRight1 = null;
+          this.dateSpecialRight1 = null;
+
+          this.proofSpecialRight2 = null;
+          this.descriptionSpecialRight2 = "";
+          this.serialSpecialRight2 = "";
+          this.numberSpecialRight2 = "";
+          this. docTypeSpecialRight2 = null;
+          this.dateSpecialRight2 = null;
+        }
+      },
+
       getDocumentByPreference(preference){
         console.log(preference);
         AXIOS.post(`dictionary/documentByPreference/`, preference)
@@ -471,7 +499,11 @@
         this.editedItem.agreeDate = this.agreeDate;
         // this.editedItem.orderGroupType = "Особое право";
 
-        this.editedItem.special_right = this.special_right;
+        this.editedItem.specialRight = this.specialRight;
+        console.log('this.editedItem.specialRight',this.editedItem.specialRight);
+        if(this.editedItem.specialRight) {
+          this.editedItem.orderGroupType =  this.options_orderGroupType[1].item;
+        };
         this.editedItem.typeOfSpecialRight = this.typeOfSpecialRight  === ""? null : this.typeOfSpecialRight;
 console.log('this.typeOfSpecialRight',this.typeOfSpecialRight);
 
@@ -503,8 +535,12 @@ console.log('this.typeOfSpecialRight',this.typeOfSpecialRight);
 
       },
       addSomething(item){
+        if(item.typeOfSpecialRight !== null || typeof item.typeOfSpecialRight !== 'undefined'){
+          console.log(item)
+          this.getDocumentByPreference(item.typeOfSpecialRight);
+        }
 
-
+        console.log(item)
         this.editedIndex = this.person.application.choosenWizards.indexOf(item);
         this.editedItem = Object.assign({}, item);
 
@@ -517,7 +553,7 @@ console.log('this.typeOfSpecialRight',this.typeOfSpecialRight);
         this.agree = this.person.application.choosenWizards[index].agree;
         this.agreeDate = this.person.application.choosenWizards[index].agreeDate;
 
-        this.special_right = this.person.application.choosenWizards[index].special_right;
+        this.specialRight = this.person.application.choosenWizards[index].specialRight;
         this.typeOfSpecialRight = this.person.application.choosenWizards[index].typeOfSpecialRight;
 
         this.proofSpecialRight1 = this.person.application.choosenWizards[index].proofSpecialRight1;
@@ -628,6 +664,7 @@ console.log('this.typeOfSpecialRight',this.typeOfSpecialRight);
 
       onNext() {
         // console.log(this.application.application_selectedDeliveryType);
+        console.log(this.person.application.choosenWizards)
         location.href='profile#documents';
         // location.href='profile#documents_overview';
       },

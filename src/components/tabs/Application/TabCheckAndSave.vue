@@ -90,18 +90,18 @@
           <div>
             <h2>Адреса</h2>
           </div>
-          <label v-if="typeof this.ADRDTO[0].addressTxt !== 'undefined'" class="row">
+          <label v-if="typeof ADRDTO[0] !== 'undefined'" class="row">
             <div class="form__label-text col-sm-4">Адрес по прописке:</div>
             {{ this.ADRDTO[0].addressTxt }}
             <!--<textarea v-model="tab_address_registrationAddress" class="uneditable col-sm-8" name=""></textarea>-->
           </label>
-          <label v-if="typeof this.ADRDTO[1].addressTxt !== 'undefined'" class="row">
+          <label v-if="typeof this.ADRDTO[1]!== 'undefined'" class="row">
             <div class="form__label-text col-sm-5">Адрес фактический:</div>
             <!--{{ typeof this.ADRDTO[1].addressTxt !== 'undefined' ? this.ADRDTO[1].addressTxt : "" }}-->
             {{this.ADRDTO[1].addressTxt}}
             <!--<textarea v-model="tab_address_factAddress" class="uneditable col-sm-8"></textarea>-->
           </label>
-          <label v-if="typeof this.ADRDTO[2].addressTxt !== 'undefined'" class="row">
+          <label v-if="typeof this.ADRDTO[2]!== 'undefined'" class="row">
             <div class="form__label-text col-sm-7">Адрес временной регистрации:</div>
             <!--{{ typeof this.ADRDTO[2].addressTxt !== 'undefined' ? this.ADRDTO[2].addressTxt : "" }}-->
             {{this.ADRDTO[2].addressTxt}}
@@ -570,7 +570,26 @@
                 this.person.subjectScores[2].examForm = {"id": 0, "name": "ЕГЭ"};
               }
             }
+            if (this.person.ege_info[j].tab_ege_score === "" || this.person.ege_info[j].tab_ege_score === "0") {
+              console.log('if for scores')
+              if (this.person.ege_info[j].tab_ege_selectedSubject === "Химия") {
+                this.person.subjectScores[0].examPoint = 0;
+                this.person.subjectScores[0].examForm = {"id":10,"name":"Вступит. испытания"};
+              }
+              if (this.person.ege_info[j].tab_ege_selectedSubject === "Биология") {
+                this.person.subjectScores[1].examPoint = 0;
+                this.person.subjectScores[1].examForm = {"id":10,"name":"Вступит. испытания"};
+              }
+              if (this.person.ege_info[j].tab_ege_selectedSubject === "Русский язык") {
+                this.person.subjectScores[2].examPoint = 0;
+                this.person.subjectScores[2].examForm = {"id":10,"name":"Вступит. испытания"};
+              }
+            }
           }
+          console.log('chim point',this.person.subjectScores[0].examPoint);
+          console.log('biol point',this.person.subjectScores[1].examPoint);
+          console.log('rus point',this.person.subjectScores[2].examPoint);
+          console.log( this.person.subjectScores)
 
 
           let x = this.ADRDTO;
@@ -599,14 +618,27 @@
                 return id;
               })
               .then(id => {
-                let resultAxapta = this.$store.dispatch('go', id);
+                this.$store.dispatch('go', id);
+
+                if (this.$store.state.agreementId.length !== "nothing" || this.agreementId !== null) {
+                  this.showPrintAgreement = true;
+                }
+                if (this.$store.state.applicationId !== 'nothing' || this.applicationId !== null) {
+                  this.showPrintApplication = true;
+                }
+                if (this.$store.state.contactPersonId !== 'nothing' || this.contactPersonId !== null) {
+                  this.showPrintDocuments = true;
+                }
+
                 // this.axapta(id);
 
-                console.log(resultAxapta);
-                return resultAxapta;
+                // console.log(resultAxapta);
+                // return resultAxapta;
               })
-              .then(resultAxapta => {
-                  console.log('we are in last promise ');
+              // .then(resultAxapta => {
+              //     console.log('we are in last promise ');
+
+
                 //   console.log('resultAxapta: ',resultAxapta.agreementId)
                 // if (resultAxapta.agreementId !== "nothing" || resultAxapta.agreementId !== null) {
                 //   this.showPrintAgreement = true;
@@ -620,24 +652,25 @@
 
 
 
-                if (this.$store.state.agreementId.length !== "nothing" || this.agreementId !== null) {
-                  this.showPrintAgreement = true;
-                }
-                if (this.$store.state.applicationId !== 'nothing' || this.applicationId !== null) {
-                  this.showPrintApplication = true;
-                }
-                if (this.$store.state.contactPersonId !== 'nothing' || this.contactPersonId !== null) {
-                  this.showPrintDocuments = true;
-                }
+                // if (this.$store.state.agreementId.length !== "nothing" || this.agreementId !== null) {
+                //   this.showPrintAgreement = true;
+                // }
+                // if (this.$store.state.applicationId !== 'nothing' || this.applicationId !== null) {
+                //   this.showPrintApplication = true;
+                // }
+                // if (this.$store.state.contactPersonId !== 'nothing' || this.contactPersonId !== null) {
+                //   this.showPrintDocuments = true;
+                // }
 //TODO check it setTimeout
-                setTimeout(() => {
-                }, 1000)
+//                 setTimeout(() => {
+//                 }, 1000)
+              // })
 
-              })
               .catch(e => {
                 this.person.saved = "Не сохранено";
                 // this.errors.push(e)
               });
+
 
           } else {
             //TODO if part of person will save in tabPhoto, check this flow(post/put)

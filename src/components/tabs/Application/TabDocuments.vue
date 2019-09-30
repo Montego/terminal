@@ -316,44 +316,50 @@
 
 
             for(let x=0; x< this.person.application.choosenWizards.length;x++){
-              if(typeof this.person.application.choosenWizards[x].special_right!== 'undefined'){
+              if(this.person.application.choosenWizards[x].specialRight=== true){
+                console.log('specialR = true')
                   console.log('this',this.person.application.choosenWizards[x])
 
-                  if(this.person.application.choosenWizards[x].proofSpecialRight1!==null){
-                    let document0 = new Document(
+                  if(typeof this.person.application.choosenWizards[x].proofSpecialRight1!== 'undefined'){
+                    if(this.person.application.choosenWizards[x].proofSpecialRight1!==null){
+                      let document0 = new Document(
+                        this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
+                        this.selected_document = this.person.application.choosenWizards[x].proofSpecialRight1,
+                        this.nameDoc = this.person.application.choosenWizards[x].proofSpecialRight1.name,
+                        this.serialDoc = this.person.application.choosenWizards[x].serialSpecialRight1,
+                        this.numberDoc = this.person.application.choosenWizards[x].numberSpecialRight1,
+                        this.docTypeDoc = this.person.application.choosenWizards[x].docTypeSpecialRight1,
+                        this.dateOfIssueDoc = this.person.application.choosenWizards[x].dateSpecialRight1,
+                        // this.moment(this.dateToday).format('YYYY-MM-DD'),
+                        this.countDoc = 1,
+                        this.issuedByDoc = "",
+                        this.tab_document_auto = true,
+                        this.fullnameDoc = this.nameDoc + ' Cерия ' + this.serialDoc + ' № ' + this.numberDoc + ' от ' + (dateConvert(this.dateOfIssueDoc)) + ' ('+this.docTypeDoc.name+')',
+                      );
+                      this.person.application.application_documents.push(document0);
+                    }else{}
+                  }
+
+                if(typeof this.person.application.choosenWizards[x].proofSpecialRight2!=='undefined'){
+                  console.log('proofSpecialRight2!==undefined')
+                  if(this.person.application.choosenWizards[x].proofSpecialRight2!==null){
+                    console.log('proofSpecialRight2!==null')
+                    let document02 = new Document(
                       this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
-                      this.selected_document = this.person.application.choosenWizards[x].proofSpecialRight1,
-                      this.nameDoc = this.person.application.choosenWizards[x].proofSpecialRight1.name,
-                      this.serialDoc = this.person.application.choosenWizards[x].serialSpecialRight1,
-                      this.numberDoc = this.person.application.choosenWizards[x].numberSpecialRight1,
-                      this.docTypeDoc = this.person.application.choosenWizards[x].docTypeSpecialRight1,
-                      this.dateOfIssueDoc = this.person.application.choosenWizards[x].dateSpecialRight1,
+                      this.selected_document = this.person.application.choosenWizards[x].proofSpecialRight2 ,
+                      this.nameDoc = this.person.application.choosenWizards[x].proofSpecialRight2.name,
+                      this.serialDoc = this.person.application.choosenWizards[x].serialSpecialRight2,
+                      this.numberDoc = this.person.application.choosenWizards[x].numberSpecialRight2,
+                      this.docTypeDoc = this.person.application.choosenWizards[x].docTypeSpecialRight2,
+                      this.dateOfIssueDoc = this.person.application.choosenWizards[x].dateSpecialRight2,
                       // this.moment(this.dateToday).format('YYYY-MM-DD'),
                       this.countDoc = 1,
                       this.issuedByDoc = "",
                       this.tab_document_auto = true,
-                      this.fullnameDoc = this.nameDoc + ' Cерия ' + this.serialDoc + ' № ' + this.numberDoc + ' от ' + (dateConvert(this.dateOfIssueDoc)) + ' ('+this.docTypeDoc.name+')',
+                      this.fullnameDoc = this.nameDoc + ' Cерия ' + this.serialDoc + ' № ' + this.numberDoc + ' от ' + (dateConvert(this.dateOfIssueDoc))  + ' ('+this.docTypeDoc.name+')',
                     );
-                    this.person.application.application_documents.push(document0);
-                  }
-                if(typeof this.person.application.choosenWizards[x].proofSpecialRight2!== 'undefined'){
-                  console.log(this.person.application.choosenWizards[x])
-                  console.log('proofSpecialRight2!==null')
-                  let document02 = new Document(
-                    this.dateOfShow = this.moment(this.dateToday).format('YYYY-MM-DD'),
-                    this.selected_document = this.person.application.choosenWizards[x].proofSpecialRight2 ,
-                    this.nameDoc = this.person.application.choosenWizards[x].proofSpecialRight2.name,
-                    this.serialDoc = this.person.application.choosenWizards[x].serialSpecialRight2,
-                    this.numberDoc = this.person.application.choosenWizards[x].numberSpecialRight2,
-                    this.docTypeDoc = this.person.application.choosenWizards[x].docTypeSpecialRight2,
-                    this.dateOfIssueDoc = this.person.application.choosenWizards[x].dateSpecialRight2,
-                    // this.moment(this.dateToday).format('YYYY-MM-DD'),
-                    this.countDoc = 1,
-                    this.issuedByDoc = "",
-                    this.tab_document_auto = true,
-                    this.fullnameDoc = this.nameDoc + ' Cерия ' + this.serialDoc + ' № ' + this.numberDoc + ' от ' + (dateConvert(this.dateOfIssueDoc))  + ' ('+this.docTypeDoc.name+')',
-                  );
-                  this.person.application.application_documents.push(document02);
+                    this.person.application.application_documents.push(document02);
+                  }else{}
                 }
               }
             }

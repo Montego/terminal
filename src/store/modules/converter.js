@@ -439,55 +439,38 @@ let fillPrefs = function(s) {
     };
   });
 
-  function OBJ(preferenceId,prefType,sourceType,typeDiploma,nameOlympiad,chemistry,biology,appLineId,
-               isPrefApprove,pointRandom,yearCount,pointFisExport,isShow,modifiedBy,preferenceDocs) {
-  }
 
+  // let id = "";
+  // let preferenceId = "";
+  // let prefType = "";
 
-  let id = "";
-  let preferenceId = "";
-  let prefType = "";
-
-  let documents = [];
+  // let documents = [];
   console.log('applLine ----',someArray);
   for(let i = 0;i < someArray.length; i++){
     console.log('in for',someArray[i]);
-    //TODO
-    // if(someArray[i].orderGroupType === 'Особое право'){
-    if(someArray[i].numberSpecialRight1!== null){
-      console.log('chekc spesial')
-      id = someArray[i].id;
-      preferenceId = someArray[i].typeOfSpecialRight.preferenceId;
-      prefType = someArray[i].typeOfSpecialRight.prefType;
-      console.log('preferenceId',preferenceId);
-      console.log('prefType',prefType);
-      console.log(id);
-      console.log(someArray[i].proofSpecialRight1.documentId);
-      console.log(someArray[i].serialSpecialRight1);
-      console.log(someArray[i].numberSpecialRight1);
-      console.log(dateConvert(someArray[i].dateSpecialRight1));
-      console.log(someArray[i].proofSpecialRight1.name + ' Cерия ' + someArray[i].serialSpecialRight1 + ' № ' + someArray[i].numberSpecialRight1 + ' от ' + dateConvert(someArray[i].dateSpecialRight1) + ' ('+ someArray[i].docTypeSpecialRight1.name + ')');
-      console.log(someArray[i].docTypeSpecialRight1.id);
 
-      let doc = {
-        "modifiedBy": "TSST",
-        "documentId": someArray[i].proofSpecialRight1.documentId,
-        "docSeries": someArray[i].serialSpecialRight1,
-        "docNumber": someArray[i].numberSpecialRight1,
-        "docIssueDate": dateConvert(someArray[i].dateSpecialRight1), //  "01.01.2008 00:00",
-        "docIssueBy": "", //  "Отделом ВК С-ПБ по Выборгскому району",
-        "docName": someArray[i].proofSpecialRight1.name + ' Cерия ' + someArray[i].serialSpecialRight1 + ' № ' + someArray[i].numberSpecialRight1 + ' от ' + dateConvert(someArray[i].dateSpecialRight1) + ' ('+ someArray[i].docTypeSpecialRight1.name + ')',
-        "docType": someArray[i].docTypeSpecialRight1.id, //0,
-        "docQuantity": 1, // /????
-        "altDocName":  "",
-        "docGrantDate": "01.01.1900 00:00",
-        "isDublicate": 0,
-        "documentKindId": ""
-      };
-      console.log(doc);
-      documents.push(doc);
-      console.log(someArray[i].proofSpecialRight2)
-      if(typeof someArray[i].proofSpecialRight2!== 'undefined' || someArray[i].proofSpecialRight2!==null){
+    if(someArray[i].specialRight) {
+      let documents = [];
+      if (someArray[i].proofSpecialRight1 !== null) {
+        let doc = {
+          "modifiedBy": "TSST",
+          "documentId": someArray[i].proofSpecialRight1.documentId,
+          "docSeries": someArray[i].serialSpecialRight1,
+          "docNumber": someArray[i].numberSpecialRight1,
+          "docIssueDate": dateConvert(someArray[i].dateSpecialRight1), //  "01.01.2008 00:00",
+          "docIssueBy": "", //  "Отделом ВК С-ПБ по Выборгскому району",
+          "docName": someArray[i].proofSpecialRight1.name + ' Cерия ' + someArray[i].serialSpecialRight1 + ' № ' + someArray[i].numberSpecialRight1 + ' от ' + dateConvert(someArray[i].dateSpecialRight1) + ' (' + someArray[i].docTypeSpecialRight1.name + ')',
+          "docType": someArray[i].docTypeSpecialRight1.id, //0,
+          "docQuantity": 1, // /????
+          "altDocName": "",
+          "docGrantDate": "01.01.1900 00:00",
+          "isDublicate": 0,
+          "documentKindId": ""
+        };
+        documents.push(doc);
+      }
+
+      if (someArray[i].proofSpecialRight2 !== null) {
         let doc = {
           "modifiedBy": "TSST",
           "documentId": someArray[i].proofSpecialRight2.documentId,
@@ -495,43 +478,117 @@ let fillPrefs = function(s) {
           "docNumber": someArray[i].numberSpecialRight2,
           "docIssueDate": dateConvert(someArray[i].dateSpecialRight2), //  "01.01.2008 00:00",
           "docIssueBy": "", //  "Отделом ВК С-ПБ по Выборгскому району",
-          "docName": someArray[i].proofSpecialRight2.name + ' Cерия ' + someArray[i].serialSpecialRight2 + ' № ' + someArray[i].numberSpecialRight2 + ' от ' + dateConvert(someArray[i].dateSpecialRight2) + ' ('+ someArray[i].docTypeSpecialRight2.name + ')',
+          "docName": someArray[i].proofSpecialRight2.name + ' Cерия ' + someArray[i].serialSpecialRight2 + ' № ' + someArray[i].numberSpecialRight2 + ' от ' + dateConvert(someArray[i].dateSpecialRight2) + ' (' + someArray[i].docTypeSpecialRight2.name + ')',
           "docType": someArray[i].docTypeSpecialRight2.id, //0,
           "docQuantity": 1, // /????
-          "altDocName":  "",
+          "altDocName": "",
           "docGrantDate": "01.01.1900 00:00",
           "isDublicate": 0,
           "documentKindId": ""
         };
         documents.push(doc);
       }
+
+      let pref = {
+        "preferenceId": someArray[i].typeOfSpecialRight.preferenceId,
+        "prefType": someArray[i].typeOfSpecialRight.prefType,
+        "sourceType": 0,
+        "typeDiploma": 0,
+        "nameOlympiad": "",
+        "chemistry": 0,
+        "biology": 1,
+        "appLineId": someArray[i].id,
+        "isPrefApprove": 0,
+        "pointRandom": 0,
+        "yearCount": 0,
+        "pointFisExport": 0,
+        "isShow": 0,
+        "modifiedBy": "TSST",
+        "preferenceDocs": documents
+      }
+      result.push(pref);
     }
-
-  }
-  console.log(preferenceId)
-  console.log(prefType)
-  let pref = {
-    "preferenceId":preferenceId,
-    "prefType": prefType,
-    "sourceType": 0,
-    "typeDiploma": 0,
-    "nameOlympiad": "",
-    "chemistry": 0,
-    "biology": 1,
-    "appLineId": id,
-    "isPrefApprove": 0,
-    "pointRandom": 0,
-    "yearCount": 0,
-    "pointFisExport": 0,
-    "isShow": 0,
-    "modifiedBy": "TSST",
-
-    "preferenceDocs":documents
-
   }
 
-  console.log(pref)
-  result.push(pref);
+
+  //   if(someArray[i].numberSpecialRight1!== null){
+  //     console.log('chekc spesial')
+  //     id = someArray[i].id;
+  //     preferenceId = someArray[i].typeOfSpecialRight.preferenceId;
+  //     prefType = someArray[i].typeOfSpecialRight.prefType;
+  //     console.log('preferenceId',preferenceId);
+  //     console.log('prefType',prefType);
+  //     console.log(id);
+  //     console.log(someArray[i].proofSpecialRight1.documentId);
+  //     console.log(someArray[i].serialSpecialRight1);
+  //     console.log(someArray[i].numberSpecialRight1);
+  //     console.log(dateConvert(someArray[i].dateSpecialRight1));
+  //     console.log(someArray[i].proofSpecialRight1.name + ' Cерия ' + someArray[i].serialSpecialRight1 + ' № ' + someArray[i].numberSpecialRight1 + ' от ' + dateConvert(someArray[i].dateSpecialRight1) + ' ('+ someArray[i].docTypeSpecialRight1.name + ')');
+  //     console.log(someArray[i].docTypeSpecialRight1.id);
+  //
+  //     let doc = {
+  //       "modifiedBy": "TSST",
+  //       "documentId": someArray[i].proofSpecialRight1.documentId,
+  //       "docSeries": someArray[i].serialSpecialRight1,
+  //       "docNumber": someArray[i].numberSpecialRight1,
+  //       "docIssueDate": dateConvert(someArray[i].dateSpecialRight1), //  "01.01.2008 00:00",
+  //       "docIssueBy": "", //  "Отделом ВК С-ПБ по Выборгскому району",
+  //       "docName": someArray[i].proofSpecialRight1.name + ' Cерия ' + someArray[i].serialSpecialRight1 + ' № ' + someArray[i].numberSpecialRight1 + ' от ' + dateConvert(someArray[i].dateSpecialRight1) + ' ('+ someArray[i].docTypeSpecialRight1.name + ')',
+  //       "docType": someArray[i].docTypeSpecialRight1.id, //0,
+  //       "docQuantity": 1, // /????
+  //       "altDocName":  "",
+  //       "docGrantDate": "01.01.1900 00:00",
+  //       "isDublicate": 0,
+  //       "documentKindId": ""
+  //     };
+  //     console.log(doc);
+  //     documents.push(doc);
+  //     console.log(someArray[i].proofSpecialRight2)
+  //     if(typeof someArray[i].proofSpecialRight2!== 'undefined' || someArray[i].proofSpecialRight2!==null){
+  //       let doc = {
+  //         "modifiedBy": "TSST",
+  //         "documentId": someArray[i].proofSpecialRight2.documentId,
+  //         "docSeries": someArray[i].serialSpecialRight2,
+  //         "docNumber": someArray[i].numberSpecialRight2,
+  //         "docIssueDate": dateConvert(someArray[i].dateSpecialRight2), //  "01.01.2008 00:00",
+  //         "docIssueBy": "", //  "Отделом ВК С-ПБ по Выборгскому району",
+  //         "docName": someArray[i].proofSpecialRight2.name + ' Cерия ' + someArray[i].serialSpecialRight2 + ' № ' + someArray[i].numberSpecialRight2 + ' от ' + dateConvert(someArray[i].dateSpecialRight2) + ' ('+ someArray[i].docTypeSpecialRight2.name + ')',
+  //         "docType": someArray[i].docTypeSpecialRight2.id, //0,
+  //         "docQuantity": 1, // /????
+  //         "altDocName":  "",
+  //         "docGrantDate": "01.01.1900 00:00",
+  //         "isDublicate": 0,
+  //         "documentKindId": ""
+  //       };
+  //       documents.push(doc);
+  //     }
+  //   }
+  //
+  // }
+  // console.log(preferenceId)
+  // console.log(prefType)
+  // let pref = {
+  //   "preferenceId":preferenceId,
+  //   "prefType": prefType,
+  //   "sourceType": 0,
+  //   "typeDiploma": 0,
+  //   "nameOlympiad": "",
+  //   "chemistry": 0,
+  //   "biology": 1,
+  //   "appLineId": id,
+  //   "isPrefApprove": 0,
+  //   "pointRandom": 0,
+  //   "yearCount": 0,
+  //   "pointFisExport": 0,
+  //   "isShow": 0,
+  //   "modifiedBy": "TSST",
+  //
+  //   "preferenceDocs":documents
+  //
+  // }
+
+  // console.log(pref)
+  // result.push(pref);
   return result = Array.isArray(result) ? result : [];
 };
 

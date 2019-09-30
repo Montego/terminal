@@ -165,7 +165,6 @@
         'tab_edu_military_endMilitary', 'selectedExtraInfos1', 'selectedExtraInfos2', 'extraInfosDescription1', 'extraInfosDescription2', 'image', 'person_info_id',
         'resultAcceptPerson', 'savedResult', 'saved','showPrintApplication','showPrintDocuments','showPrintAgreement','imageOf'
       ]),
-
       ...applications(['application', 'application_person_id', 'application_person_name', 'applId', 'applTableName',
         'applTableNumber', 'applTableDate', 'applTableDeliveryType', 'apls', 'chooseAppls', 'resultApl',
         'countContract','countBudget'],),
@@ -281,13 +280,10 @@
       ...mapGetters(['ADRText']),
       ...mapGetters(['ADRSearchObject']),
       onNewProfile() {
-
         this.showPrintApplication =  false;
         this.showPrintDocuments = false;
         this.showPrintAgreement = false;
-        console.log(this.$store.state.applicationId);
-        this.$store.dispatch('onClearIdsFromAxapta');
-        console.log(this.$store.state.applicationId);
+        // this.$store.dispatch('onClearIdsFromAxapta');
         this.ADRSearchObject()[0] = {};
         this.ADRSearchObject()[1] = {};
         this.ADRSearchObject()[2] = {};
@@ -303,9 +299,7 @@
         this.person.application.application_selectedDocType = {"id": 0, "name": "Копия"};
         this.person.application.application_selectedDeliveryType = {"id":0,"name":"Лично"};
         this.person.application.application_selectedDeliveryReturnType = {"id":0,"name":"Лично"};
-        console.log('result docType========',this.person.application.application_selectedDocType);
-        console.log('result DeliveryType========',this.person.application.application_selectedDeliveryType);
-        console.log('result ReturnType========',this.person.application.application_selectedDeliveryReturnType);
+
         this.profiles = [];
 
         this.successMessage = "";
@@ -511,6 +505,12 @@
         this.extraInfosDescription1 = '';
         this.extraInfosDescription2 = '';
 
+        this.person.subjectScores[0].examPoint = 0;
+        this.person.subjectScores[1].examPoint = 0;
+        this.person.subjectScores[2].examPoint = 0;
+        this.person.subjectScores[0].examForm= {"id":10,"name":"Вступит. испытания"};
+        this.person.subjectScores[1].examForm= {"id":10,"name":"Вступит. испытания"};
+        this.person.subjectScores[2].examForm= {"id":10,"name":"Вступит. испытания"};
         // this.countOfAddParent = 3;
         this.default();
 
@@ -622,6 +622,9 @@
             this.selectedExtraInfos2 = this.personInfo.selectedExtraInfos2
             this.extraInfosDescription1 = this.personInfo.extraInfosDescription1
             this.extraInfosDescription2 = this.personInfo.extraInfosDescription2
+
+            this.person.application.choosenWizards = response.data.application.choosenWizards;
+            console.log('choosen wizard',response.data.application.choosenWizards);
 
             this.image = this.personInfo.image;
             this.showimage = this.personInfo.showimage;

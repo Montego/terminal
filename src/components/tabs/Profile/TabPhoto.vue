@@ -419,6 +419,7 @@
 
 
       checkOlympPref () {
+
         let egeChim = 0;
         let egeBiol = 0;
         let egeRus = 0;
@@ -429,12 +430,15 @@
         let checkedArray = this.person.futures_info;
 
         if(this.person.ege_info[0].tab_ege_selectedExamForm !== "Олимпиада"){
+          console.log('chim not olymp')
           egeChim = 1;
         }
         if(this.person.ege_info[1].tab_ege_selectedExamForm !== "Олимпиада"){
+          console.log('biol not olymp')
           egeBiol = 1;
         }
         if(this.person.ege_info[2].tab_ege_selectedExamForm !== "Олимпиада"){
+          console.log('rus not olymp')
           egeRus = 1;
         }
 
@@ -460,10 +464,11 @@
           }
           if(checkedArray.length > 0){
             for(let i=0;i<checkedArray.length; i++){
-
               for(let j=0;j<subject2.length;j++){
                 if(checkedArray[i].tab_features_selectedPreference.preferenceId === subject2[j].preferenceId){
-                  egeChim=1;
+                  console.log(checkedArray[i].tab_features_selectedPreference.preferenceId)
+                  console.log(subject2[j].preferenceId)
+                  egeBiol=1;
                 }
               }
 
@@ -479,7 +484,7 @@
 
               for(let j=0;j<subject3.length;j++){
                 if(checkedArray[i].tab_features_selectedPreference.preferenceId === subject3[j].preferenceId){
-                  egeChim=1;
+                  egeRus=1;
                 }
               }
 
@@ -528,9 +533,6 @@
             }
           }
         }
-        // if(person.parents_info.length === 0){
-        //   this.validAnswer.push(this.optionsErrorAnswer[0])
-        // }
       },
 
       handleClick(val) {
@@ -746,9 +748,6 @@
           location.href = 'profile#conditions_overview';
         }
 
-        console.log('result docType========',this.person.application.application_selectedDocType);
-        console.log('result DeliveryType========',this.person.application.application_selectedDeliveryType);
-        console.log('result ReturnType========',this.person.application.application_selectedDeliveryReturnType);
 
       },
 

@@ -131,10 +131,18 @@
       },
 
       handleClick(val) {
+        // if(this.isModalVisible === true){
+        //   console.log('hadleClick',this.isModalVisible)
+        //   location.reload(true)
+        // }
         location.href='profile#overview_personal_info';
           // location.reload(true);
           this.showProfile = val;
+          if(this.showProfile){
+            location.reload(true)
+          }
           this.isModalVisible = false;
+
           // this.application.applicationTable.splice(0,1)
       },
 
