@@ -18,14 +18,11 @@
             <span class="form__label-text col-sm">Фамилия</span>
             <input v-model="tab_personal_lastname" value="" class="form__input col-sm" type="text" name="lastname"/>
           </label>
-          <!--<span class="alarm_label">{{ errors.first('lastname') }}</span>-->
-          <!--<span class="alarm_label" v-if="tab_personal_lastname===''">Не заполнено поле "Фамилия"</span>-->
 
           <label :class="{ row : true , error1 : $v.tab_personal_firstname.$invalid}">
             <span class="form__label-text col-sm">Имя</span>
             <input v-model="tab_personal_firstname" class="form__input col-sm" type="text" name="firstname"/>
           </label>
-          <!--<span class="alarm_label">{{ errors.first('firstname') }}</span>-->
           <label class="row">
             <span class="form__label-text col-sm">Отчество</span>
             <input data-vv-as="отчество" v-validate="'alpha_spaces'" v-model="tab_personal_middlename"
@@ -76,7 +73,8 @@
 
           <label :class="{ row : true , error1 : $v.tab_personal_birthDate.$invalid}">
             <span class="form__label-text col-sm">Дата рождения:</span>
-            <input v-validate data-vv-as="дата рождения" v-model="tab_personal_birthDate" class="form__input col-sm" type="date" name="birthday" min="1918-01-01" max="2100-01-01"/>
+            <input v-validate data-vv-as="дата рождения" v-model="tab_personal_birthDate" class="form__input col-sm"
+                   type="date" name="birthday" min="1918-01-01" max="2100-01-01"/>
           </label>
           <span class="alarm_label">{{ errors.first('birthday') }}</span>
 
@@ -120,11 +118,6 @@
                 {{item.identityCardCode}}
               </option>
             </select>
-            <!--<select v-model="tab_personal_selectedIdentityCardCode" class="minimal col-sm">-->
-            <!--<option v-for="option in options_identityCardCode" >-->
-            <!--{{option.item}}-->
-            <!--</option>-->
-            <!--</select>-->
           </label>
           <label :class="{ row : true , error1 : $v.tab_personal_identityCardSeries.$invalid}">
             <span class="form__label-text col-sm">Серия:</span>
@@ -133,22 +126,12 @@
                       :tokens="customTokens"
                       value=""
             />
-            <!--<input v-else v-model="tab_personal_identityCardSeries" class="form__input col-sm" type="text" name="doc_serial" required/>-->
           </label>
 
-
-          <!--this.docSerialParams.pdocSerialParams.placeholderlaceholder = '****';-->
-
-          <!-- = '######';-->
-          <!--this.docSerialParams.placeholder = '******';-->
-
-
-          <!--<span class="alarm_label">{{ errors.first('doc_serial') }}</span>-->
           <label :class="{ row : true , error1 : $v.tab_personal_identityCardNumber.$invalid}">
             <span class="form__label-text col-sm">Номер:</span>
             <input v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number"
                    v-mask="docNumberParams['mask']" :placeholder="docNumberParams.placeholder"/>
-            <!--<input v-else v-model="tab_personal_identityCardNumber" class="form__input col-sm" type="text" name="doc_number" required />-->
           </label>
           <span class="alarm_label">{{ errors.first('doc_number') }}</span>
 
@@ -301,7 +284,6 @@
 
           <div v-if="tab_personal_selectedForeignLanguageInfo.name ==='Изучал'">
             <div class="row">
-              <!--<div v-for="(selected_foreignLanguageName,language_description, index) in languages">-->
               <select v-model="selected_foreignLanguageName1" class="minimal col-sm-6">
                 <option v-for="item in language" v-bind:value="item">
                   {{item.languageId}}
@@ -353,7 +335,6 @@
 
 <script>
   import {mapGetters, mapState} from 'vuex'
-  // import { required, minLength, between, maxLength } from 'vuelidate/lib/validators'
   import {required} from "vuelidate/lib/validators";
   import {createHelpers} from 'vuex-map-fields';
   import {mask, TheMask} from 'vue-the-mask'
@@ -396,16 +377,6 @@
     return result;
   };
 
-
-  const {mapFields} = createHelpers({
-    getterType: `tab_personal_info/getField`,
-    mutationType: `tab_personal_info/updateField`,
-  });
-
-  const {mapFields: tab_personal_info} = createHelpers({
-    getterType: `tab_personal_info/getField`,
-    mutationType: `tab_personal_info/updateField`,
-  });
   const {mapFields: person} = createHelpers({
     getterType: 'person/getField',
     mutationType: 'person/updateField',
@@ -417,7 +388,6 @@
     beforeCreate() {
       this.$store.dispatch('enums/onLoadGender');
       this.$store.dispatch('dictionary/onLoadIdentityCardCode');
-      // this.$store.dispatch('dictionary/onLoadOtherCountryRegion');
       this.$store.dispatch('enums/onLoadLangInfo');
       this.$store.dispatch('dictionary/onLoadAddressCountryRegion');
       this.$store.dispatch('dictionary/onLoadLanguage');
@@ -426,7 +396,6 @@
     },
     computed: {
       ...mapState('person', {person: state => state.person,}),
-
       ...mapState('enums', ['gender', 'langInfo', 'languageLevel'],),
       ...mapState('dictionary', ['addressCountryRegion', 'language', 'identityCardCode']),
       ...mapGetters('enums', ['GET_GENDER', 'GET_LANGINFO', 'GET_LANGUAGE_LEVEL']),
@@ -509,8 +478,6 @@
             }
           }
         },
-
-
     },
     data() {
       return {
@@ -521,70 +488,6 @@
           'Y': {pattern: /[0-5]/},
           'q': {pattern: /[.]*/}
         },
-        // customTokens: {
-        //   'Y': {pattern: /[0-9]/},
-        //   '#': {pattern: /\d/},
-        //   'X': {pattern: /[0-9a-zA-Z]/},
-        //   'S': {pattern: /[a-zA-Z]/},
-        //   'A': {pattern: /[a-zA-Z]/, transform: v => v.toLocaleUpperCase()},
-        //   'a': {pattern: /[a-zA-Z]/, transform: v => v.toLocaleLowerCase()},
-        //   '!': {escape: true}
-        // },
-
-        citizenshipRF: {"countryRegionId": "РФ", "name": "Россия"},
-        languages: [
-          {
-            selected_foreignLanguageName: '',
-            language_description: ''
-          }
-        ],
-
-        options_gender: [
-          {id: 0, item: '-выберите пол-'},
-          {id: 1, item: 'Мужской'},
-          {id: 2, item: 'Женский'},
-          {id: 3, item: 'Другое'},
-        ],
-        options_identityCardCode: [
-          // {id: 0, item: '-выберите документ-'},
-          {id: 1, item: 'ВидЖител'},
-          {id: 2, item: 'ВоенБилет'},
-          {id: 3, item: 'ВоенБилОфц'},
-          {id: 4, item: 'Временное удостоверение лич.граждан.РФ'},
-          {id: 5, item: 'ДиплПаспРФ'},
-          {id: 6, item: 'ЗагрПасп'},
-          {id: 7, item: 'ЗагрПаспРФ'},
-          {id: 8, item: 'ИнострПасп'},
-          {id: 9, item: 'НетДокум'},
-          {id: 10, item: 'ПаспМорФл'},
-          {id: 11, item: 'ПаспМоряка'},
-          {id: 12, item: 'Паспорт РФ'},
-          {id: 13, item: 'Паспорт иностранного гражданина'},
-          {id: 14, item: 'ПРОЧЕЕ'},
-          {id: 15, item: 'СвидБеженц'},
-          {id: 16, item: 'СвидРожд'},
-          {id: 17, item: 'СправОбОсв'},
-          {id: 18, item: 'СпрУдЛичн'},
-          {id: 19, item: 'УдЛичности'},
-          {id: 20, item: 'УдОфицера'},
-        ]
-
-        ,
-        options_citizenship: [
-          {id: 1, item: 'РФ'},
-          {id: 2, item: 'Казахстан'},
-          {id: 2, item: 'Руанда'},
-          {id: 2, item: 'СССР'},
-        ],
-        options_foreignLanguageInfo: [
-          {id: 1, item: 'изучал'},
-          {id: 2, item: 'не изучал'},
-        ],
-        options_foreignLanguageName: [
-          {id: 1, item: 'английский'},
-          {id: 2, item: 'французский'},
-          {id: 3, item: 'немецкий'},
-        ]
       }
     },
     validations() {
@@ -635,32 +538,12 @@
       return obj;
 
     }
-    // validations: {
-    //   // Название поля должно совпадать с полем в data
-    //   identityCardSeries: {
-    //     required,
-    //     validFormat: val => /^\d{4} \d{6}$/.test(val),
-    //   },
-    //   // passportDate: {
-    //   //   required,
-    //   //   validDate: val => moment(val, 'DD.MM.YYYY', true).isValid(),
-    //   // },
-    //   name: {
-    //     required,
-    //     maxLength: maxLength(10),
-    //     alpha: val => /^[а-яё]*$/i.test(val),
-    //   },
-    // },
+
 
   }
 </script>
 
 <style scoped>
-  .flex-align-center {
-    display: flex;
-    align-items: center;
-  }
-
   .uneditable {
     background-color: #F5F5F5;
   }
@@ -693,26 +576,10 @@
     outline: 0;
   }
 
-  .button_add {
-    min-width: 100px;
-    min-height: 40px;
-    padding: 10px;
-    border: 1px solid;
-    border-color: grey;
-    border-radius: 5px;
-    background-color: ghostwhite;
-    /*background-color: #EDD19C;*/
-    font-size: 16px;
-    cursor: pointer;
-    transform: scale(0.8);
-    opacity: 0.9
-  }
-
   input {
     height: 25px;
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     /*border: 4px;*/
   }
 
@@ -726,14 +593,12 @@
   select {
     height: 25px;
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
   }
 
   textarea {
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     width: 90%;
     height: 100px;
     resize: none;
@@ -747,8 +612,7 @@
   button {
     min-width: 100px;
     padding: 10px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     border-radius: 5px;
     background-color: ghostwhite;
     /*background-color: #EDD19C;*/

@@ -6,11 +6,9 @@ import VueTheMask from 'vue-the-mask'
 import Vuelidate from 'vuelidate'
 
 import axios from 'axios';
-import demoObj from '../store/modules/ContactPersonExample210720191235.js'
 
 import enums from './modules/enums'
 import dictionary from './modules/dictionary'
-import tab_address_info from './modules/profile/tab_address_info'
 import tab_distinctive_features_info from './modules/profile/tab_distinctive_features_info'
 import tab_parent_info from './modules/profile/tab_parent_info'
 import tab_personal_info from './modules/profile/tab_personal_info'
@@ -23,12 +21,9 @@ import tab_reception_condition from './modules/application/tab_reception_conditi
 import person from './modules/profile/person'
 import applications from './modules/application/applications'
 // import {AXIOS} from "/src/components/plugins/APIService";
-import test_profiles from './modules/profile/test_profiles'
 import converter from "./modules/converter";
 import specialist from "./xmodules/specialist";
 import {getField, updateField} from "vuex-map-fields";
-import addressDto from "./xmodules/addressDto";
-import {AXIOS} from "../components/plugins/APIService";
 
 Vue.use(VueTheMask);
 Vue.use(VeeValidate);
@@ -88,21 +83,17 @@ export const store = new Vuex.Store({
   modules: {
     enums,
     dictionary,
-
     tab_personal_info,
     tab_evidence_ege_info,
     tab_education_military_info,
-    tab_address_info,
     tab_distinctive_features_info,
     tab_parent_info,
-    // test_profiles,
     tab_documents,
     tab_entrance_tests,
     tab_reception_condition,
     person,
     applications,
-    // addressDto,
-    // post
+
     s : specialist
   },
   strict: false

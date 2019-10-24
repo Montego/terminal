@@ -30,7 +30,6 @@
     <tab id="photo" name="Фотография">
       <TabPhoto></TabPhoto>
     </tab>
-    <!--{{showProfile}}-->
   </tabs>
 </div>
 </template>
@@ -67,21 +66,21 @@
       },
       methods: {
         tabClicked (selectedTab) {
-          console.log(selectedTab.tab.name)
+          // console.log(selectedTab.tab.name)
           if(selectedTab.tab.name === 'Свидетельства ЕГЭ'){
-            console.log('im in ege')
+            // console.log('im in ege')
             location.href='profile#ege_overview';
           }
           if(selectedTab.tab.name === 'Родитель/Попечитель'){
-            console.log('im in parent')
+            // console.log('im in parent')
             location.href='profile#parent_overview';
           }
           if(selectedTab.tab.name === 'Отличительные признаки'){
-            console.log('im in features')
+            // console.log('im in features')
             location.href='profile#features_overview';
           }
 
-          console.log('Current tab re-clicked:' , selectedTab.tab);
+          // console.log('Current tab re-clicked:' , selectedTab.tab);
         },
       }
     }

@@ -1,11 +1,18 @@
 <template>
   <div>
+    <modalForeigner
+      v-show="isModalForeignerVisible"
+      @closeForeignerModal= "closeForeignerModal"
+      @toApplication="onAppl"
+    />
+
     <modal
       v-show="isModalVisible"
       @close="closeModal"
       @toApplication="onAppl"
       @validatorConditions="validatorConditions"
     />
+
     <div class="photo-loader">
       <div class="photo-loader__img-placeholder">
         <div v-if="!imageOf">
@@ -15,26 +22,21 @@
           <img class="images_place" :src="showimage"/>
         </div>
       </div>
-      <!--{{validChim}}-->
-      <!--{{validBiol}}-->
-      <!--{{validRus}}-->
-
       <div class="photo-loader__controls">
-        <!--<button class="photo-loader__control-btn btn btn_load" type="button">-->
         <input type="file" id="imag" ref="image" @change="uploadFile"/>
-        <button v-if="!this.isModalVisible" class="photo-loader__control-btn /btn btn_reset" type="button"
+        <button v-if="!isModalVisible & !isModalForeignerVisible" class="photo-loader__control-btn /btn btn_reset" type="button"
                 @click="removeImage">Сбросить
         </button>
       </div>
     </div>
-    <!--{{this.docSeriesMandatory}}-->
-<!--<button @click="checkOlympPref">____</button>-->
+
     <span>{{successMessage}}</span>
     <span>{{errorMessages}}</span>
 
-    <div v-if="!this.isModalVisible">
 
-      <button class="button" type="button" @click="showModal">Зявление</button>
+    <div v-if="!this.isModalVisible & !isModalForeignerVisible">
+
+      <button class="button" v-if="person.saved !== 'Сохранено'" type="button" @click="showModal">Зявление</button>
       <!--<p class="typo__p" v-if="submitStatus === 'OK'">Спасибо</p>-->
       <p class="typo__p" v-if="submitStatus === 'ERROR'">Некорректно заполнены/не заполнены поля: </p>
       <p class="typo__p" v-if="submitStatus === 'PENDING'">Проверка...</p>
@@ -48,21 +50,6 @@
         </span>
       </div>
     </div>
-
-<!--{{person.ege_info[0].tab_ege_changePaspInf}}-->
-    <input v-if="this.person.ege_info[0].tab_ege_changePaspInf" v-model="tab_ege_identityCardNumber_1 = this.person.ege_info[0].tab_ege_identityCardNumber" hidden>
-    <input v-model="tab_ege_identityCardNumber_1" hidden>
-
-    <input v-if="this.person.ege_info[1].tab_ege_changePaspInf" v-model="tab_ege_identityCardNumber_2 = this.person.ege_info[1].tab_ege_identityCardNumber" hidden>
-    <input v-if="this.person.ege_info[2].tab_ege_changePaspInf" v-model="tab_ege_identityCardNumber_3 = this.person.ege_info[2].tab_ege_identityCardNumber" hidden>
-
-    <input v-if="this.person.ege_info[0].tab_ege_changePaspInf" v-model="tab_ege_identityCardSeries_1 = this.person.ege_info[0].tab_ege_identityCardSeries" hidden>
-    <input v-if="this.person.ege_info[1].tab_ege_changePaspInf" v-model="tab_ege_identityCardSeries_2 = this.person.ege_info[1].tab_ege_identityCardNumber" hidden>
-    <input v-if="this.person.ege_info[2].tab_ege_changePaspInf" v-model="tab_ege_identityCardSeries_3 = this.person.ege_info[2].tab_ege_identityCardNumber" hidden>
-
-    <!--<input v-model="ege1 = this.person.ege_info[2].tab_ege_identityCardNumber" hidden>-->
-    <!--{{ege1}}-->
-
   </div>
 </template>
 
@@ -77,6 +64,7 @@
   import TabEducationMilitary from "./TabEducationMilitaryInfo";
   import TabEvidenceEge from "./TabEvidenceEgeInfo";
   import TabParentInfo from "./TabParentInfo";
+  import modalForeigner from "../../modals/modalForeigner";
 
   const {mapMultiRowFields} = createHelpers({
     getterType: `person/getField`,
@@ -96,6 +84,7 @@
   export default {
     name: "TabPhoto",
     components: {
+      modalForeigner,
       TabParentInfo,
       TabEvidenceEge,
       TabEducationMilitary,
@@ -105,6 +94,10 @@
     },
     data() {
       return {
+
+        egePaspChange1: false,
+        egePaspChange2: false,
+        egePaspChange3: false,
 
         validChim: true,
         validBiol: true,
@@ -226,28 +219,28 @@
           // ---------------------------------------------------------------------
           {
             field: 'tab_ege_identityCardNumber_1',
-            answer: 'номер док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ -> Изменение паспортных данных)'
+            answer: 'номер док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ (Химия) -> Изменение паспортных данных)'
           },
           {
             field: 'tab_ege_identityCardNumber_2',
-            answer: 'номер док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ -> Изменение паспортных данных)'
+            answer: 'номер док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ (Биология) -> Изменение паспортных данных)'
           },
-        {
-          field: 'tab_ege_identityCardNumber_3',
-          answer: 'номер док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ -> Изменение паспортных данных)'
-        },
-        {
-          field: 'tab_ege_identityCardSeries_1',
-          answer: 'серия док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ -> Изменение паспортных данных)'
-        },
-        {
-          field: 'tab_ege_identityCardSeries_2',
-          answer: 'серия док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ -> Изменение паспортных данных)'
-        },
-        {
-          field: 'tab_ege_identityCardSeries_3',
-          answer: 'серия док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ -> Изменение паспортных данных)'
-        },
+          {
+            field: 'tab_ege_identityCardNumber_3',
+            answer: 'номер док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ (Русский язык) -> Изменение паспортных данных)'
+          },
+          {
+            field: 'tab_ege_identityCardSeries_1',
+            answer: 'серия док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ (Химия) -> Изменение паспортных данных)'
+          },
+          {
+            field: 'tab_ege_identityCardSeries_2',
+            answer: 'серия док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ (Биология) -> Изменение паспортных данных)'
+          },
+          {
+            field: 'tab_ege_identityCardSeries_3',
+            answer: 'серия док-та, удостоверяющего личность (вкладка Свидетельства ЕГЭ (Русский язык) -> Изменение паспортных данных)'
+          },
           // -------------------------------------------------------------------------------
           {
             field: 'validChim',
@@ -338,18 +331,91 @@
       //   },
       // },
 
-      tab_ege_identityCardNumber_1: {required},
-      tab_ege_identityCardNumber_2: {required},
-      tab_ege_identityCardNumber_3: {required},
-      tab_ege_identityCardSeries_1: {required},
-      tab_ege_identityCardSeries_2: {required},
-      tab_ege_identityCardSeries_3: {required},
+      tab_ege_identityCardNumber_1: {
+        check: function () {
+          if(this.person.ege_info[0].tab_ege_changePaspInf){
+            if(this.person.ege_info[0].tab_ege_identityCardNumber!==''){
+              return true
+            }else{
+              return false
+            }
+          }else {
+            return true
+          }
+        }
+      },
+      tab_ege_identityCardNumber_2: {
+        check: function () {
+          if(this.person.ege_info[1].tab_ege_changePaspInf){
+            if(this.person.ege_info[1].tab_ege_identityCardNumber!==''){
+              return true
+            }else{
+              return false
+            }
+          }else {
+            return true
+          }
+        }
+      },
+      tab_ege_identityCardNumber_3: {
+        check: function () {
+          if(this.person.ege_info[2].tab_ege_changePaspInf){
+            if(this.person.ege_info[2].tab_ege_identityCardNumber!==''){
+              return true
+            }else{
+              return false
+            }
+          }else {
+            return true
+          }
+        }
+      },
+      tab_ege_identityCardSeries_1: {
+        check: function () {
+          if(this.person.ege_info[0].tab_ege_changePaspInf){
+            if(this.person.ege_info[0].tab_ege_identityCardSeries!==''){
+              return true
+            }else{
+              return false
+            }
+          }else {
+            return true
+          }
+        }
+      },
+      tab_ege_identityCardSeries_2: {
+        check: function () {
+          if(this.person.ege_info[1].tab_ege_changePaspInf){
+            if(this.person.ege_info[1].tab_ege_identityCardSeries!==''){
+              return true
+            }else{
+              return false
+            }
+          }else {
+            return true
+          }
+        }
+      },
+      tab_ege_identityCardSeries_3: {
+        check: function () {
+          if(this.person.ege_info[2].tab_ege_changePaspInf){
+            if(this.person.ege_info[2].tab_ege_identityCardSeries!==''){
+              return true
+            }else{
+              return false
+            }
+          }else {
+            return true
+          }
+        }
+      },
       //validations inside groups
       GroupsValidationInfo: ['tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_lastname_genitive',
         'tab_personal_firstname_genitive', 'tab_personal_birthDate',
         'tab_personal_selectedIdentityCardCode', 'tab_personal_identityCardSeries',
         'tab_personal_identityCardNumber', 'tab_personal_identityCardIssueBy',
-        'tab_personal_identityCardIssueDate', 'tab_personal_selectedCitizenship', 'tab_personal_birthplace', 'tab_personal_email',
+        'tab_personal_identityCardIssueDate', 'tab_personal_selectedCitizenship', 'tab_personal_birthplace',
+        'tab_personal_email',
         'tab_edu_military_educationLevel', 'tab_edu_military_univer', 'tab_edu_military_selectedAcademyYear',
         'tab_edu_military_selectedEduDoc', 'tab_edu_military_eduDocSerial', 'tab_edu_military_eduDocNumber',
         'tab_ege_identityCardNumber_1','tab_ege_identityCardNumber_2','tab_ege_identityCardNumber_3',
@@ -378,7 +444,7 @@
       },
 
       ...mapMultiRowFields(['persons']),
-      ...person(['person', 'showProfile', 'profiles', 'isModalVisible', 'errorMessages', 'successMessage',
+      ...person(['person', 'showProfile', 'profiles', 'isModalVisible','isModalForeignerVisible', 'errorMessages', 'successMessage',
         'tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename', 'tab_personal_lastname_genitive',
         'tab_personal_firstname_genitive', 'tab_personal_middlename_genitive', 'tab_personal_selectedGender',
         'tab_personal_birthDate', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
@@ -390,7 +456,8 @@
         'tab_personal_company_address', 'tab_personal_seniority', 'tab_personal_employYears', 'tab_personal_employMonths',
         'tab_personal_employDays', 'tab_personal_selectedForeignLanguageInfo', 'selected_foreignLanguageName1',
         'language_score1', 'selected_foreignLanguageName2', 'language_score2', 'selected_foreignLanguageName3',
-        'language_score3', 'tab_address_registrationAddress', 'tab_address_factAddress', 'tab_address_templateRegistrationAddress',
+        'language_score3', 'tab_address_registrationAddress', 'tab_address_factAddress',
+        'tab_address_templateRegistrationAddress',
         'tab_edu_military_educationLevel', 'tab_edu_military_univer', 'tab_edu_military_selectedCountryRegion',
         'tab_edu_military_selectedState', 'tab_edu_military_selectedAcademyYear', 'tab_edu_military_selectedEduDoc',
         'tab_edu_military_eduDocSerial', 'tab_edu_military_eduDocNumber', 'tab_edu_military_eduDocDate',
@@ -406,7 +473,7 @@
         'requiredPrefEge1','requiredPrefEge2','requiredPrefEge3'
       ]),
       ...applications(['application', 'application_person_id', 'application_person_name', 'applId', 'applTableName',
-        'applTableNumber', 'applTableDate', 'applTableDeliveryType', 'applicationId', 'apls', 'chooseAppls', 'resultApl',
+        'applTableNumber', 'applTableDate', 'applTableDeliveryType', 'applicationId', 'apls','aplsFIU', 'chooseAppls', 'resultApl',
         'checkTargCount', 'checkSpecCount', 'message', 'checCountBudgetAndCel',
         'lechDelCel', 'lechDelBudget', 'medProfCel', 'medProfBudget', 'stomDelCel', 'stomDelBudget', 'howMuchTarg',
         'targEduLechDel', 'targEduMedProf', 'targEduStomDel', 'targCountCheck'],),
@@ -430,21 +497,21 @@
         let checkedArray = this.person.futures_info;
 
         if(this.person.ege_info[0].tab_ege_selectedExamForm !== "Олимпиада"){
-          console.log('chim not olymp')
+          // console.log('chim not olymp')
           egeChim = 1;
         }
         if(this.person.ege_info[1].tab_ege_selectedExamForm !== "Олимпиада"){
-          console.log('biol not olymp')
+          // console.log('biol not olymp')
           egeBiol = 1;
         }
         if(this.person.ege_info[2].tab_ege_selectedExamForm !== "Олимпиада"){
-          console.log('rus not olymp')
+          // console.log('rus not olymp')
           egeRus = 1;
         }
 
         if(this.person.ege_info[0].tab_ege_selectedExamForm === "Олимпиада"){
           if(checkedArray.length === 0){
-            console.log('нет префов вообще химия')
+            // console.log('нет префов вообще химия')
           }
           if(checkedArray.length > 0){
             for(let i=0;i<checkedArray.length; i++){
@@ -460,14 +527,14 @@
         }
         if(this.person.ege_info[1].tab_ege_selectedExamForm === "Олимпиада"){
           if(checkedArray.length === 0){
-            console.log('нет префов вообще биол')
+            // console.log('нет префов вообще биол')
           }
           if(checkedArray.length > 0){
             for(let i=0;i<checkedArray.length; i++){
               for(let j=0;j<subject2.length;j++){
                 if(checkedArray[i].tab_features_selectedPreference.preferenceId === subject2[j].preferenceId){
-                  console.log(checkedArray[i].tab_features_selectedPreference.preferenceId)
-                  console.log(subject2[j].preferenceId)
+                  // console.log(checkedArray[i].tab_features_selectedPreference.preferenceId)
+                  // console.log(subject2[j].preferenceId)
                   egeBiol=1;
                 }
               }
@@ -477,7 +544,7 @@
         }
         if(this.person.ege_info[2].tab_ege_selectedExamForm === "Олимпиада"){
           if(checkedArray.length === 0){
-            console.log('нет префов вообще рус')
+            // console.log('нет префов вообще рус')
           }
           if(checkedArray.length > 0){
             for(let i=0;i<checkedArray.length; i++){
@@ -514,9 +581,9 @@
           this.validRus = true;
         }
 
-        console.log(egeChim);
-        console.log(egeBiol);
-        console.log(egeRus);
+        // console.log(egeChim);
+        // console.log(egeBiol);
+        // console.log(egeRus);
 
       },
 
@@ -561,17 +628,44 @@
 
           if (this.application.choosenWizards.length === 0) {
             this.person.application.choosenWizards = [];
-            this.isModalVisible = true;
-            AXIOS.get(`/profile/conditionsDto`)
-              .then(response => {
-                console.log(response.data);
-                this.apls = response.data;
 
-                console.log(this.profiles)
-              })
-              .catch(e => {
-                this.errors.push(e)
-              })
+            //TODO тут условия для показа модульного окна выбора направленияй только для иностранцев
+            if(this.tab_personal_isForeignLikeRussian || this.tab_personal_isEquatedForeign){
+              this.isModalForeignerVisible = true;
+              AXIOS.get(`/profile/conditionsDtoFIU`)
+                .then(response => {
+                  console.log(response.data);
+                  this.apls = response.data;
+                })
+                .catch(e => {
+                  this.errors.push(e)
+                })
+            }else{
+              this.isModalVisible = true;
+              AXIOS.get(`/profile/conditionsDto`)
+                .then(response => {
+                  console.log(response.data);
+                  this.apls = response.data;
+                  console.log(this.profiles)
+                })
+                .catch(e => {
+                  this.errors.push(e)
+                })
+            }
+
+
+
+            // this.isModalVisible = true;
+            //   AXIOS.get(`/profile/conditionsDto`)
+            //     .then(response => {
+            //       console.log(response.data);
+            //       this.apls = response.data;
+            //
+            //       console.log(this.profiles)
+            //     })
+            //     .catch(e => {
+            //       this.errors.push(e)
+            //     })
 
           } else {
             this.showProfile = false;
@@ -608,6 +702,9 @@
       },
       closeModal() {
         this.isModalVisible = false;
+      },
+      closeForeignerModal() {
+        this.isModalForeignerVisible = false;
       },
 
       validatorConditions() {

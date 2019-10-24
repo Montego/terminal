@@ -1,37 +1,42 @@
 <template>
   <div class="outer">
-    <!--<div class="row">-->
-      <!--<div class="col-sm-1">Абитуриент:</div>-->
-      <!--<input class="col-sm-4" type="search" name="поиск" placeholder="Поиск по сайту">-->
-      <!--<button class="col-sm-2" type="button" @click="handleClick(false)">К заявлениям</button>-->
-      <!--<button class="col-sm-2" type="button" @click="handleClick(true)">К профилям</button>-->
-      <!--<a class="logout col-sm-3" href="/login">Logout</a>-->
-    <!--</div>-->
-    <div class="control-panel col-sm">
-      <div>
-        <span>Абитуриент:</span>
-        <div class="box">
-          <input @change="searchPersonBySNP(searchForm)" v-model="searchForm.tab_personal_lastname.input" type="search" name="поиск" placeholder="Поиск по сайту">
-        </div>
-          <!--<select v-model="searchForm.tab_personal_lastname.select" class="minimal exta_info_select col-sm-3">-->
-          <!--<option v-for="option in search_options">-->
-            <!--{{option.item}}-->
-          <!--</option>-->
-        <!--</select>-->
+    <div class="row">
+      <label class="lb">Абитуриент:</label>
+    </div>
+    <div class="row">
+      <div class="col-sm-2">
+        <input class="" @change="searchPersonBySNP(searchForm)" v-model="searchForm.tab_personal_lastname.input" type="search"
+               name="поиск" placeholder="Поиск по сайту">
       </div>
-      <div>
-        <!--<button type="button" @click="handleClick(false)">К заявлениям</button>-->
-        <button type="button" @click="handleClick(true)">К абитуриентам</button>
-      </div>
-      <!--<form action="/logout" method="post">-->
-        <!--<input type="hidden" name="_csrf" value="${_csrf.token}"/>-->
-        <!--<button class="btn btn-primary" type="submit">Sign Out</button>-->
-      <!--</form>-->
-      <a class="logout" href="" @click.prevent="onLogout">Logout</a>
+      <button class="col-sm-2 bt" type="button" @click="handleClick(1)">К списку абитуриентов</button>
+      <button class="col-sm-2 bt" type="button" @click="handleClick(2)">К личным сведениям</button>
+      <button class="col-sm-2 bt" type="button" @click="handleClick(3)">К заявлениям</button>
+      <label class="col-sm-2">{{this.userNickname}}</label>
+      <a class="col-sm-2" href="" @click.prevent="onLogout">Logout</a>
     </div>
 
+    <!--<div class="control-panel ">-->
+      <!--<div>-->
+        <!--<span>Абитуриент:</span>-->
+        <!--<div class="box">-->
+          <!--<input @change="searchPersonBySNP(searchForm)" v-model="searchForm.tab_personal_lastname.input" type="search"-->
+                 <!--name="поиск" placeholder="Поиск по сайту">-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="row">-->
+        <!--&lt;!&ndash;<button class="col-sm" type="button" @click="handleClick(true)">К списку абитуриентов</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;<button class="col-sm" type="button" @click="handleClick(false)">К личным сведениям</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;<button class="col-sm" type="button" @click="handleClick(false)">К заявлениям</button>&ndash;&gt;-->
+        <!--<button class="col-sm" type="button" @click="handleClick(1)">К списку абитуриентов</button>-->
+        <!--<button class="col-sm" type="button" @click="handleClick(2)">К личным сведениям</button>-->
+        <!--<button class="col-sm" type="button" @click="handleClick(3)">К заявлениям</button>-->
+      <!--</div>-->
+      <!--<label class="col-sm">{{this.userNickname}}</label>-->
+      <!--<a class="logout" href="" @click.prevent="onLogout">Logout</a>-->
+    <!--</div>-->
+
     <div>
-      <WraperProfile v-show="showProfile" :handleClick="handleClick" ></WraperProfile>
+      <WraperProfile v-show="showProfile" :handleClick="handleClick"></WraperProfile>
       <WraperApplication v-show="!showProfile" :handleClick="handleClick"></WraperApplication>
 
     </div>
@@ -40,44 +45,31 @@
 
 
 <script>
-  import TabOverview from "../tabs/Profile/TabOverviewProfile";
-  import TabPersonalInfo from "../tabs/Profile/TabPersonalInfo";
-  import TabAddressInfo from "../tabs/Profile/TabAddressInfo";
-  import TabEducationMilitary from "../tabs/Profile/TabEducationMilitaryInfo";
-  import TabEvidenceEge from "../tabs/Profile/TabEvidenceEgeInfo";
-  import TabParentInfo from "../tabs/Profile/TabParentInfo";
-  import TabDistinctiveFeaturesInfo from "../tabs/Profile/TabDistinctiveFeaturesInfo";
-  import TabPhoto from "../tabs/Profile/TabPhoto";
-
   import WraperProfile from "./WraperProfile";
   import WraperApplication from "./WraperApplication";
 
-  import TabApplicationFill from "../tabs/Application/TabApplicationFill";
-  import TabDocuments from "../tabs/Application/TabDocuments";
-  import TabOther from "../tabs/Application/TabCheckAndSave";
-
-  import { createHelpers } from 'vuex-map-fields';
+  import {createHelpers} from 'vuex-map-fields';
   import {AXIOS} from "../plugins/APIService";
-  const { mapFields:person} = createHelpers({
+
+  const {mapFields: person} = createHelpers({
     getterType: 'person/getField',
     mutationType: 'person/updateField',
   });
-  const { mapFields:applications} = createHelpers({
-    getterType: 'applications/getField',
-    mutationType: 'applications/updateField',
-  });
+
   export default {
     name: "Profile",
-
+    mounted() {
+      this.$store.dispatch('person/onLoadUser');
+    },
     components: {
-      WraperProfile,WraperApplication
+      WraperProfile, WraperApplication
     },
     computed: {
-      ...person(['person', 'showProfile','person_info_id','isModalVisible','profiles']),
+      ...person(['userNickname','person', 'showProfile', 'person_info_id', 'isModalVisible', 'profiles']),
     },
     data() {
       return {
-      searchForm: {
+        searchForm: {
           tab_personal_lastname:
             {
               select: 'содержит',
@@ -85,14 +77,14 @@
               fromDate: null,
               toDate: null
             },
-            sortProperty:"",
-            sortDirection:"",
-            size:20,
-            page:0
+          sortProperty: "",
+          sortDirection: "",
+          size: 20,
+          page: 0
         },
 
-        selectedSearchOption:'',
-        searchContext:'',
+        selectedSearchOption: '',
+        searchContext: '',
         options_select: [
           {id: 1, item: 'да'},
           {id: 2, item: 'нет'},
@@ -111,64 +103,81 @@
       }
     },
     methods: {
-      searchPersonBySNP(){
+      searchPersonBySNP() {
         this.profiles = [];
-          console.log(this.searchForm);
+        console.log(this.searchForm);
 
-          AXIOS.post("/profile/search/",(this.searchForm))
-            .then((response) => {
-              let i = 0;
-              for(i; i<response.data.length; i++){
-                this.profiles.push(response.data[i]);
-              }
-              console.log(response.data);
-              location.href='profile#overview_personal_info';
+        AXIOS.post("/profile/search/", (this.searchForm))
+          .then((response) => {
+            let i = 0;
+            for (i; i < response.data.length; i++) {
+              this.profiles.push(response.data[i]);
+            }
+            console.log(response.data);
+            location.href = 'profile#overview_personal_info';
 
-            })
-            .catch( (e) => {
-              console.error(e);
-            });
+          })
+          .catch((e) => {
+            console.error(e);
+          });
       },
 
       handleClick(val) {
-        // if(this.isModalVisible === true){
-        //   console.log('hadleClick',this.isModalVisible)
+
+        if(val === 1){
+          location.href = 'profile#overview_personal_info';
+          location.reload(true);
+          this.isModalVisible = false;
+        }
+        if(val === 2){
+          this.showProfile = true;
+          location.href = 'profile#personal_info';
+        }
+        if(val === 3){
+          // location.href = 'profile#personal_info';
+          this.showProfile = false;
+        }
+
+        // location.href = 'profile#overview_personal_info';
+        // this.showProfile = val;
+        // if (this.showProfile) {
         //   location.reload(true)
         // }
-        location.href='profile#overview_personal_info';
-          // location.reload(true);
-          this.showProfile = val;
-          if(this.showProfile){
-            location.reload(true)
-          }
-          this.isModalVisible = false;
-
-          // this.application.applicationTable.splice(0,1)
+        // this.isModalVisible = false;
       },
 
       onLogout: () => {
-          AXIOS.get("/logout")
-              .then((response) => {
-                  console.log(response);
-                  location.href='login';
-              })
-              .catch( (e) => {
-                  console.error(e);
-              });
+        AXIOS.get("/logout")
+          .then((response) => {
+            console.log(response);
+            location.href = 'login';
+          })
+          .catch((e) => {
+            console.error(e);
+          });
       },
 
       onApplication(data) {
-        console.log(data)
+        // console.log(data)
       }
     }
   }
 </script>
 
 <style scoped>
+
+  .bt {
+    /*margin-bottom: 5px;*/
+  }
+  .lb {
+    padding-left: 35px;
+    padding-top: 10px;
+  }
   .box {
     background: #e6e3df;
     text-align: left;
   }
+
   .box input {
 
     display: inline-block;
@@ -176,34 +185,28 @@
   }
 
   select.minimal {
-    background-image:
-      linear-gradient(45deg, transparent 50%, gray 50%),
-      linear-gradient(135deg, gray 50%, transparent 50%),
-      linear-gradient(to right, #ccc, #ccc);
-    background-position:
-      calc(100% - 20px) calc(1em + 2px),
-      calc(100% - 15px) calc(1em + 2px),
-      calc(100% - 2.5em) 0.5em;
-    background-size:
-      5px 5px,
-      5px 5px,
-      1px 1.5em;
+    background-image: linear-gradient(45deg, transparent 50%, gray 50%),
+    linear-gradient(135deg, gray 50%, transparent 50%),
+    linear-gradient(to right, #ccc, #ccc);
+    background-position: calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
+    calc(100% - 2.5em) 0.5em;
+    background-size: 5px 5px,
+    5px 5px,
+    1px 1.5em;
     background-repeat: no-repeat;
   }
 
   select.minimal:focus {
-    background-image:
-      linear-gradient(45deg, green 50%, transparent 50%),
-      linear-gradient(135deg, transparent 50%, green 50%),
-      linear-gradient(to right, #ccc, #ccc);
-    background-position:
-      calc(100% - 15px) 1em,
-      calc(100% - 20px) 1em,
-      calc(100% - 2.5em) 0.5em;
-    background-size:
-      5px 5px,
-      5px 5px,
-      1px 1.5em;
+    background-image: linear-gradient(45deg, green 50%, transparent 50%),
+    linear-gradient(135deg, transparent 50%, green 50%),
+    linear-gradient(to right, #ccc, #ccc);
+    background-position: calc(100% - 15px) 1em,
+    calc(100% - 20px) 1em,
+    calc(100% - 2.5em) 0.5em;
+    background-size: 5px 5px,
+    5px 5px,
+    1px 1.5em;
     background-repeat: no-repeat;
     border-color: grey;
     outline: 0;
@@ -221,10 +224,10 @@
   }
 
   /*.logout {*/
-    /*margin-left: 30%;*/
+  /*margin-left: 30%;*/
   /*}*/
   /*tabs-component-panels.graduate_military {*/
-    /*padding-bottom: -30px;*/
+  /*padding-bottom: -30px;*/
   /*}*/
   section.tabs-component-panels {
     padding-bottom: -30px;
@@ -274,7 +277,7 @@
 
   .outer {
     /*margin: 5px;*/
-    /*margin-top: -5px;*/
+    margin-top: 30px;
     background: linear-gradient(45deg, #EECFBA, #C5DDE8);
     /*background: linear-gradient(to top left, powderblue, pink);*/
   }

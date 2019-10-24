@@ -39,10 +39,10 @@
         tabClicked (selectedTab) {
           console.log(selectedTab.tab.name)
           if(selectedTab.tab.name === 'Документы'){
-            console.log('im in document')
+            // console.log('im in document')
             location.href='profile#documents_overview';
           }
-          console.log('Current tab re-clicked:' , selectedTab.tab);
+          // console.log('Current tab re-clicked:' , selectedTab.tab);
         }
         },
       components: {

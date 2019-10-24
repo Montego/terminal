@@ -5,8 +5,6 @@
         <div class="row">
           <button @click="onFill">Заполнить</button>
           <button @click="onAdd">Добавить</button>
-          <!--<button >Печать</button>-->
-
         </div>
         <v-data-table
           :headers="headers_documents"
@@ -18,9 +16,8 @@
             <td class="text-xs-center">{{ props.item.fullnameDoc}}</td>
             <td class="text-xs-center">{{ props.item.docTypeDoc.name}}</td>
 
-            <td class="text-xs-center">
-              <input v-model="props.item.dateOfShow" class="form__input col-sm-8" type="date" min="1918-01-01" max="2100-01-01" >
-              <!--{{ props.item.dateOfIssueDoc}}-->
+            <td class="text-sm-center">
+              <input v-model="props.item.dateOfShow" class="form__input col-sm" type="date" min="1918-01-01" max="2100-01-01" >
             </td>
             <td class="text-xs-center">{{ props.item.countDoc }}</td>
             <td class="text-xs-center">
@@ -38,8 +35,6 @@
         </v-data-table>
         <div class="clear_save_button row">
           <button @click="onNext">Далее ->></button>
-          <!--<button @click="onAddParent">Добавить</button>-->
-          <!--<button @click="onSaveParent">Сохранить изм-я</button>-->
         </div>
       </tab>
 
@@ -55,21 +50,12 @@
               <div class="col-sm-6">
                   <label class="row">
                     <div class="form__label-text col-sm">Тип документа:</div>
-                    <!--<select v-model="name" class="minimal col-sm">-->
-                      <!--<option v-for="option in options_DocumentType">-->
-                        <!--{{option.item}}-->
-                      <!--</option>-->
-                    <!--</select>-->
-
                     <select v-model="selected_document" class="minimal col-sm">
                       <option v-for="item in document" v-bind:value="item">
                         {{item.name}}
                       </option>
                     </select>
                   </label>
-                <!--{{$v}}-->
-                <!--<span class="alarm_label" v-if="$v.selected_document.$invalid">Не выбран документ</span>-->
-                <!--{{$v.selected_document.$invalid}}-->
                 <label v-if="selected_document.name === 'Иной документ'" class="row">
                   <div class="form__label-text col-sm">Документ:</div>
                   <input v-model="newName" class="form__input col-sm" type="text" />
@@ -79,19 +65,16 @@
                   <input v-model="count" class="form__input col-sm" type="text" v-mask="'##'" required/>
                 </label>
                   <span class="alarm_label" v-if="$v.count.$invalid">Не введено количество</span>
-                <!--{{$v.count.$invalid}}-->
                 <label class="row">
                   <div class="form__label-text col-sm">Серия:</div>
                   <input v-model="serial" class="form__input col-sm" type="text" v-mask="'##############'" required/>
                 </label>
                     <span class="alarm_label" v-if="$v.serial.$invalid">Не введена серия документа</span>
-                <!--{{$v.serial.$invalid}}-->
                 <label class="row">
                   <div class="form__label-text col-sm">Номер/ID:</div>
                   <input v-model="number" class="form__input col-sm" type="text" v-mask="'##############'" required/>
                 </label>
                     <span class="alarm_label" v-if="$v.number.$invalid">Не введен номер документа</span>
-                <!--{{$v.number.$invalid}}-->
                 <label class="row">
                   <div class="form__label-text col-sm">Копия/Оригинал:</div>
                   <select v-model="selected_docType" class="minimal col-sm">
@@ -100,27 +83,20 @@
                     </option>
                   </select>
                 </label>
-                      <!--<span class="alarm_label" v-if="$v.selected_docType.$invalid">Не выбран тип документа</span>-->
-                <!--{{$v.selected_docType.$invalid}}-->
                 <label class="row">
                   <div class="form__label-text col-sm">Дата выдачи:</div>
                   <input v-model="dateOfIssue" class="form__input col-sm" type="date" min="1918-01-01" max="2100-01-01"/>
                 </label>
-                        <span class="alarm_label" v-if="$v.dateOfIssue.$invalid">Не введена дата выдачи</span>
-                <!--{{$v.dateOfIssue.$invalid}}-->
+                    <span class="alarm_label" v-if="$v.dateOfIssue.$invalid">Не введена дата выдачи</span>
                 <label class="row">
                   <div class="form__label-text col-sm">Кем выдан:</div>
                   <textarea v-model="issuedBy" class="col-sm" ></textarea>
                 </label>
-                      <span class="alarm_label" v-if="$v.issuedBy.$invalid">Не введено, кем выдан</span>
-                <!--{{$v.issuedBy.$invalid}}-->
+                    <span class="alarm_label" v-if="$v.issuedBy.$invalid">Не введено, кем выдан</span>
               </div>
             </div>
             <div class="row">
               <button @click="onClear">Очистить</button>
-              <!--{{$v.name.$invalid | $v.count.$invalid | $v.serial.$invalid |-->
-              <!--$v.number.$invalid | $v.selected_docType.$invalid | $v.dateOfIssue.$invalid |-->
-              <!--$v.issuedBy.$invalid}}-->
               <button v-if="(($v.count.$invalid) | ($v.serial.$invalid) |
                             ($v.number.$invalid) | ($v.dateOfIssue.$invalid) |
                             ($v.issuedBy.$invalid))"
@@ -137,7 +113,6 @@
 
 <script>
   import {required} from 'vuelidate/lib/validators';
-  import {AXIOS} from "../../plugins/APIService";
   import {mapGetters, mapState} from 'vuex';
   import { createHelpers } from 'vuex-map-fields';
   const { mapFields:applications} = createHelpers({
@@ -148,10 +123,7 @@
     getterType: 'person/getField',
     mutationType: 'person/updateField',
   });
-  const { mapMultiRowFields } = createHelpers({
-    getterType: `tab_documents/getField`,
-    mutationType: `tab_documents/updateField`,
-  });
+
   const { mapFields: tab_documents} = createHelpers({
     getterType: `tab_documents/getField`,
     mutationType: `tab_documents/updateField`,
@@ -208,7 +180,6 @@
           'tab_document_selectedCopy', 'tab_document_date','tab_document_issuedBy','tab_document_fullName',
           'tab_document_count','tab_document_selectedDocType','fullname','tab_document_auto'
         ]),
-        // ...mapMultiRowFields(['document','tab_document_allDocuments']),
         ...person(['person','tab_personal_selectedIdentityCardCode','tab_personal_identityCardSeries','tab_personal_identityCardDocType',
         'tab_personal_identityCardNumber','tab_personal_identityCardIssueDate','tab_personal_identityCardIssueBy',
         'docTableFullname','docTableDocType','docTableDate','docTableCount', 'person_info_id','tab_personal_INIPA',
@@ -227,15 +198,11 @@
         this.$store.dispatch('enums/onLoadDocType');
       },
       validations: {
-        // selected_document:{required},
-        // name:{required},
         count:{required},
         serial:{required},
         number:{required},
-        // selected_docType:{required},
         dateOfIssue:{required},
         issuedBy:{required},
-
         },
         methods: {
           remove(arr, item) {
@@ -915,22 +882,19 @@
   input {
     height: 25px;
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     /*border: 4px;*/
   }
 
   select {
     height: 25px;
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
   }
 
   textarea {
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     width: 90%;
     height: 100px;
     resize: none;
@@ -944,8 +908,7 @@
   button {
     min-width: 100px;
     padding: 10px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     border-radius: 5px;
     background-color: ghostwhite;
     /*background-color: #EDD19C;*/

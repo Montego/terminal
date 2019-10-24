@@ -1,8 +1,8 @@
 <template>
   <div>
+    <Loader :loader="loader"/>
     <span v-if="person_info_id !==''"> Сохранено!</span>
     <div v-if="person.application.saved !=='Сохранено'" class="row">
-     <!--<div v-if="person_info_id ===''" class="row">-->
       <div class="col-sm-4">
         <section>
           <div>
@@ -29,13 +29,11 @@
             <div class="form__label-text col-sm-5">СНИЛС</div>
             <input v-model="tab_personal_INIPA" class="form__input col-sm-7" type="text" disabled/>
           </label>
-          <!--<span class="alarm_label">{{ errors.first('snils') }}</span>-->
           <label class="row">
             <div class="form__label-text col-sm-5">СНИЛС Дата:</div>
             <input v-model="tab_personal_INIPADate" class="form__input col-sm-7" type="date" disabled/>
           </label>
 
-          <!--<hr>-->
           <input v-model="tab_personal_selectedIdentityCardCode.identityCardNameFull" class="minimal col-sm-7" disabled>
           <label class="row">
             <div class="form__label-text col-sm-5">Серия:</div>
@@ -45,10 +43,7 @@
             <div class="form__label-text col-sm-5">Номер:</div>
             <input v-model="tab_personal_identityCardNumber" class="form__input col-sm-7" type="text" disabled/>
           </label>
-          <!--<label class="row">-->
-          <!--<div class="form__label-text col-sm-3">Гражданство:</div>-->
-          <!--<input v-model="tab_personal_selectedCitizenship.countryRegionId"  class="minimal col-sm" disabled>-->
-          <!--</label>-->
+
           <label class="row">
             <div class="form__label-text col-sm-5">Соотечественник:</div>
             <input v-model="tab_personal_isCompatriot" class="checkbox col-sm-7" type="checkbox" disabled>
@@ -69,9 +64,8 @@
             <div class="form__label-text col-sm-5">Иностранец, как гражданин РФ:</div>
             <input v-model="tab_personal_isForeignLikeRussian" class="checkbox col-sm-7" type="checkbox" disabled>
           </label>
-
         </section>
-        <!--<hr>-->
+
         <section>
           <div>
             <h2>Контактные данные</h2>
@@ -85,7 +79,7 @@
             <input v-model="tab_personal_email" class="form__input col-sm" type="email" disabled>
           </label>
         </section>
-        <!--<hr>-->
+
         <section>
           <div>
             <h2>Адреса</h2>
@@ -93,19 +87,14 @@
           <label v-if="typeof ADRDTO[0] !== 'undefined'" class="row">
             <div class="form__label-text col-sm-4">Адрес по прописке:</div>
             {{ this.ADRDTO[0].addressTxt }}
-            <!--<textarea v-model="tab_address_registrationAddress" class="uneditable col-sm-8" name=""></textarea>-->
           </label>
           <label v-if="typeof this.ADRDTO[1]!== 'undefined'" class="row">
             <div class="form__label-text col-sm-5">Адрес фактический:</div>
-            <!--{{ typeof this.ADRDTO[1].addressTxt !== 'undefined' ? this.ADRDTO[1].addressTxt : "" }}-->
             {{this.ADRDTO[1].addressTxt}}
-            <!--<textarea v-model="tab_address_factAddress" class="uneditable col-sm-8"></textarea>-->
           </label>
           <label v-if="typeof this.ADRDTO[2]!== 'undefined'" class="row">
             <div class="form__label-text col-sm-7">Адрес временной регистрации:</div>
-            <!--{{ typeof this.ADRDTO[2].addressTxt !== 'undefined' ? this.ADRDTO[2].addressTxt : "" }}-->
             {{this.ADRDTO[2].addressTxt}}
-            <!--<textarea v-model="tab_address_templateRegistrationAddress" class="uneditable col-sm-8"></textarea>-->
           </label>
         </section>
       </div>
@@ -138,8 +127,6 @@
         <!--</section>-->
 
         <!--<hr>-->
-
-
         <section>
           <div>
             <h2>Учебное заведение</h2>
@@ -160,7 +147,6 @@
             <div class="form__label-text col-sm-4">Дата выдачи:</div>
             <input v-model="tab_edu_military_eduDocDate" class="form__input col-sm" type="date" disabled/>
           </label>
-
         </section>
 
         <section>
@@ -210,36 +196,23 @@
 
     </div>
     <div>
-      <button v-if="showPrintApplication" @click="onPrintApplication()">
+      <button v-if="this.applicationId!== 'nothing'" @click="onPrintApplication()">
         Заявление
       </button>
-      <button v-if="showPrintDocuments" @click="onPrintDocuments()">
+
+      <button v-if="this.applicationId!== 'nothing'" @click="onPrintDocuments()">
         Опись
       </button>
-      <button v-if="showPrintAgreement" @click="onPrintAgreement()">
+      <button v-if="this.agreementId.length > 0" @click="onPrintAgreement()">
         Согласие
       </button>
-      <button v-if="$store.state.agreementId.length>1" @click="onPrintAgreement2()">
+      <button v-if="this.agreementId.length === 2" @click="onPrintAgreement2()">
         Согласие-2
       </button>
     </div>
-
+    <input v-if="this.applicationId!== 'nothing'" v-model=" this.loader=false" hidden>
     <div class="clear_save_button row">
-      <!--<button v-if="this.resultAcceptPerson !=='Утверждено'" @click="onAcceptPerson">Утвердить</button>-->
-      <!--{{this.application}}-->
-      <!--<div v-if="this.resultAcceptPerson ==='Утверждено'">-->
-      <!--<button v-if="person.application.saved !=='Сохранено'" @click="onSave">Сохранить</button>-->
-      <!--<button @click="checkFields">Проверить</button>-->
-      <!--</div>-->
-
       <button v-if="person.saved !== 'Сохранено'" @click="onSave">Сохранить</button>
-
-      <!--<button v-if="(($store.state.agreementId.length===0) && ($store.state.applicationId==='nothing'))" @click="onSave">Сохранить</button>-->
-
-
-      <!--<button v-if="showPrintAgreement || showPrintApplication || showPrintDocuments"-->
-      <!--@click="onSave">Сохранить</button>-->
-
       <p class="typo__p" v-if="submitStatus === 'ERROR'"></p>
       <p class="typo__p" v-if="submitStatus === 'PENDING'">Проверка...</p>
       <div class="box">
@@ -261,10 +234,6 @@
         hidden>
       <input v-model="application_selectedDocType = this.person.application.application_selectedDocType" hidden>
 
-<!--{{agreementId}}{{applicationId}}-->
-      <!--<button v-if="showButtons || person.application.saved ==='Сохранено'" @click="onSave">Сохранить</button>-->
-
-
     </div>
   </div>
 
@@ -275,6 +244,7 @@
   import {AXIOS} from "../../plugins/APIService";
   import {createHelpers} from 'vuex-map-fields';
   import {mapGetters, mapState} from 'vuex';
+  import Loader from "../../loader/Loader";
 
   const {mapFields: applications} = createHelpers({
     getterType: 'applications/getField',
@@ -291,12 +261,11 @@
 
   export default {
     name: "Other",
+    components: {Loader},
     data() {
       return {
+        loader: false,
         showButtons: true,
-        // showPrintApplication: false,
-        // showPrintDocuments: false,
-        // showPrintAgreement: false,
 
         savedInfo: [],
 
@@ -304,7 +273,6 @@
         application_selectedDeliveryType: '',
         application_selectedDeliveryReturnType: '',
         application_selectedDocType: '',
-
 
         submitStatus: null,
         validAnswer: [],
@@ -333,7 +301,7 @@
       ...applications(['application',]),
       ...tab_reception_condition(['file',]),
       ...mapGetters(['ADRDTO']),
-      ...mapState(['agreementId','applicationId']),
+      ...mapState(['agreementId','applicationId','contactPersonId']),
       ...person(['person', 'showProfile', 'person_info_id', 'resultAcceptPerson', 'saved', 'savedResult', 'personInfoSavedId',
         'tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename', 'tab_personal_lastname_genitive',
         'tab_personal_firstname_genitive', 'tab_personal_middlename_genitive', 'tab_personal_selectedGender',
@@ -359,9 +327,6 @@
         'selectedExtraInfos2', 'extraInfosDescription1', 'extraInfosDescription2', 'score_five', 'score_four', 'score_three',
         'score_full', 'subjectScores','showPrintApplication','showPrintDocuments','showPrintAgreement'
       ]),
-      agreement() {
-        return this.agreementId;
-      }
     },
     validations: {
       //validations rules
@@ -370,30 +335,12 @@
       application_selectedDeliveryReturnType: {required},
       application_selectedDocType: {required},
 
-
       //validations inside groups
       GroupsValidationInfo: ['application_date', 'application_selectedDeliveryType',
         'application_selectedDeliveryReturnType', 'application_selectedDocType'
-
       ],
     },
-    watch: {
 
-
-      agreementId: {function (){
-          console.log('agreementId watcher')
-        }
-      },
-      applicationId: {function (){
-          console.log('applicationId watcher')
-        }
-      },
-      contactPersonId: {function (){
-          console.log('contactPersonId watcher')
-        }
-      },
-
-    },
     methods: {
       check(GroupsValidationInfo) {
         let entries = Object.entries(GroupsValidationInfo);
@@ -410,18 +357,11 @@
         }
       },
 
-
-      // async axapta(id) {
-      //   console.log('in axapta method');
-      //   await this.$store.dispatch('go', id);
-      // },
-
       onPrintApplication() {
         console.log(this.$store.state.applicationId);
         let id = this.$store.state.applicationId;
         window.open('http://10.71.0.115/application/' + id + '_.xlsm');
         // 'ApW000191'
-
       },
 
       onPrintDocuments() {
@@ -457,25 +397,18 @@
           window.open('http://10.71.0.115/agreement/' + first_id + '.xlsm');
         }
 
-        // window.open('http://10.71.0.115/agreement/' + id[i] + '.xlsm');
-        // window.open('http://10.71.0.115/agreement/' + id[i] + '.xlsm');
-
-        // for(let i=0;i<id.length;i++){
-        //   console.log(id[i]);
-        //   window.open('http://10.71.0.115/agreement/' + id[i] + '.xlsm');
-        // }
-        console.log('after for')
-        // window.open('http://10.71.0.115/agreement/' + id + '.xlsm');
       },
 
       onSave() {
         //TODO check double save person_inf(id)
+
         this.validAnswer = [];
         if (this.$v.$invalid) {
           this.submitStatus = 'ERROR';
 
           this.check(this.$v.GroupsValidationInfo);
         } else {
+          this.loader = true;
 
           this.person.person_info.tab_personal_lastname = this.tab_personal_lastname;
           this.person.person_info.tab_personal_firstname = this.tab_personal_firstname;
@@ -571,7 +504,7 @@
               }
             }
             if (this.person.ege_info[j].tab_ege_score === "" || this.person.ege_info[j].tab_ege_score === "0") {
-              console.log('if for scores')
+              // console.log('if for scores')
               if (this.person.ege_info[j].tab_ege_selectedSubject === "Химия") {
                 this.person.subjectScores[0].examPoint = 0;
                 this.person.subjectScores[0].examForm = {"id":10,"name":"Вступит. испытания"};
@@ -586,11 +519,6 @@
               }
             }
           }
-          console.log('chim point',this.person.subjectScores[0].examPoint);
-          console.log('biol point',this.person.subjectScores[1].examPoint);
-          console.log('rus point',this.person.subjectScores[2].examPoint);
-          console.log( this.person.subjectScores)
-
 
           let x = this.ADRDTO;
           for (let i = 0; i < 3; i++) {
@@ -598,7 +526,6 @@
           }
           console.log('АДРЕСА ПЕРЕД СОХРАНЕНИЕМ',this.person.person_info.addressesDto);
           this.person.person_info.showimage = this.showimage;
-          // this.person.saved = "Сохранено";
           this.person.application.saved = "Сохранено";
 
 
@@ -607,68 +534,22 @@
             AXIOS.post(`/profile`, (this.person))
               .then(response => {
                 console.log('saved person ' + response.data);
-                //todo check out next line
-                // this.person.saved = response.data.saved;
+                //TODO возможно this.person.saved = "Сохранено"; выполнять после получения кодов аксапты?
                 this.person.saved = "Сохранено";
-                // if (response.data !== '') {
-                //   this.showButtons = false;
-                // }
                 let id = response.data;
                 console.log('returned id ----------',id);
                 return id;
               })
               .then(id => {
-                this.$store.dispatch('go', id);
-
-                if (this.$store.state.agreementId.length !== "nothing" || this.agreementId !== null) {
-                  this.showPrintAgreement = true;
-                }
-                if (this.$store.state.applicationId !== 'nothing' || this.applicationId !== null) {
-                  this.showPrintApplication = true;
-                }
-                if (this.$store.state.contactPersonId !== 'nothing' || this.contactPersonId !== null) {
-                  this.showPrintDocuments = true;
-                }
-
-                // this.axapta(id);
-
-                // console.log(resultAxapta);
-                // return resultAxapta;
+                this.$store.dispatch('go', id).then(()=>{
+                  this.loader = false;
+                });
               })
-              // .then(resultAxapta => {
-              //     console.log('we are in last promise ');
-
-
-                //   console.log('resultAxapta: ',resultAxapta.agreementId)
-                // if (resultAxapta.agreementId !== "nothing" || resultAxapta.agreementId !== null) {
-                //   this.showPrintAgreement = true;
-                // }
-                // if (resultAxapta.applicationId !== 'nothing' || resultAxapta.applicationId !== null) {
-                //   this.showPrintApplication = true;
-                // }
-                // if (resultAxapta.contactPersonId !== 'nothing' || resultAxapta.contactPersonId !== null) {
-                //   this.showPrintDocuments = true;
-                // }
-
-
-
-                // if (this.$store.state.agreementId.length !== "nothing" || this.agreementId !== null) {
-                //   this.showPrintAgreement = true;
-                // }
-                // if (this.$store.state.applicationId !== 'nothing' || this.applicationId !== null) {
-                //   this.showPrintApplication = true;
-                // }
-                // if (this.$store.state.contactPersonId !== 'nothing' || this.contactPersonId !== null) {
-                //   this.showPrintDocuments = true;
-                // }
-//TODO check it setTimeout
-//                 setTimeout(() => {
-//                 }, 1000)
-              // })
-
               .catch(e => {
                 this.person.saved = "Не сохранено";
-                // this.errors.push(e)
+                this.loader = false;
+
+                this.errors.push(e)
               });
 
 

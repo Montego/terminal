@@ -14,9 +14,6 @@
               {{item.name}}
             </option>
           </select>
-
-          <!--<input v-model="person.tab_edu_military_educationLevel.name" class="uneditable form__input col-sm-6" type="text" name="" placeholder="Заполняется автоматически"-->
-                 <!--disabled="disabled"/>-->
         </label>
       </div>
       <div>
@@ -62,7 +59,6 @@
       <hr>
 
       <div>
-
         <label class="row">
           <div class="form__label-text col-sm">Документ об образовании:</div>
           <select v-model="tab_edu_military_selectedEduDoc" class="minimal col-sm-8"
@@ -78,18 +74,20 @@
           <div class="form__label-text col-sm">Серия:</div>
           <input data-vv-as="серия" v-validate v-model="tab_edu_military_eduDocSerial" class="form__input col-sm" type="text" name="eduDocSerial" placeholder="" v-mask="'##################'" required/>
         </label>
-        <!--<span class="alarm_label">{{ errors.first('eduDocSerial') }}</span>-->
 
         <label class="row">
           <div class="form__label-text col-sm">Номер:</div>
           <input data-vv-as="номер" v-validate v-model="tab_edu_military_eduDocNumber" class="form__input col-sm" type="text" name="eduDocNumber" placeholder="" v-mask="'##################'" required/>
         </label>
-        <!--<span class="alarm_label">{{ errors.first('eduDocNumber') }}</span>-->
 
         <label class="row">
           <div class="form__label-text col-sm">Дата выдачи:</div>
           <input v-model="tab_edu_military_eduDocDate" class="form__input col-sm" type="date"  min="1918-01-01" max="2100-01-01"/>
         </label>
+        <div class="row">
+          <!--<label class="col-sm-9"></label>-->
+          <button class= "col-sm-3" @click="copyFromEdu">Копировать</button>
+        </div>
         <label class="row">
           <div class="form__label-text col-sm">Наименование:</div>
           <textarea v-model="tab_edu_military_eduDocName" class="col-sm" name=""></textarea>
@@ -102,10 +100,10 @@
           <div class="form__label-text col-sm">Номер приложения:</div>
           <input v-model="tab_edu_military_attachment_number" class="form__input col-sm" type="text" name="" placeholder="" v-mask="'#########'"/>
         </label>
-        <div class="row">
-          <label class="col-sm-9"></label>
-          <button class="copy_button col-sm-3" @click="copyFromEdu">Копировать</button>
-        </div>
+        <!--<div class="row">-->
+          <!--<label class="col-sm-9"></label>-->
+          <!--<button class="copy_button col-sm-3" @click="copyFromEdu">Копировать</button>-->
+        <!--</div>-->
 
         <div class="row">
           <div class="form__label-text col-sm-2">Пятёрок:</div>
@@ -115,12 +113,16 @@
           <div class="form__label-text col-sm-2">Троек:</div>
           <input v-model="score_three" class="form__input col-sm-1" type="text" v-mask="'##'"  />
         </div>
-        <label class="row">
-          <div class="form__label-text col-sm-2">Средний балл:</div>
-          <input v-model="score_full" class="form__input col-sm-2 " type="text" v-mask="'#.##'" placeholder="---"
-                 disabled="disabled"/>
-          <button class="calculate_score col-sm" @click="onCalculateScore">Расчет среднего балла</button>
+        <div class="row">
+          <button class="" @click="onCalculateScore">Расчет среднего балла</button>
 
+        </div>
+
+        <label class="row">
+          <!--<button class="calculate_score col-sm-4" @click="onCalculateScore">Расчет среднего балла</button>-->
+          <div class="form__label-text col-sm-3">Средний балл:</div>
+          <input v-model="score_full" class="form__input col-sm-3 " type="text" v-mask="'#.##'" placeholder="---"
+                 disabled="disabled"/>
         </label>
       </div>
     </div>
@@ -245,10 +247,6 @@
   import {AXIOS} from "../../plugins/APIService";
   import {mapGetters, mapState} from 'vuex'
   import { createHelpers } from 'vuex-map-fields';
-  const { mapFields:tab_education_military_info } = createHelpers({
-    getterType: `tab_education_military_info/getField`,
-    mutationType: `tab_education_military_info/updateField`,
-  });
   const { mapFields:person} = createHelpers({
     getterType: 'person/getField',
     mutationType: 'person/updateField',
@@ -290,12 +288,10 @@
       },
       methods: {
         getDocumentByEduDoc(eduDoc){
-          // let idEduDoc = eduDoc.eduDocId;
           AXIOS.post(`dictionary/documentByEduDoc/`, eduDoc)
             .then(response => {
               this.docNumberMandatory = response.data[0].docNumberMandatory;
               this.docSeriesMandatory = response.data[0].docSeriesMandatory;
-
               console.log(this.docSeriesMandatory);
               console.log(this.docNumberMandatory);
               this.documentByEduDoc = response.data[0];
@@ -316,7 +312,6 @@
             })
         },
 
-
         copyFromEdu() {
           this.tab_edu_military_eduDocName = this.tab_edu_military_univer;
           this.tab_edu_military_attachment_serial = this.tab_edu_military_eduDocSerial;
@@ -331,8 +326,6 @@
       },
         data() {
           return {
-            // docNumberMandatory: '',
-            // docSeriesMandatory: '',
             full:'',
             extraInfos: [
               {
@@ -349,7 +342,6 @@
             ],
           }
         }
-
 
   }
 </script>
@@ -403,26 +395,11 @@
   label.row {
     margin-bottom: 3px;
   }
-  .button_add {
-    min-width: 100px;
-    min-height: 40px;
-    padding: 10px;
-    border: 1px solid;
-    border-color: grey;
-    border-radius:5px;
-    background-color: ghostwhite;
-    /*background-color: #EDD19C;*/
-    font-size: 16px;
-    cursor: pointer;
-    transform:scale(0.8);
-    opacity:0.9
-  }
 
   input {
     height: 25px;
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     /*border: 4px;*/
   }
 
@@ -436,14 +413,12 @@
   select {
     height: 25px;
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
   }
 
   textarea {
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     width: 90%;
     height: 100px;
     resize: none;
@@ -457,8 +432,7 @@
   button {
     min-width: 100px;
     padding: 10px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     border-radius: 5px;
     background-color: ghostwhite;
     /*background-color: #EDD19C;*/
@@ -503,7 +477,5 @@
     /*text-align: left;*/
     color: red;
   }
-  .separate_label {
-    margin-right: 0px;
-  }
+
 </style>

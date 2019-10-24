@@ -1,311 +1,298 @@
 <template>
   <div>
 
-  <modal
-    v-show="isModalVisible"
-    @close="closeModal"
-    @toApplication="onAppl"
-    @validatorConditions="validatorConditions"
-  />
+    <modal
+      v-show="isModalVisible"
+      @close="closeModal"
+      @toApplication="onAppl"
+      @validatorConditions="validatorConditions"
+    />
 
-    <!--<span>{{moment(dateToday).format('YYYY-MM-DD')}}</span>-->
-  <div class="inside_tab">
-    <div class="row">
-      <!--<div v-if="!this.isModalVisible" class="flex-column col-sm-2">-->
-        <!--<div class="form__label-text col-sm">Номер заявления:</div>-->
-        <!--<input v-model="person.application.application_number" class="form__input col-sm-8" type="text" disabled/>-->
-      <!--</div>-->
-      <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
-        <div class="form__label-text col-sm">Дата заявления:</div>
-        <input v-if="person.application.application_selectedDocType.name === 'Оригинал'" v-model="person.application.application_date = moment(dateToday).format('YYYY-MM-DD')" class="uneditable form__input col-sm" type="date" id= "theDate"  min="1918-01-01" max="2100-01-01" disabled/>
-        <input v-else v-model="person.application.application_date = moment(dateToday).format('YYYY-MM-DD')" class="uneditable form__input col-sm" type="date" id= "theDate2"  min="1918-01-01" max="2100-01-01" disabled/>
-      </div>
-      <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
-        <div class="form__label-text col-sm">Тип доставки:</div>
-        <select v-model="person.application.application_selectedDeliveryType"  class="minimal col-sm">
-          <option v-for="item in deliveryType" v-bind:value="item">
-            {{item.name}}
-          </option>
-        </select>
-      </div>
-
-      <!--{{person.application.application_selectedDeliveryType}}-->
-<!--{{person.application.application_selectedDeliveryReturnType}}-->
-      <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
-        <div class="form__label-text col-sm">Тип возврата:</div>
-        <select v-model="person.application.application_selectedDeliveryReturnType"  class="minimal col-sm" >
-          <option v-for="item in deliveryType" v-bind:value="item">
-            {{item.name}}
-          </option>
-        </select>
-      </div>
-
-
-      <!--{{person.application.application_selectedDocType}}-->
-      <div v-if="!this.isModalVisible" class=" col-sm-4">
-        <div class="form__label-text col-sm-8">Документ об образовании:</div>
-        <select v-model="person.application.application_selectedDocType" class="minimal col-sm-6">
-          <option v-for="item in docType" v-bind:value="item">
-            {{item.name}}
-          </option>
-        </select>
-      </div>
-
-      <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
-        <div class="form__label-text col-sm">Дата предоставления:</div>
-        <input v-if="person.application.application_selectedDocType.name === 'Оригинал'" v-model="some_date = moment(dateToday).format('YYYY-MM-DD')" class="uneditable form__input col-sm" type="date" id= "theDate23"  min="1918-01-01" max="2019-01-01" disabled/>
-        <input v-else v-model="some_date2" class="uneditable form__input col-sm" type="date" id= "theDate24"  min="1918-01-01" max="2019-01-01" />
-      </div>
-      <!--<div v-if="!this.isModalVisible" class="flex-column col-sm-4">-->
-        <!--<div class="form__label-text col-sm">Абитуриент:</div>-->
-        <!--&lt;!&ndash;<input v-model="resultApl.application_person_name" class="uneditable form__input col-sm" type="text" name="" disabled />&ndash;&gt;-->
-        <!--<input :value="tab_personal_lastname + ' ' + tab_personal_firstname+ ' '+ tab_personal_middlename" class="uneditable form__input col-sm-8" type="text" name="name"-->
-               <!--placeholder="Заполняется автоматически" disabled="disabled"/>-->
-      <!--</div>-->
-    </div>
-
-    <tabs class="condition_tabs">
-      <tab id="conditions_overview" name="Обзор">
-
-        <div v-if="!this.isModalVisible" class="row">
-          <button @click="onAdd">Добавить/Удалить</button>
+    <div class="inside_tab">
+      <div class="row">
+        <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
+          <div class="form__label-text col-sm">Дата заявления:</div>
+          <input v-if="person.application.application_selectedDocType.name === 'Оригинал'"
+                 v-model="person.application.application_date = moment(dateToday).format('YYYY-MM-DD')"
+                 class="uneditable form__input col-sm" type="date" id="theDate" min="1918-01-01" max="2100-01-01"
+                 disabled/>
+          <input v-else v-model="person.application.application_date = moment(dateToday).format('YYYY-MM-DD')"
+                 class="uneditable form__input col-sm" type="date" id="theDate2" min="1918-01-01" max="2100-01-01"
+                 disabled/>
+        </div>
+        <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
+          <div class="form__label-text col-sm">Тип доставки:</div>
+          <select v-model="person.application.application_selectedDeliveryType" class="minimal col-sm">
+            <option v-for="item in deliveryType" v-bind:value="item">
+              {{item.name}}
+            </option>
+          </select>
         </div>
 
-        <v-data-table
-          v-if="!this.isModalVisible"
-          :headers="headers_result"
-          :items="showTable"
-          hide-actions
-          class="elevation-1 text-xs-center"
-        >
+        <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
+          <div class="form__label-text col-sm">Тип возврата:</div>
+          <select v-model="person.application.application_selectedDeliveryReturnType" class="minimal col-sm">
+            <option v-for="item in deliveryType" v-bind:value="item">
+              {{item.name}}
+            </option>
+          </select>
+        </div>
 
-          <template slot="items" slot-scope="props">
-            <td class="text-xs-center">{{ props.item.deparName}}</td>
-            <td class="text-xs-center">{{ props.item.specialityId}}</td>
-            <td class="text-xs-center">{{ props.item.environmentId}}</td>
+        <div v-if="!this.isModalVisible" class=" col-sm-4">
+          <div class="form__label-text col-sm-8">Документ об образовании:</div>
+          <select v-model="person.application.application_selectedDocType" class="minimal col-sm-6">
+            <option v-for="item in docType" v-bind:value="item">
+              {{item.name}}
+            </option>
+          </select>
+        </div>
 
-            <td v-if="props.item.environmentId ==='ЦелНапр'" class="text-xs-center">{{ props.item.company.name}}</td>
-            <td v-else class="text-xs-center">{{ props.item.company}}</td>
+        <div v-if="!this.isModalVisible" class="flex-column col-sm-2">
+          <div class="form__label-text col-sm">Дата предоставления:</div>
+          <input v-if="person.application.application_selectedDocType.name === 'Оригинал'"
+                 v-model="some_date = moment(dateToday).format('YYYY-MM-DD')" class="uneditable form__input col-sm"
+                 type="date" id="theDate23" min="1918-01-01" max="2019-01-01" disabled/>
+          <input v-else v-model="some_date2" class="uneditable form__input col-sm" type="date" id="theDate24"
+                 min="1918-01-01" max="2019-01-01"/>
+        </div>
 
-            <td class="text-xs-center">{{ props.item.contract}}</td>
-            <td class="text-xs-center">{{ props.item.date}}</td>
-            <td class="text-xs-center">{{ props.item.eduForm }}</td>
+      </div>
 
-            <td class="text-xs-center">
-              <div v-if="
+      <tabs class="condition_tabs">
+        <tab id="conditions_overview" name="Обзор">
+
+          <div v-if="!this.isModalVisible" class="row">
+            <button @click="onAdd">Добавить/Удалить</button>
+          </div>
+
+          <v-data-table
+            v-if="!this.isModalVisible"
+            :headers="headers_result"
+            :items="showTable"
+            hide-actions
+            class="elevation-1 text-xs-center"
+          >
+
+            <template slot="items" slot-scope="props">
+              <td class="text-xs-center">{{ props.item.deparName}}</td>
+              <td class="text-xs-center">{{ props.item.specialityId}}</td>
+              <td v-if="props.item.specialRight" class="text-xs-center">{{ props.item.environmentId}} / Особое право</td>
+              <td v-else class="text-xs-center">{{ props.item.environmentId}}</td>
+
+              <td v-if="props.item.environmentId ==='ЦелНапр'" class="text-xs-center">{{ props.item.company.name}}</td>
+              <td v-else class="text-xs-center">{{ props.item.company}}</td>
+              <td class="text-xs-center">{{ props.item.contract}}</td>
+              <td class="text-xs-center">{{ props.item.date}}</td>
+              <td class="text-xs-center">{{ props.item.eduForm }}</td>
+
+              <td class="text-xs-center">
+                <div v-if="
                         ((props.item.environmentId ===  'Договор' & !props.item.agree) & countContract > 0)|
                          ((props.item.environmentId ===  'Бюджет' & !props.item.agree) & countBudget > 0) |
                          ((props.item.environmentId ===  'ЦелНапр' & !props.item.agree) & countBudget > 0) |
                          (person.application.application_selectedDocType.name === 'Копия' & (props.item.environmentId === 'Бюджет'| props.item.environmentId === 'ЦелНапр'))
 
 ">
-                <input v-model="props.item.agree = false" class="checkbox col-sm" type="checkbox" @change="checkCount(props.item)" disabled>
-              </div>
-              <div v-else>
-                <input v-model="props.item.agree" class="checkbox col-sm" type="checkbox" @change="checkCount(props.item)">
-              </div>
+                  <input v-model="props.item.agree = false" class="checkbox col-sm" type="checkbox"
+                         @change="checkCount(props.item)" disabled>
+                </div>
+                <div v-else>
+                  <input v-model="props.item.agree" class="checkbox col-sm" type="checkbox"
+                         @change="checkCount(props.item)">
+                </div>
 
-              <div v-if="props.item.agree === true">
-                <input v-model="props.item.agreeDate" class="form__input col-sm" type="date"  min="1918-01-01" max="2020-01-01"/>
-                <label v-if="props.item.environmentId ==='Договор'" v-model="props.item.orderGroupType = options_orderGroupType[3].item">{{options_orderGroupType[3].item}}</label>
-                <label v-if="props.item.environmentId ==='ЦелНапр' " v-model="props.item.orderGroupType = options_orderGroupType[2].item">{{options_orderGroupType[2].item}}</label>
-                <label v-if="props.item.environmentId ==='Бюджет' && props.item.specialRight" v-model="props.item.orderGroupType = options_orderGroupType[1].item">{{props.item.orderGroupType}}</label>
-                <label v-if="props.item.environmentId ==='Бюджет' && !props.item.specialRight" v-model="props.item.orderGroupType = options_orderGroupType[3].item">{{options_orderGroupType[3].item}}</label>
-              </div>
+                <div v-if="props.item.agree === true">
+                  <input v-model="props.item.agreeDate = moment(dateToday).format('YYYY-MM-DD')"
+                         class="form__input col-sm" type="date" min="1918-01-01" max="2020-01-01"/>
+                  <label v-if="props.item.environmentId ==='Договор'"
+                         v-model="props.item.orderGroupType = options_orderGroupType[3].item">{{options_orderGroupType[3].item}}</label>
+                  <label v-if="props.item.environmentId ==='ЦелНапр' "
+                         v-model="props.item.orderGroupType = options_orderGroupType[2].item">{{options_orderGroupType[2].item}}</label>
+                  <label v-if="props.item.environmentId ==='Бюджет' && props.item.specialRight"
+                         v-model="props.item.orderGroupType = options_orderGroupType[1].item">{{props.item.orderGroupType}}</label>
+                  <label v-if="props.item.environmentId ==='Бюджет' && !props.item.specialRight"
+                         v-model="props.item.orderGroupType = options_orderGroupType[3].item">{{options_orderGroupType[3].item}}</label>
+                </div>
+              </td>
 
-              <!--</div>-->
+              <td class="justify-center layout px-0">
+                <button
+                  v-if="person.application.application_selectedDocType.name === 'Копия' || props.item.environmentId ==='Договор'"
+                  class=" table_buttons" hidden @click="addSomething(props.item)">
+                  <v-icon color="#5bc0de">add</v-icon>
+                </button>
+                <button v-else class=" table_buttons" @click="addSomething(props.item)">
+                  <v-icon color="#5bc0de">add</v-icon>
+                </button>
+              </td>
+            </template>
+            <template slot="no-data">
+              <div></div>
+            </template>
+          </v-data-table>
+        </tab>
+        <tab v-if="!this.isModalVisible" id="conditions_info" name="Условия приема">
 
+          <div class="row">
+            <div class="col-sm-6">
 
-              <!--<div v-if="props.item.agree === true && props.item.specialRight">-->
-                <!--<label>{{options_orderGroupType[1].item}}</label>-->
-              <!--</div>-->
-              <div >
-                <!--<label v-if="props.item.environmentId ==='Договор'" v-model="props.item.orderGroupType = options_orderGroupType[3].item">{{options_orderGroupType[3].item}}</label>-->
-                <!--<label v-if="props.item.environmentId ==='ЦелНапр'" v-model="props.item.orderGroupType = options_orderGroupType[2].item">{{options_orderGroupType[2].item}}</label>-->
-              </div>
-            </td>
-
-            <!--<td class="text-xs-center">-->
-              <!--<input v-model="props.item.special_right" class="checkbox col-sm" type="checkbox" disabled>-->
-            <!--</td>-->
-
-            <td class="justify-center layout px-0">
-              <button v-if="person.application.application_selectedDocType.name === 'Копия' || props.item.environmentId ==='Договор'" class=" table_buttons" hidden @click="addSomething(props.item)">
-                <v-icon color="#5bc0de">add</v-icon>
-              </button>
-              <button v-else class=" table_buttons" @click="addSomething(props.item)">
-                <v-icon color="#5bc0de">add</v-icon>
-              </button>
-            </td>
-          </template>
-          <template slot="no-data">
-            <div></div>
-          </template>
-        </v-data-table>
-      </tab>
-      <tab v-if="!this.isModalVisible" id="conditions_info" name="Условия приема">
-
-        <div class="row">
-          <div class="col-sm-6">
-
-            <label class="row">
-              <div class="form__label-text col-sm">Название факультета:</div>
-              <input v-model="faculty" class="form__input col-sm" type="text" name="" disabled/>
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Название специальности:</div>
-              <input v-model="speciality" class="form__input col-sm" type="text" name="" disabled/>
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Направление обучения:</div>
-              <input v-model="environment" class="form__input col-sm" type="text" name="" disabled/>
-            </label>
-            <label class="row">
-              <div class="form__label-text col-sm">Форма обучения:</div>
-              <input v-model="eduForm" class="form__input col-sm" type="text" name="" disabled/>
-            </label>
-<!--{{person.application.choosenWizards}}-->
-            <div v-if="agree" class="row">
-              <div class="col-sm">
-                <label class="row">
-                  <div class="form__label-text col-sm">Дата согласия:</div>
-                  <input v-model="agreeDate" class="form__input col-sm" type="date"  min="1918-01-01" max="2020-01-01" />
-                </label>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="col-sm-6">
-            <label class="row">
-              <div class="form__label-text col-sm">Добавить особое право:</div>
-              <input v-if="environment=== 'Договор'" v-model="specialRight" class="checkbox col-sm" type="checkbox" name="" disabled/>
-              <input v-else-if="environment=== 'ЦелНапр'" v-model="specialRight" class="checkbox col-sm" type="checkbox" name="" disabled/>
-
-                <input v-else v-model="specialRight" class="checkbox col-sm" type="checkbox" @click="clearSpesialRight(specialRight)"name=""/>
-
-            </label>
-            <div  v-if="specialRight">
               <label class="row">
-                <div class="form__label-text col-sm">Тип особого права</div>
-                <!--<select v-model="typeOfSpecialRight" class="minimal col-sm">-->
-                  <!--<option v-for="option in options_typeOfSpecialRight">-->
-                    <!--{{option.item}}-->
-                  <!--</option>-->
-                <!--</select>-->
-                <!--{{preference_special}}-->
-                <!--{{typeOfSpecialRight}}-->
-                <select v-model="typeOfSpecialRight"
-                        @change="getDocumentByPreference(typeOfSpecialRight)"
-                        class="minimal col-sm">
-                  <option v-for="item in preference_special" v-bind:value="item">
-                    {{item.name}}
-                  </option>
-                </select>
+                <div class="form__label-text col-sm">Название факультета:</div>
+                <input v-model="faculty" class="form__input col-sm" type="text" name="" disabled/>
               </label>
-              <div class="alarm_label">(Тип особого права обязателен для заполнения)</div>
-              <div>
-                <label class="row">
-                  <div class="form__label-text col-sm">Подтверждающий док-т(1):</div>
-                  <select v-model="proofSpecialRight1" class="minimal col-sm">
-                    <option v-for="option in documentsForSpecial" v-bind:value="option">
-                      {{option.name}}
-                    </option>
-                  </select>
-                </label>
-
-                <label class="row">
-                  <div class="form__label-text col-sm">Описание:</div>
-                  <input v-model="descriptionSpecialRight1" class="form__input col-sm" type="text" name=""  />
-                </label>
-                <label class="row">
-                  <div class="form__label-text col-sm">Серия:</div>
-                  <input v-model="serialSpecialRight1" class="form__input col-sm" type="text" name=""  />
-                </label>
-                <label class="row">
-                  <div class="form__label-text col-sm">Номер:</div>
-                  <input v-model="numberSpecialRight1" class="form__input col-sm" type="text" name=""  />
-                </label>
-                <label class="row">
-                  <div class="form__label-text col-sm">Копия/оригинал:</div>
-                  <select v-model="docTypeSpecialRight1" class="minimal col-sm">
-                    <option v-for="item in docType" v-bind:value="item">
-                      {{item.name}}
-                    </option>
-                  </select>
-                </label>
-                <label class="row">
-                  <div class="form__label-text col-sm">Дата:</div>
-                  <input v-model="dateSpecialRight1" class="form__input col-sm" type="date"  min="1918-01-01" max="2020-01-01" />
-                </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Название специальности:</div>
+                <input v-model="speciality" class="form__input col-sm" type="text" name="" disabled/>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Направление обучения:</div>
+                <input v-model="environment" class="form__input col-sm" type="text" name="" disabled/>
+              </label>
+              <label class="row">
+                <div class="form__label-text col-sm">Форма обучения:</div>
+                <input v-model="eduForm" class="form__input col-sm" type="text" name="" disabled/>
+              </label>
+              <div v-if="agree" class="row">
+                <div class="col-sm">
+                  <label class="row">
+                    <div class="form__label-text col-sm">Дата согласия:</div>
+                    <input v-model="agreeDate" class="form__input col-sm" type="date" min="1918-01-01"
+                           max="2020-01-01"/>
+                  </label>
+                </div>
               </div>
-              <hr>
 
-              <div>
+            </div>
+
+            <div class="col-sm-6">
+              <label class="row">
+                <div class="form__label-text col-sm">Добавить особое право:</div>
+
+                <input v-if="environment=== 'Договор'" v-model="specialRight" class="checkbox col-sm" type="checkbox"
+                       name="" disabled/>
+                <input v-else-if="environment=== 'ЦелНапр'" v-model="specialRight" class="checkbox col-sm"
+                       type="checkbox" name="" disabled/>
+
+                <input v-else v-model="specialRight" class="checkbox col-sm" type="checkbox"
+                       @click="clearSpesialRight(specialRight)" name=""/>
+
+              </label>
+              <div v-if="specialRight">
                 <label class="row">
-                  <div class="form__label-text col-sm">Подтверждающий док-т(2):</div>
-                  <select v-model="proofSpecialRight2" class="minimal col-sm">
-                    <option v-for="option in documentsForSpecial" v-bind:value="option">
-                      {{option.name}}
-                    </option>
-                  </select>
-                </label>
-                <label class="row">
-                  <div class="form__label-text col-sm">Описание:</div>
-                  <input v-model="descriptionSpecialRight2" class="form__input col-sm" type="text" name=""  />
-                </label>
-                <label class="row">
-                  <div class="form__label-text col-sm">Серия:</div>
-                  <input v-model="serialSpecialRight2" class="form__input col-sm" type="text" name=""  />
-                </label>
-                <label class="row">
-                  <div class="form__label-text col-sm">Номер:</div>
-                  <input v-model="numberSpecialRight2" class="form__input col-sm" type="text" name=""  />
-                </label>
-                <label class="row">
-                  <div class="form__label-text col-sm">Копия/оригинал:</div>
-                  <select v-model="docTypeSpecialRight2" class="minimal col-sm">
-                    <option v-for="item in docType" v-bind:value="item">
+                  <div class="form__label-text col-sm">Тип особого права</div>
+                  <select v-model="typeOfSpecialRight"
+                          @change="getDocumentByPreference(typeOfSpecialRight)"
+                          class="minimal col-sm">
+                    <option v-for="item in preference_special" v-bind:value="item">
                       {{item.name}}
                     </option>
                   </select>
                 </label>
-                <label class="row">
-                  <div class="form__label-text col-sm">Дата:</div>
-                  <input v-model="dateSpecialRight2" class="form__input col-sm" type="date"  min="1918-01-01" max="2020-01-01" />
-                </label>
+                <div class="alarm_label">(Тип особого права обязателен для заполнения)</div>
+                <div>
+                  <label class="row">
+                    <div class="form__label-text col-sm">Подтверждающий док-т(1):</div>
+                    <select v-model="proofSpecialRight1" class="minimal col-sm">
+                      <option v-for="option in documentsForSpecial" v-bind:value="option">
+                        {{option.name}}
+                      </option>
+                    </select>
+                  </label>
+
+                  <label class="row">
+                    <div class="form__label-text col-sm">Описание:</div>
+                    <input v-model="descriptionSpecialRight1" class="form__input col-sm" type="text" name=""/>
+                  </label>
+                  <label class="row">
+                    <div class="form__label-text col-sm">Серия:</div>
+                    <input v-model="serialSpecialRight1" class="form__input col-sm" type="text" name=""/>
+                  </label>
+                  <label class="row">
+                    <div class="form__label-text col-sm">Номер:</div>
+                    <input v-model="numberSpecialRight1" class="form__input col-sm" type="text" name=""/>
+                  </label>
+                  <label class="row">
+                    <div class="form__label-text col-sm">Копия/оригинал:</div>
+                    <select v-model="docTypeSpecialRight1" class="minimal col-sm">
+                      <option v-for="item in docType" v-bind:value="item">
+                        {{item.name}}
+                      </option>
+                    </select>
+                  </label>
+                  <label class="row">
+                    <div class="form__label-text col-sm">Дата:</div>
+                    <input v-model="dateSpecialRight1" class="form__input col-sm" type="date" min="1918-01-01"
+                           max="2020-01-01"/>
+                  </label>
+                </div>
+                <hr>
+
+                <div>
+                  <label class="row">
+                    <div class="form__label-text col-sm">Подтверждающий док-т(2):</div>
+                    <select v-model="proofSpecialRight2" class="minimal col-sm">
+                      <option v-for="option in documentsForSpecial" v-bind:value="option">
+                        {{option.name}}
+                      </option>
+                    </select>
+                  </label>
+                  <label class="row">
+                    <div class="form__label-text col-sm">Описание:</div>
+                    <input v-model="descriptionSpecialRight2" class="form__input col-sm" type="text" name=""/>
+                  </label>
+                  <label class="row">
+                    <div class="form__label-text col-sm">Серия:</div>
+                    <input v-model="serialSpecialRight2" class="form__input col-sm" type="text" name=""/>
+                  </label>
+                  <label class="row">
+                    <div class="form__label-text col-sm">Номер:</div>
+                    <input v-model="numberSpecialRight2" class="form__input col-sm" type="text" name=""/>
+                  </label>
+                  <label class="row">
+                    <div class="form__label-text col-sm">Копия/оригинал:</div>
+                    <select v-model="docTypeSpecialRight2" class="minimal col-sm">
+                      <option v-for="item in docType" v-bind:value="item">
+                        {{item.name}}
+                      </option>
+                    </select>
+                  </label>
+                  <label class="row">
+                    <div class="form__label-text col-sm">Дата:</div>
+                    <input v-model="dateSpecialRight2" class="form__input col-sm" type="date" min="1918-01-01"
+                           max="2020-01-01"/>
+                  </label>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div v-if="specialRight" class="row">
-        </div>
-        <div class="clear_save_button row">
-          <button @click="onSave">Сохранить</button>
-        </div>
-      </tab>
-    </tabs>
+          <div v-if="specialRight" class="row">
+          </div>
+          <div class="clear_save_button row">
+            <button @click="onSave">Сохранить</button>
+          </div>
+        </tab>
+      </tabs>
 
-    <div v-if="!this.isModalVisible" class="clear_save_button row">
-      <button @click="onNext">Далее ->></button>
+      <div v-if="!this.isModalVisible" class="clear_save_button row">
+        <button @click="onNext">Далее ->></button>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 
 <script>
   import {AXIOS} from "../../plugins/APIService";
-  import { createHelpers } from 'vuex-map-fields';
+  import {createHelpers} from 'vuex-map-fields';
   import {mapGetters, mapState} from 'vuex'
   import modal from "../../modals/modal";
 
 
-  const { mapFields:applications} = createHelpers({
+  const {mapFields: applications} = createHelpers({
     getterType: 'applications/getField',
     mutationType: 'applications/updateField',
   });
-  const { mapFields:person} = createHelpers({
+  const {mapFields: person} = createHelpers({
     getterType: 'person/getField',
     mutationType: 'person/updateField',
   });
@@ -314,28 +301,23 @@
     components: {
       modal
     },
-    data(){
-      return{
+    data() {
+      return {
         specialRight: '',
-        documentsForSpecial:[],
-        some_date:'',
-        some_date2:'',
+        documentsForSpecial: [],
+        some_date: '',
+        some_date2: '',
         dateToday: Date.now(),
-
-        // countContract: 0,
-        // countBudget: 0,
 
         counter: 0,
         isOneAgree: true,
 
         editedIndex: -1,
-        editedItem:{},
-        faculty:'',
-        speciality:'',
-        environment:'',
-        eduForm:'',
-        // agree:false,
-        // agreeDate:'',
+        editedItem: {},
+        faculty: '',
+        speciality: '',
+        environment: '',
+        eduForm: '',
         isAddAccepted: false,
         isAddSpesialRight: false,
 
@@ -351,9 +333,7 @@
           // {text: 'Спец. право', value: 'special_right', sortable: false, align: 'center'},
           {text: 'Особое право', value: 'actions', sortable: false, align: 'center'},
         ],
-        results: [
-
-        ],
+        results: [],
 
         options_orderGroupType: [
           {id: 1, item: 'БезВступ'},
@@ -362,99 +342,66 @@
           {id: 4, item: 'Общий набор'},
         ],
 
-        options_DocumentType: [
-          {id: 0, item: ''},
-          {id: 1, item: 'Документ, подтверждающий сиротство'},
-          {id: 2, item: 'Свидетельство о рождении'},
-          {id: 3, item: 'Иной документ'},
-          {id: 4, item: 'Справка об установлении инвалидности'},
-          {id: 5, item: 'Документ, подтверждающий ограниченные возможности здоровья  или инвалидность, требующие создания указанных условий'},
-          {id: 6, item: 'Удостоверение'},
-          {id: 7, item: 'Документ, подтверждающий принадлежность к ветеранам боевых действий'},
-        ],
-
-        options_typeOfSpecialRight: [
-          {id: 1, item: 'Дети-сироты и дети, оставшиеся без попечения родителей'},
-          {id: 2, item: 'Лица из числа детей-сирот и детей, оставшихся без попечения родителей'},
-          {id: 3, item: 'Дети-инвалиды'},
-          {id: 4, item: 'Инвалиды I группы'},
-          {id: 5, item: 'Инвалиды II группы'},
-          {id: 6, item: 'Инвалиды с детства'},
-          {id: 7, item: 'Ветераны боевых действий из числа лиц, указанных в подпунктах 1-4 пункта 1 статьи 3 ФЗ от 12.01.1995 №5-ФЗ "О ветеранах"'},
-        ],
-
-        options_deliveryType: [
-          {id: 1, item: 'Лично'},
-          {id: 2, item: 'Почтой'},
-          {id: 3, item: 'По доверенности'},
-          // {id: 4, item: 'Портал'},
-        ],
-        options_copy: [
-          {id: 1, item: 'Копия'},
-          {id: 2, item: 'Оригинал'},
-        ],
       }
     },
 
     computed: {
+      ...applications(['application', 'contacts', 'application_person_name', 'resultApl', 'apls',
+        'agree', 'agreeDate', 'special_right', 'typeOfSpecialRight', 'checkTargCount',
+        'proofSpecialRight1', 'descriptionSpecialRight1', 'serialSpecialRight1', 'numberSpecialRight1', 'docTypeSpecialRight1', 'dateSpecialRight1',
+        'proofSpecialRight2', 'descriptionSpecialRight2', 'serialSpecialRight2', 'numberSpecialRight2', 'docTypeSpecialRight2', 'dateSpecialRight2',
+        'proofSpecialRight3', 'descriptionSpecialRight3', 'serialSpecialRight3', 'numberSpecialRight3', 'docTypeSpecialRight3', 'dateSpecialRight3',
+        'countContract', 'countBudget', 'countTarg',
+        'lechDelCel', 'lechDelBudget', 'medProfCel', 'medProfBudget', 'stomDelCel', 'stomDelBudget', 'howMuchTarg',
+        'message'
+      ]),
+      ...mapState('enums', ['deliveryType', 'docType']),
+      ...mapState('dictionary', ['preference_special']),
+      ...mapGetters('dictionary', ['GET_preference_special']),
+      ...mapGetters('enums', ['GET_DELIVERY_TYPE', 'GET_DOC_TYPE']),
+      ...person(['person', 'person_info_id', 'isModalVisible', 'isModalAgreementVisible',
+        'tab_personal_lastname', 'tab_personal_firstname', 'tab_personal_middlename']),
 
 
-      // ...mapState('person', {person: state => state.person,}),
-      ...applications(['application','contacts','application_person_name','resultApl','apls',
-        'agree','agreeDate','special_right', 'typeOfSpecialRight','checkTargCount',
-        'proofSpecialRight1','descriptionSpecialRight1','serialSpecialRight1','numberSpecialRight1','docTypeSpecialRight1','dateSpecialRight1',
-        'proofSpecialRight2','descriptionSpecialRight2','serialSpecialRight2','numberSpecialRight2','docTypeSpecialRight2','dateSpecialRight2',
-        'proofSpecialRight3','descriptionSpecialRight3','serialSpecialRight3','numberSpecialRight3','docTypeSpecialRight3','dateSpecialRight3',
-        'countContract','countBudget', 'countTarg',
-        'lechDelCel','lechDelBudget','medProfCel', 'medProfBudget','stomDelCel','stomDelBudget','howMuchTarg',
-  ]),
-      ...mapState('enums',['deliveryType', 'docType']),
-      ...mapState('dictionary',['preference_special']),
-      ...mapGetters('dictionary',['GET_preference_special']),
-      ...mapGetters('enums',['GET_DELIVERY_TYPE','GET_DOC_TYPE']),
-      ...person(['person','person_info_id','isModalVisible','isModalAgreementVisible',
-        'tab_personal_lastname','tab_personal_firstname','tab_personal_middlename']),
-
-
-      showTable(){
+      showTable() {
         return this.person.application.choosenWizards;
+
       },
-      fullname(){
+      fullname() {
         this.person.application.application_person_name = this.application_person_name;
         return this.application_person_name
-        // return this.application.fullname = this.person.tab_personal_lastname + " "
-        //   + this.person.tab_personal_firstname + " " + this.person.tab_personal_middlename
       },
     },
 
-    mounted () {
+    mounted() {
+
       this.$store.dispatch('enums/onLoadDocType');
       this.$store.dispatch('enums/onLoadDeliveryType');
       this.$store.dispatch('dictionary/onLoadPreferenceSpecial');
     },
 
     methods: {
-      clearSpesialRight(specialRight){
-        if(specialRight === false){
+      clearSpesialRight(specialRight) {
+        if (specialRight === false) {
           this.typeOfSpecialRight = null;
 
           this.proofSpecialRight1 = null;
           this.descriptionSpecialRight1 = "";
           this.serialSpecialRight1 = "";
           this.numberSpecialRight1 = "";
-          this. docTypeSpecialRight1 = null;
+          this.docTypeSpecialRight1 = null;
           this.dateSpecialRight1 = null;
 
           this.proofSpecialRight2 = null;
           this.descriptionSpecialRight2 = "";
           this.serialSpecialRight2 = "";
           this.numberSpecialRight2 = "";
-          this. docTypeSpecialRight2 = null;
+          this.docTypeSpecialRight2 = null;
           this.dateSpecialRight2 = null;
         }
       },
 
-      getDocumentByPreference(preference){
+      getDocumentByPreference(preference) {
         console.log(preference);
         AXIOS.post(`dictionary/documentByPreference/`, preference)
           .then(response => {
@@ -466,55 +413,49 @@
       },
 
 
+      checkCount(item) {
 
-      checkCount(item){
-          // if(this.person.application.application_selectedDocType.name === 'Копия' && item.igree){
-          //   item.igree=false;
-          // }
-
-          if(item.environmentId === 'Бюджет' && item.agree) {
-            this.countBudget++;
-          }
-          if(item.environmentId === 'Бюджет' && !item.agree){
-            this.countBudget--;
-          }
-           if(item.environmentId === 'Договор' && item.agree) {
-             this.countContract++;
-           }
-           if(item.environmentId === 'Договор' && !item.agree) {
-             this.countContract--;
-           }
-          if(item.environmentId === 'ЦелНапр' && item.agree) {
-            this.countBudget++;
-          }
-          if(item.environmentId === 'ЦелНапр' && !item.agree) {
-            this.countBudget--;
-          }
+        if (item.environmentId === 'Бюджет' && item.agree) {
+          this.countBudget++;
+        }
+        if (item.environmentId === 'Бюджет' && !item.agree) {
+          this.countBudget--;
+        }
+        if (item.environmentId === 'Договор' && item.agree) {
+          this.countContract++;
+        }
+        if (item.environmentId === 'Договор' && !item.agree) {
+          this.countContract--;
+        }
+        if (item.environmentId === 'ЦелНапр' && item.agree) {
+          this.countBudget++;
+        }
+        if (item.environmentId === 'ЦелНапр' && !item.agree) {
+          this.countBudget--;
+        }
       },
 
 
-      onSave(item){
+      onSave() {
 
         this.editedItem.agree = this.agree;
         this.editedItem.agreeDate = this.agreeDate;
-        // this.editedItem.orderGroupType = "Особое право";
 
         this.editedItem.specialRight = this.specialRight;
-        console.log('this.editedItem.specialRight',this.editedItem.specialRight);
-        if(this.editedItem.specialRight) {
-          this.editedItem.orderGroupType =  this.options_orderGroupType[1].item;
-        };
-        this.editedItem.typeOfSpecialRight = this.typeOfSpecialRight  === ""? null : this.typeOfSpecialRight;
-console.log('this.typeOfSpecialRight',this.typeOfSpecialRight);
+        if (this.editedItem.specialRight) {
+          this.editedItem.orderGroupType = this.options_orderGroupType[1].item;
+        }
+        ;
+        this.editedItem.typeOfSpecialRight = this.typeOfSpecialRight === "" ? null : this.typeOfSpecialRight;
 
-        this.editedItem.proofSpecialRight1 = this.proofSpecialRight1 ;
+        this.editedItem.proofSpecialRight1 = this.proofSpecialRight1;
         this.editedItem.descriptionSpecialRight1 = this.descriptionSpecialRight1;
         this.editedItem.serialSpecialRight1 = this.serialSpecialRight1;
         this.editedItem.numberSpecialRight1 = this.numberSpecialRight1;
         this.editedItem.docTypeSpecialRight1 = this.docTypeSpecialRight1;
         this.editedItem.dateSpecialRight1 = this.dateSpecialRight1;
 
-        this.editedItem.proofSpecialRight2 = this.proofSpecialRight2 ;
+        this.editedItem.proofSpecialRight2 = this.proofSpecialRight2;
         this.editedItem.descriptionSpecialRight2 = this.descriptionSpecialRight2;
         this.editedItem.serialSpecialRight2 = this.serialSpecialRight2;
         this.editedItem.numberSpecialRight2 = this.numberSpecialRight2;
@@ -529,18 +470,22 @@ console.log('this.typeOfSpecialRight',this.typeOfSpecialRight);
         // this.editedItem.dateSpecialRight3 = this.dateSpecialRight3;
         // this.agree = this.person.parents_info[index].tab_parent_name;
 
-        Object.assign(this.person.application.choosenWizards[this.editedIndex], this.editedItem);
 
-        location.href='profile#conditions_overview';
+        Object.assign(this.person.application.choosenWizards[this.editedIndex], this.editedItem);
+        let arr = this.person.application.choosenWizards;
+        this.person.application.choosenWizards.splice();
+
+        console.log(this.person.application.choosenWizards);
+        this.person.application.choosenWizards = arr;
+
+        location.href = 'profile#conditions_overview';
 
       },
-      addSomething(item){
-        if(item.typeOfSpecialRight !== null || typeof item.typeOfSpecialRight !== 'undefined'){
-          console.log(item)
+      addSomething(item) {
+        if (item.typeOfSpecialRight !== null || typeof item.typeOfSpecialRight !== 'undefined') {
           this.getDocumentByPreference(item.typeOfSpecialRight);
         }
 
-        console.log(item)
         this.editedIndex = this.person.application.choosenWizards.indexOf(item);
         this.editedItem = Object.assign({}, item);
 
@@ -570,70 +515,112 @@ console.log('this.typeOfSpecialRight',this.typeOfSpecialRight);
         this.docTypeSpecialRight2 = this.person.application.choosenWizards[index].docTypeSpecialRight2;
         this.dateSpecialRight2 = this.person.application.choosenWizards[index].dateSpecialRight2;
 
-
-        location.href='profile#conditions_info';
+        location.href = 'profile#conditions_info';
       },
 
-      validatorConditions(){
-        let counterCheckTargOrg = 0;
-        let counterLechDel = 0;
-        let counterMedProf = 0;
-        let counterStom = 0;
-        let counterSestr = 0;
-        let sumSpec = counterLechDel + counterMedProf + counterStom + counterSestr;
-        // let counterCheckSpec : 0;
+      validatorConditions() {
+        this.targCountCheck = true;
+        this.howMuchTarg = [];
+        this.counterTarg = 0;
 
         let i = 0;
-        //проверка на только 1 целевое направление
-        for(i; i< this.apls.length; i++) {
-          if (this.apls[i].chose === true && this.apls[i].environmentId === 'ЦелНапр') {
-            counterCheckTargOrg++;
-            // console.log('counter + ', counterCheckTargOrg)
-          } else if (this.apls[i].chose === false && this.apls[i].environmentId === 'ЦелНапр') {
-            counterCheckTargOrg = 0;
+        for (i; i < this.apls.length; i++) {
+          switch (this.apls[i].specialityId) {
+            case 'ЛечДел':
+              if ((this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true)) {
+                this.lechDelCel = false;
+              }
+              if ((this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true)) {
+                this.lechDelBudget = false;
+                this.targEduLechDel = false;
+              }
+              if ((this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.lechDelCel === false)) {
+                this.lechDelCel = true;
+              }
+              if ((this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.lechDelBudget === false)) {
+                this.lechDelBudget = true;
+                this.targEduLechDel = true;
+              }
+              break;
+            case 'МедПрофДел':
+              if ((this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true)) {
+                this.medProfCel = false;
+              }
+              if ((this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true)) {
+                this.medProfBudget = false;
+                this.targEduMedProf = false;
+              }
+              if ((this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.medProfCel === false)) {
+                this.medProfCel = true;
+              }
+              if ((this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.medProfBudget === false)) {
+                this.medProfBudget = true;
+                this.targEduMedProf = true;
+              }
+              break;
+            case 'СтомДел':
+              if ((this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === true)) {
+                this.stomDelCel = false;
+              }
+              if ((this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === true)) {
+                this.stomDelBudget = false;
+                this.targEduStomDel = false;
+              }
+              if ((this.apls[i].environmentId === 'Бюджет') && (this.apls[i].chose === false) && (this.stomDelCel === false)) {
+                this.stomDelCel = true;
+              }
+              if ((this.apls[i].environmentId === 'ЦелНапр') && (this.apls[i].chose === false) && (this.stomDelBudget === false)) {
+                this.stomDelBudget = true;
+                this.targEduStomDel = true;
+              }
+            default:
+              break;
           }
         }
 
-        if(counterCheckTargOrg === 1 ){
-          this.checkTargCount = true;
-          console.log('true')
-        }else{
-          this.checkTargCount = false;
-        }
+        this.howMuchTarg.push(this.targEduLechDel);
+        this.howMuchTarg.push(this.targEduMedProf);
+        this.howMuchTarg.push(this.targEduStomDel);
 
-        console.log('result counter ', counterCheckTargOrg)
+        for (let x = 0; x < this.howMuchTarg.length; x++) {
+          if (this.howMuchTarg[x] === false) {
+            this.counterTarg++;
+          }
+        }
+        if (this.counterTarg === 2) {
+          this.targCountCheck = false;
+        }
       },
 
-      onAppl(){
-        // this.application.choosenWizards = [];
 
-        this.countContract= 0;
-        this.countBudget= 0;
-
+      onAppl() {
         let i = 0;
-        for(i; i < this.apls.length; i++) {
-
+        for (i; i < this.apls.length; i++) {
           if (this.apls[i].chose === true) {
-
-              this.apls[i].agree = false;
-              this.apls[i].agreeDate = '';
-              // this.apls[i].specialRight = '';
-              this.apls[i].typeOfSpecialRight = '';
-              this.apls[i].proofSpecialRight = '';
-              this.apls[i].descriptionSpecialRight = '';
-              this.apls[i].serialSpecialRight = '';
-              this.apls[i].numberSpecialRight = '';
-              this.apls[i].docTypeSpecialRight = null;
-              this.apls[i].dateSpecialRight = '';
-              this.apls[i].specialRights = false;
-
             this.person.application.choosenWizards.push(this.apls[i]);
-
           }
         }
-        // console.log('on Appl ' + this.person.application.choosenWizards);
-        // console.log(this.person.application.choosenWizards);
-        this.isModalVisible = false;
+
+        let strangeCounter =
+          Object.keys(this.person.application.choosenWizards
+            .reduce((accum, el) => {
+              accum[el.specialityId] = true;
+              return accum;
+            }, [])).length;
+        console.log(strangeCounter, 'strangeCounter');
+
+        if (strangeCounter > 3) {
+          this.isModalVisible = true;
+          this.message = "МОЖНО ВЫБРАТЬ ТОЛЬКО 3 СПЕЦИАЛЬНОСТИ!        ";
+          this.person.application.choosenWizards = [];
+        } else {
+          this.message = "";
+          this.isModalVisible = false;
+          location.href = 'profile#conditions_overview';
+        }
+
+        this.countContract = 0;
+        this.countBudget = 0;
       },
 
       onAdd() {
@@ -651,22 +638,14 @@ console.log('this.typeOfSpecialRight',this.typeOfSpecialRight);
         this.isModalVisible = false;
       },
 
-      deleteItem(item){
-          const index = this.application.choosenWizards.indexOf(item);
-          // console.log(index);
-          this.application.choosenWizards.splice(index,1);
-
-      },
       updateCurrentField(payload, objName) {
         let value = payload.target.value;
         this.$store.commit('person/updateCurrentField', {value, objName})
       },
 
       onNext() {
-        // console.log(this.application.application_selectedDeliveryType);
         console.log(this.person.application.choosenWizards)
-        location.href='profile#documents';
-        // location.href='profile#documents_overview';
+        location.href = 'profile#documents';
       },
     },
   }
@@ -697,34 +676,28 @@ console.log('this.typeOfSpecialRight',this.typeOfSpecialRight);
   }
 
   select.minimal {
-    background-image:
-      linear-gradient(45deg, transparent 50%, gray 50%),
-      linear-gradient(135deg, gray 50%, transparent 50%),
-      linear-gradient(to right, #ccc, #ccc);
-    background-position:
-      calc(100% - 20px) calc(1em + 2px),
-      calc(100% - 15px) calc(1em + 2px),
-      calc(100% - 2.5em) 0.5em;
-    background-size:
-      5px 5px,
-      5px 5px,
-      1px 1.5em;
+    background-image: linear-gradient(45deg, transparent 50%, gray 50%),
+    linear-gradient(135deg, gray 50%, transparent 50%),
+    linear-gradient(to right, #ccc, #ccc);
+    background-position: calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px),
+    calc(100% - 2.5em) 0.5em;
+    background-size: 5px 5px,
+    5px 5px,
+    1px 1.5em;
     background-repeat: no-repeat;
   }
 
   select.minimal:focus {
-    background-image:
-      linear-gradient(45deg, green 50%, transparent 50%),
-      linear-gradient(135deg, transparent 50%, green 50%),
-      linear-gradient(to right, #ccc, #ccc);
-    background-position:
-      calc(100% - 15px) 1em,
-      calc(100% - 20px) 1em,
-      calc(100% - 2.5em) 0.5em;
-    background-size:
-      5px 5px,
-      5px 5px,
-      1px 1.5em;
+    background-image: linear-gradient(45deg, green 50%, transparent 50%),
+    linear-gradient(135deg, transparent 50%, green 50%),
+    linear-gradient(to right, #ccc, #ccc);
+    background-position: calc(100% - 15px) 1em,
+    calc(100% - 20px) 1em,
+    calc(100% - 2.5em) 0.5em;
+    background-size: 5px 5px,
+    5px 5px,
+    1px 1.5em;
     background-repeat: no-repeat;
     border-color: grey;
     outline: 0;
@@ -795,6 +768,7 @@ console.log('this.typeOfSpecialRight',this.typeOfSpecialRight);
   .form__label-text {
     text-align: left;
   }
+
   label.row {
     margin-bottom: 3px;
   }

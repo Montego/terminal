@@ -1,9 +1,11 @@
 import {getField, updateField} from 'vuex-map-fields';
+import {AXIOS} from "../../../components/plugins/APIService";
 
 
 export default {
   namespaced: true,
   state: {
+    userNickname:'',
     requiredPrefEge1:[],
     requiredPrefEge2:[],
     requiredPrefEge3:[],
@@ -32,6 +34,7 @@ export default {
 
     isModalAgreementVisible: false,
     isModalVisible: false,
+    isModalForeignerVisible: false,
     tab_ege_changePaspInf: false,
 
     tab_personal_lastname: "",
@@ -362,6 +365,9 @@ export default {
   },
   getters: {
     getField,
+    GET_User: state => {
+      return state.userNickname;
+    },
   },
   mutations: {
     updateField,
@@ -370,9 +376,21 @@ export default {
     },
     clearCurrentField(state, objName) {
       state.person[objName] = '';
-    }
+    },
+    UPLOAD_User(state, payload) {
+      state.userNickname = payload
+    },
+
   },
   actions: {
+    onLoadUser({commit}) {
+      AXIOS.get('/users/current')
+        .then((response) => {
+          commit('UPLOAD_User', response.data.login)
+        }).catch(e => {
+        this.errors.push(e)
+      })
+    },
   },
   computed: {
     function(state){

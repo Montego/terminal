@@ -26,9 +26,17 @@
 </template>
 
 <script>
-
+    import {router} from "../../router/routes";
     import {AXIOS} from "../plugins/APIService";
+    import { createHelpers } from 'vuex-map-fields';
+    const { mapFields:person} = createHelpers({
+      getterType: 'person/getField',
+      mutationType: 'person/updateField',
+    });
     export default {
+      computed: {
+        ...person(['userNickname']),
+      },
         methods: {
             onLogin:  () => {
                 let username = document.getElementById("username").value;
@@ -44,7 +52,10 @@
                     }
                 ), config)
                     .then((response) => {
-                        // console.log(response.data);
+                      // console.log(response.data.login);
+                      this.userNickname = response.data.login;
+                      console.log(this.userNickname);
+                      // router.push('Profile');
                         location.href='profile';
                     })
                     .catch( (e) => {

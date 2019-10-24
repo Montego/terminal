@@ -75,7 +75,7 @@ let fillLanguages = function(person){
 // Заглушка военнообязанный, meanScoreEduDocf
 let fillPK = function(s){
   let info = s.person_info;
-  console.log(info.tab_edu_military_educationLevel.eduLevelId, 'info.tab_edu_military_educationLevel.eduLevelId');
+  // console.log(info.tab_edu_military_educationLevel.eduLevelId, 'info.tab_edu_military_educationLevel.eduLevelId');
   return {
     "fisSettlementTypeId" : "",
     "soldieryId": info.tab_edu_military_selectedSoldiery ? info.tab_edu_military_selectedSoldiery['soldieryId'] : "Невоеннообязанный", // //
@@ -346,8 +346,8 @@ let fillAppDocs = function (docs) {
 let fillAppLines = function(wiz){
   let result = wiz.map(
     line => {
-      console.log(line.date);
-      console.log(dateConvert(line.date));
+      // console.log(line.date);
+      // console.log(dateConvert(line.date));
       return {
         "appLineId": line.id,
         "priority": 0,
@@ -445,9 +445,9 @@ let fillPrefs = function(s) {
   // let prefType = "";
 
   // let documents = [];
-  console.log('applLine ----',someArray);
+  // console.log('applLine ----',someArray);
   for(let i = 0;i < someArray.length; i++){
-    console.log('in for',someArray[i]);
+    // console.log('in for',someArray[i]);
 
     if(someArray[i].specialRight) {
       let documents = [];
@@ -691,7 +691,7 @@ let fillEge = function(s){
   });
 
   let result = flatArray.reduce((accum, el)=> {
-    console.log('accum: ',accum);
+    // console.log('accum: ',accum);
     const i = accum.findIndex((e) => {
       return egeDocComparator(el, e)
     });
@@ -829,12 +829,12 @@ let fillTotal = function (s) {
 
 
 export default function (fatJSON,some) {
-  console.log('some33333333333 ', some);
+  // console.log('some33333333333 ', some);
   let obj = fillTotal(fatJSON);
 
   obj = Object.assign(demoObj, obj);
 
-  console.log(fillEge(fatJSON));
+  // console.log(fillEge(fatJSON));
   const config = {
     headers: {
       'Content-Type': 'application/json'

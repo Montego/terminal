@@ -41,21 +41,14 @@
 
               <div class="row">
                 <div class="form__label-text col-sm">Название:</div>
-                <!--<input v-model=""/>-->
                 <select v-model="tab_features_selectedPreference"
                         @change="getAttrTypeById(tab_features_selectedPreference)"
-
                         class="minimal col-sm">
-                  <!--<option v-for="item in preference" v-bind:value="item">-->
                   <option v-for="item in preferencesByEduLevel" v-bind:value="item">
                     {{item.name}}
                   </option>
                 </select>
-
-                <!--<v-btn icon class="mx-0" @click="clearField()">-->
                   <v-icon @click="clearField()" color="#5bc0de">clear</v-icon>
-                <!--</v-btn>-->
-
               </div>
 
               <label class="row">
@@ -338,7 +331,6 @@
           },
 
           getAttrTypeById(preference){
-
             this.getDocumentByPreference(preference);
             AXIOS.get('enums/attrType/' + preference.attrType).
             then(response => {
@@ -364,6 +356,7 @@
             this.editedIndex = -1;
             this.editedItem = {};
             this.tab_features_selectedPreference = {};
+            this.tab_features_selectedAttrType = {};
             // this.tab_features_selectedAttrType =  '';
             // this.tab_features_selectedPreference =  '';
             this.tab_features_selectedTypeDiploma = {"id":0,"name":""};
@@ -438,7 +431,6 @@
             this.tab_featuresShowDate3 = this.person.futures_info[index].tab_featuresShowDate3;
             this.doc3_IssuDate = this.person.futures_info[index].doc3_IssuDate;
             this.doc3_IssueBy = this.person.futures_info[index].doc3_IssueBy;
-
 
           },
 
@@ -608,8 +600,7 @@
   input {
     height: 25px;
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     /*border: 4px;*/
   }
 
@@ -622,13 +613,11 @@
   select {
     height: 25px;
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
   }
   textarea {
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
   }
 
   textarea {
@@ -652,8 +641,7 @@
   button {
     min-width: 100px;
     padding: 10px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     border-radius:5px;
     background-color: ghostwhite;
     /*background-color: #EDD19C;*/

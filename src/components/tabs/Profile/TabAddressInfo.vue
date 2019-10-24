@@ -12,10 +12,6 @@
         </div>
         <label class="row">
           <div class="form__label-text col-sm-2">Адрес:</div>
-          <!--&#45;&#45;ыv-ыmodel="tab_address_registrationAddress"-->
-          <!--<textarea class="uneditable col-sm-10" name=""-->
-          <!--&gt; </textarea>-->
-
           <div class="uneditable col-sm-10">{{ ADRText()[0] }}</div>
           <textarea :value="(ADRSearchObject[0])" class="uneditable col-sm-10" hidden></textarea>
         </label>
@@ -27,10 +23,6 @@
             </option>
           </select>
         </label>
-
-        <!--<div class="col-sm-5">-->
-        <!--<input v-model="person.person_info.fisSettlementTypeId" class="form__input col-sm" type="text"/>-->
-        <!--</div>-->
       </div>
       <div class="info_address2 col-sm">
         <div>
@@ -39,13 +31,10 @@
         <hr>
         <div class="buttons row">
           <button class="adress_button" @click="fillAddress()">Ввести адрес</button>
-          <!--<button class="adress_button" @click="onCopyAddress">Копировать</button>-->
           <button class="adress_button" @click="copyAddress()">Копировать</button>
         </div>
 
         <label v-if="copy !== 1" class="row">
-          <!--<div  class="uneditable col-sm-10">{{ ADRText()[1] }}</div>-->
-          <!--<textarea :value="(ADRSearchObject[1].name)" class="uneditable col-sm-10" hidden></textarea>-->
             <div class="form__label-text col-sm-2">Адрес:</div>
             <div class="uneditable col-sm-10">{{ ADRText()[1] }}</div>
             <textarea :value="(ADRSearchObject[1])" class="uneditable col-sm-10" hidden></textarea>
@@ -56,7 +45,6 @@
             <textarea :value="(ADRSearchObject[0])" class="uneditable col-sm-10" hidden></textarea>
         </label>
 
-
       </div>
 
       <div class="info_address3 col-sm">
@@ -66,11 +54,9 @@
         <hr>
         <div class="buttons row">
           <button class="adress_button" @click="show=2">Ввести адрес</button>
-          <!--<button class="adress_button" @click="onCopyAddress">Копировать</button>-->
         </div>
         <label class="row">
           <div class="form__label-text col-sm-2">Адрес:</div>
-          <!--<textarea v-model="tab_address_factAddress" class="uneditable col-sm-10"></textarea>-->
           <div class="uneditable col-sm-10">{{ ADRText()[2] }}</div>
           <textarea :value="(ADRSearchObject[2])" class="uneditable col-sm-10" hidden></textarea>
         </label>
@@ -102,10 +88,6 @@
     getterType: 'person/getField',
     mutationType: 'person/updateField',
   });
-  const {mapFields: tab_address_info} = createHelpers({
-    getterType: `tab_address_info/getField`,
-    mutationType: `tab_address_info/updateField`,
-  });
 
   export default {
     name: "TabAddressInfo",
@@ -126,7 +108,6 @@
     },
     methods: {
       ...mapGetters(['ADRText']),
-      // ...mapGetters(['ADRDTO']),
       updateCurrentField(payload, objName) {
         let value = payload.target.value;
         this.$store.commit('addressDto/updateCurrentField', {value, objName})
@@ -229,22 +210,19 @@
   input {
     height: 25px;
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     /*border: 4px;*/
   }
 
   select {
     height: 25px;
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
   }
 
   textarea {
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     width: 90%;
     height: 100px;
     resize: none;
@@ -258,8 +236,7 @@
   button {
     min-width: 100px;
     padding: 10px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     border-radius: 5px;
     background-color: ghostwhite;
     /*background-color: #EDD19C;*/

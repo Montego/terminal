@@ -52,6 +52,7 @@ export default {
     checkTargCount: false,
     checkSpecCount: false,
     apls:[],
+    aplsFIU: [],
     chooseAppls: [],
     resultApl:{},
     application: {

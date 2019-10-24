@@ -51,33 +51,19 @@
                   {{item.name}}
                 </option>
               </select>
-              <!--<select v-model="tab_parent_selectedFamRelationShip" class="minimal col-sm">-->
-                <!--<option v-for="option in options_FamRelationShip">-->
-                  <!--{{option.item}}-->
-                <!--</option>-->
-              <!--</select>-->
             </label>
             <label class="row">
               <div class="form__label-text col-sm">Фамилия:</div>
               <input data-vv-as="фамилия" v-validate="'alpha_spaces'" v-model="tab_parent_lastname" class="form__input col-sm" type="text" name="tab_parent_lastname" placeholder="" required/>
             </label>
-
-            <!--<span class="alarm_label">{{ errors.first('tab_parent_lastname') }}</span>-->
-
             <label class="row">
               <div class="form__label-text col-sm">Имя:</div>
               <input data-vv-as="имя" v-validate="'alpha_spaces'" v-model="tab_parent_firstname" class="form__input col-sm" type="text" name="tab_parent_firstname" placeholder=""/>
             </label>
-
-            <!--<span class="alarm_label">{{ errors.first('tab_parent_firstname') }}</span>-->
-
             <label class="row">
               <div class="form__label-text col-sm">Отчество:</div>
               <input data-vv-as="отчество" v-validate="'alpha_spaces'" v-model="tab_parent_middlename" class="form__input col-sm" type="text" name="tab_parent_middlename" placeholder=""/>
             </label>
-
-            <!--<span class="alarm_label">{{ errors.first('tab_parent_middlename') }}</span>-->
-
             <label class="row">
               <div class="form__label-text col-sm">Пол:</div>
               <select v-model="tab_parent_selectedGender" class="minimal col-sm">
@@ -125,9 +111,6 @@
               <div class="form__label-text col-sm">Домашний телефон:</div>
               <input v-validate data-vv-as="домашний телефон" v-model="tab_parent_homePhoneNumber" class="form__input col-sm" type="text" name="tab_parent_homePhoneNumber" placeholder="(XXX)XXX-XX-XX" v-mask="'(###)###-##-##'" />
             </label>
-
-            <!--<span class="alarm_label">{{ errors.first('tab_parent_homePhoneNumber') }}</span>-->
-
             <label class="row">
               <div class="form__label-text col-sm">Мобильный телефон:</div>
               <input v-validate data-vv-as="мобильный телефон" v-model="tab_parent_cellularPhone" class="form__input col-sm" type="text" name="tab_parent_cellularPhone" v-mask="'+#-###-###-##-##'" required />
@@ -157,8 +140,6 @@
                 <textarea :value="(ADRSearchObject[0])" class="uneditable col-sm-10" hidden></textarea>
               </label>
 
-              <!--<div class="form__label-text col-sm">Адрес:</div>-->
-              <!--<textarea v-model="tab_parent_factAddress" class="col-sm" name=""></textarea>-->
             </label>
             <div class="col">
               <v-btn v-if="show>=0" @click="show=-1">
@@ -174,7 +155,6 @@
             <div class="clear_save_button row">
               <button @click="onClearFields">Очистить</button>
               <button @click="onAddParent">Добавить</button>
-              <!--<button @click="onSaveParent">Сохранить изм-я</button>-->
             </div>
           </div>
         </div>
@@ -185,7 +165,7 @@
 </template>
 
 <script>
-  import {mapGetters, mapState, mapActions, mapMutations} from 'vuex'
+  import {mapGetters, mapState, mapMutations} from 'vuex'
   import { createHelpers } from 'vuex-map-fields';
   import addresser from "../../addresser/addresser";
   const { mapFields:person} = createHelpers({
@@ -200,17 +180,12 @@
     getterType: `tab_parent_info/getField`,
     mutationType: `tab_parent_info/updateField`,
   });
-  // const { mapFields: specialist } = createHelpers({
-  //   getterType: `specialist/getField`,
-  //   mutationType: `specialist/updateField`,
-  // });
 
   export default {
     name: "TabParentInfo",
     components: {addresser},
     data() {
       return {
-        // countOfAddParent: 3,
         show: -1,
         copy: -1,
         editedIndex: -1,
@@ -260,9 +235,7 @@
         'tab_parent_factAddress', 'tab_parent_selectedFamRelationShip', 'tab_parent_selectedGender',
         'tab_parent_organization_name','tab_parent_organization_address',
         'tab_parent_organization_seniority','tab_parent_organization_employYears',
-        // 'countOfAddParent'
       ]),
-      // ...specialist(['countOfAddParent']),
       ...mapGetters(['ADRSearchObject']),
       ...mapState('addressDto', {addressDto: state => state.fullAdrText,}),
       ...mapGetters(['ADRDTO']),
@@ -271,10 +244,9 @@
     methods: {
       ...mapGetters(['ADRText']),
       ...mapMutations([
-        'increment', // `this.increment()` будет вызывать `this.$store.commit('increment')`
+        'increment',
         'decrement'
       ]),
-      // ...mapGetters(['ADRDTO']),
 
       updateCurrentField(payload, objName) {
         let value = payload.target.value;
@@ -292,7 +264,6 @@
         this.person.parents_info.splice(index,1);
         //TODO надо ли
         this.decrement();
-        // this.countOfAddParent--;
       },
       onEdit(item) {
         this.editedIndex = this.person.parents_info.indexOf(item);
@@ -368,8 +339,6 @@
       },
       onCopyAddressFromStudent() {
         this.copy = 1;
-        // this.ADRDTO[1].addressType = {"id": "1", "name": "Адрес фактический"};
-        // this.ADRDTO[1].lineNum = 1;
 
         this.ADRDTO[this.countOfAddParent].addressAdmObject = this.ADRDTO[0].addressAdmObject;
         this.ADRDTO[this.countOfAddParent].addressSearchObj = this.ADRDTO[0].addressSearchObj;
@@ -397,7 +366,6 @@
 
         this.ADRText()[this.countOfAddParent] = this.ADRText()[0];
 
-        // this.tab_parent_factAddress = this.tab_address_factAddress;
       },
       onClearFields() {
           this.tab_parent_name = '';
@@ -414,7 +382,6 @@
           this.tab_parent_organization_address = '';
           this.tab_parent_organization_seniority = '';
           this.tab_parent_organization_employYears = '';
-
       },
 
       onAddParent() {
@@ -439,7 +406,6 @@
           Object.assign(this.person.parents_info[this.editedIndex], this.editedItem);
 
           location.href='profile#parent_overview';
-          // this.person.ege_info[this.editedIndex].push(this.editedItem)
         }else {
           function Parent(parent_name, parent_lastname, parent_firstname, tab_parent_middlename,
                           parent_birthDate, parent_homePhoneNumber, parent_cellularPhone,
@@ -534,8 +500,7 @@
   button {
     min-width: 100px;
     padding: 10px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     border-radius: 5px;
     background-color: ghostwhite;
     /*background-color: #EDD19C;*/
@@ -549,22 +514,19 @@
   input {
     height: 25px;
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     /*border: 4px;*/
   }
 
   select {
     height: 25px;
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
   }
 
   textarea {
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     width: 90%; /* Ширина поля в процентах */
     height: 100px; /* Высота поля в пикселах */
     resize: none; /* Запрещаем изменять размер */

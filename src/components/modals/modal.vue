@@ -32,7 +32,6 @@
                     {{item.targOrgId}} -- {{item.name}}
                   </option>
                 </select>
-                <!--<input v-if="props.item.environmentId === 'ЦелНапр'" v-model="props.item.company" class="form__input" type="text">-->
               </div>
             </td>
             <td>
@@ -42,11 +41,10 @@
             </td>
             <td>
               <div v-if="props.item.chose === true">
-                <input v-if="props.item.environmentId === 'ЦелНапр'" v-model="props.item.date" class="form__input" type="date" min="1918-01-01" max="2019-01-01">
+                <input v-if="props.item.environmentId === 'ЦелНапр'" v-model="props.item.date" class="form__input" type="date" min="1918-01-01" max="2100-01-01">
               </div>
             </td>
             <td class="text-xs-center">
-              <!--<input v-if="props.item.environmentId === 'ЦелНапр' && checkTargCount === true && props.item.chose !== true && !checCountBudgetAndCel " v-model="props.item.chose" class="checkbox col-sm" type="checkbox" @change="validatorConditions" disabled>-->
 
               <input v-if="
               ( (props.item.specialityId === 'ЛечДел') && (props.item.environmentId === 'Бюджет') && (lechDelBudget === false) && (props.item.chose !== true) ) ||
@@ -131,10 +129,6 @@
     methods: {
       validatorConditions(){
         this.$emit('validatorConditions');
-
-      },
-      choose(item) {
-
       },
       close() {
         this.$emit('close');
@@ -166,8 +160,7 @@
   select {
     height: 25px;
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
   }
 
   select.minimal {
@@ -209,8 +202,7 @@
   input {
     height: 25px;
     border-radius: 3px;
-    border: 1px solid;
-    border-color: grey;
+    border: 1px solid grey;
     /*border: 4px;*/
   }
   .modal-backdrop {
