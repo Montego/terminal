@@ -1,5 +1,5 @@
 import {AXIOS} from "../../components/plugins/APIService.js"
-
+import {router} from "../../router/routes";
 export default {
   namespaced: true,
   state: {
@@ -121,6 +121,9 @@ export default {
     UPLOAD_speciality(state, payload) {
       state.speciality = payload
     },
+    TO_MAIN_PAGE (state, payload) {
+      router.push({ name: payload })
+    },
   },
   actions: {
 
@@ -129,6 +132,9 @@ export default {
         .then((response) => {
           commit('UPLOAD_IDENTITY_CARD_CODE', response.data)
         }).catch(e => {
+        if (e.response.data.status === 401) {
+          commit('TO_MAIN_PAGE', 'login');
+        }
         this.errors.push(e)
       })
     },
@@ -146,6 +152,9 @@ export default {
         .then((response) => {
           commit('UPLOAD_ADDRESS_COUNTRY_REGION', response.data)
         }).catch(e => {
+        if (e.response.data.status === 401) {
+          commit('TO_MAIN_PAGE', 'login');
+        }
         this.errors.push(e)
       })
     },
@@ -154,6 +163,9 @@ export default {
         .then((response) => {
           commit('UPLOAD_document', response.data)
         }).catch(e => {
+        if (e.response.data.status === 401) {
+          commit('TO_MAIN_PAGE', 'login');
+        }
         this.errors.push(e)
       })
     },
@@ -163,6 +175,9 @@ export default {
         .then((response) => {
           commit('UPLOAD_ADDRESS_STATE', response.data)
         }).catch(e => {
+        if (e.response.data.status === 401) {
+          commit('TO_MAIN_PAGE', 'login');
+        }
         this.errors.push(e)
       })
     },
@@ -173,6 +188,9 @@ export default {
         .then((response) => {
           commit('UPLOAD_ACADEMY_YEAR', response.data)
         }).catch(e => {
+        if (e.response.data.status === 401) {
+          commit('TO_MAIN_PAGE', 'login');
+        }
         this.errors.push(e)
       })
     },
@@ -182,6 +200,9 @@ export default {
         .then((response) => {
           commit('UPLOAD_eduLevel', response.data)
         }).catch(e => {
+        if (e.response.data.status === 401) {
+          commit('TO_MAIN_PAGE', 'login');
+        }
         this.errors.push(e)
       })
     },
@@ -191,6 +212,9 @@ export default {
         .then((response) => {
           commit('UPLOAD_EDU_DOC', response.data)
         }).catch(e => {
+        if (e.response.data.status === 401) {
+          commit('TO_MAIN_PAGE', 'login');
+        }
         this.errors.push(e)
       })
     },
@@ -200,6 +224,9 @@ export default {
         .then((response) => {
           commit('UPLOAD_SOLDIERY', response.data)
         }).catch(e => {
+        if (e.response.data.status === 401) {
+          commit('TO_MAIN_PAGE', 'login');
+        }
         this.errors.push(e)
       })
     },
@@ -208,6 +235,9 @@ export default {
         .then((response) => {
           commit('UPLOAD_LANGUAGE', response.data)
         }).catch(e => {
+        if (e.response.data.status === 401) {
+          commit('TO_MAIN_PAGE', 'login');
+        }
         this.errors.push(e)
       })
     },
@@ -216,6 +246,9 @@ export default {
         .then((response) => {
           commit('UPLOAD_preference', response.data)
         }).catch(e => {
+        if (e.response.data.status === 401) {
+          commit('TO_MAIN_PAGE', 'login');
+        }
         this.errors.push(e)
       })
     },
@@ -224,6 +257,9 @@ export default {
         .then((response) => {
           commit('UPLOAD_preference_special', response.data)
         }).catch(e => {
+        if (e.response.data.status === 401) {
+          commit('TO_MAIN_PAGE', 'login');
+        }
         this.errors.push(e)
       })
     },
@@ -232,6 +268,9 @@ export default {
         .then((response) => {
           commit('UPLOAD_famRelationShip', response.data)
         }).catch(e => {
+        if (e.response.data.status === 401) {
+          commit('TO_MAIN_PAGE', 'login');
+        }
         this.errors.push(e)
       })
     },
@@ -240,6 +279,9 @@ export default {
         .then((response) => {
           commit('UPLOAD_subject', response.data)
         }).catch(e => {
+        if (e.response.data.status === 401) {
+          commit('TO_MAIN_PAGE', 'login');
+        }
         this.errors.push(e)
       })
     },
@@ -248,6 +290,9 @@ export default {
         .then((response) => {
           commit('UPLOAD_targOrg', response.data)
         }).catch(e => {
+        if (e.response.data.status === 401) {
+          commit('TO_MAIN_PAGE', 'login');
+        }
         this.errors.push(e)
       })
     },
@@ -256,6 +301,9 @@ export default {
         .then((response) => {
           commit('UPLOAD_speciality', response.data)
         }).catch(e => {
+        if (e.response.data.status === 401) {
+          commit('TO_MAIN_PAGE', 'login');
+        }
         this.errors.push(e)
       })
     },

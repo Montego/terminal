@@ -253,7 +253,7 @@
         this.person.ege_info[0].tab_ege_identityCardNumber = '';
         this.person.ege_info[0].tab_ege_identityCardIssueDate = '';
         this.person.ege_info[0].tab_ege_identityCardIssueBy = '';
-        this.person.ege_info[0].tab_ege_info_selectedCitizenship = {"countryRegionId":"РФ","name":"Россия"};
+        this.person.ege_info[0].tab_ege_info_selectedCitizenship = {"countryRegionId":"РФ","name":"Россия", "eduCountryType": "1"};
 
         this.person.ege_info[1].tab_ege_selectedSubject = 'Биология';
         this.person.ege_info[1].tab_ege_score = 0;
@@ -280,7 +280,7 @@
         this.person.ege_info[1].tab_ege_identityCardNumber = '';
         this.person.ege_info[1].tab_ege_identityCardIssueDate = '';
         this.person.ege_info[1].tab_ege_identityCardIssueBy = '';
-        this.person.ege_info[1].tab_ege_info_selectedCitizenship = {"countryRegionId":"РФ","name":"Россия"};
+        this.person.ege_info[1].tab_ege_info_selectedCitizenship = {"countryRegionId":"РФ","name":"Россия", "eduCountryType": "1"};
 
         this.person.ege_info[2].tab_ege_selectedSubject = 'Русский язык';
         this.person.ege_info[2].tab_ege_score = 0;
@@ -307,7 +307,7 @@
         this.person.ege_info[2].tab_ege_identityCardNumber = '';
         this.person.ege_info[2].tab_ege_identityCardIssueDate = '';
         this.person.ege_info[2].tab_ege_identityCardIssueBy = '';
-        this.person.ege_info[2].tab_ege_info_selectedCitizenship = {"countryRegionId":"РФ","name":"Россия"};
+        this.person.ege_info[2].tab_ege_info_selectedCitizenship = {"countryRegionId":"РФ","name":"Россия", "eduCountryType": "1"};
 
 
         this.person.parents_info = [];
@@ -344,7 +344,7 @@
         this.tab_personal_identityCardIssueBy = '';
         this.tab_personal_identityCardIssueDate = '';
         this.tab_personal_identityCardIssueDep = '';
-        this.tab_personal_selectedCitizenship = {"countryRegionId": "РФ", "name": "Россия"};
+        this.tab_personal_selectedCitizenship = {"countryRegionId": "РФ", "name": "Россия", "eduCountryType": "1"};
         this.tab_personal_isCompatriot = false;
         this.tab_personal_isEquatedForeign = false;
         this.tab_personal_birthplace = '';
@@ -373,7 +373,7 @@
         this.person.person_info.fisSettlementTypeId = '';
         this.tab_edu_military_educationLevel = null;
         this.tab_edu_military_univer = '';
-        this.tab_edu_military_selectedCountryRegion = {"countryRegionId": "РФ", "name": "Россия"};
+        this.tab_edu_military_selectedCountryRegion = {"countryRegionId": "РФ", "name": "Россия", "eduCountryType": "1"};
         this.tab_edu_military_selectedState = null;
         this.tab_edu_military_selectedAcademyYear = '';
         this.tab_edu_military_selectedEduDoc = '';
@@ -521,7 +521,6 @@
             this.image = this.personInfo.image;
             this.showimage = this.personInfo.showimage;
             this.acceptedPerson = this.personInfo.acceptedPerson;
-            console.log(this.profiles)
           })
           .catch(e => {
             // this.errors.push(e)

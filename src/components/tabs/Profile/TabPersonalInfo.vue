@@ -156,7 +156,7 @@
         <label class="row">
           <div class="form__label-text col-sm">Гражданство:</div>
 
-          <select v-model="tab_personal_selectedCitizenship" class="minimal col-sm">
+          <select v-model="tab_personal_selectedCitizenship" class="minimal col-sm" @change="isForeigner()">
             <option v-for="item in addressCountryRegion" v-bind:value="item">
               {{item.name}}
             </option>
@@ -167,14 +167,12 @@
           <div class="form__label-text col-sm">Соотечественник:</div>
           <input v-if="tab_personal_selectedCitizenship.countryRegionId === 'РФ'" v-model="tab_personal_isCompatriot"
                  class="checkbox col-sm" type="checkbox" disabled>
-          <input v-else v-model="tab_personal_isCompatriot" class="checkbox col-sm" type="checkbox">
+          <input v-else v-model="tab_personal_isCompatriot" @change="isForeigner()" class="checkbox col-sm" type="checkbox">
         </label>
         <label class="alarm_label">(При наличии подтверждающих документов)</label>
         <label class="row">
           <div class="form__label-text col-sm">Приравнять к иностранцам:</div>
-          <input v-if="tab_personal_isCompatriot==true" v-model="tab_personal_isEquatedForeign" class="checkbox col-sm"
-                 type="checkbox" disabled>
-          <input v-else v-model="tab_personal_isEquatedForeign" class="checkbox col-sm" type="checkbox"
+          <input v-model="tab_personal_isEquatedForeign" @change="isForeigner()" class="checkbox col-sm" type="checkbox"
                  id="equate_foreign">
         </label>
         <label class="alarm_label">(Беларусь, Казахстан, Киргизия, Таджикистан)</label>
@@ -188,9 +186,9 @@
         </label>
         <label class="row">
           <div class="form__label-text col-sm">Иностранец, как гражданин РФ:</div>
-          <input v-if="tab_personal_selectedCitizenship=='РФ'" v-model="tab_personal_isForeignLikeRussian"
-                 class="checkbox col-sm" type="checkbox" id="foreign_like_russian" disabled>
-          <input v-else v-model="tab_personal_isForeignLikeRussian" class="checkbox col-sm" type="checkbox">
+          <!--<input v-if="tab_personal_selectedCitizenship=='РФ'" v-model="tab_personal_isForeignLikeRussian"-->
+                 <!--class="checkbox col-sm" type="checkbox" id="foreign_like_russian" disabled>-->
+          <input v-model="tab_personal_isForeignLikeRussian" class="checkbox col-sm" type="checkbox" @change="isForeigner()">
         </label>
         <div class="alarm_label">(С видом на жительство и аттестатом РФ. По соглашению)</div>
       </div>
@@ -414,7 +412,7 @@
         'tab_personal_selectedCitizenship', 'tab_personal_INIPA', 'tab_personal_INIPADate', 'tab_personal_note',
         'tab_personal_bithplace', 'tab_personal_email', 'tab_personal_company_name', 'tab_personal_company_address',
         'language_score1', 'language_score2', 'language_score3', 'selected_foreignLanguageName1',
-        'selected_foreignLanguageName2', 'selected_foreignLanguageName3']),
+        'selected_foreignLanguageName2', 'selected_foreignLanguageName3','foreigner']),
 
       fullname: function () {
         return this.person.tab_personal_name = this.person.tab_personal_lastname + ' ' + this.person.tab_personal_firstname + ' ' + this.person.tab_personal_middlename
@@ -441,6 +439,59 @@
     },
 
     methods: {
+      isForeigner(){
+
+        let countryType = this.tab_personal_selectedCitizenship.eduCountryType;
+        let isCompatriot = this.tab_personal_isCompatriot;
+        let isEquatedForeign = this.tab_personal_isEquatedForeign;
+        let isForeignLikeRussian = this.tab_personal_isForeignLikeRussian;
+
+        if(this.tab_personal_selectedCitizenship.countryRegionId === "РФ"){
+          this.tab_personal_isCompatriot = false;
+        }
+        if(countryType === "1"){
+          if(isEquatedForeign | (isEquatedForeign & isForeignLikeRussian)){
+            console.log("inostr");
+            this.foreigner = true;
+          }
+
+        }
+
+        if(this.tab_personal_selectedCitizenship.eduCountryType === "2" | this.tab_personal_selectedCitizenship.eduCountryType === "3"){
+          if(!isCompatriot & !isEquatedForeign & !isForeignLikeRussian){
+            console.log("inostr");
+            this.foreigner = true;
+          }
+          if(!isCompatriot & isEquatedForeign & !isForeignLikeRussian){
+            this.foreigner = true;
+            console.log("inostr");
+          }
+          if(!isCompatriot & isEquatedForeign & isForeignLikeRussian){
+            this.foreigner = true;
+            console.log("inostr");
+          }
+          if(isCompatriot & isEquatedForeign & !isForeignLikeRussian){
+            this.foreigner = true;
+            console.log("inostr");
+          }
+          if(isCompatriot & isEquatedForeign & isForeignLikeRussian){
+            this.foreigner = true;
+            console.log("inostr");
+          }
+
+        }
+        // if(this.tab_personal_selectedCitizenship.eduCountryType === "3"){
+        //
+        //   console.log("Other")
+        // }
+          // this.tab_personal_selectedCitizenship,
+          // this.tab_personal_isCompatriot,
+          // this.tab_personal_isEquatedForeign,
+          // this.tab_personal_isForeignLikeRussian
+
+
+      },
+
       clearSelect(objName) {
         this.$store.commit('person/clearCurrentField', objName)
       },

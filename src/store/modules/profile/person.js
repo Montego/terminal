@@ -10,6 +10,8 @@ export default {
     requiredPrefEge2:[],
     requiredPrefEge3:[],
 
+    foreigner:false,
+
     docSeriesMandatory:0,
     docNumberMandatory:0,
 

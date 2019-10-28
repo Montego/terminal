@@ -300,15 +300,18 @@
       tab_edu_military_selectedAcademyYear: {required},
       tab_edu_military_selectedEduDoc: {required},
       tab_edu_military_eduDocSerial: {
+        //  function () {
+        //   return (this.docSeriesMandatory === 0) && (this.tab_edu_military_eduDocSerial!=='');
+        // },
         required
-        // isNeed: function (val) {
-          // val => this.docSeriesMandatory === 1 ? : {required}: ""
-          // if (this.docSeriesMandatory === 1){
-          //   return required
-          // }
-        // }
+      //TODO finishe it - depance on mandatory
       },
-      tab_edu_military_eduDocNumber: {required},
+      tab_edu_military_eduDocNumber: {
+        // function () {
+        //   return (this.docNumberMandatory === 0);
+        // },
+        required
+      },
 
       // ege1:{
       //   // required,
@@ -470,7 +473,7 @@
         'tab_edu_military_endMilitary', 'selectedExtraInfos1', 'selectedExtraInfos2', 'extraInfosDescription1',
         'extraInfosDescription2', 'image', 'showimage', 'person_info_id', 'saved', 'acceptedPerson', 'imageOf',
         'docSeriesMandatory','docNumberMandatory',
-        'requiredPrefEge1','requiredPrefEge2','requiredPrefEge3'
+        'requiredPrefEge1','requiredPrefEge2','requiredPrefEge3','foreigner'
       ]),
       ...applications(['application', 'application_person_id', 'application_person_name', 'applId', 'applTableName',
         'applTableNumber', 'applTableDate', 'applTableDeliveryType', 'applicationId', 'apls','aplsFIU', 'chooseAppls', 'resultApl',
@@ -630,7 +633,8 @@
             this.person.application.choosenWizards = [];
 
             //TODO тут условия для показа модульного окна выбора направленияй только для иностранцев
-            if(this.tab_personal_isForeignLikeRussian || this.tab_personal_isEquatedForeign){
+            // if(this.tab_personal_isForeignLikeRussian || this.tab_personal_isEquatedForeign){
+            if(this.foreigner){
               this.isModalForeignerVisible = true;
               AXIOS.get(`/profile/conditionsDtoFIU`)
                 .then(response => {

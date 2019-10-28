@@ -66,7 +66,6 @@ export const store = new Vuex.Store({
           commit('clearIdsFromAxapta');
     },
 
-
     async go(ctx, payload = null){
       let id = payload ? payload : '686';
       let url = '/operator_api/profile/personByPersonInfo/' + id;
@@ -76,7 +75,6 @@ export const store = new Vuex.Store({
       // return result;
       // let some = this;
       converter(r.data, ctx);
-
 
     }
   },

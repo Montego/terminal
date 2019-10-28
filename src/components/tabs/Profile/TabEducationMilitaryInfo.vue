@@ -245,7 +245,7 @@
 
 <script>
   import {AXIOS} from "../../plugins/APIService";
-  import {mapGetters, mapState} from 'vuex'
+  import {mapGetters, mapMutations, mapState} from 'vuex'
   import { createHelpers } from 'vuex-map-fields';
   const { mapFields:person} = createHelpers({
     getterType: 'person/getField',
@@ -283,21 +283,25 @@
         'GET_EDU_DOC','GET_ACADEMY_YEAR','GET_SOLDIERY','GET_eduLevel'],),
       ...mapState('enums',['soldieryStatus','militaryFormDoc','docType','educationLevel'],),
       ...mapGetters('enums',['GET_SOLDIERY_STATUS','GET_MILITARY_FORM_DOC','GET_DOC_TYPE','GET_EDUCATION_LEVEL'],),
-
+      ...mapMutations('dictionary',['TO_MAIN_PAGE'])
 
       },
       methods: {
         getDocumentByEduDoc(eduDoc){
           AXIOS.post(`dictionary/documentByEduDoc/`, eduDoc)
             .then(response => {
-              this.docNumberMandatory = response.data[0].docNumberMandatory;
+
               this.docSeriesMandatory = response.data[0].docSeriesMandatory;
+              this.docNumberMandatory = response.data[0].docNumberMandatory;
               console.log(this.docSeriesMandatory);
               console.log(this.docNumberMandatory);
               this.documentByEduDoc = response.data[0];
               console.log('resp',this.documentByEduDoc);
             })
             .catch(e => {
+              if (e.response.data.status === 401) {
+                this.$store.commit('TO_MAIN_PAGE', 'login');
+              }
             })
         },
 

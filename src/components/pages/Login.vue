@@ -52,7 +52,6 @@
                     }
                 ), config)
                     .then((response) => {
-                      // console.log(response.data.login);
                       this.userNickname = response.data.login;
                       console.log(this.userNickname);
                       // router.push('Profile');
@@ -63,7 +62,6 @@
                         document.getElementById('form').reset();
                         let y = document.getElementsByClassName('hidden-lg-and-up');
                         let msg = y[0];
-                        // msg.classList.remove('hidden-lg-and-up');
                         setTimeout(msg.style.display = "block", 3000);
                     });
             }
