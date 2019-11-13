@@ -99,7 +99,7 @@
 
         headers_profile: [
           // { text: 'Ф.И.О.', value: 'personal_name', sortable: false, align: 'center' },
-          {text: 'Фамилия', value: 'lastname', sortable: false, align: 'center'},
+          {text: 'Фамилия', value: 'tab_personal_lastname',  align: 'center'},
           {text: 'Имя', value: 'firstname', sortable: false, align: 'center'},
           {text: 'Отчество', value: 'middlename', sortable: false, align: 'center'},
           // { text: 'Пол', value: 'selectedGender',sortable: false, align: 'center' },
@@ -148,6 +148,20 @@
     },
 
     methods: {
+      customSort(items, index, isDesc) {
+        items.sort((a, b) => {
+          if (index === "tab_personal_lastname") {
+            if (!isDesc) {
+              return compare(a.tab_personal_lastname, b.tab_personal_lastname);
+            } else {
+              return compare(b.tab_personal_lastname, a.tab_personal_lastname);
+            }
+          }
+        });
+        return items;
+      },
+
+
       ...mapMutations(['increment', 'decrement', 'default']),
       axapta(id) {
         console.log('in axapta method');

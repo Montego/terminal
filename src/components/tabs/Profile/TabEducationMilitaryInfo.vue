@@ -6,8 +6,9 @@
       </div>
       <hr>
       <div>
-        <label class="row">
-          <div class="form__label-text col-sm">Уровень образования:</div>
+        <!--<label class="row">-->
+        <label :class="{ row : true , error1 : $v.tab_edu_military_educationLevel.$invalid}">
+          <span class="form__label-text col-sm">Уровень образования:</span>
                    <select v-model="tab_edu_military_educationLevel" class="minimal col-sm"
                            @change="getPreferByEduLevel(tab_edu_military_educationLevel)">
             <option v-for="item in eduLevel" v-bind:value="item">
@@ -21,13 +22,14 @@
       </div>
       <hr>
       <div>
-        <label class="row">
-          <div class="form__label-text col-sm">Наименование:</div>
+        <!--<label class="row">-->
+        <label :class="{ row : true , error1 : $v.tab_edu_military_univer.$invalid}">
+          <span class="form__label-text col-sm">Наименование:</span>
           <textarea v-model="tab_edu_military_univer" class="col-sm" name=""></textarea>
         </label>
 
         <label class="row">
-          <div class="form__label-text col-sm">Страна:</div>
+          <span class="form__label-text col-sm">Страна:</span>
           <select v-model="tab_edu_military_selectedCountryRegion" class="minimal col-sm">
             <option v-for="item in addressCountryRegion" v-bind:value="item">
               {{item.countryRegionId}}
@@ -35,7 +37,7 @@
           </select>
         </label>
         <label v-if="tab_edu_military_selectedCountryRegion.countryRegionId === 'РФ'" class="row">
-          <div class="form__label-text col-sm">Регион:</div>
+          <span class="form__label-text col-sm">Регион:</span>
           <select  v-model="tab_edu_military_selectedState" class="minimal col-sm">
             <option v-for="item in addressState" v-bind:value="item">
               {{item.stateId}}
@@ -43,8 +45,9 @@
           </select>
 
         </label>
-        <label class="row">
-          <div class="form__label-text col-sm">Год окончания:</div>
+        <!--<label class="row">-->
+        <label :class="{ row : true , error1 : $v.tab_edu_military_selectedAcademyYear.$invalid}">
+          <span class="form__label-text col-sm">Год окончания:</span>
           <select v-model="tab_edu_military_selectedAcademyYear" class="minimal col-sm">
             <option v-for="item in academyYear" v-bind:value="item">
               {{item.academyYearId}}
@@ -59,8 +62,9 @@
       <hr>
 
       <div>
-        <label class="row">
-          <div class="form__label-text col-sm">Документ об образовании:</div>
+        <!--<label class="row">-->
+        <label :class="{ row : true , error1 : $v.tab_edu_military_selectedEduDoc.$invalid}">
+          <span class="form__label-text col-sm">Документ об образовании:</span>
           <select v-model="tab_edu_military_selectedEduDoc" class="minimal col-sm-8"
                   @change="getDocumentByEduDoc(tab_edu_military_selectedEduDoc)">
             <option class="col-sm-12" v-for="item in eduDoc" v-bind:value="item">
@@ -68,20 +72,21 @@
             </option>
           </select>
         </label>
-        <span class="alarm_label" v-if="tab_edu_military_selectedEduDoc===''">Не выбран документ об образовании</span>
+        <!--<span class="alarm_label" v-if="tab_edu_military_selectedEduDoc===''">Не выбран документ об образовании</span>-->
 
         <label class="row">
-          <div class="form__label-text col-sm">Серия:</div>
+          <span class="form__label-text col-sm">Серия:</span>
           <input data-vv-as="серия" v-validate v-model="tab_edu_military_eduDocSerial" class="form__input col-sm" type="text" name="eduDocSerial" placeholder="" v-mask="'##################'" required/>
         </label>
 
         <label class="row">
-          <div class="form__label-text col-sm">Номер:</div>
+          <span class="form__label-text col-sm">Номер:</span>
           <input data-vv-as="номер" v-validate v-model="tab_edu_military_eduDocNumber" class="form__input col-sm" type="text" name="eduDocNumber" placeholder="" v-mask="'##################'" required/>
         </label>
 
-        <label class="row">
-          <div class="form__label-text col-sm">Дата выдачи:</div>
+        <!--<label class="row">-->
+        <label :class="{ row : true , error1 : $v.tab_edu_military_eduDocDate.$invalid}">
+          <span class="form__label-text col-sm">Дата выдачи:</span>
           <input v-model="tab_edu_military_eduDocDate" class="form__input col-sm" type="date"  min="1918-01-01" max="2100-01-01"/>
         </label>
         <div class="row">
@@ -89,7 +94,7 @@
           <button class= "col-sm-3" @click="copyFromEdu">Копировать</button>
         </div>
         <label class="row">
-          <div class="form__label-text col-sm">Наименование:</div>
+          <span class="form__label-text col-sm">Наименование:</span>
           <textarea v-model="tab_edu_military_eduDocName" class="col-sm" name=""></textarea>
         </label>
         <label class="row">
@@ -244,6 +249,7 @@
 </template>
 
 <script>
+  import {required} from "vuelidate/lib/validators";
   import {AXIOS} from "../../plugins/APIService";
   import {mapGetters, mapMutations, mapState} from 'vuex'
   import { createHelpers } from 'vuex-map-fields';
@@ -264,7 +270,6 @@
       this.$store.dispatch('enums/onLoadMilitaryFormDoc');
       this.$store.dispatch('enums/onLoadDocType');
       this.$store.dispatch('enums/onLoadEducationLevel');
-
     },
     computed: {
       ...person(['person','tab_edu_military_educationLevel', 'tab_edu_military_univer','tab_edu_military_selectedCountryRegion','tab_edu_military_selectedState',
@@ -286,6 +291,16 @@
       ...mapMutations('dictionary',['TO_MAIN_PAGE'])
 
       },
+    validations() {
+      let obj = {};
+      obj.tab_edu_military_educationLevel = {required};
+      obj.tab_edu_military_univer = {required};
+      obj.tab_edu_military_selectedAcademyYear = {required};
+      obj.tab_edu_military_selectedEduDoc = {required};
+      obj.tab_edu_military_eduDocDate = {required};
+
+      return obj;
+    },
       methods: {
         getDocumentByEduDoc(eduDoc){
           AXIOS.post(`dictionary/documentByEduDoc/`, eduDoc)
@@ -305,7 +320,7 @@
             })
         },
 
-        getPreferByEduLevel(educationLevel){
+        getPreferByEduLevel(){
           // let educationLev  = educationLevel.educationLevel;
           let educationLev  = 1;
           AXIOS.post(`dictionary/preferByEduLevel/`+ educationLev)
@@ -481,5 +496,10 @@
     /*text-align: left;*/
     color: red;
   }
-
+  /*.error1 {*/
+    /*color: red;*/
+  /*}*/
+  .error1 span {
+    color: red;
+  }
 </style>

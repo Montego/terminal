@@ -10,7 +10,7 @@
       </div>
       <button class="col-sm-2 bt" type="button" @click="handleClick(1)">К списку абитуриентов</button>
       <button class="col-sm-2 bt" type="button" @click="handleClick(2)">К личным сведениям</button>
-      <button class="col-sm-2 bt" type="button" @click="handleClick(3)">К заявлениям</button>
+      <button class="col-sm-2 bt" type="button" @click="handleClick(3)">К заявлению</button>
       <label class="col-sm-2">{{this.userNickname}}</label>
       <a class="col-sm-2" href="" @click.prevent="onLogout">Logout</a>
     </div>

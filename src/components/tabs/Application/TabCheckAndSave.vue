@@ -542,6 +542,7 @@
               })
               .then(id => {
                 this.$store.dispatch('go', id).then(()=>{
+                  //TODO привязать появление кнопо печати к результату go
                   this.loader = false;
                 });
               })
